@@ -7,7 +7,7 @@ setup(name='Products.RhaptosPrint',
       version=version,
       description="",
       long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES")).read(),
+                       open("CHANGES").read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
