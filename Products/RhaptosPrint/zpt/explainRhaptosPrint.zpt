@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:metal="http://xml.zope.org/namespaces/metal" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal" 
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" tal:omit-tag="">
+  <span tal:replace="structure here/manage_page_header">Header</span>
+  <span tal:define="manage_tabs_message options/manage_tabs_message | nothing"
+    tal:replace="structure here/manage_tabs">Tabs</span>
+	
+  <tal:comment tal:replace="nothing">
+  	This template is used to display information about the RhaptosPrintTool in ZMI.
+  </tal:comment>
+
+  <h3> <code>rhaptos_print</code> Tool </h3>
+    
+  <p>
+   This tool provides storage for collection PDF files. 
+  </p>
+
+  
+  <span tal:replace="structure here/manage_page_footer">Footer</span>
+</html>
