@@ -9,6 +9,7 @@ Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 """
 
 from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Globals import InitializeClass
@@ -38,7 +39,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     DEFAULT_CONTAINER = "Large Plone Folder"
     DEFAULT_STORAGE_PATH = "/plone/pdfs"
     
-    def __init__(self, storagePath=DEFAULT_STORAGE_PATH, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
+    def __init__(self, storagePath=None, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
        """
        Parameters:
            storagePath - the location where files are stored
@@ -51,6 +52,14 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
        self.objectType = objType
        self.containerType = containerType
        self.print_file_status = OOBTree()  # like {}, but plays nice with persistence
+
+    def manage_afterAdd(self, item, container):
+        SimpleItem.manage_afterAdd(self, item, container)
+        portal_url = getToolByName(container, 'portal_url')
+        storagePath = portal_url.getPortalPath() + '/pdfs'
+        self.DEFAULT_STORAGE_PATH = storagePath
+        if self.storagePath is None:
+            self.storagePath = storagePath
     
     def setFile(self, objectId, version, type, data): 
         """
