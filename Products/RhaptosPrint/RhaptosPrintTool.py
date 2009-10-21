@@ -16,7 +16,7 @@ from Globals import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from BTrees.OOBTree import OOBTree
 
-from interfaces import rhaptos_print
+from interfaces.rhaptos_print import rhaptos_print
 
 class RhaptosPrintTool(UniqueObject, SimpleItem):
     """
