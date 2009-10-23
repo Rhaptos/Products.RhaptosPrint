@@ -19,6 +19,3 @@ being correctly implemented::
     True
     >>> RhaptosPrintTool.meta_type == 'Print Tool'
     True
-    >>> type(RhaptosPrintTool.__implements__)
-    <type 'module'>
-

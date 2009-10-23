@@ -26,17 +26,18 @@ $Id: $
 
 import Products.RhaptosPrint
 
-from Products.RhaptosTest import base
+from Products.RhaptosTest.base import RhaptosTestCase
 
 
-base.PRODUCTS_TO_LOAD_ZCML = [('configure.zcml', Products.RhaptosPrint),]
-base.PRODUCTS_TO_INSTALL = ['Products.RhaptosPrint',]
+class TestRhaptosPrint(RhaptosTestCase):
 
+    products_to_load_zcml = [('configure.zcml', Products.RhaptosPrint),]
 
-class TestRhaptosPrint(base.RhaptosTestCase):
+    def setUp(self):
+        RhaptosTestCase.setUp(self)
 
-    def test_pass(self):
-        assert 1 == 1
+    def test_rhaptos_print_tool(self):
+        self.assertEqual(1, 1)
 
 
 def test_suite():
