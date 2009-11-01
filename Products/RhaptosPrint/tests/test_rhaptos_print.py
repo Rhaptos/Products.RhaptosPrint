@@ -28,20 +28,34 @@ from Products.RhaptosTest import config
 import Products.RhaptosPrint
 config.products_to_load_zcml = [('configure.zcml', Products.RhaptosPrint),]
 config.products_to_install = ['RhaptosPrint']
+config.extension_profiles = ['Products.RhaptosPrint:default']
 
+from Products.CMFCore.utils import getToolByName
 from Products.RhaptosTest import base
 
 
 class TestRhaptosPrint(base.RhaptosTestCase):
 
     def afterSetUp(self):
-        pass
+        self.print_tool = getToolByName(self.portal, 'rhaptos_print')
 
     def beforeTearDown(self):
         pass
 
     def test_rhaptos_print_tool(self):
         self.assertEqual(1, 1)
+
+    def test_rhaptos_print_tool_get_file(self):
+        f = self.print_tool.getFile('nonexist-id', 'nonexist-ver', 'pdf')
+        self.assertEqual(f, None)
+        f = self.print_tool.getFile('nonexist-id', 'nonexist-ver', 'zip')
+        self.assertEqual(f, None)
+
+    def test_rhaptos_print_tool_get_status(self):
+        stat = self.print_tool.getStatus('nonexist-id', 'nonexist-ver', 'pdf')
+        self.assertEqual(stat, None)
+        stat = self.print_tool.getFile('nonexist-id', 'nonexist-ver', 'zip')
+        self.assertEqual(stat, None)
 
 
 def test_suite():
