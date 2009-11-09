@@ -13,10 +13,13 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Globals import InitializeClass
+from Globals import package_home
 from OFS.SimpleItem import SimpleItem
 from BTrees.OOBTree import OOBTree
+import AccessControl
 
-from interfaces.rhaptos_print import rhaptos_print
+from config import GLOBALS
+from interfaces import rhaptos_print
 
 class RhaptosPrintTool(UniqueObject, SimpleItem):
     """
@@ -26,14 +29,27 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     id = 'rhaptos_print'
     meta_type = 'Print Tool'
     __implements__ = (rhaptos_print)
+    
+    security = AccessControl.ClassSecurityInfo()
    
     manage_options = (({'label':'Overview', 'action':'manage_overview'},
-                       {'label':'Configure', 'action':'manage_configure'}
+                       {'label':'Configure Storage', 'action':'manage_configure'},
+                       {'label':'Configure Print Params', 'action':'manage_params'}
                       )+ SimpleItem.manage_options
                      )
     
+    ManagePermission = 'View management screens'
+    
+    ##   ZMI methods
+    security.declareProtected(ManagePermission, 'manage_overview')
     manage_overview = PageTemplateFile('zpt/explainRhaptosPrint.zpt', globals())
+    
+    security.declareProtected(ManagePermission, 'manage_configure')
     manage_configure = PageTemplateFile('zpt/manage_print.zpt', globals())
+    
+    security.declareProtected(ManagePermission, 'manage_params')
+    manage_params = PageTemplateFile('zpt/manage_params.zpt', globals())
+
     DEFAULT_NAME_PATTERN = "%s-%s.%s" 
     DEFAULT_OBJECT_TYPE = "File"
     DEFAULT_CONTAINER = "Large Plone Folder"
@@ -75,7 +91,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         printFile = self.getFile(objectId, version, type)
         if not printFile:
             container = self._getContainer()
-            printFile = utils._createObjectByType(self.objectType, container, id=self._createFileName(objectId, version, type) )
+            fileName = self._createFileName(objectId, version, type)
+            printFile = utils._createObjectByType(self.objectType, container, id=fileName )
         try:
             printFile.update_data(data)
         except AttributeError, e:
@@ -96,9 +113,20 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             If file is cached, the pdf or zip is returned, otherwise None is returned.
         """
         container = self._getContainer()
-        printFile = getattr(container, self._createFileName(objectId, version, type), None)
-        
+        fileName = self._createFileName(objectId, version, type)
+        printFile = getattr(container, fileName, None)
+
         return printFile
+
+    def doesFileExist(self, objectId, version, type):
+        """
+        return True or False depending on if the file has been cached by PrintTool.
+        """
+        objFile = self.getFile(objectId, version, type)
+        if objFile is not None and objFile.size() > 0:
+            return True
+        else:
+            return False
 
     def setStatus(self, objectId, version, type, status): 
         """
@@ -174,5 +202,51 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             container = self.restrictedTraverse('/'.join(self.storagePath.split('/')[:-1]))
             container = utils._createObjectByType(self.containerType, container, id=self.storagePath.split('/')[-1] )
         return container
+    
+    ## Print config methods, formerly of RhaptosCollection.AsyncPrint ##
+    
+    security.declareProtected(ManagePermission, 'manage_setConfig')
+    def manage_setConfig(self, makefilepath, portal, host, REQUEST=None):
+        """Post-creation config; see manage_config's ZPT."""
+        self._makefile = makefilepath
+        self._portal = portal
+        self._host = host
+        if REQUEST is not None:
+            REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_params')
+
+    security.declareProtected(ManagePermission, 'getMakefile')
+    def getMakefile(self, default=1):
+        """Return makefile path; meant only for manager consumption.
+         'default' if true returns a default value if the field is empty.
+        """
+        makefile = getattr(self, "_makefile", None)
+        if default and not makefile:
+            return "%s/printing/Makefile" % package_home(GLOBALS)
+        return makefile
+
+    security.declareProtected(ManagePermission, 'getPortalPath')
+    def getPortalPath(self, default=1):
+        """Return path to the Rhaptos portal; meant only for manager consumption.
+         'default' if true returns a default value if the field is empty.
+        """
+        portal = getattr(self, "_portal", None)
+        if default and not portal:
+            if self.getParentNode().meta_type == 'Plone Site':
+                return '/'.join(self.getParentNode().getPhysicalPath())
+            else:
+                return "/plone"
+        return portal
+
+    security.declareProtected(ManagePermission, 'getHost')
+    def getHost(self, default=1):
+        """Return host to download data from during build; meant only for manager consumption.
+         'default' if true returns a default value if the field is empty.
+        """
+        host = getattr(self, "_host", None)
+        if default and not host:
+            port = self.absolute_url().split('/')[2].split(':')[1]
+            return "localhost:%s" % port
+        return host
+
 
 InitializeClass(RhaptosPrintTool)
