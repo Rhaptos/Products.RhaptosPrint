@@ -244,8 +244,11 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         host = getattr(self, "_host", None)
         if default and not host:
-            port = self.absolute_url().split('/')[2].split(':')[1]
-            return "localhost:%s" % port
+            # XXX : verify this. This is incorrect anyway. 
+            # Throwing errors with default values
+            #port = self.absolute_url().split('/')[2].split(':')[1]
+            #return "localhost:%s" % port
+            return self.absolute_url().split('/')[2]
         return host
 
 
