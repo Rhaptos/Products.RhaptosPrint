@@ -20,33 +20,38 @@ import AccessControl
 
 from config import GLOBALS
 from interfaces import rhaptos_print
+from ZODB.POSException import POSKeyError
+
+import zLOG
+def log(msg, severity=zLOG.INFO):
+    zLOG.LOG("RhaptosPrintTool: ", severity, msg)
 
 class RhaptosPrintTool(UniqueObject, SimpleItem):
     """
     Tool for storage of Print files
     """
-    
+
     id = 'rhaptos_print'
     meta_type = 'Print Tool'
     __implements__ = (rhaptos_print)
-    
+
     security = AccessControl.ClassSecurityInfo()
-   
+
     manage_options = (({'label':'Overview', 'action':'manage_overview'},
                        {'label':'Configure Storage', 'action':'manage_configure'},
                        {'label':'Configure Print Params', 'action':'manage_params'}
                       )+ SimpleItem.manage_options
                      )
-    
+
     ManagePermission = 'View management screens'
-    
+
     ##   ZMI methods
     security.declareProtected(ManagePermission, 'manage_overview')
     manage_overview = PageTemplateFile('zpt/explainRhaptosPrint.zpt', globals())
-    
+
     security.declareProtected(ManagePermission, 'manage_configure')
     manage_configure = PageTemplateFile('zpt/manage_print.zpt', globals())
-    
+
     security.declareProtected(ManagePermission, 'manage_params')
     manage_params = PageTemplateFile('zpt/manage_params.zpt', globals())
 
@@ -116,7 +121,33 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         fileName = self._createFileName(objectId, version, type)
         printFile = getattr(container, fileName, None)
 
+        if printFile is not None:
+            try:
+                # access the object to see if it really exists
+                size = printFile.size()
+            except POSKeyError:
+                # not really there there, so nuke it
+                size = 0
+                printFile = None
+                log('removing unaccessible file from the Print Tool data store, for file (%s,%s,%s)' % (objectId,version,type))
+                self.destroyFile(objectId, version, type)
+
         return printFile
+
+    def destroyFile(self, objectId, version, filetype):
+        """
+        Completely remove stored data
+        Parameters:
+            objectId - the module or collection id
+            version - the module or collection version
+            filetype - file type: pdf or zip
+        """
+        container = self._getContainer()
+        fileName = self._createFileName(objectId, version, filetype)
+        if getattr(container, fileName, None):
+            container.manage_delObjects([fileName])
+        if self.print_file_status.has_key(fileName):
+            del self.print_file_status[fileName]
 
     def doesFileExist(self, objectId, version, type):
         """
@@ -150,7 +181,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             the current status (success or failed or locked) or None
         """
         return self.print_file_status.get(self._createFileName(objectId, version, type), None)
-        
+
     def manage_print(self, storagePath, namePattern, objectType, containerType, REQUEST=None):
         """
         Post creation configuration.  See manage_print.zpt
@@ -180,7 +211,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             self.containerType=DEFAULT_CONTAINER
         if REQUEST:
             return self.manage_configure(manage_tabs_message="RhaptosPrint updated")
-        
+
     def _createFileName(self, objectId, version, type):
         """
         Creates a file name based on pattern using data passed in
@@ -190,7 +221,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             type - file type: pdf or zip
         """
         return self.namePattern % (objectId, version, type)
-    
+
     def _getContainer(self):
         """
         gets container based on storage path
@@ -202,9 +233,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             container = self.restrictedTraverse('/'.join(self.storagePath.split('/')[:-1]))
             container = utils._createObjectByType(self.containerType, container, id=self.storagePath.split('/')[-1] )
         return container
-    
+
     ## Print config methods, formerly of RhaptosCollection.AsyncPrint ##
-    
+
     security.declareProtected(ManagePermission, 'manage_setConfig')
     def manage_setConfig(self, makefilepath, portal, host, REQUEST=None):
         """Post-creation config; see manage_config's ZPT."""
