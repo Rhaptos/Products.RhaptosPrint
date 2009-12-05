@@ -1,4 +1,4 @@
-"""
+Ä"""
 RhaptosPrintTool - tool for storage of collection print files and their status
 
 Author: Ed Woodward
@@ -279,8 +279,10 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             # Throwing errors with default values
             #port = self.absolute_url().split('/')[2].split(':')[1]
             #return "localhost:%s" % port
-            return self.absolute_url().split('/')[2]
-        return host
+            host = self.absolute_url().split('/')[2]
+        # PDF Generation needs the portal root, not just host to get the
+        # Collection RDF
+        return self.portal_url.getPortalObject().absolute_url()
 
 
 InitializeClass(RhaptosPrintTool)
