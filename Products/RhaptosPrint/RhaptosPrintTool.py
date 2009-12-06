@@ -1,4 +1,4 @@
-Ä"""
+"""
 RhaptosPrintTool - tool for storage of collection print files and their status
 
 Author: Ed Woodward
