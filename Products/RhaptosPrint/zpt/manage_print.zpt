@@ -1,0 +1,75 @@
+<html tal:omit-tag="">
+  <tal:comment tal:replace="nothing">
+  	This template is used to modify properties for the RhaptosPrintTool.
+  </tal:comment>
+  <span tal:replace="structure here/manage_page_header">Header</span>
+  <span tal:define="manage_tabs_message options/manage_tabs_message | nothing"
+    tal:replace="structure here/manage_tabs">Tabs</span>
+
+  <h3>Manage Rhaptos PDF Storage</h3>
+
+  <p class="form-help">
+   
+  </p>
+
+  <form method="post" tal:attributes="action request/URL1">
+  <table cellspacing="0" cellpadding="2" border="0">
+    <tr>
+      <td align="left" valign="top">
+      <div class="form-label">
+      Storage Path
+      </div>
+      </td>
+      <td align="left" valign="top">
+      <input type="text" name="storagePath" size="40" />
+	  (Leave path blank for default (/plone/pdfs))
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+      <div class="form-optional">
+      File Name Pattern
+      </div>
+      </td>
+      <td align="left" valign="top">
+      <input type="text" name="namePattern" size="40" />
+	  (Use Python substitution format or leave blank for the default.  Default is %s-%s.%s using collection/module id, version and file type for replacements. Example: m1000-1.1.pdf)
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+      <div class="form-label">
+      Object Type
+      </div>
+      </td>
+      <td align="left" valign="top">
+      <input type="text" name="objectType" size="40" value="" />
+	  (Leave blank for default (File))
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+      <div class="form-label">
+      Container Type
+      </div>
+      </td>
+      <td align="left" valign="top">
+      <input type="text" name="containerType" size="40" value="" />
+	  (Leave blank for default (Large Plone Folder))
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+      </td>
+      <td align="left" valign="top">
+      <div class="form-element">
+      <input class="form-element" type="submit" name="manage_print:method"
+      value=" Save Changes " />
+      </div>
+      </td>
+    </tr>
+  </table>
+  </form>
+
+  <span tal:replace="structure here/manage_page_footer">Footer</span>
+</html>

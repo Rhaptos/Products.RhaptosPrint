@@ -1,0 +1,21 @@
+Static Implementation Tests
+===========================
+ 	
+Let's just make sure that our static views are working as expected.
+	
+The first thing we need to do is to make sure the interfaces are
+being correctly implemented::
+ 	
+    >>> from Products.RhaptosPrint.RhaptosPrintTool import RhaptosPrintTool
+    >>> RhaptosPrintTool.DEFAULT_NAME_PATTERN == '%s-%s.%s'
+    True
+    >>> RhaptosPrintTool.DEFAULT_OBJECT_TYPE == 'File'
+    True
+    >>> RhaptosPrintTool.DEFAULT_CONTAINER == 'Large Plone Folder'
+    True
+    >>> RhaptosPrintTool.DEFAULT_STORAGE_PATH == '/plone/pdfs'
+    True
+    >>> RhaptosPrintTool.id == 'rhaptos_print'
+    True
+    >>> RhaptosPrintTool.meta_type == 'Print Tool'
+    True
