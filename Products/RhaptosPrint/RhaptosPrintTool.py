@@ -59,7 +59,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     DEFAULT_OBJECT_TYPE = "File"
     DEFAULT_CONTAINER = "Large Plone Folder"
     DEFAULT_STORAGE_PATH = "/plone/pdfs"
-    
+
     def __init__(self, storagePath=None, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
        """
        Parameters:
