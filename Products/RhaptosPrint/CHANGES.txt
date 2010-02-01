@@ -1,3 +1,6 @@
+RhaptosPrint-0.4
+  - generic setup refactor. Rhaptos 2.0 release
+
 RhaptosPrint-0.3
   - fix-pdfs (Nov. 11, 2009)
     - #9840: no longer access or move cached PDF and mulitmedia zip files attached directly to Collection objects
