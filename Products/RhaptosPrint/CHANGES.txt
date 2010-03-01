@@ -1,6 +1,6 @@
 RhaptosPrint-0.4
   - generic setup refactor. Rhaptos 2.0 release
-  - modified makefiles to use shell directly, avoiding python2.4 
+  - modified makefiles to use python directly, avoiding python2.4 
     issue w/ execute bits in eggs
 
 RhaptosPrint-0.3
