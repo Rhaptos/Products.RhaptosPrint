@@ -1,3 +1,6 @@
+RhaptosPrint-0.4.2
+  - hotfix for PDF TOC issue w/ non existent Solutions 
+
 RhaptosPrint-0.4.1
   - catch module makefile as well (Use python directly)
 
