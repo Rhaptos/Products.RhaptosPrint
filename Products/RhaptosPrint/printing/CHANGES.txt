@@ -1,0 +1,205 @@
+printing-2.7
+  - collection-structure-redesign-1 (Oct. 22, 2009)
+    - added LICENSE.* and license/info headers for many files
+    - updates for CNXML 0.7
+
+printing-2.6.2
+  - Fix display of stepwise lists in PDF generation (#8545).
+
+printing-2.6.1
+  - order button fix and QML print fix #9313
+
+printing-2.6
+  - Disabled retrieval of EPS implicit companion image files in 
+    collection PDF generation (#8464).
+
+printing-2.5
+  - cnxml-0.6-hot-fix (06 Mar 2009)
+    - implement modules of 'assessment' class, with special treatment of
+      exercise numbering and solution placement (#8267)
+    - don't duplicate names, titles, and labels of elements (fixes #6754);
+    - improve CNXML version detection in PDF generation;
+    - fix bugs in exercise solutions (#8223, #8221)
+    - treat @type values case-insensitively (#8253, #6643)
+    - modify treatment of emphasis and newline to match online view (#8165)
+    - put version and date information for modules in footnote instead of under
+      title (#8222)
+    - support automatic placement of quote marks for inline quote elements
+      (#8256)
+    - improve treatment of QML in PDF output (#6864)
+    - extend handling of cnxn/link elements to include those pointing at
+      solution, proof, statement, meaning, seealso (#8348, #8368, #8168
+    - improve rendering of unsupported media in PDF output (#5736, #8200)
+    - fix math rendering problems in Palatino font (#8469)
+    - support code[@class="listing"] (#8487)
+
+printing-2.4
+  - cnxml-0.6 (30 Jan 2009)
+    -  add elements 'cite-title', 'commentary', 'div', 'footnote', 
+       'newline', 'preformat', 'space', 'span', 'sup', 'sub', 'title' (to 
+       replace 'name')
+    -  separate templates for cnxml 0.5 and cnxml 0.6 elements where 
+       behavior differs
+    -  change 'cnxn' to 'link'
+    -  'cite' creates footnotes for @src
+    -  different typefaces allowed for several elements
+    -  equation can contain text or 'media'
+    -  solutions can be placed at end or with exercises, and special 
+       handling of solutions added for documents with @class='assessment'
+    -  more flexibility added for lists, including starting index, mark 
+       prefixes/suffixes, and item separators
+    -  more support for a variety of media elements 
+    -  inline notes allowed
+    -  revised labeling, numbering, and spacing for consistency between 
+       all elements
+
+printing-2.3
+  - "print-v1.2" milestone
+    - implement LaTeX support for Vietnamese language content (#3837)
+    - fix a problem with some long tables not breaking at page boundaries (#6722)
+    - display two-letter chemical symbols in italics (#3372)
+    - QML numbering fix (#6364)
+    - fix references to glossary entries (#6377)
+    - suppress bibliographies, indexes, and abstracts when empty (#5567, #5391)
+    - use title from module_export_template since the bare CNXML occasionally
+      lacks a 'name' element (#5317).
+    - miscellaneous rendering fixes for math and non-math content
+    - corresponds to Connexions live server upgrade from tetex to texlive
+
+printing-2.2.2
+  - #6683: fix sequential item numbering for front matter modules in collections
+
+printing-2.2.1
+  - #6248: make module PDFs with bad EPS files viewable in work{group,space}s
+  - #6440: fix enumerated lists in QML
+
+printing-2.2
+  - handle cells that span rows (CALS table '@morerows')
+  - handle nested tables (CALS table 'entrytbl')
+  - many fixes to vertical spacing;
+  - implement special handling for example//exercise (see #5845); 
+  - implement 'mark' processing instruction to set the separator mark 
+    for named-item lists;
+  - make footnotes within figures work;
+  - fix various problems with references to content, e.g.:
+    - references to notes
+    - references to math
+  - fix various problems with numbering (e.g. exclude definition//example 
+    from numbering);
+  - fix more LaTeX escaping problems;
+
+printing-2.1.1
+  - Remove -e switch from imagefix for...some reason related to performance.
+
+printing-2.1
+  - fix a spurious right curly brace that was causing a problem in some tables
+
+printing-2.0
+  - Handle tables that are too long to display on one page.
+  - Adapt printing system to handle module PDF generation as well as 
+    collection PDF generation.
+  - Still more refinements to automatic image sizing.
+  - Add four new display parameters for collections:
+    - paper size (8.5"x11" vs. 6"x9");
+    - font face (Computer Modern vs. Times vs. Palatino);
+    - font size (10pt vs. 12pt);
+    - paragraph spacing (compact vs. loose).
+  - Add partial support for author-selected math display parameters 
+    in collections.
+  - Miscellaneous fixes to LaTeX output.
+
+printing-1.5
+  - Further improvements to automatic image sizing, including:
+    - don't make images too small in many cases;
+    - take subfigure layout into account in resizing.
+  - Footnote in tables numbering problem fixed.
+  - Extra vertical rules no longer appear in table headers and 
+    footers.
+  - Display problem in bibliographies fixed.
+  - Display of inline code fixed.
+  - Don't display graphics from outside the Connexions repository 
+    in PDFs; insert a message with the URI for the graphic file 
+    instead.
+  - When lists occur within indented environments such as example, 
+    increase their margins so that the nesting is apparent.
+  - Added tools:
+    - stylesheet that consumes a .tmp1 collection XML file and 
+      outputs it with only tables as its content.
+    - stylesheet that consumes a simple XML file listing modules 
+      and their versions and that creates a collection RDF file 
+      for a collection containing those modules (e.g. to create 
+      extra-repository test collections).
+
+printing-1.4
+  - First production release of collection printing code.
+  - Complete reworking of CALS table handling, to support resizing 
+    tables for width problems.  For a list of CALS table features not 
+    yet supported, see TODO.txt.
+  - imagefix changes:
+    - imagefix now resizes images automatically that it decides may 
+      be too large for the PDF;
+    - script moved from svn 'scripts' directory to 'printing';
+  - Conditional typesetting of block math to prevent math from 
+    running off the edge of the page.
+  - Complete re-working of cnxn reference handling.
+  - Implement rules for determining whether a module is front matter, 
+    a chapter or a section.
+  - Implement rules for computing attribution on title page.
+  - Add an "Attributions" section at the back of the PDF, listing the 
+    collection and each module (including license and lineage) and 
+    its authors.
+  - Retry retrievals of content and referenced modules.
+  - Navigational improvements:
+    - exercises and their solutions have page number references to 
+      each other;
+    - module beginnings have footnotes indicating where to find the 
+      online version of the content.
+  - Fixes for many orphan problems.
+  - replace.py (character replacement and escaping) script moved into 
+    'printing'.
+  - zopectl script for uploading PDFs to repository;
+  - Improvements to makefile, including 'clean' and 'clear' targets, 
+    and a target to retrieve the collection RDF description.
+  - Added conditional debug info that gets written to pdflatex log 
+    and into collection PDF, to ease testing of changes.
+  - Miscellaneous changes in LaTeX output to eliminate some syntax errors.
+
+printing-1.3
+  - Strip base 10 subscripts incorrectly added by xsltproc from DTD 
+    default attributes when document is built.
+  - in latex/cnxml.xsl, get value of Cnx URI from 'course/@uri' 
+    instead of hard-coding it in the stylesheet
+  - Moved 'solution' elements to their own sections at the end of 
+    chapters with correct numbering of figures and references to exercises
+  - Added parameters for 6" x 9" page format (commented out, but available)
+  - Added 'solutions' element to courses to contain solutions at end of chapter
+  - Used parameterized moduleid in assembly process to fix the 
+    problem of elements getting 'None' as part of their @id
+  - Parameterize moduleid to make it available to templates 
+    throughout course assemply process
+  - Applied parameterized Cnx content URI to unsupported media types 
+    and 'cnxn' elements
+  - Added course link to title page
+  - Fixed the loss of 'course' attributes in common/numbering.xsl
+  - Parameterized Cnx content URI for media elements in \includegraphics (cnxml.xsl)
+  - Removed the "nonreturnable no-refund" verbiage from flyleaf
+  - Removed the about Connexions verbiage from verso of title
+  - Converted verso of title to "About the Authors" template
+  - Updated copyright date to 2006
+
+printing-1.2
+  - Handle some unicode problems brought to light by Paul Padley's
+    physics modules
+
+printing-1.1
+  - Fixed problem with example numbering, so that examples nested in
+    definitions will not be counted
+  - Declared unicode charaters: double script Q, E and F
+  - Changed java applet template to just refer to the module
+  - Fix to show code[@type='block'] in figures
+  - Show table footers after the table
+  - Column spanning support
+  - Don't hardcode license any more: get it from the data (or a param)
+
+printing-1.0
+  - First release tagged as its own package

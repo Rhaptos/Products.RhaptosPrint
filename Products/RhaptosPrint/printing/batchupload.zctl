@@ -1,0 +1,107 @@
+"""
+Python script to upload filesystem-built PDFs to Rhaptos system.
+Meant to be run under Zope context--meaning 'zopectl run'
+
+Run in a directory containing directories containing PDFs.
+The directories must be named after the collection id, like col#####.
+The script will upload any PDF found in the directory (as long as there is only one.)
+These PDFs will be uploaded to the latest version of the collection
+as named by the directory.
+
+Assumes portal at /plone.
+
+Author: J Cameron Cooper (jccooper@rice.edu)
+Copyright (C) 2008 Rice University. All rights reserved.
+
+This software is subject to the provisions of the GNU Lesser General
+Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
+"""
+import os
+
+portal = app.plone
+content = portal.content
+
+bad = []
+missing = []
+strange = []
+locked = []
+
+cwd = os.getcwd()
+contents = os.listdir(cwd)
+dirs = [x for x in contents if os.path.isdir(x) and x.startswith('col')]
+dirs.sort()
+for entry in dirs:
+    colid = entry
+    col = content[colid].latest    # look up latest collection
+
+    # get PDF(s!)
+    files = os.listdir(entry)
+    pdfs = [x for x in files if x.endswith('.pdf')]
+
+    # we can deal with only one pdf (0 is an expected error condition)
+    npdfs = len(pdfs)
+    if col.getProcessStatus() == 'locked':
+        locked.append(colid)
+        print "--locked PDF %s--" % colid
+    elif npdfs > 1:   # this makes no sense...
+        strange.append(colid)
+        print "ERROR: anomalous number of PDFs in %s; skipping" % entry
+        col.setProcessStatus('failed')
+    elif npdfs == 1:
+        pdfpath = os.path.join(entry, pdfs[0])  # our chosen file
+        f = open(pdfpath)
+        data = f.read()
+        f.close()
+
+        # check if it's good; see RhaptosCollection.AsyncPrint.MakePDFThread.run
+        good = data.endswith("%%EOF\n")
+
+        # add to collection
+        if good:
+            # upload!
+            col.setPrintedFile(data)
+            col.setProcessStatus('succeeded')
+            print ".%s" % colid
+        else:
+            bad.append(colid)
+            col.setProcessStatus('failed')
+            print "--bad PDF %s--" % colid
+    else:  # 0 PDFs found, so build failed
+        missing.append(colid)
+        col.setProcessStatus('failed')
+        print "--skipping %s; no file--" % entry
+
+bad.sort()
+missing.sort()
+strange.sort()
+
+print
+print "====================INFO======================"
+print
+print "Locked PDFs:"
+if locked:
+    for x in locked: print x
+else:
+    print "none"
+
+print
+print "Incomplete (bad) PDFs:"
+if bad:
+    for x in bad: print x
+else:
+    print "none"
+
+print
+print "No generated (missing) PDF:"
+if missing:
+    for x in missing: print x
+else:
+    print "none"
+
+if strange:
+    print
+    print "Other errors:"
+    for x in strange: print x
+
+import transaction
+transaction.commit()

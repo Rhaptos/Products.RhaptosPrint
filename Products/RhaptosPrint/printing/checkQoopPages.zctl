@@ -1,0 +1,22 @@
+cols = app.plone.content.catalog(portal_type="Collection")
+colobjs = [x.getObject() for x in cols]
+c = [x for x in colobjs if x.getPrintedFile().get_size()]
+printable = [x.objectId for x in c]
+
+errors = []
+import httplib
+from time import sleep
+conn = httplib.HTTPSConnection("secure-api.qoop.com")
+for cid in printable:
+    conn.request("GET", "/release/Rice/orderprocessing.php?catalog_number=%s&debug=1" % cid)
+    r1 = conn.getresponse()
+    data1 = r1.read()
+    if len(data1) < 300:
+        print "*",
+        errors.append(cid)
+    print cid, len(data1)
+    sleep(2)
+
+conn.close()
+
+print errors

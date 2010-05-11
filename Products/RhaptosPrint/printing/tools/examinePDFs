@@ -1,0 +1,16 @@
+# incomplete...
+(ls -d col* ; for d in  col*/*pdf; do dirname "$d"; done ) | sort | uniq -c | awk  '$1 ==1 {print $2}'
+
+# bad PDFs...
+for F in `find . -name col*.pdf`; do pdfinfo $F 1> /dev/null 2>&1; if [ $? -eq 1 ]; then echo $F; fi; done;
+
+# to get info, zopectl debug...
+cols = """
+colXXXXX
+"""
+cols = cols.split()
+
+for col in cols:
+  o = app.plone.content.getRhaptosObject(col).latest
+  print col, o.Title(), o.getAuthors()
+

@@ -1,0 +1,23 @@
+
+the order in which things go
+
+1. assemble.xsl from common.  pulls together the module content and converts
+   from 0.3.5/0.4 modules to 0.5
+
+2. numbering.xsl from common.  numbers the cnxml elements with a @number
+   attribute 
+
+3. replace script with latexspecialchars.  this replaces all special
+   characers in latex with their latex escape sequences
+
+4. mathml.xsl from latex.  changes content mathml to presentation using
+   cnxmatmlc2p
+
+5. tolatex.xsl from latex.  converts cnxml-0.4 and mathml to latex
+
+6. imagefix.  download images
+
+7. replace script with unicodechanges.  replaces binary unicode with latex
+   equivalents 
+
+8. pdflatex -shell-escape.  twice.  make a pdf!

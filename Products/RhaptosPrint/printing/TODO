@@ -1,0 +1,10 @@
+To-do (2008/02/01, version 1.4; incomplete)
+  - CALS tables
+    - support for entrytbl (tables within tables) in LaTeX output
+    - support for @morerows in LaTeX output
+    - support for @rowsep and @colsep in LaTeX output
+    - support for @valign in LaTeX output
+    - support for @char/@charoff in LaTeX output (this feature is not 
+      yet used in Connexions content)
+    - support for @orient in LaTeX output (this feature is not yet 
+      used in Connexions content)

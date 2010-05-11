@@ -1,0 +1,17 @@
+\::\ensuremath!!**1**!!\backslash!!**2**!!
+{::\{
+}::\}
+!!**1**!!::{
+!!**2**!!::}
+&amp;::\&amp;
+&lt;&lt;::\ensuremath{\ll}
+&gt;&gt;::\ensuremath{\gg}
+&lt;::\lessthan{}
+&gt;::\greatthan{}
+$::\$
+%::\%
+_::\_
+<m:mover>~</m:mover>::<m:mover>&#x007E;</m:mover>
+~::\ensuremath{\sim}
+<m:mover>^</m:mover>::<m:mover>&#x302;</m:mover>
+^::&#x2038;

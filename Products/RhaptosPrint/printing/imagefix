@@ -1,0 +1,605 @@
+#!/usr/bin/env python2.4
+# import pdb
+"""
+  Retrieve media files for CNXML content, handling author-specified 
+  print dimensions, and resizing images to fit where necessary.
+  
+  Author: J. Cameron Cooper, Brent Hendricks, Brian West, Chuck Bearden, Ross Reedstrom
+  (C) 2001-2008 Rice University
+  
+  This software is subject to the provisions of the GNU Lesser General
+  Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
+"""
+import sys
+import os
+import os.path
+import urllib2
+import urllib
+import re
+
+from StringIO import StringIO
+
+from getopt import getopt
+from urllib2 import HTTPError
+
+from PIL import Image
+from xml.dom.minidom import parse
+
+foMatchExp = re.compile('<fo:external-graphic src="(?P<url>.*?/(?P<file>[^/]*))"/>')
+texMatchExp = re.compile('includegraphics(?:\[width=(?P<width>.*?)\])?{(?P<url>.*?/*(?P<file>[^/:]*))}')
+scaleMatchExp = re.compile(r'^(?:(?:\d+(?:\.\d*)?)|(?:\.\d+))$')
+
+moduleIdRegex = re.compile(r'^(?:http://[^/]+/content)?/+(?P<moduleid>[^/]+)/+(?P<version>[^/]+)/+(?P<filename>[^/]+)$')
+
+latexQuoteMap = {}
+MISSING_FILENAME = os.path.join(sys.path[0],"missing.png")
+
+class ZeroLenException(Exception):
+    pass
+
+def debug(*args):
+    if verbose:
+        for x in args:
+            print >> sys.stderr, x,
+        print >> sys.stderr, ""
+
+def log(*args):
+    #print >> sys.stderr, "IMAGEFIX: ",
+    for x in args:
+        print >> sys.stderr, x,
+    print >> sys.stderr, ""
+
+def populateLatexQuoting(specialcharspath):
+    """Read from a file containing :: separated quote/unquote mapping, and put that data in a global dict."""
+    f = open(specialcharspath)
+    for l in f.readlines():
+        if l:
+            unquoted, quoted = l.split("::")
+            latexQuoteMap[quoted.strip()] = unquoted.strip()
+    f.close()
+
+def latexUnquote(fname):
+    """Using the global dict populated by 'populateLatexQuoting', reverse any Latex quoting in a filename."""
+    for quoted, unquoted in latexQuoteMap.items():
+        fname = fname.replace(quoted, unquoted)
+    return fname
+
+def makeSubdir(subdir):
+    from stat import ST_MODE, S_ISDIR
+
+    try:
+        mode = os.stat(subdir)[ST_MODE]
+    except OSError:
+        # If the file doesn't exist, try creating it
+        os.makedirs(subdir)
+        return
+
+    # Otherwise make sure it's a directory
+    if S_ISDIR(mode):
+        return
+    else:
+        raise OSError, "Specified subdir exists and is not a directory"
+
+
+def getMatchExpression(format):
+
+    if format == "fo":
+        return foMatchExp
+    elif format == "tex": 
+        return texMatchExp
+    else:
+        raise ValueError, "Invalid style: %s" % format
+
+
+def getSubstitution(format, image, line, width=None, height=None, scale=None):
+
+    matchExp = getMatchExpression(format)
+    
+    if format == "fo":
+        if width:
+            return matchExp.sub('<fo:external-graphic content-width="%s" scaling="uniform" src="%s"/>' % (width, image), line)
+        else:
+            return matchExp.sub('<fo:external-graphic src="%s"/>' % image, line)
+        
+    elif format == "tex":
+        opts = ""
+        if scale or width or height:
+            lst = [scale and "scale=%s" % scale,
+                   width and "width=%s" % width,
+                   height and "height=%s" % height]
+            #if height and width:
+            #    lst += ['keepaspectratio=true']
+            lst = [x for x in lst if x]
+            opts = "[%s]" % ','.join(lst)
+
+        return matchExp.sub('includegraphics%s{%s}' % (opts, image), line)
+    else:
+        raise OptionsError, "Invalid format error"
+
+def recommendSize(imagepath, screenimgpath=None, screensize=None, max_wide=6.0, max_high=8.5):
+    """Make a guess about a reasonable print size for the image, given the online version and the
+    online size, if any. Uses PIL to introspect.
+      'imagepath' is filesystem path to the image we're being asked about
+      'screenimg' is filesystem path to the image shown on the web, if any; None if no difference to 'imagepath'
+      'screensize' is an optional tuple of (width, height) of the size of the image, if author specified
+     Returns None in unknown cases.
+    """
+    # this comes after some conversions (from GIF/BMP) have been made, but I haven't identified any lost data
+    DPI = 72.0  # a float to avoid integer math
+    ASSUMED_SCREEN_WIDTH = 900.0
+    ASPECT_DIFFERENCE_SLOP = 0.01
+
+    log("***",  imagepath, screenimgpath, screensize or 'None', "***")
+
+    high, wide = None, None
+
+    # image info for specified image
+    x, y = 0, 0
+    aspect = 0.0
+    dpi = 0
+    try:
+        im = Image.open(imagepath)
+        x, y = im.size
+        aspect = float(x) / float(y)  # avoid integer division
+
+        # we can sometimes get a DPI out of PNG and JPEG. Comes in (x,y), but we assume it's square.
+        if im.format == "JPEG":  # jpeg size apparently is as displayed, regardless of dpi
+            dpi = DPI
+        else:
+            dpi = float(im.info.get('dpi', [None])[0] or DPI)
+
+        log(im.format, "image size:", im.size, "aspect:", aspect)
+        headerinfo = im.info
+        if headerinfo.has_key('exif'): del headerinfo['exif']
+        log(im.info)
+    except IOError, e:
+        log("Specified image load error:", e)
+
+    # replace specified image info with screen image info, if provided, unless it is a different image
+    if screenimgpath and imagepath != screenimgpath:
+        # image info for screen image
+        screenx, screeny = 0, 0
+        screenaspect = 0.0
+        screendpi = 0
+        try:
+            im = Image.open(screenimgpath)
+            screenx, screeny = im.size
+            screenaspect = float(screenx) / float(screeny)  # avoid integer division
+            if im.format == "JPEG":  # jpeg size apparently is as displayed, regardless of dpi
+                screendpi = DPI
+            else:
+                screendpi = float(im.info.get('dpi', [None])[0] or DPI)
+
+            log("SCREEN:", im.format, "image size:", im.size, "aspect:", screenaspect)
+            headerinfo = im.info
+            if headerinfo.has_key('exif'): del headerinfo['exif']
+            log(im.info)
+        except IOError, e:
+            log("Screen image load error:", e)
+
+        aspectdiff = abs(aspect - screenaspect)
+        if aspect and screenaspect and aspectdiff < ASPECT_DIFFERENCE_SLOP:    # we have close enough aspect ratio to be counted same image
+            log("---", "using screen image:", screenimgpath)
+            imagepath = screenimgpath
+            x, y = screenx, screeny
+            aspect = screenaspect
+            dpi = screendpi
+        else:
+            screensize = None   # if we're ignoring screenimg, we must also ignore screensize
+
+    if x == 0 and y == 0:  # error condition
+        log("!!! x,y = 0,0; this is an error condition. Bad image most likely. Aborting size guess.")
+        return None, None
+
+    try:
+        # if author provided explicit screen height/width, respect it in the manner of a browser
+        if screensize:
+            # convert percentages into pixels
+            haspercent = [i for i in screensize if hasattr(i, 'endswith') and i.endswith('\\%')]
+            if haspercent:
+                newscreensize = []
+                debug("...processing for percentages")
+                for i in screensize:
+                    if i.endswith('\\%'):
+                        i = int(i[:-2])
+                        i = (i / 100.0) * max_wide * dpi
+                    newscreensize.append(i)
+                screensize = newscreensize
+                debug("...post percentage screensize:", screensize)
+
+            screensize = [i and int(i) for i in screensize]   # convert to numbers (whole pixels)
+
+            # if we only get one value, preserve aspect ratio
+            if not screensize[0]:
+                debug("...no screensize X; calculating")
+                screensize[0] = int((x / float(y)) * screensize[1])
+            if not screensize[1]:
+                debug("...no screensize Y; calculating")
+                screensize[1] = int((y / float(x)) * screensize[0])
+            x, y = screensize
+    except ValueError, e:
+        log("non-numeric screensize value in ", screensize)
+        log(e)
+
+
+    ### proportional sizing algorithm
+    # TODO: handle height; see col10212, col10215, col10301, col10318, col10344, col10351, col10380
+
+    #ratiowide = x / ASSUMED_SCREEN_WIDTH
+    #if ratiowide > 1: ratiowide = 1.0
+    #wide = ratiowide * max_wide
+
+
+    ### DPI based algorithm
+    # TODO: for what settings can we drop the inch-sizing safely, and maybe not do one-pixel-off scaling?
+    #       is the close scaling even a problem?
+
+    log("using:", x, y, "at", dpi)
+    wide = x / dpi
+    high = y / dpi
+    log("est. real inches wide x high: %.2f x %.2f" % (wide, high))
+
+    # scale down images bigger than page; keep aspect ratio
+    # ...could probably use LaTeX to do the max-height for me with keepaspectratio
+    log("%% original aspect ratio: %.2f" % (wide/high) )
+    if wide > max_wide:
+        scale = max_wide / wide
+        wide = max_wide
+        high = high * scale
+        log("---too wide; scaling by %.2f to: %.2f (MAX WIDE) x %.2f" % (scale, wide, high))
+
+    if high > max_high:
+        scale = max_high / high
+        high = max_high
+        wide = wide * scale
+        log("---too tall; scaling by %.2f to: %.2f x %.2f (MAX HIGH)" % (scale, wide, high))
+
+    log("%% final aspect ratio: %.2f" % (wide/high))
+    log("sizing to: %.2f, %.2f" % (wide, high))
+
+    if wide: wide = "%sin" % wide
+    if high: high = "%sin" % high
+    log()
+    return high, wide
+
+extmap = {'.jpeg':'.jpg'}
+
+def cleanName(filename):
+    """ Returns a "clean" version of the filename, with problematic characters removed/replaced"""
+
+    (base, ext) = os.path.splitext(filename)
+
+    # fix spaces in image filenames
+    base = base.replace(' ', '__')
+    # Don't allow any "." chars in basename because TeX chokes on that
+    base = base.replace(".", "_")
+    # pdflatex (or something) doesn't like abnormal extensions
+    ext = ext.lower()    ## LaTeX cares about case of file extensions
+    ext = extmap.get(ext, ext)
+    return "%s%s" % (base, ext)
+
+def dlImage(url, filename):
+
+    # Download image if it doesn't exist or if we're forced to
+    if not os.path.isfile(filename) or dlForce:
+        debug("Downloading %s" % filename)
+        try:
+            obj = urllib2.urlopen(url)
+            data = obj.read()
+            if len(data) == 0:
+                raise ZeroLenException
+            # In EPS files, convert all \015 to \012 to prevent 
+            # bounding box problems in epstopdf; first strip \015
+            # from DOS line endings.  epstopdf should be agnostic
+            # wrt line endings; file a bug!
+            if filename.lower()[-4:] == '.eps':
+                data = data.replace('\r\n', '\n').replace('\r', '\n')
+            f = open(filename, "w")
+            f.write(data)
+            f.close()
+        except IOError, msg:
+            debug("Error retrieving %s from %s" % (filename, url))
+            raise
+    else:
+        debug("Skipping %s" % filename)
+
+
+    # FIXME: lots of stuff here to try get eps versions and resize.
+    #  We aren't messing with that right now
+    
+#    cmd = "file " + imagefile + "| grep -i -c text"
+#        cmd_output = commands.getoutput(cmd)
+#        if (int(cmd_output) > 0):
+#            print "Not an Image.  Trying again for original..."
+#            cleanname = m_temp.group(0)
+#            print "Retrieving: "+cleanname
+#            try:
+#                retval  =  urllib.urlretrieve(cleanname, imagefile)
+#            except IOError, msg:
+#                print "Error retrieving image url!"
+#                cmd = "file " + imagefile + "| grep -i -c text"
+#                cmd_output = commands.getoutput(cmd)
+#                if (int(cmd_output) > 0):
+#                    print "Not an Image.  Inserting FileNotFound Image"
+#                    cleanname = FileNotFoundImage
+#                    print "Retrieving: "+cleanname
+#                    try:
+#                            retval  =  urllib.urlretrieve(cleanname, imagefile)
+#                        except IOError, msg:
+#                            print "Error retrieving image url!"
+#                            urllib.urlcleanup()
+#                            fig_pieces = findall(lilpieces, fig_name[1])
+#                            for p in fig_pieces:
+#                                fname = p
+#                                name2 = split("\.",fname)
+#                                fname2 = "/tmp/"+name2[0]+"."+extension
+#                                cmd = "convert -geometry 550x1000\> "+imagefile+" "+fname2
+#                                print "Converting graphic to Encapsulated Postscript (eps) of width less than 550, height less than 1000 pixels"
+#                                bob = commands.getoutput(cmd)
+#                                os.remove(imagefile)
+#                                print bob
+#                                rline = sub(figure, " <fo:external-graphic src = \""+fname2 +"\"/>", rline)
+#                                wf.write(rline)
+#                                rf.close
+#                                #print "Wrote \'" + f2write +"\'"
+#                                wf.close
+
+
+def nabFile(name, url):
+    m = moduleIdRegex.search(url)
+    if m:
+        name = '_'.join((m.group('moduleid'), name))
+    target = subdir + "/" + cleanName(name)
+
+    try:
+        dlImage(url, target)
+        return target
+    except HTTPError, e:
+        debug(e)
+        #debug("Can't find image file: %s. Replacing with [missing] image")
+        return None
+    except OSError, e:
+        debug(e)
+        #debug("Can't find image file: %s. Replacing with [missing] image")
+        return None
+    except ZeroLenException:
+        debug("Zero-size image file: %s.")
+        return None
+
+formatWhitelist = {
+  "JPEG":".jpg",
+  "PNG":".png",
+  "EPS":".eps",
+}
+
+def getImage(url, filename, filename2, eps):
+
+    if len(filename) > 0:
+        file = nabFile(filename, url)  # we do this first to make sure we have the web version on hand
+
+        # If EPS is selected, try it first
+        base, extension = os.path.splitext(filename)
+        if eps and extension != ".eps":
+            log("checking for EPS companion file")
+            epsName =  base + ".eps"
+            epsUrl = os.path.splitext(url)[0] + ".eps"
+
+            epsfile = nabFile(epsName, epsUrl)
+            if epsfile:
+                try:
+                    im = Image.open(epsfile)
+                    return epsfile
+                except IOError, e:
+                    log("Bad implicit EPS file; will not use. Error message:", e)
+            else:
+                debug("Can't find eps file: %s. Falling back to %s" % (epsName, filename))
+
+        if not file:
+            debug("Can't find image file: %s. Replacing with [missing] image")
+            file = MISSING_FILENAME
+        else:
+            bSuccess = False
+
+            # PLAN A: use the primary image file
+            try:
+                im = Image.open(file)
+                bSuccess = True
+            except IOError, e:
+                log("Unreadable image file %s, or convert error; Error message:" % file, e)
+
+            # PLAN B - in situ repair a known PIL EPS comment header issue and retry
+            if not bSuccess:
+                if extension == ".eps":
+                    try:
+                        f = open(file, 'r')
+                        bComment = True
+                        strImage = f.readline()
+                        for line in f:
+                            if bComment and not line.startswith('%%') and line.startswith('%'):
+                                strImage+='%'
+                            strImage+=line
+                            if line.startswith('%%EndComment'):
+                                bComment=False
+                        f.close()
+                        im = Image.open(StringIO(strImage))
+                        f = open(file, 'w')
+                        f.write(strImage)
+                        f.close()
+                        bSuccess = True
+                    except IOError, e:
+                        log("Unreadable modified image file %s, or convert error; image set to 'missing'. Error message:" % file, e)
+
+            # PLAN C - use the secondary image file
+            if not bSuccess:
+                try:
+                    url2 = url[:-len(filename)] + filename2
+                    file2 = None
+                    file2 = nabFile(filename2, url2)
+                    if file2:
+                        im = Image.open(file2)
+                        file = file2
+                        bSuccess = True
+                except IOError, e:
+                    log("Unreadable secondary image file %s, or convert error; Error message:" % file2, e)
+
+            if bSuccess:
+                format = im.format
+                base, extension = os.path.splitext(file)
+                if not formatWhitelist.has_key(format):
+                    # pdflatex can't handle anything but JPG and PNG, so convert anything else we can
+                    log("%s is type %s, converting to PNG" % (file, format))
+                    file = base + '.png'
+                    im.save(file, 'PNG')
+                elif formatWhitelist[format] != extension:
+                    # fix wrong extension
+                    newfile = base + formatWhitelist[format]
+                    log("%s is type %s (%s), renaming to %s" % (file, format, extension, newfile))
+                    os.rename(file, newfile)
+                    file = newfile
+            else:
+                log("Unreadable image file %s, or convert error; image set to 'missing'. Error message:" % file, e)
+                file = MISSING_FILENAME
+
+    else:
+        # media/@src is empty
+        file = MISSING_FILENAME
+
+    return file
+    
+    
+def grabImages(rf, wf, format, subdir, eps, widths):
+
+    # pdb.set_trace()
+
+    # Regular expression for matching image URL
+    matchExp = getMatchExpression(format)
+    for rline in rf.readlines():
+        matches = matchExp.findall(rline)
+        for item in matches:
+            # Get specified URL and file name
+            printwidth = item[0]
+            url = item[1]
+            filename = item[2]
+            # Quote filename in case it contains spaces or other URI-unsafe characters
+            url = ''.join([url[:-len(filename)], urllib.quote(filename)])
+
+            comment = rline[rline.index('%')+1:]
+            comment = [x.strip() for x in comment.split(';')]
+
+            # get the backup image file name
+            filename2 = latexUnquote(comment[-1])
+
+            # Get cleanup filename
+            imagepath = getImage(url, filename, filename2, eps)
+
+            # Make substitutions in source line
+            basename = os.path.splitext(os.path.basename(imagepath))[0]
+            value = printwidth or widths.get(basename, None)
+            if value:  # hand-specified widths
+                if scaleMatchExp.search(value):
+                    rline = getSubstitution(format, imagepath, rline, scale=value)
+                else:
+                    width = value
+                    if width in ('line', 'text'):
+                        width = "5in"
+                    rline = getSubstitution(format, imagepath, rline, width=width)
+            else:     # automatic width guessing
+                imagefile = os.path.split(imagepath)[-1]
+                imagebase = os.path.splitext(imagefile)[0]
+
+                # extract info about screen image from LaTeX comments, if available
+                #screensize=(w,h)
+                screenimg, screensize = None, None
+                max_wide, max_high = 6.0, 8.5  # 8.5"x11" default size
+                try:
+                    mod = comment[0]
+                    fname = latexUnquote(comment[1])      # reverse latex/latexspecialcharacters
+                    screenimg = "%s_%s" % (mod, cleanName(fname))
+                    screensize = comment[2:4]
+                    if not screensize[0] and not screensize[1]: screensize = None
+                    if screensize: screensize = [x and latexUnquote(x) or None for x in screensize]
+                    max_wide = float(comment[4])
+                    max_high = float(comment[5])
+                except ValueError:
+                    pass
+
+                if imagefile != screenimg:
+                    screenimgpath = imagepath.replace(imagefile, screenimg)
+                else:
+                    screenimgpath = None
+
+                height, width = recommendSize(imagepath, screenimgpath, screensize, max_wide, max_high)
+
+                rline = getSubstitution(format, imagepath, rline, width=width, height=height)
+
+        # We always write the line to the new file
+        wf.write(rline)
+
+
+
+# Main
+
+# Default options
+dlForce = 0
+verbose = 0
+format = "fo"
+subdir = "."
+eps = 0
+widthfile = None
+xmlsource = None
+printingdir = ""
+
+# Parse commandline args
+opts, params = getopt(sys.argv[1:], 'fevs:d:w:p:')
+
+
+for pair in opts:
+    if (pair[0] == '-f'):
+        dlForce = 1
+    elif (pair[0] == '-v'):
+        verbose = 1
+    elif (pair[0] == '-e'):
+        eps = 1
+    elif (pair[0] == '-s'):
+        format = pair[1]
+    elif (pair[0] == '-d'):
+        subdir = pair[1]
+    elif (pair[0] == '-w'):
+        widthfile = pair[1]
+    elif (pair[0] == '-p'):
+        printingdir = pair[1]
+
+if len(params) > 1:
+    print "Usage: imagefix [-f] [-v] [-e] [-w widthfile] [-s style] [-d imagessubdir] [-p printingdir] FILE"
+    sys.exit()
+elif len(params) == 1:
+    debug("Reading from file %s" % params[0])
+    infile = open(params[0], 'r')
+else:
+    infile = sys.stdin
+outfile = sys.stdout
+
+# Populate dictionary of LaTeX quoting, so we can reverse it (for image names)
+if not printingdir: raise Exception("Must supply path to 'printing' directory through -p")
+populateLatexQuoting(os.path.join(printingdir, "latex", "latexspecialchars"))
+
+# Make subdir if it doesn't exist already
+makeSubdir(subdir)
+
+# Read in widths
+widths = {}
+if widthfile:
+    f = open(widthfile)
+    for line in f.readlines():
+        parms = line.split()
+        widths[parms[0]] = parms[1]
+    f.close()
+
+grabImages(infile, outfile, format, subdir, eps, widths)
+
+# Now that we're done, close the files
+infile.close()
+outfile.close()
+
+
+
