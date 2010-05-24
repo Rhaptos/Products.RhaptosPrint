@@ -100,6 +100,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             printFile = utils._createObjectByType(self.objectType, container, id=fileName )
         try:
             printFile.update_data(data)
+            printFile.setModificationDate()
         except AttributeError, e:
             try:
                 # with AT types we look for the primary field
@@ -158,6 +159,16 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             return True
         else:
             return False
+
+    def getModificationDate(self, objectId, version, type):
+        """
+        return the modifcation date for the cached file.
+        """
+        objFile = self.getFile(objectId, version, type)
+        if objFile is not None and objFile.size() > 0:
+            return objFile.ModificationDate()
+        else:
+            return ''
 
     def setStatus(self, objectId, version, type, status): 
         """
