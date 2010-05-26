@@ -3,7 +3,7 @@
 WORKING_DIR=$1
 ID=$2
 
-echo "Working on $ID"
+echo "LOG: INFO: ------------ Working on $ID ------------"
 
 # If XSLTPROC_ARGS is set (by say a hadoop job) then pass those through
 
@@ -135,9 +135,9 @@ EXIT_STATUS=$EXIT_STATUS || $?
 for ID in `cat $SVG2PNG_FILES_LIST`
 do
   if [ -s $WORKING_DIR/$ID.png ]; then
-    echo "Converting-SVG $ID to PNG skipping!"
+    echo "LOG: INFO: Converting-SVG $ID to PNG skipping!"
   else
-    echo "Converting-SVG $ID to PNG"
+    echo "LOG: INFO: Converting-SVG $ID to PNG"
     # For Macs, use inkscape
     if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
       (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-png=$WORKING_DIR/$ID.png 2>&1) > $WORKING_DIR/__err.txt
@@ -150,7 +150,7 @@ do
 done
 
 
-echo "Skipping Docbook Validation. Remove next line to enable"
+echo "LOG: INFO: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS
 
 # Create a file to validate against
