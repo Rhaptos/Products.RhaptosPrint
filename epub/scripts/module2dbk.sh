@@ -136,8 +136,9 @@ for ID in `cat $SVG2PNG_FILES_LIST`
 do
   if [ -s $WORKING_DIR/$ID.png ]; then
     echo "Converting-SVG $ID to PNG skipping!"
-  elif [ -s $WORKING_DIR/$ID.svg ]; then
+  else
     echo "Converting-SVG $ID to PNG"
+    # For Macs, use inkscape
     if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
       (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-png=$WORKING_DIR/$ID.png 2>&1) > $WORKING_DIR/__err.txt
       EXIT_STATUS=$EXIT_STATUS || $?
