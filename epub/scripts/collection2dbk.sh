@@ -1,17 +1,19 @@
 #!/bin/sh
 
-COL_PATH=$1
+WORKING_DIR=$1
+ID=$2
 
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
-COLLXML=$COL_PATH/collection.xml
-DOCBOOK=$COL_PATH/collection.dbk
+COLLXML=$WORKING_DIR/collection.xml
+DOCBOOK=$WORKING_DIR/collection.dbk
 
 XSLTPROC="xsltproc --nonet"
 COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2dbk.xsl
 MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
+EXIT_STATUS=0
 
 # Load up the custom params to xsltproc:
 if [ -s params.txt ]; then
@@ -34,13 +36,17 @@ fi
 if [ ! -e $DOCBOOK ]; 
 then 
   $XSLTPROC -o $DOCBOOK $COLLXML2DOCBOOK_XSL $COLLXML
+  EXIT_STATUS=$EXIT_STATUS+$?
 fi
 
 # For each module, generate a docbook file
-for MODULE in `ls $COL_PATH`
+for MODULE in `ls $WORKING_DIR`
 do
-  if [ -d $COL_PATH/$MODULE ];
+  if [ -d $WORKING_DIR/$MODULE ];
   then
-    bash $MODULE2DOCBOOK $COL_PATH $MODULE
+    bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE
+    EXIT_STATUS=$EXIT_STATUS+$?
   fi
 done
+
+exit $EXIT_STATUS
