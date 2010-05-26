@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5//EN"
+"http://cnx.rice.edu/technology/cnxml/schema/dtd/0.5/cnxml_plain.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" id="id7068903">
+<name>Collaborative DSP using the J-DSP Blackboard</name>
+<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:version>1.1</md:version>
+  <md:created>2006/12/05 18:15:03.526 US/Central</md:created>
+  <md:revised>2006/12/05 18:48:54.604 US/Central</md:revised>
+  <md:authorlist>
+      <md:author id="rkrchilumula">
+      <md:firstname>ravi</md:firstname>
+      
+      <md:surname>ch</md:surname>
+      <md:email>rkrchilumula@asu.edu</md:email>
+    </md:author>
+  </md:authorlist>
+
+  <md:maintainerlist>
+    <md:maintainer id="rkrchilumula">
+      <md:firstname>ravi</md:firstname>
+      
+      <md:surname>ch</md:surname>
+      <md:email>rkrchilumula@asu.edu</md:email>
+    </md:maintainer>
+  </md:maintainerlist>
+  
+  <md:keywordlist>
+    <md:keyword>Java, DSP, Digital, Signal, Processing, Graduate, Arizona, ASU, Andreas, Spanias, Ravi, Kanth, reddy, chilumula</md:keyword>
+  </md:keywordlist>
+
+  <md:abstract>Java Digital Signal Processing (J-DSP) is an object-oriented visual programming tool that enables users to establish and run online signal processing simulations, and visualize Internet based interactive demos. It has been used in laboratories involving both on campus and distance learning students and has been evaluated thoroughly through educational assessment. Although J-DSP has been successful in class use as an individual DSP tool, much like other DSP simulation programs it lacked the capability to accommodate student teams performing jointly laboratories and simulations.
+Recently new J-DSP software capability that supports collaborative simulations has been developed. This new and unique J-DSP “blackboard” concept accommodates students working on DSP labs from different locations. Students working from separate locations program the J-DSP blocks jointly while viewing and running common tasks. This new capability is also supported by a recently developed J-DSP chat that helps the students coordinate their lab activities and work as a team much like they do in a lab. The new facility is accomplished by J-DSP scripts that are transmitted through a server-client network. Sample exercises and assessment instruments have also been developed to evaluate the program. Technical network-related delay issues and their impact on this new facility have been examined by performing joint J-DSP experiments with U.S. and international institutions. Assessments were also carried in class with ASU students taking the DSP course.</md:abstract>
+</metadata>
+<content>
+<para id="id6712346">Collaborative DSP using J-DSP
+Blackboard</para>
+<para id="id6659372">Disclaimer: This page contains information
+about the J-DSP Blackboard concept for performing collaborative
+simulations, which is currently under final evaluation. The project
+was supported by the NSF Grant CCLI EMD 0443137. All the material
+and ideas are Copyright Arizona State University © 2007. Although,
+every care was taken to provide software that is free of errors, no
+warranty is provided that this is free of errors or fits a
+particular application. The authors are not responsible for any
+damage or loss of data that occurs as a part of the J-DSP usage
+(any version).</para>
+<para id="id7073192">Description:&#160;This is a new J-DSP version
+that supports collaborative simulations and J-DSP chat features.
+Two users can work on the same J-DSP Environment. A J-DSP chat
+facility provides communication capabilities between the two users.
+The infrastructure developed is based on Java Sockets and J-DSP
+Scripts. J-DSP Blackboard concept by 
+<link src="http://www.eas.asu.edu/~spanias">Prof. Andreas
+Spanias</link>.</para>
+<para id="id7120131">Please read the J-DSP manual for operating
+instructions and to get started with collaborative
+simulations.</para>
+<para id="id4916237">
+<link src="http://jdsp.asu.edu/Collaborate/Assessment/working%20procedure.pdf">
+Click here for the Manual</link>.</para>
+<para id="id7198829">The following demo files can also be used to
+get started with the login procedure, the J-DSP chat functionality,
+and the 'Loadscript' capability and other new features of J-DSP. A
+sample simulation is also included in this video file.</para>
+<para id="id6849650">
+<link src="http://jdsp.asu.edu/Collaborate/demos/login.avi">
+Login.avi</link>.</para>
+<para id="id2818266">
+<link src="http://jdsp.asu.edu/Collaborate/demos/chat.avi">J-DSP
+Chat.avi</link>.</para>
+<para id="id6592274">
+<link src="http://jdsp.asu.edu/Collaborate/demos/loadscript.wmv">
+Loadscript.wmv</link>.</para>
+<para id="id7195154">Try J-DSP Blackboard Software: 
+<link src="http://jdsp.asu.edu/jdsp_chat/jdsp.html">
+http://jdsp.asu.edu/jdsp_chat/jdsp.html</link>.</para>
+<para id="id7201100">Other sample simulation demos: (.avi or .wmv
+files):</para>
+<para id="id7199787">
+<link src="http://jdsp.asu.edu/Collaborate/demos/FFTandIFFTdemo.wmv">
+Simple FFT Analysis and Synthesis of a Sinusoid
+signal</link>.</para>
+<para id="id7193434">
+<link src="http://jdsp.asu.edu/Collaborate/demos/Pole-zeroCancellationDemo.avi">
+Pole-zero Cancellation effects on Frequency response</link>.</para>
+<para id="id6691638">
+<link src="http://jdsp.asu.edu/Collaborate/demos/SystemIdentificationDemo.avi">
+Auto-regressive System Identification using Linear
+Prediction</link>.</para>
+<para id="id6712841">
+<link src="http://jdsp.asu.edu/Collaborate/demos/PeakpickingAnalysissynthesisDemo.avi">
+Peak Picking Analysis and Synthesis of a Speech
+signal</link>.</para>
+<para id="id7196286">A presentation on
+<link src="http://jdsp.asu.edu/Collaborate/Thesis_defense_ravi%20chilumula.pdf">
+Development of Software Infrastructure for Collaborative
+Simulations in Java-DSP</link>by Ravi Chilumula and Andreas
+Spanias.</para>
+<para id="id7193964">Assessment &amp; Evaluation:</para>
+<para id="id6983782">
+<link src="http://jdsp.asu.edu/Collaborate/Assessment/pre%20quiz%20questionnaire.pdf">
+Pre-Lab Quiz</link>.</para>
+<para id="id7202466">
+<link src="http://jdsp.asu.edu/Collaborate/Assessment/exercises.pdf">
+Sample Exercises</link>.</para>
+<para id="id6727006">
+<link src="http://jdsp.asu.edu/Collaborate/Assessment/post%20quiz%20questionnaire.pdf">
+Post-Lab Quiz</link>.</para>
+<para id="id6915604">
+<link src="http://jdsp.asu.edu/Collaborate/Assessment/general%20asessment.pdf">
+General Assessment Questionnaire</link>.</para>
+<para id="id7081781">Related Papers:</para>
+<para id="id6697238">A. Spanias, V. Atti, R. Chilumula, S. Haag, A.
+Papandreou-Suppappola, C. Tepedelenlioglu, J. Zhang, F.
+Bodreaux-Bartels, M. Stiber, T. Kasparis, P. Loizou, "
+<link src="http://jdsp.asu.edu/Collaborate/papers/ASEE-FIE%20OCt%202005.pdf">
+Work in Progress - Multi-University Development and Dissemination
+of Online Laboratories in Probability Theory, Signals and Systems,
+and Multimedia Computing</link>," IEEE Proceedings of Frontiers in
+Education (FIE-2005), Oct. 19-22, 2005, Indianapolis.</para>
+<para id="id7197089">A. Spanias, R. Chilumula, and C. Huang, "
+<link src="http://jdsp.asu.edu/Collaborate/papers/ASEE-FIE-Oct%202006.pdf">
+Collaborative Signals and Systems Laboratories at ASU, UWB, UCF,
+UTD, and URI</link>," IEEE Proceedings of Frontiers in Education
+(FIE-2006), Oct. 28-31, 2006, San Diego.</para>
+<para id="id6407991">A. Spanias, R. Chilumula, C. Huang, M. Stiber,
+P. Loizou, and T. Kasparis, "A Collaborative Project on Java-DSP
+Involving Five Universities," Proceedings of ASEE Annual Conference
+and Exposition, June 18-21, Chicago, 2006.</para>
+<para id="id6753093">A. Spanias and V. Atti, "
+<link src="http://jdsp.asu.edu/Collaborate/papers/IEEE%20Trans-Nov2005-Atti.pdf">
+Interactive on-line undergraduate laboratories using J-DSP</link>,"
+IEEE Trans. on Education Special Issue on Web-based Instruction,
+vol. 48, no. 4, pp. 735-749, Nov. 2005.</para>
+<para id="id7193939">For further information please visit: 
+<link src="http://jdsp.asu.edu/Collaborate/">
+http://jdsp.asu.edu/Collaborate/</link></para>
+</content>
+</document>

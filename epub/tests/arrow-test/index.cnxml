@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" id="new" cnxml-version="0.6" module-id="new">
+    <title>Arithmetic Review: Decimal Fractions</title>
+    <content>
+        <section id="fs-id20421855">
+            <title>Overview</title>
+            
+            <para id="fs-id13570534"> Should NOT be stretched:
+                <m:math>
+                    <m:mo>→</m:mo>
+                    <m:mn>2</m:mn>
+                </m:math>
+</para>
+<para> Should be stretched over: 
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mrow><mn>2</mn><mo>+</mo><mn>7</mn></mrow><mo>→</mo></mover></math>
+            </para>
+        </section>
+    </content>
+</document>

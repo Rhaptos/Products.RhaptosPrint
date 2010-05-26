@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+	<name>SimpleMath Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:authorlist>
+      <md:author id="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:author>
+  </md:authorlist>
+</metadata>
+
+	<content>
+	<section><title>About This Test</title>
+	   <para>This module tests that "simple" MathML is converted into cnxml when possible but not when it's too "com.plex". The generated HTML checked via grep by making sure all the words (including single characters, like cue, doubleu, and the three last letters of the alphabet exist in the resulting HTML and that the word "com.plex" (without the period) does not.
+	   </para>
+	</section>
+	<section><title>Math displays</title>
+	   <para><list>
+           <item><m:math><m:mtext>math-display1</m:mtext></m:math> : math with no display attribute</item>
+           <item><m:math display="inline"><m:mtext>math-display2</m:mtext></m:math> : math with display=inline</item>
+           <item><m:math display="block"><m:mtext>math-display3</m:mtext></m:math> : math with display=block</item>
+	   </list></para>
+    </section>
+    
+	<section><title>Terminals</title>
+	   <para><list>
+           <item><m:math><m:mtext>mtext-test</m:mtext></m:math></item>
+           <item><m:math><m:mn>3.14159627</m:mn></m:math> : mn</item>
+           <item><m:math><m:mi>q</m:mi></m:math> : mi (italicized)</item>
+           <item><m:math><m:mi>#</m:mi></m:math> : mi (NOT italicized)</item>
+           <item><m:math><m:mo>+</m:mo></m:math> : mo (a "+")</item>
+           <item><m:math><m:mo>z</m:mo></m:math> : mo (a "z")</item>
+           <item><m:math><m:mo>-</m:mo></m:math> : mo (a dash, longer than "-")</item>
+	   </list></para>
+	   <para>mathvariant on mml:mi<list>
+           <item><m:math><m:mi>q</m:mi></m:math> : mi (italicized)</item>
+           <item><m:math><m:mi>&#8734;</m:mi></m:math> : mi (NOT italicized)</item>
+           <item><m:math><m:mi mathvariant="normal">mi-normal</m:mi></m:math> : mi (variant='normal')</item>
+           <item><m:math><m:mi mathvariant="bold">mi-bold</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="italic">mi-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-italic">mi-bold-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="double-struck">mi-double-struck</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-fraktur">mi-fraktur</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="script">mi-script</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-script">mi-bold-script</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="fraktur">mi-fraktur</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif">mi-sans-serif</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-sans-serif">mi-bold-sans-serif</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif-italic">mi-sans-serif-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif-bold-italic">mi-sans-serif-bold-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="monospace">mi-monospace</m:mi></m:math> : mi (variant='...')</item>
+	   </list></para>
+    </section>
+    <section><title>Non-terminals</title>
+        <para><list>
+           <item><m:math><m:mrow><m:mtext>mrow-test</m:mtext></m:mrow></m:math></item>
+           <item><m:math><m:mrow><m:mi>x</m:mi><m:mi>y</m:mi></m:mrow></m:math> : row with just mi's (no space between letters)</item>
+           <item><m:math><m:mrow><m:mn>1.123</m:mn><m:mi>w</m:mi></m:mrow></m:math> : row with mi and mn (italicize the letter but not the number)</item>
+           <item><m:math><m:semantics><m:mtext>semantics-test</m:mtext></m:semantics></m:math></item>
+           <item><m:math><m:msub><m:mtext>msub1</m:mtext><m:mn>1.234</m:mn></m:msub></m:math> : msub</item>
+           <item><m:math><m:msub><m:mtext>msub2</m:mtext><m:mi>k</m:mi></m:msub></m:math> : another msub</item>
+           <item><m:math><m:msup><m:mtext>msup1</m:mtext><m:mn>u</m:mn></m:msup></m:math> : msup</item>
+           <item><m:math><m:msup><m:mtext>msup2</m:mtext><m:mi>b</m:mi></m:msup></m:math> : another msup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup1</m:mtext><m:mi>a</m:mi><m:mn>1</m:mn></m:msubsup></m:math> : simple msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup2</m:mtext><m:mn>2</m:mn><m:mo>+</m:mo></m:msubsup></m:math> : simple msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup3</m:mtext><m:mn>3</m:mn><m:mtext>mtext</m:mtext></m:msubsup></m:math> : Still do-able msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup4</m:mtext><m:mtext>msubsup4-test</m:mtext><m:mn>4</m:mn></m:msubsup></m:math> : Still do-able msubsup (the order is flipped)</item>
+
+
+           <item><m:math><m:msubsup><m:mtext>complex</m:mtext><m:mtext>mtext</m:mtext><m:mrow><m:mn>5</m:mn></m:mrow></m:msubsup></m:math> : Too complicated</item>
+
+           <item><m:math><m:mfenced><m:mtext>mfenced1</m:mtext></m:mfenced></m:math> : mfenced with 1 item</item>
+           <item><m:math><m:mfenced><m:mtext>mfenced2</m:mtext><m:mn>2</m:mn></m:mfenced></m:math> : mfenced with 2 items</item>
+           <item><m:math><m:mfenced separators=" "><m:mtext>mfenced3</m:mtext><m:mn>3</m:mn></m:mfenced></m:math> : mfenced with separators=" "</item>
+           <item><m:math><m:mfenced separators="|"><m:mtext>mfenced4</m:mtext><m:mn>4</m:mn></m:mfenced></m:math> : mfenced with separators="|"</item>
+           <item><m:math><m:mfenced open="[" close="]"><m:mtext>mfenced5</m:mtext><m:mn>5</m:mn></m:mfenced></m:math> : mfenced with brackets</item>
+           <item><m:math><m:mfenced open="{" close="}"><m:mtext>mfenced6</m:mtext><m:mn>6</m:mn></m:mfenced></m:math> : mfenced with curly braces</item>
+           <item><m:math><m:mfenced><m:mfenced><m:mtext>mfenced7</m:mtext><m:mn>7</m:mn></m:mfenced></m:mfenced></m:math> : nested mfenced</item>
+
+           <item><m:math><m:mfenced><m:msub><m:mtext>complex</m:mtext><m:mn>8</m:mn></m:msub></m:mfenced></m:math> : Too complicated (mfenced/msub). Requires stretchy parens</item>
+           <item><m:math><m:mrow><m:mo>(</m:mo><m:msub><m:mtext>complex</m:mtext><m:mn>9</m:mn></m:msub><m:mo>]</m:mo></m:mrow></m:math> : Too complicated mrow ( "(" next to a msub )</item>
+        </list></para>
+    </section>
+
+	</content>
+</document>

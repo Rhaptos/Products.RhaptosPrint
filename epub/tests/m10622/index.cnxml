@@ -1,0 +1,2081 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:m="http://www.w3.org/1998/Math/MathML" id="m10622">
+  <name>Region of Convergence for the Z-transform</name>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:version>2.4</md:version>
+  <md:created>2002/05/31</md:created>
+  <md:revised>2005/06/01 20:44:29 GMT-5</md:revised>
+  <md:authorlist>
+      <md:author id="bfite">
+      <md:firstname>Benjamin</md:firstname>
+      
+      <md:surname>Fite</md:surname>
+      <md:email>bfite@rice.edu</md:email>
+    </md:author>
+  </md:authorlist>
+
+  <md:maintainerlist>
+    <md:maintainer id="mariyah">
+      <md:firstname>Mariyah</md:firstname>
+      
+      <md:surname>Poonawala</md:surname>
+      <md:email>mariyah@rice.edu</md:email>
+    </md:maintainer>
+    <md:maintainer id="prash">
+      <md:firstname>Prashant</md:firstname>
+      
+      <md:surname>Singh</md:surname>
+      <md:email>prash@ece.rice.edu</md:email>
+    </md:maintainer>
+  </md:maintainerlist>
+  
+  
+
+  <md:abstract>(Blank Abstract)</md:abstract>
+</metadata>
+
+  <content>
+    <section id="generaldef">
+      <name>The Region of Convergence</name>
+      <para id="defofROC">
+	The region of convergence, known as the <term>ROC</term>, is
+	important to understand because it defines the region where
+	the 
+	<cnxn document="m10549" strength="5">z-transform</cnxn> 
+	exists.  The <term>z-transform</term> of a sequence is defined as 
+
+	<equation id="z-transform">     
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci><m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>n</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>	
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>	
+		  <m:infinity/>	
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">x</m:ci> 
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>	
+	      </m:apply>	
+	    </m:apply>	
+	  </m:math>
+	</equation>
+
+	The ROC for a given 
+	<m:math>	
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">x</m:ci> 
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math>
+	, is defined as the range of 
+	<m:math>	
+	  <m:ci>z</m:ci>
+	</m:math>
+	for which the z-transform converges.  Since the z-transform is
+	a <term>power series</term>, it converges when 
+	<m:math>	
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci> 
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:power/>
+	      <m:ci>z</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	is absolutely summable. Stated differently,
+	<equation id="ROC">
+	  <m:math>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>n</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>	
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>	
+		  <m:infinity/>	
+		</m:uplimit>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci> 
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>	
+		</m:apply>
+	      </m:apply>
+	      <m:infinity/>
+	    </m:apply>
+	  </m:math>
+	</equation>	
+	must be satisfied for convergence.
+	
+      </para>   
+    </section>
+    <section id="properties">
+      <name>Properties of the Region of Convergencec</name>
+      <para id="prop1">
+	The Region of Convergence has a number of properties that are
+	dependent on the characteristics of the signal, 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">x</m:ci> 
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math>.
+	
+      </para>
+      <para id="prop2">
+	<list id="propertylist">
+	  
+	  <item id="property1">
+	    <emphasis>The ROC cannot contain any poles.</emphasis>
+	    By definition a pole is a where 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>
+	    is infinite.
+	    Since 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>
+	    must be finite for all <m:math><m:ci>z</m:ci></m:math> for
+	    convergence, there cannot be a pole in the ROC.
+	  </item>
+	  <item id="property2">
+	    <emphasis>If 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:math>
+	      is a finite-duration sequence, then the ROC is the
+	      entire z-plane, except possibly 
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>z</m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+	      </m:math>
+	      or 
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		  <m:infinity/>
+		</m:apply>
+	      </m:math>.
+	    </emphasis>
+	    A <term>finite-duration sequence</term> is a sequence that
+	    is nonzero in a finite interval 
+	    <m:math>
+	      <m:apply>
+		<m:leq/>
+		<m:ci>
+		  <m:msub>
+		    <m:mo>n</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:ci>n</m:ci>
+		<m:ci>
+		  <m:msub>
+		    <m:mo>n</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>.  
+	
+	    As long as each value of 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">x</m:ci> 
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math>
+	    is finite then the sequence will be absolutely summable.
+	    When
+	    <m:math>
+	      <m:apply>
+		<m:gt/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>		
+	    </m:math>
+	    there will be a 
+	    <m:math>
+	      <m:apply>
+		<m:inverse/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>
+	    term and thus the ROC will not include 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>z</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math>.
+	    When 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>		
+	    </m:math>
+	    then the sum will be infinite and thus the ROC will not
+	    include
+	    
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:infinity/>
+	      </m:apply>
+	    </m:math>.
+	    On the other hand, when 
+	    <m:math>
+	      <m:apply>
+		<m:leq/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>		
+	    </m:math>
+	    then the ROC will include
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>z</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math>, 
+	    and when
+	    <m:math>
+	      <m:apply>
+		<m:geq/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:cn>0</m:cn>
+	      </m:apply>		
+	    </m:math>
+	    the ROC will include 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:infinity/>
+	      </m:apply>
+	    </m:math>.
+
+	    With these constraints, the only signal, then, whose ROC
+	    is the entire z-plane is 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>c</m:ci>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">δ</m:ci> 
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>.
+	
+	  </item>
+	</list>
+      </para>
+
+      <figure id="finitedurseq">
+	<media type="image/png" src="finite.png"/>
+	<caption>An example of a finite duration sequence.</caption>
+      </figure>
+
+      <para id="stupidcnxmldoesntallowfiguresinparas">
+	The next properties apply to infinite duration sequences.  As
+	noted above, the z-transform converges when
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:infinity/>
+	  </m:apply>
+	</m:math>.
+	So we can write 
+	
+	<equation id="zderiv1">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">X</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:leq/>
+		<m:apply>
+		  <m:abs/>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>n</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:apply>
+			<m:minus/>
+			<m:infinity/>	
+		      </m:apply>
+		    </m:lowlimit>
+		    <m:uplimit>	
+		      <m:infinity/>	
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci> 
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:ci>z</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>	
+		  </m:apply>	
+		</m:apply>	      
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>n</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:apply>
+			<m:minus/>
+			<m:infinity/>	
+		      </m:apply>
+		    </m:lowlimit>
+		    <m:uplimit>	
+		      <m:infinity/>	
+		    </m:uplimit>
+		    <m:apply>
+		      <m:abs/>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">x</m:ci> 
+			  <m:ci>n</m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>z</m:ci>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>	
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>n</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:apply>
+			<m:minus/>
+			<m:infinity/>	
+		      </m:apply>
+		    </m:lowlimit>
+		    <m:uplimit>	
+		      <m:infinity/>	
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:abs/>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">x</m:ci> 
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:apply>
+			  <m:abs/>
+			  <m:ci>z</m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	We can then split the infinite sum into positive-time and
+	negative-time portions. So
+	
+	<equation id="nplusp">
+	  <m:math>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">X</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:ci type="fn">N</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">P</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	where
+	
+	<equation id="negside">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">N</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>n</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:infinity/>	
+		  </m:apply>
+		</m:lowlimit>
+		<m:uplimit>	
+		  <m:cn>-1</m:cn>	
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci> 
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:ci>z</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	and
+	
+	<equation id="posside">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">P</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>n</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>0</m:cn>
+		</m:lowlimit>
+		<m:uplimit>	
+		  <m:infinity/>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci> 
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:abs/>
+		      <m:ci>z</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	    
+	In order for 
+	<m:math>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn">X</m:ci> 
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	to be finite, 
+	<m:math>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci> 
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	must be bounded.  Let us then set
+	
+	<equation id="nltzero">
+	  <m:math>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>C</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	for
+	<m:math display="block">
+	  <m:apply>
+	    <m:lt/>
+	    <m:ci>n</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>
+	and
+	
+	<equation id="ngeqzero">
+	  <m:math>
+	    <m:apply>
+	      <m:leq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>C</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>r</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+
+	for
+	<m:math display="block">
+	  <m:apply>
+	    <m:geq/>
+	    <m:ci>n</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>
+	From this some further properties can be derived:
+
+	<list id="stupidcnxmldoesntallowfiguresinlists">
+	  <item id="property3">
+	    <emphasis>
+	      If 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:math>
+	      is a right-sided sequence, then the ROC extends outward
+	      from the outermost pole in 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">X</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:math>.	      
+	    </emphasis>
+	    A <term>right-sided sequence</term> is a sequence where 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:cn>0</m:cn>
+	      </m:apply>	      
+	    </m:math>
+	    for 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:cn>n</m:cn>		
+		<m:ci>
+		  <m:msub>
+		    <m:mo>n</m:mo>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:infinity/>		
+	      </m:apply>
+	    </m:math>.
+	    Looking at the positive-time portion from the above
+	    derivation, it follows that
+	    
+	    <equation id="furtherposderiv">
+	      <m:math>
+		<m:apply>
+		  <m:leq/>
+		  <m:apply>
+		    <m:ci type="fn">P</m:ci> 
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:sum/>
+			<m:bvar>
+			  <m:ci>n</m:ci>
+			</m:bvar>
+			<m:lowlimit>
+			  <m:cn>0</m:cn>
+			</m:lowlimit>
+			<m:uplimit>	
+			  <m:infinity/>
+			</m:uplimit>
+			<m:apply>
+			  <m:times/>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>r</m:mi>
+				<m:mn>2</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:ci>n</m:ci>			  
+			  </m:apply>
+			  <m:apply>
+			    <m:power/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>n</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		      <m:apply>
+		      <m:times/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:sum/>
+			<m:bvar>
+			  <m:ci>n</m:ci>
+			</m:bvar>
+			<m:lowlimit>
+			  <m:cn>0</m:cn>
+			</m:lowlimit>
+			<m:uplimit>	
+			  <m:infinity/>
+			</m:uplimit>
+			<m:apply>			  
+			  <m:power/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>r</m:mi>
+				<m:mn>2</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </equation>
+
+	    Thus in order for this sum to converge, 
+	    <m:math>
+	      <m:apply>
+		<m:gt/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>,
+	    and therefore the ROC of a right-sided sequence is of the
+	    form 
+	    <m:math>
+	      <m:apply>
+		<m:gt/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>.
+	  </item>	  
+	</list>
+      </para>
+
+
+      <figure id="rtsided">
+	<media type="image/png" src="rtsided1.png"/>
+	<caption>A right-sided sequence.</caption>
+      </figure>
+      
+      <figure id="rtsided2">
+	<media type="image/png" src="rtsided2.png"/>
+	<caption>The ROC of a right-sided sequence.</caption>
+      </figure>
+
+
+      <para id="parafix2">
+	<list id="listfix2">
+	  <item id="property4">
+	    <emphasis>
+	      If 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:math>
+	      is a left-sided sequence, then the ROC extends inward
+	      from the innermost pole in 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">X</m:ci> 
+		  <m:ci>z</m:ci>
+		</m:apply>
+	      </m:math>.
+	    </emphasis>
+	    A <term>right-sided sequence</term> is a sequence where 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:cn>0</m:cn>
+	      </m:apply>	      
+	    </m:math>
+	    for 
+	    <m:math>
+	      <m:apply>
+		<m:gt/>
+		<m:cn>n</m:cn>		
+		<m:ci>
+		  <m:msub>
+		    <m:mo>n</m:mo>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>		
+	      </m:apply>
+	    </m:math>.
+	    Looking at the negative-time portion from the above
+	    derivation, it follows that
+	    
+	    <equation id="furthernegderiv">
+	      <m:math>
+		<m:apply>
+		  <m:leq/>
+		  <m:apply>
+		    <m:ci type="fn">N</m:ci> 
+		    <m:ci>z</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:sum/>
+			<m:bvar>
+			  <m:ci>n</m:ci>
+			</m:bvar>
+			<m:lowlimit>
+			  <m:apply>
+			    <m:minus/>
+			    <m:infinity/>
+			  </m:apply>
+			</m:lowlimit>
+			<m:uplimit>	
+			  <m:cn>-1</m:cn>
+			</m:uplimit>
+			<m:apply>
+			  <m:times/>
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>r</m:mi>
+				<m:mn>1</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:ci>n</m:ci>			  
+			  </m:apply>
+			  <m:apply>
+			    <m:power/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>n</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:sum/>
+			<m:bvar>
+			  <m:ci>n</m:ci>
+			</m:bvar>
+			<m:lowlimit>
+			  <m:apply>
+			    <m:minus/>
+			    <m:infinity/>
+			  </m:apply>
+			</m:lowlimit>
+			<m:uplimit>	
+			  <m:cn>-1</m:cn>
+			</m:uplimit>
+			<m:apply>			  
+			  <m:power/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>r</m:mi>
+				<m:mn>1</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:sum/>
+			<m:bvar>
+			  <m:ci>k</m:ci>
+			</m:bvar>
+			<m:lowlimit>
+			  <m:cn>1</m:cn>
+			</m:lowlimit>
+			<m:uplimit>	
+			  <m:infinity/>
+			</m:uplimit>
+			<m:apply>			  
+			  <m:power/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci>z</m:ci>
+			    </m:apply>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>r</m:mi>
+				<m:mn>1</m:mn>
+			      </m:msub>
+			    </m:ci>			    
+			  </m:apply>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </equation>
+
+	    Thus in order for this sum to converge, 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>,
+	    and therefore the ROC of a left-sided sequence is of the
+	    form 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>.
+	    
+	  </item>
+	</list>
+      </para>
+
+      
+      <figure id="lefsided1">
+	<media type="image/png" src="lefsided1.png"/>
+	<caption>A left-sided sequence.</caption>
+      </figure>
+
+      <figure id="lefsided2">
+	<media type="image/png" src="lefsided2.png"/>
+	<caption>The ROC of a left-sided sequence.</caption>
+      </figure>
+
+
+      <para id="parafix3">
+	<list id="listfix3">
+	  <item id="property5">
+	    <emphasis>
+	      If 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci> 
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:math>
+	      is a two-sided sequence, the ROC will be a ring in the
+	      z-plane that is bounded on the interior and exterior by
+	      a pole.</emphasis>	      
+	    A <term>two-sided sequence</term> is an sequence with
+	    infinite duration in the positive and negative
+	    directions.  From the derivation of the above two
+	    properties, it follows that if 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>
+	    converges, then both the positive-time and negative-time
+	    portions converge and thus 
+	    <m:math>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci> 
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>
+	    converges as well.  Therefore the ROC of a two-sided
+	    sequence is of the form 
+	    <m:math>
+	      <m:apply>
+		<m:lt/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:abs/>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>r</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>.
+	  </item>
+	</list>
+      </para>
+
+
+      <figure id="twosided1">
+	<media type="image/png" src="twosided1.png"/>
+	<caption>A two-sided sequence.</caption>
+      </figure>
+      
+      <figure id="twosided2">
+	<media type="image/png" src="twosided2.png"/>
+	<caption>The ROC of a two-sided sequence.</caption>
+      </figure>
+	
+    </section>
+    
+    <section id="examples">
+      <name>Examples</name>
+      <para id="ex">
+	To gain further insight it is good to look at a couple of
+	examples.
+      </para>
+
+      <example id="ex1">
+	<para id="e1">
+	  Lets take
+	  
+	  <equation id="ex1eq1">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>		      
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>		      
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	
+	  The z-transform of 
+	  <m:math>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">u</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  is 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:ci>z</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>z</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  with an ROC at 
+	  <m:math>
+	    <m:apply>
+	      <m:gt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>	
+
+	
+	<figure id="ex1roc1a">
+	  <media type="image/png" src="ex1roc1a.png"/>
+	  <caption>
+	    The ROC of 
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">u</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+
+	<para id="figspace1">
+	  The z-transform of 
+	  <m:math>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>	
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>-1</m:cn>
+		  <m:cn>4</m:cn>
+		</m:apply>		
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">u</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  is 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:ci>z</m:ci>
+	      <m:apply>
+		<m:plus/>
+		<m:ci>z</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>4</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  with an ROC at 
+	  <m:math>
+	    <m:apply>
+	      <m:gt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>-1</m:cn>
+		<m:cn>4</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+
+
+	<figure id="ex1roc1b">
+	  <media type="image/png" src="ex1roc1b.png"/>
+	  <caption>
+	    The ROC of 
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>-1</m:cn>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">u</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	
+	<para id="figspace2">
+	  Due to linearity,
+	  <equation id="ex1eq2">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>X</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>		  
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+	              <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>8</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  By observation it is clear that there are two zeros, at 
+	  <m:math>
+	    <m:cn>0</m:cn>
+	  </m:math>	    
+	  and 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>8</m:cn>
+	    </m:apply>
+	  </m:math>, 
+	  and two poles, at 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math>, 
+	  and
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>-1</m:cn>
+	      <m:cn>4</m:cn>
+	    </m:apply>
+	  </m:math>.
+	  Following the obove properties, the ROC is 
+	  <m:math>
+	    <m:apply>
+	      <m:gt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+	
+	<figure id="ex1roc2">
+	  <media type="image/png" src="ex1roc2.png"/>
+	  <caption>
+	    The ROC of 
+	    
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>		      
+		      <m:apply>
+			<m:divide/>
+			<m:cn>-1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>		      
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>	    
+	  </caption>
+	</figure>
+			
+
+      </example>
+      <example id="ex2">
+	<para id="e2">
+	  Now take
+	  <equation id="ex2eq1">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>-1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>		      
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>		      
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			</m:apply>
+			<m:cn>1</m:cn>
+		      </m:apply>			  
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  
+	  The z-transform and ROC of 
+	  <m:math>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>-1</m:cn>
+		  <m:cn>4</m:cn>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">u</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>	
+	  was shown in the
+	  <cnxn target="ex1" strength="9">example above</cnxn>.
+	  The z-transorm of 
+	  <m:math>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:power/>		      
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		  </m:apply>		      
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">u</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>			  
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  is
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:ci>z</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>z</m:ci>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  with an ROC at 
+	  <m:math>
+	    <m:apply>
+	      <m:gt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+
+	<figure id="ex2roc1">
+	  <media type="image/png" src="ex2roc1.png"/>
+	  <caption>
+	    The ROC of 
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">u</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:cn>1</m:cn>
+		  </m:apply>	
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+	
+	<para id="figspace4">
+	  Once again, by linearity,
+	  <equation id="ex2eq2">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>X</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>z</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>		  
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:ci>z</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>8</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>		    
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  By observation it is again clear that there are two zeros, at 
+	  <m:math>
+	    <m:cn>0</m:cn>
+	  </m:math>	    
+	  and 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>16</m:cn>
+	    </m:apply>
+	  </m:math>, 
+	  and two poles, at 
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math>, 
+	  and
+	  <m:math>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>-1</m:cn>
+	      <m:cn>4</m:cn>
+	    </m:apply>
+	  </m:math>.
+	  in ths case though, the ROC is
+	  <m:math>
+	    <m:apply>
+	      <m:lt/>
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+
+	
+	<figure id="ex2roc2">
+	  <media type="image/png" src="ex2roc2.png"/>
+	  <caption>
+	    The ROC of 
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>x</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>-1</m:cn>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:power/>		      
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:cn>2</m:cn>
+		      </m:apply>		      
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">u</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			</m:apply>
+			<m:cn>1</m:cn>
+		      </m:apply>			  
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>.
+	  </caption>
+	</figure>
+
+
+      </example>
+    </section>          
+  </content>  
+</document>
