@@ -130,6 +130,9 @@
 <xsl:template match="c:list[@list-type='labeled-item']">
     <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
 </xsl:template>
+<xsl:template match="c:list[@type='enumerated']">
+    <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
+</xsl:template>
 
 <xsl:template match="c:emphasis[@effect='bold']">
     <db:emphasis role="bold"><xsl:apply-templates select="@*|node()"/></db:emphasis>
