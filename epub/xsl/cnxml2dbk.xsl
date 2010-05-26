@@ -13,7 +13,7 @@
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Used to update the ids so they are unique within a collection -->
-<xsl:param name="cnx.module.id"/>
+<xsl:param name="cnx.module.id" select="/c:document/@id"/>
 
 <!-- When generating id's we need to prefix them with a module id. 
 	This is the text between the module, and the module-specific id. -->

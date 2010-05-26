@@ -1,9 +1,10 @@
 <xsl:stylesheet version="1.0"
+	xmlns:c="http://cnx.rice.edu/cnxml"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     >
 
 <!-- Used for logging to know what the current module is -->
-<xsl:param name="cnx.module.id"/>
+<xsl:param name="cnx.module.id" select="/c:document/@id"/>
 <!-- The following parameters are used for batch processing and gathering statistics -->
 <xsl:param name="cnx.log.onlybugs">no</xsl:param> 
 <xsl:param name="cnx.log.onlyaggregate">no</xsl:param>
