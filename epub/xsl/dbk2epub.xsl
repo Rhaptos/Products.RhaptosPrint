@@ -14,6 +14,10 @@
 <xsl:param name="chunk.section.depth" select="0"></xsl:param>
 <xsl:param name="chunk.first.sections" select="0"></xsl:param>
 
+<xsl:param name="section.label.includes.component.label">1</xsl:param>
+<xsl:param name="xref.with.number.and.title">0</xsl:param>
+<xsl:param name="toc.section.depth">1</xsl:param>
+
 
 <!-- Use .xhtml so browsers are in XML-mode (and render inline SVG) -->
 <xsl:param name="html.ext">.xhtml</xsl:param>
