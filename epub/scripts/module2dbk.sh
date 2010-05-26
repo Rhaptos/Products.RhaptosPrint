@@ -14,7 +14,7 @@ SCHEMA=$ROOT/docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
 JING="java -jar $ROOT/lib/jing-20081028.jar"
 # we use --xinclude because the XSLT attempts to load inline svg files
-XSLTPROC="xsltproc --nonet --xinclude --stringparam cnx.module.id $ID $XSLTPROC_ARGS"
+XSLTPROC="xsltproc --xinclude --stringparam cnx.module.id $ID $XSLTPROC_ARGS"
 CONVERT="convert "
 
 #Temporary files
@@ -43,14 +43,14 @@ SVG2PNG_FILES_XSL=$ROOT/xsl/dbk-svg2png.xsl
 EXIT_STATUS=0
 
 # Load up the custom params to xsltproc:
-if [ -s params.txt ]; then
-    echo "Using custom params in params.txt for xsltproc."
-    # cat params.txt
+if [ -s $ROOT/params.txt ]; then
+    #echo "Using custom params in params.txt for xsltproc."
+    # cat $ROOT/params.txt
     OLD_IFS=$IFS
     IFS="
 "
     XSLTPROC_ARGS=""
-    for ARG in `cat params.txt`; do
+    for ARG in `cat $ROOT/params.txt`; do
       XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
     done
     IFS=$OLD_IFS
@@ -89,29 +89,29 @@ fi
 
 
 $XSLTPROC -o $CNXML1 $CLEANUP_XSL $CNXML
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 $XSLTPROC -o $CNXML2 $CLEANUP2_XSL $CNXML1
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 # Have to run the cleanup twice because we remove empty mml:mo,
 # then remove mml:munder with only 1 child.
 # See m21903
 $XSLTPROC -o $CNXML3 $CLEANUP2_XSL $CNXML2
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert "simple" MathML to cnxml
 $XSLTPROC -o $CNXML4 $SIMPLIFY_MATHML_XSL $CNXML3
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert to docbook
 $XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML4
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG
 $SAXON -s:$DOCBOOK1 -xsl:$MATH2SVG_XSL -o:$DOCBOOK2
 # If there is an error, just use the original file
 MATH2SVG_ERROR=$?
-EXIT_STATUS=$EXIT_STATUS+$MATH2SVG_ERROR
+EXIT_STATUS=$EXIT_STATUS || $?ATH2SVG_ERROR
 
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 #if [ $MATH2SVG_ERROR -eq 0 ]; then 
@@ -122,28 +122,28 @@ if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 #fi
 
 $XSLTPROC -o $DOCBOOK_SVG $DOCBOOK_CLEANUP_XSL $DOCBOOK2
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 #if [ $MATH2SVG_ERROR -eq 0 ]; then 
 #  rm $DOCBOOK2
 #fi
 
 # Create a list of files to convert from svg to png
 $XSLTPROC -o $DOCBOOK $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert the files
 for ID in `cat $SVG2PNG_FILES_LIST`
 do
   if [ -s $WORKING_DIR/$ID.png ]; then
     echo "Converting-SVG $ID to PNG skipping!"
-  else
+  elif [ -s $WORKING_DIR/$ID.svg ]; then
     echo "Converting-SVG $ID to PNG"
     if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
       (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-png=$WORKING_DIR/$ID.png 2>&1) > $WORKING_DIR/__err.txt
-      EXIT_STATUS=$EXIT_STATUS+$?
+      EXIT_STATUS=$EXIT_STATUS || $?
     else
       $CONVERT $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.png
-      EXIT_STATUS=$EXIT_STATUS+$?
+      EXIT_STATUS=$EXIT_STATUS || $?
     fi
   fi 
 done
@@ -154,7 +154,7 @@ exit $EXIT_STATUS
 
 # Create a file to validate against
 $XSLTPROC -o $VALID $DOCBOOK_VALIDATION_XSL $DOCBOOK
-EXIT_STATUS=$EXIT_STATUS+$?
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Validate
 $JING $SCHEMA $VALID # 1>&2 # send validation errors to stderr

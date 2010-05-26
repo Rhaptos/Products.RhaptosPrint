@@ -13,7 +13,7 @@ ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 declare -x FOP_OPTS=-Xmx512M
 
-XSLTPROC="xsltproc --nonet"
+XSLTPROC="xsltproc"
 FOP="bash $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
@@ -23,14 +23,14 @@ ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
 
 
 # Load up the custom params to xsltproc:
-if [ -s params.txt ]; then
-    echo "Using custom params in params.txt for xsltproc."
-    # cat params.txt
+if [ -s $ROOT/params.txt ]; then
+    #echo "Using custom params in params.txt for xsltproc."
+    # cat $ROOT/params.txt
     OLD_IFS=$IFS
     IFS="
 "
     XSLTPROC_ARGS=""
-    for ARG in `cat params.txt`; do
+    for ARG in `cat $ROOT/params.txt`; do
       XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
     done
     IFS=$OLD_IFS
