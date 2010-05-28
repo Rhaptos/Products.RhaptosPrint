@@ -113,16 +113,54 @@
 		<xsl:copy-of select="@*"/>
 		<!-- Generate a list of authors from the modules -->
 		<xsl:apply-templates/>
-		<xsl:if test="//db:chapter/db:section/db:glossary">
+		<xsl:if test="//db:glossentry">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
-				<xsl:apply-templates select="//db:chapter/db:section/db:glossary/*"/>
+				<xsl:variable name="letters">
+					<xsl:apply-templates mode="glossaryletters" select="//db:glossentry/@_first-letter">
+						<xsl:sort select="."/>
+					</xsl:apply-templates>
+				</xsl:variable>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: letters="<xsl:value-of select="$letters"/>"</xsl:with-param></xsl:call-template>
+				<xsl:call-template name="cnx.glossary">
+					<xsl:with-param name="letters" select="$letters"/>
+				</xsl:call-template>
 			</db:glossary>
 		</xsl:if>
 	</xsl:copy>
 </xsl:template>
-<!-- Discard matches for db:chapter/db:section/db:glossary -->
-<xsl:template match="db:chapter/db:section/db:glossary">
-	<!-- Discard this. it's handled in match="db:book" -->
+<xsl:template mode="glossaryletters" match="@*">
+	<xsl:value-of select="."/>
+</xsl:template>
+
+<xsl:template name="cnx.glossary">
+	<xsl:param name="letters"/>
+	<xsl:variable name="letter" select="substring($letters, 1, 1)"/>
+	
+	<!-- Skip all duplicates of letters until the last one, which we process -->
+	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
+		<db:glossdiv>
+			<db:title><xsl:value-of select="$letter"/></db:title>
+			<xsl:apply-templates select="//db:glossentry[@_first-letter=$letter]">
+				<xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
+			</xsl:apply-templates>
+		</db:glossdiv>
+	</xsl:if>
+
+	<xsl:if test="string-length($letters) > 1">
+		<xsl:call-template name="cnx.glossary">
+			<xsl:with-param name="letters" select="substring($letters, 2)"/>
+		</xsl:call-template>
+	</xsl:if>
+</xsl:template>
+<!-- Discard the @_first-letter attribute since it's no longer needed -->
+<xsl:template match="@_first-letter">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: Writing out an entry whose first letter is "<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
+</xsl:template>
+
+<!-- Discard the module-level glossary -->
+<xsl:template match="db:glossary">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module-level glossary and combining into book-level glossary</xsl:with-param></xsl:call-template>
 </xsl:template>
 
 <!-- Discard extra db:info in db:section (modules) except for db:title -->

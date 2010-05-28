@@ -30,4 +30,24 @@
 	</xsl:copy>
 </xsl:template>
 
+<!-- Overloading the file to add glossary metadata -->
+<xsl:template match="db:glossentry">
+	<!-- Find the 1st character. Used later in the transform to generate a glossary alphbetically -->
+	<xsl:variable name="letters">
+		<xsl:apply-templates mode="glossaryletters" select="db:glossterm/node()"/>
+	</xsl:variable>
+	<xsl:variable name="firstLetter" select="translate(substring(normalize-space($letters),1,1),'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: firstLetter="<xsl:value-of select="$firstLetter"/>" of "<xsl:value-of select="normalize-space($letters)"/>"</xsl:with-param></xsl:call-template>
+	<db:glossentry _first-letter="{$firstLetter}">
+		<xsl:apply-templates select="@*|node()"/>
+	</db:glossentry>
+</xsl:template>
+<!-- Helper template to recursively find the text in a glossary term -->
+<xsl:template mode="glossaryletters" select="*">
+	<xsl:apply-templates mode="glossaryletters"/>
+</xsl:template>
+<xsl:template mode="glossaryletters" select="text()">
+	<xsl:value-of select="."/>
+</xsl:template>
+
 </xsl:stylesheet>
