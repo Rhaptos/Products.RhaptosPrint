@@ -14,6 +14,8 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<xsl:param name="cnx.url" select="'http://cnx.org'"/>
+
 <!-- Collapse XIncluded modules -->
 <xsl:template match="db:chapter[count(db:section)=1]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to chapter</xsl:with-param></xsl:call-template>
@@ -126,6 +128,46 @@
 <!-- Discard extra db:info in db:section (modules) except for db:title -->
 <!-- This way we don't have attribution for every db:section (module) -->
 <xsl:template match="db:section/db:info/db:*[not(self::db:title)]"/>
+
+<!-- Make links to unmatched ids external -->
+<xsl:template match="db:xref[@document]|db:link[@document]">
+	<xsl:choose>
+		<!-- if the target (or module) is in the document, then all is well -->
+		<xsl:when test="id(@linkend) or id(@document)">
+			<xsl:copy>
+				<xsl:apply-templates select="@*|node()"/>
+			</xsl:copy>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:variable name="url">
+				<xsl:value-of select="$cnx.url"/>
+				<xsl:text>/content/</xsl:text>
+				<xsl:value-of select="@document"/>
+				<xsl:text>/</xsl:text>
+				<xsl:choose>
+					<xsl:when test="@version">
+						<xsl:value-of select="@version"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>latest</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:text>/</xsl:text>
+				<xsl:if test="@target-id">
+					<xsl:text>#</xsl:text>
+					<xsl:value-of select="@target-id"/>
+				</xsl:if>
+			</xsl:variable>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to content</xsl:with-param></xsl:call-template>
+			<db:link xlink:href="{$url}" type="external-content" class="external-content">
+				<xsl:if test="not(text())">
+					<xsl:value-of select="@document"/>
+				</xsl:if>
+				<xsl:apply-templates select="node()"/>
+			</db:link>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
 
 <!-- Move the solutions to exercises (db:qandaset) to the end of the chapter. -->
 <!-- 

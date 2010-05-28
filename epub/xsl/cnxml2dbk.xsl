@@ -22,19 +22,6 @@
 <!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
 <xsl:param name="cnx.output">fop</xsl:param>
 
-<!-- Used to tell which version of cnxml this is. -->
-<xsl:param name="cnx.version">
-   <xsl:choose>
-     <xsl:when test="//c:document/@cnxml-version">
-       <xsl:value-of select="//c:document/@cnxml-version"/>
-     </xsl:when>
-     <xsl:otherwise>
-     	<xsl:text>0.5</xsl:text>
-     </xsl:otherwise>
-   </xsl:choose>
-</xsl:param>
-
-
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
         <xsl:apply-templates mode="copy" select="@*|node()"/>
@@ -92,7 +79,7 @@
 </xsl:template>
 
 
-<xsl:template match="c:list[@number-style or @list-type='enumerated' or (@type='enumerated' and $cnx.version='0.5')]">
+<xsl:template match="c:list[@number-style or @list-type='enumerated']">
 	<xsl:variable name="numeration">
 		<xsl:choose>
     		<xsl:when test="not(@number-style) or @number-style='arabic'">arabic</xsl:when>
@@ -156,6 +143,9 @@
 		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
+	<!-- Be sure to pass through the @document and @target-id attributes
+	     so later stages can convert links pointing to 
+	     modules outside the collection to the website -->
     <db:link linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 

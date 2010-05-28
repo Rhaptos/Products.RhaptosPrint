@@ -121,4 +121,21 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</mml:mtd>
 </xsl:template>
 
+<!-- The attribute to denote an enumerated list changed between cnxml0.5 and cnxml0.6 -->
+<xsl:template match="c:list/@type">
+	<xsl:variable name="old" select="not(/c:document/@cnxml-version) or /c:document/@cnxml-version='0.5'"/>
+	<xsl:choose>
+		<xsl:when test=".='enumerated' and $old">
+			<xsl:attribute name="list-type">
+				<xsl:text>enumerated</xsl:text>
+			</xsl:attribute>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:copy>
+				<xsl:apply-templates select="node()"/>
+			</xsl:copy>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>
