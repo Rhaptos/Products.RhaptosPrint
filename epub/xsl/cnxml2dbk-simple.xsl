@@ -14,19 +14,6 @@
  -->
 <xsl:import href="debug.xsl"/>
 
-<!-- Used to tell which version of cnxml this is. -->
-<xsl:param name="cnx.version">
-   <xsl:choose>
-     <xsl:when test="//c:document/@cnxml-version">
-       <xsl:value-of select="//c:document/@cnxml-version"/>
-     </xsl:when>
-     <xsl:otherwise>
-     	<xsl:text>0.5</xsl:text>
-     </xsl:otherwise>
-   </xsl:choose>
-</xsl:param>
-
-
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
 	<xsl:choose>
@@ -141,9 +128,6 @@
     <db:itemizedlist><xsl:apply-templates select="@*|node()"/></db:itemizedlist>
 </xsl:template>
 <xsl:template match="c:list[@list-type='labeled-item']">
-    <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
-</xsl:template>
-<xsl:template match="c:list[@list-type='enumerated' or (@type='enumerated' and $cnx.version='0.5')]">
     <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
 </xsl:template>
 
