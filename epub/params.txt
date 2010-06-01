@@ -2,6 +2,5 @@ section.autolabel 1
 section.autolabel.max.depth 2
 section.label.includes.component.label 1
 xref.with.number.and.title 0
-toc.section.depth 1
 cnx.output xhtml
 cnx.log.onlyaggregate 1
