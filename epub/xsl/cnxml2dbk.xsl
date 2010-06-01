@@ -50,7 +50,7 @@
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
-    <db:section>
+    <db:section c:element="document">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <db:info>
         	<xsl:apply-templates select="c:title"/>
@@ -313,7 +313,7 @@
 <!-- Partially supported -->
 <xsl:template match="c:figure[c:subfigure]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Splitting subfigures into multiple figures</xsl:with-param></xsl:call-template>
-	<db:section>
+	<db:section c:element="figure">
 		<xsl:apply-templates select="@*|node()"/>
 	</db:section>
 </xsl:template>

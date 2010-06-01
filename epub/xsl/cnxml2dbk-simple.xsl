@@ -64,7 +64,7 @@
 
 <!-- Support c:rule (with c:statement and c:proof) -->
 <xsl:template match="c:rule">
-    <db:section>
+    <db:section c:element="rule">
     	<xsl:apply-templates select="@*"/>
     	<db:title>
     	    <xsl:apply-templates select="c:title/@*"/>
@@ -82,7 +82,7 @@
 </xsl:template>
 
 <xsl:template match="c:proof">
-    <db:section>
+    <db:section c:element="proof">
     	<xsl:apply-templates select="@*"/>
     	<db:title>
     		<xsl:apply-templates select="c:title/@*"/>
@@ -100,7 +100,7 @@
 </xsl:template>
 
 <xsl:template match="c:statement">
-    <db:section>
+    <db:section c:element="statement">
     	<xsl:apply-templates select="@*|node()"/>
     </db:section>
 </xsl:template>
