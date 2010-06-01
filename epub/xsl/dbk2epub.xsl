@@ -3,6 +3,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+  xmlns:c="http://cnx.rice.edu/cnxml"
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
@@ -75,5 +76,63 @@
     </span>
   </div>
 </xsl:template>
+
+
+<!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
+<xsl:template match="example[ancestor::glossentry
+            or ancestor::*[@c:element='rule']
+            ]" mode="label.markup">
+</xsl:template>
+<xsl:template match="figure|table|example" mode="label.markup">
+  <xsl:variable name="pchap"
+                select="(ancestor::chapter
+                        |ancestor::appendix
+                        |ancestor::article[ancestor::book])[last()]"/>
+  <xsl:variable name="name" select="name()"/>
+  
+  <xsl:variable name="prefix">
+    <xsl:if test="count($pchap) &gt; 0">
+      <xsl:apply-templates select="$pchap" mode="label.markup"/>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="@label">
+      <xsl:value-of select="@label"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:choose>
+        <xsl:when test="$prefix != ''">
+            <xsl:apply-templates select="$pchap" mode="label.markup"/>
+            <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
+          <xsl:number format="1" from="chapter|appendix" count="*[$name=name() and not(
+               ancestor::glossentry
+               or ancestor::*[@c:element='rule']
+               
+          )]" level="any"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number format="1" from="book|article" level="any" count="*[$name=name() and not(
+               ancestor::glossentry
+               or ancestor::*[@c:element='rule']
+               
+          )]"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- Override of docbook-xsl/xhtml-1_1/html.xsl -->
+<xsl:template match="*[@c:element]" mode="class.value">
+  <xsl:param name="class" select="local-name(.)"/>
+  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Adding to @class: "<xsl:value-of select="@c:element"/>"</xsl:with-param></xsl:call-template>
+  <!-- permit customization of class value only -->
+  <!-- Use element name by default -->
+  <xsl:value-of select="$class"/>
+  <xsl:text> </xsl:text>
+  <xsl:value-of select="@c:element"/>
+</xsl:template>
+
 
 </xsl:stylesheet>
