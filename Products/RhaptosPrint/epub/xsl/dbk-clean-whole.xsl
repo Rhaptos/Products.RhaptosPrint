@@ -21,18 +21,18 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to chapter</xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
-		<xsl:choose>
-			<xsl:when test="db:info">
-				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original module title</xsl:with-param></xsl:call-template>
-				<xsl:apply-templates select="db:info"/>
-				<xsl:apply-templates select="db:section/*[local-name() != 'info']"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="db:section/node()"/>
-			</xsl:otherwise>
-		</xsl:choose>
+		<db:chapterinfo>
+			<xsl:apply-templates select="db:title"/>
+			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
+		</db:chapterinfo>
+		<xsl:apply-templates select="db:section/node()[local-name()!='sectioninfo']"/>
 	</xsl:copy>
 </xsl:template>
+
+<xsl:template match="db:chapter[db:title]/db:section/db:sectioninfo/db:title">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original title</xsl:with-param></xsl:call-template>
+</xsl:template>
+
 
 
 <!-- Boilerplate -->

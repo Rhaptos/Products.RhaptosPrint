@@ -64,13 +64,13 @@
 					 or descendant::mml:msup
 					 or descendant::mml:msubsup)
 			]">
-	<xsl:text>(stretchy-paren)|</xsl:text>
+	<xsl:text>|(stretchy-paren)</xsl:text>
 </xsl:template>
 
 <!-- Non-terminal nodes that MUST be complex (everything else) -->
 <xsl:template mode="cnx.iscomplex" match="*">
-	<xsl:value-of select="local-name()"/>
 	<xsl:text>|</xsl:text>
+	<xsl:value-of select="local-name()"/>
 </xsl:template>
 
 

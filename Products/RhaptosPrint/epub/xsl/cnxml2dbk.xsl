@@ -66,10 +66,10 @@
 <xsl:template match="c:document">
     <db:section c:element="document">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
-        <db:info>
+        <db:sectioninfo>
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>
-        </db:info>
+        </db:sectioninfo>
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move the exercise solutions to the end of a module -->
@@ -214,7 +214,7 @@
 			<!-- Hack for Music Theory. Kitty stores the .epc and .svg files -->
 			<xsl:when test="@mime-type = 'application/postscript'">SVG</xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Could not match mime-type. Assuming JPEG.</xsl:with-param></xsl:call-template>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Could not match mime-type. Assuming JPEG.</xsl:with-param></xsl:call-template>
 				<xsl:text>JPEG</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -285,7 +285,7 @@
 		<db:emphasis role="bold" c:element="exercise-number">
 			<xsl:choose>
 				<xsl:when test="c:solution">
-					<db:link linkend="{$id}.solution">
+					<db:link linkend="{$id}.solution" XrefLabel="Exercise {$number}">
 						<xsl:attribute name="xml:id">
 							<xsl:value-of select="$id"/>
 						</xsl:attribute>
@@ -300,6 +300,7 @@
 			<!-- Print either the title, or the 1st c:para on the same line. The rest go in separate blocks -->
 			<xsl:apply-templates select="c:title"/>
 		</db:emphasis>
+		<xsl:text> </xsl:text>
 		<xsl:if test="not(c:title) and c:problem[*[position()=1 and local-name()='para']]">
 			<xsl:apply-templates select="c:problem/c:para[1]/node()"/>
 		</xsl:if>

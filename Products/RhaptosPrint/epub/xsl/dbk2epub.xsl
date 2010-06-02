@@ -134,5 +134,17 @@
   <xsl:value-of select="@c:element"/>
 </xsl:template>
 
+<!-- Override of docbook-xsl/xhtml-1_1/xref.xsl -->
+<xsl:template match="*[@XrefLabel]" mode="xref-to">
+	<xsl:value-of select="@XrefLabel"/>
+</xsl:template>
+
+<xsl:template match="inlineequation" mode="xref-to">
+	<xsl:text>Equation</xsl:text>
+</xsl:template>
+
+<xsl:template match="caption" mode="xref-to">
+	<xsl:apply-templates select="."/>
+</xsl:template>
 
 </xsl:stylesheet>
