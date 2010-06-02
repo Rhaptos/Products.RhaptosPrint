@@ -273,7 +273,7 @@
 	</db:imageobject>
 </xsl:template>
 
-
+<!-- Ugliness that converts an exercise problem and solution into Docbook para's and links -->
 <xsl:template match="c:exercise">
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
@@ -307,6 +307,7 @@
 	<xsl:apply-templates select="c:problem/*[local-name()!='para' or position()!=1]"/>
 </xsl:template>
 
+<xsl:template mode="end-of-module" match="c:exercise"/>
 <xsl:template mode="end-of-module" match="c:exercise[c:solution]">
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
@@ -314,7 +315,7 @@
 	<xsl:variable name="number">
 		<xsl:number format="1" level="any"/>
 	</xsl:variable>
-	<db:para c:element="solution">
+	<db:para c:element="solutions">
 		<xsl:attribute name="xml:id">
 			<xsl:value-of select="$id"/>
 			<xsl:text>.solution</xsl:text>
@@ -324,11 +325,12 @@
 			<xsl:text>. </xsl:text>
 		</db:emphasis>
 		<!-- Print the 1st c:para on the same line. The rest go in separate blocks -->
-		<xsl:if test="not(c:title) and c:solution[*[position()=1 and local-name()='para']]">
+		<xsl:if test="not(c:title) and count(c:solution)=1 and c:solution[*[position()=1 and local-name()='para']]">
 			<xsl:apply-templates select="c:solution/c:para[1]/node()"/>
 		</xsl:if>
 	</db:para>
-	<xsl:apply-templates select="c:solution/*[local-name()!='para' or position()!=1]"/>
+	<xsl:apply-templates select="c:solution[1]/*[local-name()!='para' or position()!=1]"/>
+	<xsl:apply-templates select="c:solution[position()!=1]"/>
 </xsl:template>
 
 <xsl:template match="c:foreign">
