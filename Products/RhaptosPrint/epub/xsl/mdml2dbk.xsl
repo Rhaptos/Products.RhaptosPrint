@@ -11,7 +11,6 @@
   exclude-result-prefixes="c xlink db md4 md exsl"
   version="1.0">
 
-<xsl:import href="debug.xsl"/>
 <xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
 
 <!-- There are 2 namespaces for mdml, so we convert the old one to the new one, and process it -->
@@ -22,6 +21,7 @@
   </xsl:choose>
 </xsl:param>
 <xsl:template match="md4:*">
+<xsl:message>------ Upgrading mdml4 to mdml --------</xsl:message>
 	<xsl:choose>
 	    <xsl:when test="$exsl.node.set.available != 0">
 			<xsl:variable name="upgraded">

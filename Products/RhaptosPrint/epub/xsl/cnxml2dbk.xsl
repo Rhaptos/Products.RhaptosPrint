@@ -8,8 +8,8 @@
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   version="1.0">
 
-<xsl:import href="mdml2dbk.xsl"/>
 <xsl:import href="cnxml2dbk-simple.xsl"/>
+<xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Used to update the ids so they are unique within a collection -->
