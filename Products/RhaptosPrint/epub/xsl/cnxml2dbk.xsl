@@ -33,6 +33,20 @@
 	<xsl:apply-templates select="*"/>
 </xsl:template>
 
+<!-- Construct an id for a node if none exists -->
+<xsl:template name="cnx.id">
+	<xsl:param name="object" select="."/>
+	<xsl:if test="$cnx.module.id != ''">
+		<xsl:value-of select="$cnx.module.id"/>
+		<xsl:value-of select="$cnx.module.separator"/>
+	</xsl:if>
+	<xsl:if test="not($object/@id)">
+			<xsl:value-of select="generate-id($object)"/>
+	</xsl:if>
+	<xsl:value-of select="$object/@id"/>
+</xsl:template>
+
+
 <!-- Prefix all id's with the module id (for inclusion in collection) -->
 <xsl:template match="@id">
 	<xsl:attribute name="xml:id">
@@ -58,12 +72,13 @@
         </db:info>
         
         <xsl:apply-templates select="c:content/*"/>
-        <!--TODO: Figure out when to move the exercises
-        <xsl:if test=".//c:section/c:exercise or c:exercise">
-        	<db:qandaset>
-        		<xsl:apply-templates mode="end-of-module" select=".//c:section/c:exercise | c:exercise"/>
-        	</db:qandaset>
-        </xsl:if>-->
+        <!-- Move the exercise solutions to the end of a module -->
+        <xsl:if test=".//c:exercise or c:exercise">
+        	<db:section c:element="solutions">
+        		<db:title>Solutions to Exercises</db:title>
+        		<xsl:apply-templates mode="end-of-module" select=".//c:exercise | c:exercise"/>
+        	</db:section>
+        </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
     </db:section>
 </xsl:template>
@@ -260,17 +275,60 @@
 
 
 <xsl:template match="c:exercise">
-	<db:qandaset role="none">
-	<db:qandaentry>
-		<xsl:apply-templates select="@*|node()"/>
-	</db:qandaentry>
-	</db:qandaset>
+	<xsl:variable name="id">
+		<xsl:call-template name="cnx.id"/>
+	</xsl:variable>
+	<xsl:variable name="number">
+		<xsl:number format="1" level="any"/>
+	</xsl:variable>
+	<db:para c:element="exercise">
+		<db:emphasis role="bold" c:element="exercise-number">
+			<xsl:choose>
+				<xsl:when test="c:solution">
+					<db:link linkend="{$id}.solution">
+						<xsl:attribute name="xml:id">
+							<xsl:value-of select="$id"/>
+						</xsl:attribute>
+						<xsl:value-of select="$number"/>
+					</db:link>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$number"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:text>. </xsl:text>
+			<!-- Print either the title, or the 1st c:para on the same line. The rest go in separate blocks -->
+			<xsl:apply-templates select="c:title"/>
+		</db:emphasis>
+		<xsl:if test="not(c:title) and c:problem[*[position()=1 and local-name()='para']]">
+			<xsl:apply-templates select="c:problem/c:para[1]/node()"/>
+		</xsl:if>
+	</db:para>
+	<xsl:apply-templates select="c:problem/*[local-name()!='para' or position()!=1]"/>
 </xsl:template>
-<xsl:template match="c:problem">
-	<db:question><xsl:apply-templates select="@*|node()"/></db:question>
-</xsl:template>
-<xsl:template match="c:solution">
-	<db:answer><xsl:apply-templates select="@*|node()"/></db:answer>
+
+<xsl:template mode="end-of-module" match="c:exercise[c:solution]">
+	<xsl:variable name="id">
+		<xsl:call-template name="cnx.id"/>
+	</xsl:variable>	
+	<xsl:variable name="number">
+		<xsl:number format="1" level="any"/>
+	</xsl:variable>
+	<db:para c:element="solution">
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="$id"/>
+			<xsl:text>.solution</xsl:text>
+		</xsl:attribute>
+		<db:emphasis role="bold" c:element="exercise-number">
+			<db:link linkend="{$id}"><xsl:value-of select="$number"/></db:link>
+			<xsl:text>. </xsl:text>
+		</db:emphasis>
+		<!-- Print the 1st c:para on the same line. The rest go in separate blocks -->
+		<xsl:if test="not(c:title) and c:solution[*[position()=1 and local-name()='para']]">
+			<xsl:apply-templates select="c:solution/c:para[1]/node()"/>
+		</xsl:if>
+	</db:para>
+	<xsl:apply-templates select="c:solution/*[local-name()!='para' or position()!=1]"/>
 </xsl:template>
 
 <xsl:template match="c:foreign">

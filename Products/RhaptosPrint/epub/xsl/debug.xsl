@@ -7,7 +7,7 @@
 <xsl:param name="cnx.module.id" select="/c:document/@id"/>
 <!-- The following parameters are used for batch processing and gathering statistics -->
 <xsl:param name="cnx.log.onlybugs">no</xsl:param> 
-<xsl:param name="cnx.log.onlyaggregate">no</xsl:param>
+<xsl:param name="cnx.log.onlyaggregate">yes</xsl:param>
 <xsl:param name="cnx.log.nowarn">no</xsl:param> 
 
 <!-- Catch-all -->

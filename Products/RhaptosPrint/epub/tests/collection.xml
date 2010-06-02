@@ -124,6 +124,7 @@
 	<col:content>
 -->
 		<col:module document="m9003"/>
+		<col:module document="m21891-exercises"/>
 <!--
 	</col:content>
 </col:subcollection>
