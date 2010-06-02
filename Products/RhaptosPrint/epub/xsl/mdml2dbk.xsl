@@ -21,7 +21,6 @@
   </xsl:choose>
 </xsl:param>
 <xsl:template match="md4:*">
-<xsl:message>------ Upgrading mdml4 to mdml --------</xsl:message>
 	<xsl:choose>
 	    <xsl:when test="$exsl.node.set.available != 0">
 			<xsl:variable name="upgraded">
