@@ -13,7 +13,7 @@
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Used to update the ids so they are unique within a collection -->
-<xsl:param name="cnx.module.id" select="/c:document/@id"/>
+<xsl:param name="cnx.module.id"/>
 
 <!-- When generating id's we need to prefix them with a module id. 
 	This is the text between the module, and the module-specific id. -->
@@ -273,6 +273,13 @@
 	</db:imageobject>
 </xsl:template>
 
+<!-- FIXME: We could render multiple problems/line instead of 1/line.
+	To do this, we can convert MathML to simplemath or SVG and calculate the character width.
+	If there is anything funky, then we can fall back to the 1/line approach.
+	If the section ends with a series of c:exercise and width of each is below a certain threshold
+	then we can convert each c:exercise into a <div class="shortproblem" style="width:20em float:left"/>
+	so that they wrap depending on the screen width.
+ -->
 <!-- Ugliness that converts an exercise problem and solution into Docbook para's and links -->
 <xsl:template match="c:exercise">
 	<xsl:variable name="id">
