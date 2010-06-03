@@ -58,34 +58,6 @@
 </xsl:template>
 
 
-<!-- move neighboring db:qandaset elements together.
-	Currently done very hackishly because we don't want to
-	group text or other elements into
- -->
-<xsl:template match="db:qandaset[not(db:title) and count(db:qandaentry)=1]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Inlining db:qandasets (c:exercise elements)</xsl:with-param></xsl:call-template>
-	<xsl:if test="local-name(preceding-sibling::db:*[1]) != 'qandaset'">
-		<xsl:text disable-output-escaping="yes">&lt;docbook:qandaset xmlns:docbook="http://docbook.org/ns/docbook"></xsl:text>
-	</xsl:if>
-
-	<xsl:apply-templates/>
-
-	<xsl:if test="local-name(following-sibling::db:*[1]) != 'qandaset'">
-		<xsl:text disable-output-escaping="yes">&lt;/docbook:qandaset></xsl:text>
-	</xsl:if>
-</xsl:template>
-<!--<xsl:template match="*[count(db:qandaset[not(db:title) and count(db:qandaentry)=1])>1]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Moving exercises to bottom of module</xsl:with-param></xsl:call-template>
-	<xsl:copy>
-		<xsl:copy-of select="@*"/>
-		<xsl:apply-templates select="comment()|text()|db:qandaset[db:title or not(count(db:qandaentry)=1)]|*[local-name()!='qandaset']"/>
-		<db:qandaset>
-			<xsl:apply-templates select="db:qandaset[not(db:title) and count(db:qandaentry)=1]/db:qandaentry"/>
-		</db:qandaset>
-	</xsl:copy>
-</xsl:template>
--->
-
 <!-- Discard unmatched xinclude files -->
 <!-- col10363 has, for every eps file, a svg file and FOP doesn't support eps. -->
 <xsl:template match="*[db:imageobject/db:imagedata/xi:include]">

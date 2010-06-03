@@ -22,26 +22,6 @@
 	<db:info><xsl:apply-templates select="@*|node()"/></db:info>
 </xsl:template>
 
-<!-- If there are no sub collections, treat each module as a db:chapter -->
-<xsl:template match="col:collection/col:content[not(col:subcollection)]">
-	<xsl:apply-templates select="node()"/>
-</xsl:template>
-
-<!-- If there are subcollections but no modules then treat each subcollection as a db:part -->
-<xsl:template match="col:collection/col:content[col:subcollection and not(col:module)]">
-	<xsl:apply-templates select="col:subcollection"/>
-</xsl:template> 
-
-<!-- If there are subcollections and modules then:
-     treat each module before the 1st subcollection as a preface
-     treat each module after the last subcollection as an appendix
-     treat each subcollection as a chapter
-     treat each module between subcollections as a chapter
- -->
-<xsl:template match="col:collection/col:content[col:subcollection and col:module]">
-	<xsl:apply-templates select="col:subcollection|col:module"/>
-</xsl:template>
-
 <!-- Modules before the first subcollection are preface frontmatter -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
 	<db:preface>
