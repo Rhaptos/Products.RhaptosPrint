@@ -39,8 +39,12 @@
 		<xsl:value-of select="@depth"/>
 		<xsl:text>;</xsl:text>
 		-->
-	  	<xsl:text>position:relative; top:</xsl:text>
+	  	<xsl:text>position:relative; </xsl:text>
+	  	<xsl:text>top:</xsl:text>
 	  	<xsl:value-of select="." />
+	  	<xsl:text>pt; </xsl:text>
+	  	<xsl:text>padding-bottom:</xsl:text>
+	  	<xsl:value-of select="."/>
 	  	<xsl:text>pt;</xsl:text>
   	</xsl:attribute>
 </xsl:template>
