@@ -3,6 +3,11 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   version="1.0">
 
+<!-- This file just performs an identity transform on elements.
+	Some of the conversion steps only convert parts of XML and let the rest pass through unchanged.
+	They include this file.
+ -->
+
 <xsl:output method="xml"/>
 
 <xsl:template name="ident" match="@*|node()">

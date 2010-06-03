@@ -6,6 +6,14 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   version="1.0">
 
+<!-- This file converts dbk files to chunked html which is used in EPUB generation.
+	* Stores customizations and docbook settings specific to Connexions
+	* Shifts images that were converted from MathML so they line up with text nicely
+	* Puts equation numbers on the RHS of an equation
+	* Disables equation and figure numbering inside things like examples and glossaries
+	* Adds @class attributes to elements for custom styling (like c:rule, c:figure)
+ -->
+
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
 

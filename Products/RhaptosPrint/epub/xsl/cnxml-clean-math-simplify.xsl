@@ -6,6 +6,8 @@
   xmlns="http://www.w3.org/1999/xhtml"
   exclude-result-prefixes="c mml">
 
+<!-- Converts MathML that could otherwise be expressed in cnxml (using things like c:sup, c:emphasis) -->
+
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 

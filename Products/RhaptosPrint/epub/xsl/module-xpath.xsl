@@ -9,6 +9,13 @@
   xmlns:bib="http://bibtexml.sf.net/"
   version="1.0">
 
+<!-- A cute little stylesheet that performs an arbitrary Xpath evaluation on XML.
+	Used mostly for development to find out things like:
+	* Which modules contain a pesky MathML structure
+	* How many instances of a c:figure//c:table are there
+	* What are all the MathML nodes
+ -->
+
 	<xsl:import href="debug.xsl"/>
 	<!-- Required -->
 	<xsl:param name="cnx.module.id"/>

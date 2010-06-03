@@ -2,6 +2,12 @@
 	xmlns:c="http://cnx.rice.edu/cnxml"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     >
+<!-- This file:
+	* Does all the logging
+	* Optionally provides an XPath to the current context (where the error occurred)
+	* Logs any unmatched elements
+-->
+
 
 <!-- Used for logging to know what the current module is -->
 <xsl:param name="cnx.module.id" select="/c:document/@id"/>

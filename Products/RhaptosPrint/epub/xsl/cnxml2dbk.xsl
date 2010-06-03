@@ -8,6 +8,10 @@
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   version="1.0">
 
+<!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
+	Whatever it can't match is printed out as a "BUG: " for later implementation
+ -->
+
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="yes" method="xml"/>

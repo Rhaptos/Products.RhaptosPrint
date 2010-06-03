@@ -6,6 +6,11 @@
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   version="1.0">
 
+<!-- This file chunks svg elements in a module into separate svg files and changes the file extension
+	so that when "convert" runs through and converts SVG to PNG (or JPEG), the docbook points to
+	the correct file.
+ -->
+
 <xsl:include href="debug.xsl"/>
 <xsl:include href="../docbook-xsl/xhtml-1_1/chunker.xsl"/>
 

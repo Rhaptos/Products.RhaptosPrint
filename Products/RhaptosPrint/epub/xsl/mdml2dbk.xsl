@@ -11,6 +11,8 @@
   exclude-result-prefixes="c xlink db md4 md exsl"
   version="1.0">
 
+<!-- This file converts module and collection mdml to elements Docbook understands. -->
+
 <xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
 
 <!-- There are 2 namespaces for mdml, so we convert the old one to the new one, and process it -->

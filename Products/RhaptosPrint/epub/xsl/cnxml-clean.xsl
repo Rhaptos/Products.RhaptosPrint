@@ -5,6 +5,15 @@
 xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
     exclude-result-prefixes="c">
 
+<!-- This file:
+	* Up-converts some cnxml0.5 (c:cnxn to c:link, or @src to @url)
+	* Sets the @mime-type for c:media
+	* Removes c:div from c:para
+	* Upgrades lists
+	* Detects Word-imported lists and converts them
+	* Adds mml:mtd to mml:mrow when missing
+ -->
+
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
