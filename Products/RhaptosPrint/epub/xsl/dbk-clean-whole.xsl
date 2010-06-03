@@ -9,6 +9,14 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   version="1.0">
 
+<!-- This file is run once all modules are converted and once all module dbk files are XIncluded.
+	It:
+	* unwraps a module (whose root is db:section) and puts it in a db:preface, db:chapter, db:section
+	* puts in empty db:title elements for informal equations (TODO: Not sure why, maybe for labeling and linking)
+	* generates a book-wide glossary instead of a module-wide one (and marks each glossary section with a letter)
+	* Converts links to content not included in the book to external links
+ -->
+
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
@@ -122,10 +130,6 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module-level glossary and combining into book-level glossary</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-<!-- Discard extra db:info in db:section (modules) except for db:title -->
-<!-- This way we don't have attribution for every db:section (module) -->
-<xsl:template match="db:section/db:info/db:*[not(self::db:title)]"/>
-
 <!-- Make links to unmatched ids external -->
 <xsl:template match="db:xref[@document]|db:link[@document]">
 	<xsl:choose>
@@ -165,48 +169,4 @@
 	</xsl:choose>
 </xsl:template>
 
-<!-- Move the solutions to exercises (db:qandaset) to the end of the chapter. -->
-<!-- 
-<xsl:template match="db:question[../db:answer]">
-	<xsl:copy>
-		<xsl:apply-templates select="@*|node()"/>
-		<db:para><db:link xlink:href="{ancestor::db:section[@xml:id]/@xml:id}.solution">Solution</db:link></db:para>
-	</xsl:copy>
-</xsl:template>
-<xsl:template match="db:answer"/>
-<xsl:template match="db:chapter[.//db:qandaset]">
-	<xsl:copy>
-		<xsl:apply-templates select="@*|node()"/>
-		<db:section>
-			<db:title>Solutions to Exercises</db:title>
-			<xsl:apply-templates mode="cnx.solution" select=".//db:qandaset"/>
-		</db:section>
-	</xsl:copy>
-</xsl:template>
-<xsl:template mode="cnx.solution" match="db:qandaset">
-	<db:formalpara>
-		<db:title><xsl:apply-templates select="ancestor::db:*[db:title][2]/db:title/node()"/></db:title>
-		<xsl:apply-templates mode="cnx.solution"/>
-	</db:formalpara>
-</xsl:template>
-<xsl:template mode="cnx.solution" match="db:qandaentry">
-	<xsl:value-of select="position()"/>
-	<xsl:text>. </xsl:text>
-	<xsl:apply-templates mode="cnx.solution"/>
-	<xsl:text> </xsl:text>
-</xsl:template>
-<xsl:template mode="cnx.solution" match="db:answer">
-	<xsl:apply-templates mode="cnx.solution"/>
-</xsl:template>
-<xsl:template mode="cnx.solution" match="db:para">
-	<xsl:apply-templates mode="cnx.solution"/>
-</xsl:template>
-<xsl:template mode="cnx.solution" match="db:question"/>
-<xsl:template mode="cnx.solution" match="*">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Skipped in creating a solution</xsl:with-param></xsl:call-template>
-	<xsl:copy>
-		<xsl:apply-templates select="@*|node()"/>
-	</xsl:copy>
-</xsl:template>
- -->
 </xsl:stylesheet>
