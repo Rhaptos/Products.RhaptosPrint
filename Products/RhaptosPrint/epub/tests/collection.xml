@@ -119,24 +119,30 @@
         </col:featured-links>
       </col:module>
 
-<!--<col:subcollection>
-	<md:title>A subcollection of our test module</md:title>
-	<col:content>
--->
 		<col:module document="m9003"/>
 		<col:module document="m21891-exercises"/>
-<!--
+
+<col:subcollection>
+	<md:title>A subcollection of our test modules</md:title>
+	<col:content>
+		<col:module document="m10349"/>
+		<col:module document="m10622"/>
 	</col:content>
 </col:subcollection>
-	-->
-	<col:module document="m10349"/>
-	<col:module document="m10622"/>
+
 	<col:module document="m10842"/>
 	<col:module document="m11624"/>
 	<col:module document="m12827"/>
 	<col:module document="m12858"/>
 	<col:module document="m13243"/>
+<col:subcollection>
+	<md:title>Another subcollection with only 1 module</md:title>
+	<col:content>
+
 	<col:module document="m14134"/>
+	</col:content>
+</col:subcollection>
+
 	<col:module document="m17521"/>
 	<col:module document="m20119"/>
     
