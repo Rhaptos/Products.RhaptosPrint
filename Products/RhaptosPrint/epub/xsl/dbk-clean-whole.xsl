@@ -65,47 +65,6 @@
 </xsl:template>
 
 
-<!-- If the Module title starts with the chapter title then discard it. -->
-<xsl:template match="db:PHIL/db:chapter/db:section">
-	<xsl:choose>
-		<xsl:when test="starts-with(db:info/db:title/text(), ../db:info/db:title/text())">
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Stripping chapter name from title</xsl:with-param></xsl:call-template>
-			<xsl:copy>
-				<xsl:copy-of select="@*"/>
-				<db:info>
-					<xsl:apply-templates mode="strip-title" select="db:info/db:title"/>
-					<xsl:apply-templates select="db:info/*[local-name()!='title']|db:info/processing-instruction()|db:info/comment()"/>
-				</db:info>
-				<xsl:apply-templates select="*[local-name()!='info']|processing-instruction()|comment()"/>
-			</xsl:copy>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:copy>
-				<xsl:copy-of select="@*"/>
-				<xsl:apply-templates/>
-			</xsl:copy>
-		</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-<xsl:template mode="strip-title" match="db:title">
-	<xsl:variable name="chapTitle">
-		<xsl:value-of select="../../../db:info/db:title/text()"/>
-		<xsl:text>: </xsl:text>
-	</xsl:variable>
-	<xsl:copy>
-		<xsl:copy-of select="@*"/>
-		<xsl:for-each select="node()">
-			<xsl:choose>
-				<xsl:when test="position()=1">
-					<xsl:value-of select="substring-after(., $chapTitle)"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:for-each>
-	</xsl:copy>
-</xsl:template>
 
 <!-- Combine all module glossaries into a single book glossary -->
 <xsl:template match="db:book">
