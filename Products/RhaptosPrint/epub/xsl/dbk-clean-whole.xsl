@@ -14,22 +14,22 @@
 
 <xsl:output indent="yes" method="xml"/>
 
-<xsl:param name="cnx.url" select="'http://cnx.org'"/>
+<xsl:param name="cnx.url" select="'http://cnx.org/content/'"/>
 
 <!-- Collapse XIncluded modules -->
-<xsl:template match="db:chapter[count(db:section)=1]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to chapter</xsl:with-param></xsl:call-template>
+<xsl:template match="db:chapter[count(db:section)=1]|db:preface[count(db:section)=1]|db:appendix[count(db:section)=1]|db:section[@document and count(db:section)=1]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
-		<db:chapterinfo>
+		<xsl:element name="{local-name()}info" namespace="http://docbook.org/ns/docbook">
 			<xsl:apply-templates select="db:title"/>
 			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
-		</db:chapterinfo>
+		</xsl:element>
 		<xsl:apply-templates select="db:section/node()[local-name()!='sectioninfo']"/>
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="db:chapter[db:title]/db:section/db:sectioninfo/db:title">
+<xsl:template match="db:*[(local-name()='preface' or local-name()='chapter' or local-name()='appendix' or local-name()='section') and db:title and count(db:section)=1]/db:section/db:sectioninfo/db:title">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original title</xsl:with-param></xsl:call-template>
 </xsl:template>
 
@@ -179,7 +179,6 @@
 		<xsl:otherwise>
 			<xsl:variable name="url">
 				<xsl:value-of select="$cnx.url"/>
-				<xsl:text>/content/</xsl:text>
 				<xsl:value-of select="@document"/>
 				<xsl:text>/</xsl:text>
 				<xsl:choose>

@@ -39,22 +39,23 @@
      treat each module between subcollections as a chapter
  -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]">
-	<!-- Preface -->
-	<xsl:if test="col:module[not(preceding-sibling::col:subcollection)]">
-		<db:preface>
-			<db:title>Preface</db:title>
-			<xsl:apply-templates select="col:module[not(preceding-sibling::col:subcollection)]"/>
-		</db:preface>
-	</xsl:if>
-	<!-- Body -->
-	<xsl:apply-templates select="col:subcollection|col:module[preceding-sibling::col:subcollection and following-sibling::col:subcollection]"/>
-	<!-- Appendix -->
-	<xsl:if test="col:module[not(following-sibling::col:subcollection)]">
-		<db:appendix>
-			<db:title>Errata</db:title>
-			<xsl:apply-templates select="col:module[not(following-sibling::col:subcollection)]"/>
-		</db:appendix>
-	</xsl:if>
+	<xsl:apply-templates select="col:subcollection|col:module"/>
+</xsl:template>
+
+<!-- Modules before the first subcollection are preface frontmatter -->
+<xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
+	<db:preface>
+		<xsl:apply-templates select="@*|node()"/>
+		<xi:include href="{@document}/index.dbk"/>
+	</db:preface>
+</xsl:template>
+
+<!-- Modules after the last subcollection are appendices -->
+<xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(following-sibling::col:subcollection)]" priority="100">
+	<db:appendix>
+		<xsl:apply-templates select="@*|node()"/>
+		<xi:include href="{@document}/index.dbk"/>
+	</db:appendix>
 </xsl:template>
 
 
