@@ -9,6 +9,11 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   version="1.0">
 
+<!-- This file:
+     * Ensures paths to images inside modules are correct (using @xml:base)
+     * Adds a @_first-letter attribute to glossary entries so they can be organized into a book-level glossary 
+ -->
+
 <xsl:import href="debug.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 
