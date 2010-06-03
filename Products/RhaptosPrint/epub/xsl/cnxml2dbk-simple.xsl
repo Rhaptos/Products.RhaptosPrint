@@ -14,6 +14,8 @@
  -->
 <xsl:import href="debug.xsl"/>
 
+<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
+
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
 	<xsl:choose>
@@ -143,6 +145,23 @@
 </xsl:template>
 <xsl:template match="c:emphasis[@effect='normal']">
     <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+<xsl:template match="c:link[@resource]">
+    <xsl:variable name="url">
+        <xsl:value-of select="$cnx.url"/>
+        <xsl:choose>
+            <xsl:when test="@document">
+                <xsl:value-of select="@document"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$cnx.module.id"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select="@resource"/>
+    </xsl:variable>
+    <db:link xlink:href="{$url}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 
 <xsl:template match="c:link[@url]">
