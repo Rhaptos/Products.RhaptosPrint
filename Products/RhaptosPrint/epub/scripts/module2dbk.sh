@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 WORKING_DIR=$1
 ID=$2
@@ -132,18 +132,20 @@ $XSLTPROC -o $DOCBOOK $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert the files
-for ID in `cat $SVG2PNG_FILES_LIST`
+for ID_AND_EXT in `cat $SVG2PNG_FILES_LIST`
 do
-  if [ -s $WORKING_DIR/$ID.png ]; then
-    echo "LOG: INFO: Converting-SVG $ID to PNG skipping!"
+  ID=${ID_AND_EXT%%|*}
+  EXT=${ID_AND_EXT#*|}
+  if [ -s $WORKING_DIR/$ID.$EXT ]; then
+    echo "LOG: INFO: Converting-SVG $ID to $EXT skipping!"
   else
-    echo "LOG: INFO: Converting-SVG $ID to PNG"
+    echo "LOG: INFO: Converting-SVG $ID to $EXT"
     # For Macs, use inkscape
     if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
-      (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-png=$WORKING_DIR/$ID.png 2>&1) > $WORKING_DIR/__err.txt
+      (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-$EXT=$WORKING_DIR/$ID.$EXT 2>&1) > $WORKING_DIR/__err.txt
       EXIT_STATUS=$EXIT_STATUS || $?
     else
-      $CONVERT $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.png
+      $CONVERT $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
       EXIT_STATUS=$EXIT_STATUS || $?
     fi
   fi 
