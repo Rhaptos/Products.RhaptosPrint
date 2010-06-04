@@ -30,14 +30,11 @@ if [ -s $ROOT/params.txt ]; then
     XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
 fi
 
+echo "LOG: INFO: ------------ Starting on $WORKING_DIR --------------"
 
-
-# If the docbook for the collection doesn't exist yet, create it
-if [ ! -e $DOCBOOK ]; 
-then 
-  $XSLTPROC -o $DOCBOOK $COLLXML2DOCBOOK_XSL $COLLXML
-  EXIT_STATUS=$EXIT_STATUS || $?
-fi
+# Create the Docbook for the collection
+$XSLTPROC -o $DOCBOOK $COLLXML2DOCBOOK_XSL $COLLXML
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # For each module, generate a docbook file
 for MODULE in `ls $WORKING_DIR`
