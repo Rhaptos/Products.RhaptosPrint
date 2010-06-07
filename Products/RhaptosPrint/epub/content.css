@@ -3,7 +3,7 @@
 /* ======== general ============ */
 
 body{
-  font-size: .85em;
+  font-size: .75em;
 /*
   font-family: georgia, palatino linotype, serif;
 */
@@ -13,34 +13,25 @@ a{
   color: #369;
 }
 
-h1, h2, h3, h4, h5, h6, .title{
-  font-family: arial, helvetica, sans-serif;
-  font-size: 1em;
-  margin: .25em 0;
+h1, h2, h3, h4, h5, h6{
 /*
-  display: inline-block;
+  font-family: arial, helvetica, sans-serif;
 */
+  font-size: 1em;
+  margin: .25em 0 0;
   display: block;
   text-align: left;
   line-height: normal;
 }
 
-h1, .chapter .titlepage h1{
-  color: #d60;
-  font-size: 1.85em;
+h1, .titlepage h1{
+/*
   font-family: georgia, palatino linotype, serif;
-  margin: 1em 0;
-}
-
-.chapter .titlepage h1{
-  margin: 1em 0 3em;
-}
-
-.section .titlepage h1{
-  font-family: arial, helvetica, sans-serif;
-  font-size: 1.85em;
-  color: #369;
-  margin: .5em 0 0;
+*/
+  color: #d60;
+  margin: 2em 0;
+  font-size: 2em;
+  text-align: center;
 }
 
 dl, dt, dd{
@@ -63,12 +54,14 @@ dl, dt, dd{
 
 /* ========== the "befores" (label) ========== */
 
-a.footnoote, .label, .glossary .titlepage{
+.label{
   font-size: .9em;
   color: #369;
   text-transform: uppercase;
   font-weight: bold;
+/*
   font-family: arial, helvetica, sans-serif;
+*/
 }
 
 p.title{
@@ -77,14 +70,33 @@ p.title{
 
 /* ========== section & section headers ========== */
 
-.section .section .titlepage{
-  color: #369;
+.section .section{
+  margin: 1.5em 0;
+}
+
+/*
+.section .titlepage{
+  font-family: arial, helvetica, sans-serif;
+}
+*/
+
+.section .titlepage h1{
   margin: .5em 0 0;
+  font-size: 1.7em;
+  color: #369;
+text-align: left;
   border: 0 solid #369;
   border-bottom-width: 1px;
   border-right-width: 1px;
+}
+
+.section .section .titlepage{
+  color: #369;
   font-weight: bold;
   font-size: 1.5em;
+  border: 0 solid #369;
+  border-bottom-width: 1px;
+  border-right-width: 0;
 }
 
 .section .section .section .titlepage{
@@ -97,34 +109,18 @@ p.title{
 
 .section .section .section .section .titlepage{
   border: 0 solid #369;
-  border-left-width: 0;
-  font-size: 1em;
+  font-size: 1.25em;
   padding: 0 0 .1em 0;
 }
 
-.section .section{
-  margin: 1.5em 0;
-}
-
-.example .section-header, .proof .section-header, .problem 
-.section-header, .solution .section-header, .statement .section-header{
+.example .section .titlepage, .proof .section .titlepage, .problem 
+.section .titlepage, .solution .section .titlepage, .statement .section .titlepage{
   font-weight: normal; 
   border: 0 solid #369;
   border-bottom-width: 1px;
   padding: 0 0 .1em 0;
   font-size: 1em;
   letter-spacing: 0;
-}
-
-.example .section, .problem .section, .solution .section, .statement 
-.section, .proof .section{
-  margin-top: .75em;
-  margin-bottom: 2.5em;
-  margin-left: 3em;
-}
-
-.qmlitem .section{
-  margin-top: 0;
 }
 
 /* ========== list & item ========== */
@@ -223,7 +219,7 @@ span.preformat{
 
 blockquote{
   font-style: italic;
-  margin: 1em 3em;
+  margin: 1em 1.25em;
   line-height: normal;
 }
 
@@ -309,15 +305,6 @@ blockquote{
   font-variant: small-caps;
 }
 
-.emphasis em {
-	font-style: italic;
-	font-weight: normal;
-}
-
-.bold strong .emphasis em {
-	font-weight: bold;
-}
-
 cite, em, i.emphasis .cite-title i{
   font-style: normal;
 }
@@ -357,8 +344,6 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 .token { /* simple math */
   font-family: STIXGeneral,DejaVu Serif,DejaVu Sans,Cambria,Cambria Math,Times,Lucida Sans Unicode,OpenSymbol,Standard Symbols L,serif;
-  font-size: 12pt;
-  font-weight: 400;
 }
 
 /* ========== term & definition ========== */
@@ -410,6 +395,7 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 .figure{
   margin: 1.5em auto;
   text-align: center;
+  page-break-inside: avoid;
 }
 
 .figure-break{
@@ -423,10 +409,7 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 .figure .caption{
   margin: .5em auto;
-}
-
-.horizontal-subfigure-caption, .vertical-subfigure-caption{
-  padding-bottom: .5em;
+  font-size: .9em;
 }
 
 .figure .literallayout, .figure .table{
@@ -436,6 +419,18 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 .figure .title, .table .title{
   text-align: center;
   margin-bottom: .5em;
+}
+
+/* this is only necessary due to abuse of docbook's section tag to stuff subfigures into it */
+.figure .titlepage, .figure .titlepage h1{
+  border: 0 !important;
+  padding: 0 !important;
+  color: black !important;
+  font-size: 1em !important;
+}
+
+.figure .figure{
+  margin: .75em 0;
 }
 
 /* ========== table ========== */
@@ -514,6 +509,15 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 .statement p, .proof p{
   margin: .5em 0 1em;
+}
+
+/* this is only necessary due to abuse of docbook's section tag to stuff rules into it */
+.rule .titlepage, .rule .titlepage h1{ 
+  border: 0 !important;
+  padding: 0 !important;
+  color: black !important;
+  font-size: 1em !important;
+  text-transform: capitalize;
 }
 
 /* ========== glossary & bibtexml & foonotes ========== */
