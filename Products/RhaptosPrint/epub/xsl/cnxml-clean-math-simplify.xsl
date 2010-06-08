@@ -113,30 +113,30 @@
 	</xsl:variable>
 	<xsl:choose>
 		<xsl:when test="$mathVariant='normal' or $mathVariant='bold'">
-			<c:emphasis class="mi" effect="{$mathVariant}">
+			<c:emphasis effect="{$mathVariant}">
 				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
 			</c:emphasis>
 		</xsl:when>
 		<xsl:when test="$mathVariant='italic'">
-			<c:emphasis class="mi" effect="italics">
+			<c:span class="mathml-mi" effect="italics">
 				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
-			</c:emphasis>
+			</c:span>
 		</xsl:when>
 		<xsl:when test="$mathVariant='bold-italic'">
-			<c:emphasis class="mi" effect="bold">
-				<c:emphasis class="mi" effect="italics">
+			<c:emphasis effect="bold">
+				<c:span class="mathml-mi" effect="italics">
 					<xsl:apply-templates mode="cnx.simplify" select="node()"/>
-				</c:emphasis>
+				</c:span>
 			</c:emphasis>
 		</xsl:when>
 		<xsl:when test="$mathVariant='double-struck'">
-			<c:emphasis class="mi" effect="normal">
+			<c:emphasis effect="normal">
 				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
 			</c:emphasis>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring @mathvariant</xsl:with-param></xsl:call-template>
-			<c:emphasis class="mi" effect="normal">
+			<c:emphasis effect="normal">
 				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
 			</c:emphasis>
 		</xsl:otherwise>
@@ -287,9 +287,9 @@
 
 <!-- Word-importing things like f_out create mml:mi for each char in "out" -->
 <xsl:template mode="cnx.simplify" match="mml:mrow[count(*)=count(mml:mi)]">
-	<c:emphasis class="mi">
+	<c:span class="mathml-mi">
 		<xsl:apply-templates mode="cnx.simplify" select="*/node()"/>
-	</c:emphasis>
+	</c:span>
 </xsl:template>
 
 
