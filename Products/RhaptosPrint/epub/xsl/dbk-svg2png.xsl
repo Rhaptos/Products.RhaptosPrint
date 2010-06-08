@@ -21,7 +21,7 @@
 	* "png" to chunk and (later) convert to PNG using the stderr from this xsl and imagemagick's convert
 	* "jpg" to chunk and (later) convert to JPEG using the stderr from this xsl and imagemagick's convert
  -->
-<xsl:param name="cnx.svg.extension"></xsl:param>
+<xsl:param name="cnx.svg.extension">png</xsl:param>
 <xsl:param name="chunk.quietly">1</xsl:param>
 <xsl:param name="svg.doctype-public">-//W3C//DTD SVG 1.1//EN</xsl:param>
 <xsl:param name="svg.doctype-system">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd</xsl:param>
