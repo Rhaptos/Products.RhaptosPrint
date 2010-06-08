@@ -34,7 +34,7 @@ h1, .titlepage h1{
   text-align: center;
 }
 
-dl, dt, dd{
+dl, dt {
   margin: 0;
 }
 
@@ -344,6 +344,11 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 .token { /* simple math */
   font-family: STIXGeneral,DejaVu Serif,DejaVu Sans,Cambria,Cambria Math,Times,Lucida Sans Unicode,OpenSymbol,Standard Symbols L,serif;
+  white-space: nowrap;
+}
+
+.mathml-mi {
+  font-style: italic;
 }
 
 /* ========== term & definition ========== */
@@ -542,7 +547,7 @@ div.glossary dt{
 }
 
 div.glossary div, div.glossary h3, div.glossary h4, div.glossary h5, 
-div.glossary h6, div.glossary p, div.glossary dt, div.glossary dd{
+div.glossary h6, div.glossary p, div.glossary dt, div.glossary {
   display: inline;
   margin: 0;
   padding: 0;
@@ -604,4 +609,9 @@ pre.space{
   border: 1px solid #1d3955;
   border-left-color: #c1d1e0;
   border-top-color: #c1d1e0;
+}
+
+/* Hide module metadata */
+.abstract, .authorgroup, .legalnotice, .pubdate {
+  display: none;
 }
