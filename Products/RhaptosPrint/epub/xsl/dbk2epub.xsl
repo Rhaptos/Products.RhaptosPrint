@@ -164,4 +164,14 @@
 	<xsl:apply-templates select="."/>
 </xsl:template>
 
+<!-- Add a template for newlines.
+     The cnxml2docbook adds a processing instruction named <?cnx.newline?>
+     and is matched here
+     see http://www.sagehill.net/docbookxsl/LineBreaks.html
+-->
+<xsl:template match="processing-instruction('cnx.newline')">
+	<xsl:comment>cnx.newline</xsl:comment>
+	<br/>
+</xsl:template>
+
 </xsl:stylesheet>
