@@ -29,6 +29,7 @@
        ROOT ELEMENT
        #################################################################### -->
   <xsl:template match="math:math">
+    <xsl:message>LOG: INFO: MathML2SVG</xsl:message>
     <xsl:variable name="size" select="ancestor::*[@font-size][1]/@font-size"/>
     <!-- FOP can have @font-size="small" for example -->
     <xsl:variable name="sizeNumber">
