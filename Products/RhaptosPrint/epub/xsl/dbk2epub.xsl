@@ -132,14 +132,23 @@
 </xsl:template>
 
 <!-- Override of docbook-xsl/xhtml-1_1/html.xsl -->
-<xsl:template match="*[@c:element]" mode="class.value">
+<xsl:template match="*[@c:element|@class]" mode="class.value">
   <xsl:param name="class" select="local-name(.)"/>
-  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Adding to @class: "<xsl:value-of select="@c:element"/>"</xsl:with-param></xsl:call-template>
+  <xsl:variable name="cls">
+  	<xsl:value-of select="$class"/>
+  	<xsl:if test="@c:element">
+  		<xsl:text> </xsl:text>
+  		<xsl:value-of select="@c:element"/>
+  	</xsl:if>
+  	<xsl:if test="@class">
+  		<xsl:text> </xsl:text>
+  		<xsl:value-of select="@class"/>
+  	</xsl:if>
+  </xsl:variable>
+  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Adding to @class: "<xsl:value-of select="$cls"/>"</xsl:with-param></xsl:call-template>
   <!-- permit customization of class value only -->
   <!-- Use element name by default -->
-  <xsl:value-of select="$class"/>
-  <xsl:text> </xsl:text>
-  <xsl:value-of select="@c:element"/>
+  <xsl:value-of select="$cls"/>
 </xsl:template>
 
 <!-- Override of docbook-xsl/xhtml-1_1/xref.xsl -->
