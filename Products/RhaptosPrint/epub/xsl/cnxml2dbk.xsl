@@ -469,7 +469,34 @@
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
-	<xsl:processing-instruction name="cnx.newline"/>
+	<xsl:if test="@effect='underline'">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: c:newline[@effect='underline'] not supported yet</xsl:with-param></xsl:call-template>
+	</xsl:if>
+	<xsl:variable name="count">
+		<xsl:if test="not(@count)">
+			<xsl:text>1</xsl:text>
+		</xsl:if>
+		<xsl:value-of select="@count"/>
+	</xsl:variable>
+	<xsl:call-template name="cnx.newline.loop">
+		<xsl:with-param name="count" select="$count"/>
+	</xsl:call-template>
+</xsl:template>
+<xsl:template name="cnx.newline.loop">
+	<xsl:param name="count">0</xsl:param>
+	<xsl:if test="$count != 0">
+		<xsl:choose>
+			<xsl:when test="@effect='underline'">
+				<xsl:processing-instruction name="cnx.newline.underline"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:processing-instruction name="cnx.newline"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:call-template name="cnx.newline.loop">
+			<xsl:with-param name="count" select="$count - 1"/>
+		</xsl:call-template>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="c:space[@effect='underline']">
