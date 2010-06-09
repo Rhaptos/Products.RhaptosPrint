@@ -32,10 +32,12 @@
 
 <!-- Modules after the last subcollection are appendices -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(following-sibling::col:subcollection)]" priority="100">
-	<db:appendix>
+<!-- <db:appendix> -->
+	<db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
 		<xi:include href="{@document}/index.dbk"/>
-	</db:appendix>
+	</db:chapter>
+<!-- </db:appendix> -->
 </xsl:template>
 
 
