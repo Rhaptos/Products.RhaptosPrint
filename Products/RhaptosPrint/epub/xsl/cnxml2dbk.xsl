@@ -296,14 +296,19 @@
 		<db:emphasis role="bold" c:element="exercise-number">
 			<xsl:choose>
 				<xsl:when test="c:solution">
-					<db:link linkend="{$id}.solution" XrefLabel="Exercise {$number}">
+					<db:link linkend="{$id}.solution">
 						<xsl:attribute name="xml:id">
 							<xsl:value-of select="$id"/>
 						</xsl:attribute>
+						<xsl:text>Exercise </xsl:text>
 						<xsl:value-of select="$number"/>
+					</db:link>
+					<db:link linkend="{$id}.solution">
+						<xsl:text> (Go to Solution)</xsl:text>
 					</db:link>
 				</xsl:when>
 				<xsl:otherwise>
+					<xsl:text>Exercise </xsl:text>
 					<xsl:value-of select="$number"/>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -333,7 +338,11 @@
 			<xsl:text>.solution</xsl:text>
 		</xsl:attribute>
 		<db:emphasis role="bold" c:element="exercise-number">
-			<db:link linkend="{$id}"><xsl:value-of select="$number"/></db:link>
+			<db:link linkend="{$id}">
+				<xsl:text>Solution </xsl:text>
+				<xsl:value-of select="$number"/>
+				<xsl:text> (Return to Exercise)</xsl:text>
+			</db:link>
 			<xsl:text>. </xsl:text>
 		</db:emphasis>
 		<!-- Print the 1st c:para on the same line. The rest go in separate blocks -->
@@ -383,14 +392,18 @@
 
 
 <!-- Partially supported -->
-<xsl:template match="c:figure[c:subfigure]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Splitting subfigures into multiple figures</xsl:with-param></xsl:call-template>
-	<db:section c:element="figure">
-		<xsl:apply-templates select="@*|node()"/>
-	</db:section>
+<xsl:template match="c:subfigure">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure element and just including all of its children</xsl:with-param></xsl:call-template>
+	<xsl:if test="@type">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
+	</xsl:if>
+	<xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<xsl:template match="c:figure|c:subfigure">
+<xsl:template match="c:figure">
+	<xsl:if test="@orient='vertical'">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:figure/@orient='vertical'</xsl:with-param></xsl:call-template>
+	</xsl:if>
 	<db:figure>
 		<xsl:apply-templates select="@*|node()"/>
 	</db:figure>
