@@ -173,5 +173,9 @@
 	<xsl:comment>cnx.newline</xsl:comment>
 	<br/>
 </xsl:template>
+<xsl:template match="processing-instruction('cnx.newline.underline')">
+	<xsl:comment>cnx.newline.underline</xsl:comment>
+	<hr/>
+</xsl:template>
 
 </xsl:stylesheet>

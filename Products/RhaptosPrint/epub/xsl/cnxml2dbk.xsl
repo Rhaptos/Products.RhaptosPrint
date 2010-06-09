@@ -469,9 +469,6 @@
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
-	<xsl:if test="@effect='underline'">
-		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: c:newline[@effect='underline'] not supported yet</xsl:with-param></xsl:call-template>
-	</xsl:if>
 	<xsl:variable name="count">
 		<xsl:if test="not(@count)">
 			<xsl:text>1</xsl:text>
