@@ -303,8 +303,9 @@
 						<xsl:text>Exercise </xsl:text>
 						<xsl:value-of select="$number"/>
 					</db:link>
+					<xsl:text> </xsl:text>
 					<db:link linkend="{$id}.solution">
-						<xsl:text> (Go to Solution)</xsl:text>
+						<xsl:text>(Go to Solution)</xsl:text>
 					</db:link>
 				</xsl:when>
 				<xsl:otherwise>
@@ -338,12 +339,12 @@
 			<xsl:text>.solution</xsl:text>
 		</xsl:attribute>
 		<db:emphasis role="bold" c:element="exercise-number">
-			<db:link linkend="{$id}">
-				<xsl:text>Solution </xsl:text>
-				<xsl:value-of select="$number"/>
-				<xsl:text> (Return to Exercise)</xsl:text>
-			</db:link>
+			<xsl:text>Solution </xsl:text>
+			<xsl:value-of select="$number"/>
 			<xsl:text>. </xsl:text>
+			<db:link linkend="{$id}">
+				<xsl:text>(Return to Exercise)</xsl:text>
+			</db:link>
 		</db:emphasis>
 		<!-- Print the 1st c:para on the same line. The rest go in separate blocks -->
 		<xsl:if test="not(c:title) and count(c:solution)=1 and c:solution[*[position()=1 and local-name()='para']]">
