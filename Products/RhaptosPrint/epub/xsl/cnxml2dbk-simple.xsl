@@ -141,7 +141,7 @@
 </xsl:template>
 <xsl:template match="c:emphasis[@effect and @effect!='italics' and @effect!='bold']">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Removing emphasis with @effect=<xsl:value-of select="@effect"/></xsl:with-param></xsl:call-template>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="node()"/>
 </xsl:template>
 <xsl:template match="c:emphasis[@effect='normal']">
     <xsl:apply-templates select="node()"/>
