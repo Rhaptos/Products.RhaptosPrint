@@ -177,7 +177,7 @@
         * no c:caption
         * c:title cannot have xml elements in it, just text
      **************************************** -->
-<xsl:template match="c:media[c:image]">
+<xsl:template match="c:media[c:image[not(starts-with(@src, 'http'))]]">
 	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
 </xsl:template>
 <!-- See m21854 //c:equation/@id="eip-id14423064" -->
