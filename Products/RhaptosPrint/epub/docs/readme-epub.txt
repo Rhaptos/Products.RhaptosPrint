@@ -4,7 +4,9 @@ Then, there are a couple of files that need patching:
 docbook-xsl/epub/bin/lib/docbook.rb will need epub-xmlbase-and-namespace-prefixes.diff
 
 
-Additionally, the epub scripts that come with Docbook require Ruby.
+Additionally, the epub scripts that come with Docbook require Ruby. On a debian/ubuntu system, run:
+  apt-get install ruby
+
 Another set of tools may work as an alternative: http://code.google.com/p/epub-tools/
 
 We're ready to do some converting!
