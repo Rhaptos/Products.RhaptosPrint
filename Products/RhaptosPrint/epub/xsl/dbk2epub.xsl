@@ -4,6 +4,7 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
+  xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
   version="1.0">
 
 <!-- This file converts dbk files to chunked html which is used in EPUB generation.
@@ -177,5 +178,146 @@
 	<xsl:comment>cnx.newline.underline</xsl:comment>
 	<hr/>
 </xsl:template>
+
+<!-- Fix up TOC-generation for the ncx file.
+	Overrides code in docbook-xsl/docbook.xsl using code from docbook-xsl/xhtml-1_1/autotoc.xsl
+ -->
+  <xsl:template match="book|
+                       article|
+                       part|
+                       reference|
+                       preface|
+                       chapter|
+                       bibliography|
+                       appendix|
+                       glossary|
+                       section|
+                       sect1|
+                       sect2|
+                       sect3|
+                       sect4|
+                       sect5|
+                       refentry|
+                       colophon|
+                       bibliodiv[title]|
+                       setindex|
+                       index"
+                mode="ncx">
+    <xsl:variable name="depth" select="count(ancestor::*)"/>
+    <xsl:variable name="title">
+      <xsl:if test="$epub.autolabel != 0">
+        <xsl:variable name="label.markup">
+          <xsl:apply-templates select="." mode="label.markup" />
+        </xsl:variable>
+        <xsl:if test="normalize-space($label.markup)">
+          <xsl:value-of
+            select="concat($label.markup,$autotoc.label.separator)" />
+        </xsl:if>
+      </xsl:if>
+      <xsl:apply-templates select="." mode="title.markup" />
+    </xsl:variable>
+
+    <xsl:variable name="href">
+      <xsl:call-template name="href.target.with.base.dir">
+        <xsl:with-param name="context" select="/" />
+        <!-- Generate links relative to the location of root file/toc.xml file -->
+      </xsl:call-template>
+    </xsl:variable>
+
+    <xsl:variable name="id">
+      <xsl:value-of select="generate-id(.)"/>
+    </xsl:variable>
+    <xsl:variable name="order">
+      <xsl:value-of select="$depth +
+                                  count(preceding::part|
+                                  preceding::reference|
+                                  preceding::book[parent::set]|
+                                  preceding::preface|
+                                  preceding::chapter|
+                                  preceding::bibliography|
+                                  preceding::appendix|
+                                  preceding::article|
+                                  preceding::glossary|
+                                  preceding::section[not(parent::partintro)]|
+                                  preceding::sect1[not(parent::partintro)]|
+                                  preceding::sect2|
+                                  preceding::sect3|
+                                  preceding::sect4|
+                                  preceding::sect5|
+                                  preceding::refentry|
+                                  preceding::colophon|
+                                  preceding::bibliodiv[title]|
+                                  preceding::index)"/>
+    </xsl:variable>
+
+
+  <xsl:variable name="depth2">
+    <xsl:choose>
+      <xsl:when test="local-name(.) = 'section'">
+        <xsl:value-of select="count(ancestor::section) + 1"/>
+      </xsl:when>
+      <xsl:when test="local-name(.) = 'sect1'">1</xsl:when>
+      <xsl:when test="local-name(.) = 'sect2'">2</xsl:when>
+      <xsl:when test="local-name(.) = 'sect3'">3</xsl:when>
+      <xsl:when test="local-name(.) = 'sect4'">4</xsl:when>
+      <xsl:when test="local-name(.) = 'sect5'">5</xsl:when>
+      <xsl:when test="local-name(.) = 'refsect1'">1</xsl:when>
+      <xsl:when test="local-name(.) = 'refsect2'">2</xsl:when>
+      <xsl:when test="local-name(.) = 'refsect3'">3</xsl:when>
+      <xsl:when test="local-name(.) = 'simplesect'">
+        <!-- sigh... -->
+        <xsl:choose>
+          <xsl:when test="local-name(..) = 'section'">
+            <xsl:value-of select="count(ancestor::section)"/>
+          </xsl:when>
+          <xsl:when test="local-name(..) = 'sect1'">2</xsl:when>
+          <xsl:when test="local-name(..) = 'sect2'">3</xsl:when>
+          <xsl:when test="local-name(..) = 'sect3'">4</xsl:when>
+          <xsl:when test="local-name(..) = 'sect4'">5</xsl:when>
+          <xsl:when test="local-name(..) = 'sect5'">6</xsl:when>
+          <xsl:when test="local-name(..) = 'refsect1'">2</xsl:when>
+          <xsl:when test="local-name(..) = 'refsect2'">3</xsl:when>
+          <xsl:when test="local-name(..) = 'refsect3'">4</xsl:when>
+          <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+	<xsl:if test="not(local-name()='section' or local-name()='simplesect') or $toc.section.depth &gt; $depth2">
+
+    <xsl:element name="ncx:navPoint">
+      <xsl:attribute name="id">
+        <xsl:value-of select="$id"/>
+      </xsl:attribute>
+
+      <xsl:attribute name="playOrder">
+        <xsl:choose>
+          <xsl:when test="/*[self::set]">
+            <xsl:value-of select="$order"/>
+          </xsl:when>
+          <xsl:when test="$root.is.a.chunk != '0'">
+            <xsl:value-of select="$order + 1"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$order - 0"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <xsl:element name="ncx:navLabel">
+        <xsl:element name="ncx:text"><xsl:value-of select="normalize-space($title)"/> </xsl:element>
+      </xsl:element>
+      <xsl:element name="ncx:content">
+        <xsl:attribute name="src">
+          <xsl:value-of select="$href"/>
+        </xsl:attribute>
+      </xsl:element>
+      <xsl:apply-templates select="book[parent::set]|part|reference|preface|chapter|bibliography|appendix|article|glossary|section|sect1|sect2|sect3|sect4|sect5|refentry|colophon|bibliodiv[title]|setindex|index" mode="ncx"/>
+    </xsl:element>
+
+	</xsl:if>
+
+  </xsl:template>
 
 </xsl:stylesheet>
