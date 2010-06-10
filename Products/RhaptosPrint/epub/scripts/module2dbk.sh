@@ -23,6 +23,8 @@ CNXML1=$WORKING_DIR/_cnxml1.xml
 CNXML2=$WORKING_DIR/_cnxml2.xml
 CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
+CNXML5=$WORKING_DIR/_cnxml5.xml
+CNXML6=$WORKING_DIR/_cnxml6.xml
 DOCBOOK=$WORKING_DIR/index.dbk # Important. Used in collxml2docbook xinclude
 DOCBOOK1=$WORKING_DIR/_index1.dbk
 DOCBOOK2=$WORKING_DIR/_index2.dbk
@@ -31,6 +33,8 @@ SVG2PNG_FILES_LIST=$WORKING_DIR/_svg2png-list.txt
 VALID=$WORKING_DIR/_valid.dbk
 
 #XSLT files
+UPGRADE_FIVE_XSL=$ROOT/xsl/cnxml-upgrade/cnxml05to06.xsl
+UPGRADE_SIX_XSL=$ROOT/xsl/cnxml-upgrade/cnxml06to07.xsl
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
@@ -86,25 +90,30 @@ if [ -s $WORKING_DIR/__err.txt ]; then
 fi
 #rm $WORKING_DIR/__err.txt
 
+# Upgrade from 0.5 to 0.6
+$XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
+
+# Upgrade from 0.6 to 0.7
+$XSLTPROC -o $CNXML2 $UPGRADE_SIX_XSL $CNXML1
 
 
-$XSLTPROC -o $CNXML1 $CLEANUP_XSL $CNXML
+$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML2
 EXIT_STATUS=$EXIT_STATUS || $?
 
-$XSLTPROC -o $CNXML2 $CLEANUP2_XSL $CNXML1
+$XSLTPROC -o $CNXML4 $CLEANUP2_XSL $CNXML3
 EXIT_STATUS=$EXIT_STATUS || $?
 # Have to run the cleanup twice because we remove empty mml:mo,
 # then remove mml:munder with only 1 child.
 # See m21903
-$XSLTPROC -o $CNXML3 $CLEANUP2_XSL $CNXML2
+$XSLTPROC -o $CNXML5 $CLEANUP2_XSL $CNXML4
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert "simple" MathML to cnxml
-$XSLTPROC -o $CNXML4 $SIMPLIFY_MATHML_XSL $CNXML3
+$XSLTPROC -o $CNXML6 $SIMPLIFY_MATHML_XSL $CNXML5
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML4
+$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML6
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG
