@@ -18,8 +18,10 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template match="db:glossentry[normalize-space(db:glossterm/text())!='' and db:glossterm/text()=preceding-sibling::db:glossentry/db:glossterm/text()]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing duplicate glossentry for term "<xsl:value-of select="db:glossterm/text()"/>"</xsl:with-param></xsl:call-template>
 </xsl:template>
+-->
 
 </xsl:stylesheet>

@@ -11,7 +11,7 @@
 
 <!-- This file:
      * Ensures paths to images inside modules are correct (using @xml:base)
-     * Adds a @_first-letter attribute to glossary entries so they can be organized into a book-level glossary 
+     //* Adds a @_first-letter attribute to glossary entries so they can be organized into a book-level glossary 
  -->
 
 <xsl:import href="debug.xsl"/>
@@ -35,9 +35,10 @@
 	</xsl:copy>
 </xsl:template>
 
-<!-- Overloading the file to add glossary metadata -->
+<!-- DEAD: Removed in favor of module-level glossaries
+<!- - Overloading the file to add glossary metadata - ->
 <xsl:template match="db:glossentry">
-	<!-- Find the 1st character. Used later in the transform to generate a glossary alphbetically -->
+	<!- - Find the 1st character. Used later in the transform to generate a glossary alphbetically - ->
 	<xsl:variable name="letters">
 		<xsl:apply-templates mode="glossaryletters" select="db:glossterm/node()"/>
 	</xsl:variable>
@@ -47,12 +48,12 @@
 		<xsl:apply-templates select="@*|node()"/>
 	</db:glossentry>
 </xsl:template>
-<!-- Helper template to recursively find the text in a glossary term -->
+<!- - Helper template to recursively find the text in a glossary term - ->
 <xsl:template mode="glossaryletters" select="*">
 	<xsl:apply-templates mode="glossaryletters"/>
 </xsl:template>
 <xsl:template mode="glossaryletters" select="text()">
 	<xsl:value-of select="."/>
 </xsl:template>
-
+-->
 </xsl:stylesheet>

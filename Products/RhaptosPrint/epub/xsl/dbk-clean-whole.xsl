@@ -13,7 +13,7 @@
 	It:
 	* unwraps a module (whose root is db:section) and puts it in a db:preface, db:chapter, db:section
 	* puts in empty db:title elements for informal equations (TODO: Not sure why, maybe for labeling and linking)
-	* generates a book-wide glossary instead of a module-wide one (and marks each glossary section with a letter)
+	//* generates a book-wide glossary instead of a module-wide one (and marks each glossary section with a letter)
 	* Converts links to content not included in the book to external links
  -->
 
@@ -77,9 +77,8 @@
 <!-- Combine all module glossaries into a single book glossary -->
 <xsl:template match="db:book">
 	<xsl:copy>
-		<xsl:copy-of select="@*"/>
-		<!-- Generate a list of authors from the modules -->
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="@*|node()"/>
+<!-- DEAD: Removed in favor of module-level glossaries
 		<xsl:if test="//db:glossentry">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
@@ -94,8 +93,10 @@
 				</xsl:call-template>
 			</db:glossary>
 		</xsl:if>
+-->
 	</xsl:copy>
 </xsl:template>
+<!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template mode="glossaryletters" match="@*">
 	<xsl:value-of select="."/>
 </xsl:template>
@@ -104,7 +105,7 @@
 	<xsl:param name="letters"/>
 	<xsl:variable name="letter" select="substring($letters, 1, 1)"/>
 	
-	<!-- Skip all duplicates of letters until the last one, which we process -->
+	<!- - Skip all duplicates of letters until the last one, which we process - ->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
 		<db:glossdiv>
 			<db:title><xsl:value-of select="$letter"/></db:title>
@@ -120,15 +121,16 @@
 		</xsl:call-template>
 	</xsl:if>
 </xsl:template>
-<!-- Discard the @_first-letter attribute since it's no longer needed -->
+<!- - Discard the @_first-letter attribute since it's no longer needed - ->
 <xsl:template match="@_first-letter">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: Writing out an entry whose first letter is "<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-<!-- Discard the module-level glossary -->
+<!- - Discard the module-level glossary - ->
 <xsl:template match="db:glossary">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module-level glossary and combining into book-level glossary</xsl:with-param></xsl:call-template>
 </xsl:template>
+-->
 
 <!-- Make links to unmatched ids external -->
 <xsl:template match="db:xref[@document]|db:link[@document]">
