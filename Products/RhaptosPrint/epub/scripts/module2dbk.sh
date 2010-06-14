@@ -33,8 +33,8 @@ SVG2PNG_FILES_LIST=$WORKING_DIR/_svg2png-list.txt
 VALID=$WORKING_DIR/_valid.dbk
 
 #XSLT files
-UPGRADE_FIVE_XSL=$ROOT/xsl/cnxml-upgrade/cnxml05to06.xsl
-UPGRADE_SIX_XSL=$ROOT/xsl/cnxml-upgrade/cnxml06to07.xsl
+UPGRADE_FIVE_XSL=$ROOT/xsl/upgrade-cnxml05to06.xsl
+UPGRADE_SIX_XSL=$ROOT/xsl/upgrade-cnxml06to07.xsl
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
@@ -92,10 +92,15 @@ fi
 
 # Upgrade from 0.5 to 0.6
 $XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
+if [ $? != 0 ]; then
+  cp $CNXML $CNXML1
+fi
 
 # Upgrade from 0.6 to 0.7
 $XSLTPROC -o $CNXML2 $UPGRADE_SIX_XSL $CNXML1
-
+if [ $? != 0 ]; then
+  cp $CNXML1 $CNXML2
+fi
 
 $XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML2
 EXIT_STATUS=$EXIT_STATUS || $?
