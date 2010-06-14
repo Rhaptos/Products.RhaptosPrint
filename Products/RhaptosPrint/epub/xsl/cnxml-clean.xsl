@@ -12,10 +12,13 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	* Upgrades lists
 	* Detects Word-imported lists and converts them
 	* Adds mml:mtd to mml:mrow when missing
+	* Converts QML (Quiz Markup) to cnxml
  -->
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
+<!-- Convert all QML to cnxml -->
+<xsl:import href="qml2cnxml.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
 
