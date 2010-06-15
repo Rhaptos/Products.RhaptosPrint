@@ -77,7 +77,7 @@
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move the exercise solutions to the end of a module -->
-        <xsl:if test=".//c:exercise or c:exercise">
+        <xsl:if test=".//c:exercise[c:solution] or c:exercise[c:solution]">
         	<db:section c:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
         		<xsl:apply-templates mode="end-of-module" select=".//c:exercise | c:exercise"/>
@@ -181,7 +181,7 @@
 	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
 </xsl:template>
 <!-- See m21854 //c:equation/@id="eip-id14423064" -->
-<xsl:template match="c:para//c:media[c:image]">
+<xsl:template match="c:para//c:media[c:image[not(starts-with(@src, 'http'))]]">
 	<db:inlinemediaobject><xsl:call-template name="media.image"/></db:inlinemediaobject>
 </xsl:template>
 <!-- see m0003 -->
@@ -372,7 +372,7 @@
 <xsl:template match="c:equation/mml:math">
 	<db:mediaobject><xsl:call-template name="insert-mathml"/></db:mediaobject>
 </xsl:template>
-<xsl:template match="mml:math">
+<xsl:template match="c:para//mml:math">
 	<db:inlinemediaobject><xsl:call-template name="insert-mathml"/></db:inlinemediaobject>
 </xsl:template>
 
