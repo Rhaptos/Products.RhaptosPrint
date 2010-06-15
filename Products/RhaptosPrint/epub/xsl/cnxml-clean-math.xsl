@@ -166,4 +166,22 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: MathML to SVG conversion does not support the following element. Skipping <xsl:value-of select="local-name()"/>.</xsl:with-param></xsl:call-template>
 </xsl:template>
 
+<!-- QML to cnxml creates c:div tags which are done right before this step. -->
+<xsl:template match="c:para//c:div">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Unwrapping c:div inside a c:para and adding c:newline around it</xsl:with-param></xsl:call-template>
+	<xsl:comment>c:div</xsl:comment>
+	<c:newline>
+		<xsl:apply-templates select="@*"/>
+	</c:newline>
+	<xsl:apply-templates select="node()"/>
+	<c:newline/>
+	<xsl:comment>/c:div</xsl:comment>
+</xsl:template>
+<xsl:template match="c:div">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Converting c:div into a c:para</xsl:with-param></xsl:call-template>
+	<c:para>
+		<xsl:apply-templates select="@*|node()"/>
+	</c:para>
+</xsl:template>
+
 </xsl:stylesheet>
