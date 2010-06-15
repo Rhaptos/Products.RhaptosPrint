@@ -6,7 +6,7 @@
                 xmlns:q="http://cnx.rice.edu/qml/1.0">
 
   <!-- Import our local translation keys -->
-  <xsl:import href="cnxmll10n.xsl"/>
+  <xsl:import href="l10n/cnxmll10n.xsl"/>
 
   <!-- FIXME: The following need to be added to cnxml10n.xsl: 
       <l:gentext key="singleresopnsehelp" text="Select one"/>
