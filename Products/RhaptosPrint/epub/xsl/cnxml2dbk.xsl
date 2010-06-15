@@ -352,9 +352,17 @@
 		</xsl:if>
 	</db:para>
 	<xsl:apply-templates select="c:solution[1]/*[local-name()!='para' or position()!=1]"/>
-	<xsl:apply-templates select="c:solution[position()!=1]"/>
+	<xsl:apply-templates select="c:solution[position()!=1]/*"/>
 </xsl:template>
 
+<xsl:template match="c:solution[position()!=1]">
+	<db:para>
+		<xsl:apply-templates select="@*"/>
+		<xsl:text>Alternate solution </xsl:text>
+		<xsl:value-of select="position()-1"/>
+	</db:para>
+	<xsl:apply-templates select="node()"/>
+</xsl:template>
 <xsl:template match="c:foreign">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:foreign element for conversion</xsl:with-param></xsl:call-template>
 	<xsl:apply-templates/>
