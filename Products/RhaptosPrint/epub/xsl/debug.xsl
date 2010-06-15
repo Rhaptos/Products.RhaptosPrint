@@ -36,7 +36,7 @@
 	<xsl:call-template name="cnx.log">
 		<xsl:with-param name="isBug">yes</xsl:with-param>
 		<xsl:with-param name="msg">
-			<xsl:text>BUG: Could not match Element </xsl:text>
+			<xsl:text>BUG: Could not match Element (could be strange attributes or children) </xsl:text>
 		    <xsl:call-template name="cnx.nsprefix">
 		        <xsl:with-param name="c" select=".."/>
 		    </xsl:call-template>
