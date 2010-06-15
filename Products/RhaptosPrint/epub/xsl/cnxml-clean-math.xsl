@@ -59,7 +59,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 </xsl:template>
 <!-- Make sure only Presentation MathML is left. All presentation MathML starts with 'm' or is the element 'none'
 -->
-<xsl:template match="*[namespace-uri(.)='http://www.w3.org/1998/Math/MathML' and not(starts-with(local-name(.), 'm') or local-name(.)='semantics' or local-name(.)='annotation-xml')]">
+<xsl:template match="*[namespace-uri(.)='http://www.w3.org/1998/Math/MathML' and not(starts-with(local-name(.), 'm') or local-name(.)='semantics' or local-name(.)='annotation-xml') or local-name(.)='max' or local-name(.)='min']">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found some Content MathML that seeped through. <xsl:value-of select="local-name(.)"/></xsl:with-param></xsl:call-template>
 	<mml:mi>
 		<xsl:apply-templates select="@*|node()"/>
