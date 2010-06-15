@@ -82,24 +82,24 @@
 	<xsl:variable name="rest" select="substring-after($ids,' ')"/>
 	<xsl:choose>
 		<xsl:when test="@type = 'author'">
-			<db:author>
-				<xsl:apply-templates select="../../md:actors/md:*[@userid=$first]"/>
+			<db:author userid="{$first}">
+				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:author>
 		</xsl:when>
 		<xsl:when test="@type = 'maintainer'">
-			<db:editor>
-				<xsl:apply-templates select="../../md:actors/md:*[@userid=$first]"/>
+			<db:editor userid="{$first}">
+				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:editor>
 		</xsl:when>
 		<xsl:when test="@type = 'licensor'">
-			<db:othercredit class="other">
-				<xsl:apply-templates select="../../md:actors/md:*[@userid=$first]"/>
+			<db:othercredit class="other" userid="{$first}">
+				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:othercredit>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Unknown role <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
-			<db:othercredit class="other">
-				<xsl:apply-templates select="../../md:actors/md:*[@userid=$first]"/>
+			<db:othercredit class="other" userid="{$first}">
+				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:othercredit>
 		</xsl:otherwise>
 	</xsl:choose>

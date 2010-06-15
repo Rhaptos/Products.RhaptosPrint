@@ -171,4 +171,13 @@
 	</xsl:choose>
 </xsl:template>
 
+
+<!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
+<xsl:template match="db:authorgroup/db:author">
+	<xsl:variable name="userId" select="@userid"/>
+	<xsl:if test="not(preceding-sibling::db:author[@userid=$userId])">
+		<xsl:call-template name="ident"/>
+	</xsl:if>
+</xsl:template>
+
 </xsl:stylesheet>

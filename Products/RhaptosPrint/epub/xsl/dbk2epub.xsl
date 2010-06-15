@@ -320,4 +320,16 @@
 
   </xsl:template>
 
+
+<!-- Customize the metadata generated for the epub.
+	Originally from docbook-xsl/epub/docbook.xsl -->
+<xsl:template mode="opf.metadata" match="authorgroup">
+	<xsl:apply-templates mode="opf.metadata" select="node()"/>
+</xsl:template>
+
+<!-- Customize the title page
+<xsl:template name="book.titlepage">
+	<div>PHIL-TITLE</div>
+</xsl:template>
+-->
 </xsl:stylesheet>

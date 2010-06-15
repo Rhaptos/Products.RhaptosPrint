@@ -15,6 +15,7 @@
  -->
 
 <xsl:import href="debug.xsl"/>
+<xsl:import href="ident.xsl"/>
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Strip 'em for html generation -->
@@ -29,10 +30,22 @@
 	</xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@*|node()">
+<!-- Creating an authors list for collections (STEP 1). Just collect all the authors (with duplicates) -->
+<xsl:template match="/db:book/db:info">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Collapsing authors of all modules into 1 book-level db:authorgroup</xsl:with-param></xsl:call-template>
 	<xsl:copy>
-		<xsl:apply-templates select="@*|node()"/>
+		<xsl:apply-templates select="@*"/>
+		<db:authorgroup>
+			<xsl:for-each select="//db:author">
+				<xsl:call-template name="ident"/>
+			</xsl:for-each>
+		</db:authorgroup>
+		<xsl:apply-templates select="node()"/>
 	</xsl:copy>
+</xsl:template>
+
+<xsl:template match="db:authorgroup[db:author]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding db:authorgroup whose grandparent is <xsl:value-of select="local-name(../..)"/></xsl:with-param></xsl:call-template>
 </xsl:template>
 
 <!-- DEAD: Removed in favor of module-level glossaries
