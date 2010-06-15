@@ -123,7 +123,7 @@
 		<col:module document="m21891-exercises"/>
 
 <col:subcollection>
-	<md:title>A subcollection of our test modules</md:title>
+	<md:title>A subcollection of our test modules [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
 	<col:content>
 		<col:module document="m10349"/>
 		<col:module document="m10622"/>
@@ -136,7 +136,7 @@
 	<col:module document="m12858"/>
 	<col:module document="m13243"/>
 <col:subcollection>
-	<md:title>Another subcollection with only 1 module</md:title>
+	<md:title>Another subcollection with only 1 module [m14134]</md:title>
 	<col:content>
 
 	<col:module document="m14134"/>
