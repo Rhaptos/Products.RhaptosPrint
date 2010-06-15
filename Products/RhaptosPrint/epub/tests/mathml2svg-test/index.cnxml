@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+	<name>MathML2SVG Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:authorlist>
+      <md:author id="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:author>
+  </md:authorlist>
+</metadata>
+
+	<content>
+	<section><title>About This Test</title>
+	   <para>This module contains cases where the MathML2SVG conversion fails. These should all be cleaned up and fixed.
+	   </para>
+	</section>
+	<section><title>Test!</title>
+	   <para><list>
+           <item><m:math xmlns:m="http://www.w3.org/1998/Math/MathML"><m:mrow xmlns="http://www.w3.org/1998/Math/MathML"><m:msub>
+<m:mi>max</m:mi><m:mrow><m:mi>i</m:mi></m:mrow></m:msub><m:mrow><m:mo>{</m:mo><m:max/><m:mi>*</m:mi><m:mo>}</m:mo></m:mrow></m:mrow></m:math> : from col10040_1.9_complete/m0520</item>
+           <item><m:math/> : from col###/m###</item>
+	   </list></para>
+    </section>
+
+	</content>
+</document>
