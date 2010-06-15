@@ -165,6 +165,37 @@
 	<xsl:apply-templates select="."/>
 </xsl:template>
 
+<!-- Subfigures are converted to images inside a figure with an anchor.
+	With this code, any xref to a subfigure contains the text of the figure.
+	I just added "ancestor::figure" when searching for the context.
+ -->
+<xsl:template match="anchor" mode="xref-to">
+  <xsl:param name="referrer"/>
+  <xsl:param name="xrefstyle"/>
+  <xsl:param name="verbose" select="1"/>
+
+  <xsl:variable name="context" select="(ancestor::figure| ancestor::simplesect                                        |ancestor::section                                        |ancestor::sect1                                        |ancestor::sect2                                        |ancestor::sect3                                        |ancestor::sect4                                        |ancestor::sect5                                        |ancestor::refsection                                        |ancestor::refsect1                                        |ancestor::refsect2                                        |ancestor::refsect3                                        |ancestor::chapter                                        |ancestor::appendix                                        |ancestor::preface                                        |ancestor::partintro                                        |ancestor::dedication                                        |ancestor::acknowledgements                                        |ancestor::colophon                                        |ancestor::bibliography                                        |ancestor::index                                        |ancestor::glossary                                        |ancestor::glossentry                                        |ancestor::listitem                                        |ancestor::varlistentry)[last()]"/>
+
+  <xsl:choose>
+    <xsl:when test="$xrefstyle != ''">
+      <xsl:apply-templates select="." mode="object.xref.markup">
+        <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+        <xsl:with-param name="referrer" select="$referrer"/>
+        <xsl:with-param name="verbose" select="$verbose"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="$context" mode="xref-to">
+        <xsl:with-param name="purpose" select="'xref'"/>
+        <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+        <xsl:with-param name="referrer" select="$referrer"/>
+        <xsl:with-param name="verbose" select="$verbose"/>
+      </xsl:apply-templates>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+
 <!-- Add a template for newlines.
      The cnxml2docbook adds a processing instruction named <?cnx.newline?>
      and is matched here

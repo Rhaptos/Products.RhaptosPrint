@@ -181,7 +181,7 @@
 	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
 </xsl:template>
 <!-- See m21854 //c:equation/@id="eip-id14423064" -->
-<xsl:template match="c:para//c:media[c:image[not(starts-with(@src, 'http'))]]">
+<xsl:template match="c:para//c:media[c:image[not(starts-with(@src, 'http'))]]|c:figure[not(@orient) or @orient='horizontal']/c:subfigure/c:media">
 	<db:inlinemediaobject><xsl:call-template name="media.image"/></db:inlinemediaobject>
 </xsl:template>
 <!-- see m0003 -->
@@ -414,9 +414,6 @@
 </xsl:template>
 
 <xsl:template match="c:figure">
-	<xsl:if test="@orient='vertical'">
-		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:figure/@orient='vertical'</xsl:with-param></xsl:call-template>
-	</xsl:if>
 	<db:figure>
 		<xsl:apply-templates select="@*|node()"/>
 	</db:figure>
