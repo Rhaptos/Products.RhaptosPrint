@@ -24,4 +24,9 @@
 </xsl:template>
 -->
 
+<!-- Since we decided to discard printing module metadata, this removes it (after we generate the book-level metadata).  -->
+<xsl:template match="db:prefaceinfo/db:*[local-name()!='title']|db:chapterinfo/db:*[local-name()!='title']|db:sectioninfo/db:*[local-name()!='title']|db:appendixinfo/db:*[local-name()!='title']">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module metadata: <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
+</xsl:template>
+
 </xsl:stylesheet>

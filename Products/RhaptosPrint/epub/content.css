@@ -610,8 +610,3 @@ pre.space{
   border-left-color: #c1d1e0;
   border-top-color: #c1d1e0;
 }
-
-/* Hide module metadata */
-.abstract, .authorgroup, .legalnotice, .pubdate {
-  display: none;
-}
