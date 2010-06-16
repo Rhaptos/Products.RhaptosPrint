@@ -13,6 +13,12 @@ a{
   color: #369;
 }
 
+dl, dt {
+  margin: 0;
+}
+
+/* =========== headers and title page =========== */
+
 h1, h2, h3, h4, h5, h6{
 /*
   font-family: arial, helvetica, sans-serif;
@@ -24,7 +30,7 @@ h1, h2, h3, h4, h5, h6{
   line-height: normal;
 }
 
-h1, .titlepage h1{
+h1, .titlepage h1, .book h2{
 /*
   font-family: georgia, palatino linotype, serif;
 */
@@ -34,8 +40,8 @@ h1, .titlepage h1{
   text-align: center;
 }
 
-dl, dt {
-  margin: 0;
+.book{
+  text-align: center;
 }
 
 /* ============== ToC ============= */
