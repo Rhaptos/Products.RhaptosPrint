@@ -7,11 +7,12 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- This file:
      * Ensures paths to images inside modules are correct (using @xml:base)
-     //* Adds a @_first-letter attribute to glossary entries so they can be organized into a book-level glossary 
+     //* Adds a @ext:first-letter attribute to glossary entries so they can be organized into a book-level glossary 
  -->
 
 <xsl:import href="debug.xsl"/>
@@ -57,7 +58,7 @@
 	</xsl:variable>
 	<xsl:variable name="firstLetter" select="translate(substring(normalize-space($letters),1,1),'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: firstLetter="<xsl:value-of select="$firstLetter"/>" of "<xsl:value-of select="normalize-space($letters)"/>"</xsl:with-param></xsl:call-template>
-	<db:glossentry _first-letter="{$firstLetter}">
+	<db:glossentry ext:first-letter="{$firstLetter}">
 		<xsl:apply-templates select="@*|node()"/>
 	</db:glossentry>
 </xsl:template>

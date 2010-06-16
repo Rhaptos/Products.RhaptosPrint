@@ -6,6 +6,7 @@
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- 
@@ -66,7 +67,7 @@
 
 <!-- Support c:rule (with c:statement and c:proof) -->
 <xsl:template match="c:rule">
-    <db:section c:element="rule">
+    <db:section ext:element="rule">
     	<xsl:apply-templates select="@*"/>
     	<db:title>
     	    <xsl:apply-templates select="c:title/@*"/>
@@ -84,7 +85,7 @@
 </xsl:template>
 
 <xsl:template match="c:proof">
-    <db:section c:element="proof">
+    <db:section ext:element="proof">
     	<xsl:apply-templates select="@*"/>
     	<db:title>
     		<xsl:apply-templates select="c:title/@*"/>
@@ -102,7 +103,7 @@
 </xsl:template>
 
 <xsl:template match="c:statement">
-    <db:section c:element="statement">
+    <db:section ext:element="statement">
     	<xsl:apply-templates select="@*|node()"/>
     </db:section>
 </xsl:template>

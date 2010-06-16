@@ -8,6 +8,7 @@
   xmlns:md="http://cnx.rice.edu/mdml"
   xmlns="http://cnx.rice.edu/mdml"
   xmlns:exsl="http://exslt.org/common"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   exclude-result-prefixes="c xlink db md4 md exsl"
   version="1.0">
 
@@ -68,13 +69,15 @@
   
  <!-- Either the authors/editors/maintainers/licensors are in lists, or in md:roles -->
 <!-- new-style roles -->
-<xsl:template match="md:roles/md:role">
+<xsl:template match="md:roles">
 	<db:authorgroup>
-		<xsl:comment><xsl:value-of select="@type"/></xsl:comment>
-		<xsl:call-template name="people-lookup">
-			<xsl:with-param name="ids"><xsl:apply-templates/><xsl:text> </xsl:text></xsl:with-param>
-		</xsl:call-template>
+		<xsl:apply-templates select="@*|node()"/>
 	</db:authorgroup>
+</xsl:template>
+<xsl:template match="md:role">
+	<xsl:call-template name="people-lookup">
+		<xsl:with-param name="ids"><xsl:apply-templates select="text()"/><xsl:text> </xsl:text></xsl:with-param>
+	</xsl:call-template>
 </xsl:template>
 <xsl:template name="people-lookup">
 	<xsl:param name="ids"/>
@@ -82,24 +85,25 @@
 	<xsl:variable name="rest" select="substring-after($ids,' ')"/>
 	<xsl:choose>
 		<xsl:when test="@type = 'author'">
-			<db:author userid="{$first}">
+			<db:author ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:author>
 		</xsl:when>
-		<xsl:when test="@type = 'maintainer'">
-			<db:editor userid="{$first}">
+		<xsl:when test="@type = 'editor'">
+			<db:editor ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:editor>
 		</xsl:when>
-		<xsl:when test="@type = 'licensor'">
-			<db:othercredit class="other" userid="{$first}">
+		<xsl:when test="@type = 'translator'">
+			<db:othercredit class="translator" ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 			</db:othercredit>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Unknown role <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
-			<db:othercredit class="other" userid="{$first}">
+			<db:othercredit class="other" ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
+				<db:contrib><xsl:value-of select="@type"/></db:contrib>
 			</db:othercredit>
 		</xsl:otherwise>
 	</xsl:choose>

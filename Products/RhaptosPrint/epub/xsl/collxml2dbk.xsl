@@ -4,6 +4,7 @@
   xmlns:md="http://cnx.rice.edu/mdml"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xi='http://www.w3.org/2001/XInclude'
+  xmlns:ext="http://cnx.org/ns/docbook+"
   exclude-result-prefixes="col md"
   >
 <xsl:include href="cnxml2dbk.xsl"/>
@@ -15,7 +16,15 @@
 </xsl:template>
 
 <xsl:template match="col:collection">
-	<db:book><xsl:apply-templates select="@*|node()"/></db:book>
+	<xsl:variable name="url">
+		<xsl:value-of select="col:metadata/md:content-url/text()"/>
+	</xsl:variable>
+	<xsl:variable name="id">
+		<xsl:value-of select="col:metadata/md:content-id/text()"/>
+	</xsl:variable>
+	<db:book ext:url="{col:metadata/md:content-url/text()}" ext:id="{col:metadata/md:content-id/text()}">
+		<xsl:apply-templates select="@*|node()"/>
+	</db:book>
 </xsl:template>
 
 <xsl:template match="col:metadata">

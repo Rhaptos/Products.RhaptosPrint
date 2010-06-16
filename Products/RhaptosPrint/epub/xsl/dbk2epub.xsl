@@ -5,6 +5,7 @@
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- This file converts dbk files to chunked html which is used in EPUB generation.
@@ -17,6 +18,8 @@
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
+
+<xsl:param name="cnx.iscnx" select="false"></xsl:param>
 
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
@@ -42,7 +45,7 @@
 <xsl:template match="@pmml2svg:baseline-shift">
 	<xsl:attribute name="style">
 	    <!-- Ignore width and height information for now
-		<xsl:text>width:</xsl:text>
+		<xsl:text>widt</xsl:text>
 		<xsl:value-of select="@width"/>
 		<xsl:text>; height:</xsl:text>
 		<xsl:value-of select="@depth"/>
@@ -89,7 +92,7 @@
 
 <!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
 <xsl:template match="example[ancestor::glossentry
-            or ancestor::*[@c:element='rule']
+            or ancestor::*[@ext:element='rule']
             ]" mode="label.markup">
 </xsl:template>
 <xsl:template match="figure|table|example" mode="label.markup">
@@ -116,14 +119,14 @@
             <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
           <xsl:number format="1" from="chapter|appendix" count="*[$name=name() and not(
                ancestor::glossentry
-               or ancestor::*[@c:element='rule']
+               or ancestor::*[@ext:element='rule']
                
           )]" level="any"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:number format="1" from="book|article" level="any" count="*[$name=name() and not(
                ancestor::glossentry
-               or ancestor::*[@c:element='rule']
+               or ancestor::*[@ext:element='rule']
                
           )]"/>
         </xsl:otherwise>
@@ -133,13 +136,13 @@
 </xsl:template>
 
 <!-- Override of docbook-xsl/xhtml-1_1/html.xsl -->
-<xsl:template match="*[@c:element|@class]" mode="class.value">
+<xsl:template match="*[@ext:element|@class]" mode="class.value">
   <xsl:param name="class" select="local-name(.)"/>
   <xsl:variable name="cls">
   	<xsl:value-of select="$class"/>
-  	<xsl:if test="@c:element">
+  	<xsl:if test="@ext:element">
   		<xsl:text> </xsl:text>
-  		<xsl:value-of select="@c:element"/>
+  		<xsl:value-of select="@ext:element"/>
   	</xsl:if>
   	<xsl:if test="@class">
   		<xsl:text> </xsl:text>
@@ -358,9 +361,64 @@
 	<xsl:apply-templates mode="opf.metadata" select="node()"/>
 </xsl:template>
 
-<!-- Customize the title page
+<!-- Customize the title page -->
 <xsl:template name="book.titlepage">
-	<div>PHIL-TITLE</div>
+	<h2>
+		<xsl:value-of select="bookinfo/title/text()"/>
+	</h2>
+	<p>
+		<strong><xsl:value-of select="@ext:type"/> <xsl:text> Edited By: </xsl:text></strong>
+		<xsl:for-each select="bookinfo/authorgroup/editor">
+			<xsl:if test="not(following-sibling::editor)">
+				<xsl:text> and </xsl:text>
+			</xsl:if>
+			<xsl:apply-templates select="."/>
+			<xsl:if test="following-sibling::editor">
+				<xsl:text>, </xsl:text>
+			</xsl:if>
+		</xsl:for-each>
+	</p>
+	<p>
+		<strong><xsl:text>By: </xsl:text></strong>
+		<xsl:for-each select="bookinfo/authorgroup/author">
+			<xsl:if test="not(following-sibling::author)">
+				<xsl:text> and </xsl:text>
+			</xsl:if>
+			<xsl:apply-templates select="."/>
+			<xsl:if test="following-sibling::author">
+				<xsl:text>, </xsl:text>
+			</xsl:if>
+		</xsl:for-each>
+	</p>
+	<xsl:if test="bookinfo/authorgroup/othercredit[@class='translator']">
+		<p>
+			<strong><xsl:text>Translated by: </xsl:text></strong>
+			<xsl:for-each select="bookinfo/authorgroup/othercredit[@class='translator']">
+				<xsl:if test="not(following-sibling::othercredit[@class='translator'])">
+					<xsl:text> and </xsl:text>
+				</xsl:if>
+				<xsl:apply-templates select="."/>
+				<xsl:if test="following-sibling::othercredit[@class='translator']">
+					<xsl:text>, </xsl:text>
+				</xsl:if>
+			</xsl:for-each>
+		</p>
+	</xsl:if>
+	<!-- TODO: If derived -->
+	
+	<p>
+		<xsl:variable name="url">
+			<xsl:value-of select="@ext:url"/>
+		</xsl:variable>
+		<strong><xsl:text>Online: </xsl:text></strong>
+		<xsl:text>&lt;</xsl:text>
+		<a href="{$url}"><xsl:value-of select="$url"/></a>
+		<xsl:text>&gt;</xsl:text>
+	</p>
+	<xsl:if test="$cnx.iscnx">
+		<p><xsl:text>CONNEXIONS</xsl:text></p>
+		<p>Rice University, Houston, Texas</p>
+	</xsl:if>
 </xsl:template>
--->
+
 </xsl:stylesheet>

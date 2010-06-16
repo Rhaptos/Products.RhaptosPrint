@@ -6,6 +6,7 @@
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
@@ -68,7 +69,7 @@
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
-    <db:section c:element="document">
+    <db:section ext:element="document">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <db:sectioninfo>
         	<xsl:apply-templates select="c:title"/>
@@ -78,7 +79,7 @@
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move the exercise solutions to the end of a module -->
         <xsl:if test=".//c:exercise[c:solution] or c:exercise[c:solution]">
-        	<db:section c:element="solutions">
+        	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
         		<xsl:apply-templates mode="end-of-module" select=".//c:exercise | c:exercise"/>
         	</db:section>
@@ -292,8 +293,8 @@
 	<xsl:variable name="number">
 		<xsl:number format="1" level="any"/>
 	</xsl:variable>
-	<db:para c:element="exercise">
-		<db:emphasis role="bold" c:element="exercise-number">
+	<db:para ext:element="exercise">
+		<db:emphasis role="bold" ext:element="exercise-number">
 			<xsl:choose>
 				<xsl:when test="c:solution">
 					<db:link linkend="{$id}.solution">
@@ -333,12 +334,12 @@
 	<xsl:variable name="number">
 		<xsl:number format="1" level="any"/>
 	</xsl:variable>
-	<db:para c:element="solutions">
+	<db:para ext:element="solutions">
 		<xsl:attribute name="xml:id">
 			<xsl:value-of select="$id"/>
 			<xsl:text>.solution</xsl:text>
 		</xsl:attribute>
-		<db:emphasis role="bold" c:element="exercise-number">
+		<db:emphasis role="bold" ext:element="exercise-number">
 			<xsl:text>Solution </xsl:text>
 			<xsl:value-of select="$number"/>
 			<xsl:text>. </xsl:text>

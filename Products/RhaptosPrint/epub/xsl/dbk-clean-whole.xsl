@@ -7,6 +7,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- This file is run once all modules are converted and once all module dbk files are XIncluded.
@@ -83,7 +84,7 @@
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
 				<xsl:variable name="letters">
-					<xsl:apply-templates mode="glossaryletters" select="//db:glossentry/@_first-letter">
+					<xsl:apply-templates mode="glossaryletters" select="//db:glossentry/@ext:first-letter">
 						<xsl:sort select="."/>
 					</xsl:apply-templates>
 				</xsl:variable>
@@ -109,7 +110,7 @@
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
 		<db:glossdiv>
 			<db:title><xsl:value-of select="$letter"/></db:title>
-			<xsl:apply-templates select="//db:glossentry[@_first-letter=$letter]">
+			<xsl:apply-templates select="//db:glossentry[@ext:first-letter=$letter]">
 				<xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
 			</xsl:apply-templates>
 		</db:glossdiv>
@@ -121,8 +122,8 @@
 		</xsl:call-template>
 	</xsl:if>
 </xsl:template>
-<!- - Discard the @_first-letter attribute since it's no longer needed - ->
-<xsl:template match="@_first-letter">
+<!- - Discard the @ext:first-letter attribute since it's no longer needed - ->
+<xsl:template match="@ext:first-letter">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: Writing out an entry whose first letter is "<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
 </xsl:template>
 
@@ -174,8 +175,8 @@
 
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
 <xsl:template match="db:authorgroup/db:author">
-	<xsl:variable name="userId" select="@userid"/>
-	<xsl:if test="not(preceding-sibling::db:author[@userid=$userId])">
+	<xsl:variable name="userId" select="@ext:userid"/>
+	<xsl:if test="not(preceding-sibling::db:author[@ext:userid=$userId])">
 		<xsl:call-template name="ident"/>
 	</xsl:if>
 </xsl:template>

@@ -29,4 +29,9 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module metadata: <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 </xsl:template>
 
+<!-- Discard the email address for epub generation -->
+<xsl:template match="db:email">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding email address</xsl:with-param></xsl:call-template>
+</xsl:template>
+
 </xsl:stylesheet>
