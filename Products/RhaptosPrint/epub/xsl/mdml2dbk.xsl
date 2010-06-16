@@ -100,7 +100,7 @@
 			</db:othercredit>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Unknown role <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: converting role to db:othercredit[@class='other'] <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
 			<db:othercredit class="other" ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 				<db:contrib><xsl:value-of select="@type"/></db:contrib>

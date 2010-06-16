@@ -46,6 +46,19 @@ SVG2PNG_FILES_XSL=$ROOT/xsl/dbk-svg2png.xsl
 
 EXIT_STATUS=0
 
+# remove all the temp files first so we don't accidentally use old ones
+[ -s $CNXML1 ] && rm $CNXML1
+[ -s $CNXML2 ] && rm $CNXML2
+[ -s $CNXML3 ] && rm $CNXML3
+[ -s $CNXML4 ] && rm $CNXML4
+[ -s $CNXML5 ] && rm $CNXML5
+[ -s $CNXML6 ] && rm $CNXML6
+[ -s $DOCBOOK ] && rm $DOCBOOK
+[ -s $DOCBOOK1 ] && rm $DOCBOOK1
+[ -s $DOCBOOK2 ] && rm $DOCBOOK2
+[ -s $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+[ -s $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
+
 # Load up the custom params to xsltproc:
 if [ -s $ROOT/params.txt ]; then
     #echo "Using custom params in params.txt for xsltproc."
@@ -151,10 +164,7 @@ do
   ID=${ID_AND_EXT%%|*}
   EXT=${ID_AND_EXT#*|}
   if [ -s $WORKING_DIR/$ID.svg ]; then
-    if [ -s $WORKING_DIR/$ID.$EXT ]; then
-      echo "LOG: INFO: Converting-SVG $ID to $EXT skipping!"
-    else
-      echo "LOG: INFO: Converting-SVG $ID to $EXT"
+      echo "LOG: DEBUG: Converting-SVG $ID to $EXT"
       # For Macs, use inkscape
       if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
         (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-$EXT=$WORKING_DIR/$ID.$EXT 2>&1) > $WORKING_DIR/__err.txt
@@ -163,7 +173,6 @@ do
         $CONVERT $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
         EXIT_STATUS=$EXIT_STATUS || $?
       fi
-    fi
   else
     # Print saner error messages.
     # For example, Adobe illustrator generates SVG files that are invalid XML.

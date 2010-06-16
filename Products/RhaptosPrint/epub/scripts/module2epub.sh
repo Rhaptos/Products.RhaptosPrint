@@ -46,6 +46,12 @@ else
   DOCBOOK2=$COL_PATH/_collection.normalized.dbk
   DOCBOOK3=$COL_PATH/_collection3.dbk
   DBK_FILE=$COL_PATH/collection.cleaned.dbk
+  
+  # remove all the temp files first so we don't accidentally use old ones
+  [ -s $DOCBOOK2 ] && rm $DOCBOOK2
+  [ -s $DOCBOOK3 ] && rm $DOCBOOK3
+  [ -s $DBK_FILE ] && rm $DBK_FILE
+
   $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_NORMALIZE_PATHS_XSL $DOCBOOK
   $XSLTPROC -o $DOCBOOK3 $DOCBOOK_CLEANUP_XSL $DOCBOOK2
   $XSLTPROC -o $DBK_FILE $DOCBOOK_NORMALIZE_GLOSSARY_XSL $DOCBOOK3
