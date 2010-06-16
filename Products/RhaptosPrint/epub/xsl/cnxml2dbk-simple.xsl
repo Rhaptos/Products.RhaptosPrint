@@ -134,17 +134,17 @@
     <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
 </xsl:template>
 
-<xsl:template match="c:emphasis[@effect='bold']">
+<xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
     <db:emphasis role="bold"><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
-<xsl:template match="c:emphasis[not(@effect) or @effect='italics']">
+<xsl:template match="c:emphasis[@effect='italics']">
     <db:emphasis><xsl:apply-templates select="@*|node()"/></db:emphasis>
 </xsl:template>
-<xsl:template match="c:emphasis[@effect and @effect!='italics' and @effect!='bold']">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Removing emphasis with @effect=<xsl:value-of select="@effect"/></xsl:with-param></xsl:call-template>
+<xsl:template match="c:emphasis[@effect='normal']">
     <xsl:apply-templates select="node()"/>
 </xsl:template>
-<xsl:template match="c:emphasis[@effect='normal']">
+<xsl:template match="c:emphasis">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Removing emphasis with @effect=<xsl:value-of select="@effect"/></xsl:with-param></xsl:call-template>
     <xsl:apply-templates select="node()"/>
 </xsl:template>
 

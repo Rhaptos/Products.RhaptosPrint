@@ -69,7 +69,7 @@
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
-    <db:section ext:element="document">
+    <db:section ext:element="module">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <db:sectioninfo>
         	<xsl:apply-templates select="c:title"/>
@@ -370,10 +370,10 @@
 </xsl:template>
 
 <!-- MathML -->
-<xsl:template match="c:equation/mml:math">
+<xsl:template match="c:equation[not(ancestor::c:para)]/mml:math">
 	<db:mediaobject><xsl:call-template name="insert-mathml"/></db:mediaobject>
 </xsl:template>
-<xsl:template match="c:para//mml:math">
+<xsl:template match="mml:math">
 	<db:inlinemediaobject><xsl:call-template name="insert-mathml"/></db:inlinemediaobject>
 </xsl:template>
 

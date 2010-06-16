@@ -118,15 +118,15 @@
 			</c:emphasis>
 		</xsl:when>
 		<xsl:when test="$mathVariant='italic'">
-			<c:span class="mathml-mi" effect="italics">
+			<c:emphasis class="mathml-mi" effect="italics">
 				<xsl:apply-templates mode="cnx.simplify" select="node()"/>
-			</c:span>
+			</c:emphasis>
 		</xsl:when>
 		<xsl:when test="$mathVariant='bold-italic'">
 			<c:emphasis effect="bold">
-				<c:span class="mathml-mi" effect="italics">
+				<c:emphasis class="mathml-mi" effect="italics">
 					<xsl:apply-templates mode="cnx.simplify" select="node()"/>
-				</c:span>
+				</c:emphasis>
 			</c:emphasis>
 		</xsl:when>
 		<xsl:when test="$mathVariant='double-struck'">
@@ -287,9 +287,9 @@
 
 <!-- Word-importing things like f_out create mml:mi for each char in "out" -->
 <xsl:template mode="cnx.simplify" match="mml:mrow[count(*)=count(mml:mi)]">
-	<c:span class="mathml-mi">
+	<c:emphasis class="mathml-mi">
 		<xsl:apply-templates mode="cnx.simplify" select="*/node()"/>
-	</c:span>
+	</c:emphasis>
 </xsl:template>
 
 
