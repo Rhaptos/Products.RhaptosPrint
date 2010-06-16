@@ -355,6 +355,61 @@
   </xsl:template>
 
 
+<!-- Make the title page show up first in readers.
+	Originally in docbook-xsl/epub/docbook.xsl
+ -->
+  <xsl:template name="opf.spine">
+
+    <xsl:element namespace="http://www.idpf.org/2007/opf" name="spine">
+      <xsl:attribute name="toc">
+        <xsl:value-of select="$epub.ncx.toc.id"/>
+      </xsl:attribute>
+      
+	  <!-- Make sure the title page is the 1st item in the spine -->
+	  <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
+	  	<xsl:attribute name="idref">
+	  		<xls:value-of select="generate-id(book)"/>
+	  	</xsl:attribute>
+	  </xsl:element>
+
+      <xsl:if test="/*/*[cover or contains(name(.), 'info')]//mediaobject[@role='cover' or ancestor::cover]"> 
+        <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
+          <xsl:attribute name="idref">
+            <xsl:value-of select="$epub.cover.id"/>
+          </xsl:attribute>
+          <xsl:attribute name="linear">
+          <xsl:choose>
+            <xsl:when test="$epub.cover.linear">
+              <xsl:text>yes</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>no</xsl:otherwise>
+          </xsl:choose>
+          </xsl:attribute>
+        </xsl:element>
+      </xsl:if>
+
+
+      <xsl:if test="contains($toc.params, 'toc')">
+        <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
+          <xsl:attribute name="idref"> <xsl:value-of select="$epub.html.toc.id"/> </xsl:attribute>
+          <xsl:attribute name="linear">yes</xsl:attribute>
+        </xsl:element>
+      </xsl:if>  
+
+      <!-- TODO: be nice to have a idref="titlepage" here -->
+      <xsl:choose>
+        <xsl:when test="$root.is.a.chunk != '0'">
+          <xsl:apply-templates select="/*" mode="opf.spine"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="/*/*" mode="opf.spine"/>
+        </xsl:otherwise>
+      </xsl:choose>
+                                   
+    </xsl:element>
+  </xsl:template>
+
+
 <!-- Customize the metadata generated for the epub.
 	Originally from docbook-xsl/epub/docbook.xsl -->
 <xsl:template mode="opf.metadata" match="authorgroup">
