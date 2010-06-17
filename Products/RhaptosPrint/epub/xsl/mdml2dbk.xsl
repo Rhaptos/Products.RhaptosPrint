@@ -100,7 +100,7 @@
 			</db:othercredit>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: converting role to db:othercredit[@class='other'] <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: converting role to db:othercredit[@class='other'] <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
 			<db:othercredit class="other" ext:userid="{$first}">
 				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
 				<db:contrib><xsl:value-of select="@type"/></db:contrib>
@@ -152,19 +152,16 @@
 
 <xsl:template match="md:license">
 	<db:legalnotice>
-		<db:para>
-			<xsl:value-of select="$cnx.license"/>
-			<?cnx.newline?>
-			<!-- old-style mdml uses @href -->
-			<db:link xlink:href="{@url}{@href}"><xsl:value-of select="@url"/><xsl:value-of select="@href"/></db:link>
-			<xsl:apply-templates/>
-		</db:para>
+		<xsl:value-of select="$cnx.license"/>
+		<!-- old-style mdml uses @href -->
+		<db:link xlink:href="{@url}{@href}"><xsl:value-of select="@url"/><xsl:value-of select="@href"/></db:link>
+		<xsl:apply-templates/>
 	</db:legalnotice>
 </xsl:template>
 
 
 <!-- Simple transforms: -->
-<xsl:template match="md:roles|md:person"><xsl:apply-templates/></xsl:template>
+<xsl:template match="md:person"><xsl:apply-templates/></xsl:template>
 <xsl:template match="md:firstname">
 	<db:firstname><xsl:apply-templates/></db:firstname>
 </xsl:template>

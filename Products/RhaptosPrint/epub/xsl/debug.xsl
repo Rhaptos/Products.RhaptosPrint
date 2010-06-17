@@ -117,4 +117,34 @@
 	</xsl:if>
 </xsl:template>
 
+<xsl:template name="cnx.personlist">
+	<xsl:param name="nodes"/>
+	<xsl:for-each select="$nodes">
+		<xsl:if test="position()=last() and position()!=1">
+			<xsl:text> and </xsl:text>
+		</xsl:if>
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last() and last()!=2">
+			<xsl:text>, </xsl:text>
+		</xsl:if>
+	</xsl:for-each>
+</xsl:template>
+
+<!-- Construct an id for a node if none exists -->
+<xsl:template name="cnx.id">
+	<xsl:param name="object" select="."/>
+	<xsl:if test="$cnx.module.id != ''">
+		<xsl:value-of select="$cnx.module.id"/>
+		<xsl:value-of select="$cnx.module.separator"/>
+	</xsl:if>
+	<xsl:if test="not($object/@xml:id)">
+		<xsl:if test="not($object/@id)">
+				<xsl:value-of select="generate-id($object)"/>
+		</xsl:if>
+		<xsl:value-of select="$object/@id"/>
+	</xsl:if>
+	<xsl:value-of select="$object/@xml:id"/>
+</xsl:template>
+
+
 </xsl:stylesheet>

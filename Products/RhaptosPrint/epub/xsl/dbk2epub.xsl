@@ -504,17 +504,4 @@
 	</p>
 </xsl:template>
 
-<xsl:template name="cnx.personlist">
-	<xsl:param name="nodes"/>
-	<xsl:for-each select="$nodes">
-		<xsl:if test="position()=last()">
-			<xsl:text>and </xsl:text>
-		</xsl:if>
-		<xsl:apply-templates select="."/>
-		<xsl:if test="position()!=last()">
-			<xsl:text>, </xsl:text>
-		</xsl:if>
-	</xsl:for-each>
-</xsl:template>
-
 </xsl:stylesheet>

@@ -13,6 +13,7 @@
 	Whatever it can't match is printed out as a "BUG: " for later implementation
  -->
 
+<xsl:import href="debug.xsl"/>
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="yes" method="xml"/>
@@ -37,20 +38,6 @@
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>
 </xsl:template>
-
-<!-- Construct an id for a node if none exists -->
-<xsl:template name="cnx.id">
-	<xsl:param name="object" select="."/>
-	<xsl:if test="$cnx.module.id != ''">
-		<xsl:value-of select="$cnx.module.id"/>
-		<xsl:value-of select="$cnx.module.separator"/>
-	</xsl:if>
-	<xsl:if test="not($object/@id)">
-			<xsl:value-of select="generate-id($object)"/>
-	</xsl:if>
-	<xsl:value-of select="$object/@id"/>
-</xsl:template>
-
 
 <!-- Prefix all id's with the module id (for inclusion in collection) -->
 <xsl:template match="@id">

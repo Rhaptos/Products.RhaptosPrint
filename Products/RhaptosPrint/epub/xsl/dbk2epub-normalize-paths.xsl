@@ -13,10 +13,12 @@
 <!-- This file:
      * Ensures paths to images inside modules are correct (using @xml:base)
      //* Adds a @ext:first-letter attribute to glossary entries so they can be organized into a book-level glossary 
+     * Adds an Attribution section at the end of the book
  -->
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
+<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Strip 'em for html generation -->
@@ -70,4 +72,94 @@
 	<xsl:value-of select="."/>
 </xsl:template>
 -->
+
+
+<!-- Add an attribution section with all the modules at the end of the book -->
+<xsl:template match="db:book">
+	<xsl:copy>
+		<xsl:apply-templates select="@*|node()"/>
+		<db:appendix xml:id="book.attribution">
+			<db:title>Attributions</db:title>
+			<xsl:for-each select=".//db:chapterinfo|.//db:sectioninfo">
+				<xsl:variable name="id">
+					<xsl:call-template name="cnx.id">
+						<xsl:with-param name="object" select=".."/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="url">
+					<xsl:value-of select="$cnx.url"/>
+					<xsl:value-of select="$id"/>
+					<xsl:text>/</xsl:text>
+				</xsl:variable>
+				<xsl:variable name="attributionId">
+					<xsl:text>book.attribution.</xsl:text>
+					<xsl:value-of select="$id"/>
+				</xsl:variable>
+				<db:formalpara xml:id="{$attributionId}">
+					<db:title>
+						<xsl:apply-templates select="db:title/@*"/>
+						<xsl:text>Module </xsl:text>
+						<db:link linkend="{$id}">
+							<xsl:apply-templates select="db:title/node()"/>
+						</db:link>
+					</db:title>
+					<db:simplelist>
+						<db:member>
+							<xsl:text>Authored by: </xsl:text>
+							<db:emphasis>
+								<xsl:call-template name="cnx.personlist">
+									<xsl:with-param name="nodes" select="db:authorgroup/db:author"/>
+								</xsl:call-template>
+							</db:emphasis>
+						</db:member>
+						<xsl:if test="db:authorgroup/db:editor">
+							<db:member>
+								<xsl:text>Edited by: </xsl:text>
+								<db:emphasis>
+									<xsl:call-template name="cnx.personlist">
+										<xsl:with-param name="nodes" select="db:authorgroup/db:editor"/>
+									</xsl:call-template>
+								</db:emphasis>
+							</db:member>
+						</xsl:if>
+						<xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
+							<db:member>
+								<xsl:text>Translated by: </xsl:text>
+								<db:emphasis>
+									<xsl:call-template name="cnx.personlist">
+										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='translator']"/>
+									</xsl:call-template>
+								</db:emphasis>
+							</db:member>
+						</xsl:if>
+						<db:member>
+							<xsl:text>URL: </xsl:text>
+							<db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
+						</db:member>
+						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='copyright']">
+							<db:member>
+								<xsl:text>Copyright: </xsl:text>
+								<db:emphasis>
+									<xsl:call-template name="cnx.personlist">
+										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='copyright']"/>
+									</xsl:call-template>
+								</db:emphasis>
+							</db:member>
+						</xsl:if>
+						<xsl:if test="db:legalnotice">
+							<db:member>
+								<xsl:text>License: </xsl:text>
+								<xsl:apply-templates select="db:legalnotice/node()"/>
+							</db:member>
+						</xsl:if>
+						<xsl:if test="not(db:legalnotice)">
+							<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Module contains no license info</xsl:with-param></xsl:call-template>
+						</xsl:if>
+					</db:simplelist>
+				</db:formalpara>
+			</xsl:for-each>
+		</db:appendix>
+	</xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
