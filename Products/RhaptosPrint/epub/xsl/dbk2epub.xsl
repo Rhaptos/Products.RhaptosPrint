@@ -488,18 +488,17 @@
 	<xsl:if test="@ext:derived-url">
 		<p>
 			<xsl:text>The collection was based on </xsl:text>
-			<xsl:text>insert-title-here</xsl:text>
 			<xsl:text> &lt;</xsl:text>
 			<a href="{@ext:derived-url}">
 				<xsl:value-of select="@ext:derived-url"/>
 			</a>
-			<xsl:text>&gt; by insert-collection-authors-list.</xsl:text>
+			<xsl:text>&gt;.</xsl:text>
 		</p>
 	</xsl:if>
 	<p>
 		<xsl:text>Collection structure revised: </xsl:text>
-		<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate"/>
 	</p>
+	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate"/>
 	<p>
 		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
 	</p>
