@@ -368,7 +368,7 @@
 	  <!-- Make sure the title page is the 1st item in the spine -->
 	  <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
 	  	<xsl:attribute name="idref">
-	  		<xls:value-of select="generate-id(book)"/>
+	  		<xsl:value-of select="generate-id(book)"/>
 	  	</xsl:attribute>
 	  </xsl:element>
 
@@ -416,47 +416,43 @@
 	<xsl:apply-templates mode="opf.metadata" select="node()"/>
 </xsl:template>
 
-<!-- Customize the title page -->
+<!-- Customize the title page.
+	TODO: All of these can be made nicer using gentext and the %t replacements
+ -->
 <xsl:template name="book.titlepage">
 	<h2>
 		<xsl:value-of select="bookinfo/title/text()"/>
 	</h2>
-	<p>
-		<strong><xsl:value-of select="@ext:type"/> <xsl:text> Edited By: </xsl:text></strong>
-		<xsl:for-each select="bookinfo/authorgroup/editor">
-			<xsl:if test="not(following-sibling::editor)">
-				<xsl:text> and </xsl:text>
-			</xsl:if>
-			<xsl:apply-templates select="."/>
-			<xsl:if test="following-sibling::editor">
-				<xsl:text>, </xsl:text>
-			</xsl:if>
-		</xsl:for-each>
-	</p>
+	<xsl:variable name="authors">
+		<xsl:call-template name="cnx.personlist">
+			<xsl:with-param name="nodes" select="bookinfo/authorgroup/authors"/>
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="editors">
+		<xsl:call-template name="cnx.personlist">
+			<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:if test="$authors!=$editors">
+		<p>
+			<strong><xsl:value-of select="@ext:type"/> <xsl:text> Edited By: </xsl:text></strong>
+			<xsl:call-template name="cnx.personlist">
+				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
+			</xsl:call-template>
+		</p>
+	</xsl:if>
 	<p>
 		<strong><xsl:text>By: </xsl:text></strong>
-		<xsl:for-each select="bookinfo/authorgroup/author">
-			<xsl:if test="not(following-sibling::author)">
-				<xsl:text> and </xsl:text>
-			</xsl:if>
-			<xsl:apply-templates select="."/>
-			<xsl:if test="following-sibling::author">
-				<xsl:text>, </xsl:text>
-			</xsl:if>
-		</xsl:for-each>
+		<xsl:call-template name="cnx.personlist">
+			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
+		</xsl:call-template>
 	</p>
 	<xsl:if test="bookinfo/authorgroup/othercredit[@class='translator']">
 		<p>
 			<strong><xsl:text>Translated by: </xsl:text></strong>
-			<xsl:for-each select="bookinfo/authorgroup/othercredit[@class='translator']">
-				<xsl:if test="not(following-sibling::othercredit[@class='translator'])">
-					<xsl:text> and </xsl:text>
-				</xsl:if>
-				<xsl:apply-templates select="."/>
-				<xsl:if test="following-sibling::othercredit[@class='translator']">
-					<xsl:text>, </xsl:text>
-				</xsl:if>
-			</xsl:for-each>
+			<xsl:call-template name="cnx.personlist">
+				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='translator']"/>
+			</xsl:call-template>
 		</p>
 	</xsl:if>
 	<!-- TODO: If derived -->
@@ -474,6 +470,52 @@
 		<p><xsl:text>CONNEXIONS</xsl:text></p>
 		<p>Rice University, Houston, Texas</p>
 	</xsl:if>
+	
+	<xsl:if test="count(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright'])>0">
+		<p>
+			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
+			<xsl:call-template name="cnx.personlist">
+				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright']"/>
+			</xsl:call-template>
+			<xsl:text>.</xsl:text>
+			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
+			<xsl:apply-templates mode="titlepage.mode" select="bookinfo/legalnotice"/>
+		</p>
+	</xsl:if>
+	<xsl:if test="count(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright'])=0">
+		<xsl:message>LOG: WARNING: No copyright holders.... weird.</xsl:message>
+	</xsl:if>
+	<xsl:if test="@ext:derived-url">
+		<p>
+			<xsl:text>The collection was based on </xsl:text>
+			<xsl:text>insert-title-here</xsl:text>
+			<xsl:text> &lt;</xsl:text>
+			<a href="{@ext:derived-url}">
+				<xsl:value-of select="@ext:derived-url"/>
+			</a>
+			<xsl:text>&gt; by insert-collection-authors-list.</xsl:text>
+		</p>
+	</xsl:if>
+	<p>
+		<xsl:text>Collection structure revised: </xsl:text>
+		<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate"/>
+	</p>
+	<p>
+		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
+	</p>
+</xsl:template>
+
+<xsl:template name="cnx.personlist">
+	<xsl:param name="nodes"/>
+	<xsl:for-each select="$nodes">
+		<xsl:if test="position()=last()">
+			<xsl:text>and </xsl:text>
+		</xsl:if>
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last()">
+			<xsl:text>, </xsl:text>
+		</xsl:if>
+	</xsl:for-each>
 </xsl:template>
 
 </xsl:stylesheet>
