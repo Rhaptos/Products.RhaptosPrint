@@ -156,6 +156,9 @@
 <xsl:template match="md:firstname">
 	<db:firstname><xsl:apply-templates/></db:firstname>
 </xsl:template>
+<xsl:template match="md:othername">
+	<db:othername><xsl:apply-templates/></db:othername>
+</xsl:template>
 <xsl:template match="md:surname">
 	<db:surname><xsl:apply-templates/></db:surname>
 </xsl:template>
