@@ -97,30 +97,36 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:variable name="maxRow" select="mml:mtr[count(mml:mtd) = $maxCols][1]"/>
-	<mml:mtable>
-		<xsl:apply-templates select="@*"/>
-		<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
-		<xsl:for-each select="mml:mtr">
-			<xsl:variable name="currentRow" select="."/>
-			<xsl:if test="$maxCols != count(mml:mtd)">
-				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
-			</xsl:if>
-			<mml:mtr>
-				<xsl:apply-templates select="@*"/>
-				<xsl:for-each select="$maxRow/mml:mtd">
-					<xsl:variable name="pos" select="position()"/>
-					<xsl:choose>
-						<xsl:when test="$pos > count($currentRow/mml:mtd)">
-							<mml:mtd><mml:mrow/></mml:mtd>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates select="$currentRow/mml:mtd[$pos]"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:for-each>
-			</mml:mtr>
-		</xsl:for-each>
-	</mml:mtable>
+	<xsl:if test="$maxCols = 0">
+		<!-- Discard empty tables. See: m30615 -->
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Discarding mml:mtable with no mml:mtd</xsl:with-param></xsl:call-template>
+	</xsl:if>
+	<xsl:if test="$maxCols > 0">
+		<mml:mtable>
+			<xsl:apply-templates select="@*"/>
+			<!-- For-each row, make sure it has the same number of mml:mtd's by filling in empty ones -->
+			<xsl:for-each select="mml:mtr">
+				<xsl:variable name="currentRow" select="."/>
+				<xsl:if test="$maxCols != count(mml:mtd)">
+					<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Mismatched number of mml:mtd in the mml:mtable. Adding an empty mml:mtd</xsl:with-param></xsl:call-template>
+				</xsl:if>
+				<mml:mtr>
+					<xsl:apply-templates select="@*"/>
+					<xsl:for-each select="$maxRow/mml:mtd">
+						<xsl:variable name="pos" select="position()"/>
+						<xsl:choose>
+							<xsl:when test="$pos > count($currentRow/mml:mtd)">
+								<mml:mtd><mml:mrow/></mml:mtd>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="$currentRow/mml:mtd[$pos]"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:for-each>
+				</mml:mtr>
+			</xsl:for-each>
+		</mml:mtable>
+	</xsl:if>
 </xsl:template>
 <!-- Helper for mml:mtable fixing -->
 <xsl:template name="findMaxCols">
@@ -182,6 +188,16 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<c:para>
 		<xsl:apply-templates select="@*|node()"/>
 	</c:para>
+</xsl:template>
+
+<!-- Convert an empty mml:msqrt into a character. See: m31126 -->
+<xsl:template match="mml:msqrt[count(*)=0]">
+	<mml:mtext>&#8730;<!-- sqrt --></mml:mtext>
+</xsl:template>
+
+<!-- Convert an empty mml:mfrac into a simple dash. See col10823/m30403 -->
+<xsl:template match="mml:mfrac[count(*)=0]">
+	<mml:mi>-</mml:mi>
 </xsl:template>
 
 </xsl:stylesheet>

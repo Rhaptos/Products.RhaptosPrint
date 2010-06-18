@@ -20,8 +20,18 @@
 	<section><title>Test!</title>
 	   <para><list>
            <item><m:math xmlns:m="http://www.w3.org/1998/Math/MathML"><m:mrow xmlns="http://www.w3.org/1998/Math/MathML"><m:msub>
-<m:mi>max</m:mi><m:mrow><m:mi>i</m:mi></m:mrow></m:msub><m:mrow><m:mo>{</m:mo><m:max/><m:mi>*</m:mi><m:mo>}</m:mo></m:mrow></m:mrow></m:math> : from col10040_1.9_complete/m0520</item>
-           <item><m:math/> : from col###/m###</item>
+<m:mi>max</m:mi><m:mrow><m:mi>i</m:mi></m:mrow></m:msub><m:mrow><m:mo>{</m:mo><m:max/><m:mi>*</m:mi><m:mo>}</m:mo></m:mrow></m:mrow></m:math> : m:max in presentation MathML. from col10040_1.9_complete/m0520</item>
+           <item><m:math><m:msqrt/></m:math> : Empty m:msqrt. See m31126</item>
+           <item><m:math><m:mtable><m:mtr/><m:mtr/><m:mtr/></m:mtable></m:math> : Empty m:mtable. See m30615</item>
+           <item><!--m:math>
+               <m:mfrac xmlns:m="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                        </m:mrow>
+                    </m:mstyle>
+                </m:mfrac>
+                </m:math-->Difficult to detect: empty mml:mrow in a mml:mfrac (the mml:mrow is inside a mml:mstyle) : from col10802_1.1_complete/m29521</item>
+
 	   </list></para>
     </section>
 
