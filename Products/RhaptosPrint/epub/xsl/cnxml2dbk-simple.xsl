@@ -17,14 +17,26 @@
 
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
+	<xsl:apply-templates select="@*"/>
+	
+	<!-- If something like a note has a label, add it. -->
+	<xsl:if test="(c:title or c:label) and not(c:title and c:label)">
+    	<db:title>
+    		<xsl:apply-templates select="c:title|c:label"/>
+    	</db:title>
+	</xsl:if>
+	<xsl:if test="c:title and c:label">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: c:label and c:title found in <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
+	</xsl:if>
+	
 	<xsl:choose>
 		<xsl:when test="normalize-space(text()) != ''">
 			<db:para>
-				<xsl:apply-templates select="@*|node()"/>
+				<xsl:apply-templates select="node()[local-name()!='label' and local-name()!='title']"/>
 			</db:para>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:apply-templates select="@*|node()"/>
+			<xsl:apply-templates select="node()[local-name()!='label' and local-name()!='title']"/>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -43,6 +55,9 @@
 </xsl:template>
 <xsl:template match="c:note[@type='footnote']">
     <db:footnote><xsl:call-template name="block-id-and-children"/></db:footnote>
+</xsl:template>
+<xsl:template match="c:footnote">
+	<db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
 </xsl:template>
 <xsl:template match="c:section">
     <db:section><xsl:call-template name="block-id-and-children"/></db:section>
@@ -130,6 +145,16 @@
 </xsl:template>
 <xsl:template match="c:list[@list-type='labeled-item']">
     <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
+</xsl:template>
+<!-- Lists with labels for items. -->
+<xsl:template match="c:list[c:item/c:label]">
+    <db:itemizedlist><xsl:apply-templates select="@*|node()"/></db:itemizedlist>
+</xsl:template>
+<xsl:template match="c:item/c:label">
+	<db:emphasis role="bold">
+		<xsl:apply-templates select="@*|node()"/>
+		<xsl:text> : </xsl:text>
+	</db:emphasis>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
