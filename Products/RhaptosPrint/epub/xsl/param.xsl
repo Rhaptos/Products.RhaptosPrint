@@ -4,6 +4,38 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	version="1.0">
 
+<!-- Is this a cnx site or a Rhaptos site? -->
+<xsl:param name="cnx.iscnx" select="1"></xsl:param>
+
+<!-- Used to update the ids so they are unique within a collection -->
+<xsl:param name="cnx.module.id"/>
+<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
+<!-- Possible options for this param:
+	* "" to disable chunking
+	* "svg" to chunk but not convert
+	* "png" to chunk and (later) convert to PNG using the stderr from this xsl and imagemagick's convert
+	* "jpg" to chunk and (later) convert to JPEG using the stderr from this xsl and imagemagick's convert
+ -->
+<xsl:param name="cnx.svg.extension">png</xsl:param>
+
+<!-- Do not add the URL if we are generating a HTML zip -->
+<xsl:param name="cnx.resource.local" select="0"/>
+
+<!-- Used when converting the mdml:license -->
+<xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
+
+<!-- The following parameters are used for debugging and gathering statistics -->
+<xsl:param name="cnx.log.onlybugs" select="0"/> 
+<xsl:param name="cnx.log.onlyaggregate" select="1"/>
+<xsl:param name="cnx.log.nowarn" select="0"/> 
+
+<!-- When generating id's we need to prefix them with a module id. 
+	This is the text between the module, and the module-specific id. -->
+<xsl:param name="cnx.module.separator">.</xsl:param>
+<!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
+<xsl:param name="cnx.output">xhtml</xsl:param>
+
+
 <!-- Parameters used by the MathML Content-to-presentation XSL -->
   <xsl:param name="meannotation" select="''"/>
   <xsl:param name="forallequation" select="0"/>
@@ -30,41 +62,11 @@
   <xsl:param name="local.l10n.xml"/> 
  -->
 
-
-<!-- Used for logging to know what the current module is -->
-<xsl:param name="cnx.module.id"/>
-<!-- The following parameters are used for batch processing and gathering statistics -->
-<xsl:param name="cnx.log.onlybugs">no</xsl:param> 
-<xsl:param name="cnx.log.onlyaggregate">yes</xsl:param>
-<xsl:param name="cnx.log.nowarn">no</xsl:param> 
-
-
-<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
-<!-- Do not add the URL if we are generating a HTML zip -->
-<xsl:param name="cnx.resource.local" select="0"/>
-
-<!-- Used to update the ids so they are unique within a collection -->
-<xsl:param name="cnx.module.id"/>
-<!-- When generating id's we need to prefix them with a module id. 
-	This is the text between the module, and the module-specific id. -->
-<xsl:param name="cnx.module.separator">.</xsl:param>
-<!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
-<xsl:param name="cnx.output">fop</xsl:param>
-
-
-<!-- Possible options for this param:
-	* "" to disable chunking
-	* "svg" to chunk but not convert
-	* "png" to chunk and (later) convert to PNG using the stderr from this xsl and imagemagick's convert
-	* "jpg" to chunk and (later) convert to JPEG using the stderr from this xsl and imagemagick's convert
- -->
-<xsl:param name="cnx.svg.extension">png</xsl:param>
+<!-- Docbook parameters -->
 <xsl:param name="chunk.quietly">1</xsl:param>
 <xsl:param name="svg.doctype-public">-//W3C//DTD SVG 1.1//EN</xsl:param>
 <xsl:param name="svg.doctype-system">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd</xsl:param>
 <xsl:param name="svg.media-type">image/svg+xml</xsl:param>
-
-<xsl:param name="cnx.iscnx" select="false"></xsl:param>
 
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
@@ -79,9 +81,6 @@
 
 <!-- Use .xhtml so browsers are in XML-mode (and render inline SVG) -->
 <xsl:param name="html.ext">.xhtml</xsl:param>
-
-<!-- Used when converting the mdml:license -->
-<xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
 
 <!-- There are 2 namespaces for mdml, so we convert the old one to the new one, and process it -->
 <xsl:param name="exsl.node.set.available"> 

@@ -85,10 +85,10 @@
 	<xsl:param name="msg" />
 	<xsl:param name="isBug">no</xsl:param>
 	<xsl:param name="node" select="."/>
-	<xsl:if test="($cnx.log.onlybugs != 'no' and $isBug != 'no') or $cnx.log.onlybugs = 'no'">
-	<xsl:if test="not(starts-with($msg, 'WARNING: ')) or $cnx.log.nowarn='no'"> 
+	<xsl:if test="($cnx.log.onlybugs != 0 and $isBug != 0) or $cnx.log.onlybugs = 0">
+	<xsl:if test="not(starts-with($msg, 'WARNING: ')) or $cnx.log.nowarn=0"> 
 		<xsl:choose>
-			<xsl:when test="$cnx.log.onlyaggregate != 'no'">
+			<xsl:when test="$cnx.log.onlyaggregate != 0">
 				<xsl:message>
 					<xsl:text>LOG: </xsl:text>
 				  	<xsl:value-of select="$msg"/>

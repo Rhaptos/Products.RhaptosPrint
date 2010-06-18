@@ -447,7 +447,7 @@
 		<a href="{$url}"><xsl:value-of select="$url"/></a>
 		<xsl:text>&gt;</xsl:text>
 	</p>
-	<xsl:if test="$cnx.iscnx">
+	<xsl:if test="$cnx.iscnx != 0">
 		<p><xsl:text>CONNEXIONS</xsl:text></p>
 		<p>Rice University, Houston, Texas</p>
 	</xsl:if>
