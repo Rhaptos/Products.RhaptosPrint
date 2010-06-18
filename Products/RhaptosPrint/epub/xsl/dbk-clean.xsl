@@ -9,12 +9,11 @@
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   version="1.0">
 
+<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
-
-<xsl:param name="cnx.output">fop</xsl:param>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>

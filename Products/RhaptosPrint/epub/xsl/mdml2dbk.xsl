@@ -14,15 +14,6 @@
 
 <!-- This file converts module and collection mdml to elements Docbook understands. -->
 
-<xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
-
-<!-- There are 2 namespaces for mdml, so we convert the old one to the new one, and process it -->
-<xsl:param name="exsl.node.set.available"> 
-  <xsl:choose>
-    <xsl:when xmlns:exsl="http://exslt.org/common" exsl:foo="" test="function-available('exsl:node-set') or contains(system-property('xsl:vendor'),                          'Apache Software Foundation')">1</xsl:when>
-    <xsl:otherwise>0</xsl:otherwise>
-  </xsl:choose>
-</xsl:param>
 <xsl:template match="md4:*">
 	<xsl:choose>
 	    <xsl:when test="$exsl.node.set.available != 0">

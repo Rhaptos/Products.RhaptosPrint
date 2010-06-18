@@ -18,12 +18,11 @@
 	* Converts links to content not included in the book to external links
  -->
 
+<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
-
-<xsl:param name="cnx.url" select="'http://cnx.org/content/'"/>
 
 <!-- Collapse XIncluded modules -->
 <xsl:template match="db:chapter[count(db:section)=1]|db:preface[count(db:section)=1]|db:appendix[count(db:section)=1]|db:section[@document and count(db:section)=1]">

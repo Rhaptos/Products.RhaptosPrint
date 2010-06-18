@@ -15,10 +15,6 @@
  -->
 <xsl:import href="debug.xsl"/>
 
-<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
-<!-- Do not add the URL if we are generating a HTML zip -->
-<xsl:param name="cnx.resource.local" select="0"/>
-
 <!-- Block elements in docbook cannot have free-floating text. they need to be wrapped in a db:para -->
 <xsl:template name="block-id-and-children">
 	<xsl:choose>

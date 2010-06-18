@@ -13,20 +13,11 @@
 	Whatever it can't match is printed out as a "BUG: " for later implementation
  -->
 
+<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
 <xsl:output indent="yes" method="xml"/>
-
-<!-- Used to update the ids so they are unique within a collection -->
-<xsl:param name="cnx.module.id"/>
-
-<!-- When generating id's we need to prefix them with a module id. 
-	This is the text between the module, and the module-specific id. -->
-<xsl:param name="cnx.module.separator">.</xsl:param>
-
-<!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
-<xsl:param name="cnx.output">fop</xsl:param>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>

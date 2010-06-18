@@ -16,9 +16,10 @@
      * Adds an Attribution section at the end of the book
  -->
 
+<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
-<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
+
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Strip 'em for html generation -->
@@ -95,7 +96,10 @@
 					<xsl:text>book.attribution.</xsl:text>
 					<xsl:value-of select="$id"/>
 				</xsl:variable>
-				<db:formalpara xml:id="{$attributionId}">
+				<db:formalpara>
+					<xsl:attribute name="xml:id">
+						<xsl:value-of select="$attributionId"/>
+					</xsl:attribute>
 					<db:title>
 						<xsl:apply-templates select="db:title/@*"/>
 						<xsl:text>Module </xsl:text>
