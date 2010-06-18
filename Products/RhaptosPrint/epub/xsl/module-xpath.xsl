@@ -48,7 +48,7 @@
 	<xsl:template match="text()"/>
 	
 	<!-- For outputting an entire node -->
-	<xsl:template mode="copy" select="@*|node()">
+	<xsl:template mode="copy" match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates mode="copy" select="@*|node()"/>
 		</xsl:copy>
