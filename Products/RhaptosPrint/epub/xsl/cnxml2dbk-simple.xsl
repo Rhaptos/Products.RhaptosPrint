@@ -151,7 +151,7 @@
 <xsl:template match="c:list[c:item/c:label]">
     <db:simplelist><xsl:apply-templates select="@*|node()"/></db:simplelist>
 </xsl:template>
-<xsl:template match="c:item[../c:list/c:item/c:label]">
+<xsl:template match="c:item[../c:item/c:label]">
 	<db:member>
 		<xsl:apply-templates select="@*|node()"/>
 	</db:member>
