@@ -191,7 +191,7 @@
         <xsl:text>/</xsl:text>
         <xsl:value-of select="@resource"/>
     </xsl:variable>
-    <db:link xlink:href="{$url}">
+    <db:link xlink:href="{$url}" ext:document="{$document}" ext:resource="{@resource}">
     	<xsl:apply-templates select="@*|node()"/>
     </db:link>
 </xsl:template>
