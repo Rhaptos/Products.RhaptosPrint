@@ -153,6 +153,10 @@
 
 <!-- Simple transforms: -->
 <xsl:template match="md:person"><xsl:apply-templates/></xsl:template>
+<xsl:template match="md:organization"><xsl:apply-templates/></xsl:template>
+<xsl:template match="md:organization/md:fullname">
+	<db:firstname><xsl:apply-templates/></db:firstname>
+</xsl:template>
 <xsl:template match="md:firstname">
 	<db:firstname><xsl:apply-templates/></db:firstname>
 </xsl:template>
