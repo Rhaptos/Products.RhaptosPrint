@@ -22,7 +22,8 @@
 	<!-- If something like a note has a label, add it. -->
 	<xsl:if test="(c:title or c:label) and not(c:title and c:label)">
     	<db:title>
-    		<xsl:apply-templates select="c:title|c:label"/>
+    		<xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    		<xsl:apply-templates select="c:label/@*|c:label/node()"/>
     	</db:title>
 	</xsl:if>
 	<xsl:if test="c:title and c:label">
@@ -148,7 +149,12 @@
 </xsl:template>
 <!-- Lists with labels for items. -->
 <xsl:template match="c:list[c:item/c:label]">
-    <db:itemizedlist><xsl:apply-templates select="@*|node()"/></db:itemizedlist>
+    <db:simplelist><xsl:apply-templates select="@*|node()"/></db:simplelist>
+</xsl:template>
+<xsl:template match="c:item[../c:list/c:item/c:label]">
+	<db:member>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:member>
 </xsl:template>
 <xsl:template match="c:item/c:label">
 	<db:emphasis role="bold">

@@ -98,6 +98,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 </xsl:template>
 
 <!-- Word importer does not detect these. -->
+<!-- 
 <xsl:template match="c:list[c:item[1]/c:label/text()='a']">
 	<xsl:call-template name="format-list"><xsl:with-param name="numberStyle">lower-alpha</xsl:with-param></xsl:call-template>
 </xsl:template>
@@ -119,10 +120,8 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 		<xsl:apply-templates select="@*|node()"/>
 	</xsl:copy>
 </xsl:template>
-<xsl:template match="c:list[c:item[1]/c:label[text()='A' or text()='a' or text()='I' or text()='i']]/c:item/c:label">
-	<!-- Intentionally ignore. -->
-</xsl:template>
-
+<xsl:template match="c:list[c:item[1]/c:label[text()='A' or text()='a' or text()='I' or text()='i']]/c:item/c:label"></xsl:template>
+ -->
 
 <!-- Word importer generates mml:mtr with no mml:mtd. This causes errors for the mathml2svg conversion -->
 <xsl:template match="mml:mtr/mml:mrow">
