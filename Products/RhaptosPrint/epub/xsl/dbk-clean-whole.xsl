@@ -29,7 +29,7 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
-		<xsl:element name="{local-name()}info" namespace="http://docbook.org/ns/docbook">
+		<xsl:element name="db:{local-name()}info">
 			<xsl:apply-templates select="db:title"/>
 			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
 		</xsl:element>

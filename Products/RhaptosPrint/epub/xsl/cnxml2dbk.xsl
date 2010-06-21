@@ -56,10 +56,10 @@
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move the exercise solutions to the end of a module -->
-        <xsl:if test=".//c:exercise[c:solution] or c:exercise[c:solution]">
+        <xsl:if test=".//c:exercise[not(ancestor::c:example) and c:solution] or c:exercise[not(ancestor::c:example) and c:solution]">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
-        		<xsl:apply-templates mode="end-of-module" select=".//c:exercise | c:exercise"/>
+        		<xsl:apply-templates mode="end-of-module" select=".//c:exercise[not(ancestor::c:example)] | c:exercise[not(ancestor::c:example)]"/>
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
@@ -105,23 +105,40 @@
 
 <xsl:template match="c:item">
     <db:listitem>
-    	<xsl:choose>
-    		<xsl:when test="c:title">
-    			<db:formalpara>
-    				<xsl:apply-templates select="@*|*[local-name(.)!='para']|text()|node()|comment()"/>
-    			</db:formalpara>
-    			<xsl:apply-templates select="c:para"/>
-    		</xsl:when>
-    		<xsl:when test="c:para">
-				<xsl:apply-templates select="@*|node()"/>
-    		</xsl:when>
-    		<xsl:otherwise>
-		    	<db:para>
-					<xsl:apply-templates select="@*|node()"/>
-				</db:para>
-			</xsl:otherwise>
-		</xsl:choose>
+    	<xsl:call-template name="cnx.list.item"/>
     </db:listitem>
+</xsl:template>
+
+<xsl:template match="c:item[../c:item/c:label]">
+	<db:member>
+    	<xsl:call-template name="cnx.list.item">
+    		<xsl:with-param name="inline-only" select="1"/>
+    	</xsl:call-template>
+	</db:member>
+</xsl:template>
+
+<xsl:template name="cnx.list.item">
+	<xsl:param name="inline-only" select="0"/>
+	<xsl:apply-templates select="@*"/>
+   	<xsl:choose>
+   		<xsl:when test="c:title">
+   			<db:formalpara>
+   				<xsl:apply-templates select="*[local-name(.)!='para']|node()"/>
+   			</db:formalpara>
+   			<xsl:apply-templates select="c:para"/>
+   		</xsl:when>
+   		<xsl:when test="c:para and $inline-only = 0">
+			<xsl:apply-templates select="node()"/>
+   		</xsl:when>
+   		<xsl:when test="$inline-only != 0">
+			<xsl:apply-templates select="node()"/>
+   		</xsl:when>
+   		<xsl:otherwise>
+	    	<db:para>
+				<xsl:apply-templates select="node()"/>
+			</db:para>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 
@@ -268,9 +285,6 @@
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
 	</xsl:variable>
-	<xsl:variable name="number">
-		<xsl:number format="1" level="any"/>
-	</xsl:variable>
 	<db:para ext:element="exercise">
 		<db:emphasis role="bold" ext:element="exercise-number">
 			<xsl:choose>
@@ -280,7 +294,7 @@
 							<xsl:value-of select="$id"/>
 						</xsl:attribute>
 						<xsl:text>Exercise </xsl:text>
-						<xsl:value-of select="$number"/>
+						<xsl:call-template name="cnx.exercise.number"/>
 					</db:link>
 					<xsl:text> </xsl:text>
 					<db:link linkend="{$id}.solution">
@@ -289,7 +303,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text>Exercise </xsl:text>
-					<xsl:value-of select="$number"/>
+					<xsl:call-template name="cnx.exercise.number"/>
 				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:text>. </xsl:text>
@@ -303,15 +317,47 @@
 	</db:para>
 	<xsl:apply-templates select="c:problem/*[local-name()!='para' or position()!=1]"/>
 </xsl:template>
+<xsl:template name="cnx.exercise.number">
+	<xsl:if test="not(ancestor::c:example)">
+		<!-- Later on, inject the "chapter#.module#" prefix to the exercise -->
+		<ext:exercise-number-stub/>
+		<xsl:number format="1" level="any" count="c:exercise[not(ancestor::c:example)]"/>
+	</xsl:if>
+</xsl:template>
+
+<!-- Special case for exercises inside an example. 
+	Don't number them and don't put the solutions at the end of the chapter
+ -->
+<xsl:template match="c:example//c:exercise">
+	<xsl:variable name="id">
+		<xsl:call-template name="cnx.id"/>
+	</xsl:variable>
+	<!-- Just output the exercise followed by the solution(s) -->
+	<db:para>
+		<db:emphasis role="bold">
+			<xsl:apply-templates select="c:title"/>
+		</db:emphasis>
+	</db:para>
+	<xsl:apply-templates select="c:problem|c:solution"/>
+</xsl:template>
+<xsl:template match="c:example//c:exercise/c:problem">
+	<xsl:apply-templates/>
+</xsl:template>
+<xsl:template match="c:example//c:exercise/c:solution">
+	<db:para>
+		<db:emphasis role="bold">
+			<xsl:apply-templates select="@*"/>
+			<xsl:text>Solution</xsl:text>
+		</db:emphasis>
+	</db:para>
+	<xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template mode="end-of-module" match="c:exercise"/>
 <xsl:template mode="end-of-module" match="c:exercise[c:solution]">
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
 	</xsl:variable>	
-	<xsl:variable name="number">
-		<xsl:number format="1" level="any"/>
-	</xsl:variable>
 	<db:para ext:element="solutions">
 		<xsl:attribute name="xml:id">
 			<xsl:value-of select="$id"/>
@@ -319,7 +365,7 @@
 		</xsl:attribute>
 		<db:emphasis role="bold" ext:element="exercise-number">
 			<xsl:text>Solution </xsl:text>
-			<xsl:value-of select="$number"/>
+			<xsl:call-template name="cnx.exercise.number"/>
 			<xsl:text>. </xsl:text>
 			<db:link linkend="{$id}">
 				<xsl:text>(Return to Exercise)</xsl:text>

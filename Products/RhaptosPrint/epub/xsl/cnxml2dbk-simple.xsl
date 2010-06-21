@@ -151,16 +151,22 @@
 <xsl:template match="c:list[c:item/c:label]">
     <db:simplelist><xsl:apply-templates select="@*|node()"/></db:simplelist>
 </xsl:template>
-<xsl:template match="c:item[../c:item/c:label]">
-	<db:member>
-		<xsl:apply-templates select="@*|node()"/>
-	</db:member>
-</xsl:template>
 <xsl:template match="c:item/c:label">
+	<xsl:variable name="markSuffix">
+		<xsl:choose>
+			<xsl:when test="../../@mark-suffix">
+				<xsl:value-of select="../../@mark-suffix"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text> :</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<db:emphasis role="bold">
 		<xsl:apply-templates select="@*|node()"/>
-		<xsl:text> : </xsl:text>
+		<xsl:value-of select="$markSuffix"/>
 	</db:emphasis>
+	<xsl:text> </xsl:text>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
