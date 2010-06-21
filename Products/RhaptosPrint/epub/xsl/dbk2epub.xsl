@@ -16,9 +16,19 @@
 	* Adds @class attributes to elements for custom styling (like c:rule, c:figure)
  -->
 
-<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
+<xsl:import href="param.xsl"/>
+
+<!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
+<xsl:param name="section.autolabel" select="1"></xsl:param>
+<xsl:param name="section.autolabel.max.depth">1</xsl:param>
+<xsl:param name="chunk.section.depth" select="0"></xsl:param>
+<xsl:param name="chunk.first.sections" select="0"></xsl:param>
+
+<xsl:param name="section.label.includes.component.label">1</xsl:param>
+<xsl:param name="xref.with.number.and.title">0</xsl:param>
+<xsl:param name="toc.section.depth">0</xsl:param>
 
 <xsl:output indent="yes" method="xml"/>
 
