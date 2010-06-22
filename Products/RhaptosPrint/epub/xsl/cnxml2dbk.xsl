@@ -273,49 +273,32 @@
 	</db:imageobject>
 </xsl:template>
 
-<!-- FIXME: We could render multiple problems/line instead of 1/line.
-	To do this, we can convert MathML to simplemath or SVG and calculate the character width.
-	If there is anything funky, then we can fall back to the 1/line approach.
-	If the section ends with a series of c:exercise and width of each is below a certain threshold
-	then we can convert each c:exercise into a <div class="shortproblem" style="width:20em float:left"/>
-	so that they wrap depending on the screen width.
- -->
 <!-- Ugliness that converts an exercise problem and solution into Docbook para's and links -->
 <xsl:template match="c:exercise">
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
 	</xsl:variable>
 	<db:para ext:element="exercise">
+		<xsl:attribute name="xml:id">
+			<xsl:value-of select="$id"/>
+		</xsl:attribute>
 		<db:emphasis role="bold" ext:element="exercise-number">
-			<xsl:choose>
-				<xsl:when test="c:solution">
-					<db:link linkend="{$id}.solution">
-						<xsl:attribute name="xml:id">
-							<xsl:value-of select="$id"/>
-						</xsl:attribute>
-						<xsl:text>Exercise </xsl:text>
-						<xsl:call-template name="cnx.exercise.number"/>
-					</db:link>
-					<xsl:text> </xsl:text>
-					<db:link linkend="{$id}.solution">
-						<xsl:text>(Go to Solution)</xsl:text>
-					</db:link>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>Exercise </xsl:text>
-					<xsl:call-template name="cnx.exercise.number"/>
-				</xsl:otherwise>
-			</xsl:choose>
-			<xsl:text>. </xsl:text>
-			<!-- Print either the title, or the 1st c:para on the same line. The rest go in separate blocks -->
-			<xsl:apply-templates select="c:title"/>
+			<xsl:text>Exercise </xsl:text>
+			<xsl:call-template name="cnx.exercise.number"/>
+               		<xsl:text>. </xsl:text>
 		</db:emphasis>
-		<xsl:text> </xsl:text>
-		<xsl:if test="not(c:title) and c:problem[*[position()=1 and local-name()='para']]">
-			<xsl:apply-templates select="c:problem/c:para[1]/node()"/>
+                <xsl:apply-templates select="c:title" />
+		<xsl:if test="c:solution">
+			<xsl:text> </xsl:text>
+			<db:link linkend="{$id}.solution">
+				<xsl:text>(Go to Solution)</xsl:text>
+			</db:link>
 		</xsl:if>
 	</db:para>
-	<xsl:apply-templates select="c:problem/*[local-name()!='para' or position()!=1]"/>
+	<xsl:apply-templates select="c:problem"/>
+</xsl:template>
+<xsl:template match="c:problem">
+  <xsl:apply-templates/>
 </xsl:template>
 <xsl:template name="cnx.exercise.number">
 	<xsl:if test="not(ancestor::c:example)">
@@ -364,28 +347,18 @@
 			<xsl:text>.solution</xsl:text>
 		</xsl:attribute>
 		<db:emphasis role="bold" ext:element="exercise-number">
-			<xsl:text>Solution </xsl:text>
+			<xsl:text>Solution to Exercise </xsl:text>
 			<xsl:call-template name="cnx.exercise.number"/>
 			<xsl:text>. </xsl:text>
 			<db:link linkend="{$id}">
 				<xsl:text>(Return to Exercise)</xsl:text>
 			</db:link>
 		</db:emphasis>
-		<!-- Print the 1st c:para on the same line. The rest go in separate blocks -->
-		<xsl:if test="not(c:title) and count(c:solution)=1 and c:solution[*[position()=1 and local-name()='para']]">
-			<xsl:apply-templates select="c:solution/c:para[1]/node()"/>
-		</xsl:if>
 	</db:para>
-	<xsl:apply-templates select="c:solution[1]/*[local-name()!='para' or position()!=1]"/>
-	<xsl:apply-templates select="c:solution[position()!=1]/*"/>
+	<xsl:apply-templates select="c:solution"/>
 </xsl:template>
 
-<xsl:template match="c:solution[position()!=1]">
-	<db:para>
-		<xsl:apply-templates select="@*"/>
-		<xsl:text>Alternate solution </xsl:text>
-		<xsl:value-of select="position()-1"/>
-	</db:para>
+<xsl:template match="c:solution">
 	<xsl:apply-templates select="node()"/>
 </xsl:template>
 
