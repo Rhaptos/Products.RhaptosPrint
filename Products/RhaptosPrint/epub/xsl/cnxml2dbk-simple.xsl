@@ -158,7 +158,7 @@
 				<xsl:value-of select="../../@mark-suffix"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text> :</xsl:text>
+				<xsl:text>:</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
