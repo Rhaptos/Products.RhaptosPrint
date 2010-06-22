@@ -54,11 +54,8 @@
 <xsl:template match="c:note[@type='warning']">
     <db:warning><xsl:call-template name="block-id-and-children"/></db:warning>
 </xsl:template>
-<xsl:template match="c:note[@type='footnote']">
-    <db:footnote><xsl:call-template name="block-id-and-children"/></db:footnote>
-</xsl:template>
 <xsl:template match="c:footnote">
-	<db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
+    <db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
 </xsl:template>
 <xsl:template match="c:section">
     <db:section><xsl:call-template name="block-id-and-children"/></db:section>
