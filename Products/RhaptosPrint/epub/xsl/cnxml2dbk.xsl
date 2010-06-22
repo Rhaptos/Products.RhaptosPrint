@@ -388,9 +388,11 @@
 	</db:para>
 	<xsl:apply-templates select="node()"/>
 </xsl:template>
+
 <xsl:template match="c:foreign">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:foreign element for conversion</xsl:with-param></xsl:call-template>
-	<xsl:apply-templates/>
+        <db:foreignphrase>
+        	<xsl:apply-templates/>
+        </db:foreignphrase>
 </xsl:template>
 
 <!-- MathML -->
