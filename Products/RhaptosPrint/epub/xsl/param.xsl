@@ -67,6 +67,7 @@
 <xsl:param name="svg.doctype-public">-//W3C//DTD SVG 1.1//EN</xsl:param>
 <xsl:param name="svg.doctype-system">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd</xsl:param>
 <xsl:param name="svg.media-type">image/svg+xml</xsl:param>
+<xsl:param name="runinhead.default.title.end.punct" /> <!-- Don't add periods after para titles. -->
 
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
