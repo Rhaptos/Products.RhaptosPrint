@@ -530,12 +530,16 @@
 <xsl:template match="ext:exercise" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="id" select="@id"/>
-	<xsl:variable name="solutionId" select="//ext:solution[@exercise-id=$id][1]/@id"/>
-	<xsl:if test="$solutionId!=''">
+	<xsl:variable name="solution" select="//ext:solution[@exercise-id=$id][1]"/>
+	<xsl:variable name="solutionId" select="$solution/@id"/>
+	<xsl:if test="$solution">
 		<xsl:text> (</xsl:text>
-		<a href="#{$solutionId}">
-			<xsl:text>Go to Solution</xsl:text>
-		</a>
+		  <xsl:call-template name="simple.xlink">
+		    <xsl:with-param name="linkend" select="$solutionId"/>
+		    <xsl:with-param name="content">
+		    	<xsl:text>Go to Solution</xsl:text>
+		    </xsl:with-param>
+		  </xsl:call-template>
 		<xsl:text>)</xsl:text>
 	</xsl:if>
 </xsl:template>
@@ -544,9 +548,12 @@
 	<xsl:variable name="exerciseId" select="@exercise-id"/>
 	<xsl:if test="$exerciseId!=''">
 		<xsl:text> (</xsl:text>
-		<a href="#{$exerciseId}">
-			<xsl:text>Return to Exercise</xsl:text>
-		</a>
+		  <xsl:call-template name="simple.xlink">
+		    <xsl:with-param name="linkend" select="$exerciseId"/>
+		    <xsl:with-param name="content">
+		    	<xsl:text>Return to Exercise</xsl:text>
+		    </xsl:with-param>
+		  </xsl:call-template>
 		<xsl:text>)</xsl:text>
 	</xsl:if>
 </xsl:template>
