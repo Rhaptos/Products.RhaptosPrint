@@ -56,10 +56,10 @@
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move the exercise solutions to the end of a module -->
-        <xsl:if test=".//c:exercise[not(ancestor::c:example) and c:solution] or c:exercise[not(ancestor::c:example) and c:solution]">
+        <xsl:if test=".//c:solution[not(ancestor::c:example)]">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
-        		<xsl:apply-templates mode="end-of-module" select=".//c:exercise[not(ancestor::c:example)] | c:exercise[not(ancestor::c:example)]"/>
+        		<xsl:apply-templates mode="end-of-module" select=".//c:solution[not(ancestor::c:example)]"/>
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
@@ -288,12 +288,22 @@
                		<xsl:text>. </xsl:text>
 		</db:emphasis>
                 <xsl:apply-templates select="c:title" />
-		<xsl:if test="c:solution">
+		<xsl:for-each select="c:solution">
 			<xsl:text> </xsl:text>
-			<db:link linkend="{$id}.solution">
-				<xsl:text>(Go to Solution)</xsl:text>
+			<db:link>
+                                <xsl:attribute name="linkend">
+                                        <xsl:value-of select="$id"/>
+                                        <xsl:text>.solution</xsl:text>
+                                        <xsl:number count="c:solution" />
+                                </xsl:attribute>
+				<xsl:text>(Go to Solution</xsl:text>
+                                <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
+                                        <xsl:text> </xsl:text>
+                                        <xsl:number count="c:solution" format="A"/>
+                                </xsl:if>
+                                <xsl:text>)</xsl:text>
 			</db:link>
-		</xsl:if>
+		</xsl:for-each>
 	</db:para>
 	<xsl:apply-templates select="c:problem"/>
 </xsl:template>
@@ -323,31 +333,42 @@
 	</db:para>
 	<xsl:apply-templates select="c:problem|c:solution"/>
 </xsl:template>
-<xsl:template match="c:example//c:exercise/c:problem">
+<xsl:template match="c:example//c:problem">
 	<xsl:apply-templates/>
 </xsl:template>
-<xsl:template match="c:example//c:exercise/c:solution">
+<xsl:template match="c:example//c:solution">
 	<db:para>
 		<db:emphasis role="bold">
 			<xsl:apply-templates select="@*"/>
 			<xsl:text>Solution</xsl:text>
+                        <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
+                                <xsl:text> </xsl:text>
+                                <xsl:number count="c:solution" format="A" />
+                        </xsl:if>
 		</db:emphasis>
 	</db:para>
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template mode="end-of-module" match="c:exercise"/>
-<xsl:template mode="end-of-module" match="c:exercise[c:solution]">
+<xsl:template mode="end-of-module" match="c:solution">
 	<xsl:variable name="id">
-		<xsl:call-template name="cnx.id"/>
+		<xsl:call-template name="cnx.id">
+                        <xsl:with-param name="object" select="parent::c:exercise"/>
+                </xsl:call-template>
 	</xsl:variable>	
-	<db:para ext:element="solutions">
+	<db:para ext:element="solution">
 		<xsl:attribute name="xml:id">
 			<xsl:value-of select="$id"/>
 			<xsl:text>.solution</xsl:text>
+                        <xsl:number count="c:solution" />
 		</xsl:attribute>
 		<db:emphasis role="bold" ext:element="exercise-number">
-			<xsl:text>Solution to Exercise </xsl:text>
+			<xsl:text>Solution</xsl:text>
+                        <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
+                                <xsl:text> </xsl:text>
+                                <xsl:number count="c:solution" format="A" />
+                        </xsl:if>
+                        <xsl:text> to Exercise </xsl:text>
 			<xsl:call-template name="cnx.exercise.number"/>
 			<xsl:text>. </xsl:text>
 			<db:link linkend="{$id}">
@@ -355,7 +376,7 @@
 			</db:link>
 		</db:emphasis>
 	</db:para>
-	<xsl:apply-templates select="c:solution"/>
+	<xsl:apply-templates />
 </xsl:template>
 
 <xsl:template match="c:solution">
