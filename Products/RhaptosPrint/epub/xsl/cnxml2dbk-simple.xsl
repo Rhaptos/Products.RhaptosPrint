@@ -216,10 +216,10 @@
     <db:literallayout><xsl:apply-templates select="@*|node()"/></db:literallayout>
 </xsl:template>
 
-<xsl:template match="c:quote">
+<xsl:template match="c:quote[@display='inline']">
     <db:quote><xsl:apply-templates select="@*|node()"/></db:quote>
 </xsl:template>
-<xsl:template match="c:quote[@type='block']">
+<xsl:template match="c:quote">
     <db:blockquote><xsl:apply-templates select="@*|node()"/></db:blockquote>
 </xsl:template>
 
