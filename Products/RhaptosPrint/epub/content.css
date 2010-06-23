@@ -183,40 +183,30 @@ body{
 
 /* ========== codeblock & codeline ========== */
 
-code, .literallayout{
+.code, .screen{
   font-family: courier, courier new, monospace;
   color: #060;
   font-style: normal;
   font-size: 1em;
 }
 
-.literallayout{
+.screen{
   margin: 0;
   text-align: left;
   line-height: normal;
 }
 
-code blockquote, blockquote code, .literallayout blockquote, blockquote .literallayout{
+.code blockquote, blockquote .code, .screen blockquote, blockquote .screen{
   font-style: normal;
-}
-
-.label code{
-  text-transform: none;
 }
 
 /* ======== preformat ======== */
 
-div.preformat{
+.literallayout{
   margin: .5em 0;
 }
 
-pre.preformatted{
-  font-family: tahoma, verdana, arial, helvetica, sans-serif;
-  font-size: 1em;
-  margin: .5em 0;
-}
-
-span.preformat{
+.literal{ /* display="inline" */
   font-family: courier, courier new, monospace;
   font-size: 1.18em;
 }
@@ -423,7 +413,7 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   font-size: .9em;
 }
 
-.figure .literallayout, .figure .table{
+.figure .screen, .figure .table{
   margin: 0;
 }
 
@@ -472,16 +462,17 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   margin-top: .5em;
 }
 
-.table .caption, .literallayout .caption{
+.table .caption, .screen .caption{
   font-size: .9em;
 }
 
-.literallayout /* code*/ .caption{
+.screen .caption{
   text-align: left;
   border-top: 1px solid #999;
   margin: .75em auto 0;
   line-height: normal;
   padding-top: .5em;
+  font-family: serif;
 }
 
 /* ========== note ========== */

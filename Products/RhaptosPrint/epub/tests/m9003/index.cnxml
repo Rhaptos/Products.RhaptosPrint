@@ -1478,7 +1478,7 @@ To an example after an example with no numbering <cnxn target="element-2839"/>
 </example>
 		</section>
 		<section id="code">
-			<name>Codeline and Codeblock</name>
+			<name>Codeline and Codeblock and Preformat</name>
 
 			<para id="p05">Try running this in MATLAB.</para>
 			<code type="block">
@@ -1507,6 +1507,22 @@ To an example after an example with no numbering <cnxn target="element-2839"/>
 	<cnxn document="m9000" target="cnln" strength="9">cnxn'ed</cnxn>
 	as well
       </code>
+      <para id="preformat1">
+        The following shows an example of &lt;preformat&gt; in use:
+      </para>
+      <preformat>
+                        ajskldfjaklsdf jjs              ajsklf ajslkf asdf
+asdjfaljdf
+
+
+
+
+
+jaksldfjkasdjfklasdf ajskf jasld fjaksl df
+      </preformat>
+      <para id="preformat2">
+        This paragraph shows an example of &lt;preformat display="inline"&gt; in use: <preformat display="inline">this     has weird            spacing.</preformat>
+      </para>
 		</section>
 		<section id="definition">
 

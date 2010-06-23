@@ -209,11 +209,20 @@
     <db:link xlink:href="{@url}"><xsl:apply-templates select="@*|node()"/></db:link>
 </xsl:template>
 
-<xsl:template match="c:para//c:code[not(@display='block')]">
+<xsl:template match="c:code">
     <db:code><xsl:apply-templates select="@*|node()"/></db:code>
 </xsl:template>
-<xsl:template match="c:preformat|c:code">
+<xsl:template match="c:code[@display='block']">
+    <db:screen><xsl:apply-templates select="@*|node()"/></db:screen>
+    <!-- db:programlisting or db:literallayout/db:code are two potential alterantives to db:screen -->
+</xsl:template>
+
+<xsl:template match="c:preformat">
     <db:literallayout><xsl:apply-templates select="@*|node()"/></db:literallayout>
+</xsl:template>
+<xsl:template match="c:preformat[@display='inline']">
+    <db:literal><xsl:apply-templates select="@*|node()"/></db:literal>
+    <!-- Not sure if docbook has a better fit than db:literal for our inline c:preformat -->
 </xsl:template>
 
 <xsl:template match="c:quote[@display='inline']">
