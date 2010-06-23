@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+	<name>Exercises Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:authorlist>
+      <md:author id="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:author>
+  </md:authorlist>
+</metadata>
+
+	<content>
+	<section><title>About This Test</title>
+	   <para>This module tests c:exercise elements with various children, titles, labels, parents, etc.
+	   </para>
+	</section>
+	<exercise id="ex1">
+	   <problem id="ex1.p">
+	       <para>A top-level exercise with just a c:problem and c:solution</para>
+	   </problem>
+	   <solution id="ex1.s">
+	       <para>A solution</para>
+	   </solution>
+	</exercise>
+    <para>Links to different parts of the exercise:</para>
+    <list>
+        <item><link target-id="ex1"/> : exercise</item>
+        <item><link target-id="ex1.p"/> : problem</item>
+        <item><link target-id="ex1.s"/> : solution</item>
+    </list>
+	
+	<section><title>As empty as possible (no solutions)</title>
+        <exercise id="ex2">
+           <problem id="ex2.p">
+               <para>A problem with a label and title</para>
+           </problem>
+        </exercise>
+        <para>Links to different parts of the exercise:</para>
+        <list>
+            <item><link target-id="ex2"/> : exercise</item>
+            <item><link target-id="ex2.p"/> : problem</item>
+        </list>
+    </section>
+
+	<section><title>Exercise inside an example (should not be numbered and solutions should appear right below the problem)</title>
+	   <example>
+        <exercise>
+           <problem>
+               <para>A problem inside an example</para>
+           </problem>
+           <solution>
+               <para>A solution inside an example</para>
+           </solution>
+           <solution>
+               <para>An alternate solution inside an example</para>
+           </solution>
+        </exercise>
+       </example>
+    </section>
+
+	<section><title>Custom labels and titles (should still be numbered 3)</title>
+	   <para>The included math might not even be possible according to the language but it makes sure elements inside a title or label tag are rendered</para>
+        <exercise id="ex3">
+            <label id="ex3.label">Ejercicio with math label <m:math><m:apply><m:divide/><m:ci>label3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
+            <title id="ex3.title">Ejercicio with math title <m:math><m:apply><m:divide/><m:ci>title3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
+           <problem id="ex3.p">
+                <label id="ex3.p.label">Problema with math label <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
+                <title id="ex3.p.title">Problema with math label <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
+               <para>A problem with math (images) in both the label and title</para>
+           </problem>
+           <solution id="ex3.s1">
+                <label id="ex3.s1.label">label3.s1</label>
+                <title id="ex3.s1.title">title3.s1</title>
+               <para>solution3.1</para>
+           </solution>
+           <solution id="ex3.s2">
+                <label id="ex3.s2.label">label3.s2</label>
+                <title id="ex3.s2.title">title3.s2</title>
+               <para>solution3.2</para>
+           </solution>
+        </exercise>
+        <para>Links to different parts of the exercise:</para>
+        <list>
+            <item><link target-id="ex3"/> : exercise</item>
+            <item><link target-id="ex3.title"/> : exercise title</item>
+            <item><link target-id="ex3.label"/> : exercise label</item>
+            <item><link target-id="ex3.p"/> : problem</item>
+            <item><link target-id="ex3.p.title"/> : problem title</item>
+            <item><link target-id="ex3.p.label"/> : problem label</item>
+            <item><link target-id="ex3.s1"/> : solution1</item>
+            <item><link target-id="ex3.s1.title"/> : solution1 title</item>
+            <item><link target-id="ex3.s1.label"/> : solution1 label</item>
+            <item><link target-id="ex3.s2"/> : solution2</item>
+            <item><link target-id="ex3.s2.title"/> : solution2 title</item>
+            <item><link target-id="ex3.s2.label"/> : solution2 label</item>
+        </list>
+    </section>
+
+	</content>
+</document>

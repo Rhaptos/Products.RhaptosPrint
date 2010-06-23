@@ -109,7 +109,7 @@
   </col:parameters>
   
   <col:content>
-    
+
       <col:module document="simplemath">
         <md:title>Overriding title for [simplemath]</md:title>
         <col:featured-links>
@@ -124,8 +124,9 @@
 		<col:module document="m21891-exercises"/>
 
 <col:subcollection>
-	<md:title>A subcollection of our test modules [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
+	<md:title>A subcollection of our test modules: [exercise-test] (several combinations of problems and solutions), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
 	<col:content>
+		<col:module document="exercise-test"/>
 		<col:module document="m10349"/>
 		<col:module document="m10622"/>
 	</col:content>

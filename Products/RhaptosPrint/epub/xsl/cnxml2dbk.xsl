@@ -275,47 +275,33 @@
 
 <!-- Ugliness that converts an exercise problem and solution into Docbook para's and links -->
 <xsl:template match="c:exercise">
-	<xsl:variable name="id">
-		<xsl:call-template name="cnx.id"/>
-	</xsl:variable>
-	<db:para ext:element="exercise">
-		<xsl:attribute name="xml:id">
-			<xsl:value-of select="$id"/>
-		</xsl:attribute>
-		<db:emphasis role="bold" ext:element="exercise-number">
-			<xsl:text>Exercise </xsl:text>
-			<xsl:call-template name="cnx.exercise.number"/>
-               		<xsl:text>. </xsl:text>
-		</db:emphasis>
-                <xsl:apply-templates select="c:title" />
-		<xsl:for-each select="c:solution">
-			<xsl:text> </xsl:text>
-			<db:link>
-                                <xsl:attribute name="linkend">
-                                        <xsl:value-of select="$id"/>
-                                        <xsl:text>.solution</xsl:text>
-                                        <xsl:number count="c:solution" />
-                                </xsl:attribute>
-				<xsl:text>(Go to Solution</xsl:text>
-                                <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
-                                        <xsl:text> </xsl:text>
-                                        <xsl:number count="c:solution" format="A"/>
-                                </xsl:if>
-                                <xsl:text>)</xsl:text>
-			</db:link>
-		</xsl:for-each>
-	</db:para>
-	<xsl:apply-templates select="c:problem"/>
+	<ext:exercise>
+		<xsl:apply-templates select="@*|node()[local-name()!='solution']"/>
+	</ext:exercise>
 </xsl:template>
+
+<!-- Create a custom ext:problem element that will be converted and labeled later on -->
 <xsl:template match="c:problem">
-  <xsl:apply-templates/>
+	<ext:problem>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:problem>
 </xsl:template>
-<xsl:template name="cnx.exercise.number">
-	<xsl:if test="not(ancestor::c:example)">
-		<!-- Later on, inject the "chapter#.module#" prefix to the exercise -->
-		<ext:exercise-number-stub/>
-		<xsl:number format="1" level="any" count="c:exercise[not(ancestor::c:example)]"/>
-	</xsl:if>
+
+<xsl:template mode="end-of-module" match="c:solution">
+	<xsl:variable name="exerciseId">
+		<xsl:call-template name="cnx.id">
+			<xsl:with-param name="object" select=".."/>
+		</xsl:call-template>
+	</xsl:variable>
+	<ext:solution exercise-id="{$exerciseId}">
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:solution>
+</xsl:template>
+
+<xsl:template match="c:exercise/c:label|c:problem/c:label|c:solution/c:label">
+	<ext:label>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:label>
 </xsl:template>
 
 <!-- Special case for exercises inside an example. 
@@ -350,38 +336,6 @@
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template mode="end-of-module" match="c:solution">
-	<xsl:variable name="id">
-		<xsl:call-template name="cnx.id">
-                        <xsl:with-param name="object" select="parent::c:exercise"/>
-                </xsl:call-template>
-	</xsl:variable>	
-	<db:para ext:element="solution">
-		<xsl:attribute name="xml:id">
-			<xsl:value-of select="$id"/>
-			<xsl:text>.solution</xsl:text>
-                        <xsl:number count="c:solution" />
-		</xsl:attribute>
-		<db:emphasis role="bold" ext:element="exercise-number">
-			<xsl:text>Solution</xsl:text>
-                        <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
-                                <xsl:text> </xsl:text>
-                                <xsl:number count="c:solution" format="A" />
-                        </xsl:if>
-                        <xsl:text> to Exercise </xsl:text>
-			<xsl:call-template name="cnx.exercise.number"/>
-			<xsl:text>. </xsl:text>
-			<db:link linkend="{$id}">
-				<xsl:text>(Return to Exercise)</xsl:text>
-			</db:link>
-		</db:emphasis>
-	</db:para>
-	<xsl:apply-templates />
-</xsl:template>
-
-<xsl:template match="c:solution">
-	<xsl:apply-templates select="node()"/>
-</xsl:template>
 
 <xsl:template match="c:foreign">
         <db:foreignphrase>
