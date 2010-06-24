@@ -110,24 +110,24 @@
 						</db:member>
 						<db:member>
 							<xsl:text>By: </xsl:text>
-								<xsl:call-template name="cnx.personlist">
-									<xsl:with-param name="nodes" select="db:authorgroup/db:author"/>
-								</xsl:call-template>
+							<xsl:call-template name="cnx.personlist">
+								<xsl:with-param name="nodes" select="db:authorgroup/db:author"/>
+							</xsl:call-template>
 						</db:member>
 						<xsl:if test="db:authorgroup/db:editor">
 							<db:member>
 								<xsl:text>Edited by: </xsl:text>
-									<xsl:call-template name="cnx.personlist">
-										<xsl:with-param name="nodes" select="db:authorgroup/db:editor"/>
-									</xsl:call-template>
+								<xsl:call-template name="cnx.personlist">
+									<xsl:with-param name="nodes" select="db:authorgroup/db:editor"/>
+								</xsl:call-template>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
 							<db:member>
 								<xsl:text>Translated by: </xsl:text>
-									<xsl:call-template name="cnx.personlist">
-										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='translator']"/>
-									</xsl:call-template>
+								<xsl:call-template name="cnx.personlist">
+									<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='translator']"/>
+								</xsl:call-template>
 							</db:member>
 						</xsl:if>
 						<db:member>
@@ -137,9 +137,9 @@
 						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
 							<db:member>
 								<xsl:text>Copyright: </xsl:text>
-									<xsl:call-template name="cnx.personlist">
-										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
-									</xsl:call-template>
+								<xsl:call-template name="cnx.personlist">
+									<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+								</xsl:call-template>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:legalnotice">
