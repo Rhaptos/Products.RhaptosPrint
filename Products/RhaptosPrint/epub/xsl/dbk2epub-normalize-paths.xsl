@@ -136,7 +136,9 @@
 							<xsl:text>URL: </xsl:text>
 							<db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
 						</db:member>
-						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
+						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor' and *[name()!='db:contrib']]">
+                                                        <!-- Max: The *[name()!='db:contrib'] is to make sure that the db:othercredit is actually populated with a user.  
+                                                             Can somebody be removed once we populate this info for 0.5 modules -->
 							<db:member>
 								<xsl:text>Copyright: </xsl:text>
 								<xsl:call-template name="cnx.personlist">
