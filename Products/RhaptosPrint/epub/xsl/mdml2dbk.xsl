@@ -194,7 +194,7 @@
 
 <!-- Ignore the following metadata elements -->
 <!-- Ignore actors. they're only used by md:roles -->
-<xsl:template match="md:title|md:content-id|md:version|md:created|md:language|md:fullname|md:actors|md:repository|md:content-url"/>
+<xsl:template match="md:title|md:content-id|md:created|md:language|md:fullname|md:actors|md:repository|md:content-url"/>
 
  
 </xsl:stylesheet>

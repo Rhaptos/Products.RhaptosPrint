@@ -91,6 +91,8 @@
 					<xsl:value-of select="$cnx.url"/>
 					<xsl:value-of select="$id"/>
 					<xsl:text>/</xsl:text>
+					<xsl:value-of select="db:edition"/>
+					<xsl:text>/</xsl:text>
 				</xsl:variable>
 				<xsl:variable name="attributionId">
 					<xsl:text>book.attribution.</xsl:text>
