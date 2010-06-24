@@ -96,71 +96,63 @@
 					<xsl:text>book.attribution.</xsl:text>
 					<xsl:value-of select="$id"/>
 				</xsl:variable>
-				<db:formalpara>
-					<xsl:attribute name="xml:id">
-						<xsl:value-of select="$attributionId"/>
-					</xsl:attribute>
-					<db:title>
-						<xsl:apply-templates select="db:title/@*"/>
-						<xsl:text>Module </xsl:text>
-						<db:link linkend="{$id}">
-							<xsl:apply-templates select="db:title/node()"/>
-						</db:link>
-					</db:title>
+				<db:para>
+				        <xsl:attribute name="xml:id">
+					        <xsl:value-of select="$attributionId"/>
+				        </xsl:attribute>
 					<db:simplelist>
 						<db:member>
-							<xsl:text>Authored by: </xsl:text>
-							<db:emphasis>
+							<xsl:apply-templates select="db:title/@*"/>
+							<xsl:text>Module: </xsl:text>
+							<db:link linkend="{$id}">
+								<xsl:apply-templates select="db:title/node()"/>
+							</db:link>
+						</db:member>
+						<db:member>
+							<xsl:text>By: </xsl:text>
 								<xsl:call-template name="cnx.personlist">
 									<xsl:with-param name="nodes" select="db:authorgroup/db:author"/>
 								</xsl:call-template>
-							</db:emphasis>
 						</db:member>
 						<xsl:if test="db:authorgroup/db:editor">
 							<db:member>
 								<xsl:text>Edited by: </xsl:text>
-								<db:emphasis>
 									<xsl:call-template name="cnx.personlist">
 										<xsl:with-param name="nodes" select="db:authorgroup/db:editor"/>
 									</xsl:call-template>
-								</db:emphasis>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
 							<db:member>
 								<xsl:text>Translated by: </xsl:text>
-								<db:emphasis>
 									<xsl:call-template name="cnx.personlist">
 										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='translator']"/>
 									</xsl:call-template>
-								</db:emphasis>
 							</db:member>
 						</xsl:if>
 						<db:member>
 							<xsl:text>URL: </xsl:text>
 							<db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
 						</db:member>
-						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='copyright']">
+						<xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
 							<db:member>
 								<xsl:text>Copyright: </xsl:text>
-								<db:emphasis>
 									<xsl:call-template name="cnx.personlist">
-										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='copyright']"/>
+										<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
 									</xsl:call-template>
-								</db:emphasis>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:legalnotice">
 							<db:member>
 								<xsl:text>License: </xsl:text>
-								<xsl:apply-templates select="db:legalnotice/node()"/>
+								<xsl:apply-templates select="db:legalnotice/db:link"/>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="not(db:legalnotice)">
 							<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Module contains no license info</xsl:with-param></xsl:call-template>
 						</xsl:if>
 					</db:simplelist>
-				</db:formalpara>
+				</db:para>
 			</xsl:for-each>
 		</db:appendix>
 	</xsl:copy>
