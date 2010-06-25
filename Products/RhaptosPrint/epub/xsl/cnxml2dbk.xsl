@@ -445,6 +445,13 @@
 		<xsl:apply-templates select="@*"/>
 	</db:anchor>
 	<xsl:apply-templates select="node()"/>
+        <xsl:if test="not(c:caption)">
+                <db:caption>
+                        <db:emphasis role="bold">
+                                <xsl:number count="c:subfigure" format="(a)"/>
+                        </db:emphasis>
+                </db:caption>
+        </xsl:if>
 </xsl:template>
 
 <xsl:template match="c:figure">
