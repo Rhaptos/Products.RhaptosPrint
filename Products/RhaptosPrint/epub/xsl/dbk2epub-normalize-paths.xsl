@@ -159,6 +159,14 @@
 				</db:para>
 			</xsl:for-each>
 		</db:appendix>
+                <xsl:if test="$cnx.iscnx != 0">
+                        <db:colophon>
+                                <db:title>About Connexions</db:title>
+                                <db:para>
+                                        Since 1999, Connexions has been pioneering a global system where anyone can create course materials and make them fully accessible and easily reusable free of charge. We are a Web-based authoring, teaching and learning environment open to anyone interested in education, including students, teachers, professors and lifelong learners. We connect ideas and facilitate educational communities. Connexions's modular, interactive courses are in use worldwide by universities, community colleges, K-12 schools, distance learners, and lifelong learners. Connexions materials are in many languages, including English, Spanish, Chinese, Japanese, Italian, Vietnamese, French, Portuguese, and Thai. 
+                                </db:para>
+                        </db:colophon>
+                </xsl:if>
 	</xsl:copy>
 </xsl:template>
 
