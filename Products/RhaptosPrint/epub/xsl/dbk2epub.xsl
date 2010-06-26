@@ -461,20 +461,19 @@
 		<p><xsl:text>CONNEXIONS</xsl:text></p>
 		<p>Rice University, Houston, Texas</p>
 	</xsl:if>
-	
-	<xsl:if test="count(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright'])>0">
+	<xsl:if test="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']">
 		<p>
 			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
 			<xsl:call-template name="cnx.personlist">
-				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright']"/>
+				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']"/>
 			</xsl:call-template>
 			<xsl:text>.</xsl:text>
 			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
 			<xsl:apply-templates mode="titlepage.mode" select="bookinfo/legalnotice"/>
 		</p>
 	</xsl:if>
-	<xsl:if test="count(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='copyright'])=0">
-		<xsl:text>LOG: WARNING: No copyright holders.... weird.</xsl:text>
+	<xsl:if test="not(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor'])">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
 	</xsl:if>
 	<xsl:if test="@ext:derived-url">
 		<p>
@@ -488,13 +487,12 @@
 	</xsl:if>
 	<p>
 		<xsl:text>Collection structure revised: </xsl:text>
+        	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate/text()"/>
 	</p>
-	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate"/>
 	<p>
 		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
 	</p>
 </xsl:template>
-
 
 
 <!-- Generate custom HTML for an ext:problem and ext:solution.
