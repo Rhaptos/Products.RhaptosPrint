@@ -474,8 +474,7 @@
 </xsl:template>
 
 
-<!-- Match glossary stuff. TODO: A free-standing definition (not in a glossary)
-     should continue to appear in-line but should be numbered.
+<!-- Match glossary stuff.
      TODO: A glossary definition should be in a top-level glossary and then later
      turned into a single db:glossary at the end of a book.
  -->
@@ -484,39 +483,64 @@
 		<xsl:apply-templates select="@*|node()"/>
 	</db:glossary>
 </xsl:template>
+
 <xsl:template match="c:glossary/c:definition">
-	<db:glossentry>
-		<xsl:apply-templates select="@*"/>
-		<xsl:if test="c:title">
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Dropping c:title in c:definition</xsl:with-param></xsl:call-template>
-		</xsl:if>
-		<xsl:apply-templates select="c:term"/>
-		<db:glossdef>
-			<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
-		</db:glossdef>
-	</db:glossentry>
+        <xsl:call-template name="definition"/>
 </xsl:template>
 
 <!-- According to eip-help/definition, can be in with the rest of the content, outside of a c:glossary -->
 <xsl:template match="c:definition">
 	<db:glosslist>
-		<xsl:if test="c:title">
-			<xsl:apply-templates select="c:title"/>
-		</xsl:if>
-		<db:glossentry>
-			<xsl:apply-templates select="@*|c:term"/>
-			<db:glossdef>
-				<xsl:apply-templates select="*[preceding-sibling::c:term]"/>
-			</db:glossdef>
-		</db:glossentry>
+                <xsl:call-template name="definition"/>
 	</db:glosslist>
 </xsl:template>
-<xsl:template match="c:definition/c:meaning">
-	<db:para><xsl:apply-templates select="@*|node()"/></db:para>
+
+<xsl:template name="definition">
+	<db:glossentry>
+		<xsl:apply-templates select="@*|c:term"/>
+                <xsl:for-each select="c:meaning">
+                        <!-- Put each c:meaning in a db:glossdef, along with any of its associated c:examples -->
+			<db:glossdef>
+        			<xsl:apply-templates select=".|following-sibling::c:example[generate-id(preceding-sibling::c:meaning[1]) = generate-id(current())]"/>
+	        	</db:glossdef>
+                </xsl:for-each>
+                <xsl:apply-templates select="c:seealso"/>
+	</db:glossentry>
+</xsl:template>
+
+<xsl:template match="c:seealso">
+        <db:glossdef>
+                <db:glossseealso>
+                        <xsl:apply-templates/>
+                </db:glossseealso>
+        </db:glossdef>
+</xsl:template>
+
+<xsl:template match="c:meaning">
+	<db:para>
+                <xsl:apply-templates select="@*"/>
+                <xsl:if test="count(parent::c:definition/c:meaning) > 1">
+                        <xsl:number count="c:meaning" format="1. "/>
+                </xsl:if>
+                <xsl:apply-templates select="node()"/>
+        </db:para>
 </xsl:template>
 
 <xsl:template match="c:term[not(@url)]">
-	<db:glossterm><xsl:apply-templates select="@*|node()"/></db:glossterm>
+	<db:glossterm>
+                <xsl:apply-templates select="@*"/>
+                <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
+                        <xsl:choose>
+                                <xsl:when test="c:label">
+                                        <xsl:apply-templates select="c:label" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                        <xsl:text>Definition: </xsl:text>
+                                </xsl:otherwise>
+                        </xsl:choose>
+                </xsl:if>
+                <xsl:apply-templates select="node()"/>
+        </db:glossterm>
 </xsl:template>
 
 <xsl:template match="c:term[@document|@target-id]">

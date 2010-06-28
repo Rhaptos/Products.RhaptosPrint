@@ -353,22 +353,21 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   font-weight: bold;
   font-style: normal;
   display: inline;
-  color: #369;
 }
 
-.glosslist{
+.glosslist dl, .glossary dl{
   margin: 1em 0;
 }
 
-.glosslist dd{
+.glosslist dd, .glossary dd{
   margin: .5em 0 .5em 1em;
 }
 
-.glosslist dd>p{
+.glosslist dd p, .glossary dd p{
   margin: .5em 0;
 }
 
-.glosslist .example{
+.glosslist .example, .glossary .example{
   padding: .5em 1em;
 }
 
@@ -524,7 +523,7 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 
 /* ========== glossary & bibtexml & foonotes ========== */
 
-.glossary-container, .references, .footnotes{
+.references, .footnotes{
   margin: 2em 0 1em;
   border-top: 1px #ccc solid;
   padding: .5em 0;
@@ -535,25 +534,16 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   margin-top: 0;
 }
 
-div.glossary{
-  margin: 1em 0 1em 1em;
+.glossary{
+  margin: 1em 0 1em;
 }
 
-div.glossary dt{
-  margin-left: -1em;
-}
-
-div.glossary div, div.glossary h3, div.glossary h4, div.glossary h5, 
-div.glossary h6, div.glossary p, div.glossary dt, div.glossary {
+.glossary div, .glossary h3, .glossary h4, .glossary h5, 
+.glossary h6, .glossary p, .glossary dt{
   display: inline;
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-.glossary .seealso{
-  display: block;
-  margin: .75em 0 0 0;
 }
 
 /* ===== newline & space ===== */
