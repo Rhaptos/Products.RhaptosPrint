@@ -15,11 +15,16 @@
 	* Labels exercises (and links to them)
  -->
 
+
+
+<!-- EXERCISE templates -->
+
 <!-- Generate custom HTML for an ext:problem and ext:solution.
 	Taken from docbook-xsl/xhtml-1_1/formal.xsl: <xsl:template match="example">
  -->
 <xsl:template match="ext:exercise|ext:problem|ext:solution">
-  <xsl:variable name="param.placement" select="substring-after(normalize-space($formal.title.placement),                      concat(local-name(.), ' '))"/>
+
+  <xsl:variable name="param.placement" select="substring-after(normalize-space($formal.title.placement), concat(local-name(.), ' '))"/>
 
   <xsl:variable name="placement">
     <xsl:choose>
@@ -39,11 +44,11 @@
 
 </xsl:template>
 
-<!-- Can't use docbook-xsl/common/gentext.xsl because labels and titles can contain XML (makes things icky) 
- -->
+<!-- Can't use docbook-xsl/common/gentext.xsl because labels and titles can contain XML (makes things icky) -->
 <xsl:template match="ext:*" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 </xsl:template>
+
 <!-- Link to the exercise and to the solution. HACK: We can do this because solutions are within a module (html file) -->
 <xsl:template match="ext:exercise" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
@@ -61,6 +66,7 @@
 		<xsl:text>)</xsl:text>
 	</xsl:if>
 </xsl:template>
+
 <xsl:template match="ext:solution" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="exerciseId" select="@exercise-id"/>
@@ -78,7 +84,6 @@
 
 <xsl:template match="ext:exercise|ext:problem|ext:solution" mode="insert.label.markup">
 	<xsl:param name="label" select="ext:label"/>
-
 	<xsl:if test="$label!=''">
 		<xsl:apply-templates select="$label" mode="cnx.label"/>
 		<xsl:text> </xsl:text>
@@ -88,17 +93,15 @@
 
 <xsl:template match="ext:*[not(title)]" mode="title.markup"/>
 <xsl:template match="ext:*/title"/>
+<xsl:template match="ext:exercise|ext:problem|ext:solution" mode="label.markup"/>
 
-<xsl:template match="ext:exercise|ext:problem|ext:solution" mode="label.markup">
-</xsl:template>
-
-<!-- TODO: see if we can gentext these (maybe not, since we allow XML in labels and titles) -->
 <xsl:template match="ext:exercise" mode="cnx.template">
 	<xsl:choose>
 		<xsl:when test="ext:label">
 			<xsl:apply-templates select="ext:label" mode="cnx.label"/>
 		</xsl:when>
 		<xsl:otherwise>
+                        <!-- TODO: gentext for "Exercise" -->
 			<xsl:text>Exercise</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
@@ -109,8 +112,15 @@
 		<xsl:apply-templates select="." mode="title.markup"/>
 	</xsl:if>
 </xsl:template>
-<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template"><xsl:apply-templates select="title"/></xsl:template>
-<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template"><xsl:text>Solution to </xsl:text><xsl:apply-templates select="." mode="number"/></xsl:template>
+
+<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template">
+        <xsl:apply-templates select="title"/>
+</xsl:template>
+
+<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template">
+        <xsl:text>Solution to </xsl:text><xsl:apply-templates select="." mode="number"/>
+</xsl:template>
+
 <xsl:template match="ext:*[ext:label]" mode="cnx.template" priority="0">
 	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
 	<xsl:if test="title">
@@ -122,7 +132,12 @@
 <xsl:template match="ext:label" mode="cnx.label">
 	<xsl:apply-templates select="node()"/>
 </xsl:template>
+
 <xsl:template match="ext:label"/>
+
+
+
+<!-- NUMBERING templates -->
 
 <!-- By default, nothing is numbered. -->
 <xsl:template match="ext:*" mode="number"/>
@@ -139,6 +154,7 @@
 <xsl:template match="preface|chapter|appendix" mode="cnxnumber">
 	<xsl:apply-templates select="." mode="label.markup"/>
 </xsl:template>
+
 <xsl:template match="*[@ext:element='module']" mode="cnxnumber">
 	<xsl:if test="ancestor::chapter|ancestor::appendix">
 		<xsl:apply-templates select="ancestor::preface|ancestor::chapter|ancestor::appendix" mode="cnxnumber"/>
@@ -146,6 +162,7 @@
 	</xsl:if>
 	<xsl:number from="preface|chapter|appendix" count="*[@ext:element='module']"/>
 </xsl:template>
+
 <xsl:template match="*" mode="cnxnumber">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: tried to get a cnxnumber for something other than a preface|chapter|appendix|*[@ext:element='module']</xsl:with-param></xsl:call-template>
 </xsl:template>
@@ -155,9 +172,14 @@
 	<xsl:apply-templates select="//*[@id=$exerciseId]" mode="number"/>
 </xsl:template>
 
+
+
+<!-- XREF templates -->
+
 <xsl:template match="ext:*" mode="xref-to">
 	<xsl:apply-templates select="." mode="object.xref.markup"/>
 </xsl:template>
+
 <xsl:template match="ext:*" mode="object.xref.markup">
   <xsl:param name="purpose"/>
   <xsl:param name="xrefstyle"/>
