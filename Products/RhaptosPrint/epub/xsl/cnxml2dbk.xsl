@@ -109,7 +109,7 @@
     </db:listitem>
 </xsl:template>
 
-<xsl:template match="c:item[../c:item/c:label]">
+<xsl:template match="c:list[@list-type='labeled-item']/c:item">
 	<db:member>
     	<xsl:call-template name="cnx.list.item">
     		<xsl:with-param name="inline-only" select="1"/>
@@ -424,7 +424,7 @@
 				<xsl:apply-templates mode="copy" select="."/>
 			</xsl:when>
 			<xsl:otherwise>
-				<db:imagedata format="svg"> 
+				<db:imagedata format="SVG"> 
 					<xsl:apply-templates mode="copy" select="."/>
 				</db:imagedata>
 			</xsl:otherwise>

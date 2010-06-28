@@ -149,10 +149,6 @@
     <db:itemizedlist><xsl:apply-templates select="@*|node()"/></db:itemizedlist>
 </xsl:template>
 <xsl:template match="c:list[@list-type='labeled-item']">
-    <db:orderedlist><xsl:apply-templates select="@*|node()"/></db:orderedlist>
-</xsl:template>
-<!-- Lists with labels for items. -->
-<xsl:template match="c:list[c:item/c:label]">
     <db:simplelist><xsl:apply-templates select="@*|node()"/></db:simplelist>
 </xsl:template>
 <xsl:template match="c:item/c:label">
@@ -279,10 +275,10 @@
 <!-- Handle citations -->
 <xsl:template match="c:cite">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Didn not fully convert c:cite yet</xsl:with-param></xsl:call-template>
-	<db:citation>
+	<db:emphasis class="citation">
 		<!-- TODO: Treat it like a link....  -->
 		<xsl:apply-templates select="@*|node()"/>
-	</db:citation>
+	</db:emphasis>
 </xsl:template>
 <xsl:template match="c:cite-title">
 	<db:citetitle><xsl:apply-templates select="@*|node()"/></db:citetitle>
