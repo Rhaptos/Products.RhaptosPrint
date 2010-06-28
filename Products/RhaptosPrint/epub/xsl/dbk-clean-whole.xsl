@@ -180,4 +180,28 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- Convert db:anchor elements and links to them to point to the parent figure.
+	They were added to preserve id's of subfigures (for linking)
+ -->
+<xsl:key name="id" match="*[@id or @xml:id]" use="@id|@xml:id"/>
+<xsl:template match="@linkend">
+	<xsl:variable name="target" select="key('id', .)"/>
+	<xsl:attribute name="linkend">
+		<xsl:choose>
+			<xsl:when test="'anchor' = local-name($target)">
+				<xsl:variable name="ancestor" select="ancestor::*[@xml:id][last()]"/>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Relinking db:anchor to <xsl:value-of select="local-name($ancestor)"/></xsl:with-param></xsl:call-template>
+				<xsl:value-of select="$ancestor/@xml:id"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="db:anchor">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing db:anchor and relinking db:anchor (probably created by converting c:subfigure)</xsl:with-param></xsl:call-template>
+</xsl:template>
+
 </xsl:stylesheet>
