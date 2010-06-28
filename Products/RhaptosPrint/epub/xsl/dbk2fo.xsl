@@ -8,6 +8,7 @@
 
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/fo/docbook.xsl"/>
+<xsl:import href="dbkplus.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
 

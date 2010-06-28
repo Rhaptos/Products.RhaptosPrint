@@ -17,6 +17,8 @@
 	* "jpg" to chunk and (later) convert to JPEG using the stderr from this xsl and imagemagick's convert
  -->
 <xsl:param name="cnx.svg.extension">png</xsl:param>
+<!-- Used to set whether or not <html:object/> should be generated as a fallback. -->
+<xsl:param name="cnx.svg.compat"></xsl:param>
 
 <!-- Do not add the URL if we are generating a HTML zip -->
 <xsl:param name="cnx.resource.local" select="0"/>
