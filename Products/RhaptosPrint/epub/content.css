@@ -265,30 +265,16 @@ blockquote{
 
 /* ========== exercise ========== */
 
-.problemset-header{
-  margin: 2em 0 1em;
-  font-size: 1.15em;
-}
-
 .exercise{
   margin: 1em 0;
 }
 
-.problem, .commentary{
+.problem, .commentary, div.solution{
   margin: .5em 0;
 }
 
-.solution{
-  margin: .5em 0 .5em 3em;
-}
-
-.solution-toggles{
-  text-align: center;
-  margin-top: 1em;
-}
-
-.solution-toggles a{
-  text-decoration: none;
+.solution-break{
+  display: none;
 }
 
 /* ========== assorted inline elements ========== */
@@ -299,14 +285,6 @@ blockquote{
 
 .smallcaps{
   font-variant: small-caps;
-}
-
-cite, i.emphasis .cite-title i{
-  font-style: normal;
-}
-
-i em, i cite, .foreign cite, .foreign em, blockquote em, blockquote cite{
-  font-style: italic;
 }
 
 .normal{
@@ -330,12 +308,8 @@ i em, i cite, .foreign cite, .foreign em, blockquote em, blockquote cite{
   font-style: normal;
 }
 
-i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreign blockquote{
+.foreignphrase .citetitle, .citetitle .foreignphrase, blockquote .foreignphrase, blockquote .citetitle{
   font-style: normal;
-}
-
-.foreign, blockquote i .foreign, blockquote .foreign i{
-  font-style: italic;
 }
 
 .token { /* simple math */
@@ -343,13 +317,13 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   white-space: nowrap;
 }
 
-.mathml-mi {
+.foreignphrase, .mathml-mi{
   font-style: italic;
 }
 
 /* ========== term & definition ========== */
 
-.glossterm, .glosslist dt{
+.glossterm, .glosslist dt, .glossary dt{
   font-weight: bold;
   font-style: normal;
   display: inline;
@@ -453,7 +427,7 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
 }
 
 .table td, .table th{
-  padding: .3em !important;
+  padding: .3em;
   border: 1px solid #666 !important;
 }
 
@@ -527,6 +501,10 @@ i .foreign, .foreign i, blockquote i, blockquote .foreign, i blockquote, .foreig
   margin: 2em 0 1em;
   border-top: 1px #ccc solid;
   padding: .5em 0;
+}
+
+.footnotes br, .footnotes hr{
+  display: none;
 }
 
 .glossary .titlepage, .references .titlepage, .footnotes .titlepage{

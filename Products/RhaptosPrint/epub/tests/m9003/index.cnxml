@@ -2128,7 +2128,20 @@ jaksldfjkasdjfklasdf ajskf jasld fjaksl df
 							<entry>Surplus</entry>
 							<entry>12000</entry>
 							<entry>12000</entry>
-							<entry>14000</entry>
+							<entrytbl cols="2">
+                                                                <thead>
+                                                                        <row>
+                                                                                <entry>14000</entry>
+                                                                                <entry>14000</entry>
+                                                                        </row>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <row>
+                                                                                <entry>14000</entry>
+                                                                                <entry>14000</entry>
+                                                                        </row>
+                                                                </tbody>
+                                                        </entrytbl>
 						</row>
 					</tbody>
 				</tgroup>
@@ -2145,7 +2158,11 @@ jaksldfjkasdjfklasdf ajskf jasld fjaksl df
 				Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term>quote</term> of type 'inline'): <quote type="inline">Everything should be made as simple as possible, but not one bit simpler</quote>.</para>
 			<para id="quotfor2">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as <foreign>Fahrvergnügen</foreign> and <foreign id="cnxn_to_foreign">sang-froid</foreign>.</para>
 			<note type="irrelevant">It is possible to include a block quote inside a note, with <term>foreign</term> elements interspersed:
-			<quote type="block"><foreign>"Freundschaftsbezeigungen"</foreign> seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." <foreign>"Unabhängigkeitserklärungen"</foreign> seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. <foreign>"Generalstaatsverordnetenversammlungen"</foreign> seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge.  --Mark Twain, <cite>"The Awful German Language"</cite></quote>
+			<quote type="block">
+<emphasis>emphasis (no effect)</emphasis> | <emphasis effect="bold">emphasis effect="bold"</emphasis> | <emphasis effect="underline">emphasis 
+effect="underline"</emphasis> | <emphasis effect="smallcaps">emphasis effect="smallcaps"</emphasis> | <emphasis effect="italics">emphasis effect="italics"</emphasis> | 
+<emphasis effect="normal">emphasis effect="normal"</emphasis> | 
+<foreign>"Freundschaftsbezeigungen"</foreign> seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." <foreign>"Unabhängigkeitserklärungen"</foreign> seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. <foreign>"Generalstaatsverordnetenversammlungen"</foreign> seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge.  --Mark Twain, <cite>"The Awful German Language"</cite></quote>
 
 			</note>
 		</section>
