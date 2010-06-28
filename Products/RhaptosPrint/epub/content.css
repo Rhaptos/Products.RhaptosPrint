@@ -273,7 +273,7 @@ blockquote{
   margin: .5em 0;
 }
 
-.solution-break{
+.exercise-break, .problem-break, .solution-break{
   display: none;
 }
 
