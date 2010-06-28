@@ -497,9 +497,8 @@
 	</db:glossentry>
 </xsl:template>
 
-<!-- According to eip-help/definition. Can be inline, and not in a c:glossary -->
+<!-- According to eip-help/definition, can be in with the rest of the content, outside of a c:glossary -->
 <xsl:template match="c:definition">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline defined terms and term definitions are not yet numbered.</xsl:with-param></xsl:call-template>
 	<db:glosslist>
 		<xsl:if test="c:title">
 			<xsl:apply-templates select="c:title"/>
