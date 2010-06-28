@@ -149,4 +149,44 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:choose>
 </xsl:template>
 
+<!-- Sometimes (as in col10522/m17208) The number of columns defined does not match the actual number of columns. -->
+<xsl:template match="@cols">
+	<xsl:variable name="maxCols">
+		<xsl:call-template name="cnx.findMaxCols">
+			<xsl:with-param name="list" select="..//c:row"/>
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:if test=". != $maxCols">
+		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: c:table @cols does not match actual number of columns. using actual number.</xsl:with-param></xsl:call-template>
+	</xsl:if>
+	<xsl:attribute name="cols">
+		<xsl:value-of select="$maxCols"/>
+	</xsl:attribute>
+</xsl:template>
+
+<!-- Helper for mml:mtable fixing -->
+<xsl:template name="cnx.findMaxCols">
+	<xsl:param name="list" />
+	<xsl:choose>
+		<xsl:when test="$list">
+			<xsl:variable name="first" select="count($list[1]/*)" />
+			<xsl:variable name="max-of-rest">
+				<xsl:call-template name="cnx.findMaxCols">
+					<xsl:with-param name="list" select="$list[position()!=1]" />
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="$first > $max-of-rest">
+					<xsl:value-of select="$first" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$max-of-rest" />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>0</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
 </xsl:stylesheet>
