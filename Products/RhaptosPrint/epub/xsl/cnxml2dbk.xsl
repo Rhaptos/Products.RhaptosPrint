@@ -357,7 +357,7 @@
 	</ext:solution>
 </xsl:template>
 
-<xsl:template match="c:exercise/c:label|c:problem/c:label|c:solution/c:label">
+<xsl:template match="c:exercise/c:label|c:problem/c:label|c:solution/c:label|c:rule/c:label">
 	<ext:label>
 		<xsl:apply-templates select="@*|node()"/>
 	</ext:label>

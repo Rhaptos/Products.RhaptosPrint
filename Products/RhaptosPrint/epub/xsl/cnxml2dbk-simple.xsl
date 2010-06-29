@@ -78,21 +78,14 @@
 
 <!-- Support c:rule (with c:statement and c:proof) -->
 <xsl:template match="c:rule">
-    <db:section ext:element="rule">
-    	<xsl:apply-templates select="@*"/>
-    	<db:title>
-    	    <xsl:apply-templates select="c:title/@*"/>
-    		<xsl:if test="not(@type)">
-    			<xsl:text>Rule</xsl:text>
-    		</xsl:if>
-    		<xsl:value-of select="@type"/>
-    		<xsl:if test="c:title">
-    			<xsl:text>: </xsl:text>
-    			<xsl:apply-templates select="c:title/node()"/>
-    		</xsl:if>
-    	</db:title>
-    	<xsl:apply-templates select="*[local-name()!='title']"/>
-    </db:section>
+	<ext:rule>
+		<xsl:if test="@type">
+			<xsl:attribute name="type">
+				<xsl:value-of select="@type"/>
+			</xsl:attribute>
+		</xsl:if>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:rule>
 </xsl:template>
 
 <xsl:template match="c:proof">

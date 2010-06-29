@@ -78,7 +78,7 @@
 <!-- The XSLT files and the RNG for storing SVG elements do not match. -->
 <xsl:template match="db:imageobject[svg:*]">
 	<db:imageobject>
-		<db:imagedata format="svg">
+		<db:imagedata format="SVG">
 			<xsl:apply-templates select="@*|node()"/>
 		</db:imagedata>
 	</db:imageobject>

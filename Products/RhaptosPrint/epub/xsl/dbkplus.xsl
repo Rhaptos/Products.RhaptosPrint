@@ -22,7 +22,7 @@
 <!-- Generate custom HTML for an ext:problem and ext:solution.
 	Taken from docbook-xsl/xhtml-1_1/formal.xsl: <xsl:template match="example">
  -->
-<xsl:template match="ext:exercise|ext:problem|ext:solution">
+<xsl:template match="ext:*">
 
   <xsl:variable name="param.placement" select="substring-after(normalize-space($formal.title.placement), concat(local-name(.), ' '))"/>
 
@@ -111,7 +111,7 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:exercise|ext:problem|ext:solution" mode="insert.label.markup">
+<xsl:template match="ext:*" mode="insert.label.markup">
 	<xsl:param name="label" select="ext:label"/>
 	<xsl:if test="$label!=''">
 		<xsl:apply-templates select="$label" mode="cnx.label"/>
@@ -125,22 +125,57 @@
 <xsl:template match="ext:exercise|ext:problem|ext:solution" mode="label.markup"/>
 
 <xsl:template match="ext:exercise" mode="cnx.template">
+	<xsl:call-template name="cnx.label">
+		<xsl:with-param name="default">
+			<!-- TODO: gentext for "Exercise" -->
+			<xsl:text>Exercise</xsl:text>
+		</xsl:with-param>
+	</xsl:call-template>
+</xsl:template>
+<xsl:template match="ext:rule" mode="cnx.template">
+	<xsl:variable name="defaultLabel">
+		<xsl:choose>
+			<!-- TODO: gentext for "Rule" and custom rules -->
+			<xsl:when test="not(@type) or @type='rule'"><xsl:text>Rule</xsl:text></xsl:when>
+			<xsl:when test="@type='theorem'"><xsl:text>Theorem</xsl:text></xsl:when>
+			<xsl:when test="@type='lemma'"><xsl:text>Lemma</xsl:text></xsl:when>
+			<xsl:when test="@type='corollary'"><xsl:text>Corollary</xsl:text></xsl:when>
+			<xsl:when test="@type='law'"><xsl:text>Law</xsl:text></xsl:when>
+			<xsl:when test="@type='proposition'"><xsl:text>Proposition</xsl:text></xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Using custom rule type=<xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
+				<xsl:value-of select="@type"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:call-template name="cnx.label">
+		<xsl:with-param name="default" select="$defaultLabel"/>
+	</xsl:call-template>
+</xsl:template>
+<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template"><xsl:apply-templates select="title"/></xsl:template>
+<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template"><xsl:text>Solution to </xsl:text><xsl:apply-templates select="." mode="number"/></xsl:template>
+<xsl:template name="cnx.label" match="ext:*[ext:label]" mode="cnx.template" priority="0">
+	<xsl:param name="c" select="."/>
+	<xsl:param name="default"></xsl:param>
 	<xsl:choose>
-		<xsl:when test="ext:label">
-			<xsl:apply-templates select="ext:label" mode="cnx.label"/>
+		<xsl:when test="$c/ext:label">
+			<xsl:apply-templates select="$c/ext:label" mode="cnx.label"/>
+		</xsl:when>
+		<xsl:when test="$default=''">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: No default set when calling template cnx.label</xsl:with-param></xsl:call-template>
 		</xsl:when>
 		<xsl:otherwise>
-                        <!-- TODO: gentext for "Exercise" -->
-			<xsl:text>Exercise</xsl:text>
+			<xsl:value-of select="$default"/>
 		</xsl:otherwise>
 	</xsl:choose>
 	<xsl:text> </xsl:text>
-	<xsl:apply-templates select="." mode="number"/>
-	<xsl:if test="title">
-                <xsl:text> </xsl:text>
-		<xsl:apply-templates select="." mode="title.markup"/>
+	<xsl:apply-templates select="$c/." mode="number"/>
+	<xsl:if test="$c/title">
+		<xsl:text> </xsl:text>
+		<xsl:apply-templates select="$c/." mode="title.markup"/>
 	</xsl:if>
 </xsl:template>
+
 
 <xsl:template match="ext:problem" mode="cnx.template">
 	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
@@ -194,13 +229,35 @@
 <!-- By default, nothing is numbered. -->
 <xsl:template match="ext:*" mode="number"/>
 
-<xsl:template match="ext:exercise" mode="number">
-        <xsl:if test="ancestor::chapter">
-                <xsl:number count="chapter" />
+<xsl:template name="cnx.number.ancestor">
+	<xsl:if test="ancestor::chapter|ancestor::appendix">
+		<xsl:apply-templates select="ancestor::*[@ext:element='module']" mode="cnxnumber"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
-        </xsl:if>
-        <xsl:if test="count(ancestor::chapter/section[@ext:element='module']) > 1">
-                <xsl:number from="chapter" count="section[@ext:element='module']"/>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="ext:exercise" mode="number">
+	<xsl:call-template name="cnx.number.ancestor"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:exercise[not(ancestor::*[@ext:element='example'])]"/>
+</xsl:template>
+
+<xsl:template match="ext:rule[not(@type) and not(ancestor::*[@ext:element='example'])]" mode="number">
+	<xsl:call-template name="cnx.number.ancestor"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type) and not(ancestor::*[@ext:element='example'])]"/>
+</xsl:template>
+<xsl:template match="ext:rule[@type and not(ancestor::*[@ext:element='example'])]" mode="number">
+	<xsl:variable name="type" select="@type"/>
+	<xsl:call-template name="cnx.number.ancestor"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type and not(ancestor::*[@ext:element='example'])]"/>
+</xsl:template>
+
+<!-- Either a module is a chapter, or a section in a chapter -->
+<xsl:template match="preface|chapter|appendix" mode="cnxnumber">
+	<xsl:apply-templates select="." mode="label.markup"/>
+</xsl:template>
+<xsl:template match="*[@ext:element='module']" mode="cnxnumber">
+	<xsl:if test="ancestor::chapter|ancestor::appendix">
+		<xsl:apply-templates select="ancestor::preface|ancestor::chapter|ancestor::appendix" mode="cnxnumber"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
         </xsl:if>
 	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::*[ext:element='example'])]"/>
