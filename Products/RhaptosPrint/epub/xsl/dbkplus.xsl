@@ -137,13 +137,17 @@
 	<xsl:text> </xsl:text>
 	<xsl:apply-templates select="." mode="number"/>
 	<xsl:if test="title">
-		<xsl:text> : </xsl:text>
+                <xsl:text> </xsl:text>
 		<xsl:apply-templates select="." mode="title.markup"/>
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template">
-        <xsl:apply-templates select="title"/>
+<xsl:template match="ext:problem" mode="cnx.template">
+	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
+	<xsl:if test="ext:label and title">
+		<xsl:text>: </xsl:text>
+	</xsl:if>
+        <xsl:apply-templates select="title" mode="title.markup"/>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="cnx.template">
@@ -177,14 +181,6 @@
         <xsl:apply-templates select="." mode="number"/>
 </xsl:template>
 
-<xsl:template match="ext:*[ext:label]" mode="cnx.template" priority="0">
-	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
-	<xsl:if test="title">
-		<xsl:text> : </xsl:text>
-		<xsl:apply-templates select="." mode="title.markup"/>
-	</xsl:if>
-</xsl:template>
-
 <xsl:template match="ext:label" mode="cnx.label">
 	<xsl:apply-templates select="node()"/>
 </xsl:template>
@@ -199,28 +195,15 @@
 <xsl:template match="ext:*" mode="number"/>
 
 <xsl:template match="ext:exercise" mode="number">
-	<xsl:if test="ancestor::chapter|ancestor::appendix">
-		<xsl:apply-templates select="ancestor::*[@ext:element='module']" mode="cnxnumber"/>
+        <xsl:if test="ancestor::chapter">
+                <xsl:number count="chapter" />
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
-	</xsl:if>
-	<xsl:number format="1" level="any" from="chapter" count="ext:exercise[not(ancestor::*[ext:element='example'])]"/>
-</xsl:template>
-
-<!-- Either a module is a chapter, or a section in a chapter -->
-<xsl:template match="preface|chapter|appendix" mode="cnxnumber">
-	<xsl:apply-templates select="." mode="label.markup"/>
-</xsl:template>
-
-<xsl:template match="*[@ext:element='module']" mode="cnxnumber">
-	<xsl:if test="ancestor::chapter|ancestor::appendix">
-		<xsl:apply-templates select="ancestor::preface|ancestor::chapter|ancestor::appendix" mode="cnxnumber"/>
+        </xsl:if>
+        <xsl:if test="count(ancestor::chapter/section[@ext:element='module']) > 1">
+                <xsl:number from="chapter" count="section[@ext:element='module']"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
-	</xsl:if>
-	<xsl:number from="preface|chapter|appendix" count="*[@ext:element='module']"/>
-</xsl:template>
-
-<xsl:template match="*" mode="cnxnumber">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: tried to get a cnxnumber for something other than a preface|chapter|appendix|*[@ext:element='module']</xsl:with-param></xsl:call-template>
+        </xsl:if>
+	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::*[ext:element='example'])]"/>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="number">
