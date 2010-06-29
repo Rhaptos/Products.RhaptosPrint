@@ -76,7 +76,8 @@
 		</xsl:when>
 		<xsl:otherwise>
 			<img src="{@fileref}">
-				<xsl:apply-templates select="@*"/>
+				<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+				<xsl:apply-templates select="@*[local-name()!='baseline-shift']"/>
 			</img>
 		</xsl:otherwise>
 	</xsl:choose>
