@@ -238,17 +238,17 @@
 
 <xsl:template match="ext:exercise" mode="number">
 	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:exercise[not(ancestor::*[@ext:element='example'])]"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:exercise[not(ancestor::example)]"/>
 </xsl:template>
 
-<xsl:template match="ext:rule[not(@type) and not(ancestor::*[@ext:element='example'])]" mode="number">
+<xsl:template match="ext:rule[not(@type) and not(ancestor::example)]" mode="number">
 	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type) and not(ancestor::*[@ext:element='example'])]"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type) and not(ancestor::example)]"/>
 </xsl:template>
-<xsl:template match="ext:rule[@type and not(ancestor::*[@ext:element='example'])]" mode="number">
+<xsl:template match="ext:rule[@type and not(ancestor::example)]" mode="number">
 	<xsl:variable name="type" select="@type"/>
 	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type and not(ancestor::*[@ext:element='example'])]"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type and not(ancestor::example)]"/>
 </xsl:template>
 
 <!-- Either a module is a chapter, or a section in a chapter -->

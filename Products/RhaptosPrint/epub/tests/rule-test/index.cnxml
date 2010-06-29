@@ -17,6 +17,17 @@
 	   <para>This module tests c:rule elements with various attributes and children.
 	   </para>
 	</section>
+
+	<section><title>Links to various rules</title>
+	<list>
+	   <item><link target-id="1"/>: The 1st rule</item>
+	   <item><link target-id="2"/>: The 2nd rule</item>
+	   <item><link target-id="theorem"/>: The 2nd theorem</item>
+	   <item><link target-id="aaa"/>: The 2nd aaa</item>
+	   <item><link target-id="example"/>: Inside an example</item>
+	   <item><link target-id="custom"/>: A custom label and title (after an unnumbered rule)</item>
+    </list>
+    </section>
 	
 	<rule id="1">
 	   <statement><para>This is a simple rule with no attributes, label, title, or proof. (Should be numbered 1)
@@ -88,17 +99,6 @@
        <title>title</title>
        <statement><para>A rule with a title and label (should be numbered something low, like 3)</para></statement>
     </rule>
-	
-	<section><title>Links to various rules</title>
-	<list>
-	   <item><link target-id="1"/>: The 1st rule</item>
-	   <item><link target-id="2"/>: The 2nd rule</item>
-	   <item><link target-id="theorem"/>: The 2nd theorem</item>
-	   <item><link target-id="aaa"/>: The 2nd aaa</item>
-	   <item><link target-id="example"/>: Inside an example</item>
-	   <item><link target-id="custom"/>: A custom label and title (after an unnumbered rule)</item>
-    </list>
-    </section>
     
 	</content>
 </document>
