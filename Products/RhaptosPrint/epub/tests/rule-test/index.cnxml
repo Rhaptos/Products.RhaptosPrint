@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="rule-test">
 	<name>Rule Test</name>
 	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
   <md:authorlist>
@@ -12,93 +12,113 @@
   </md:authorlist>
 </metadata>
 
-	<content>
-	<section id="about"><title>About This Test</title>
-	   <para>This module tests c:rule elements with various attributes and children.
-	   </para>
-	</section>
+<content>
+    <section id="about">
+        <title>About This Test</title>
+        <para>This module tests c:rule elements with various attributes and children.</para>
+    </section>
 
-	<section><title>Links to various rules</title>
+    <section>
+        <title>Links to various rules</title>
 	<list>
-	   <item><link target-id="1"/>: The 1st rule</item>
-	   <item><link target-id="2"/>: The 2nd rule</item>
+	   <item><link target-id="rule1"/>: The 1st rule (no type)</item>
+	   <item><link target-id="rule2"/>: The 2nd rule (no type)</item>
 	   <item><link target-id="theorem"/>: The 2nd theorem</item>
 	   <item><link target-id="aaa"/>: The 2nd aaa</item>
 	   <item><link target-id="example"/>: Inside an example</item>
-	   <item><link target-id="custom"/>: A custom label and title (after an unnumbered rule)</item>
-    </list>
+	   <item><link target-id="custom"/>: A custom label and title</item>
+	   <item><link target-id="custom2"/>: A custom label with type</item>
+           <item><link target-id="rulecaps"/>: A type of "RULE"</item>
+           <item><link target-id="corollarymixedcase"/>: A type of "cOrOlLaRy"</item>
+        </list>
     </section>
 	
-	<rule id="1">
+	<rule id="rule1">
 	   <statement><para>This is a simple rule with no attributes, label, title, or proof. (Should be numbered 1)
 	   </para></statement>
 	</rule>
 
-	<rule id="2">
+	<rule id="rule2">
 	   <statement><para>This rule contains multiple statements and proofs.</para></statement>
-	   <proof><para>A proof between 2 statments</para></proof>
 	   <statement><para>Another statement.</para></statement>
-	   <proof><para>Another proof</para></proof>
+	   <proof><para>A proof.</para></proof>
+	   <proof><para>Another proof. Can't have statements between proofs, though.</para></proof>
 	</rule>
 
-    <section><title>Rules with custom types</title>
+    <section>
+        <title>Rules with custom types</title>
 
         <rule type="theorem">
-           <statement><para>A rule of type "theorem" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "theorem" (should be numbered 1 and labeled "Theorem")</para></statement>
         </rule>
         <rule type="lemma">
-           <statement><para>A rule of type "lemma" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "lemma" (should be numbered 1 and labeled "Lemma")</para></statement>
         </rule>
         <rule type="corollary">
-           <statement><para>A rule of type "corollary" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "corollary" (should be numbered 1 and labeled "Corollary")</para></statement>
         </rule>
         <rule type="law">
-           <statement><para>A rule of type "law" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "law" (should be numbered 1 and labeled "Law")</para></statement>
         </rule>
         <rule type="proposition">
-           <statement><para>A rule of type "proposition" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "proposition" (should be numbered 1 and labeled "Proposition")</para></statement>
         </rule>
         <rule type="rule">
-           <statement><para>A rule of type "rule" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "rule" (should be numbered 3 (since it is numbered with rule[not(@type)]) and labeled "Rule")</para></statement>
         </rule>
         <rule type="aaa">
-           <statement><para>A rule of type "aaa" (should be numbered 1)</para></statement>
+           <statement><para>A rule of type "aaa" (should be numbered 1, but be labeled "Rule", since it's an "unsupported" type)</para></statement>
         </rule>
     
         <rule type="theorem" id="theorem">
-           <statement><para>A rule of type "theorem" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "theorem" (should be labeled "Theorem 2")</para></statement>
         </rule>
         <rule type="lemma">
-           <statement><para>A rule of type "lemma" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "lemma" (should be labeled "Lemma 2")</para></statement>
         </rule>
         <rule type="corollary">
-           <statement><para>A rule of type "corollary" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "corollary" (should be labeled "Corollary 2")</para></statement>
         </rule>
         <rule type="law">
-           <statement><para>A rule of type "law" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "law" (should be labeled "Law 2")</para></statement>
         </rule>
         <rule type="proposition">
-           <statement><para>A rule of type "proposition" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "proposition" (should be labeled "Proposition 2")</para></statement>
         </rule>
         <rule type="rule">
-           <statement><para>A rule of type "rule" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "rule" (should be labeled "Rule 4")</para></statement>
         </rule>
         <rule type="aaa" id="aaa">
-           <statement><para>A rule of type "aaa" (should be numbered 2)</para></statement>
+           <statement><para>A rule of type "aaa" (should be labeled "Rule 2")</para></statement>
         </rule>
     </section>
     
     <example>
         <rule id="example">
-           <statement><para>A rule inside an example (unnumbered)</para></statement>
+           <statement><para>A rule inside an example.  It should be labeled and numbered exactly the same as if it were outside the example. ("Rule 5" in this case.)</para></statement>
         </rule>
     </example>
 
     <rule id="custom">
-       <label>label</label>
-       <title>title</title>
-       <statement><para>A rule with a title and label (should be numbered something low, like 3)</para></statement>
+       <label>customlabel</label>
+       <title>ruletitle</title>
+       <statement><para>A rule with a label ("customlabel") and title ("rule title").  Since it has no type, it will be numbered with other regular rules 
+                        (rule[@type='rule' or not(@type)]), therefore "customlabel 6. ruletitle".</para></statement>
     </rule>
     
-	</content>
+    <rule id="custom2" type="lemma">
+        <label>customlabel</label>
+        <statement><para>A rule of type "lemma" with a custom label ("customlabel").  It will number with other "lemma"s, therefore "customlabel 3.".</para></statement>
+    </rule>
+
+    <rule type="RULE" id="rulecaps">
+        <statement><para>A rule of type "RULE". Type should be case insensitive, so it should be labeled "Rule 7".</para></statement>
+    </rule>
+
+    <rule type="cOrOlLaRy" id="corollarymixedcase">
+        <statement><para>A rule of type "cOrOlLaRy". Type should be case insensitive, so it should be labeled "Corollary 3".</para></statement>
+    </rule>
+
+</content>
+
 </document>
