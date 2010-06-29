@@ -236,19 +236,19 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:exercise" mode="number">
+<xsl:template match="ext:exercise[not(ancestor::example)]" mode="number">
 	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:exercise[not(ancestor::example)]"/>
+	<xsl:number format="1" level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
 </xsl:template>
 
-<xsl:template match="ext:rule[not(@type) and not(ancestor::example)]" mode="number">
-	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type) and not(ancestor::example)]"/>
+<xsl:template match="ext:rule[not(@type)]" mode="number">
+	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type)]"/>
 </xsl:template>
-<xsl:template match="ext:rule[@type and not(ancestor::example)]" mode="number">
+<xsl:template match="ext:rule[@type]" mode="number">
 	<xsl:variable name="type" select="@type"/>
-	<xsl:call-template name="cnx.number.ancestor"/>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type and not(ancestor::example)]"/>
+	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
+	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type]"/>
 </xsl:template>
 
 <!-- Either a module is a chapter, or a section in a chapter -->
@@ -260,7 +260,7 @@
 		<xsl:apply-templates select="ancestor::preface|ancestor::chapter|ancestor::appendix" mode="cnxnumber"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
         </xsl:if>
-	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::*[ext:element='example'])]"/>
+	<xsl:number format="1" level="any" from="chapter|appendix" count="*[@ext:element='module']"/>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="number">
