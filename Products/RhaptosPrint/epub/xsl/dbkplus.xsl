@@ -137,16 +137,12 @@
 	<xsl:variable name="defaultLabel">
 		<xsl:choose>
 			<!-- TODO: gentext for "Rule" and custom rules -->
-			<xsl:when test="not(@type) or @type='rule'"><xsl:text>Rule</xsl:text></xsl:when>
 			<xsl:when test="@type='theorem'"><xsl:text>Theorem</xsl:text></xsl:when>
 			<xsl:when test="@type='lemma'"><xsl:text>Lemma</xsl:text></xsl:when>
 			<xsl:when test="@type='corollary'"><xsl:text>Corollary</xsl:text></xsl:when>
 			<xsl:when test="@type='law'"><xsl:text>Law</xsl:text></xsl:when>
 			<xsl:when test="@type='proposition'"><xsl:text>Proposition</xsl:text></xsl:when>
-			<xsl:otherwise>
-				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Using custom rule type=<xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
-				<xsl:value-of select="@type"/>
-			</xsl:otherwise>
+			<xsl:otherwise><xsl:text>Rule</xsl:text></xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:call-template name="cnx.label">
