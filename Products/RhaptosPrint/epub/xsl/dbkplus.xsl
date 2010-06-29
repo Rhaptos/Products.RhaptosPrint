@@ -132,6 +132,7 @@
 		</xsl:with-param>
 	</xsl:call-template>
 </xsl:template>
+
 <xsl:template match="ext:rule" mode="cnx.template">
 	<xsl:variable name="defaultLabel">
 		<xsl:choose>
@@ -152,8 +153,16 @@
 		<xsl:with-param name="default" select="$defaultLabel"/>
 	</xsl:call-template>
 </xsl:template>
-<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template"><xsl:apply-templates select="title"/></xsl:template>
-<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template"><xsl:text>Solution to </xsl:text><xsl:apply-templates select="." mode="number"/></xsl:template>
+
+<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template">
+        <xsl:apply-templates select="title"/>
+</xsl:template>
+
+<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template">
+        <xsl:text>Solution to </xsl:text>
+        <xsl:apply-templates select="." mode="number"/>
+</xsl:template>
+
 <xsl:template name="cnx.label" match="ext:*[ext:label]" mode="cnx.template" priority="0">
 	<xsl:param name="c" select="."/>
 	<xsl:param name="default"></xsl:param>
