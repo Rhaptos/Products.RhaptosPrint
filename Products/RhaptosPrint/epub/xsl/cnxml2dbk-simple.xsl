@@ -176,7 +176,7 @@
     <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<xsl:template match="c:link[@resource]">
+<xsl:template match="c:link[@resource]" name="cnx.link">
 	<xsl:variable name="document">
         <xsl:choose>
             <xsl:when test="@document">
@@ -267,14 +267,25 @@
 
 <!-- Handle citations -->
 <xsl:template match="c:cite">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Didn not fully convert c:cite yet</xsl:with-param></xsl:call-template>
-	<db:emphasis class="citation">
-		<!-- TODO: Treat it like a link....  -->
-		<xsl:apply-templates select="@*|node()"/>
-	</db:emphasis>
+	<!-- db:citation -->
+	<xsl:apply-templates select="node()"/>
+	<!-- /db:citation -->
+</xsl:template>
+<xsl:template match="c:cite[@url or @document or @target-id or @resource]">
+	<!-- db:citation -->
+	<xsl:apply-templates select="node()"/>
+	<!-- TODO: Treat it like a link....  -->
+	<xsl:text> [</xsl:text>
+	<xsl:call-template name="cnx.link"/>
+	<xsl:text>]</xsl:text>
+	<!-- /db:citation -->
 </xsl:template>
 <xsl:template match="c:cite-title">
-	<db:citetitle><xsl:apply-templates select="@*|node()"/></db:citetitle>
+	<!-- db:citetitle -->
+	<db:emphasis class="cite-title">
+		<xsl:apply-templates select="@*|node()"/>
+	</db:emphasis>
+	<!-- /db:citetitle -->
 </xsl:template>
 <!-- 
 	c: @pub-type (optional): The type of publication cited. May be any of the following: "article", "book", "booklet", "conference",

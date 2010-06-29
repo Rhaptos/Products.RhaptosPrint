@@ -121,11 +121,11 @@
 
 		<col:module document="m9003"/>
 		<col:module document="mathml2svg-test"/>
-		<col:module document="m21891-exercises"/>
 
 <col:subcollection>
-	<md:title>A subcollection of our test modules: [exercise-test] (several combinations of problems and solutions), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
+	<md:title>A subcollection of our test modules: [m21891-exercises], [exercise-test] (several combinations of problems and solutions. Presented after the other exercises to make sure they are numbered per module, not per chapter), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
 	<col:content>
+		<col:module document="m21891-exercises"/>
 		<col:module document="exercise-test"/>
 		<col:module document="m10349"/>
 		<col:module document="m10622"/>
@@ -133,7 +133,6 @@
 </col:subcollection>
 
 	<col:module document="cite-test"/>
-	<col:module document="exercise-test"/>
 	<col:module document="rule-test"/>
 
 	<col:module document="m10842"/>
