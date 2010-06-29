@@ -110,6 +110,10 @@
   
   <col:content>
 
+	<col:module document="cite-test"/>
+	<col:module document="example-test"/>
+	<col:module document="rule-test"/>
+
       <col:module document="simplemath">
         <md:title>Overriding title for [simplemath]</md:title>
         <col:featured-links>

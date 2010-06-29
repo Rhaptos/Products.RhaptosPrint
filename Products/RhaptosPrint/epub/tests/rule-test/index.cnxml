@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+	<name>Rule Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
+  <md:authorlist>
+      <md:author id="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:author>
+  </md:authorlist>
+</metadata>
+
+	<content>
+	<section id="about"><title>About This Test</title>
+	   <para>This module tests c:rule elements with various attributes and children.
+	   </para>
+	</section>
+	
+	<rule id="1">
+	   <statement><para>This is a simple rule with no attributes, label, title, or proof. (Should be numbered 1)
+	   </para></statement>
+	</rule>
+
+	<rule id="2">
+	   <statement><para>This rule contains multiple statements and proofs.</para></statement>
+	   <proof><para>A proof between 2 statments</para></proof>
+	   <statement><para>Another statement.</para></statement>
+	   <proof><para>Another proof</para></proof>
+	</rule>
+
+    <section><title>Rules with custom types</title>
+
+        <rule type="theorem">
+           <statement><para>A rule of type "theorem" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="lemma">
+           <statement><para>A rule of type "lemma" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="corollary">
+           <statement><para>A rule of type "corollary" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="law">
+           <statement><para>A rule of type "law" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="proposition">
+           <statement><para>A rule of type "proposition" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="rule">
+           <statement><para>A rule of type "rule" (should be numbered 1)</para></statement>
+        </rule>
+        <rule type="aaa">
+           <statement><para>A rule of type "aaa" (should be numbered 1)</para></statement>
+        </rule>
+    
+        <rule type="theorem" id="theorem">
+           <statement><para>A rule of type "theorem" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="lemma">
+           <statement><para>A rule of type "lemma" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="corollary">
+           <statement><para>A rule of type "corollary" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="law">
+           <statement><para>A rule of type "law" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="proposition">
+           <statement><para>A rule of type "proposition" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="rule">
+           <statement><para>A rule of type "rule" (should be numbered 2)</para></statement>
+        </rule>
+        <rule type="aaa" id="aaa">
+           <statement><para>A rule of type "aaa" (should be numbered 2)</para></statement>
+        </rule>
+    </section>
+    
+    <example>
+        <rule id="example">
+           <statement><para>A rule inside an example (unnumbered)</para></statement>
+        </rule>
+    </example>
+
+    <rule id="custom">
+       <label>label</label>
+       <title>title</title>
+       <statement><para>A rule with a title and label (should be numbered something low, like 3)</para></statement>
+    </rule>
+	
+	<section><title>Links to various rules</title>
+	<list>
+	   <item><link target-id="1"/>: The 1st rule</item>
+	   <item><link target-id="2"/>: The 2nd rule</item>
+	   <item><link target-id="theorem"/>: The 2nd theorem</item>
+	   <item><link target-id="aaa"/>: The 2nd aaa</item>
+	   <item><link target-id="example"/>: Inside an example</item>
+	   <item><link target-id="custom"/>: A custom label and title (after an unnumbered rule)</item>
+    </list>
+    </section>
+    
+	</content>
+</document>
