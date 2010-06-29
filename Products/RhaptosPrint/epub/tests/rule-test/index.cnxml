@@ -34,7 +34,7 @@
     </section>
 	
 	<rule id="rule1">
-	   <statement><para>This is a simple rule with no attributes, label, title, or proof. (Should be numbered 1)
+	   <statement><para>This is a simple rule with no attributes, label, title, or proof. (Should be numbered ChapN.1)
 	   </para></statement>
 	</rule>
 
@@ -49,53 +49,53 @@
         <title>Rules with custom types</title>
 
         <rule type="theorem">
-           <statement><para>A rule of type "theorem" (should be numbered 1 and labeled "Theorem")</para></statement>
+           <statement><para>A rule of type "theorem" (should be numbered ChapN.1 and labeled "Theorem")</para></statement>
         </rule>
         <rule type="lemma">
-           <statement><para>A rule of type "lemma" (should be numbered 1 and labeled "Lemma")</para></statement>
+           <statement><para>A rule of type "lemma" (should be numbered ChapN.1 and labeled "Lemma")</para></statement>
         </rule>
         <rule type="corollary">
-           <statement><para>A rule of type "corollary" (should be numbered 1 and labeled "Corollary")</para></statement>
+           <statement><para>A rule of type "corollary" (should be numbered ChapN.1 and labeled "Corollary")</para></statement>
         </rule>
         <rule type="law">
-           <statement><para>A rule of type "law" (should be numbered 1 and labeled "Law")</para></statement>
+           <statement><para>A rule of type "law" (should be numbered ChapN.1 and labeled "Law")</para></statement>
         </rule>
         <rule type="proposition">
-           <statement><para>A rule of type "proposition" (should be numbered 1 and labeled "Proposition")</para></statement>
+           <statement><para>A rule of type "proposition" (should be numbered ChapN.1 and labeled "Proposition")</para></statement>
         </rule>
         <rule type="rule">
-           <statement><para>A rule of type "rule" (should be numbered 3 (since it is numbered with rule[not(@type)]) and labeled "Rule")</para></statement>
+           <statement><para>A rule of type "rule" (should be numbered ChapN.3 (since it is numbered with rule[not(@type)]) and labeled "Rule")</para></statement>
         </rule>
         <rule type="aaa">
-           <statement><para>A rule of type "aaa" (should be numbered 1, but be labeled "Rule", since it's an "unsupported" type)</para></statement>
+           <statement><para>A rule of type "aaa" (should be numbered ChapN.1, but be labeled "Rule", since it's an "unsupported" type)</para></statement>
         </rule>
     
         <rule type="theorem" id="theorem">
-           <statement><para>A rule of type "theorem" (should be labeled "Theorem 2")</para></statement>
+           <statement><para>A rule of type "theorem" (should be labeled "Theorem ChapN.2")</para></statement>
         </rule>
         <rule type="lemma">
-           <statement><para>A rule of type "lemma" (should be labeled "Lemma 2")</para></statement>
+           <statement><para>A rule of type "lemma" (should be labeled "Lemma ChapN.2")</para></statement>
         </rule>
         <rule type="corollary">
-           <statement><para>A rule of type "corollary" (should be labeled "Corollary 2")</para></statement>
+           <statement><para>A rule of type "corollary" (should be labeled "Corollary ChapN.2")</para></statement>
         </rule>
         <rule type="law">
-           <statement><para>A rule of type "law" (should be labeled "Law 2")</para></statement>
+           <statement><para>A rule of type "law" (should be labeled "Law ChapN.2")</para></statement>
         </rule>
         <rule type="proposition">
-           <statement><para>A rule of type "proposition" (should be labeled "Proposition 2")</para></statement>
+           <statement><para>A rule of type "proposition" (should be labeled "Proposition ChapN.2")</para></statement>
         </rule>
         <rule type="rule">
-           <statement><para>A rule of type "rule" (should be labeled "Rule 4")</para></statement>
+           <statement><para>A rule of type "rule" (should be labeled "Rule ChapN.4")</para></statement>
         </rule>
         <rule type="aaa" id="aaa">
-           <statement><para>A rule of type "aaa" (should be labeled "Rule 2")</para></statement>
+           <statement><para>A rule of type "aaa" (should be labeled "Rule ChapN.2")</para></statement>
         </rule>
     </section>
     
     <example>
         <rule id="example">
-           <statement><para>A rule inside an example.  It should be labeled and numbered exactly the same as if it were outside the example. ("Rule 5" in this case.)</para></statement>
+           <statement><para>A rule inside an example.  It should be labeled and numbered exactly the same as if it were outside the example. ("Rule ChapN.5" in this case.)</para></statement>
         </rule>
     </example>
 
@@ -103,20 +103,20 @@
        <label>customlabel</label>
        <title>ruletitle</title>
        <statement><para>A rule with a label ("customlabel") and title ("rule title").  Since it has no type, it will be numbered with other regular rules 
-                        (rule[@type='rule' or not(@type)]), therefore "customlabel 6. ruletitle".</para></statement>
+                        (rule[@type='rule' or not(@type)]), therefore "customlabel ChapN.6. ruletitle".</para></statement>
     </rule>
     
     <rule id="custom2" type="lemma">
         <label>customlabel</label>
-        <statement><para>A rule of type "lemma" with a custom label ("customlabel").  It will number with other "lemma"s, therefore "customlabel 3.".</para></statement>
+        <statement><para>A rule of type "lemma" with a custom label ("customlabel").  It will number with other "lemma"s, therefore "customlabel ChapN.3.".</para></statement>
     </rule>
 
     <rule type="RULE" id="rulecaps">
-        <statement><para>A rule of type "RULE". Type should be case insensitive, so it should be labeled "Rule 7".</para></statement>
+        <statement><para>A rule of type "RULE". Type should be case insensitive, so it should be labeled "Rule ChapN.7".</para></statement>
     </rule>
 
     <rule type="cOrOlLaRy" id="corollarymixedcase">
-        <statement><para>A rule of type "cOrOlLaRy". Type should be case insensitive, so it should be labeled "Corollary 3".</para></statement>
+        <statement><para>A rule of type "cOrOlLaRy". Type should be case insensitive, so it should be labeled "Corollary ChapN.3".</para></statement>
     </rule>
 
 </content>
