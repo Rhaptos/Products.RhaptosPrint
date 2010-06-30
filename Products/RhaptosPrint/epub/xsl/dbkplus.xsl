@@ -15,6 +15,8 @@
 	* Labels exercises (and links to them)
  -->
 
+<xsl:param name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+<xsl:param name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
 
 
 <!-- EXERCISE templates -->
@@ -134,14 +136,22 @@
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="cnx.template">
+        <xsl:variable name="type">
+                <xsl:choose>
+                        <xsl:when test="@type">
+                                <xsl:value-of select="translate(@type,$upper,$lower)"/>
+                        </xsl:when>
+                        <xsl:otherwise>rule</xsl:otherwise>
+                </xsl:choose>
+        </xsl:variable>
 	<xsl:variable name="defaultLabel">
 		<xsl:choose>
 			<!-- TODO: gentext for "Rule" and custom rules -->
-			<xsl:when test="@type='theorem'"><xsl:text>Theorem</xsl:text></xsl:when>
-			<xsl:when test="@type='lemma'"><xsl:text>Lemma</xsl:text></xsl:when>
-			<xsl:when test="@type='corollary'"><xsl:text>Corollary</xsl:text></xsl:when>
-			<xsl:when test="@type='law'"><xsl:text>Law</xsl:text></xsl:when>
-			<xsl:when test="@type='proposition'"><xsl:text>Proposition</xsl:text></xsl:when>
+			<xsl:when test="$type='theorem'"><xsl:text>Theorem</xsl:text></xsl:when>
+			<xsl:when test="$type='lemma'"><xsl:text>Lemma</xsl:text></xsl:when>
+			<xsl:when test="$type='corollary'"><xsl:text>Corollary</xsl:text></xsl:when>
+			<xsl:when test="$type='law'"><xsl:text>Law</xsl:text></xsl:when>
+			<xsl:when test="$type='proposition'"><xsl:text>Proposition</xsl:text></xsl:when>
 			<xsl:otherwise><xsl:text>Rule</xsl:text></xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
@@ -246,14 +256,17 @@
 	<xsl:number format="1" level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
 </xsl:template>
 
-<xsl:template match="ext:rule[not(@type)]" mode="number">
+<xsl:template match="ext:rule" mode="number">
+	<xsl:variable name="type" select="translate(@type,$upper,$lower)"/>
 	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[not(@type)]"/>
-</xsl:template>
-<xsl:template match="ext:rule[@type]" mode="number">
-	<xsl:variable name="type" select="@type"/>
-	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
-	<xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[@type=$type]"/>
+        <xsl:choose>
+                <xsl:when test="$type='rule' or not(@type)">
+                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$upper,$lower)='rule' or not(@type)]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$upper,$lower)=$type]"/>
+                </xsl:otherwise>
+        </xsl:choose>
 </xsl:template>
 
 <!-- Either a module is a chapter, or a section in a chapter -->
