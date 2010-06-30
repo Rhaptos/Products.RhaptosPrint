@@ -176,7 +176,10 @@
     <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<xsl:template match="c:link[@resource]" name="cnx.link">
+<xsl:template match="c:link" name="cnx.link">
+	<xsl:param name="label">
+		<xsl:apply-templates select="node()"/>
+	</xsl:param>
 	<xsl:variable name="document">
         <xsl:choose>
             <xsl:when test="@document">
@@ -187,22 +190,53 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="url">
-		<!-- Do not add the URL if we are generating a HTML zip -->
-    	<xsl:if test="$cnx.resource.local != 0">
-        	<xsl:value-of select="$cnx.url"/>
-        </xsl:if>
-        <xsl:value-of select="$document"/>
-        <xsl:text>/</xsl:text>
-        <xsl:value-of select="@resource"/>
-    </xsl:variable>
-    <db:link xlink:href="{$url}" ext:document="{$document}" ext:resource="{@resource}">
-    	<xsl:apply-templates select="@*|node()"/>
-    </db:link>
-</xsl:template>
-
-<xsl:template match="c:link[@url]">
-    <db:link xlink:href="{@url}"><xsl:apply-templates select="@*|node()"/></db:link>
+    <!-- Either it's a db:link (outside Docbook) or a db:xref (inside Docbook) -->
+    <xsl:choose>
+    	<xsl:when test="@url or @resource">
+    		<xsl:variable name="href">
+    			<!-- either use the @url or construct one (if it's a resource) -->
+    			<xsl:choose>
+    				<xsl:when test="@url">
+    					<xsl:value-of select="@url"/>
+    				</xsl:when>
+    				<xsl:otherwise>
+				   		<xsl:if test="$cnx.resource.local = 0">
+					    	<xsl:value-of select="$cnx.url"/>
+					    </xsl:if>
+					    <xsl:value-of select="$document"/>
+					    <xsl:text>/</xsl:text>
+					    <xsl:value-of select="@resource"/>    		
+    				</xsl:otherwise>
+    			</xsl:choose>
+    		</xsl:variable>
+    		<db:link xlink:href="{$href}" ext:document="{$document}" ext:resource="{@resource}">
+      			<xsl:apply-templates select="@*"/>
+    			<xsl:copy-of select="$label"/>
+    		</db:link>
+    	</xsl:when>
+    	<xsl:otherwise>
+    		<xsl:variable name="href">
+    			<xsl:value-of select="$document"/>
+		        <xsl:if test="@target-id">
+			        <xsl:value-of select="$cnx.module.separator"/>
+			        <xsl:value-of select="@target-id"/>
+			    </xsl:if>
+    		</xsl:variable>
+    		<xsl:choose>
+    			<xsl:when test="$label!=''">
+		    		<db:link linkend="{$href}">
+		    			<xsl:apply-templates select="@*"/>
+		    			<xsl:copy-of select="$label"/>
+		    		</db:link>
+    			</xsl:when>
+    			<xsl:otherwise>
+		    		<db:xref linkend="{$href}">
+		    			<xsl:apply-templates select="@*"/>
+		    		</db:xref>
+    			</xsl:otherwise>
+    		</xsl:choose>
+    	</xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 <xsl:template match="c:code">
@@ -272,11 +306,25 @@
 	<!-- /db:citation -->
 </xsl:template>
 <xsl:template match="c:cite[@url or @document or @target-id or @resource]">
+	<xsl:variable name="label">
+		<xsl:choose>
+			<xsl:when test="@url">
+				<xsl:text>url</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>link</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<!-- db:citation -->
 	<xsl:apply-templates select="node()"/>
 	<!-- TODO: Treat it like a link....  -->
 	<xsl:text> [</xsl:text>
-	<xsl:call-template name="cnx.link"/>
+	<xsl:call-template name="cnx.link">
+		<xsl:with-param name="label">
+			<xsl:value-of select="$label"/>
+		</xsl:with-param>
+	</xsl:call-template>
 	<xsl:text>]</xsl:text>
 	<!-- /db:citation -->
 </xsl:template>

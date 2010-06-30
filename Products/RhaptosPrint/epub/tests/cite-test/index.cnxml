@@ -46,6 +46,32 @@
 	
 		</list>
 	</section>
+	
+	<section><title>Assorted links (since c:cite uses the link generation code)</title>
+		<list>
+			<item><link id="link1" url="http://cnx.org"/>: A link with a url and no text</item>
+			<item><link id="link2" url="http://cnx.org">cnx.org</link>: A link with a url and text</item>
+			<item><link id="link3" target-id="1"><m:math><m:apply><m:divide/><m:ci>x</m:ci><m:cn>2</m:cn></m:apply></m:math></link>: A link with a url and mathml for text (x/2)</item>
+			<item><link id="link4" target-id="1"/>: A link with a target-id and no text</item>
+			<item><link id="link5" target-id="1">back to top</link>: A link with a target-id and text</item>
+			<item><link id="link6" document="cite-test" target-id="1"/>: A link with a document, target-id, and no text</item>
+			<item><link id="link7" document="cite-test" resource="non-existent.pdf"/>: A link with a document, resource, and no text</item>
+		</list>
+	</section>
+
+	<section><title>Links to links (craziness!)</title>
+		<list>
+			<item><link target-id="link1"/>: Link to the 1st link</item>
+			<item><link target-id="link2"/>: Link to the 2nd link</item>
+			<item><link target-id="link3"/>: Link to the 3rd link</item>
+			<item><link target-id="link4"/>: Link to the 4th link</item>
+			<item><link target-id="link5"/>: Link to the 5th link</item>
+			<item><link target-id="link6"/>: Link to the 6th link</item>
+			<item><link target-id="link7"/>: Link to the 7th link</item>
+			<item><link id="link8" target-id="link9"/>: Link to the 9th link (recursive)</item>
+			<item><link id="link9" target-id="link8"/>: Link to the 8th link (recursive)</item>
+		</list>
+	</section>
 
 	</content>
 </document>

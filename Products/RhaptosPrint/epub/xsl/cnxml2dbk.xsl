@@ -142,27 +142,6 @@
 </xsl:template>
 
 
-<xsl:template match="c:link[@document|@target-id and normalize-space(text())='']">
-	<xsl:variable name="linkend">
-		<xsl:if test="not(@document)"><xsl:value-of select="$cnx.module.id"/></xsl:if>
-		<xsl:value-of select="@document"/>
-		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
-		<xsl:value-of select="@target-id"/>
-	</xsl:variable>
-    <db:xref linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:xref>
-</xsl:template>
-<xsl:template match="c:link[@document|@target-id and normalize-space(text())!='']">
-	<xsl:variable name="linkend">
-		<xsl:if test="not(@document)"><xsl:value-of select="$cnx.module.id"/></xsl:if>
-		<xsl:value-of select="@document"/>
-		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
-		<xsl:value-of select="@target-id"/>
-	</xsl:variable>
-	<!-- Be sure to pass through the @document and @target-id attributes
-	     so later stages can convert links pointing to 
-	     modules outside the collection to the website -->
-    <db:link linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:link>
-</xsl:template>
 
 
 <!-- ****************************************
