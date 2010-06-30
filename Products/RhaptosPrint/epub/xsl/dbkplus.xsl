@@ -14,11 +14,7 @@
 	* Numbers exercises
 	* Labels exercises (and links to them)
  -->
-
-<xsl:param name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
-<xsl:param name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
-
-
+<xsl:include href="param.xsl"/>
 <!-- EXERCISE templates -->
 
 <!-- Generate custom HTML for an ext:problem and ext:solution.
@@ -139,7 +135,7 @@
         <xsl:variable name="type">
                 <xsl:choose>
                         <xsl:when test="@type">
-                                <xsl:value-of select="translate(@type,$upper,$lower)"/>
+                                <xsl:value-of select="translate(@type,$cnx.upper,$cnx.lower)"/>
                         </xsl:when>
                         <xsl:otherwise>rule</xsl:otherwise>
                 </xsl:choose>
@@ -257,14 +253,14 @@
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="number">
-	<xsl:variable name="type" select="translate(@type,$upper,$lower)"/>
+	<xsl:variable name="type" select="translate(@type,$cnx.upper,$cnx.lower)"/>
 	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
         <xsl:choose>
                 <xsl:when test="$type='rule' or not(@type)">
-                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$upper,$lower)='rule' or not(@type)]"/>
+                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$upper,$lower)=$type]"/>
+                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
                 </xsl:otherwise>
         </xsl:choose>
 </xsl:template>

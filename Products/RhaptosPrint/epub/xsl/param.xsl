@@ -93,6 +93,10 @@
   </xsl:choose>
 </xsl:param>
 
+<!-- Used for case-insensitive matching of c:rule/@type -->
+<xsl:param name="cnx.upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+<xsl:param name="cnx.lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+
 
 <!-- FOP stuff -->
 <!-- When numbering exercises, only use the last number.
