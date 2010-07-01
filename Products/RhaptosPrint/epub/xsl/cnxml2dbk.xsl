@@ -182,7 +182,7 @@
 	</xsl:choose>
 </xsl:template>
 <!-- Catch-all for any unsupported media -->
-<xsl:template match="c:para//c:media" name="cnx.media.catchall">
+<xsl:template match="c:para//c:media" name="cnx.media.catchall" priority="0">
 	<!-- All @id's are prefixed with the module id, so remove it before using it. -->
 	<xsl:variable name="fullId">
 		<xsl:call-template name="cnx.id"/>
@@ -202,7 +202,7 @@
 		<xsl:text>(Click to open media in browser)</xsl:text>
 	</db:link>
 </xsl:template>
-<xsl:template match="c:media">
+<xsl:template match="c:media" priority="0">
 	<db:para>
 		<xsl:call-template name="cnx.media.catchall"/>
 	</db:para>
