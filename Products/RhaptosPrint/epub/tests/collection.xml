@@ -30,20 +30,26 @@
   <md:actors>
     
     
-    <md:person userid="schatz">
+    <md:person userid="phil">
       <md:firstname>Philip</md:firstname>
       <md:surname>Schatz</md:surname>
       <md:fullname>Philip Schatz</md:fullname>
       <md:email>p@cnx</md:email>
     </md:person>
     
+    <md:person userid="zzz123456">
+      <md:firstname>Annoying</md:firstname>
+      <md:surname>Editor</md:surname>
+      <md:fullname>Some annoying editor causing the title page to list editors and authors</md:fullname>
+      <md:email>email@nospam</md:email>
+    </md:person>
+
   </md:actors>
   <md:roles>
-    <md:role type="author">schatz</md:role>
-    <md:role type="maintainer">schatz</md:role>
-    <md:role type="licensor">schatz</md:role>
-    
-    
+    <md:role type="author">phil</md:role>
+    <md:role type="maintainer">phil</md:role>
+    <md:role type="licensor">phil</md:role>
+    <md:role type="editor">zzz123456</md:role>
   </md:roles>
 
   <md:license url="http://creativecommons.org/licenses/by/2.0/" />

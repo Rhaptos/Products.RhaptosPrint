@@ -173,11 +173,17 @@
 
 
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
-<xsl:template match="db:authorgroup/db:author">
+<xsl:template match="db:authorgroup/db:*">
 	<xsl:variable name="userId" select="@ext:userid"/>
-	<xsl:if test="not(preceding-sibling::db:author[@ext:userid=$userId])">
-		<xsl:call-template name="ident"/>
-	</xsl:if>
+	<xsl:variable name="name" select="local-name()"/>
+	<xsl:choose>
+		<xsl:when test="not(preceding-sibling::db:*[local-name()=$name and @ext:userid=$userId])">
+			<xsl:call-template name="ident"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding duplicate author and editor</xsl:with-param></xsl:call-template>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <!-- Convert db:anchor elements and links to them to point to the parent figure.

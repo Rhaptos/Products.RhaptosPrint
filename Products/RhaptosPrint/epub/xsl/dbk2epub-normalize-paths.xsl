@@ -40,7 +40,7 @@
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
 		<db:authorgroup>
-			<xsl:for-each select="//db:author">
+			<xsl:for-each select="//db:authorgroup/db:*">
 				<xsl:call-template name="ident"/>
 			</xsl:for-each>
 		</db:authorgroup>
@@ -48,7 +48,7 @@
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="db:authorgroup[db:author]">
+<xsl:template match="db:authorgroup">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding db:authorgroup whose grandparent is <xsl:value-of select="local-name(../..)"/></xsl:with-param></xsl:call-template>
 </xsl:template>
 

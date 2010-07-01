@@ -439,7 +439,7 @@
 	</h2>
 	<xsl:variable name="authors">
 		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="bookinfo/authorgroup/authors"/>
+			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:variable name="editors">
@@ -456,7 +456,7 @@
 		</p>
 	</xsl:if>
 	<p>
-		<strong><xsl:text>By: </xsl:text></strong>
+		<strong><xsl:text>Content authors: </xsl:text></strong>
 		<xsl:call-template name="cnx.personlist">
 			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
 		</xsl:call-template>
