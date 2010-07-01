@@ -181,6 +181,32 @@
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
+<!-- Catch-all for any unsupported media -->
+<xsl:template match="c:para//c:media" name="cnx.media.catchall">
+	<!-- All @id's are prefixed with the module id, so remove it before using it. -->
+	<xsl:variable name="fullId">
+		<xsl:call-template name="cnx.id"/>
+	</xsl:variable>
+	<xsl:variable name="modulePrefix">
+		<xsl:value-of select="$cnx.module.id"/>
+		<xsl:value-of select="$cnx.module.separator"/>
+	</xsl:variable>
+	<xsl:variable name="url">
+		<xsl:value-of select="$cnx.url"/>
+		<xsl:value-of select="$cnx.module.id"/>
+		<xsl:text>/latest/#</xsl:text>
+		<xsl:value-of select="substring-after($fullId, $modulePrefix)"/>
+	</xsl:variable>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Found c:media that is not converted. Adding a link to the online version.</xsl:with-param></xsl:call-template>
+	<db:link xlink:href="{$url}">
+		<xsl:text>(Click to open media in browser)</xsl:text>
+	</db:link>
+</xsl:template>
+<xsl:template match="c:media">
+	<db:para>
+		<xsl:call-template name="cnx.media.catchall"/>
+	</db:para>
+</xsl:template>
 
 <xsl:template match="c:image[@src]">
 	<xsl:variable name="ext" select="substring-after(substring(@src, string-length(@src) - 5), '.')"/>
