@@ -449,7 +449,7 @@
 	</xsl:variable>
 	<xsl:if test="$authors!=$editors">
 		<p>
-			<strong><xsl:value-of select="@ext:type"/> <xsl:text> Edited By: </xsl:text></strong>
+			<strong><xsl:text>Collection edited by: </xsl:text></strong>
 			<xsl:call-template name="cnx.personlist">
 				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
 			</xsl:call-template>
