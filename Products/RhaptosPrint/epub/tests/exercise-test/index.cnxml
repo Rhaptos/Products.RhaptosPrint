@@ -45,30 +45,129 @@
         </list>
     </section>
 
-	<section><title>Exercise inside an example (should not be numbered and solutions should appear right below the problem)</title>
+    <section><title>Exercise inside an example (should not be numbered and solutions should appear right below the problem)</title>
 	   <example>
-        <exercise>
-           <problem>
+        <exercise id="exer-in-exam">
+           <problem id="prob-in-exam">
                <para>A problem inside an example</para>
            </problem>
-           <solution>
+           <solution id="sol-a-in-exam">
                <para>A solution inside an example</para>
            </solution>
-           <solution>
+           <solution id="sol-b-in-exam">
                <para>An alternate solution inside an example</para>
            </solution>
         </exercise>
        </example>
+        <list>
+          <item><link target-id="exer-in-exam"/> : exercise in example</item>
+          <item><link target-id="prob-in-exam"/> : problem in example</item>
+          <item><link target-id="sol-b-in-exam"/> : 2nd solution in exercise in example</item>
+        </list>
+    </section>
+
+    <section><title>Multiple, labeled, titled exercises inside an example, with some exercises and solutions using @print-placement (should be numbered per example and 
+                certain solutions should be put in "solutions" section at end of module)</title>
+        <example>
+          <label>ejemplo</label>
+          <title>titulo del ejemplo</title>
+          <para>Exercise and children have both labels and titles</para>
+          <exercise id="exer-in-exam2">
+            <label>ejercicio en ejemplo</label>
+            <title>titulo del ejercicio</title>
+            <problem id="prob-in-exam2">
+               <label>problema en ejemplo</label>
+               <title>titulo del problema</title>
+               <para>A problem inside an example whose exercise has no print-placement</para>
+            </problem>
+            <solution id="sol-a-in-exam2">
+               <label>solucion en ejemplo</label>
+               <title>titulo de la solucion</title>
+               <para>A solution (inside an example) with print-placement="here"</para>
+            </solution>
+            <solution id="sol-b-in-exam2" print-placement="end">
+               <label>solucion en ejemplo</label>
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (inside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-in-exam2" print-placement="here">
+               <label>solucion en ejemplo</label>
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (inside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-in-exam2"/> : exercise in example</item>
+            <item><link target-id="prob-in-exam2"/> : problem in example</item>
+            <item><link target-id="sol-a-in-exam2"/> : 1st solution in exercise in example</item>
+            <item><link target-id="sol-b-in-exam2"/> : 2nd solution in exercise in example</item>
+            <item><link target-id="sol-c-in-exam2"/> : 3rd solution in exercise in example</item>
+          </list>
+          <para>Exercise and children have labels but not titles</para>
+          <exercise id="exer-in-exam3" print-placement="end">
+            <label>ejercicio</label>
+            <problem id="prob-in-exam3">
+               <label>problema</label>
+               <para>A problem inside an example whose exercise has print-placement="end"</para>
+            </problem>
+            <solution id="sol-a-in-exam3">
+               <label>solucion</label>
+               <para>A solution (inside an example) with no print-placement</para>
+            </solution>
+            <solution id="sol-b-in-exam3" print-placement="end">
+               <label>solucion</label>
+               <para>An alternate solution (inside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-in-exam3" print-placement="here">
+               <label>solucion</label>
+               <para>An alternate solution (inside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-in-exam3"/> : exercise in example</item>
+            <item><link target-id="prob-in-exam3"/> : problem in example</item>
+            <item><link target-id="sol-a-in-exam3"/> : 1st solution in exercise in example</item>
+            <item><link target-id="sol-b-in-exam3"/> : 2nd solution in exercise in example</item>
+            <item><link target-id="sol-c-in-exam3"/> : 3rd solution in exercise in example</item>
+          </list>
+          <para>Exercise and children have titles but not labels</para>
+          <exercise id="exer-in-exam4" print-placement="here">
+            <title>titulo del ejercicio</title>
+            <problem id="prob-in-exam4">
+               <title>titulo del problema</title>
+               <para>A problem inside an example whose exercise has print-placement="here"</para>
+            </problem>
+            <solution id="sol-a-in-exam4" print-placement="here">
+               <title>titulo de la solucion</title>
+               <para>A solution (inside an example) with no print-placement</para>
+            </solution>
+            <solution id="sol-b-in-exam4" print-placement="end">
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (inside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-in-exam4">
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (inside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-in-exam4"/> : exercise in example</item>
+            <item><link target-id="prob-in-exam4"/> : problem in example</item>
+            <item><link target-id="sol-a-in-exam4"/> : 1st solution in exercise in example</item>
+            <item><link target-id="sol-b-in-exam4"/> : 2nd solution in exercise in example</item>
+            <item><link target-id="sol-c-in-exam4"/> : 3rd solution in exercise in example</item>
+          </list>
+        </example>
     </section>
 
 	<section><title>Custom labels and titles (should still be numbered 3)</title>
-	   <para>The included math might not even be possible according to the language but it makes sure elements inside a title or label tag are rendered</para>
+	   <para>The included math and code might not even be possible according to the language but it makes sure elements inside a title or label tag are rendered</para>
         <exercise id="ex3">
-            <label id="ex3.label">Ejercicio with math label <m:math><m:apply><m:divide/><m:ci>label3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
-            <title id="ex3.title">Ejercicio with math title <m:math><m:apply><m:divide/><m:ci>title3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
+            <label id="ex3.label">Ejercicio with marked-up <code>label</code> <m:math><m:apply><m:divide/><m:ci>label3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
+            <title id="ex3.title">Ejercicio with marked-up <code>title</code> <m:math><m:apply><m:divide/><m:ci>title3.e</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
            <problem id="ex3.p">
-                <label id="ex3.p.label">Problema with math label <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
-                <title id="ex3.p.title">Problema with math label <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
+                <label id="ex3.p.label">Problema with marked-up <code>label</code> <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></label>
+                <title id="ex3.p.title">Problema with marked-up <code>title</code> <m:math><m:apply><m:divide/><m:ci>label3.p</m:ci><m:cn>3</m:cn></m:apply></m:math></title>
                <para>A problem with math (images) in both the label and title</para>
            </problem>
            <solution id="ex3.s1">
@@ -97,6 +196,96 @@
             <item><link target-id="ex3.s2.title"/> : solution2 title</item>
             <item><link target-id="ex3.s2.label"/> : solution2 label</item>
         </list>
+    </section>
+
+    <section>
+        <title>Print-placement on exercises outside of an example (some with labels/titles due to copying)</title>
+          <para>Exercise and children have both labels and titles</para>
+          <exercise id="exer-out-exam2">
+            <label>ejercicio</label>
+            <title>titulo</title>
+            <problem id="prob-out-exam2">
+               <label>problema</label>
+               <title>titulo del problema</title>
+               <para>A problem outside an example whose exercise has no print-placement</para>
+            </problem>
+            <solution id="sol-a-out-exam2">
+               <label>solucion</label>
+               <title>titulo de la solucion</title>
+               <para>A solution (outside an example) with print-placement="here"</para>
+            </solution>
+            <solution id="sol-b-out-exam2" print-placement="end">
+               <label>solucion</label>
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (outside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-out-exam2" print-placement="here">
+               <label>solucion</label>
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (outside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-out-exam2"/> : exercise outside example</item>
+            <item><link target-id="prob-out-exam2"/> : problem outside example</item>
+            <item><link target-id="sol-a-out-exam2"/> : 1st solution in exercise outside example</item>
+            <item><link target-id="sol-b-out-exam2"/> : 2nd solution in exercise outside example</item>
+            <item><link target-id="sol-c-out-exam2"/> : 3rd solution in exercise outside example</item>
+          </list>
+          <para>Exercise and children have labels but not titles</para>
+          <exercise id="exer-out-exam3" print-placement="end">
+            <label>ejercicio</label>
+            <problem id="prob-out-exam3">
+               <label>problema</label>
+               <para>A problem outside an example whose exercise has print-placement="end"</para>
+            </problem>
+            <solution id="sol-a-out-exam3">
+               <label>solucion</label>
+               <para>A solution (outside an example) with no print-placement</para>
+            </solution>
+            <solution id="sol-b-out-exam3" print-placement="end">
+               <label>solucion</label>
+               <para>An alternate solution (outside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-out-exam3" print-placement="here">
+               <label>solucion</label>
+               <para>An alternate solution (ouside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-out-exam3"/> : exercise outside example</item>
+            <item><link target-id="prob-out-exam3"/> : problem outside example</item>
+            <item><link target-id="sol-a-out-exam3"/> : 1st solution in exercise outside example</item>
+            <item><link target-id="sol-b-out-exam3"/> : 2nd solution in exercise outside example</item>
+            <item><link target-id="sol-c-out-exam3"/> : 3rd solution in exercise outside example</item>
+          </list>
+          <para>Exercise and children have titles but not labels</para>
+          <exercise id="exer-out-exam4" print-placement="here">
+            <title>titulo del ejercicio</title>
+            <problem id="prob-out-exam4">
+               <title>titulo del problema</title>
+               <para>A problem outside an example whose exercise has print-placement="here"</para>
+            </problem>
+            <solution id="sol-a-out-exam4" print-placement="here">
+               <title>titulo de la solucion</title>
+               <para>A solution (outside an example) with no print-placement</para>
+            </solution>
+            <solution id="sol-b-out-exam4" print-placement="end">
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (outside an example) with print-placement="end"</para>
+            </solution>
+            <solution id="sol-c-out-exam4">
+               <title>titulo de la solucion</title>
+               <para>An alternate solution (outside an example) with print-placement="here"</para>
+            </solution>
+          </exercise>
+          <list>
+            <item><link target-id="exer-out-exam4"/> : exercise outside example</item>
+            <item><link target-id="prob-out-exam4"/> : problem outside example</item>
+            <item><link target-id="sol-a-out-exam4"/> : 1st solution in exercise outside example</item>
+            <item><link target-id="sol-b-out-exam4"/> : 2nd solution in exercise outside example</item>
+            <item><link target-id="sol-c-out-exam4"/> : 3rd solution in exercise outside example</item>
+          </list>
     </section>
 
 	</content>
