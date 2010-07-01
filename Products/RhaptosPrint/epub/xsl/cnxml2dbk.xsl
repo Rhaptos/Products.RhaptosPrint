@@ -55,11 +55,12 @@
         </db:sectioninfo>
         
         <xsl:apply-templates select="c:content/*"/>
-        <!-- Move the exercise solutions to the end of a module -->
+        <!-- Move some exercise solutions to the end of a module -->
         <xsl:if test=".//c:solution[not(ancestor::c:example)]">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
-        		<xsl:apply-templates mode="end-of-module" select=".//c:solution[not(ancestor::c:example)]"/>
+                        <xsl:apply-templates select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
+                                                     .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
@@ -337,10 +338,17 @@
 	</db:imageobject>
 </xsl:template>
 
-<!-- Ugliness that converts an exercise problem and solution into Docbook para's and links -->
+<!-- Create a custom ext:exercise element that will be converted and labeled later on -->
 <xsl:template match="c:exercise">
 	<ext:exercise>
-		<xsl:apply-templates select="@*|node()[local-name()!='solution']"/>
+		<xsl:apply-templates select="@*|node()[not(self::c:solution[not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end'])]"/>
+	</ext:exercise>
+</xsl:template>
+
+<!-- Create a custom ext:exercise element that will be converted and labeled later on -->
+<xsl:template match="c:exercise[ancestor::c:example]">
+	<ext:exercise>
+		<xsl:apply-templates select="@*|node()[not(self::c:solution[@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))])]"/>
 	</ext:exercise>
 </xsl:template>
 
@@ -351,7 +359,8 @@
 	</ext:problem>
 </xsl:template>
 
-<xsl:template mode="end-of-module" match="c:solution">
+<!-- Create a custom ext:solution element that will be converted and labeled later on -->
+<xsl:template match="c:solution">
 	<xsl:variable name="exerciseId">
 		<xsl:call-template name="cnx.id">
 			<xsl:with-param name="object" select=".."/>
@@ -371,11 +380,14 @@
 <!-- Special case for exercises inside an example. 
 	Don't number them and don't put the solutions at the end of the chapter
  -->
+<!--
 <xsl:template match="c:example//c:exercise">
 	<xsl:variable name="id">
 		<xsl:call-template name="cnx.id"/>
 	</xsl:variable>
+-->
 	<!-- Just output the exercise followed by the solution(s) -->
+<!--
 	<db:para>
 		<db:emphasis role="bold">
 			<xsl:apply-templates select="c:title"/>
@@ -399,7 +411,7 @@
 	</db:para>
 	<xsl:apply-templates/>
 </xsl:template>
-
+-->
 
 <xsl:template match="c:foreign">
         <db:foreignphrase>
