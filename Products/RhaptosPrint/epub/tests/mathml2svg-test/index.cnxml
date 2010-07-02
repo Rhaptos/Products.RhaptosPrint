@@ -14,7 +14,8 @@
 
 	<content>
 	<section><title>About This Test</title>
-	   <para>This module contains cases where the MathML2SVG conversion fails. These should all be cleaned up and fixed.
+	   <para>This module contains cases where the MathML2SVG conversion fails. These should all be cleaned up and fixed.  Also contains some exercises and rules in 
+the front matter following those in m9003.
 	   </para>
 	</section>
 	<section><title>Test!</title>
@@ -33,6 +34,17 @@
                 </m:math-->Difficult to detect: empty mml:mrow in a mml:mfrac (the mml:mrow is inside a mml:mstyle) : from col10802_1.1_complete/m29521</item>
 
 	   </list></para>
+    </section>
+
+    <section>
+        <title>Extra exercise and rule after the ones in m9003.</title>
+        <exercise>
+            <problem>This is an exercise done for numbering purposes.</problem>
+            <solution print-placement="here">This is the solution (print-placement="here").</solution>
+        </exercise>
+        <rule type="theorem">
+            <statement>This is a theorem done for numbering purposes.</statement>
+        </rule>
     </section>
 
 	</content>

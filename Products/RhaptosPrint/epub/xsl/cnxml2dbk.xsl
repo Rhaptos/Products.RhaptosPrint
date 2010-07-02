@@ -47,6 +47,8 @@
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
+    <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
+                                                  .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
     <db:section ext:element="module">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <db:sectioninfo>
@@ -56,11 +58,10 @@
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move some exercise solutions to the end of a module -->
-        <xsl:if test=".//c:solution[not(ancestor::c:example)]">
+        <xsl:if test="$moving.solutions">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
-                        <xsl:apply-templates select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
-                                                     .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
+                        <xsl:apply-templates select="$moving.solutions" />
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
