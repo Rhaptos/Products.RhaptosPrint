@@ -168,17 +168,6 @@
 	</xsl:call-template>
 </xsl:template>
 
-<!--
-<xsl:template match="ext:problem[not(ext:label)]" mode="cnx.template">
-        <xsl:apply-templates select="title"/>
-</xsl:template>
-
-<xsl:template match="ext:solution[not(ext:label)]" mode="cnx.template">
-        <xsl:text>Solution to </xsl:text>
-        <xsl:apply-templates select="." mode="number"/>
-</xsl:template>
--->
-
 <xsl:template name="cnx.label" match="ext:*[ext:label]" mode="cnx.template" priority="0">
 	<xsl:param name="c" select="."/>
 	<xsl:param name="default"></xsl:param>
@@ -224,21 +213,21 @@
                 <xsl:number count="ext:solution[@exercise-id=$exerciseId]" level="any" format=" A"/>
         </xsl:if>
         <xsl:if test="parent::section[@ext:element='solutions']">
-        <xsl:text> </xsl:text>
-        <!-- TODO: gentext for "to" -->
-        <xsl:text>to</xsl:text>
-        <xsl:text> </xsl:text>
-        <xsl:choose>
-                <xsl:when test="//ext:exercise[@id=$exerciseId]/ext:label">
-                        <xsl:apply-templates select="//ext:exercise[@id=$exerciseId]/ext:label" mode="cnx.label" />
-                </xsl:when>
-                <xsl:otherwise>
-                        <!-- TODO: gentext for "Exercise" -->
-                        <xsl:text>Exercise</xsl:text>
-                </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="." mode="number"/>
+                <xsl:text> </xsl:text>
+                <!-- TODO: gentext for "to" -->
+                <xsl:text>to</xsl:text>
+                <xsl:text> </xsl:text>
+                <xsl:choose>
+                        <xsl:when test="//ext:exercise[@id=$exerciseId]/ext:label">
+                                <xsl:apply-templates select="//ext:exercise[@id=$exerciseId]/ext:label" mode="cnx.label" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                                <!-- TODO: gentext for "Exercise" -->
+                                <xsl:text>Exercise</xsl:text>
+                        </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="." mode="number"/>
         </xsl:if>
 </xsl:template>
 
