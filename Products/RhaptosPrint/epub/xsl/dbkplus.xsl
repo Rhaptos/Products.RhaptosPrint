@@ -244,45 +244,37 @@
 <!-- By default, nothing is numbered. -->
 <xsl:template match="ext:*" mode="number"/>
 
-<xsl:template name="cnx.number.ancestor">
-	<xsl:if test="ancestor::chapter|ancestor::appendix">
-		<xsl:apply-templates select="ancestor::*[@ext:element='module']" mode="cnxnumber"/>
+<xsl:template name="cnx.chapter.number">
+	<xsl:for-each select="ancestor::chapter">
+                <xsl:apply-templates select="." mode="label.markup"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
-	</xsl:if>
+        </xsl:for-each>
 </xsl:template>
 
 <xsl:template match="ext:exercise" mode="number">
-	<xsl:call-template name="cnx.number.ancestor"/>
+	<xsl:call-template name="cnx.chapter.number"/>
+        <xsl:if test="ancestor::section[@ext:element='module']">
+                <xsl:number format="1" level="any" from="chapter" count="*[@ext:element='module']"/>
+		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
+	</xsl:if>
 	<xsl:number format="1" level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor::example]" mode="number">
-	<xsl:number format="1." level="any" from="example" count="ext:exercise"/>
+	<xsl:number format="1" level="any" from="example" count="ext:exercise"/>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="number">
 	<xsl:variable name="type" select="translate(@type,$cnx.upper,$cnx.lower)"/>
-	<!-- xsl:call-template name="cnx.number.ancestor"/ -->
+	<xsl:call-template name="cnx.chapter.number"/>
         <xsl:choose>
                 <xsl:when test="$type='rule' or not(@type)">
-                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
+                        <xsl:number format="1" level="any" from="chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                        <xsl:number format="1" level="any" from="chapter|appendix" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
+                        <xsl:number format="1" level="any" from="chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
                 </xsl:otherwise>
         </xsl:choose>
-</xsl:template>
-
-<!-- Either a module is a chapter, or a section in a chapter -->
-<xsl:template match="preface|chapter|appendix" mode="cnxnumber">
-	<xsl:apply-templates select="." mode="label.markup"/>
-</xsl:template>
-<xsl:template match="*[@ext:element='module']" mode="cnxnumber">
-	<xsl:if test="ancestor::chapter|ancestor::appendix">
-		<xsl:apply-templates select="ancestor::preface|ancestor::chapter|ancestor::appendix" mode="cnxnumber"/>
-		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
-        </xsl:if>
-	<xsl:number format="1" level="any" from="chapter|appendix" count="*[@ext:element='module']"/>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="number">
