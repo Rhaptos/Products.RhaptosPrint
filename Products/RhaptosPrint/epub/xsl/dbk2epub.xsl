@@ -517,4 +517,14 @@
 	</p>
 </xsl:template>
 
+    <!-- Add an asterisk linking to a module's attribution. The XPath ugliness below is like preface/prefaceinfo/title/text(), but also for chapter and section -->
+    <!-- FIXME: not working for some reason in modules that front matter (i.e. in db:preface).   Haven't tested module EPUBs or EPUBs of collections with no subcollections. -->
+    <xsl:template match="*[@ext:element='module']/*[substring-before(local-name(),'info') = local-name(parent::*)]/title/text()">
+        <xsl:value-of select="."/>
+        <!-- FIXME: Hard-coding apa.xhtml is probably not the right way to do this, but should be relatively stable for now. -->
+        <sup class="module-footnote">
+            <a href="apa.xhtml#{$attribution.section.id}.{../../../@id}">*</a>
+        </sup>
+    </xsl:template>
+
 </xsl:stylesheet>

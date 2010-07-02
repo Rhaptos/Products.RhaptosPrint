@@ -507,6 +507,10 @@ blockquote{
   display: none;
 }
 
+.module-footnote a{
+  text-decoration: none;
+}
+
 .glossary .titlepage, .references .titlepage, .footnotes .titlepage{
   font-size: 1em;
   margin-top: 0;

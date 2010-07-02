@@ -97,6 +97,8 @@
 <xsl:param name="cnx.upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
 <xsl:param name="cnx.lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
 
+<!-- Putting this here since it's used in more than one file. -->
+<xsl:param name="attribution.section.id" select="'book.attribution'"/>
 
 <!-- FOP stuff -->
 <!-- When numbering exercises, only use the last number.
