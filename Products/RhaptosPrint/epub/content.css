@@ -475,11 +475,11 @@ blockquote{
 }
 
 .statement{
-  margin: .75em 0 .5em 3em;
+  margin: .75em 0 .5em 1em !important;
 }
 
 .proof{ 
-  margin: .4em 0 .2em 3em;
+  margin: .4em 0 .2em 1em !important;
 }
 
 .statement p, .proof p{
