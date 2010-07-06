@@ -79,7 +79,10 @@
 <xsl:template match="db:book">
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"/>
-		<db:appendix xml:id="{$attribution.section.id}">
+		<db:appendix>
+			<xsl:attribute name="xml:id">
+				<xsl:value-of select="$attribution.section.id"/>
+			</xsl:attribute>
 			<db:title>Attributions</db:title>
 			<xsl:for-each select=".//db:chapterinfo|.//db:sectioninfo">
 				<xsl:variable name="id">
