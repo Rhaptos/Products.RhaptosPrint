@@ -12,15 +12,17 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
+<xsl:param name="section.autolabel" select="1"></xsl:param>
+<xsl:param name="section.autolabel.max.depth">1</xsl:param>
+<xsl:param name="chunk.section.depth" select="0"></xsl:param>
+<xsl:param name="chunk.first.sections" select="0"></xsl:param>
 
-<!-- When numbering exercises, only use the last number.
-     Otherwise, things like "1.2.3.4.10" end up being the label
-     see col10614 -->
-<xsl:param name="qanda.inherit.numeration">0</xsl:param>
-<!-- 
+<xsl:param name="section.label.includes.component.label">1</xsl:param>
+<xsl:param name="xref.with.number.and.title">0</xsl:param>
+<xsl:param name="toc.section.depth">0</xsl:param>
+
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
-fop.extensions  1
- -->
 
 
 <!-- Add a template for newlines.

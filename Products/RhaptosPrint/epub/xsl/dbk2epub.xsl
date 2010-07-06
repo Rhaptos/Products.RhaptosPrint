@@ -77,7 +77,6 @@
 		<xsl:otherwise>
 			<img src="{@fileref}">
 				<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-				<xsl:apply-templates select="@*[local-name()!='baseline-shift']"/>
 			</img>
 		</xsl:otherwise>
 	</xsl:choose>
@@ -475,8 +474,20 @@
                         </span>
 		</div>
 	</xsl:if>
-	<!-- TODO: If derived -->
-	
+	<xsl:if test="bookinfo/ext:derived-from">
+		<xsl:variable name="url">
+			<xsl:value-of select="bookinfo/ext:derived-from/@url"/>
+		</xsl:variable>
+		<p>
+			<xsl:text>Based on: </xsl:text>
+			<xsl:apply-templates select="bookinfo/ext:derived-from/title/node()"/>
+			<xsl:text> &lt;</xsl:text>
+			<a href="{$url}">
+				<xsl:value-of select="$url"/>
+			</a>
+			<xsl:text>&gt;</xsl:text>
+		</p>
+	</xsl:if>
 	<div id="title_page_url">
 		<xsl:variable name="url">
 			<xsl:value-of select="@ext:url"/>

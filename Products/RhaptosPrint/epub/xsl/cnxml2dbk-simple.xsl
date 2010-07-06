@@ -33,11 +33,11 @@
 	<xsl:choose>
 		<xsl:when test="normalize-space(text()) != ''">
 			<db:para>
-				<xsl:apply-templates select="node()[local-name()!='label' and local-name()!='title']"/>
+				<xsl:apply-templates select="node()[not(self::c:label or self::c:title)]"/>
 			</db:para>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:apply-templates select="node()[local-name()!='label' and local-name()!='title']"/>
+			<xsl:apply-templates select="node()[not(self::c:label or self::c:title)]"/>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -102,7 +102,7 @@
     			<xsl:apply-templates select="c:title/node()"/>
     		</xsl:if>
     	</db:title>
-    	<xsl:apply-templates select="*[local-name()!='title']"/>
+    	<xsl:apply-templates select="*[not(self::c:title)]"/>
     </db:section>
 </xsl:template>
 

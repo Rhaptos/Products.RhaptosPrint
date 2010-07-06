@@ -191,6 +191,11 @@
 	<db:abstract><db:para><xsl:apply-templates/></db:para></db:abstract>
 </xsl:template>
 
+<xsl:template match="md:derived-from">
+	<ext:derived-from>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:derived-from>
+</xsl:template>
 
 <!-- Ignore the following metadata elements -->
 <!-- Ignore actors. they're only used by md:roles -->

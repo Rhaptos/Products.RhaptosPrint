@@ -43,7 +43,7 @@
 	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@url|@type|@src|@format|@alt"/>
+<xsl:template match="@type|@src|@format|@alt"/>
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">

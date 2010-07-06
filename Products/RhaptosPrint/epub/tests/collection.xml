@@ -61,8 +61,9 @@
   -->
   
   
-  
-  
+  <md:derived-from url="http://foo/plone/content/col10151/1.21"/>
+  <!-- Another test: md:derived-from url="http://foo/plone/content/phil-test-nonexistant-collection"/ -->
+  <!-- col10151 -->
 
   
 
