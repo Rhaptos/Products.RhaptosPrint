@@ -17,9 +17,9 @@ XSLTPROC="xsltproc"
 FOP="bash $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
-DOCBOOK_CLEANUP_XSL=$ROOT/xsl/docbook-cleanup-whole.xsl
-DOCBOOK2FO_XSL=$ROOT/xsl/docbook2fo.xsl
-ALIGN_XSL=$ROOT/xsl/postprocess-svg.xsl
+DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
+DOCBOOK2FO_XSL=$ROOT/xsl/dbk2fo.xsl
+ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 
 
 # Load up the custom params to xsltproc:
@@ -58,6 +58,7 @@ do
         FO=index.aligned.fo
         PDF=index.pdf
 
+        echo "LOG: --------- Starting on Module $MODULE ------------"
         $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
         
         $XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2  2> $COL_PATH/$MODULE/_err.log
