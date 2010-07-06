@@ -40,8 +40,37 @@ h1, .titlepage h1, .book h2{
   text-align: center;
 }
 
-.book{
+.book div{
   text-align: center;
+  margin: 0 0 .75em;
+}
+
+#copyright_page{
+  margin-top: 4em;
+  font-size: .9em;
+  text-align: left;
+  display: inline-block;
+}
+
+#copyright_page div{
+  text-align: left;
+}
+
+#portal_title{
+  margin-top: 3em;
+  margin-bottom: .25em;
+}
+
+#portal_location{
+  margin-top: .25em;
+}
+
+#title_page_collection_editors{
+  margin-bottom: .25em;
+}
+
+#title_page_url{
+  margin-top: 3em;
 }
 
 /* ============== ToC ============= */
