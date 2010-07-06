@@ -451,27 +451,27 @@
 		<div id="title_page_collection_editors">
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
                         <span>
-			<xsl:call-template name="cnx.personlist">
-				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
-			</xsl:call-template>
+        			<xsl:call-template name="cnx.personlist">
+        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
+        			</xsl:call-template>
                         </span>
 		</div>
 	</xsl:if>
 	<div id="title_page_module_authors">
 		<strong><xsl:text>Content authors: </xsl:text></strong>
                 <span>
-		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
-		</xsl:call-template>
+        		<xsl:call-template name="cnx.personlist">
+        			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
+        		</xsl:call-template>
                 </span>
 	</div>
 	<xsl:if test="bookinfo/authorgroup/othercredit[@class='translator']">
 		<div id="title_page_translators">
 			<strong><xsl:text>Translated by: </xsl:text></strong>
                         <span>
-			<xsl:call-template name="cnx.personlist">
-				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='translator']"/>
-			</xsl:call-template>
+        			<xsl:call-template name="cnx.personlist">
+        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='translator']"/>
+        			</xsl:call-template>
                         </span>
 		</div>
 	</xsl:if>
@@ -483,49 +483,49 @@
 		</xsl:variable>
 		<strong><xsl:text>Online: </xsl:text></strong>
                 <span>
-		<xsl:text>&lt;</xsl:text>
-		<a href="{$url}"><xsl:value-of select="$url"/></a>
-		<xsl:text>&gt;</xsl:text>
+        		<xsl:text>&lt;</xsl:text>
+        		<a href="{$url}"><xsl:value-of select="$url"/></a>
+        		<xsl:text>&gt;</xsl:text>
                 </span>
 	</div>
 	<xsl:if test="$cnx.iscnx != 0">
                 <div id="portal_statement">
-		<div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
-		<div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
+        		<div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
+        		<div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
                 </div>
 	</xsl:if>
         <div id="copyright_page">
-	<xsl:if test="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']">
-		<div id="copyright_statement">
-			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
-			<xsl:call-template name="cnx.personlist">
-				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']"/>
-			</xsl:call-template>
-			<xsl:text>.</xsl:text>
-			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
-			<xsl:apply-templates mode="titlepage.mode" select="bookinfo/legalnotice"/>
-		</div>
-	</xsl:if>
-	<xsl:if test="not(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor'])">
-		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
-	</xsl:if>
-	<xsl:if test="@ext:derived-url">
-		<div id="copyright_derivation">
-			<xsl:text>The collection was based on </xsl:text>
-			<xsl:text> &lt;</xsl:text>
-			<a href="{@ext:derived-url}">
-				<xsl:value-of select="@ext:derived-url"/>
-			</a>
-			<xsl:text>&gt;.</xsl:text>
-		</div>
-	</xsl:if>
-	<div id="copyright_revised">
-		<xsl:text>Collection structure revised: </xsl:text>
-        	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate/text()"/>
-	</div>
-	<div id="copyright_attribution">
-		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
-	</div>
+        	<xsl:if test="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']">
+        		<div id="copyright_statement">
+        			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
+        			<xsl:call-template name="cnx.personlist">
+        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']"/>
+        			</xsl:call-template>
+        			<xsl:text>.</xsl:text>
+        			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
+        			<xsl:apply-templates mode="titlepage.mode" select="bookinfo/legalnotice"/>
+        		</div>
+        	</xsl:if>
+        	<xsl:if test="not(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor'])">
+        		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
+        	</xsl:if>
+        	<xsl:if test="@ext:derived-url">
+        		<div id="copyright_derivation">
+        			<xsl:text>The collection was based on </xsl:text>
+        			<xsl:text> &lt;</xsl:text>
+        			<a href="{@ext:derived-url}">
+        				<xsl:value-of select="@ext:derived-url"/>
+        			</a>
+        			<xsl:text>&gt;.</xsl:text>
+        		</div>
+        	</xsl:if>
+        	<div id="copyright_revised">
+        		<xsl:text>Collection structure revised: </xsl:text>
+         	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate/text()"/>
+        	</div>
+        	<div id="copyright_attribution">
+        		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
+        	</div>
         </div>
 </xsl:template>
 
