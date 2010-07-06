@@ -450,23 +450,29 @@
 	<xsl:if test="$authors!=$editors">
 		<div id="title_page_collection_editors">
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
+                        <span>
 			<xsl:call-template name="cnx.personlist">
 				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
 			</xsl:call-template>
+                        </span>
 		</div>
 	</xsl:if>
 	<div id="title_page_module_authors">
 		<strong><xsl:text>Content authors: </xsl:text></strong>
+                <span>
 		<xsl:call-template name="cnx.personlist">
 			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
 		</xsl:call-template>
+                </span>
 	</div>
 	<xsl:if test="bookinfo/authorgroup/othercredit[@class='translator']">
 		<div id="title_page_translators">
 			<strong><xsl:text>Translated by: </xsl:text></strong>
+                        <span>
 			<xsl:call-template name="cnx.personlist">
 				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='translator']"/>
 			</xsl:call-template>
+                        </span>
 		</div>
 	</xsl:if>
 	<!-- TODO: If derived -->
@@ -483,8 +489,10 @@
                 </span>
 	</div>
 	<xsl:if test="$cnx.iscnx != 0">
+                <div id="portal_statement">
 		<div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
 		<div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
+                </div>
 	</xsl:if>
         <div id="copyright_page">
 	<xsl:if test="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']">

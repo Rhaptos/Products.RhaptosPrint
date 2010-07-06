@@ -49,7 +49,7 @@
     <md:role type="author">phil</md:role>
     <md:role type="maintainer">phil</md:role>
     <md:role type="licensor">phil</md:role>
-    <md:role type="editor">zzz123456</md:role>
+    <md:role type="editor">zzz123456 phil</md:role>
   </md:roles>
 
   <md:license url="http://creativecommons.org/licenses/by/2.0/" />
