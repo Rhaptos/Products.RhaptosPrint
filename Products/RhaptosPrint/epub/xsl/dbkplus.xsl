@@ -257,11 +257,11 @@
                 <xsl:number format="1" level="any" from="chapter" count="*[@ext:element='module']"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
 	</xsl:if>
-	<xsl:number format="1" level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
+	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor::example]" mode="number">
-	<xsl:number format="1" level="any" from="example" count="ext:exercise"/>
+	<xsl:number format="1." level="any" from="example" count="ext:exercise"/>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="number">
@@ -269,10 +269,10 @@
 	<xsl:call-template name="cnx.chapter.number"/>
         <xsl:choose>
                 <xsl:when test="$type='rule' or not(@type)">
-                        <xsl:number format="1" level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
+                        <xsl:number format="1." level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                        <xsl:number format="1" level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
+                        <xsl:number format="1." level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
                 </xsl:otherwise>
         </xsl:choose>
 </xsl:template>
