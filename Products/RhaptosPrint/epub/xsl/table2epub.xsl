@@ -4,6 +4,7 @@
                 xmlns:db="http://docbook.org/ns/docbook" 
                 version="1.0">
   
+  <!-- FIXME: This file essentially copied from cnxml/trunk/style/table.xsl with some edits.  Eventually we should try to use just one file to reduce code duplication. -->
 
   <!--ID CHECK -->
   <xsl:template name="IdCheck">
