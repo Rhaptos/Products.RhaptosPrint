@@ -12,7 +12,7 @@ UNALIGNED=$COL_PATH/collection.fo
 FO=collection.aligned.fo
 PDF=collection.pdf
 
-XSLTPROC="xsltproc --nonet"
+XSLTPROC="xsltproc"
 FOP="sh $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files

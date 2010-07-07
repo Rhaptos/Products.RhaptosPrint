@@ -57,6 +57,9 @@
 <xsl:template match="c:footnote">
     <db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
 </xsl:template>
+<xsl:template match="c:footnote[text()]">
+    <db:footnote><xsl:apply-templates select="@*"/><db:para><xsl:apply-templates select="node()"/></db:para></db:footnote>
+</xsl:template>
 <xsl:template match="c:section">
     <db:section><xsl:call-template name="block-id-and-children"/></db:section>
 </xsl:template>

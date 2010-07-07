@@ -28,7 +28,9 @@
 </xsl:template>
 
 <xsl:template match="col:metadata">
-	<db:info><xsl:apply-templates select="@*|node()"/></db:info>
+	<db:bookinfo>
+		<xsl:apply-templates select="@*|node()"/>
+	</db:bookinfo>
 </xsl:template>
 
 <!-- Modules before the first subcollection are preface frontmatter -->

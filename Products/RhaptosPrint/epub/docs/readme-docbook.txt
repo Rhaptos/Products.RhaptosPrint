@@ -2,8 +2,8 @@ Prerequisites:
 
  * Install Java
  * Download Apache FOP (0.95+) from http://xmlgraphics.apache.org/fop/download.html#binary
- * Download the Docbook XSL (1.75.2+) from http://sourceforge.net/projects/docbook/files/
-                            (http://downloads.sourceforge.net/project/docbook/docbook-xsl-doc/1.75.2/docbook-xsl-doc-1.75.2.zip)
+ * Download the Docbook XSL-ns (1.75.2+) from http://sourceforge.net/projects/docbook/files/ (Remember to get the xsl-ns one!)
+                            (http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.75.2/docbook-xsl-ns-1.75.2.zip/download)
  * Download the Docbook RelaxNG schema (4.3+) from http://docbook.org/rng/
 
 

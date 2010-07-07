@@ -2,6 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook"
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
@@ -65,7 +66,7 @@
   </object>
 --></xsl:template>
 
-<xsl:template match="imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
+<xsl:template match="db:imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
 	<xsl:choose>
 		<xsl:when test="$cnx.svg.compat = 'object'">
 		  <object type="image/png" data="{@fileref}" width="{@width}" height="{@height}">
@@ -85,7 +86,7 @@
 
 
 <!-- Put the equation number on the RHS -->
-<xsl:template match="equation">
+<xsl:template match="db:equation">
   <div class="equation">
     <xsl:attribute name="id">
       <xsl:call-template name="object.id"/>
@@ -101,18 +102,18 @@
 
 
 <!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
-<xsl:template match="example[ancestor::glossentry
+<xsl:template match="db:example[ancestor::db:glossentry
             or ancestor::*[@ext:element='rule']
             ]" mode="label.markup">
 </xsl:template>
-<xsl:template match="example[ancestor::glossentry
+<xsl:template match="db:example[ancestor::db:glossentry
             or ancestor::*[@ext:element='rule']
             ]" mode="intralabel.punctuation"/>
 <xsl:template match="figure|table|example" mode="label.markup">
   <xsl:variable name="pchap"
-                select="(ancestor::chapter
-                        |ancestor::appendix
-                        |ancestor::article[ancestor::book])[last()]"/>
+                select="(ancestor::db:chapter
+                        |ancestor::db:appendix
+                        |ancestor::db:article[ancestor::db:book])[last()]"/>
   <xsl:variable name="name" select="name()"/>
   
   <xsl:variable name="prefix">
@@ -130,15 +131,15 @@
         <xsl:when test="$prefix != ''">
             <xsl:apply-templates select="$pchap" mode="label.markup"/>
             <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
-          <xsl:number format="1" from="chapter|appendix" count="*[$name=name() and not(
-               ancestor::glossentry
+          <xsl:number format="1" from="db:chapter|db:appendix" count="*[$name=name() and not(
+               ancestor::db:glossentry
                or ancestor::*[@ext:element='rule']
                
           )]" level="any"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:number format="1" from="book|article" level="any" count="*[$name=name() and not(
-               ancestor::glossentry
+          <xsl:number format="1" from="db:book|db:article" level="any" count="*[$name=name() and not(
+               ancestor::db:glossentry
                or ancestor::*[@ext:element='rule']
                
           )]"/>
@@ -173,11 +174,11 @@
 	<xsl:value-of select="@XrefLabel"/>
 </xsl:template>
 
-<xsl:template match="inlineequation" mode="xref-to">
+<xsl:template match="db:inlineequation" mode="xref-to">
 	<xsl:text>Equation</xsl:text>
 </xsl:template>
 
-<xsl:template match="caption" mode="xref-to">
+<xsl:template match="db:caption" mode="xref-to">
 	<xsl:apply-templates select="."/>
 </xsl:template>
 
@@ -185,12 +186,12 @@
 	With this code, any xref to a subfigure contains the text of the figure.
 	I just added "ancestor::figure" when searching for the context.
  -->
-<xsl:template match="anchor" mode="xref-to">
+<xsl:template match="db:anchor" mode="xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
 
-  <xsl:variable name="context" select="(ancestor::figure| ancestor::simplesect                                        |ancestor::section                                        |ancestor::sect1                                        |ancestor::sect2                                        |ancestor::sect3                                        |ancestor::sect4                                        |ancestor::sect5                                        |ancestor::refsection                                        |ancestor::refsect1                                        |ancestor::refsect2                                        |ancestor::refsect3                                        |ancestor::chapter                                        |ancestor::appendix                                        |ancestor::preface                                        |ancestor::partintro                                        |ancestor::dedication                                        |ancestor::acknowledgements                                        |ancestor::colophon                                        |ancestor::bibliography                                        |ancestor::index                                        |ancestor::glossary                                        |ancestor::glossentry                                        |ancestor::listitem                                        |ancestor::varlistentry)[last()]"/>
+  <xsl:variable name="context" select="(ancestor::db:figure| ancestor::db:simplesect                                        |ancestor::section                                        |ancestor::sect1                                        |ancestor::sect2                                        |ancestor::sect3                                        |ancestor::sect4                                        |ancestor::sect5                                        |ancestor::refsection                                        |ancestor::refsect1                                        |ancestor::refsect2                                        |ancestor::refsect3                                        |ancestor::chapter                                        |ancestor::appendix                                        |ancestor::preface                                        |ancestor::partintro                                        |ancestor::dedication                                        |ancestor::acknowledgements                                        |ancestor::colophon                                        |ancestor::bibliography                                        |ancestor::index                                        |ancestor::glossary                                        |ancestor::glossentry                                        |ancestor::listitem                                        |ancestor::varlistentry)[last()]"/>
 
   <xsl:choose>
     <xsl:when test="$xrefstyle != ''">
@@ -229,26 +230,26 @@
 <!-- Fix up TOC-generation for the ncx file.
 	Overrides code in docbook-xsl/docbook.xsl using code from docbook-xsl/xhtml-1_1/autotoc.xsl
  -->
-  <xsl:template match="book|
-                       article|
-                       part|
-                       reference|
-                       preface|
-                       chapter|
-                       bibliography|
-                       appendix|
-                       glossary|
-                       section|
-                       sect1|
-                       sect2|
-                       sect3|
-                       sect4|
-                       sect5|
-                       refentry|
-                       colophon|
-                       bibliodiv[title]|
-                       setindex|
-                       index"
+  <xsl:template match="db:book|
+                       db:article|
+                       db:part|
+                       db:reference|
+                       db:preface|
+                       db:chapter|
+                       db:bibliography|
+                       db:appendix|
+                       db:glossary|
+                       db:section|
+                       db:sect1|
+                       db:sect2|
+                       db:sect3|
+                       db:sect4|
+                       db:sect5|
+                       db:refentry|
+                       db:colophon|
+                       db:bibliodiv[db:title]|
+                       db:setindex|
+                       db:index"
                 mode="ncx">
     <xsl:variable name="depth" select="count(ancestor::*)"/>
     <xsl:variable name="title">
@@ -276,32 +277,32 @@
     </xsl:variable>
     <xsl:variable name="order">
       <xsl:value-of select="$depth +
-                                  count(preceding::part|
-                                  preceding::reference|
-                                  preceding::book[parent::set]|
-                                  preceding::preface|
-                                  preceding::chapter|
-                                  preceding::bibliography|
-                                  preceding::appendix|
-                                  preceding::article|
-                                  preceding::glossary|
-                                  preceding::section[not(parent::partintro)]|
-                                  preceding::sect1[not(parent::partintro)]|
-                                  preceding::sect2|
-                                  preceding::sect3|
-                                  preceding::sect4|
-                                  preceding::sect5|
+                                  count(preceding::db:part|
+                                  preceding::db:reference|
+                                  preceding::db:book[parent::db:set]|
+                                  preceding::db:preface|
+                                  preceding::db:chapter|
+                                  preceding::db:bibliography|
+                                  preceding::db:appendix|
+                                  preceding::db:article|
+                                  preceding::db:glossary|
+                                  preceding::db:section[not(parent::db:partintro)]|
+                                  preceding::db:sect1[not(parent::db:partintro)]|
+                                  preceding::db:sect2|
+                                  preceding::db:sect3|
+                                  preceding::db:sect4|
+                                  preceding::db:sect5|
                                   preceding::refentry|
-                                  preceding::colophon|
-                                  preceding::bibliodiv[title]|
-                                  preceding::index)"/>
+                                  preceding::db:colophon|
+                                  preceding::db:bibliodiv[db:title]|
+                                  preceding::db:index)"/>
     </xsl:variable>
 
 
   <xsl:variable name="depth2">
     <xsl:choose>
       <xsl:when test="local-name(.) = 'section'">
-        <xsl:value-of select="count(ancestor::section) + 1"/>
+        <xsl:value-of select="count(ancestor::db:section) + 1"/>
       </xsl:when>
       <xsl:when test="local-name(.) = 'sect1'">1</xsl:when>
       <xsl:when test="local-name(.) = 'sect2'">2</xsl:when>
@@ -315,7 +316,7 @@
         <!-- sigh... -->
         <xsl:choose>
           <xsl:when test="local-name(..) = 'section'">
-            <xsl:value-of select="count(ancestor::section)"/>
+            <xsl:value-of select="count(ancestor::db:section)"/>
           </xsl:when>
           <xsl:when test="local-name(..) = 'sect1'">2</xsl:when>
           <xsl:when test="local-name(..) = 'sect2'">3</xsl:when>
@@ -341,7 +342,7 @@
 
       <xsl:attribute name="playOrder">
         <xsl:choose>
-          <xsl:when test="/*[self::set]">
+          <xsl:when test="/*[self::db:set]">
             <xsl:value-of select="$order"/>
           </xsl:when>
           <xsl:when test="$root.is.a.chunk != '0'">
@@ -360,7 +361,7 @@
           <xsl:value-of select="$href"/>
         </xsl:attribute>
       </xsl:element>
-      <xsl:apply-templates select="book[parent::set]|part|reference|preface|chapter|bibliography|appendix|article|glossary|section|sect1|sect2|sect3|sect4|sect5|refentry|colophon|bibliodiv[title]|setindex|index" mode="ncx"/>
+      <xsl:apply-templates select="db:book[parent::db:set]|db:part|db:reference|db:preface|db:chapter|db:bibliography|db:appendix|db:article|db:glossary|db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:refentry|db:colophon|db:bibliodiv[db:title]|db:setindex|db:index" mode="ncx"/>
     </xsl:element>
 
 	</xsl:if>
@@ -381,11 +382,11 @@
 	  <!-- Make sure the title page is the 1st item in the spine -->
 	  <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
 	  	<xsl:attribute name="idref">
-	  		<xsl:value-of select="generate-id(book)"/>
+	  		<xsl:value-of select="generate-id(db:book)"/>
 	  	</xsl:attribute>
 	  </xsl:element>
 
-      <xsl:if test="/*/*[cover or contains(name(.), 'info')]//mediaobject[@role='cover' or ancestor::cover]"> 
+      <xsl:if test="/*/*[db:cover or contains(name(.), 'info')]//db:mediaobject[@role='cover' or ancestor::db:cover]"> 
         <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
           <xsl:attribute name="idref">
             <xsl:value-of select="$epub.cover.id"/>
@@ -425,7 +426,7 @@
 
 <!-- Customize the metadata generated for the epub.
 	Originally from docbook-xsl/epub/docbook.xsl -->
-<xsl:template mode="opf.metadata" match="authorgroup">
+<xsl:template mode="opf.metadata" match="db:authorgroup">
 	<xsl:apply-templates mode="opf.metadata" select="node()"/>
 </xsl:template>
 
@@ -434,16 +435,16 @@
  -->
 <xsl:template name="book.titlepage">
 	<h2>
-		<xsl:value-of select="bookinfo/title/text()"/>
+		<xsl:value-of select="db:bookinfo/db:title/text()"/>
 	</h2>
 	<xsl:variable name="authors">
 		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
+			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:author"/>
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:variable name="editors">
 		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
+			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:editor"/>
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:if test="$authors!=$editors">
@@ -451,7 +452,7 @@
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
                         <span>
         			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/editor"/>
+        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:editor"/>
         			</xsl:call-template>
                         </span>
 		</div>
@@ -460,27 +461,27 @@
 		<strong><xsl:text>Content authors: </xsl:text></strong>
                 <span>
         		<xsl:call-template name="cnx.personlist">
-        			<xsl:with-param name="nodes" select="bookinfo/authorgroup/author"/>
+        			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:author"/>
         		</xsl:call-template>
                 </span>
 	</div>
-	<xsl:if test="bookinfo/authorgroup/othercredit[@class='translator']">
+	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']">
 		<div id="title_page_translators">
 			<strong><xsl:text>Translated by: </xsl:text></strong>
                         <span>
         			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='translator']"/>
+        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']"/>
         			</xsl:call-template>
                         </span>
 		</div>
 	</xsl:if>
-	<xsl:if test="bookinfo/ext:derived-from">
+	<xsl:if test="db:bookinfo/ext:derived-from">
 		<xsl:variable name="url">
-			<xsl:value-of select="bookinfo/ext:derived-from/@url"/>
+			<xsl:value-of select="db:bookinfo/ext:derived-from/@url"/>
 		</xsl:variable>
 		<p>
 			<xsl:text>Based on: </xsl:text>
-			<xsl:apply-templates select="bookinfo/ext:derived-from/title/node()"/>
+			<xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
 			<xsl:text> &lt;</xsl:text>
 			<a href="{$url}">
 				<xsl:value-of select="$url"/>
@@ -506,18 +507,18 @@
                 </div>
 	</xsl:if>
         <div id="copyright_page">
-        	<xsl:if test="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']">
+        	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
         		<div id="copyright_statement">
         			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
         			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor']"/>
+        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
         			</xsl:call-template>
         			<xsl:text>.</xsl:text>
         			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
-        			<xsl:apply-templates mode="titlepage.mode" select="bookinfo/legalnotice"/>
+        			<xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:legalnotice"/>
         		</div>
         	</xsl:if>
-        	<xsl:if test="not(bookinfo/authorgroup/othercredit[@class='other' and contrib/text()='licensor'])">
+        	<xsl:if test="not(db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor'])">
         		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
         	</xsl:if>
         	<xsl:if test="@ext:derived-url">
@@ -532,7 +533,7 @@
         	</xsl:if>
         	<div id="copyright_revised">
         		<xsl:text>Collection structure revised: </xsl:text>
-         	<xsl:apply-templates mode="titlepage.mode" select="bookinfo/pubdate/text()"/>
+         	<xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:pubdate/text()"/>
         	</div>
         	<div id="copyright_attribution">
         		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
@@ -542,7 +543,7 @@
 
     <!-- Add an asterisk linking to a module's attribution. The XPath ugliness below is like preface/prefaceinfo/title/text(), but also for chapter and section -->
     <!-- FIXME: not working for some reason in modules that front matter (i.e. in db:preface).   Haven't tested module EPUBs or EPUBs of collections with no subcollections. -->
-    <xsl:template match="*[@ext:element='module']/*[substring-before(local-name(),'info') = local-name(parent::*)]/title/text()">
+    <xsl:template match="*[@ext:element='module']/*[substring-before(local-name(),'info') = local-name(parent::*)]/db:title/text()">
         <xsl:value-of select="."/>
         <!-- FIXME: Hard-coding apa.xhtml is probably not the right way to do this, but should be relatively stable for now. -->
         <sup class="module-footnote">

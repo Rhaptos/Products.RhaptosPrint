@@ -2,6 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook"
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
@@ -50,13 +51,13 @@
 <!-- Link to the exercise and to the solution. HACK: We can do this because solutions are within a module (html file) -->
 <xsl:template match="ext:exercise" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
-	<xsl:variable name="id" select="@id"/>
-        <xsl:for-each select="//section[@ext:element='solutions']/ext:solution[@exercise-id=$id]">
+	<xsl:variable name="id" select="@xml:id"/>
+        <xsl:for-each select="//db:section[@ext:element='solutions']/ext:solution[@exercise-id=$id]">
                 <xsl:text> </xsl:text>
                 <!-- TODO: gentext for "(" -->
                 <xsl:text>(</xsl:text>
                 <xsl:call-template name="simple.xlink">
-                        <xsl:with-param name="linkend" select="@id"/>
+                        <xsl:with-param name="linkend" select="@xml:id"/>
                         <xsl:with-param name="content">
                                 <!-- TODO: gentext for "Go to" -->
                                 <xsl:text>Go to</xsl:text>
@@ -83,7 +84,7 @@
 <xsl:template match="ext:solution" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="exerciseId" select="@exercise-id"/>
-	<xsl:if test="$exerciseId!='' and parent::section[@ext:element='solutions']">
+	<xsl:if test="$exerciseId!='' and parent::db:section[@ext:element='solutions']">
 		<xsl:text> </xsl:text>
                 <!-- TODO: gentext for "(" -->
 		<xsl:text>(</xsl:text>
@@ -94,10 +95,10 @@
 		    	<xsl:text>Return to</xsl:text>
                         <xsl:text> </xsl:text>
                         <xsl:choose>
-                            <xsl:when test="//ext:exercise[@id=$exerciseId]/ext:label">
-                                <xsl:apply-templates select="//ext:exercise[@id=$exerciseId]/ext:label" mode="cnx.label" />
+                            <xsl:when test="//ext:exercise[@xml:id=$exerciseId]/ext:label">
+                                <xsl:apply-templates select="//ext:exercise[@xml:id=$exerciseId]/ext:label" mode="cnx.label" />
                             </xsl:when>
-                            <xsl:when test="//ext:exercise[@id=$exerciseId][ancestor::example]">
+                            <xsl:when test="//ext:exercise[@xml:id=$exerciseId][ancestor::db:example]">
                                 <!-- TODO: gentext for "Problem" -->
                                 <xsl:text>Problem</xsl:text>
                             </xsl:when>
@@ -122,15 +123,15 @@
 	<xsl:apply-templates select="." mode="number"/>
 </xsl:template>
 
-<xsl:template match="ext:*[not(title)]" mode="title.markup"/>
-<xsl:template match="ext:*/title"/>
+<xsl:template match="ext:*[not(db:title)]" mode="title.markup"/>
+<xsl:template match="ext:*/db:title"/>
 <xsl:template match="ext:exercise|ext:problem|ext:solution" mode="label.markup"/>
 
 <xsl:template match="ext:exercise" mode="cnx.template">
 	<xsl:call-template name="cnx.label">
 		<xsl:with-param name="default">
                         <xsl:choose>
-                                <xsl:when test="ancestor::example">
+                                <xsl:when test="ancestor::db:example">
                                         <!-- TODO: gentext for "Problem" -->
                                 	<xsl:text>Problem</xsl:text>
                                 </xsl:when>
@@ -184,7 +185,7 @@
 	</xsl:choose>
 	<xsl:text> </xsl:text>
 	<xsl:apply-templates select="$c/." mode="number"/>
-	<xsl:if test="$c/title">
+	<xsl:if test="$c/db:title">
 		<xsl:text> </xsl:text>
 		<xsl:apply-templates select="$c/." mode="title.markup"/>
 	</xsl:if>
@@ -192,10 +193,10 @@
 
 <xsl:template match="ext:problem" mode="cnx.template">
 	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
-	<xsl:if test="ext:label and title">
+	<xsl:if test="ext:label and db:title">
 		<xsl:text>: </xsl:text>
 	</xsl:if>
-        <xsl:apply-templates select="title" mode="title.markup"/>
+        <xsl:apply-templates select="db:title" mode="title.markup"/>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="cnx.template">
@@ -212,14 +213,14 @@
         <xsl:if test="count(//ext:solution[@exercise-id=$exerciseId]) > 1">
                 <xsl:number count="ext:solution[@exercise-id=$exerciseId]" level="any" format=" A"/>
         </xsl:if>
-        <xsl:if test="parent::section[@ext:element='solutions']">
+        <xsl:if test="parent::db:section[@ext:element='solutions']">
                 <xsl:text> </xsl:text>
                 <!-- TODO: gentext for "to" -->
                 <xsl:text>to</xsl:text>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
-                        <xsl:when test="//ext:exercise[@id=$exerciseId]/ext:label">
-                                <xsl:apply-templates select="//ext:exercise[@id=$exerciseId]/ext:label" mode="cnx.label" />
+                        <xsl:when test="//ext:exercise[@xml:id=$exerciseId]/ext:label">
+                                <xsl:apply-templates select="//ext:exercise[@xml:id=$exerciseId]/ext:label" mode="cnx.label" />
                         </xsl:when>
                         <xsl:otherwise>
                                 <!-- TODO: gentext for "Exercise" -->
@@ -245,7 +246,7 @@
 <xsl:template match="ext:*" mode="number"/>
 
 <xsl:template name="cnx.chapter.number">
-	<xsl:for-each select="ancestor::chapter">
+	<xsl:for-each select="ancestor::db:chapter">
                 <xsl:apply-templates select="." mode="label.markup"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
         </xsl:for-each>
@@ -253,15 +254,15 @@
 
 <xsl:template match="ext:exercise" mode="number">
 	<xsl:call-template name="cnx.chapter.number"/>
-        <xsl:if test="ancestor::section[@ext:element='module']">
-                <xsl:number format="1" level="any" from="chapter" count="*[@ext:element='module']"/>
+        <xsl:if test="ancestor::db:section[@ext:element='module']">
+                <xsl:number format="1" level="any" from="db:chapter" count="*[@ext:element='module']"/>
 		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
 	</xsl:if>
-	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::example)]"/>
+	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::db:example)]"/>
 </xsl:template>
 
-<xsl:template match="ext:exercise[ancestor::example]" mode="number">
-	<xsl:number format="1." level="any" from="example" count="ext:exercise"/>
+<xsl:template match="ext:exercise[ancestor::db:example]" mode="number">
+	<xsl:number format="1." level="any" from="db:example" count="ext:exercise"/>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="number">
@@ -269,17 +270,17 @@
 	<xsl:call-template name="cnx.chapter.number"/>
         <xsl:choose>
                 <xsl:when test="$type='rule' or not(@type)">
-                        <xsl:number format="1." level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
+                        <xsl:number format="1." level="any" from="db:preface|db:chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)='rule' or not(@type)]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                        <xsl:number format="1." level="any" from="preface|chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
+                        <xsl:number format="1." level="any" from="db:preface|db:chapter" count="ext:rule[translate(@type,$cnx.upper,$cnx.lower)=$type]"/>
                 </xsl:otherwise>
         </xsl:choose>
 </xsl:template>
 
 <xsl:template match="ext:solution" mode="number">
 	<xsl:variable name="exerciseId" select="@exercise-id"/>
-	<xsl:apply-templates select="//*[@id=$exerciseId]" mode="number"/>
+	<xsl:apply-templates select="//*[@xml:id=$exerciseId]" mode="number"/>
 </xsl:template>
 
 

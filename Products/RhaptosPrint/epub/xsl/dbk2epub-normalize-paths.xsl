@@ -35,7 +35,7 @@
 </xsl:template>
 
 <!-- Creating an authors list for collections (STEP 1). Just collect all the authors (with duplicates) -->
-<xsl:template match="/db:book/db:info">
+<xsl:template match="/db:book/db:bookinfo">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Collapsing authors of all modules into 1 book-level db:authorgroup</xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
