@@ -16,6 +16,26 @@
 <xsl:include href="../docbook-xsl/xhtml-1_1/chunker.xsl"/>
 <xsl:include href="ident.xsl"/>
 
+<!-- Change the @format to match the destination image file -->
+<xsl:template match="db:imagedata[svg:svg]/@format">
+	<xsl:attribute name="format">
+		<xsl:choose>
+			<xsl:when test="$cnx.svg.extension='png'">
+				<xsl:text>PNG</xsl:text>
+			</xsl:when>
+			<xsl:when test="$cnx.svg.extension='jpg'">
+				<xsl:text>JPEG</xsl:text>
+			</xsl:when>
+			<xsl:when test="$cnx.svg.extension='jpeg'">
+				<xsl:text>JPEG</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:attribute>
+</xsl:template>
+
 <xsl:template match="db:imagedata[svg:svg]">
 	<db:imagedata width="{svg:svg/@width}" depth="{svg:svg/@height}">
 		<xsl:apply-templates select="@*"/>
