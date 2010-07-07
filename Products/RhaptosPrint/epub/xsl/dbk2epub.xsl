@@ -479,15 +479,17 @@
 		<xsl:variable name="url">
 			<xsl:value-of select="db:bookinfo/ext:derived-from/@url"/>
 		</xsl:variable>
-		<p>
-			<xsl:text>Based on: </xsl:text>
-			<xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
-			<xsl:text> &lt;</xsl:text>
-			<a href="{$url}">
-				<xsl:value-of select="$url"/>
-			</a>
-			<xsl:text>&gt;</xsl:text>
-		</p>
+		<div id="title_page_derivation">
+                        <strong><xsl:text>Based on: </xsl:text></strong>
+                        <span>
+	        		<xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
+        			<xsl:text> &lt;</xsl:text>
+			        <a href="{$url}">
+		        		<xsl:value-of select="$url"/>
+	        		</a>
+        			<xsl:text>&gt;</xsl:text>
+                        </span>
+		</div>
 	</xsl:if>
 	<div id="title_page_url">
 		<xsl:variable name="url">
