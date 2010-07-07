@@ -201,7 +201,7 @@
 	</xsl:variable>
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Found c:media that is not converted. Adding a link to the online version.</xsl:with-param></xsl:call-template>
 	<db:link xlink:href="{$url}">
-		<xsl:text>(Click to open media in browser)</xsl:text>
+		<xsl:text>(This media type is not supported in this reader. Click to open media in browser.)</xsl:text>
 	</db:link>
 </xsl:template>
 <xsl:template match="c:media" priority="0">
