@@ -7,20 +7,17 @@
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:import href="../docbook-xsl/common/l10n.xsl"/>
-<xsl:import href="../docbook-xsl/common/gentext.xsl"/>
-<xsl:import href="../docbook-xsl/common/common.xsl"/>
-<xsl:import href="../docbook-xsl/xhtml-1_1/param.xsl"/>
-<xsl:import href="../docbook-xsl/xhtml-1_1/html.xsl"/>
-<xsl:param name="stylesheet.result.type" select="'xhtml'"/>
 
 
 <xsl:template match="db:book">
 	<xsl:variable name="title" select="db:bookinfo/db:title"/>
+	<xsl:variable name="authorsPrefix">
+		<!-- <xsl:text>By:</xsl:text> -->
+	</xsl:variable>
 	<xsl:variable name="authors">
-		<xsl:call-template name="person.name.list">
+		<!-- <xsl:call-template name="person.name.list">
 			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:author"/>
-		</xsl:call-template>
+		</xsl:call-template> -->
 	</xsl:variable>
 	
 	<!-- The big titlepage SVG -->
@@ -310,7 +307,7 @@
        y="58.742252"
        style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans" /></flowRegion><flowPara
      id="flowPara3044"
-     style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans">By:</flowPara><flowPara
+     style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"><xsl:value-of select="authorsPrefix"/></flowPara><flowPara
      style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
      id="flowPara3046"><xsl:value-of select="$authors"/></flowPara></flowRoot></svg>
 </xsl:template>
