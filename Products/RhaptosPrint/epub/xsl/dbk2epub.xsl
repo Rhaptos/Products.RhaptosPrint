@@ -543,12 +543,31 @@
 
     <!-- Add an asterisk linking to a module's attribution. The XPath ugliness below is like preface/prefaceinfo/title/text(), but also for chapter and section -->
     <!-- FIXME: not working for some reason in modules that front matter (i.e. in db:preface).   Haven't tested module EPUBs or EPUBs of collections with no subcollections. -->
-    <xsl:template match="*[@ext:element='module']/*[substring-before(local-name(),'info') = local-name(parent::*)]/db:title/text()">
+    <xsl:template match="*[@ext:element='module']/db:*[contains(local-name(),'info')]/db:title/text()">
+    	<xsl:variable name="moduleId">
+    		<xsl:call-template name="cnx.id">
+    			<xsl:with-param name="object" select="../../.."/>
+    		</xsl:call-template>
+    	</xsl:variable>
+    	<xsl:variable name="id">
+    		<xsl:value-of select="$attribution.section.id"/>
+    		<xsl:value-of select="$cnx.module.separator"/>
+    		<xsl:value-of select="$moduleId"/>
+    	</xsl:variable>
         <xsl:value-of select="."/>
-        <!-- FIXME: Hard-coding apa.xhtml is probably not the right way to do this, but should be relatively stable for now. -->
-        <sup class="module-footnote">
-            <a href="apa.xhtml#{$attribution.section.id}.{../../../@id}">*</a>
-        </sup>
+        <!-- FIXME: Remove the reference to the <sup/> element by using docbook templates and move this into dbkplus.xsl -->
+        <xsl:call-template name="inline.superscriptseq">
+        	<xsl:with-param name="content">
+                <xsl:call-template name="simple.xlink">
+                        <xsl:with-param name="linkend" select="$id"/>
+                        <xsl:with-param name="content">
+							<xsl:text>*</xsl:text>
+                        </xsl:with-param>
+                </xsl:call-template>
+        	</xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
-
+<!-- Otherwise the call to "simple.xlink" above would fail. -->
+<xsl:template match="db:title/text()" mode="common.html.attributes"/>
+<xsl:template match="db:title/text()" mode="html.title.attribute"/>
 </xsl:stylesheet>
