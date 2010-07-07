@@ -476,9 +476,9 @@
 		</div>
 	</xsl:if>
 	<xsl:if test="db:bookinfo/ext:derived-from">
-		<xsl:variable name="url">
-			<xsl:value-of select="db:bookinfo/ext:derived-from/@url"/>
-		</xsl:variable>
+		<xsl:variable name="source-url" select="db:bookinfo/ext:derived-from/@url"/>
+                <!-- Chop off the word "source" at the end. -->
+                <xsl:variable name="url" select="substring($source-url,1,string-length($source-url) - 6)"/>
 		<div id="title_page_derivation">
                         <strong><xsl:text>Based on: </xsl:text></strong>
                         <span>
@@ -492,9 +492,7 @@
 		</div>
 	</xsl:if>
 	<div id="title_page_url">
-		<xsl:variable name="url">
-			<xsl:value-of select="@ext:url"/>
-		</xsl:variable>
+		<xsl:variable name="url" select="concat(@ext:url,'/')"/>
 		<strong><xsl:text>Online: </xsl:text></strong>
                 <span>
         		<xsl:text>&lt;</xsl:text>
