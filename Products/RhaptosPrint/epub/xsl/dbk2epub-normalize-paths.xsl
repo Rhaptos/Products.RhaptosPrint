@@ -14,13 +14,12 @@
      * Ensures paths to images inside modules are correct (using @xml:base)
      //* Adds a @ext:first-letter attribute to glossary entries so they can be organized into a book-level glossary 
      * Adds an Attribution section at the end of the book
+     * Uses ext:persons element to eventually call docbook-xsl/common/common.xsl:"person.name.list" and render the names
  -->
 
 <xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
-
-<xsl:output indent="yes" method="xml"/>
 
 <!-- Strip 'em for html generation -->
 <xsl:template match="@xml:base"/>
@@ -115,24 +114,24 @@
 						</db:member>
 						<db:member>
 							<xsl:text>By: </xsl:text>
-							<xsl:call-template name="cnx.personlist">
-								<xsl:with-param name="nodes" select="db:authorgroup/db:author"/>
-							</xsl:call-template>
+							<ext:persons>
+								<xsl:apply-templates select="db:authorgroup/db:author"/>
+							</ext:persons>
 						</db:member>
 						<xsl:if test="db:authorgroup/db:editor">
 							<db:member>
 								<xsl:text>Edited by: </xsl:text>
-								<xsl:call-template name="cnx.personlist">
-									<xsl:with-param name="nodes" select="db:authorgroup/db:editor"/>
-								</xsl:call-template>
+								<ext:persons>
+									<xsl:apply-templates select="db:authorgroup/db:editor"/>
+								</ext:persons>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
 							<db:member>
 								<xsl:text>Translated by: </xsl:text>
-								<xsl:call-template name="cnx.personlist">
-									<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='translator']"/>
-								</xsl:call-template>
+								<ext:persons>
+									<xsl:apply-templates select="db:authorgroup/db:othercredit[@class='translator']"/>
+								</ext:persons>
 							</db:member>
 						</xsl:if>
 						<db:member>
@@ -144,9 +143,9 @@
                                                              Can somebody be removed once we populate this info for 0.5 modules -->
 							<db:member>
 								<xsl:text>Copyright: </xsl:text>
-								<xsl:call-template name="cnx.personlist">
-									<xsl:with-param name="nodes" select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
-								</xsl:call-template>
+								<ext:persons>
+									<xsl:apply-templates select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+								</ext:persons>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="db:legalnotice">

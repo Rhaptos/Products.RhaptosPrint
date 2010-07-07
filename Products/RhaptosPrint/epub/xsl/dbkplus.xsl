@@ -332,4 +332,10 @@
 <xsl:template match="db:title/text()" mode="common.html.attributes"/>
 <xsl:template match="db:title/text()" mode="html.title.attribute"/>
 
+<xsl:template match="ext:persons">
+	<xsl:call-template name="person.name.list">
+		<xsl:with-param name="person.list" select="db:*"/>
+	</xsl:call-template>
+</xsl:template>
+
 </xsl:stylesheet>

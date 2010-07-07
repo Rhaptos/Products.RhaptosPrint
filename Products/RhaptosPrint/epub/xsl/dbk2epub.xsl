@@ -439,21 +439,21 @@
 		<xsl:value-of select="db:bookinfo/db:title/text()"/>
 	</h2>
 	<xsl:variable name="authors">
-		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:author"/>
+		<xsl:call-template name="person.name.list">
+			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:author"/>
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:variable name="editors">
-		<xsl:call-template name="cnx.personlist">
-			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:editor"/>
+		<xsl:call-template name="person.name.list">
+			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
 		</xsl:call-template>
 	</xsl:variable>
 	<xsl:if test="$authors!=$editors">
 		<div id="title_page_collection_editors">
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
                         <span>
-        			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:editor"/>
+        			<xsl:call-template name="person.name.list">
+        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
         			</xsl:call-template>
                         </span>
 		</div>
@@ -461,8 +461,8 @@
 	<div id="title_page_module_authors">
 		<strong><xsl:text>Content authors: </xsl:text></strong>
                 <span>
-        		<xsl:call-template name="cnx.personlist">
-        			<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:author"/>
+        		<xsl:call-template name="person.name.list">
+        			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:author"/>
         		</xsl:call-template>
                 </span>
 	</div>
@@ -470,8 +470,8 @@
 		<div id="title_page_translators">
 			<strong><xsl:text>Translated by: </xsl:text></strong>
                         <span>
-        			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']"/>
+        			<xsl:call-template name="person.name.list">
+        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']"/>
         			</xsl:call-template>
                         </span>
 		</div>
@@ -509,8 +509,8 @@
         	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
         		<div id="copyright_statement">
         			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
-        			<xsl:call-template name="cnx.personlist">
-        				<xsl:with-param name="nodes" select="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+        			<xsl:call-template name="person.name.list">
+        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
         			</xsl:call-template>
         			<xsl:text>.</xsl:text>
         			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
@@ -535,7 +535,14 @@
          	<xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:pubdate/text()"/>
         	</div>
         	<div id="copyright_attribution">
-        		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "Attributions" section at the end of the collection.</xsl:text>
+        		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
+                <xsl:call-template name="simple.xlink">
+                        <xsl:with-param name="linkend" select="$attribution.section.id"/>
+                        <xsl:with-param name="content">
+                        	<xsl:text>Attribution</xsl:text>
+                        </xsl:with-param>
+                </xsl:call-template>
+        		<xsl:text>" section at the end of the collection.</xsl:text>
         	</div>
         </div>
 </xsl:template>
