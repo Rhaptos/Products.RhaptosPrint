@@ -539,7 +539,7 @@
                 <xsl:call-template name="simple.xlink">
                         <xsl:with-param name="linkend" select="$attribution.section.id"/>
                         <xsl:with-param name="content">
-                        	<xsl:text>Attribution</xsl:text>
+                        	<xsl:text>Attributions</xsl:text>
                         </xsl:with-param>
                 </xsl:call-template>
         		<xsl:text>" section at the end of the collection.</xsl:text>
