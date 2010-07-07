@@ -181,5 +181,66 @@ Being able to spot that overall architecture as we listen - knowing, so to speak
 
    </section><note id="eip-157">Please <emphasis>help me improve these materials</emphasis> by filling out a <link url="https://www.surveymonkey.com/s/L5JZVN9">short survey</link>. I am considering a number of possible changes and additions to my music materials at this site, but don't have the time to do all of them. This is your chance to let me know what would be most helpful to you.</note>
 
+                        <table frame="all" id="budgettable1" summary="This is a very complex table, start at the top left, go from there to bottom right, where there is s table within a table, etc., blah blah blah.">
+
+                                <name>Budget - Comparison by year</name>
+                                <tgroup cols="4" align="left" colsep="1" rowsep="1">
+                                        <colspec colnum="2" colname="c2"/>
+                                        <colspec colnum="4" colname="c4"/>
+                                        <thead valign="top">
+                                                <row>
+                                                        <entry morerows="1" align="center">Item</entry>
+                                                        <entry namest="c2" nameend="c4" align="center">Year</entry>
+
+                                                </row>
+                                                <row>
+                                                        <entry align="center">1998</entry>
+                                                        <entry align="center">1999</entry>
+                                                        <entry align="center">2000</entry>
+                                                </row>
+                                        </thead>
+
+                                        <tbody valign="top">
+                                                <row>
+                                                        <entry>Income</entry>
+                                                        <entry>12,293</entry>
+                                                        <entry>12,398</entry>
+                                                        <entry>14,298</entry>           
+                                                </row>                 
+
+                                                <row>
+                                                        <entry>Expenditure</entry>         
+                                                        <entry>293</entry>
+                                                        <entry>398</entry>                
+                                                        <entry>298</entry>               
+                                                </row>  
+                                                <row>
+
+                                                        <entry>Surplus</entry>
+                                                        <entry>12000</entry>
+                                                        <entry>12000</entry> 
+                                                        <entrytbl cols="2">
+                                                                <thead>
+                                                                        <row>
+                                                                                <entry>14000</entry>
+                                                                                <entry>14000</entry>
+                                                                        </row>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <row>
+                                                                                <entry>14000</entry>
+                                                                                <entry>14000</entry>
+                                                                        </row>
+                                                                </tbody>
+                                                        </entrytbl>
+                                                </row>                  
+                                        </tbody>
+                                </tgroup>
+
+<caption>This caption put in to test styling. It even has <emphasis>a child node</emphasis>.</caption>
+                        </table>
+
+
+
    </content>
         </document>

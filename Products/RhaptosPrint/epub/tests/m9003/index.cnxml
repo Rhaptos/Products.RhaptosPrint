@@ -2090,7 +2090,7 @@ jaksldfjkasdjfklasdf ajskf jasld fjaksl df
 	Here's is a very simple example of a table, similiar to ones
 	seen previously in this module.
       </para>
-			<table frame="all" id="budgettable1">
+			<table frame="all" id="budgettable1" summary="This is a very complex table, start at the top left, go from there to bottom right, where there is s table within a table, blah blah blah.">
 
 				<name>Budget - Comparison by year</name>
 				<tgroup cols="4" align="left" colsep="1" rowsep="1">
@@ -2146,7 +2146,7 @@ jaksldfjkasdjfklasdf ajskf jasld fjaksl df
 					</tbody>
 				</tgroup>
 
-<caption>This caption put in to test styling.</caption>
+<caption>This caption put in to test styling. It even has <emphasis>a child node</emphasis>.</caption>
 			</table>
 
 		</section>

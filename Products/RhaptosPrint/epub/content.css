@@ -464,7 +464,7 @@ blockquote{
   border: 1px solid #666 !important;
 }
 
-.table .caption{
+.table caption, .table .caption{
   margin-top: .5em;
 }
 
