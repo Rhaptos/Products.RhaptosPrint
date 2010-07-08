@@ -184,7 +184,7 @@ do
 done
 
 
-echo "LOG: INFO: Skipping Docbook Validation. Remove next line to enable"
+echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS
 
 # Create a file to validate against
@@ -195,6 +195,6 @@ EXIT_STATUS=$EXIT_STATUS || $?
 $JING $SCHEMA $VALID # 1>&2 # send validation errors to stderr
 RET=$?
 if [ $RET -eq 0 ]; then rm $VALID; fi
-if [ $RET -eq 0 ]; then echo "BUG: Validation Errors" 1>&2 ; fi
+if [ $RET -eq 0 ]; then echo "LOG: BUG: Validation Errors" 1>&2 ; fi
 
 exit $EXIT_STATUS || $RET

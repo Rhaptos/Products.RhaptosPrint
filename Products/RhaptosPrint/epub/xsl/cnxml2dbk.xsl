@@ -257,7 +257,7 @@
                                                                         <xsl:number count="c:subfigure" format="(a)" />
                                                                 </xsl:when>
                                                                 <xsl:otherwise>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: Not labeling/numbering figure+subfigure for now (using "Subfigure" instead)</xsl:with-param></xsl:call-template>
+                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not labeling/numbering figure+subfigure for now (using "Subfigure" instead)</xsl:with-param></xsl:call-template>
                                                                         <xsl:text>Subfigure </xsl:text>
                                                                         <xsl:number count="c:subfigure" format="(a)" />
                                                                 </xsl:otherwise>
@@ -274,11 +274,11 @@
                                                                 </xsl:when>
                                                                 <xsl:when test="ancestor::c:figure[1]/c:label[node()]">
                                                                         <xsl:value-of select="ancestor::c:figure[1]/c:label"/>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: Not numbering figure for now</xsl:with-param></xsl:call-template>
+                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
                                                                 </xsl:when>
                                                                 <xsl:otherwise>
                                                                         <xsl:text>Figure</xsl:text>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: Not numbering figure for now</xsl:with-param></xsl:call-template>
+                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
                                                                 </xsl:otherwise>
                                                         </xsl:choose>
                                                         <xsl:text> (</xsl:text>
