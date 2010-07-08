@@ -33,6 +33,9 @@
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
 
+<!-- Defined in docbook-xsl/epub/docbook.xsl but the default does not use the $html.ext defined in docbook -->
+<xsl:param name="epub.cover.html" select="concat('cover', $html.ext)" />
+
 <xsl:output indent="yes" method="xml"/>
 
 <!-- Output the PNG with the baseline info -->
