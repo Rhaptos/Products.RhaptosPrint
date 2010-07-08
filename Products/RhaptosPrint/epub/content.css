@@ -549,8 +549,8 @@ blockquote{
 .glossary div, .glossary h3, .glossary h4, .glossary h5, 
 .glossary h6, .glossary p, .glossary dt{
   display: inline;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   border: 0;
 }
 

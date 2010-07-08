@@ -289,4 +289,42 @@
     </section>
 
 	</content>
+
+        <glossary id="gloss">                  
+                <definition id="gloss_def1">
+                        <term>glossary</term>                
+                        <meaning>A listing of terms together with their meanings.</meaning>
+                        <example><para id="gloss_def1_p1"><cnxn target="gloss_def1">This very glossary.</cnxn></para></example>
+                        <meaning>A place where shiny things are.</meaning>                 
+                        <example><para>I usually keep my jewelry and polish in a glossary.</para></example>
+                        <example><para>The glossary is beautiful when lit up at night.</para></example>
+                        <seealso><term><cnxn document="m11171" target="missesdef">Misses</cnxn></term></seealso>
+                </definition>
+
+    <definition id="quardef">                                                                                                                         
+      <term>quarter</term>
+      <meaning><name>Meaning Name</name>One fourth of something.</meaning>                                                                   
+      <example id="def">                                                                                                                         
+        <para id="par">                                                                                                                         
+          "He cut the pie into quarters and gave all four people a
+          piece."
+        </para>
+      </example>          
+      <meaning>25 cents, a quarter of a dollar.</meaning>                                                                                                       
+      <example id="def2">                                                                                                                         
+        <para id="par2">                                                                                                                         
+          "The drink cost a quarter."
+        </para>   
+      </example>             
+      <example id="def3">                                                                                                                         
+        <para id="par3">                                                                                                                         
+          "She picked up a roll of quarters so that she could do
+          laundry."
+        </para>
+      </example>
+    </definition>            
+
+        </glossary>
+
+
 </document>
