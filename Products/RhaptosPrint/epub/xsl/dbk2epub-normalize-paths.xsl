@@ -26,9 +26,12 @@
 
 <!-- Make image paths point into the module directory -->
 <xsl:template match="@fileref">
+	<xsl:variable name="prefix" select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
 	<xsl:attribute name="fileref">
-		<xsl:value-of select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
-                <xsl:text>/</xsl:text>
+		<xsl:if test="$prefix != ''">
+			<xsl:value-of select="$prefix"/>
+        	<xsl:text>/</xsl:text>
+        </xsl:if>
 		<xsl:value-of select="."/>
 	</xsl:attribute>
 </xsl:template>

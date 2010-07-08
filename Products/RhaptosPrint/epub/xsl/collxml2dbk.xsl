@@ -30,6 +30,11 @@
 <xsl:template match="col:metadata">
 	<db:bookinfo>
 		<xsl:apply-templates select="@*|node()"/>
+		<db:mediaobject role="cover">
+			<db:imageobject>
+				<db:imagedata format="PNG" fileref="cover.png"/>
+			</db:imageobject>
+		</db:mediaobject>
 	</db:bookinfo>
 </xsl:template>
 
