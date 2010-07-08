@@ -448,9 +448,9 @@
 			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
 		</xsl:call-template>
 	</xsl:variable>
-	<xsl:variable name="editorsEqual" select="$authors=$editors"/>
+	<xsl:variable name="showEditors" select="$authors!=$editors and db:bookinfo/db:authorgroup/db:editor"/>
 	
-	<xsl:if test="not($editorsEqual)">
+	<xsl:if test="$showEditors">
 		<div id="title_page_collection_editors">
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
                         <span>
@@ -461,7 +461,7 @@
 	<div id="title_page_module_authors">
 		<strong>
 			<xsl:choose>
-				<xsl:when test="$editorsEqual">
+				<xsl:when test="not($showEditors)">
 					<xsl:text>By: </xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
