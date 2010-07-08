@@ -448,23 +448,30 @@
 			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
 		</xsl:call-template>
 	</xsl:variable>
-	<xsl:if test="$authors!=$editors">
+	<xsl:variable name="editorsEqual" select="$authors=$editors"/>
+	
+	<xsl:if test="not($editorsEqual)">
 		<div id="title_page_collection_editors">
 			<strong><xsl:text>Collection edited by: </xsl:text></strong>
                         <span>
-        			<xsl:call-template name="person.name.list">
-        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
-        			</xsl:call-template>
+        			<xsl:copy-of select="$editors"/>
                         </span>
 		</div>
 	</xsl:if>
 	<div id="title_page_module_authors">
-		<strong><xsl:text>Content authors: </xsl:text></strong>
+		<strong>
+			<xsl:choose>
+				<xsl:when test="$editorsEqual">
+					<xsl:text>By: </xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>Content authors: </xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</strong>
                 <span>
-        		<xsl:call-template name="person.name.list">
-        			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:author"/>
-        		</xsl:call-template>
-                </span>
+        		<xsl:copy-of select="$authors"/>
+        		</span>
 	</div>
 	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']">
 		<div id="title_page_translators">
@@ -477,26 +484,23 @@
 		</div>
 	</xsl:if>
 	<xsl:if test="db:bookinfo/ext:derived-from">
-		<xsl:variable name="url" select="db:bookinfo/ext:derived-from/@url"/>
 		<div id="title_page_derivation">
                         <strong><xsl:text>Based on: </xsl:text></strong>
                         <span>
 	        		<xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
-        			<xsl:text> &lt;</xsl:text>
-			        <a href="{$url}">
-		        		<xsl:value-of select="$url"/>
-	        		</a>
-        			<xsl:text>&gt;</xsl:text>
+        			<xsl:call-template name="cnx.cuteurl">
+        				<xsl:with-param name="url" select="db:bookinfo/ext:derived-from/@url"/>
+        			</xsl:call-template>
                         </span>
+                        <xsl:text>.</xsl:text>
 		</div>
 	</xsl:if>
 	<div id="title_page_url">
-		<xsl:variable name="url" select="concat(@ext:url,'/')"/>
 		<strong><xsl:text>Online: </xsl:text></strong>
                 <span>
-        		<xsl:text>&lt;</xsl:text>
-        		<a href="{$url}"><xsl:value-of select="$url"/></a>
-        		<xsl:text>&gt;</xsl:text>
+        			<xsl:call-template name="cnx.cuteurl">
+        				<xsl:with-param name="url" select="concat(@ext:url,'/')"/>
+        			</xsl:call-template>
                 </span>
 	</div>
 	<xsl:if test="$cnx.iscnx != 0">
@@ -518,16 +522,14 @@
         		</div>
         	</xsl:if>
         	<xsl:if test="not(db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor'])">
-        		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">LOG: WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
+        		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
         	</xsl:if>
         	<xsl:if test="@ext:derived-url">
         		<div id="copyright_derivation">
         			<xsl:text>The collection was based on </xsl:text>
-        			<xsl:text> &lt;</xsl:text>
-        			<a href="{@ext:derived-url}">
-        				<xsl:value-of select="@ext:derived-url"/>
-        			</a>
-        			<xsl:text>&gt;.</xsl:text>
+        			<xsl:call-template name="cnx.cuteurl">
+        				<xsl:with-param name="url" select="@ext:derived-url"/>
+        			</xsl:call-template>
         		</div>
         	</xsl:if>
         	<div id="copyright_revised">
@@ -545,6 +547,16 @@
         		<xsl:text>" section at the end of the collection.</xsl:text>
         	</div>
         </div>
+</xsl:template>
+
+<xsl:template name="cnx.cuteurl">
+	<xsl:param name="url"/>
+	<xsl:param name="text" select="$url"/>
+	<xsl:text> &lt;</xsl:text>
+	<a href="{$url}">
+    	<xsl:copy-of select="$text"/>
+    </a>
+    <xsl:text>&gt;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>
