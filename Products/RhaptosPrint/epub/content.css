@@ -382,14 +382,11 @@ blockquote{
 
 .equation{
   margin: .5em 0 1em;
-  position: relative;
   text-align: center;
 }
 
 .equation .label{
-  position: absolute;
-  top: 50%;
-  right: 0;
+  float: right;
 }
 
 .equation .title{

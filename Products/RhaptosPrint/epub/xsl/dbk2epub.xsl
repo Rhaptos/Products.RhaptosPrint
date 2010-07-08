@@ -92,12 +92,12 @@
     <xsl:attribute name="id">
       <xsl:call-template name="object.id"/>
     </xsl:attribute>
-	<xsl:apply-templates/>
-	<span class="label">
-	  <xsl:text>(</xsl:text>
-	  <xsl:apply-templates select="." mode="label.markup"/>
+    <span class="label">
+      <xsl:text>(</xsl:text>
+      <xsl:apply-templates select="." mode="label.markup"/>
       <xsl:text>)</xsl:text>
     </span>
+    <xsl:apply-templates/>
   </div>
 </xsl:template>
 
