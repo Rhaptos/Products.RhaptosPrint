@@ -37,6 +37,10 @@
 <!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
 <xsl:param name="cnx.output">xhtml</xsl:param>
 
+<!-- Used for including the coverpage image -->
+<xsl:param name="cnx.cover.image">cover.png</xsl:param>
+<xsl:param name="cnx.cover.format">PNG</xsl:param>
+
 
 <!-- Parameters used by the MathML Content-to-presentation XSL -->
   <xsl:param name="meannotation" select="''"/>

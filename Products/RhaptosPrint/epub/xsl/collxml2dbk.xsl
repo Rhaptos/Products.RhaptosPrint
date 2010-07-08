@@ -30,9 +30,10 @@
 <xsl:template match="col:metadata">
 	<db:bookinfo>
 		<xsl:apply-templates select="@*|node()"/>
+		<!-- Add in the cover page image. Used by dbk2epub.xsl -->
 		<db:mediaobject role="cover">
 			<db:imageobject>
-				<db:imagedata format="PNG" fileref="cover.png"/>
+				<db:imagedata format="{$cnx.cover.format}" fileref="{$cnx.cover.image}"/>
 			</db:imageobject>
 		</db:mediaobject>
 	</db:bookinfo>
