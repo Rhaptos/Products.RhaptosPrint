@@ -7,7 +7,6 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
 <!-- This file is run after the book-level glossary is created.
@@ -35,18 +34,4 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding email address</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-
-<xsl:template match="ext:exercise-number-stub"> 
-	<xsl:variable name="chapter">
-		<xsl:number count="db:chapter" from="db:book"/>
-	</xsl:variable>
-	<xsl:variable name="module">
-		<xsl:number count="*[@ext:element='module']"/>
-	</xsl:variable>
-
-	<xsl:value-of select="$chapter"/>
-	<xsl:text>.</xsl:text>
-	<xsl:value-of select="$module"/>
-	<xsl:text>.</xsl:text>
-</xsl:template>
 </xsl:stylesheet>
