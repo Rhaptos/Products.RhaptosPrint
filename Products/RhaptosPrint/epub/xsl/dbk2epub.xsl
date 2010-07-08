@@ -534,7 +534,8 @@
         	</xsl:if>
         	<div id="copyright_revised">
         		<xsl:text>Collection structure revised: </xsl:text>
-         	<xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:pubdate/text()"/>
+                        <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
+                        <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
         	</div>
         	<div id="copyright_attribution">
         		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
