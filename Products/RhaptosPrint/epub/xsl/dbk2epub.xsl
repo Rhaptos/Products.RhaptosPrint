@@ -550,11 +550,13 @@
 </xsl:template>
 
 <xsl:template name="cnx.cuteurl">
-	<xsl:param name="url"/>
-	<xsl:param name="text" select="$url"/>
-	<xsl:text> &lt;</xsl:text>
-	<a href="{$url}">
-    	<xsl:copy-of select="$text"/>
+    <xsl:param name="url"/>
+    <xsl:param name="text">
+        <xsl:value-of select="$url"/>
+    </xsl:param>
+    <xsl:text> &lt;</xsl:text>
+    <a href="{$url}">
+        <xsl:copy-of select="$text"/>
     </a>
     <xsl:text>&gt;</xsl:text>
 </xsl:template>
