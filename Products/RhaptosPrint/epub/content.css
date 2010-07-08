@@ -56,10 +56,6 @@ h1, .titlepage h1, .book h2{
   text-align: left;
 }
 
-#portal-statement{
-  display: inline-block;
-}
-
 #portal_title{
   margin-top: 3em;
   margin-bottom: .25em;
