@@ -24,7 +24,7 @@
 <xsl:param name="cnx.resource.local" select="0"/>
 
 <!-- Used when converting the mdml:license -->
-<xsl:param name="cnx.license">This selection and arrangement of content is licensed under the Creative Commons Attribution License: </xsl:param>
+<xsl:param name="cnx.license">It is licensed under the Creative Commons Attribution License: </xsl:param>
 
 <!-- The following parameters are used for debugging and gathering statistics -->
 <xsl:param name="cnx.log.onlybugs" select="0"/> 

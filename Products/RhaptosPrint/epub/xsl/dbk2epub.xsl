@@ -517,9 +517,9 @@
         				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
         			</xsl:call-template>
         			<xsl:text>.</xsl:text>
-        			<!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
-        			<xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:legalnotice"/>
         		</div>
+                <!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
+                <xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:legalnotice"/>
         	</xsl:if>
         	<xsl:if test="not(db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor'])">
         		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>

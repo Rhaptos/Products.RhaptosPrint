@@ -58,56 +58,71 @@
 </xsl:template>
 
   
- <!-- Either the authors/editors/maintainers/licensors are in lists, or in md:roles -->
-<!-- new-style roles -->
+<!-- Convert the roles to individual author/maintainer/etc elements -->
 <xsl:template match="md:roles">
 	<db:authorgroup>
 		<xsl:apply-templates select="@*|node()"/>
 	</db:authorgroup>
 </xsl:template>
-<xsl:template match="md:role">
-	<xsl:call-template name="people-lookup">
+<xsl:template match="md:role[text()]">
+	<xsl:call-template name="cnx.lookup.people">
 		<xsl:with-param name="ids"><xsl:apply-templates select="text()"/><xsl:text> </xsl:text></xsl:with-param>
 	</xsl:call-template>
 </xsl:template>
-<xsl:template name="people-lookup">
+<xsl:template name="cnx.lookup.people">
 	<xsl:param name="ids"/>
 	<xsl:variable name="first" select="substring-before($ids,' ')"/>
 	<xsl:variable name="rest" select="substring-after($ids,' ')"/>
 	<xsl:choose>
 		<xsl:when test="@type = 'author'">
-			<db:author ext:userid="{$first}">
-				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
+			<db:author>
+                <xsl:call-template name="cnx.lookup.person">
+                    <xsl:with-param name="id" select="$first"/>
+			    </xsl:call-template>
 			</db:author>
 		</xsl:when>
 		<xsl:when test="@type = 'editor'">
-			<db:editor ext:userid="{$first}">
-				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
+			<db:editor>
+                <xsl:call-template name="cnx.lookup.person">
+                    <xsl:with-param name="id" select="$first"/>
+                </xsl:call-template>
 			</db:editor>
 		</xsl:when>
 		<xsl:when test="@type = 'translator'">
-			<db:othercredit class="translator" ext:userid="{$first}">
-				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
+			<db:othercredit class="translator">
+                <xsl:call-template name="cnx.lookup.person">
+                    <xsl:with-param name="id" select="$first"/>
+                </xsl:call-template>
 			</db:othercredit>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: converting role to db:othercredit[@class='other'] <xsl:value-of select="@type"/></xsl:with-param></xsl:call-template>
-			<db:othercredit class="other" ext:userid="{$first}">
-				<xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$first]"/>
+			<db:othercredit class="other">
+                <xsl:call-template name="cnx.lookup.person">
+                    <xsl:with-param name="id" select="$first"/>
+                </xsl:call-template>
 				<db:contrib><xsl:value-of select="@type"/></db:contrib>
 			</db:othercredit>
 		</xsl:otherwise>
 	</xsl:choose>
 	<xsl:if test="$rest != ''">
-		<xsl:call-template name="people-lookup">
+		<xsl:call-template name="cnx.lookup.people">
 			<xsl:with-param name="ids" select="$rest"/>
 		</xsl:call-template>
 	</xsl:if>
 </xsl:template>
 
+<xsl:template name="cnx.lookup.person">
+    <xsl:param name="id"/>
+    <xsl:attribute name="ext:user-id">
+        <xsl:value-of select="$id"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$id]"/>
+</xsl:template>
 
 <!--  old-style lists -->
 <xsl:template match="md:authorlist|md:maintainerlist|md:licensorlist">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEPRECATED: md:*list should no longer show up</xsl:with-param></xsl:call-template>
 	<db:authorgroup>
 		<xsl:comment>
 			<xsl:value-of select="substring-before(local-name(.), 'list')"/>
@@ -128,6 +143,7 @@
 </xsl:template>
 
 <xsl:template name="author-maintainer">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEPRECATED: md:author-maintainer should no longer be called</xsl:with-param></xsl:call-template>
 	<xsl:choose>
 		<xsl:when test="md:firstname/text() = md:surname/text()">
 			<db:orgname><xsl:apply-templates select="md:firstname/node()"/></db:orgname>
@@ -144,8 +160,7 @@
 <xsl:template match="md:license">
 	<db:legalnotice>
 		<xsl:value-of select="$cnx.license"/>
-		<!-- old-style mdml uses @href -->
-		<db:link xlink:href="{@url}{@href}"><xsl:value-of select="@url"/><xsl:value-of select="@href"/></db:link>
+		<db:link xlink:href="{@url}"><xsl:value-of select="@url"/></db:link>
 		<xsl:apply-templates/>
 	</db:legalnotice>
 </xsl:template>
