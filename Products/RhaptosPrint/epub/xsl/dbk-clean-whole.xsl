@@ -174,10 +174,10 @@
 
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
 <xsl:template match="db:authorgroup/db:*">
-	<xsl:variable name="userId" select="@ext:userid"/>
+	<xsl:variable name="userId" select="@ext:user-id"/>
 	<xsl:variable name="name" select="local-name()"/>
 	<xsl:choose>
-		<xsl:when test="not(preceding-sibling::db:*[local-name()=$name and @ext:userid=$userId])">
+		<xsl:when test="not(preceding-sibling::db:*[local-name()=$name and @ext:user-id=$userId])">
 			<xsl:call-template name="ident"/>
 		</xsl:when>
 		<xsl:otherwise>
