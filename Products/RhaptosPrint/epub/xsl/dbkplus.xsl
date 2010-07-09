@@ -268,7 +268,9 @@
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor::db:example]" mode="number">
-	<xsl:number format="1." level="any" from="db:example" count="ext:exercise"/>
+        <xsl:if test="count(ancestor::db:example[1]//ext:exercise) > 1">
+        	<xsl:number format="1." level="any" from="db:example" count="ext:exercise"/>
+        </xsl:if>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="number">
