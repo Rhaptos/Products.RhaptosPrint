@@ -392,13 +392,7 @@
         <xsl:value-of select="$epub.ncx.toc.id"/>
       </xsl:attribute>
       
-	  <!-- Make sure the title page is the 1st item in the spine -->
-	  <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
-	  	<xsl:attribute name="idref">
-	  		<xsl:value-of select="generate-id(db:book)"/>
-	  	</xsl:attribute>
-	  </xsl:element>
-
+      <!-- Put cover image first -->
       <xsl:if test="/*/*[db:cover or contains(name(.), 'info')]//db:mediaobject[@role='cover' or ancestor::db:cover]"> 
         <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
           <xsl:attribute name="idref">
@@ -415,6 +409,12 @@
         </xsl:element>
       </xsl:if>
 
+      <!-- Make sure the title page is the 1st item in the spine after the cover -->
+      <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
+        <xsl:attribute name="idref">
+          <xsl:value-of select="generate-id(db:book)"/>
+        </xsl:attribute>
+      </xsl:element>
 
       <xsl:if test="contains($toc.params, 'toc')">
         <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
