@@ -79,12 +79,8 @@ h1, .titlepage h1, .book h2{
   font-weight: bold;
 }
 
-.toc dl dl dt{
-  font-weight: normal;
-}
-
-.toc dl dl{
-  margin-left: 1em;
+.toc dt{
+  margin-top: .35em;
 }
 
 /* ========== the "befores" (label) ========== */
