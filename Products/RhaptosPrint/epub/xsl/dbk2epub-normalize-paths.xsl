@@ -154,7 +154,7 @@
 						<xsl:if test="db:legalnotice">
 							<db:member>
 								<xsl:text>License: </xsl:text>
-								<xsl:apply-templates select="db:legalnotice/db:link"/>
+								<xsl:apply-templates select="db:legalnotice/db:ulink"/>
 							</db:member>
 						</xsl:if>
 						<xsl:if test="not(db:legalnotice)">

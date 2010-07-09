@@ -160,7 +160,7 @@
 <xsl:template match="md:license">
 	<db:legalnotice>
 		<xsl:value-of select="$cnx.license"/>
-		<db:link xlink:href="{@url}"><xsl:value-of select="@url"/></db:link>
+		<db:ulink url="{@url}"><xsl:value-of select="@url"/></db:ulink>
 		<xsl:apply-templates/>
 	</db:legalnotice>
 </xsl:template>
