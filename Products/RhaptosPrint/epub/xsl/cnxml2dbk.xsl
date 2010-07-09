@@ -167,6 +167,66 @@
 	<!-- Pick the correct image. To get Music Theory to use the included SVG file, 
 	     we try to xinclude it here and then remove the xinclude in the cleanup phase.
 	 -->
+        <db:alt>
+            <xsl:choose>
+                <!-- If the image has an alt value, use it. -->
+                <xsl:when test="@alt != ''">
+                    <xsl:value-of select="@alt"/>
+                </xsl:when>
+                <!-- If not, generate one based on ancestor features plus the file name -->
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <!-- If in a subfigure, use the subfigure's title or label, then output the filename. -->
+                        <xsl:when test="parent::c:subfigure">
+                            <xsl:choose>
+                                <xsl:when test="parent::c:subfigure/c:title">
+                                    <xsl:value-of select="parent::c:subfigure/c:title"/>
+                                </xsl:when>
+                                <xsl:when test="parent::c:subfigure/c:label[node()]">
+                                    <xsl:value-of select="parent::c:subfigure/c:label"/>
+                                    <xsl:if test="parent::c:subfigure/@type">
+                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
+                                    </xsl:if>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:number count="c:subfigure" format="(a)" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not labeling/numbering figure+subfigure for now (using "Subfigure" instead)</xsl:with-param></xsl:call-template>
+                                    <xsl:text>Subfigure </xsl:text>
+                                    <xsl:number count="c:subfigure" format="(a)" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text> (</xsl:text>
+                            <xsl:value-of select="c:image/@src"/>
+                            <xsl:text>)</xsl:text>
+                        </xsl:when>
+                        <!-- If in a figure, use the figure's title or label, then output the filename. -->
+                        <xsl:when test="parent::c:figure">
+                            <xsl:choose>
+                                <xsl:when test="parent::c:figure/c:title">
+                                    <xsl:value-of select="parent::c:figure/c:title"/>
+                                </xsl:when>
+                                <xsl:when test="parent::c:figure/c:label[node()]">
+                                    <xsl:value-of select="parent::c:figure/c:label"/>
+                                    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>Figure</xsl:text>
+                                    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
+                                </xsl:otherwise>
+                             </xsl:choose>
+                             <xsl:text> (</xsl:text>
+                             <xsl:value-of select="c:image/@src"/>
+                             <xsl:text>)</xsl:text>
+                         </xsl:when>
+                         <!-- Else, just output the filename. -->
+                         <xsl:otherwise>
+                             <xsl:value-of select="c:image/@src"/>
+                         </xsl:otherwise>
+                     </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </db:alt>
 	<xsl:apply-templates select="c:image[contains(@src, '.eps')]"/>
 	<xsl:choose>
 	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']">
@@ -233,66 +293,6 @@
 			<xsl:value-of select="$cnx.module.separator"/>
 			<xsl:value-of select="generate-id(.)"/>
 		</xsl:attribute>
-                <db:alt>
-                        <xsl:choose>
-                                <!-- If the image has an alt value, use it. -->
-                                <xsl:when test="parent::c:media/@alt != ''">
-                                        <xsl:value-of select="parent::c:media/@alt"/>
-                                </xsl:when>
-                                <!-- If not, generate one based on ancestor features plus the file name -->
-                                <xsl:otherwise>
-                                        <xsl:choose>
-                                                <!-- If in a subfigure, use the subfigure's title or label, then output the filename. -->
-                                                <xsl:when test="ancestor::*[2][self::c:subfigure]">
-                                                        <xsl:choose>
-                                                                <xsl:when test="ancestor::c:subfigure[1]/c:title">
-                                                                        <xsl:value-of select="ancestor::c:subfigure[1]/c:title"/>
-                                                                </xsl:when>
-                                                                <xsl:when test="ancestor::c:subfigure[1]/c:label[node()]">
-                                                                        <xsl:value-of select="ancestor::c:subfigure[1]/c:label"/>
-                                                                        <xsl:if test="@type">
-                                                                		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
-                                                                	</xsl:if>
-                                                                        <xsl:text> </xsl:text>
-                                                                        <xsl:number count="c:subfigure" format="(a)" />
-                                                                </xsl:when>
-                                                                <xsl:otherwise>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not labeling/numbering figure+subfigure for now (using "Subfigure" instead)</xsl:with-param></xsl:call-template>
-                                                                        <xsl:text>Subfigure </xsl:text>
-                                                                        <xsl:number count="c:subfigure" format="(a)" />
-                                                                </xsl:otherwise>
-                                                        </xsl:choose>
-                                                        <xsl:text> (</xsl:text>
-                                                        <xsl:value-of select="@src"/>
-                                                        <xsl:text>)</xsl:text>
-                                                </xsl:when>
-                                                <!-- If in a figure, use the figure's title or label, then output the filename. -->
-                                                <xsl:when test="ancestor::*[2][self::c:figure]">
-                                                        <xsl:choose>
-                                                                <xsl:when test="ancestor::c:figure[1]/c:title">
-                                                                        <xsl:value-of select="ancestor::c:figure[1]/c:title"/>
-                                                                </xsl:when>
-                                                                <xsl:when test="ancestor::c:figure[1]/c:label[node()]">
-                                                                        <xsl:value-of select="ancestor::c:figure[1]/c:label"/>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
-                                                                </xsl:when>
-                                                                <xsl:otherwise>
-                                                                        <xsl:text>Figure</xsl:text>
-                                                                        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Not numbering figure for now</xsl:with-param></xsl:call-template>
-                                                                </xsl:otherwise>
-                                                        </xsl:choose>
-                                                        <xsl:text> (</xsl:text>
-                                                        <xsl:value-of select="@src"/>
-                                                        <xsl:text>)</xsl:text>
-                                                </xsl:when>
-                                                <!-- Else, just output the filename. -->
-                                                <xsl:otherwise>
-                                                        <xsl:value-of select="@src"/>
-                                                </xsl:otherwise>
-                                        </xsl:choose>
-                                </xsl:otherwise>
-                        </xsl:choose>
-                </db:alt>
 		<db:imagedata fileref="{@src}">
 			<xsl:choose>
 				<xsl:when test="@print-width">
