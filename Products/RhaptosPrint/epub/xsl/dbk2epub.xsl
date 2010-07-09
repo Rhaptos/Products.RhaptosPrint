@@ -104,6 +104,15 @@
   </div>
 </xsl:template>
 
+<!-- Output equation titles instead of squishing them, as done in docbook (xsl/html/formal.xsl) -->
+<xsl:template match="db:equation/db:title">
+    <div class="title">
+        <b>
+            <xsl:apply-templates/>
+        </b>
+    </div>
+</xsl:template>
+
 
 <!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
 <xsl:template match="db:example[ancestor::db:glossentry
