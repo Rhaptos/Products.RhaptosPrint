@@ -20,6 +20,7 @@
  */
 -->
 <xsl:stylesheet version="2.0"
+    xmlns="http://docbook.org/ns/docbook"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:bibtex="http://bibtexml.sf.net/"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
