@@ -8,22 +8,18 @@
 		xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
 		exclude-result-prefixes="math t xs func svg pmml2svg">
  
+  <xsl:import href="../xsl/ident.xsl"/>
+  
   <!-- Import pMML2SVG stylesheet -->
   <xsl:import href="math2svg-customized/pmml2svg.xsl"/>
+
+  <!-- Piggyback the BibTeXML conversion -->
+  <xsl:import href="bib2dbk.xsl"/>
 
   <!-- Output for svg -->
   <xsl:output method="xml" indent="yes" version="1.0"
 	      omit-xml-declaration="no"
 	      cdata-section-elements="style"/>
-
-  <!-- ALL ELEMENTS THAT ARE NOT MATHML: SIMPLY COPY AND GO ON -->
-<!-- Identity Transform -->
-<xsl:template match="@*|*[namespace-uri()!='http://www.w3.org/1998/Math/MathML']|processing-instruction()|text()|comment()">
-   <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-   </xsl:copy>
-</xsl:template>
-
 
   <!-- ####################################################################
        ROOT ELEMENT

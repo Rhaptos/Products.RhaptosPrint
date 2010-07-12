@@ -65,7 +65,23 @@
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
+        <xsl:apply-templates select="bib:file"/>
     </db:section>
+</xsl:template>
+
+<xsl:template match="bib:*">
+    <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+</xsl:template>
+<!-- Every bib:entry must have @id, not @xml:id -->
+<xsl:template match="bib:entry">
+    <xsl:copy>
+        <xsl:attribute name="id">
+            <xsl:call-template name="cnx.id"/>
+        </xsl:attribute>
+        <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
 </xsl:template>
 
 
