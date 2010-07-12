@@ -34,8 +34,6 @@ DOCBOOK_NORMALIZE_PATHS_XSL=$ROOT/xsl/dbk2epub-normalize-paths.xsl
 DOCBOOK_NORMALIZE_GLOSSARY_XSL=$ROOT/xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl
 DBK2SVG_COVER_XSL=$ROOT/xsl/dbk2svg-cover.xsl
 
-CONVERT=convert
-
 if [ ".$2" != "." ]; then 
   MODULE=$2;
   bash $ROOT/scripts/module2dbk.sh $COL_PATH $MODULE
@@ -50,8 +48,18 @@ else
   DOCBOOK3=$COL_PATH/_collection3.dbk
   DBK_FILE=$COL_PATH/collection.cleaned.dbk
   COVER_PREFIX=cover
+  COLLECTION_COVER_PREFIX=_collection_$COVER_PREFIX
   COVER_SVG=$COL_PATH/_$COVER_PREFIX.svg
   COVER_PNG=$COL_PATH/$COVER_PREFIX.png
+  
+  INKSCAPE=`which inkscape`
+  if [ ".$INKSCAPE" == "." ]; then
+    INKSCAPE=/Applications/Inkscape.app/Contents/Resources/bin/inkscape
+    if [ ! -e $INKSCAPE ]; then
+      echo "LOG: ERROR: Inkscape not found." 1>&2
+      exit 1
+    fi
+  fi
   
   # remove all the temp files first so we don't accidentally use old ones
   [ -s $DOCBOOK2 ] && rm $DOCBOOK2
@@ -66,41 +74,29 @@ else
   
   
   # Create cover SVG and convert it to an image
-  COVER_PNG_FILES=`find $COL_PATH -name $COVER_PREFIX.??g | sort -r`
-  if [ "$COVER_PNG_FILES." == "." ]; then
+  COVER_FILES=`find $COL_PATH -name $COLLECTION_COVER_PREFIX.??g | sort -r`
+  if [ "$COVER_FILES." == "." ]; then
     echo "LOG: DEBUG: Creating cover page"
     $XSLTPROC -o $COVER_SVG $DBK2SVG_COVER_XSL $DBK_FILE
     EXIT_STATUS=$EXIT_STATUS || $?
     
     if [ -s $COVER_SVG ]; then
       echo "LOG: DEBUG: Converting SVG Cover Page to PNG"
-      # For Macs, use inkscape
-      if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
-        (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $COVER_SVG --export-png=$COVER_PNG 2>&1) > $COL_PATH/__err.txt
-        EXIT_STATUS=$EXIT_STATUS || $?
-      else
-        $CONVERT $COVER_SVG $COVER_PNG
-        EXIT_STATUS=$EXIT_STATUS || $?
-      fi
+      ($INKSCAPE $COVER_SVG --export-png=$COVER_PNG 2>&1) > $COL_PATH/__err.txt
+      EXIT_STATUS=$EXIT_STATUS || $?
     else
       # Print saner error messages.
-      echo "LOG: ERROR: Converting Cover page: SVG file not found"
+      echo "LOG: ERROR: Converting Cover page: SVG file not found" 1>&2
       EXIT_STATUS=$EXIT_STATUS || 1
     fi
   else
     echo "LOG: DEBUG: Converting existing cover image"
-    COVER_FILES_SVG=`find $COL_PATH -name $COVER_PREFIX.svg | sort -r`
-    COVER_FILES_PNG=`find $COL_PATH -name $COVER_PREFIX.png | sort -r`
+    COVER_FILES_SVG=`find $COL_PATH -name $COLLECTION_COVER_PREFIX.svg | sort -r`
+    COVER_FILES_PNG=`find $COL_PATH -name $COLLECTION_COVER_PREFIX.png | sort -r`
     if [ "$COVER_FILES_SVG." != "." ]; then
       echo "LOG: DEBUG: Converting existing cover SVG named ${COVER_FILES_SVG[0]}"
-      # For Macs, use inkscape
-      if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
-        (/Applications/Inkscape.app/Contents/Resources/bin/inkscape ${COVER_FILES_SVG[0]} --export-png=$COVER_PNG 2>&1) > $COL_PATH/__err.txt
-        EXIT_STATUS=$EXIT_STATUS || $?
-      else
-        $CONVERT ${COVER_FILES_SVG[0]} $COVER_PNG
-        EXIT_STATUS=$EXIT_STATUS || $?
-      fi
+      ($INKSCAPE ${COVER_FILES_SVG[0]} --export-png=$COVER_PNG 2>&1) > $COL_PATH/__err.txt
+      EXIT_STATUS=$EXIT_STATUS || $?
     else
       echo "LOG: DEBUG: Converting existing cover PNG named ${COVER_FILES_PNG[0]}"
       cp $COVER_FILES_PNG $COVER_PNG
