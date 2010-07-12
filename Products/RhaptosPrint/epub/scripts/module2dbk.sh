@@ -96,7 +96,8 @@ if [ -s $WORKING_DIR/__err.txt ]; then
   CNXML_NEW=$CNXML.new.xml
   ($XMLVALIDATE --loaddtd --noent --dropdtd --output $CNXML_NEW $CNXML 2>&1) > $WORKING_DIR/__err.txt
   if [ -s $WORKING_DIR/__err.txt ]; then 
-    echo "Invalid cnxml doc" 1>&2
+    echo "LOG: ERROR: Invalid cnxml doc" 1>&2
+    cat $WORKING_DIR/__err.txt 1>&2
       exit 1
   fi
   mv $CNXML_NEW $CNXML
@@ -161,16 +162,19 @@ EXIT_STATUS=$EXIT_STATUS || $?
 # Convert the files
 for ID_AND_EXT in `cat $SVG2PNG_FILES_LIST`
 do
+  SCALE=200
   ID=${ID_AND_EXT%%|*}
   EXT=${ID_AND_EXT#*|}
   if [ -s $WORKING_DIR/$ID.svg ]; then
       echo "LOG: DEBUG: Converting-SVG $ID to $EXT"
       # For Macs, use inkscape
       if [ -e /Applications/Inkscape.app/Contents/Resources/bin/inkscape ]; then
-        (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-$EXT=$WORKING_DIR/$ID.$EXT 2>&1) > $WORKING_DIR/__err.txt
+        # Default DPI is 90, so double it
+        DPI=180
+        (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-$EXT=$WORKING_DIR/$ID.$EXT --export-dpi=180 2>&1) > $WORKING_DIR/__err.txt
         EXIT_STATUS=$EXIT_STATUS || $?
       else
-        $CONVERT $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
+        $CONVERT -scale $SCALE% $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
         EXIT_STATUS=$EXIT_STATUS || $?
       fi
   else

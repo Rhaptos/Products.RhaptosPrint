@@ -41,13 +41,12 @@
 <!-- Output the PNG with the baseline info -->
 <xsl:template match="@pmml2svg:baseline-shift">
 	<xsl:attribute name="style">
-	    <!-- Ignore width and height information for now
-		<xsl:text>widt</xsl:text>
-		<xsl:value-of select="@width"/>
+	    <!-- Set the height and width in the style so it scales? -->
+		<xsl:text>width:</xsl:text>
+		<xsl:value-of select="../@width"/>
 		<xsl:text>; height:</xsl:text>
-		<xsl:value-of select="@depth"/>
-		<xsl:text>;</xsl:text>
-		-->
+		<xsl:value-of select="../@depth"/>
+		<xsl:text>; </xsl:text>
 	  	<xsl:text>vertical-align:-</xsl:text>
 	  	<xsl:value-of select="." />
 	  	<xsl:text>pt;</xsl:text>
