@@ -4,60 +4,15 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
-  xmlns:md4="http://cnx.rice.edu/mdml/0.4"
   xmlns:md="http://cnx.rice.edu/mdml"
   xmlns="http://cnx.rice.edu/mdml"
   xmlns:exsl="http://exslt.org/common"
   xmlns:ext="http://cnx.org/ns/docbook+"
-  exclude-result-prefixes="c xlink db md4 md exsl"
+  exclude-result-prefixes="c xlink db md exsl"
   version="1.0">
 
 <!-- This file converts module and collection mdml to elements Docbook understands. -->
 
-<xsl:template match="md4:*">
-	<xsl:choose>
-	    <xsl:when test="$exsl.node.set.available != 0">
-			<xsl:variable name="upgraded">
-				<xsl:apply-templates select="." mode="upgrade.mdml"/>
-			</xsl:variable>
-			<xsl:apply-templates select="exsl:node-set($upgraded)"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Could not upconvert MDML namespaced element</xsl:with-param></xsl:call-template>
-		</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-<xsl:template match="*" mode="upgrade.mdml">
-  <xsl:choose>
-    <xsl:when test="self::md4:*">
-      <xsl:element name="{local-name(.)}" namespace="http://cnx.rice.edu/mdml">
-        <xsl:apply-templates select="@*[not(name(.) = 'xml:id')]"/>
-        <xsl:if test="@xml:id">
-          <xsl:attribute name="id">
-            <xsl:value-of select="@xml:id"/>
-          </xsl:attribute>
-        </xsl:if>
-        <xsl:apply-templates mode="upgrade.mdml"/>
-      </xsl:element>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:copy>
-        <xsl:apply-templates select="@*[not(name(.) = 'xml:id')]"/>
-        <xsl:if test="@xml:id">
-          <xsl:attribute name="id">
-            <xsl:value-of select="@xml:id"/>
-          </xsl:attribute>
-        </xsl:if>
-        <xsl:apply-templates mode="upgrade.mdml"/>
-      </xsl:copy>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-<xsl:template match="comment()|processing-instruction()|text()" mode="upgrade.mdml">
-  <xsl:copy/>
-</xsl:template>
-
-  
 <!-- Convert the roles to individual author/maintainer/etc elements -->
 <xsl:template match="md:roles">
 	<db:authorgroup>
@@ -118,43 +73,6 @@
         <xsl:value-of select="$id"/>
     </xsl:attribute>
     <xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$id]"/>
-</xsl:template>
-
-<!--  old-style lists -->
-<xsl:template match="md:authorlist|md:maintainerlist|md:licensorlist">
-    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEPRECATED: md:*list should no longer show up</xsl:with-param></xsl:call-template>
-	<db:authorgroup>
-		<xsl:comment>
-			<xsl:value-of select="substring-before(local-name(.), 'list')"/>
-			<xsl:text>s</xsl:text>
-		</xsl:comment>
-		<xsl:apply-templates/>
-	</db:authorgroup>
-</xsl:template>
-
-<xsl:template match="md:author">
-	<db:author><xsl:call-template name="author-maintainer"/></db:author>
-</xsl:template>
-<xsl:template match="md:maintainer">
-	<db:editor><xsl:call-template name="author-maintainer"/></db:editor>
-</xsl:template>
-<xsl:template match="md:licensor">
-	<db:othercredit class="other"><xsl:call-template name="author-maintainer"/></db:othercredit>
-</xsl:template>
-
-<xsl:template name="author-maintainer">
-    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEPRECATED: md:author-maintainer should no longer be called</xsl:with-param></xsl:call-template>
-	<xsl:choose>
-		<xsl:when test="md:firstname/text() = md:surname/text()">
-			<db:orgname><xsl:apply-templates select="md:firstname/node()"/></db:orgname>
-		</xsl:when>
-		<xsl:otherwise>
-			<db:personname>
-				<xsl:apply-templates select="md:firstname|md:surname"/>
-			</db:personname>
-		</xsl:otherwise>
-	</xsl:choose>
-	<xsl:apply-templates select="md:email"/>
 </xsl:template>
 
 <xsl:template match="md:license">

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="cite-test" cnxml-version="0.7">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:bib="http://bibtexml.sf.net/" id="cite-test" cnxml-version="0.7">
 	<name>Cite Test</name>
-	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
-  <md:authorlist>
-      <md:author id="phil">
+	<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+  <md:actors>
+      <md:person userid="phil">
       <md:firstname>Philip</md:firstname>
       <md:surname>Schatz</md:surname>
       <md:email>p@cnx</md:email>
-    </md:author>
-  </md:authorlist>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+  </md:roles>
 </metadata>
 
 	<content>
@@ -73,5 +76,36 @@
 		</list>
 	</section>
 
+    <section><title>BibTeXML References (from m11215)</title>
+        <para>Additionally, there is a BibTeXML reference in this module which should show up in a "References" section below.</para>
+        <list>
+            <item><link target-id="esbensen"/> : Link to a bib:entry</item>
+            <item><link target-id="martens.nes"/> : Link to another bib:entry</item>
+        </list>
+    </section>
+
 	</content>
+
+   <bib:file>
+          <bib:entry id="esbensen">
+      <bib:book>
+    <bib:author>Kim Esbensen; Tonje Midtgaard; Suzanne Schonkopf</bib:author>
+    <bib:title>Multivariate Analysis in Practice</bib:title>
+    <bib:publisher>Camo AS</bib:publisher>
+    <bib:year>1994</bib:year>
+    <bib:address>Trondheim</bib:address>
+      </bib:book>
+    </bib:entry>
+
+    <bib:entry id="martens.nes">
+      <bib:book>
+    <bib:author>Harald Martens; Tormod Nas</bib:author>
+    <bib:title>Multivariate Calibration</bib:title>
+    <bib:publisher>John Wiley &amp; Sons Ltd.</bib:publisher>
+    <bib:year>1989</bib:year>
+    <bib:address>Chichester</bib:address>
+      </bib:book>
+    </bib:entry>
+  </bib:file>
+
 </document>
