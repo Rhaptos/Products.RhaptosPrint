@@ -18,9 +18,9 @@
 	* Converts links to content not included in the book to external links
  -->
 
-<xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
+<xsl:import href="param.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
 
@@ -175,9 +175,10 @@
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
 <xsl:template match="db:authorgroup/db:*">
 	<xsl:variable name="userId" select="@ext:user-id"/>
+    <xsl:variable name="role" select="@ext:role"/>
 	<xsl:variable name="name" select="local-name()"/>
 	<xsl:choose>
-		<xsl:when test="not(preceding-sibling::db:*[local-name()=$name and @ext:user-id=$userId])">
+		<xsl:when test="not(preceding-sibling::db:*[local-name()=$name and @ext:user-id=$userId and @ext:role=$role])">
 			<xsl:call-template name="ident"/>
 		</xsl:when>
 		<xsl:otherwise>
@@ -208,6 +209,20 @@
 
 <xsl:template match="db:anchor">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing db:anchor and relinking db:anchor (probably created by converting c:subfigure)</xsl:with-param></xsl:call-template>
+</xsl:template>
+
+<!-- HACK: FOP generation requires that db:imagedata be missing -->
+<xsl:template match="db:imagedata[svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
+    <xsl:choose>
+        <xsl:when test="$cnx.output.fop != 0">
+            <xsl:apply-templates select="svg:svg"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:copy>
+                <xsl:apply-templates select="@*|node()"/>
+            </xsl:copy>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -69,8 +69,12 @@
 
 <xsl:template name="cnx.lookup.person">
     <xsl:param name="id"/>
+    <xsl:param name="role" select="@type"/>
     <xsl:attribute name="ext:user-id">
         <xsl:value-of select="$id"/>
+    </xsl:attribute>
+    <xsl:attribute name="ext:role">
+        <xsl:value-of select="$role"/>
     </xsl:attribute>
     <xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$id]"/>
 </xsl:template>

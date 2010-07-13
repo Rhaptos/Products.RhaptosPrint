@@ -452,17 +452,9 @@
 			<xsl:value-of select="$cnx.module.separator"/>
 			<xsl:value-of select="generate-id(.)"/>
 		</xsl:attribute>
-		<!-- HACK: FOP generation requires that db:imagedata be missing -->
-		<xsl:choose>
-			<xsl:when test="$cnx.output = 'fop'">
-				<xsl:apply-templates mode="copy" select="."/>
-			</xsl:when>
-			<xsl:otherwise>
-				<db:imagedata format="SVG"> 
-					<xsl:apply-templates mode="copy" select="."/>
-				</db:imagedata>
-			</xsl:otherwise>
-		</xsl:choose>
+		<db:imagedata format="SVG"> 
+			<xsl:apply-templates mode="copy" select="."/>
+		</db:imagedata>
 	</db:imageobject>
 </xsl:template>
 

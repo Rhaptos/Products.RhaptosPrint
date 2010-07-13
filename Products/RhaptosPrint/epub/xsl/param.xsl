@@ -35,7 +35,7 @@
 	This is the text between the module, and the module-specific id. -->
 <xsl:param name="cnx.module.separator">.</xsl:param>
 <!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
-<xsl:param name="cnx.output">xhtml</xsl:param>
+<xsl:param name="cnx.output.fop" select="0"/>
 
 <!-- Used for including the coverpage image -->
 <xsl:param name="cnx.cover.image">cover.png</xsl:param>
