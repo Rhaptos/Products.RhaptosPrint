@@ -42,7 +42,7 @@
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
 		<db:authorgroup>
-			<xsl:for-each select="//db:authorgroup/db:*">
+			<xsl:for-each select="//db:authorgroup[not(ancestor::db:bibliography)]/db:*">
 				<xsl:call-template name="ident"/>
 			</xsl:for-each>
 		</db:authorgroup>
