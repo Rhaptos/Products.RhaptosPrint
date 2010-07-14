@@ -206,6 +206,10 @@ body{
   line-height: 1.4em;
 }
 
+.para-title{
+  margin-bottom: -.5em;
+}
+
 /* ========== codeblock & codeline ========== */
 
 .code, .screen{
@@ -381,7 +385,7 @@ blockquote{
   float: right;
 }
 
-.equation .title{
+.equation-title{
   margin-bottom: .5em;
   text-align: left;
 }

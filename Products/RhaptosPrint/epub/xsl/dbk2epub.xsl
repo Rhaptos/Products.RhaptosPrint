@@ -105,7 +105,17 @@
 
 <!-- Output equation titles instead of squishing them, as done in docbook (xsl/html/formal.xsl) -->
 <xsl:template match="db:equation/db:title">
-    <div class="title">
+    <div class="equation-title">
+        <b>
+            <xsl:apply-templates/>
+        </b>
+    </div>
+</xsl:template>
+
+
+<!-- Output para titles as blocks instead of inline, as done in docbook -->
+<xsl:template match="db:formalpara/db:title">
+    <div class="para-title">
         <b>
             <xsl:apply-templates/>
         </b>

@@ -72,7 +72,7 @@
 </metadata>
 
 	<content>
-		<para id="opening_paragraph">This brief paragraph was put in before a section tag 
+		<para id="opening_paragraph"><title>Title of paragraph</title>This brief paragraph was put in before a section tag 
 to ensure that it was styled correctly.</para><equation id="content_equation">
 			<name>This equation has been thrown in as a child of content for styling purposes.</name>
 			
