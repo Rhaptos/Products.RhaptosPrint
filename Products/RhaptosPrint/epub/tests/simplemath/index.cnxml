@@ -82,6 +82,10 @@
 
            <item><m:math><m:mfenced><m:msub><m:mtext>complex</m:mtext><m:mn>8</m:mn></m:msub></m:mfenced></m:math> : Too complicated (mfenced/msub). Requires stretchy parens</item>
            <item><m:math><m:mrow><m:mo>(</m:mo><m:msub><m:mtext>complex</m:mtext><m:mn>9</m:mn></m:msub><m:mo>]</m:mo></m:mrow></m:math> : Too complicated mrow ( "(" next to a msub )</item>
+
+           <item><m:math><m:apply><m:divide/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in an image.</item>
+           <item><m:math><m:apply><m:minus/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in cnxml (should _not_ be italic).</item>
+
         </list></para>
     </section>
 

@@ -3483,33 +3483,33 @@ Last updated: 12/04/2000
 <!-- integer numbers -->
 
 <xsl:template match="m:integers">
-  <m:mi><xsl:text disable-output-escaping='yes'>&amp;#x2124;</xsl:text></m:mi>  <!-- open face Z --> <!-- UNICODE char works -->
+  <m:mi mathvariant="double-struck"><xsl:text disable-output-escaping='yes'>&amp;#x2124;</xsl:text></m:mi>  <!-- open face Z --> <!-- UNICODE char works -->
 </xsl:template>
 
 <!-- real numbers -->
 <xsl:template match="m:reals">
-  <m:mi><xsl:text
+  <m:mi mathvariant="double-struck"><xsl:text
   disable-output-escaping='yes'>&amp;#x211D;</xsl:text></m:mi>  <!-- open face R --> <!-- UNICODE char works -->
 </xsl:template>
 
 <!-- rational numbers -->
 <xsl:template match="m:rationals">
-  <m:mi><xsl:text disable-output-escaping='yes'>&amp;#x211A;</xsl:text></m:mi>  <!-- open face Q --> <!-- UNICODE char works -->
+  <m:mi mathvariant="double-struck"><xsl:text disable-output-escaping='yes'>&amp;#x211A;</xsl:text></m:mi>  <!-- open face Q --> <!-- UNICODE char works -->
 </xsl:template>
 
 <!-- natural numbers -->
 <xsl:template match="m:naturalnumbers">
-  <m:mi><xsl:text disable-output-escaping='yes'>&amp;#x2115;</xsl:text></m:mi>  <!-- open face N --> <!-- UNICODE char works -->
+  <m:mi mathvariant="double-struck"><xsl:text disable-output-escaping='yes'>&amp;#x2115;</xsl:text></m:mi>  <!-- open face N --> <!-- UNICODE char works -->
 </xsl:template>
 
 <!-- complex numbers -->
 <xsl:template match="m:complexes">
-  <m:mi><xsl:text disable-output-escaping='yes'>&amp;#x2102;</xsl:text></m:mi>  <!-- open face C --> <!-- UNICODE char works -->
+  <m:mi mathvariant="double-struck"><xsl:text disable-output-escaping='yes'>&amp;#x2102;</xsl:text></m:mi>  <!-- open face C --> <!-- UNICODE char works -->
 </xsl:template>
 
 <!-- prime numbers -->
 <xsl:template match="m:primes">
-  <m:mi><xsl:text disable-output-escaping='yes'>&amp;#x2119;</xsl:text></m:mi>  <!-- open face P --> <!-- UNICODE char works -->
+  <m:mi mathvariant="double-struck"><xsl:text disable-output-escaping='yes'>&amp;#x2119;</xsl:text></m:mi>  <!-- open face P --> <!-- UNICODE char works -->
 
 </xsl:template>
 

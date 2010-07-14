@@ -63,4 +63,74 @@
 	  also generate debug message so the author can fix it
  -->
 
+
+<xsl:template match="db:token[@class='simplemath']/text()">
+    <xsl:choose>
+        <xsl:when test="normalize-space(.) != '' and normalize-space(.) != ' '">
+            <fo:inline font-family="STIXGeneral">
+                <xsl:value-of select="."/>
+            </fo:inline>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="."/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template name="inline.boldseq">
+  <xsl:param name="content">
+    <xsl:call-template name="simple.xlink">
+      <xsl:with-param name="content">
+        <xsl:apply-templates/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:param>
+
+  <fo:inline font-weight="bold">
+    <xsl:if test="ancestor::db:token[@class='simplemath']">
+        <xsl:attribute name="font-family">
+            <xsl:text>STIXGeneral</xsl:text>
+        </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@dir">
+      <xsl:attribute name="direction">
+        <xsl:choose>
+          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
+          <xsl:otherwise>rtl</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:copy-of select="$content"/>
+  </fo:inline>
+</xsl:template>
+
+<xsl:template name="inline.italicseq">
+  <xsl:param name="content">
+    <xsl:call-template name="simple.xlink">
+      <xsl:with-param name="content">
+        <xsl:apply-templates/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:param>
+
+  <fo:inline font-style="italic">
+    <xsl:if test="ancestor::db:token[@class='simplemath']">
+        <xsl:attribute name="font-family">
+            <xsl:text>STIXGeneral</xsl:text>
+        </xsl:attribute>
+    </xsl:if>
+    <xsl:call-template name="anchor"/>
+    <xsl:if test="@dir">
+      <xsl:attribute name="direction">
+        <xsl:choose>
+          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
+          <xsl:otherwise>rtl</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:copy-of select="$content"/>
+  </fo:inline>
+</xsl:template>
+
+
 </xsl:stylesheet>
