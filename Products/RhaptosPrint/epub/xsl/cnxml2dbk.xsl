@@ -272,7 +272,12 @@
 	<xsl:variable name="url">
 		<xsl:value-of select="$cnx.url"/>
 		<xsl:value-of select="$cnx.module.id"/>
-		<xsl:text>/latest/#</xsl:text>
+        <xsl:text>/</xsl:text>
+		<xsl:if test="not(/c:document/c:metadata/md:version)">
+		  <xsl:text>latest</xsl:text>
+		</xsl:if>
+		<xsl:value-of select="/c:document/c:metadata/md:version"/>
+		<xsl:text>/#</xsl:text>
 		<xsl:value-of select="substring-after($fullId, $modulePrefix)"/>
 	</xsl:variable>
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Found c:media that is not converted. Adding a link to the online version.</xsl:with-param></xsl:call-template>
