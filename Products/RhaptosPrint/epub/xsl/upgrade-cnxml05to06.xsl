@@ -22,7 +22,6 @@
     <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
         <md4:licensorlist>
-            <xsl:message>LOG: INFO: cnx.hack count=<xsl:value-of select="count($moduleExportTemplate/module/metadata/licensor/*)"/></xsl:message>
             <xsl:call-template name="cnx.copy.remote">
                 <xsl:with-param name="nodes" select="$moduleExportTemplate/module/metadata/licensor"/>
             </xsl:call-template>
