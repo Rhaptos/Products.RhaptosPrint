@@ -1,8 +1,12 @@
-This zip file contains the complete contents of a collection.  
+This ZIP file contains the complete contents of a collection.
 
 INCLUDED FILES
-========================================
-- collection.xml - XML file that describes content of the collection
-- mXXXXXXX directories - Contains cnxml files for a module along with any images or multimedia files that are part of the module.
-- *.dbk - Docbook files used to generate the offline HTML and Epub file
-- html directory - Contains the HTML version of the Collection.  It can be viewed by opening the bk01-toc.xhtml in your browser.
+==============
+- *.xhtml - HTML version of the collection.  This can be viewed by opening the bk01-toc.xhtml file in your browser.
+- collection.xml - XML file that defines the structure of the collection.  It cannot be reimported in the editing interface.
+- content.css - CSS file for styling the HTML files.
+- *.dbk - Docbook files used to generate the offline HTML/EPUB files.
+
+INCLUDED DIRECTORIES
+====================
+- mXXXXX (e.g. m10000) - Contains the cnxml (XML source) files for each module along with any images or multimedia files that are part of the module.
