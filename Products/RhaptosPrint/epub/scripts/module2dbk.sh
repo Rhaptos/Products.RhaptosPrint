@@ -139,7 +139,7 @@ EXIT_STATUS=$EXIT_STATUS || $?
 $SAXON -s:$DOCBOOK1 -xsl:$MATH2SVG_XSL -o:$DOCBOOK2
 # If there is an error, just use the original file
 MATH2SVG_ERROR=$?
-EXIT_STATUS=$EXIT_STATUS || $?ATH2SVG_ERROR
+EXIT_STATUS=$EXIT_STATUS || $MATH2SVG_ERROR
 
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 #if [ $MATH2SVG_ERROR -eq 0 ]; then 
