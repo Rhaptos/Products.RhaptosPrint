@@ -162,7 +162,6 @@ EXIT_STATUS=$EXIT_STATUS || $?
 # Convert the files
 for ID_AND_EXT in `cat $SVG2PNG_FILES_LIST`
 do
-  DENSITY=100x100
   ID=${ID_AND_EXT%%|*}
   EXT=${ID_AND_EXT#*|}
   if [ -s $WORKING_DIR/$ID.svg ]; then
@@ -174,7 +173,7 @@ do
         (/Applications/Inkscape.app/Contents/Resources/bin/inkscape $WORKING_DIR/$ID.svg --export-$EXT=$WORKING_DIR/$ID.$EXT --export-dpi=180 2>&1) > $WORKING_DIR/__err.txt
         EXIT_STATUS=$EXIT_STATUS || $?
       else
-        $CONVERT -density $DENSITY $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
+        $CONVERT -density 100x100 $WORKING_DIR/$ID.svg $WORKING_DIR/$ID.$EXT
         EXIT_STATUS=$EXIT_STATUS || $?
       fi
   else
