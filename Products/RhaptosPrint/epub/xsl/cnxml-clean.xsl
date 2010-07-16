@@ -2,7 +2,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   xmlns:c="http://cnx.rice.edu/cnxml"
-xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
     exclude-result-prefixes="c">
 
 <!-- This file:
@@ -188,5 +188,9 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	</xsl:choose>
 </xsl:template>
 
+
+<xsl:template match="md:version[text()='**new**' or text()='None']">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding md:version since it is set to "<xsl:value-of select="text()"/>"</xsl:with-param></xsl:call-template>
+</xsl:template>
 
 </xsl:stylesheet>

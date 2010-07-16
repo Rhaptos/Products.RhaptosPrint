@@ -96,6 +96,9 @@
 					<xsl:value-of select="$cnx.url"/>
 					<xsl:value-of select="$id"/>
 					<xsl:text>/</xsl:text>
+					<xsl:if test="not(db:edition/text())">
+					   <xsl:text>latest</xsl:text>
+					</xsl:if>
 					<xsl:value-of select="db:edition"/>
 					<xsl:text>/</xsl:text>
 				</xsl:variable>

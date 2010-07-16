@@ -16,7 +16,19 @@
 
 <!-- Grab the licensors from the website -->
 <xsl:template match="c:metadata[md4:*]">
-    <xsl:variable name="url" select="concat($cnx.url, /c:document/@id, '/', /c:document/c:metadata/md4:version/text(), '/module_export_template')"/>
+    <!-- Some modules have "**new**" as their version number. In this case, use "latest" -->
+    <xsl:variable name="ver" select="/c:document/c:metadata/md4:version/text()"/>
+    <xsl:variable name="version">
+        <xsl:choose>
+	        <xsl:when test="$ver and $ver != '**new**' and $ver != 'None'">
+	            <xsl:value-of select="$ver"/>
+	        </xsl:when>
+	        <xsl:otherwise>
+                <xsl:text>latest</xsl:text>
+	        </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id, '/', $version, '/module_export_template')"/>
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: Getting licensor info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
     <xsl:variable name="moduleExportTemplate" select="document($url)"/>
     <xsl:copy>
