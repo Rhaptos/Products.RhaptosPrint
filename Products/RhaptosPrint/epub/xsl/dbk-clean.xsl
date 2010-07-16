@@ -46,12 +46,12 @@
 </xsl:template>
 
 
-<xsl:template match="db:inlinemediaobject[.//mml:math]">
+<xsl:template match="db:inlinemediaobject[.//mml:math and not(.//svg:svg)]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Inline MathML Not converted</xsl:with-param></xsl:call-template>
 	<xsl:text>[ERROR: MathML not converted]</xsl:text>
 </xsl:template>
 
-<xsl:template match="db:mediaobject[.//mml:math]">
+<xsl:template match="db:mediaobject[.//mml:math and not(.//svg:svg)]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: MathML Not converted</xsl:with-param></xsl:call-template>
 	<db:para>[ERROR: MathML not converted]</db:para>
 </xsl:template>

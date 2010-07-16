@@ -51,6 +51,7 @@
 
     
     <xsl:copy-of select="$svgOutput"/>
+    <xsl:copy-of select="."/><!-- Keep the original MathML -->
   </xsl:template>
 
 </xsl:stylesheet>
