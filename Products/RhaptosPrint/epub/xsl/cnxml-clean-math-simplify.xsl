@@ -286,7 +286,7 @@
 
 
 <!-- Word-importing things like f_out create mml:mi for each char in "out" -->
-<xsl:template mode="cnx.simplify" match="mml:mrow[count(*)=count(mml:mi)]">
+<xsl:template mode="cnx.simplify" match="mml:mrow[count(*)=count(mml:mi) and count(*)>1]">
 	<c:emphasis class="mathml-mi">
 		<xsl:apply-templates mode="cnx.simplify" select="*/node()"/>
 	</c:emphasis>
