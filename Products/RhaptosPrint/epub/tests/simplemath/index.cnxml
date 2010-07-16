@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:bib="http://bibtexml.sf.net/" id="simplemath" cnxml-version="0.7">
 	<name>SimpleMath Test</name>
-	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
-  <md:authorlist>
-      <md:author id="phil">
+	<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+
+  <md:actors>
+      <md:person userid="phil">
       <md:firstname>Philip</md:firstname>
       <md:surname>Schatz</md:surname>
       <md:email>p@cnx</md:email>
-    </md:author>
-  </md:authorlist>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+  </md:roles>
 </metadata>
 
 	<content>
@@ -34,6 +37,8 @@
            <item><m:math><m:mo>+</m:mo></m:math> : mo (a "+")</item>
            <item><m:math><m:mo>z</m:mo></m:math> : mo (a "z")</item>
            <item><m:math><m:mo>-</m:mo></m:math> : mo (a dash, longer than "-")</item>
+           <item><m:math><m:apply><m:plus/><m:exponentiale/><m:imaginaryi/><m:primes/><m:naturalnumbers/><m:integers/><m:complexes/><m:reals/></m:apply></m:math> : exponentiale, imaginaryi, prines, naturals, integers, complexes, reals</item>
+           <item><m:math><m:apply><m:divide/><m:apply><m:plus/><m:exponentiale/><m:imaginaryi/><m:primes/><m:naturalnumbers/><m:integers/><m:complexes/><m:reals/></m:apply><m:cn>2</m:cn></m:apply></m:math> : (exponentiale, imaginaryi, prines, naturals, integers, complexes, reals) divided by two (make sure image generation of those characters works)</item>
 	   </list></para>
 	   <para>mathvariant on mml:mi<list>
            <item><m:math><m:mi>q</m:mi></m:math> : mi (italicized)</item>
@@ -86,6 +91,261 @@
            <item><m:math><m:apply><m:divide/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in an image.</item>
            <item><m:math><m:apply><m:minus/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in cnxml (should _not_ be italic).</item>
 
+        </list></para>
+    </section>
+    
+    <section><title>Cnx customizations</title>
+        <equation><m:math>
+            <m:apply>
+               <m:eq/>
+               <m:ci>A</m:ci>
+               <m:ci>B</m:ci>
+               <m:ci>C</m:ci>
+             </m:apply>
+        </m:math> : multiple equals in an equation ("=C" should show up on a second line)</equation>
+
+        <para><list>
+            <item><m:math>
+                <m:apply>
+                   <m:eq/>
+                   <m:ci>A</m:ci>
+                   <m:ci>B</m:ci>
+                   <m:ci>C</m:ci>
+                 </m:apply>
+            </m:math> : multiple equals ("=C" should show up on the same line)</item>
+            <item><m:math>
+                <m:apply>
+                   <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+                   <m:ci type='matrix'>U</m:ci>
+                 </m:apply>
+            </m:math> : adjoint. Should have a "H" superscipt</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#argmax"/>
+       <m:domainofapplication>
+         <m:ci type='vector'>T</m:ci>
+       </m:domainofapplication>
+       <m:apply>
+         <m:ci type='fn'>p</m:ci>
+         <m:ci type='vector'>x</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : argmax </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://www.openmath.org/cd/combinat1.ocd"/>
+       <m:ci>N</m:ci>
+       <m:ci>n</m:ci>
+     </m:apply>
+            </m:math> : argmin. The "N" is on top and "n" is on bottom</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#complement"/>
+       <m:ci>A</m:ci>
+     </m:apply>
+            </m:math> : complement. A with a ' to denote complement</item>
+            <item><m:math>
+     <m:apply>
+       <m:eq/>
+       <m:apply>
+         <m:ci type='fn'>x</m:ci>
+         <m:ci>t</m:ci>
+       </m:apply>
+       <m:apply>
+   <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+     <m:apply>
+             <m:ci type='fn'>R</m:ci>
+             <m:ci>t</m:ci>
+           </m:apply>
+     <m:apply>
+             <m:ci type='fn'>h</m:ci>
+             <m:apply>
+               <m:minus/>
+     <m:ci>t</m:ci>
+             </m:apply>
+     </m:apply>
+     <m:apply>
+             <m:ci type='fn'>h</m:ci>
+             <m:ci>t</m:ci>
+     </m:apply>
+  </m:apply>
+     </m:apply>
+            </m:math> : convolve </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#cdf'>f</m:csymbol>
+       <m:bvar>
+         <m:ci>T</m:ci>
+       </m:bvar>
+       <m:ci>x</m:ci>
+     </m:apply>
+            </m:math> : cdf </item>
+            <item><m:math>
+     <m:apply>
+       <m:diff definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#vectorderivative'/>
+       <m:bvar>
+         <m:ci>T</m:ci>
+       </m:bvar>
+       <m:apply>
+         <m:ci type='vector'>s</m:ci>
+         <m:ci>T</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : vectorderivative </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#distance"/>
+       <m:ci><m:msub>
+           <m:mi>p</m:mi>
+           <m:mn>1</m:mn>
+         </m:msub></m:ci>
+       <m:ci><m:msub>
+           <m:mi>p</m:mi>
+           <m:mn>0</m:mn>
+         </m:msub></m:ci>
+     </m:apply>
+            </m:math> : distance </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+       <m:ci><m:msub>
+           <m:mi>T</m:mi>
+           <m:mi>ML</m:mi>
+         </m:msub></m:ci>
+     </m:apply>
+            </m:math> : estimate </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat'/>
+       <m:bvar>
+   <m:ci>x</m:ci>
+       </m:bvar>
+       <m:interval>
+         <m:cn>0</m:cn>
+   <m:cn>3</m:cn>
+       </m:interval>
+       <m:apply>
+         <m:int/>
+         <m:bvar>
+     <m:ci>x</m:ci>
+   </m:bvar>
+         <m:apply>
+           <m:power/>
+     <m:ci>x</m:ci>
+           <m:cn>2</m:cn>
+         </m:apply>
+       </m:apply>
+     </m:apply>
+            </m:math> : evaluateat </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+       <m:bvar>
+         <m:cn>0</m:cn>
+       </m:bvar>
+       <m:apply>
+         <m:ci type='fn'>L</m:ci>
+         <m:ci type='vector'>r</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : expectedvalue </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#mutualinformation"/>
+       <m:ci><m:msub>
+         <m:mi>r</m:mi>
+         <m:mn>1</m:mn>
+       </m:msub></m:ci>
+       <m:ci><m:msub>
+         <m:mi>r</m:mi>
+         <m:mn>2</m:mn>
+       </m:msub></m:ci>
+     </m:apply>
+            </m:math> : mutualinformation </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       <m:domainofapplication>
+         <m:cn>2</m:cn>
+       </m:domainofapplication>
+       <m:ci type='vector'>x</m:ci>
+     </m:apply>
+            </m:math> : norm </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#distributedin"/>
+       <m:ci>X</m:ci>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#normaldistribution"/>
+         <m:ci>mu</m:ci>
+         <m:ci>sigma</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : normaldistribution </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochastic"/>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochasticpiece"/>
+         <m:cn>1</m:cn>
+         <m:ci>p</m:ci>
+       </m:apply>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochasticpiece"/>
+         <m:cn>0</m:cn>
+         <m:apply>
+           <m:minus/>
+           <m:cn>1</m:cn>
+           <m:ci>p</m:ci>
+         </m:apply>
+       </m:apply>
+     </m:apply>
+            </m:math> : stochastic </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#probability'/>
+       <m:condition>
+         <m:ci>Y</m:ci>
+       </m:condition>
+       <m:ci>X</m:ci>
+     </m:apply>
+            </m:math> : probability </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+       <m:bvar>
+         <m:ci>r</m:ci>
+       </m:bvar>
+       <m:condition>
+         <m:ci>theta</m:ci>
+       </m:condition>
+       <m:ci>x</m:ci>
+     </m:apply> 
+            </m:math> : pdf </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol class='discrete' definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+       <m:bvar>
+         <m:ci>r</m:ci>
+       </m:bvar>
+       <m:condition>
+         <m:ci>theta</m:ci>
+       </m:condition>
+       <m:ci>x</m:ci>
+     </m:apply> 
+            </m:math> : pdf (class='discrete'). The probability mass function</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#surfaceintegral"/>
+       <m:bvar>
+         <m:ci>S</m:ci>
+       </m:bvar>
+       <m:domainofapplication>
+         <m:ci>s</m:ci>
+       </m:domainofapplication>
+       <m:ci>D</m:ci>
+     </m:apply>
+            </m:math> : surfaceintegral </item>
         </list></para>
     </section>
 
