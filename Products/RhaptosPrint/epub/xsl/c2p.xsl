@@ -9,6 +9,37 @@ xmlns:mml="http://www.w3.org/1998/Math/MathML"
 
 <xsl:param name="cnx.math.imaginaryi" select="'&#x2148;'"/>
 
+
+<!-- cnxmathmlc2p uses different parameter names than those defined in collxml -->
+<xsl:param name="real-imaginary-notation" select="'font'"/>
+<xsl:param name="and-or-notation" select="'propositional-logic'"/>
+<xsl:param name="gradient-notation" select="''"/>
+<xsl:param name="mean-notation" select="'bar'"/>
+<xsl:param name="remainder-notation" select="'text'"/>
+<xsl:param name="conjugate-notation" select="'bar'"/>
+<xsl:param name="imaginary-i-notation" select="'i'"/>
+<xsl:param name="scalar-product-notation" select="'angle-bracket'"/>
+<xsl:param name="print-font-size" select="'10pt'"/>
+<xsl:param name="curl-notation" select="'text'"/>
+<xsl:param name="for-all-equation-layout" select="'symbolic'"/>
+<xsl:param name="vector-notation" select="'bold'"/>
+
+<!-- These are the ones used in the cnxmathmlc2p.xsl file -->
+  <xsl:param name="meannotation" select="$mean-notation"/>
+  <xsl:param name="forallequation" select="$for-all-equation-layout"/><!-- TODO: The collxml parameter is different than this -->
+  <xsl:param name="vectornotation" select="$vector-notation"/>
+  <xsl:param name="andornotation" select="$and-or-notation"/>
+  <xsl:param name="realimaginarynotation" select="$real-imaginary-notation"/>
+  <xsl:param name="scalarproductnotation" select="$scalar-product-notation"/>
+  <xsl:param name="conjugatenotation" select="$conjugate-notation"/>
+  <xsl:param name="curlnotation" select="$curl-notation"/>
+  <xsl:param name="gradnotation" select="$gradient-notation"/>
+  <xsl:param name="remaindernotation" select="$remainder-notation"/>
+  <xsl:param name="vectorproductnotation" select="''"/>
+  <xsl:param name="complementnotation" select="''"/>
+
+
+
 <!-- 
   UGLY HACKery. mathmlc2p.xsl creates prefixed elements by using escaping
   (so the prefix isn't really bound to anything)

@@ -31,6 +31,8 @@ DOCBOOK2=$WORKING_DIR/_index2.dbk
 DOCBOOK_SVG=$WORKING_DIR/_index.svg.dbk
 SVG2PNG_FILES_LIST=$WORKING_DIR/_svg2png-list.txt
 VALID=$WORKING_DIR/_valid.dbk
+# Custom collection-level params (how to convert content mathml)
+PARAMS=$WORKING_DIR/../_params.txt
 
 #XSLT files
 UPGRADE_FIVE_XSL=$ROOT/xsl/upgrade-cnxml05to06.xsl
@@ -59,16 +61,18 @@ EXIT_STATUS=0
 [ -s $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
 [ -s $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
 
-# Load up the custom params to xsltproc:
-if [ -s $ROOT/params.txt ]; then
+# Load up the custom collection params to xsltproc:
+if [ -s $PARAMS ]; then
     #echo "Using custom params in params.txt for xsltproc."
-    # cat $ROOT/params.txt
+    # cat $PARAMS
     OLD_IFS=$IFS
     IFS="
 "
     XSLTPROC_ARGS=""
-    for ARG in `cat $ROOT/params.txt`; do
-      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+    for ARG in `cat $PARAMS`; do
+      if [ ".$ARG" != "." ]; then
+        XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
+      fi
     done
     IFS=$OLD_IFS
     XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"

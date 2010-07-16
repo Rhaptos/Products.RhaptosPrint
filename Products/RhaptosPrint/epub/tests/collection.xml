@@ -98,7 +98,7 @@ v&#7851;n&#273;&#236;nh&#22899;&#23130;&#12375;&#12383;</md:title>
     <col:param name="real-imaginary-notation" value="font"/>
     <col:param name="and-or-notation"
                value="propositional-logic"/>
-    <col:param name="gradient-notation" value="text"/>
+    <col:param name="gradient-notation" value="symbolicnotation"/>
     <col:param name="mean-notation" value="bar"/>
     <col:param name="remainder-notation" value="text"/>
     <col:param name="conjugate-notation" value="bar"/>

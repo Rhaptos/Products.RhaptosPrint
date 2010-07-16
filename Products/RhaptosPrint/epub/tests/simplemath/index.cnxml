@@ -94,7 +94,13 @@
         </list></para>
     </section>
     
-    <section><title>Cnx customizations</title>
+    <section><title>Cnx collection parameters</title>
+        <para><list>
+            <item><m:math><m:apply><m:grad/><m:ci>x</m:ci></m:apply></m:math> : gradient-notation=symbolicnotation (should display an upside down triangle)</item>
+        </list></para>
+    </section>
+
+    <section><title>Cnx csymbol customizations</title>
         <equation><m:math>
             <m:apply>
                <m:eq/>
