@@ -81,7 +81,10 @@
 </xsl:template>
 
 <xsl:template match="col:module">
-	<xi:include href="{@document}/index.dbk"/>
+    <db:section>
+        <xsl:apply-templates select="@*|node()"/>
+        <xi:include href="{@document}/index.dbk"/>
+    </db:section>
 </xsl:template>
 
 

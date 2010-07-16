@@ -133,7 +133,9 @@ v&#7851;n&#273;&#236;nh&#22899;&#23130;&#12375;&#12383;</md:title>
 <col:subcollection>
 	<md:title>A subcollection of our test modules: [m21891-exercises], [exercise-test] (several combinations of problems and solutions. Presented after the other exercises to make sure they are numbered per module, not per chapter), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
 	<col:content>
-		<col:module document="m21891-exercises"/>
+		<col:module document="m21891-exercises">
+            <md:title>Overriding title for [m21891-exercises]</md:title>
+		</col:module>
 		<col:module document="exercise-test"/>
 		<col:module document="m10349"/>
 		<col:module document="m10622"/>
