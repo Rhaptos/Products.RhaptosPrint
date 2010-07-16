@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE document PUBLIC "-//CNX//DTD CNXML 0.5 plus MathML//EN" "http://cnx.rice.edu/cnxml/0.5/DTD/cnxml_mathml.dtd">
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="m9003">
-	<name>MathML2SVG Test</name>
-	<metadata xmlns:md="http://cnx.rice.edu/mdml/0.4">
-  <md:authorlist>
-      <md:author id="phil">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:bib="http://bibtexml.sf.net/" id="mathml2svg-test" cnxml-version="0.7">
+    <name>MathML2SVG Test</name>
+    <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+  <md:actors>
+      <md:person userid="phil">
       <md:firstname>Philip</md:firstname>
       <md:surname>Schatz</md:surname>
       <md:email>p@cnx</md:email>
-    </md:author>
-  </md:authorlist>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+  </md:roles>
 </metadata>
 
 	<content>
