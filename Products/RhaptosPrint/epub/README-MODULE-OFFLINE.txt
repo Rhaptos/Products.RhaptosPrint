@@ -1,6 +1,6 @@
 This ZIP file contains the complete contents of a module.  
 
-INCLUDED FILES
+INCLUDED FILES 
 ==============
 - index.html - HTML view of the module.  Open this in your browser to view the module.
 - index.cnxml - The XML source code representing the contents of the module.

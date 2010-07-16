@@ -8,5 +8,5 @@ INCLUDED FILES
 - *.dbk - Docbook files used to generate the offline HTML/EPUB files.
 
 INCLUDED DIRECTORIES
-====================
+==================== 
 - mXXXXX (e.g. m10000) - Contains the cnxml (XML source) files for each module along with any images or multimedia files that are part of the module.
