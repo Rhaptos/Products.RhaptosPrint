@@ -8,6 +8,7 @@
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:ext="http://cnx.org/ns/docbook+"
+  xmlns:cnxorg="http://cnx.rice.edu/system-info"
   version="1.0">
 
 <!-- This file:
@@ -86,7 +87,7 @@
 				<xsl:value-of select="$attribution.section.id"/>
 			</xsl:attribute>
 			<db:title>Attributions</db:title>
-			<xsl:for-each select=".//db:chapterinfo|.//db:sectioninfo">
+			<xsl:for-each select=".//db:prefaceinfo|.//db:chapterinfo|.//db:sectioninfo|.//db:appendixinfo">
 				<xsl:variable name="id">
 					<xsl:call-template name="cnx.id">
 						<xsl:with-param name="object" select=".."/>
@@ -96,10 +97,22 @@
 					<xsl:value-of select="$cnx.url"/>
 					<xsl:value-of select="$id"/>
 					<xsl:text>/</xsl:text>
-					<xsl:if test="not(db:edition/text())">
-					   <xsl:text>latest</xsl:text>
-					</xsl:if>
-					<xsl:value-of select="db:edition"/>
+					<!-- Some modules don't have md:version set (db:edition), so pull it from the collection -->
+					<xsl:choose>
+					   <xsl:when test="../@cnxorg:version-at-this-collection-version">
+                           <xsl:value-of select="../@cnxorg:version-at-this-collection-version"/>
+					   </xsl:when>
+					   <!-- Could have been xincluded in a db:preface -->
+                       <xsl:when test="../../@cnxorg:version-at-this-collection-version">
+                           <xsl:value-of select="../../@cnxorg:version-at-this-collection-version"/>
+                       </xsl:when>
+					   <xsl:when test="db:edition/text()">
+					       <xsl:value-of select="db:edition/text()"/>
+					   </xsl:when>
+					   <xsl:otherwise>
+                           <xsl:text>latest</xsl:text>
+					   </xsl:otherwise>
+					</xsl:choose>
 					<xsl:text>/</xsl:text>
 				</xsl:variable>
 				<xsl:variable name="attributionId">
@@ -176,6 +189,18 @@
                         </db:colophon>
                 </xsl:if>
 	</xsl:copy>
+</xsl:template>
+
+
+<!-- Some modules don't have md:version set, so pull it from the collection -->
+<xsl:template match="db:*[contains(local-name(), 'info') and parent::*[@cnxorg:version-at-this-collection-version] and not(db:edition)]">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Setting version of module using @cnxorg:version-at-this-collection-version since none was set</xsl:with-param></xsl:call-template>
+    <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+        <db:edition>
+            <xsl:value-of select="../@cnxorg:version-at-this-collection-version"/>
+        </db:edition>
+    </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>
