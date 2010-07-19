@@ -647,5 +647,16 @@
 <xsl:template match="db:xref" mode="xref-to">
     <xsl:text>link</xsl:text>
 </xsl:template>
+<!-- Support linking to c:media or c:media/c:image. See m12196 -->
+<xsl:template match="db:mediaobject[not(db:objectinfo/db:title)]|db:inlinemediaobject[not(db:objectinfo/db:title)]" mode="xref-to">
+    <xsl:choose>
+        <xsl:when test="db:imageobject">
+            <xsl:text>image</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text>media</xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

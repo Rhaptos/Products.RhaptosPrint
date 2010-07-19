@@ -310,9 +310,7 @@
 	<db:imageobject format="{$format}">
 		<!-- Make sure imageobject has an id. Used when converting svg to png -->
 		<xsl:attribute name="xml:id">
-			<xsl:value-of select="$cnx.module.id"/>
-			<xsl:value-of select="$cnx.module.separator"/>
-			<xsl:value-of select="generate-id(.)"/>
+		    <xsl:call-template name="cnx.id"/>
 		</xsl:attribute>
 		<db:imagedata fileref="{@src}">
 			<xsl:choose>

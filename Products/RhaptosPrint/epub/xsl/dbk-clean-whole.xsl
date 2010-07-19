@@ -195,8 +195,9 @@
 	<xsl:variable name="target" select="key('id', .)"/>
 	<xsl:attribute name="linkend">
 		<xsl:choose>
-			<xsl:when test="'anchor' = local-name($target)">
-				<xsl:variable name="ancestor" select="ancestor::*[@xml:id][last()]"/>
+            <!-- Can't link to a db:imageobject (Docbook doesn't generate a img/@id for it) so link to the parent db:mediaobject -->
+			<xsl:when test="'anchor' = local-name($target) or 'imageobject' = local-name($target)">
+			     <xsl:variable name="ancestor" select="$target/ancestor::*[@xml:id][1]"/>
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Relinking db:anchor to <xsl:value-of select="local-name($ancestor)"/></xsl:with-param></xsl:call-template>
 				<xsl:value-of select="$ancestor/@xml:id"/>
 			</xsl:when>
