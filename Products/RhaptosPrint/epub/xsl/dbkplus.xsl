@@ -17,11 +17,6 @@
  -->
 <xsl:include href="param.xsl"/>
 
-<xsl:template match="*" mode="xref-to">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Using element name for xref text: <xsl:value-of select="local-name()"/> id=<xsl:value-of select="(@id|@xml:id)[1]"/></xsl:with-param></xsl:call-template>
-	<xsl:value-of select="local-name()"/>
-</xsl:template>
-
 <!-- EXERCISE templates -->
 
 <!-- Generate custom HTML for an ext:problem and ext:solution.
