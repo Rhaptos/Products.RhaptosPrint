@@ -10,11 +10,11 @@
   version="1.0">
 
 <!-- This file converts dbk files to chunked html which is used in EPUB generation.
-	* Stores customizations and docbook settings specific to Connexions
-	* Shifts images that were converted from MathML so they line up with text nicely
-	* Puts equation numbers on the RHS of an equation
-	* Disables equation and figure numbering inside things like examples and glossaries
-	* Adds @class attributes to elements for custom styling (like c:rule, c:figure)
+    * Stores customizations and docbook settings specific to Connexions
+    * Shifts images that were converted from MathML so they line up with text nicely
+    * Puts equation numbers on the RHS of an equation
+    * Disables equation and figure numbering inside things like examples and glossaries
+    * Adds @class attributes to elements for custom styling (like c:rule, c:figure)
  -->
 
 <xsl:import href="debug.xsl"/>
@@ -40,50 +40,50 @@
 
 <!-- Output the PNG with the baseline info -->
 <xsl:template match="@pmml2svg:baseline-shift">
-	<xsl:attribute name="style">
-	    <!-- Set the height and width in the style so it scales? -->
-		<xsl:text>width:</xsl:text>
-		<xsl:value-of select="../@width"/>
-		<xsl:text>; height:</xsl:text>
-		<xsl:value-of select="../@depth"/>
-		<xsl:text>; </xsl:text>
-	  	<xsl:text>vertical-align:-</xsl:text>
-	  	<xsl:value-of select="." />
-	  	<xsl:text>pt;</xsl:text>
-  	</xsl:attribute>
+    <xsl:attribute name="style">
+        <!-- Set the height and width in the style so it scales? -->
+        <xsl:text>width:</xsl:text>
+        <xsl:value-of select="../@width"/>
+        <xsl:text>; height:</xsl:text>
+        <xsl:value-of select="../@depth"/>
+        <xsl:text>; </xsl:text>
+          <xsl:text>vertical-align:-</xsl:text>
+          <xsl:value-of select="." />
+          <xsl:text>pt;</xsl:text>
+      </xsl:attribute>
 </xsl:template>
 
 <!-- Ignore the SVG element and use the @fileref (SVG-to-PNG conversion) -->
 <xsl:template match="*['imagedata'=local-name() and @fileref]" xmlns:svg="http://www.w3.org/2000/svg">
-	<img src="{@fileref}">
-		<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-		<!-- Ignore the SVG child -->
-	</img>
+    <img src="{@fileref}">
+        <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+        <!-- Ignore the SVG child -->
+    </img>
 <!--
   <object id="{$id}" type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
- 	<xsl:if test="svg:metadata/pmml2svg:baseline-shift">
-  	  <xsl:attribute name="style">position:relative; top:<xsl:value-of
-		select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
-  	</xsl:if>
-	<img src="{@fileref}" width="{@width}" height="{@height}"/>
+     <xsl:if test="svg:metadata/pmml2svg:baseline-shift">
+        <xsl:attribute name="style">position:relative; top:<xsl:value-of
+        select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
+      </xsl:if>
+    <img src="{@fileref}" width="{@width}" height="{@height}"/>
   </object>
 --></xsl:template>
 
 <xsl:template match="db:imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
-	<xsl:choose>
-		<xsl:when test="$cnx.svg.compat = 'object'">
-		  <object type="image/png" data="{@fileref}" width="{@width}" height="{@height}">
-			<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-			<!-- Insert the SVG inline -->
-			<xsl:apply-templates select="node()"/>
-		  </object>
-		</xsl:when>
-		<xsl:otherwise>
-			<img src="{@fileref}">
-				<xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-			</img>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+        <xsl:when test="$cnx.svg.compat = 'object'">
+          <object type="image/png" data="{@fileref}" width="{@width}" height="{@height}">
+            <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+            <!-- Insert the SVG inline -->
+            <xsl:apply-templates select="node()"/>
+          </object>
+        </xsl:when>
+        <xsl:otherwise>
+            <img src="{@fileref}">
+                <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+            </img>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 
@@ -175,15 +175,15 @@
 <xsl:template match="*[@ext:element|@class]" mode="class.value">
   <xsl:param name="class" select="local-name(.)"/>
   <xsl:variable name="cls">
-  	<xsl:value-of select="$class"/>
-  	<xsl:if test="@ext:element">
-  		<xsl:text> </xsl:text>
-  		<xsl:value-of select="@ext:element"/>
-  	</xsl:if>
-  	<xsl:if test="@class">
-  		<xsl:text> </xsl:text>
-  		<xsl:value-of select="@class"/>
-  	</xsl:if>
+      <xsl:value-of select="$class"/>
+      <xsl:if test="@ext:element">
+          <xsl:text> </xsl:text>
+          <xsl:value-of select="@ext:element"/>
+      </xsl:if>
+      <xsl:if test="@class">
+          <xsl:text> </xsl:text>
+          <xsl:value-of select="@class"/>
+      </xsl:if>
   </xsl:variable>
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Adding to @class: "<xsl:value-of select="$cls"/>"</xsl:with-param></xsl:call-template>
   <!-- permit customization of class value only -->
@@ -193,20 +193,20 @@
 
 <!-- Override of docbook-xsl/xhtml-1_1/xref.xsl -->
 <xsl:template match="*[@XrefLabel]" mode="xref-to">
-	<xsl:value-of select="@XrefLabel"/>
+    <xsl:value-of select="@XrefLabel"/>
 </xsl:template>
 
 <xsl:template match="db:inlineequation" mode="xref-to">
-	<xsl:text>Equation</xsl:text>
+    <xsl:text>Equation</xsl:text>
 </xsl:template>
 
 <xsl:template match="db:caption" mode="xref-to">
-	<xsl:apply-templates select="."/>
+    <xsl:apply-templates select="."/>
 </xsl:template>
 
 <!-- Subfigures are converted to images inside a figure with an anchor.
-	With this code, any xref to a subfigure contains the text of the figure.
-	I just added "ancestor::figure" when searching for the context.
+    With this code, any xref to a subfigure contains the text of the figure.
+    I just added "ancestor::figure" when searching for the context.
  -->
 <xsl:template match="db:anchor" mode="xref-to">
   <xsl:param name="referrer"/>
@@ -241,16 +241,16 @@
      see http://www.sagehill.net/docbookxsl/LineBreaks.html
 -->
 <xsl:template match="processing-instruction('cnx.newline')">
-	<xsl:comment>cnx.newline</xsl:comment>
-	<br/>
+    <xsl:comment>cnx.newline</xsl:comment>
+    <br/>
 </xsl:template>
 <xsl:template match="processing-instruction('cnx.newline.underline')">
-	<xsl:comment>cnx.newline.underline</xsl:comment>
-	<hr/>
+    <xsl:comment>cnx.newline.underline</xsl:comment>
+    <hr/>
 </xsl:template>
 
 <!-- Fix up TOC-generation for the ncx file.
-	Overrides code in docbook-xsl/docbook.xsl using code from docbook-xsl/xhtml-1_1/autotoc.xsl
+    Overrides code in docbook-xsl/docbook.xsl using code from docbook-xsl/xhtml-1_1/autotoc.xsl
  -->
   <xsl:template match="db:book|
                        db:article|
@@ -355,7 +355,7 @@
     </xsl:choose>
   </xsl:variable>
 
-	<xsl:if test="not(local-name()='section' or local-name()='simplesect') or $toc.section.depth &gt; $depth2">
+    <xsl:if test="not(local-name()='section' or local-name()='simplesect') or $toc.section.depth &gt; $depth2">
 
     <xsl:element name="ncx:navPoint">
       <xsl:attribute name="id">
@@ -386,13 +386,13 @@
       <xsl:apply-templates select="db:book[parent::db:set]|db:part|db:reference|db:preface|db:chapter|db:bibliography|db:appendix|db:article|db:glossary|db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:refentry|db:colophon|db:bibliodiv[db:title]|db:setindex|db:index" mode="ncx"/>
     </xsl:element>
 
-	</xsl:if>
+    </xsl:if>
 
   </xsl:template>
 
 
 <!-- Make the title page show up first in readers.
-	Originally in docbook-xsl/epub/docbook.xsl
+    Originally in docbook-xsl/epub/docbook.xsl
  -->
   <xsl:template name="opf.spine">
 
@@ -420,11 +420,11 @@
 
       <!-- Make sure the title page is the 1st item in the spine after the cover -->
       <xsl:if test="db:book">
-	      <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
-	        <xsl:attribute name="idref">
-	          <xsl:value-of select="generate-id(db:book)"/>
-	        </xsl:attribute>
-	      </xsl:element>
+          <xsl:element namespace="http://www.idpf.org/2007/opf" name="itemref">
+            <xsl:attribute name="idref">
+              <xsl:value-of select="generate-id(db:book)"/>
+            </xsl:attribute>
+          </xsl:element>
       </xsl:if>
 
       <xsl:if test="contains($toc.params, 'toc')">
@@ -449,128 +449,163 @@
 
 
 <!-- Customize the metadata generated for the epub.
-	Originally from docbook-xsl/epub/docbook.xsl -->
-<xsl:template mode="opf.metadata" match="db:authorgroup">
-	<xsl:apply-templates mode="opf.metadata" select="node()"/>
+    Originally from docbook-xsl/epub/docbook.xsl -->
+<xsl:template mode="opf.metadata" match="db:authorgroup[@role='all']">
+    <xsl:apply-templates mode="opf.metadata" select="node()"/>
 </xsl:template>
 
+
+<xsl:template name="cnx.authors.match">
+    <xsl:param name="set1"/>
+    <xsl:param name="set2"/>
+    <xsl:param name="count" select="1"/>
+    <xsl:choose>
+        <!-- Base case (end of list) -->
+        <xsl:when test="$count > count($set1)"/>
+        <!-- Mismatch because set sizes don't match -->
+        <xsl:when test="count($set1) != count($set2)">
+            <xsl:text>set-size-diff=</xsl:text>
+            <xsl:value-of select="count($set2) - count($set1)"/>
+        </xsl:when>
+        <!-- Check and recurse -->
+        <xsl:otherwise>
+	        <xsl:variable name="id" select="$set1[$count]/@ext:user-id"/>
+	        <xsl:if test="not($set2[@ext:user-id=$id])">
+	            <xsl:value-of select="$id"/>
+	            <xsl:text>|</xsl:text>
+	        </xsl:if>
+	        <xsl:call-template name="cnx.authors.match">
+	            <xsl:with-param name="set1" select="$set1"/>
+	            <xsl:with-param name="set2" select="$set2"/>
+	            <xsl:with-param name="count" select="$count+1"/>
+	        </xsl:call-template>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
 <!-- Customize the title page.
-	TODO: All of these can be made nicer using gentext and the %t replacements
+    TODO: All of these can be made nicer using gentext and the %t replacements
  -->
 <xsl:template name="book.titlepage">
-	<h2>
-		<xsl:value-of select="db:bookinfo/db:title/text()"/>
-	</h2>
-	<xsl:variable name="authors">
-		<xsl:call-template name="person.name.list">
-			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:author"/>
-		</xsl:call-template>
-	</xsl:variable>
-	<xsl:variable name="editors">
-		<xsl:call-template name="person.name.list">
-			<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:editor"/>
-		</xsl:call-template>
-	</xsl:variable>
-	<xsl:variable name="showEditors" select="$authors!=$editors and db:bookinfo/db:authorgroup/db:editor"/>
-	
-	<xsl:if test="$showEditors">
-		<div id="title_page_collection_editors">
-			<strong><xsl:text>Collection edited by: </xsl:text></strong>
-                        <span>
-        			<xsl:copy-of select="$editors"/>
-                        </span>
-		</div>
-	</xsl:if>
-	<div id="title_page_module_authors">
-		<strong>
-			<xsl:choose>
-				<xsl:when test="not($showEditors)">
-					<xsl:text>By: </xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>Content authors: </xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
-		</strong>
-                <span>
-        		<xsl:copy-of select="$authors"/>
-        		</span>
-	</div>
-	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']">
-		<div id="title_page_translators">
-			<strong><xsl:text>Translated by: </xsl:text></strong>
-                        <span>
-        			<xsl:call-template name="person.name.list">
-        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:othercredit[@class='translator']"/>
-        			</xsl:call-template>
-                        </span>
-		</div>
-	</xsl:if>
-	<xsl:if test="db:bookinfo/ext:derived-from">
-		<div id="title_page_derivation">
-                        <strong><xsl:text>Based on: </xsl:text></strong>
-                        <span>
-	        		<xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
-        			<xsl:call-template name="cnx.cuteurl">
-        				<xsl:with-param name="url" select="db:bookinfo/ext:derived-from/@url"/>
-        			</xsl:call-template>
-                        </span>
-                        <xsl:text>.</xsl:text>
-		</div>
-	</xsl:if>
-	<div id="title_page_url">
-		<strong><xsl:text>Online: </xsl:text></strong>
-                <span>
-        			<xsl:call-template name="cnx.cuteurl">
-        				<xsl:with-param name="url" select="concat(@ext:url,'/')"/>
-        			</xsl:call-template>
-                </span>
-	</div>
-	<xsl:if test="$cnx.iscnx != 0">
-                <div id="portal_statement">
-        		<div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
-        		<div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
-                </div>
-	</xsl:if>
-        <div id="copyright_page">
-        	<xsl:if test="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']">
-        		<div id="copyright_statement">
-        			<xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
-        			<xsl:call-template name="person.name.list">
-        				<xsl:with-param name="person.list" select="db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
-        			</xsl:call-template>
-        			<xsl:text>.</xsl:text>
-        		</div>
-                <!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
-                <xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:legalnotice"/>
-        	</xsl:if>
-        	<xsl:if test="not(db:bookinfo/db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor'])">
-        		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
-        	</xsl:if>
-        	<xsl:if test="@ext:derived-url">
-        		<div id="copyright_derivation">
-        			<xsl:text>The collection was based on </xsl:text>
-        			<xsl:call-template name="cnx.cuteurl">
-        				<xsl:with-param name="url" select="@ext:derived-url"/>
-        			</xsl:call-template>
-        		</div>
-        	</xsl:if>
-        	<div id="copyright_revised">
-        		<xsl:text>Collection structure revised: </xsl:text>
-                        <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
-                        <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
-        	</div>
-        	<div id="copyright_attribution">
-        		<xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
-                <xsl:call-template name="simple.xlink">
-                        <xsl:with-param name="linkend" select="$attribution.section.id"/>
-                        <xsl:with-param name="content">
-                        	<xsl:text>Attributions</xsl:text>
-                        </xsl:with-param>
+    <xsl:variable name="collectionAuthors" select="db:bookinfo/db:authorgroup[@role='collection']/db:author"/>
+    <xsl:variable name="moduleAuthors" select="db:bookinfo/db:authorgroup[@role='module']/db:author"/>
+    <xsl:variable name="translators" select="db:bookinfo/db:authorgroup[@role='all']/db:othercredit[@class='translator']"/>
+    <xsl:variable name="licensors" select="db:bookinfo/db:authorgroup[@role='all']/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+    <xsl:variable name="authorsMismatch">
+        <xsl:call-template name="cnx.authors.match">
+            <xsl:with-param name="set1" select="$collectionAuthors"/>
+            <xsl:with-param name="set2" select="$moduleAuthors"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="showCollectionAuthors" select="$authorsMismatch != ''"/>
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Displaying separate collections authors on title page? <xsl:value-of select="$showCollectionAuthors"/></xsl:with-param></xsl:call-template>
+
+    <h2>
+        <xsl:value-of select="db:bookinfo/db:title/text()"/>
+    </h2>
+
+    <xsl:if test="$showCollectionAuthors">
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Authors mismatch because of <xsl:value-of select="$authorsMismatch"/></xsl:with-param></xsl:call-template>
+        <div id="title_page_collection_editors">
+            <strong><xsl:text>Collection edited by: </xsl:text></strong>
+            <span>
+                <xsl:call-template name="person.name.list">
+                    <xsl:with-param name="person.list" select="$collectionAuthors"/>
                 </xsl:call-template>
-        		<xsl:text>" section at the end of the collection.</xsl:text>
-        	</div>
+            </span>
         </div>
+    </xsl:if>
+    <div id="title_page_module_authors">
+        <strong>
+            <xsl:choose>
+                <xsl:when test="not($showCollectionAuthors)">
+                    <xsl:text>By: </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Content authors: </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </strong>
+        <span>
+            <xsl:call-template name="person.name.list">
+                <xsl:with-param name="person.list" select="$moduleAuthors"/>
+            </xsl:call-template>
+        </span>
+    </div>
+    <xsl:if test="$translators">
+        <div id="title_page_translators">
+            <strong><xsl:text>Translated by: </xsl:text></strong>
+            <span>
+                <xsl:call-template name="person.name.list">
+                    <xsl:with-param name="person.list" select="$translators"/>
+                </xsl:call-template>
+            </span>
+        </div>
+    </xsl:if>
+    <xsl:if test="db:bookinfo/ext:derived-from">
+        <div id="title_page_derivation">
+        <strong><xsl:text>Based on: </xsl:text></strong>
+        <span>
+            <xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
+            <xsl:call-template name="cnx.cuteurl">
+                <xsl:with-param name="url" select="db:bookinfo/ext:derived-from/@url"/>
+            </xsl:call-template>
+        </span>
+        <xsl:text>.</xsl:text>
+        </div>
+    </xsl:if>
+    <div id="title_page_url">
+        <strong><xsl:text>Online: </xsl:text></strong>
+        <span>
+            <xsl:call-template name="cnx.cuteurl">
+                <xsl:with-param name="url" select="concat(@ext:url,'/')"/>
+            </xsl:call-template>
+        </span>
+    </div>
+    <xsl:if test="$cnx.iscnx != 0">
+        <div id="portal_statement">
+            <div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
+            <div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
+        </div>
+    </xsl:if>
+    <div id="copyright_page">
+        <xsl:if test="$licensors">
+            <div id="copyright_statement">
+                <xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
+                <xsl:call-template name="person.name.list">
+                    <xsl:with-param name="person.list" select="$licensors"/>
+                </xsl:call-template>
+                <xsl:text>.</xsl:text>
+            </div>
+        </xsl:if>
+        <xsl:if test="not($licensors)">
+            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No copyright holders getting output under bookinfo for collection level.... weird.</xsl:with-param></xsl:call-template>
+        </xsl:if>
+        <!-- TODO: use the XSL param "generate.legalnotice.link" to chunk the notice into a separate file -->
+        <xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:legalnotice"/>
+        <xsl:if test="@ext:derived-url">
+            <div id="copyright_derivation">
+                <xsl:text>The collection was based on </xsl:text>
+                <xsl:call-template name="cnx.cuteurl">
+                    <xsl:with-param name="url" select="@ext:derived-url"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
+        <div id="copyright_revised">
+            <xsl:text>Collection structure revised: </xsl:text>
+            <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
+            <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
+        </div>
+        <div id="copyright_attribution">
+            <xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
+            <xsl:call-template name="simple.xlink">
+                <xsl:with-param name="linkend" select="$attribution.section.id"/>
+                <xsl:with-param name="content">
+                    <xsl:text>Attributions</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:text>" section at the end of the collection.</xsl:text>
+        </div>
+    </div>
 </xsl:template>
 
 <xsl:template name="cnx.cuteurl">
