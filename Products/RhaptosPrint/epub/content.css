@@ -111,7 +111,7 @@ p.title{
 }
 */
 
-.section .titlepage h1{
+.section .titlepage h1, .glossary .titlepage h1{
   margin: .5em 0 0;
   font-size: 1.7em;
   color: #369;
@@ -121,7 +121,7 @@ text-align: left;
   border-right-width: 1px;
 }
 
-.section .section .titlepage{
+.section .section .titlepage, .section .glossary .titlepage{
   color: #369;
   font-weight: bold;
   font-size: 1.5em;
@@ -130,7 +130,7 @@ text-align: left;
   border-right-width: 0;
 }
 
-.section .section .section .titlepage{
+.section .section .section .titlepage, .section .section .glossary .titlepage{
   border: 0 solid #369;
   border-left-width: 1px;
   border-bottom-width: 1px;
@@ -138,7 +138,7 @@ text-align: left;
   padding: 0 0 .1em .4em;
 }
 
-.section .section .section .section .titlepage{
+.section .section .section .section .titlepage, .section .section .section .glossary .titlepage{
   border: 0 solid #369;
   font-size: 1.25em;
   padding: 0 0 .1em 0;
@@ -546,8 +546,8 @@ blockquote{
   margin: 1em 0 1em;
 }
 
-.glossary div, .glossary h3, .glossary h4, .glossary h5, 
-.glossary h6, .glossary p, .glossary dt{
+.glossary dl div, .glossary dl h3, .glossary dl h4, .glossary dl h5, 
+.glossary dl h6, .glossary dl p, .glossary dl dt{
   display: inline;
   margin: 0 !important;
   padding: 0 !important;
