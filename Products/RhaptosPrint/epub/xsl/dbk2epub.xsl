@@ -488,7 +488,7 @@
 <xsl:template name="book.titlepage">
     <xsl:variable name="collectionAuthors" select="db:bookinfo/db:authorgroup[@role='collection']/db:author"/>
     <xsl:variable name="moduleAuthors" select="db:bookinfo/db:authorgroup[@role='module']/db:author"/>
-    <xsl:variable name="translators" select="db:bookinfo/db:authorgroup[@role='all']/db:othercredit[@class='translator']"/>
+    <xsl:variable name="translators" select="db:bookinfo/db:authorgroup[@role='collection']/db:othercredit[@class='translator']"/>
     <xsl:variable name="licensors" select="db:bookinfo/db:authorgroup[@role='collection']/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
     <xsl:variable name="authorsMismatch">
         <xsl:call-template name="cnx.authors.match">
