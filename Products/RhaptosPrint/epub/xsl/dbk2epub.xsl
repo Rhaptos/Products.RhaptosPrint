@@ -620,4 +620,32 @@
     <xsl:text>&gt;</xsl:text>
 </xsl:template>
 
+<!-- Docbook generates "???" when it cannot generate text for a db:xref. Instead, we print the name of the closest enclosing element. -->
+<xsl:template match="*" mode="xref-to">
+    <xsl:variable name="orig">
+        <xsl:apply-imports/>
+    </xsl:variable>
+    <xsl:choose>
+        <xsl:when test="$orig='???'">
+            <xsl:choose>
+                <xsl:when test="@ext:element">
+		            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Using @ext:element for xref text: <xsl:value-of select="local-name()"/> is <xsl:value-of select="@ext:element"/></xsl:with-param></xsl:call-template>
+                    <xsl:value-of select="@ext:element"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Using element name for xref text: <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
+                    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Using element name for xref text: <xsl:value-of select="local-name()"/> id=<xsl:value-of select="(@id|@xml:id)[1]"/></xsl:with-param></xsl:call-template>
+                    <xsl:value-of select="local-name()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$orig"/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+<xsl:template match="db:xref" mode="xref-to">
+    <xsl:text>link</xsl:text>
+</xsl:template>
+
 </xsl:stylesheet>
