@@ -290,6 +290,76 @@
           </list>
     </section>
 
+
+<list id="element-2351" list-type="bulleted">
+<item><m:math><m:mi>G</m:mi></m:math> = card drawn is green</item>
+<item><m:math><m:mi>E</m:mi></m:math> = card drawn is even-numbered</item>
+</list><list id="element-397" list-type="labeled-item" mark-suffix="."><item><label>a</label>List the sample space.</item>
+<item><label>b</label><m:math><m:mi>P(G) =</m:mi></m:math></item>
+<item><label>c</label><m:math><m:mi>P(G|E) = </m:mi></m:math></item>
+<item><label>d</label><m:math><m:mi>P(G AND E) = </m:mi></m:math></item>
+<item><label>e</label><m:math><m:mi>P(G OR E) =</m:mi></m:math></item>
+<item><label>f</label>Are <m:math><m:mi>G</m:mi></m:math> and <m:math><m:mi>E</m:mi></m:math> mutually exclusive?  Justify your answer numerically.</item></list>
+
+<list list-type="bulleted">
+<item>First item</item>
+<item>Second item contains labeled-item list
+  <list list-type="labeled-item">
+  <item><label>Step 1</label>This is the first step</item>
+  <item><label>Step 2</label>This is the second step</item>
+  </list>
+</item>
+<item>Third item</item>
+</list>
+
+<list list-type="enumerated" number-style="upper-alpha">
+<item>First item</item>
+<item>Second item contains labeled-item list
+  <list list-type="labeled-item">
+  <item><label>Step 1</label>This is the first step</item>
+  <item><label>Step 2</label>This is the second step</item>
+  </list>
+</item>
+<item>Third item</item>
+</list>
+
+<list list-type="labeled-item">
+<item><label>uno</label>First item</item>
+<item><label>dos</label>Second item contains bulleted list
+  <list list-type="bulleted">
+  <item>This is the first step</item>
+  <item>This is the second step</item>
+  </list>
+</item>
+<item><label>tres</label>Third item</item>
+</list>
+
+<list list-type="labeled-item">
+<item><label>uno</label>First item</item>
+<item><label>dos</label>Second item contains lower-roman enumerated list
+  <list list-type="enumerated" number-style="lower-roman">
+  <item>This is the first step</item>
+  <item>This is the second step</item>
+  </list>
+</item>
+<item><label>tres</label>Third item</item>
+</list>
+
+
+<list id="element-744" list-type="labeled-item" mark-suffix="."><item><label>a</label>Create a chart containing the data, frequencies, relative frequencies, and 
+cumulative relative frequencies to three decimal places.</item>
+<item><label>b</label>Calculate the following to one decimal place using a TI-83+ or TI-84 calculator:
+<list id="element-9170" list-type="labeled-item" mark-suffix=".">
+<item><label>i</label>The sample mean </item>
+<item><label>ii</label>The sample standard deviation </item>
+<item><label>iii</label>The median </item>
+<item><label>iv</label>The first quartile </item>
+<item><label>v</label>The third quartile </item>
+<item><label>vi</label>IQR </item>
+</list>
+</item>
+<item><label>c</label>Construct a box plot and a histogram on the same set of axes.  Make comments about the box plot, the histogram, and the chart.</item></list>
+
 	</content>
 
         <glossary id="gloss">                  

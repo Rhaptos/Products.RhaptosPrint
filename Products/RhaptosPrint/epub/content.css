@@ -164,40 +164,36 @@ div.itemizedlist{
   margin: 1em 0;
 }
 
-.itemizedlist ul{
-  margin-left: 1.1em;
+ul.itemizedlist{
+  margin: 0 0 0 1.1em;
   padding: 0;
   list-style-type: disc;
 }
 
-.itemizedlist ol{
-  margin-left: 1.5em;
+ol.orderedlist{
+  margin: 0 0 0 1.5em;
   padding: 0;
   list-style-type: decimal;
 }
+
+.simplelist .simplelist{
+  margin-left: 1em;
+}
+
+.simplelist td{
+  padding: .5em 0 .25em;
+}
+
+.simplelist ul.itemizedlist{ margin-left: 2.1em; }
+.simplelist ol.orderedlist{ margin-left: 2.5em; }
 
 .listitem{
   margin: 0;
   padding: 0;
 }
 
-ol.arabic{ list-style-type: decimal; }
-ol.upper-roman{ list-style-type: upper-roman; }
-ol.lower-roman{ list-style-type: lower-roman; }
-ol.upper-alpha{ list-style-type: upper-alpha; }
-ol.lower-alpha{ list-style-type: lower-alpha; }
-ul.bullet{ list-style-type: disc; }
-ul.open-circle{ list-style-type: circle; }
-ul.other{ list-style-type: none; }
-ol.other{ list-style-type: none; }
-ul.labeled-item{ list-style-type: none; }
-
-ol.other, ul.other, ul.labeled-item{
-  margin-left: 1.5em;
-}
-
-div.list .item-decoration{
-  margin-right: .5em;
+.listitem p{
+  margin: 1em 0 0;
 }
 
 /* ========== para ========== */
