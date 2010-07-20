@@ -549,8 +549,8 @@
             <xsl:call-template name="cnx.cuteurl">
                 <xsl:with-param name="url" select="db:bookinfo/ext:derived-from/@url"/>
             </xsl:call-template>
+            <xsl:text>.</xsl:text>
         </span>
-        <xsl:text>.</xsl:text>
         </div>
     </xsl:if>
     <div id="title_page_url">
