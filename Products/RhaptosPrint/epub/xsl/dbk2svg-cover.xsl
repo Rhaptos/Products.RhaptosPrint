@@ -62,7 +62,7 @@
 <line id="line76" y2="38.031" x1="0.5" x2="595.78" stroke="#EB7923" y1="38.031" stroke-width="2" fill="none"/>
 <line id="line78" y2="791.88" x1="0.5" x2="595.78" stroke="#EB7923" y1="791.88" stroke-width="2" fill="none"/>
 <line id="line80" y2="841.74" x1="0.5" x2="595.78" stroke="#EB7923" y1="841.74" stroke-width="2" fill="none"/>
-<flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="140%" font-weight="bold" xml:space="preserve" font-size="54px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#ffffff"><flowRegion id="flowRegion2896"><rect id="rect2898" style="text-align:start;" height="560" width="515" y="90" x="40" fill="#FFF"/></flowRegion><flowPara id="flowPara2900"><xsl:value-of select="$title"/></flowPara></flowRoot></svg>
+<flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="130%" font-weight="bold" xml:space="preserve" font-size="51px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#ffffff"><flowRegion id="flowRegion2896"><rect id="rect2898" style="text-align:start;" height="610" width="505" y="75" x="45" fill="#FFF"/></flowRegion><flowPara id="flowPara2900"><xsl:value-of select="$title"/></flowPara></flowRoot></svg>
 
 </xsl:template>
 </xsl:stylesheet>
