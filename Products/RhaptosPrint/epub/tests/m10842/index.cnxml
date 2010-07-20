@@ -241,6 +241,143 @@ Being able to spot that overall architecture as we listen - knowing, so to speak
                         </table>
 
 
+<table>
+<title>Inline elements in table</title>
+<tgroup cols="3">
+<tbody>
+<row>
+  <entry>
+    term: <term>term</term>
+  </entry>
+  <entry>
+    cite-title: <cite-title>cite-title</cite-title>
+  </entry>
+  <entry>
+    cite: <cite>cite</cite>
+  </entry>
+</row>
+<row>
+  <entry>
+    foreign: <foreign>foreign</foreign>
+  </entry>
+  <entry>
+    emphasis: <emphasis>emphasis</emphasis>
+  </entry>
+  <entry>
+    sub: <sub>sub</sub>
+  </entry>
+</row>
+<row>
+  <entry>
+    sup: <sup>sup</sup>
+  </entry>
+  <entry>
+    code: <code>code</code>
+  </entry>
+  <entry>
+    quote: <quote display="inline">quote (inline)</quote>
+  </entry>
+</row>
+<row>
+  <entry>
+    note: <note display="inline">note (inline)</note>
+  </entry>
+  <entry>
+    preformat: <preformat display="inline">preformat (inline)</preformat>
+  </entry>
+  <entry>
+    list: <list dislpay="inline"><item>list (inline)</item></list>
+  </entry>
+</row>
+<row>
+  <entry>
+    link <link version="1.2">link</link>
+  </entry>
+  <entry>
+    newline start: <newline/>newline end
+  </entry>
+  <entry>
+    spaces: <space/><space/><space/><space/>
+  </entry>
+</row>
+<row>
+  <entry>
+    media: <media display="inline" alt="inline image"><image mime-type="image/png" width="20" height="20" src="GirlLeftBehind.png"/></media>
+  </entry>
+  <entry>
+    footnote: <footnote>footnote</footnote>
+  </entry>
+  <entry>
+    unicode text
+  </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Block elements in table</title>
+<tgroup cols="3">
+<tbody>
+<row>
+  <entry>
+    para: <para>para</para>
+  </entry>
+  <entry>
+    preformat: <preformat display="block">preformat (block)</preformat>
+  </entry>
+  <entry>
+    quote: <quote display="block">quote (block)</quote>
+  </entry>
+</row>
+<row>
+  <entry>
+    note: <note display="block">note</note>
+  </entry>
+  <entry>
+    list: <list><item>list</item></list>
+  </entry>
+  <entry>
+    media: <media display="block" alt="block image"><image mime-type="image/png" width="20" height="20" src="GirlLeftBehind.png"/></media>
+  </entry>
+</row>
+<row>
+  <entry>
+    definition: <definition><term>definition</term><meaning>definition</meaning></definition>
+  </entry>
+  <entry>
+    example: <example><para>example</para></example>
+  </entry>
+  <entry>
+    figure: <figure><code display="block">figure</code></figure>
+  </entry>
+</row>
+<row>
+  <entry>
+    table: <table><tgroup cols="1"><tbody><row><entry>table</entry></row></tbody></tgroup></table>
+  </entry>
+  <entry>
+    rule: <rule><statement>rule</statement></rule>
+  </entry>
+  <entry>
+    equation: <equation>equation</equation>
+  </entry>
+</row>
+<row>
+  <entry>
+    exercise: <exercise><problem><para>exercise</para></problem><solution><para>exercise</para></solution></exercise>
+  </entry>
+  <entry>
+    div: <div>div</div>
+  </entry>
+  <entry>
+    media inside div: <div><media display="block" alt="block image"><image mime-type="image/png" width="20" height="20" src="GirlLeftBehind.png"/></media></div>
+  </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 
    </content>
         </document>
