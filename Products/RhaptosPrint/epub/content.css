@@ -434,6 +434,10 @@ blockquote{
   margin: .75em 0;
 }
 
+.mediaobject{
+  display: table-cell;
+}
+
 /* ========== table ========== */
 
 .table-break{
