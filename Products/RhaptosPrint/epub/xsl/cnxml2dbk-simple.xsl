@@ -193,6 +193,16 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="version">
+        <xsl:choose>
+            <xsl:when test="@version">
+                <xsl:value-of select="@version"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>latest</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- Either it's a db:link (outside Docbook) or a db:xref (inside Docbook) -->
     <xsl:choose>
     	<xsl:when test="@url or @resource">
@@ -208,6 +218,8 @@
 					    </xsl:if>
 					    <xsl:value-of select="$document"/>
 					    <xsl:text>/</xsl:text>
+					    <xsl:value-of select="$version"/>
+                        <xsl:text>/</xsl:text>
 					    <xsl:value-of select="@resource"/>    		
     				</xsl:otherwise>
     			</xsl:choose>
