@@ -2,7 +2,7 @@ This ZIP file contains the complete contents of a collection.
 
 INCLUDED FILES
 ==============
-- *.xhtml - HTML version of the collection.  This can be viewed by opening the bk01-toc.xhtml file in your browser.
+- *.html - HTML version of the collection.  This can be viewed by opening the bk01-toc.html file in your browser.
 - collection.xml - XML file that defines the structure of the collection.  It cannot be reimported in the editing interface.
 - content.css - CSS file for styling the HTML files.
 - *.dbk - Docbook files used to generate the offline HTML/EPUB files.
