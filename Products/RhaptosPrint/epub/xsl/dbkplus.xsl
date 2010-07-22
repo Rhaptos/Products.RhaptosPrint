@@ -17,6 +17,9 @@
  -->
 <xsl:include href="param.xsl"/>
 
+<xsl:key name="exercise" match="ext:exercise[@id or @xml:id]" use="@id|@xml:id"/>
+<xsl:key name="solution" match="db:section[@ext:element='solutions']/ext:solution[@exercise-id]" use="@exercise-id"/>
+
 <!-- EXERCISE templates -->
 
 <!-- Generate custom HTML for an ext:problem and ext:solution.
@@ -53,7 +56,7 @@
 <xsl:template match="ext:exercise" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
 	<xsl:variable name="id" select="@xml:id"/>
-        <xsl:for-each select="//db:section[@ext:element='solutions']/ext:solution[@exercise-id=$id]">
+        <xsl:for-each select="key('solution', $id)">
                 <xsl:text> </xsl:text>
                 <!-- TODO: gentext for "(" -->
                 <xsl:text>(</xsl:text>
@@ -72,7 +75,7 @@
                                                 <xsl:text>Solution</xsl:text>
                                         </xsl:otherwise>
                                 </xsl:choose>
-                                <xsl:if test="count(//ext:solution[@exercise-id=$id]) > 1">
+                                <xsl:if test="count(key('solution', $id)) > 1">
                                         <xsl:number count="ext:solution[@exercise-id=$id]" level="any" format=" A"/>
                                 </xsl:if>
                         </xsl:with-param>
@@ -96,10 +99,10 @@
 		    	<xsl:text>Return to</xsl:text>
                         <xsl:text> </xsl:text>
                         <xsl:choose>
-                            <xsl:when test="//ext:exercise[@xml:id=$exerciseId]/ext:label">
-                                <xsl:apply-templates select="//ext:exercise[@xml:id=$exerciseId]/ext:label" mode="cnx.label" />
+                            <xsl:when test="key('exercise', $exerciseId)[1]/ext:label">
+                                <xsl:apply-templates select="key('exercise', $exerciseId)[1]/ext:label" mode="cnx.label" />
                             </xsl:when>
-                            <xsl:when test="//ext:exercise[@xml:id=$exerciseId][ancestor::db:example]">
+                            <xsl:when test="key('exercise', $exerciseId)[ancestor::db:example]">
                                 <!-- TODO: gentext for "Problem" -->
                                 <xsl:text>Problem</xsl:text>
                             </xsl:when>
@@ -211,7 +214,7 @@
                         <xsl:text>Solution</xsl:text>
                 </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="count(//ext:solution[@exercise-id=$exerciseId]) > 1">
+        <xsl:if test="count(key('solution', $exerciseId)) > 1">
                 <xsl:number count="ext:solution[@exercise-id=$exerciseId]" level="any" format=" A"/>
         </xsl:if>
         <xsl:if test="parent::db:section[@ext:element='solutions']">
@@ -220,8 +223,8 @@
                 <xsl:text>to</xsl:text>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
-                        <xsl:when test="//ext:exercise[@xml:id=$exerciseId]/ext:label">
-                                <xsl:apply-templates select="//ext:exercise[@xml:id=$exerciseId]/ext:label" mode="cnx.label" />
+                        <xsl:when test="key('exercise', $exerciseId)[1]/ext:label">
+                                <xsl:apply-templates select="key('exercise', $exerciseId)[1]/ext:label" mode="cnx.label" />
                         </xsl:when>
                         <xsl:otherwise>
                                 <!-- TODO: gentext for "Exercise" -->
@@ -283,7 +286,7 @@
 
 <xsl:template match="ext:solution" mode="number">
 	<xsl:variable name="exerciseId" select="@exercise-id"/>
-	<xsl:apply-templates select="//*[@xml:id=$exerciseId]" mode="number"/>
+	<xsl:apply-templates select="key('exercise', $exerciseId)[1]" mode="number"/>
 </xsl:template>
 
 

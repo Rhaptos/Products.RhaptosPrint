@@ -54,7 +54,7 @@
 </xsl:template>
 
 <!-- Ignore the SVG element and use the @fileref (SVG-to-PNG conversion) -->
-<xsl:template match="*['imagedata'=local-name() and @fileref]" xmlns:svg="http://www.w3.org/2000/svg">
+<xsl:template match="db:imagedata[@fileref]" xmlns:svg="http://www.w3.org/2000/svg">
     <img src="{@fileref}">
         <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
         <!-- Ignore the SVG child -->
