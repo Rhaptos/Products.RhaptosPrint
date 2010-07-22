@@ -99,4 +99,4 @@ else
   exit 1
 fi
 
-$ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $ROOT/content.css -d $DBK_FILE -o $EPUB_FILE
+$ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $ROOT/static/content.css -d $DBK_FILE -o $EPUB_FILE
