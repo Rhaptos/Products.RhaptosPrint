@@ -9,7 +9,7 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
-<!-- This file converts dbk+ extension elements (like exercise problem and solution)
+<!-- This file converts dbk+ extension elements (like exercise and its children)
 	 using the Docbook templates.
 	* Customizes title generation
 	* Numbers exercises
@@ -22,7 +22,7 @@
 
 <!-- EXERCISE templates -->
 
-<!-- Generate custom HTML for an ext:problem and ext:solution.
+<!-- Generate custom HTML for an ext:problem, ext:solution, and ext:commentary.
 	Taken from docbook-xsl/xhtml-1_1/formal.xsl: <xsl:template match="example">
  -->
 <xsl:template match="ext:*">
@@ -129,7 +129,7 @@
 
 <xsl:template match="ext:*[not(db:title)]" mode="title.markup"/>
 <xsl:template match="ext:*/db:title"/>
-<xsl:template match="ext:exercise|ext:problem|ext:solution" mode="label.markup"/>
+<xsl:template match="ext:exercise|ext:problem|ext:solution|ext:commentary" mode="label.markup"/>
 
 <xsl:template match="ext:exercise" mode="cnx.template">
 	<xsl:call-template name="cnx.label">
@@ -196,6 +196,14 @@
 </xsl:template>
 
 <xsl:template match="ext:problem" mode="cnx.template">
+	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
+	<xsl:if test="ext:label and db:title">
+		<xsl:text>: </xsl:text>
+	</xsl:if>
+        <xsl:apply-templates select="db:title" mode="title.markup"/>
+</xsl:template>
+
+<xsl:template match="ext:commentary" mode="cnx.template">
 	<xsl:apply-templates select="ext:label" mode="cnx.label"/>
 	<xsl:if test="ext:label and db:title">
 		<xsl:text>: </xsl:text>

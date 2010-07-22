@@ -302,7 +302,7 @@ blockquote{
   margin: .5em 0;
 }
 
-.exercise-break, .problem-break, .solution-break{
+.exercise-break, .problem-break, .solution-break, .commentary-break{
   display: none;
 }
 

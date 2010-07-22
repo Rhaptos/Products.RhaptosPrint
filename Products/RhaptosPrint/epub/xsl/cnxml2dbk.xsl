@@ -396,47 +396,18 @@
 	</ext:solution>
 </xsl:template>
 
-<xsl:template match="c:exercise/c:label|c:problem/c:label|c:solution/c:label|c:rule/c:label">
+<!-- Create a custom ext:commentary element that will be converted and labeled later on -->
+<xsl:template match="c:commentary">
+	<ext:commentary>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:commentary>
+</xsl:template>
+
+<xsl:template match="c:exercise/c:label|c:problem/c:label|c:solution/c:label|c:commentary/c:label|c:rule/c:label">
 	<ext:label>
 		<xsl:apply-templates select="@*|node()"/>
 	</ext:label>
 </xsl:template>
-
-<!-- Special case for exercises inside an example. 
-	Don't number them and don't put the solutions at the end of the chapter
- -->
-<!--
-<xsl:template match="c:example//c:exercise">
-	<xsl:variable name="id">
-		<xsl:call-template name="cnx.id"/>
-	</xsl:variable>
--->
-	<!-- Just output the exercise followed by the solution(s) -->
-<!--
-	<db:para>
-		<db:emphasis role="bold">
-			<xsl:apply-templates select="c:title"/>
-		</db:emphasis>
-	</db:para>
-	<xsl:apply-templates select="c:problem|c:solution"/>
-</xsl:template>
-<xsl:template match="c:example//c:problem">
-	<xsl:apply-templates/>
-</xsl:template>
-<xsl:template match="c:example//c:solution">
-	<db:para>
-		<db:emphasis role="bold">
-			<xsl:apply-templates select="@*"/>
-			<xsl:text>Solution</xsl:text>
-                        <xsl:if test="count(parent::c:exercise/c:solution) &gt; 1">
-                                <xsl:text> </xsl:text>
-                                <xsl:number count="c:solution" format="A" />
-                        </xsl:if>
-		</db:emphasis>
-	</db:para>
-	<xsl:apply-templates/>
-</xsl:template>
--->
 
 <xsl:template match="c:foreign">
         <db:foreignphrase>

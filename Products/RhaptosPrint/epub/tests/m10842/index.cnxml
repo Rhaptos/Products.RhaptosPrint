@@ -383,5 +383,25 @@ Being able to spot that overall architecture as we listen - knowing, so to speak
   <item>should start at E</item>
 </list>
 
+<exercise>
+  <problem>
+    <para>This is the problem</para>
+  </problem>
+  <commentary>
+    <para>This is the commentary</para>
+  </commentary>
+</exercise>
+
+<exercise>
+  <problem>
+    <para>This is the problem</para>
+  </problem>
+  <commentary>
+    <label>comentario</label>
+    <title>un buen comentario</title>
+    <para>This is the commentary</para>
+  </commentary>
+</exercise>
+
    </content>
         </document>
