@@ -434,7 +434,7 @@ blockquote{
   margin: .75em 0;
 }
 
-.mediaobject{
+td .mediaobject{
   display: table-cell;
 }
 
