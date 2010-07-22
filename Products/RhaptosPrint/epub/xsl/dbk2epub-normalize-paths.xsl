@@ -69,7 +69,7 @@
 
 </xsl:template>
 
-<xsl:template match="db:authorgroup">
+<xsl:template match="db:authorgroup[not(parent::db:biblioentry)]">
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding db:authorgroup whose grandparent is <xsl:value-of select="local-name(../..)"/></xsl:with-param></xsl:call-template>
 </xsl:template>
 
@@ -149,6 +149,12 @@
                                 <xsl:apply-templates select="db:title/node()"/>
                             </db:link>
                         </db:member>
+                        <xsl:if test="ext:original-title">
+                            <db:member>
+                                <xsl:text>Originally used as: </xsl:text>
+                                <xsl:apply-templates select="ext:original-title/node()"/>
+                            </db:member>
+                        </xsl:if>
                         <db:member>
                             <xsl:text>By: </xsl:text>
                             <ext:persons>

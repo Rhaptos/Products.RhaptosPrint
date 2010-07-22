@@ -37,8 +37,12 @@
 	</xsl:copy>
 </xsl:template>
 
+<!-- Save the original title for attribution later. -->
 <xsl:template match="db:*[(local-name()='preface' or local-name()='chapter' or local-name()='appendix' or local-name()='section') and db:title and count(db:section)=1]/db:section/db:sectioninfo/db:title">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original title</xsl:with-param></xsl:call-template>
+    <ext:original-title>
+        <xsl:apply-templates select="@*|node()"/>
+    </ext:original-title>
 </xsl:template>
 
 
