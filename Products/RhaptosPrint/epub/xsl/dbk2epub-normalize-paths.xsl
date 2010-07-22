@@ -43,23 +43,30 @@
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating 3 book-level db:authorgroups @role="all|collection|module"</xsl:with-param></xsl:call-template>
     <xsl:copy>
         <xsl:apply-templates select="@*"/>
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating db:authorgroup @role="all"</xsl:with-param></xsl:call-template>
         <db:authorgroup role="all">
             <xsl:for-each select="..//db:authorgroup[not(ancestor::db:bibliography)]/db:*">
                 <xsl:call-template name="ident"/>
             </xsl:for-each>
         </db:authorgroup>
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating db:authorgroup @role="collection"</xsl:with-param></xsl:call-template>
         <db:authorgroup role="collection">
             <xsl:for-each select="db:authorgroup/db:*">
                 <xsl:call-template name="ident"/>
             </xsl:for-each>
         </db:authorgroup>
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating db:authorgroup @role="module"</xsl:with-param></xsl:call-template>
         <db:authorgroup role="module">
-            <xsl:for-each select="../*[not(self::db:bookinfo)]//db:authorgroup[not(ancestor::db:bibliography)]/db:*">
+            <xsl:for-each select="..//db:authorgroup[not(parent::db:bookinfo) and not(parent::db:biblioentry)]/db:*">
+                <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating db:authorgroup @role="module" db:author</xsl:with-param></xsl:call-template>
+
                 <xsl:call-template name="ident"/>
             </xsl:for-each>
         </db:authorgroup>
         <xsl:apply-templates select="node()"/>
     </xsl:copy>
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Done Generating 3 book-level db:authorgroups @role="all|collection|module"</xsl:with-param></xsl:call-template>
+
 </xsl:template>
 
 <xsl:template match="db:authorgroup">
