@@ -773,4 +773,22 @@
   </xsl:if>
 </xsl:template>
 
+<!-- Label module EPUB abstracts as more user-friendly "Summary" instead of "Abstract" (conforms to rest of our site). -->
+<!-- Copied from docbook/xsl/common/titles.xsl and edited.  -->
+<xsl:template match="db:abstract" mode="title.markup">
+  <xsl:param name="allow-anchors" select="0"/>
+  <xsl:choose>
+    <xsl:when test="db:title|db:info/db:title">
+      <xsl:apply-templates select="(db:title|db:info/db:title)[1]" mode="title.markup">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- TODO: generate 'Summary' with gentext -->
+      <xsl:text>Summary</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>
+
