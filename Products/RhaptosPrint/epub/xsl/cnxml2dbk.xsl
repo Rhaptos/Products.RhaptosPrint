@@ -175,11 +175,11 @@
         * no c:caption
         * c:title cannot have xml elements in it, just text
      **************************************** -->
-<xsl:template match="c:media[c:image[not(starts-with(@src, 'http'))]]">
+<xsl:template match="c:media[not(ancestor::c:para or ancestor::c:table) and c:image[not(starts-with(@src, 'http'))]]">
 	<db:mediaobject><xsl:call-template name="media.image"/></db:mediaobject>
 </xsl:template>
 <!-- See m21854 //c:equation/@id="eip-id14423064" -->
-<xsl:template match="c:para//c:media[c:image[not(starts-with(@src, 'http'))]]|c:figure[not(@orient) or @orient='horizontal']/c:subfigure/c:media">
+<xsl:template match="c:media[(ancestor::c:para or ancestor::c:table) and c:image[not(starts-with(@src, 'http'))]]|c:figure[not(@orient) or @orient='horizontal']/c:subfigure/c:media">
 	<db:inlinemediaobject><xsl:call-template name="media.image"/></db:inlinemediaobject>
 </xsl:template>
 <!-- see m0003 -->
@@ -265,7 +265,7 @@
 	</xsl:choose>
 </xsl:template>
 <!-- Catch-all for any unsupported media -->
-<xsl:template match="c:para//c:media" name="cnx.media.catchall" priority="0">
+<xsl:template match="c:media[ancestor::c:para or ancestor::c:table]" name="cnx.media.catchall" priority="0">
 	<!-- All @id's are prefixed with the module id, so remove it before using it. -->
 	<xsl:variable name="fullId">
 		<xsl:call-template name="cnx.id"/>
@@ -290,7 +290,7 @@
 		<xsl:text>(This media type is not supported in this reader. Click to open media in browser.)</xsl:text>
 	</db:link>
 </xsl:template>
-<xsl:template match="c:media" priority="0">
+<xsl:template match="c:media[not(ancestor::c:para or ancestor::c:table)]" priority="0">
 	<db:para>
 		<xsl:call-template name="cnx.media.catchall"/>
 	</db:para>
