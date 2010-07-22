@@ -742,4 +742,35 @@
 </xsl:template>
 
 
+<!-- Originally taken from docbook-xsl/xhtml-1_1/html.xsl -->
+<!-- In HTML mode, <a/> tags cannot be nested. For example
+     <a href="http://x.org"><a id="1"/>...</a>
+     will cause the @href to be dropped.
+ -->
+<xsl:template name="anchor">
+  <xsl:param name="node" select="."/>
+  <xsl:param name="conditional" select="1"/>
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id">
+      <xsl:with-param name="object" select="$node"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="not($node[parent::db:blockquote])">
+    <xsl:if test="$conditional = 0 or $node/@id or $node/@xml:id">
+<!-- Added the case where the current node is a db:link -->
+<xsl:choose>
+    <xsl:when test="self::db:link">
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Instead of generating an anchor, just set the @xml:id</xsl:with-param></xsl:call-template>
+        <xsl:attribute name="xml:id">
+            <xsl:value-of select="$id"/>
+        </xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+        <a id="{$id}"/>
+    </xsl:otherwise>
+</xsl:choose>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
 </xsl:stylesheet>
