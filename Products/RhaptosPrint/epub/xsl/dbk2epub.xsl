@@ -659,4 +659,87 @@
     </xsl:choose>
 </xsl:template>
 
+<!-- FIXME: This template an exact copy from the docbook copy.  The only change was for the namespace ("d:" to "db:") and white space.  
+     This mysteriously makes @start-value work (and gets us closer to @number-style working).
+     But it really shouldn't be necessary to copy the template verbatim.  Not sure why it doesn't work w/o this template here.  -->
+<xsl:template match="db:orderedlist">
+  <xsl:variable name="start">
+    <xsl:call-template name="orderedlist-starting-number"/>
+  </xsl:variable>
+  <xsl:variable name="numeration">
+    <xsl:call-template name="list.numeration"/>
+  </xsl:variable>
+  <xsl:variable name="type">
+    <xsl:choose>
+      <xsl:when test="$numeration='arabic'">1</xsl:when>
+      <xsl:when test="$numeration='loweralpha'">a</xsl:when>
+      <xsl:when test="$numeration='lowerroman'">i</xsl:when>
+      <xsl:when test="$numeration='upperalpha'">A</xsl:when>
+      <xsl:when test="$numeration='upperroman'">I</xsl:when>
+      <!-- What!? This should never happen -->
+      <xsl:otherwise>
+        <xsl:message>
+          <xsl:text>Unexpected numeration: </xsl:text>
+          <xsl:value-of select="$numeration"/>
+        </xsl:message>
+        <xsl:value-of select="1"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <div>
+    <xsl:call-template name="common.html.attributes"/>
+    <xsl:call-template name="anchor"/>
+    <xsl:if test="db:title">
+      <xsl:call-template name="formal.object.heading"/>
+    </xsl:if>
+    <!-- Preserve order of PIs and comments -->
+    <xsl:apply-templates 
+        select="*[not(self::db:listitem
+                  or self::db:title
+                  or self::db:titleabbrev)]
+                |comment()[not(preceding-sibling::db:listitem)]
+                |processing-instruction()[not(preceding-sibling::db:listitem)]"/>
+    <xsl:choose>
+      <xsl:when test="@inheritnum='inherit' and ancestor::db:listitem[parent::db:orderedlist]">
+        <table border="0">
+          <xsl:call-template name="generate.class.attribute"/>
+          <col align="{$direction.align.start}" valign="top"/>
+          <tbody>
+            <xsl:apply-templates 
+                mode="orderedlist-table"
+                select="db:listitem
+                        |comment()[preceding-sibling::db:listitem]
+                        |processing-instruction()[preceding-sibling::db:listitem]"/>
+          </tbody>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <ol>
+          <xsl:call-template name="generate.class.attribute"/>
+          <xsl:if test="$start != '1'">
+            <xsl:attribute name="start">
+              <xsl:value-of select="$start"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$numeration != ''">
+            <xsl:attribute name="type">
+              <xsl:value-of select="$type"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@spacing='compact'">
+            <xsl:attribute name="compact">
+              <xsl:value-of select="@spacing"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:apply-templates 
+                select="db:listitem
+                        |comment()[preceding-sibling::db:listitem]
+                        |processing-instruction()[preceding-sibling::db:listitem]"/>
+        </ol>
+      </xsl:otherwise>
+    </xsl:choose>
+  </div>
+</xsl:template>
+
+
 </xsl:stylesheet>

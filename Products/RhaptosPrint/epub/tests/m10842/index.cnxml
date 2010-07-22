@@ -378,6 +378,10 @@ Being able to spot that overall architecture as we listen - knowing, so to speak
 </tgroup>
 </table>
 
+<list list-type="enumerated" start-value="4" number-style="upper-alpha">
+  <item>should start at D</item>
+  <item>should start at E</item>
+</list>
 
    </content>
         </document>

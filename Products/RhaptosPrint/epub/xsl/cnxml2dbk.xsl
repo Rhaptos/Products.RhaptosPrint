@@ -159,6 +159,11 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="@start-value">
+    <xsl:attribute name="startingnumber">
+        <xsl:value-of select="."/>
+    </xsl:attribute>
+</xsl:template>
 
 
 
