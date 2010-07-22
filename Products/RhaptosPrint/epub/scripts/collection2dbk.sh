@@ -55,7 +55,10 @@ fi
 
 
 echo "LOG: INFO: ------------ Starting on $WORKING_DIR --------------"
+
+# Pull out the custom params (mostly math-related) stored inside the collxml 
 $XSLTPROC -o $PARAMS $COLLXML_PARAMS $COLLXML
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Load up the custom params to xsltproc:
 if [ -s $PARAMS ]; then

@@ -5,6 +5,8 @@ COL_PATH=$1
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
+EXIT_STATUS=0
+
 declare -x FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 DOCBOOK=$COL_PATH/collection.dbk
 DOCBOOK2=$COL_PATH/collection.cleaned.dbk
@@ -21,28 +23,20 @@ DOCBOOK2FO_XSL=$ROOT/xsl/dbk2fo.xsl
 ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 
 
-# Load up the custom params to xsltproc:
-if [ -s $ROOT/params.txt ]; then
-    #echo "Using custom params in params.txt for xsltproc."
-    # cat $ROOT/params.txt
-    OLD_IFS=$IFS
-    IFS="
-"
-    XSLTPROC_ARGS=""
-    for ARG in `cat $ROOT/params.txt`; do
-      XSLTPROC_ARGS="$XSLTPROC_ARGS --param $ARG"
-    done
-    IFS=$OLD_IFS
-    XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
-fi
-
 $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
+EXIT_STATUS=$EXIT_STATUS || $?
 
 time $XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2
+EXIT_STATUS=$EXIT_STATUS || $?
 
 $XSLTPROC -o $COL_PATH/$FO $ALIGN_XSL $UNALIGNED
+EXIT_STATUS=$EXIT_STATUS || $?
 
 # Change to the collection dir so the relative paths to images work
 cd $COL_PATH
 time $FOP $FO $PDF
+EXIT_STATUS=$EXIT_STATUS || $?
+
 cd $ROOT
+
+exit $EXIT_STATUS
