@@ -766,7 +766,7 @@
         </xsl:attribute>
     </xsl:when>
     <xsl:otherwise>
-        <a id="{$id}"/>
+        <span id="{$id}"/>
     </xsl:otherwise>
 </xsl:choose>
     </xsl:if>
