@@ -44,14 +44,14 @@
 <xsl:template mode="cnx.iscomplex" match="text()|mml:annotation-xml"/>
 
 <!-- Terminal nodes that are NOT complex but we should recurse just to be safe -->
-<xsl:template mode="cnx.iscomplex" match="mml:mn|mml:mi|mml:mo|mml:mtext">
+<xsl:template mode="cnx.iscomplex" match="mml:mn|mml:mi|mml:mo|mml:mtext|mml:mspace[@width='.3em' and count(@*)=1]">
 	<xsl:apply-templates mode="cnx.iscomplex"/>
 </xsl:template>
 
 <!-- Non-terminal nodes that MAY be complex, but that we support -->
 <xsl:template mode="cnx.iscomplex" match="mml:mrow|mml:semantics
                                   |mml:msub|mml:msup|mml:msubsup[*[position()>1 and contains('mi mo mn', local-name())]]
-                                  |mml:math[not(@display='block')]|mml:mfenced
+                                  |mml:math|mml:mfenced
                                   |mml:mstyle[@fontsize and count(@*)=1]"> 
 	<xsl:apply-templates mode="cnx.iscomplex"/>
 </xsl:template>
@@ -147,6 +147,8 @@
 	<xsl:apply-templates mode="cnx.simplify" select="node()"/>
 </xsl:template>
 
+<!-- Just discard the little space -->
+<xsl:template mode="cnx.simplify" match="mml:mspace[@width='.3em' and count(@*)=1]"/>
 
 
 <xsl:template mode="cnx.simplify" match="mml:mo">
@@ -156,9 +158,15 @@
 	<xsl:variable name="opEntries" select="document('../xslt2/math2svg-customized/operator-dictionary.xml')/math:operators/math:mo[@op = $operator]"/>
 
 	<xsl:if test="count($opEntries)>0">
-		<xsl:if test="$opEntries[1]/@lspace and $opEntries[1]/@lspace!='0em'">
-			<xsl:text> </xsl:text>
-		</xsl:if>
+	   <xsl:choose>
+	       <xsl:when test="not($opEntries[1]/@lspace)"/>
+	       <xsl:when test="$opEntries[1]/@lspace = '0em'"/>
+           <xsl:when test="$opEntries[1]/@lspace = 'veryverythinmathspace'"/>
+           <xsl:otherwise>
+               <xsl:text> </xsl:text>
+               <xsl:comment>$opEntries[1]/@lspace = '<xsl:value-of select="$opEntries[1]/@lspace"/>'</xsl:comment>
+           </xsl:otherwise>
+	   </xsl:choose>
 	</xsl:if>
 
 	<xsl:choose>
@@ -171,9 +179,15 @@
 	</xsl:choose>
 
 	<xsl:if test="count($opEntries)>0">
-		<xsl:if test="$opEntries[1]/@rspace and $opEntries[1]/@rspace!='0em'">
-			<xsl:text> </xsl:text>
-		</xsl:if>
+       <xsl:choose>
+           <xsl:when test="not($opEntries[1]/@lspace)"/>
+           <xsl:when test="$opEntries[1]/@lspace = '0em'"/>
+           <xsl:when test="$opEntries[1]/@lspace = 'veryverythinmathspace'"/>
+           <xsl:otherwise>
+               <xsl:text> </xsl:text>
+               <xsl:comment>$opEntries[1]/@rspace = '<xsl:value-of select="$opEntries[1]/@rspace"/>'</xsl:comment>
+           </xsl:otherwise>
+       </xsl:choose>
 	</xsl:if>
 </xsl:template>
 
