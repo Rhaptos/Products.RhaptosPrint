@@ -28,30 +28,13 @@ COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2dbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
 DOCBOOK_NORMALIZE_PATHS_XSL=$ROOT/xsl/dbk2epub-normalize-paths.xsl
 DOCBOOK_NORMALIZE_GLOSSARY_XSL=$ROOT/xsl/dbk-clean-whole-remove-duplicate-glossentry.xsl
-DBK2SVG_COVER_XSL=$ROOT/xsl/dbk2svg-cover.xsl
 
 MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
-
-COVER_PREFIX=cover
-COLLECTION_COVER_PREFIX=_collection_$COVER_PREFIX
-COVER_SVG=$WORKING_DIR/_$COVER_PREFIX.svg
-COVER_PNG=$WORKING_DIR/$COVER_PREFIX.png
-
-INKSCAPE=`which inkscape`
-if [ ".$INKSCAPE" == "." ]; then
-  INKSCAPE=/Applications/Inkscape.app/Contents/Resources/bin/inkscape
-  if [ ! -e $INKSCAPE ]; then
-    echo "LOG: ERROR: Inkscape not found." 1>&2
-    exit 1
-  fi
-fi
 
 # remove all the temp files first so we don't accidentally use old ones
 [ -s $DOCBOOK2 ] && rm $DOCBOOK2
 [ -s $DOCBOOK3 ] && rm $DOCBOOK3
 [ -s $DBK_FILE ] && rm $DBK_FILE
-[ -s $COVER_SVG ] && rm $COVER_SVG
-[ -s $COVER_PNG ] && rm $COVER_PNG
 
 
 echo "LOG: INFO: ------------ Starting on $WORKING_DIR --------------"
@@ -101,6 +84,8 @@ if [ "$SKIP_MODULE_CONVERSION" = "0" ]; then
       EXIT_STATUS=$EXIT_STATUS || $?
     fi
   done
+else
+  echo "LOG: INFO: Skipping module conversion"
 fi
 
 
@@ -116,35 +101,7 @@ $XSLTPROC -o $DBK_FILE $DOCBOOK_NORMALIZE_GLOSSARY_XSL $DOCBOOK3
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Create cover SVG and convert it to an image
-COVER_FILES=`find $WORKING_DIR -name $COLLECTION_COVER_PREFIX.??g | sort -r`
-if [ "$COVER_FILES." == "." ]; then
-  echo "LOG: DEBUG: Creating cover page"
-  $XSLTPROC -o $COVER_SVG $DBK2SVG_COVER_XSL $DBK_FILE
-  EXIT_STATUS=$EXIT_STATUS || $?
-  
-  if [ -s $COVER_SVG ]; then
-    echo "LOG: DEBUG: Converting SVG Cover Page to PNG"
-    ($INKSCAPE $COVER_SVG --export-png=$COVER_PNG 2>&1) > $WORKING_DIR/__err.txt
-    EXIT_STATUS=$EXIT_STATUS || $?
-  else
-    # Print saner error messages.
-    echo "LOG: ERROR: Converting Cover page: SVG file not found" 1>&2
-    EXIT_STATUS=$EXIT_STATUS || 1
-  fi
-else
-  echo "LOG: DEBUG: Converting existing cover image"
-  COVER_FILES_SVG=`find $WORKING_DIR -name $COLLECTION_COVER_PREFIX.svg | sort -r`
-  COVER_FILES_PNG=`find $WORKING_DIR -name $COLLECTION_COVER_PREFIX.png | sort -r`
-  if [ "$COVER_FILES_SVG." != "." ]; then
-    echo "LOG: DEBUG: Converting existing cover SVG named ${COVER_FILES_SVG[0]}"
-    ($INKSCAPE ${COVER_FILES_SVG[0]} --export-png=$COVER_PNG 2>&1) > $WORKING_DIR/__err.txt
-    EXIT_STATUS=$EXIT_STATUS || $?
-  else
-    echo "LOG: DEBUG: Converting existing cover PNG named ${COVER_FILES_PNG[0]}"
-    cp $COVER_FILES_PNG $COVER_PNG
-    EXIT_STATUS=$EXIT_STATUS || $?
-  fi
-fi
+bash $ROOT/scripts/dbk2cover.sh $DBK_FILE
 
 
 exit $EXIT_STATUS

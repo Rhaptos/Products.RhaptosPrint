@@ -43,7 +43,7 @@
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
 	<db:preface>
 		<xsl:apply-templates select="@*|node()"/>
-		<xi:include href="{@document}/index.dbk"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:preface>
 </xsl:template>
 
@@ -52,7 +52,7 @@
 <!-- <db:appendix> -->
 	<db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
-		<xi:include href="{@document}/index.dbk"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:chapter>
 <!-- </db:appendix> -->
 </xsl:template>
@@ -63,7 +63,7 @@
 	<!-- TODO: Convert the db:section root of the module to a chapter. Can't now because we create xinclude refs to it -->
 	<db:chapter>
 		<xsl:apply-templates select="@*|node()"/>
-		<xi:include href="{@document}/index.dbk"/>
+		<xsl:call-template name="cnx.xinclude.module"/>
 	</db:chapter>
 </xsl:template>
 
@@ -83,7 +83,7 @@
 <xsl:template match="col:module">
     <db:section>
         <xsl:apply-templates select="@*|node()"/>
-        <xi:include href="{@document}/index.dbk"/>
+        <xsl:call-template name="cnx.xinclude.module"/>
     </db:section>
 </xsl:template>
 
@@ -96,6 +96,10 @@
 
 <xsl:template match="@id|@xml:id|comment()|processing-instruction()">
     <xsl:copy/>
+</xsl:template>
+
+<xsl:template name="cnx.xinclude.module">
+    <xi:include href="{@document}/index.included.dbk"/>
 </xsl:template>
 
 </xsl:stylesheet>

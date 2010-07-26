@@ -25,7 +25,8 @@ CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
 CNXML5=$WORKING_DIR/_cnxml5.xml
 CNXML6=$WORKING_DIR/_cnxml6.xml
-DOCBOOK=$WORKING_DIR/index.dbk # Important. Used in collxml2docbook xinclude
+DOCBOOK_INCLUDED=$WORKING_DIR/index.included.dbk # Important. Used in collxml2docbook xinclude
+DOCBOOK=$WORKING_DIR/index.dbk # Important. Used in module2epub
 DOCBOOK1=$WORKING_DIR/_index1.dbk
 DOCBOOK2=$WORKING_DIR/_index2.dbk
 DOCBOOK_SVG=$WORKING_DIR/_index.svg.dbk
@@ -45,6 +46,7 @@ DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 SVG2PNG_FILES_XSL=$ROOT/xsl/dbk-svg2png.xsl
+DOCBOOK_BOOK_XSL=$ROOT/xsl/moduledbk2book.xsl
 
 EXIT_STATUS=0
 
@@ -55,6 +57,7 @@ EXIT_STATUS=0
 [ -s $CNXML4 ] && rm $CNXML4
 [ -s $CNXML5 ] && rm $CNXML5
 [ -s $CNXML6 ] && rm $CNXML6
+[ -s $DOCBOOK_INCLUDED ] && rm $DOCBOOK_INCLUDED
 [ -s $DOCBOOK ] && rm $DOCBOOK
 [ -s $DOCBOOK1 ] && rm $DOCBOOK1
 [ -s $DOCBOOK2 ] && rm $DOCBOOK2
@@ -160,7 +163,11 @@ EXIT_STATUS=$EXIT_STATUS || $?
 #fi
 
 # Create a list of files to convert from svg to png
-$XSLTPROC -o $DOCBOOK $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
+$XSLTPROC -o $DOCBOOK_INCLUDED $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
+EXIT_STATUS=$EXIT_STATUS || $?
+
+# Create a standalone db:book file for the module
+$XSLTPROC -o $DOCBOOK $DOCBOOK_BOOK_XSL $DOCBOOK_INCLUDED
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert the files
@@ -190,6 +197,7 @@ do
   fi
 done
 
+bash $ROOT/scripts/dbk2cover.sh $DOCBOOK
 
 echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS
