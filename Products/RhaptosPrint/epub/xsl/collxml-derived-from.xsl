@@ -15,12 +15,12 @@
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found md:derived-from with a url that starts with 'http://foo/'</xsl:with-param></xsl:call-template>
 				<xsl:value-of select="$cnx.url"/>
 				<xsl:value-of select="substring-after(@url, '/content/')"/>
+                <xsl:text>/</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="@url"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:text>/</xsl:text>
 	</xsl:variable>
 	<xsl:variable name="urlSource">
 		<xsl:value-of select="$url"/>
