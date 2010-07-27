@@ -74,9 +74,9 @@
     <!-- Generic Rhaptos cover -->
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="595.275px" height="840.486px" viewBox="0 0 595.275 840.486" enable-background="new 0 0 595.275 840.486" xml:space="preserve">
       <rect fill="#FFFFFF" width="595.275" height="840.486"/>
-      <flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="130%" font-weight="bold" xml:space="preserve" font-size="51px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#436976">
+      <flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="130%" font-weight="normal" xml:space="preserve" font-size="52px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#436976">
         <flowRegion id="flowRegion2896">
-          <rect id="rect2898" style="text-align:start;" height="750" width="505" y="0" x="45" fill="#436976"/>
+          <rect id="rect2898" style="text-align:start;" height="750" width="465" y="0" x="65" fill="#436976"/>
         </flowRegion>
         <flowPara id="flowPara2900">
           <xsl:value-of select="$title"/>
