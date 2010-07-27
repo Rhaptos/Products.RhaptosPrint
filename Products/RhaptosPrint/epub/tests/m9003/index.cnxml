@@ -7,62 +7,16 @@
   <md:created>2000/06/22</md:created>
   <md:revised>2008/12/19 14:01:40.056 US/Central</md:revised>
   <md:authorlist>
-      <md:author id="mizar">
-      <md:firstname>Christine</md:firstname>
-      
-      <md:surname>Donica</md:surname>
-      <md:email>mizar@alumni.rice.edu</md:email>
-    </md:author>
-      <md:author id="maxwell">
-      <md:firstname>Max</md:firstname>
-      
-      <md:surname>Starkenburg</md:surname>
-      <md:email>maxwell@rice.edu</md:email>
-    </md:author>
-      <md:author id="brentmh">
-      <md:firstname>Brent</md:firstname>
-      <md:othername>Michael</md:othername>
-      <md:surname>Hendricks</md:surname>
-      <md:email>brentmh@rice.edu</md:email>
-    </md:author>
-      <md:author id="cbearden">
-      <md:firstname>Charles</md:firstname>
-      <md:othername>F.</md:othername>
-      <md:surname>Bearden</md:surname>
-      <md:email>cbearden@rice.edu</md:email>
+      <md:author id="_bogus-should-be-overridden-by-call-to-server">
+      <md:firstname>bogus-should-be-overridden</md:firstname>
+      <md:surname>by-call-to-server</md:surname>
     </md:author>
   </md:authorlist>
 
   <md:maintainerlist>
-    <md:maintainer id="mizar">
-      <md:firstname>Christine</md:firstname>
-      
-      <md:surname>Donica</md:surname>
-      <md:email>mizar@alumni.rice.edu</md:email>
-    </md:maintainer>
-    <md:maintainer id="maxwell">
-      <md:firstname>Max</md:firstname>
-      
-      <md:surname>Starkenburg</md:surname>
-      <md:email>maxwell@rice.edu</md:email>
-    </md:maintainer>
-    <md:maintainer id="brentmh">
-      <md:firstname>Brent</md:firstname>
-      <md:othername>Michael</md:othername>
-      <md:surname>Hendricks</md:surname>
-      <md:email>brentmh@rice.edu</md:email>
-    </md:maintainer>
-    <md:maintainer id="cbearden">
-      <md:firstname>Charles</md:firstname>
-      <md:othername>F.</md:othername>
-      <md:surname>Bearden</md:surname>
-      <md:email>cbearden@rice.edu</md:email>
-    </md:maintainer>
-    <md:maintainer id="bnwest">
-      <md:firstname>Brian</md:firstname>
-      <md:othername>Neal</md:othername>
-      <md:surname>West</md:surname>
-      <md:email>bnwest@cnx.org</md:email>
+      <md:maintainer id="_bogus-should-be-overridden-by-call-to-server">
+      <md:firstname>bogus-should-be-overridden</md:firstname>
+      <md:surname>by-call-to-server</md:surname>
     </md:maintainer>
   </md:maintainerlist>
   

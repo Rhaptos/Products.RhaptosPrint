@@ -10,34 +10,36 @@
 <xsl:import href="ident.xsl"/>
 <xsl:import href="cnxml-upgrade/cnxml05to06.xsl"/>
 
-<xsl:template match="c:metadata[not(md4:*)]|md:*|md4:*">
-	<xsl:call-template name="ident"/>
-</xsl:template>
-
-<!-- Grab the licensors from the website -->
+<!-- We need to grab the metadata from module_export_template since the md:metadata may be unusable -->
 <xsl:template match="c:metadata[md4:*]">
     <!-- Some modules have "**new**" as their version number. In this case, use "latest" -->
     <xsl:variable name="ver" select="/c:document/c:metadata/md4:version/text()"/>
     <xsl:variable name="version">
         <xsl:choose>
-	        <xsl:when test="$ver and $ver != '**new**' and $ver != 'None'">
-	            <xsl:value-of select="$ver"/>
-	        </xsl:when>
-	        <xsl:otherwise>
+            <xsl:when test="$ver and $ver != '**new**' and $ver != 'None'">
+                <xsl:value-of select="$ver"/>
+            </xsl:when>
+            <xsl:otherwise>
                 <xsl:text>latest</xsl:text>
-	        </xsl:otherwise>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id, '/', $version, '/module_export_template')"/>
-    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: Getting licensor info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
-    <xsl:variable name="moduleExportTemplate" select="document($url)"/>
+    <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id, '/', $version, '/index.cnxml/@@metadata')"/>
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: Getting md:metadata info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
+    <xsl:variable name="metadata" select="document($url)"/>
     <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-        <md4:licensorlist>
-            <xsl:call-template name="cnx.copy.remote">
-                <xsl:with-param name="nodes" select="$moduleExportTemplate/module/metadata/licensor"/>
-            </xsl:call-template>
-        </md4:licensorlist>
+        <xsl:apply-templates select="@*"/>
+	    <xsl:choose>
+	        <xsl:when test="count($metadata) != 0">
+	            <xsl:call-template name="cnx.copy.remote">
+	                <xsl:with-param name="nodes" select="$metadata/metadata/*"/>
+	            </xsl:call-template>
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: NET: Could not get md:metadata info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
+                <xsl:apply-templates select="node()"/>
+	        </xsl:otherwise>
+	    </xsl:choose>
     </xsl:copy>
 </xsl:template>
 
@@ -50,34 +52,34 @@
         <xsl:when test="$count &gt; $node.count"></xsl:when>
         <xsl:otherwise>
         
-	        <!-- Determine the type of the node, and call the proper template -->
-	        <xsl:variable name="node" select="$nodes[position()=$count]"/>
-	        
-	        <xsl:choose>
-	            <xsl:when test="local-name($node) != ''">
-			      <xsl:call-template name="cnx.copy.remote.element">
-			        <xsl:with-param name="node" select="$node"/>
-			      </xsl:call-template>
-	            </xsl:when>
-	            <xsl:otherwise>
-	              <xsl:call-template name="cnx.copy.remote.node">
-	                <xsl:with-param name="node" select="$node"/>
-	              </xsl:call-template>
-	            </xsl:otherwise>
-	        </xsl:choose>
+            <!-- Determine the type of the node, and call the proper template -->
+            <xsl:variable name="node" select="$nodes[position()=$count]"/>
+            
+            <xsl:choose>
+                <xsl:when test="local-name($node) != ''">
+                  <xsl:call-template name="cnx.copy.remote.element">
+                    <xsl:with-param name="node" select="$node"/>
+                  </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:call-template name="cnx.copy.remote.node">
+                    <xsl:with-param name="node" select="$node"/>
+                  </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
 
-			<xsl:call-template name="cnx.copy.remote">
-			  <xsl:with-param name="nodes" select="$nodes"/>
-			  <xsl:with-param name="node.count" select="$node.count"/>
-			  <xsl:with-param name="count" select="$count+1"/>
-			</xsl:call-template>
+            <xsl:call-template name="cnx.copy.remote">
+              <xsl:with-param name="nodes" select="$nodes"/>
+              <xsl:with-param name="node.count" select="$node.count"/>
+              <xsl:with-param name="count" select="$count+1"/>
+            </xsl:call-template>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
 
 <xsl:template name="cnx.copy.remote.element">
     <xsl:param name="node"/>
-    <xsl:element name="md4:{local-name($node)}">
+    <xsl:element name="md:{local-name($node)}">
         <xsl:apply-templates select="$node/@*"/>
         <xsl:call-template name="cnx.copy.remote">
             <xsl:with-param name="nodes" select="$node/node()"/>
