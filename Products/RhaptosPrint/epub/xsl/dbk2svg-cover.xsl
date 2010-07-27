@@ -13,6 +13,10 @@
 	<xsl:variable name="title" select="db:bookinfo/db:title"/>
 	
 	<!-- The big titlepage SVG -->
+<xsl:choose>
+  <xsl:when test="$cnx.iscnx != 0">
+
+<!-- Connexions branded cover -->
 <svg id="Layer_1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 596.275 842.986" xml:space="preserve" height="842.99px" viewBox="0 0 596.275 842.986" width="596.28px" version="1.1" y="0px" x="0px" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><metadata id="metadata86"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/><dc:title/></cc:Work></rdf:RDF></metadata>
 <linearGradient id="SVGID_1_" y2="11.251" gradientUnits="userSpaceOnUse" x2="297.62" y1="829.99" x1="297.62">
     <stop id="stop4" stop-color="#4678AA" offset="0"/>
@@ -63,6 +67,25 @@
 <line id="line78" y2="791.88" x1="0.5" x2="595.78" stroke="#EB7923" y1="791.88" stroke-width="2" fill="none"/>
 <line id="line80" y2="841.74" x1="0.5" x2="595.78" stroke="#EB7923" y1="841.74" stroke-width="2" fill="none"/>
 <flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="130%" font-weight="bold" xml:space="preserve" font-size="51px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#ffffff"><flowRegion id="flowRegion2896"><rect id="rect2898" style="text-align:start;" height="610" width="505" y="75" x="45" fill="#FFF"/></flowRegion><flowPara id="flowPara2900"><xsl:value-of select="$title"/></flowPara></flowRoot></svg>
+
+  </xsl:when>
+  <xsl:otherwise>
+
+    <!-- Generic Rhaptos cover -->
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="595.275px" height="840.486px" viewBox="0 0 595.275 840.486" enable-background="new 0 0 595.275 840.486" xml:space="preserve">
+      <rect fill="#FFFFFF" width="595.275" height="840.486"/>
+      <flowRoot id="flowRoot2894" style="writing-mode:lr;text-anchor:start;text-align:start;" line-height="130%" font-weight="bold" xml:space="preserve" font-size="51px" transform="translate(-4.090618e-6,0)" font-stretch="normal" font-variant="normal" font-style="normal" font-family="Bitstream Vera Sans" fill="#436976">
+        <flowRegion id="flowRegion2896">
+          <rect id="rect2898" style="text-align:start;" height="750" width="505" y="0" x="45" fill="#436976"/>
+        </flowRegion>
+        <flowPara id="flowPara2900">
+          <xsl:value-of select="$title"/>
+        </flowPara>
+      </flowRoot>
+    </svg>
+
+  </xsl:otherwise>
+</xsl:choose>
 
 </xsl:template>
 </xsl:stylesheet>
