@@ -17,7 +17,7 @@
   <!-- WARNING! The 'metadata' section is read only. Do not edit below.
        Changes to the metadata section in the source will not be saved. -->
 
-  <md:repository>http://cnx.org/content</md:repository>
+  <md:repository>http://localhost/from-md-repository-in-collxml</md:repository>
   <md:content-url>http://cnx.org/content/col10268/1.13</md:content-url>
   <md:content-id>col10268</md:content-id>
   <md:title>Tests. &#50500;&#51649;&#46020; &#1046;&#1077;&#1085;&#1080;&#1090;&#1077; 
