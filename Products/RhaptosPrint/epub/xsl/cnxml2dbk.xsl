@@ -5,7 +5,7 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
@@ -50,8 +50,10 @@
     <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
                                                   .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
     <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id)"/>
-    <db:section ext:element="module" ext:url="{$url}">
+    <xsl:variable name="lang" select="c:metadata/md:language/text()"/>
+    <db:section ext:element="module" ext:url="{$url}" lang="{$lang}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
+        <xsl:attribute name="xml:lang"><xsl:value-of select="$lang"/></xsl:attribute>
         <db:sectioninfo>
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>
