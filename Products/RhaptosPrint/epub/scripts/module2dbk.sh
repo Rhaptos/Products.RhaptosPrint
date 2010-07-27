@@ -25,6 +25,8 @@ CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
 CNXML5=$WORKING_DIR/_cnxml5.xml
 CNXML6=$WORKING_DIR/_cnxml6.xml
+DERIVED_PRE=$WORKING_DIR/_cnxml7.derived.pre.xml
+DERIVED_POST=$WORKING_DIR/_cnxml7.derived.post.xml
 DOCBOOK_INCLUDED=$WORKING_DIR/index.included.dbk # Important. Used in collxml2docbook xinclude
 DOCBOOK=$WORKING_DIR/index.dbk # Important. Used in module2epub
 DOCBOOK1=$WORKING_DIR/_index1.dbk
@@ -47,6 +49,8 @@ DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 SVG2PNG_FILES_XSL=$ROOT/xsl/dbk-svg2png.xsl
 DOCBOOK_BOOK_XSL=$ROOT/xsl/moduledbk2book.xsl
+INCLUDE_DERIVED_FROM_XSL=$ROOT/xsl/collxml-derived-from.xsl
+INCLUDE_DERIVED_FROM_CLEANUP_XSL=$ROOT/xsl/collxml-derived-from-cleanup.xsl
 
 EXIT_STATUS=0
 
@@ -57,6 +61,8 @@ EXIT_STATUS=0
 [ -s $CNXML4 ] && rm $CNXML4
 [ -s $CNXML5 ] && rm $CNXML5
 [ -s $CNXML6 ] && rm $CNXML6
+[ -s $DERIVED_PRE ] && rm $DERIVED_PRE
+[ -s $DERIVED_POST ] && rm $DERIVED_POST
 [ -s $DOCBOOK_INCLUDED ] && rm $DOCBOOK_INCLUDED
 [ -s $DOCBOOK ] && rm $DOCBOOK
 [ -s $DOCBOOK1 ] && rm $DOCBOOK1
@@ -138,8 +144,16 @@ EXIT_STATUS=$EXIT_STATUS || $?
 $XSLTPROC -o $CNXML6 $SIMPLIFY_MATHML_XSL $CNXML5
 EXIT_STATUS=$EXIT_STATUS || $?
 
+# If the module has a md:derived-from, include it
+$XSLTPROC -o $DERIVED_PRE $INCLUDE_DERIVED_FROM_XSL $CNXML6
+EXIT_STATUS=$EXIT_STATUS || $?
+
+# Clean up the md:derived-from
+$XSLTPROC --xinclude -o $DERIVED_POST $INCLUDE_DERIVED_FROM_CLEANUP_XSL $DERIVED_PRE
+EXIT_STATUS=$EXIT_STATUS || $?
+
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $CNXML6
+$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $DERIVED_POST
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG

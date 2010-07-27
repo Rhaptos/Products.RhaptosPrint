@@ -138,5 +138,10 @@
 <!-- Ignore actors. they're only used by md:roles -->
 <xsl:template match="md:title|md:content-id|md:created|md:language|md:fullname|md:actors|md:repository|md:content-url"/>
 
+<xsl:template match="md:derived-from/md:title">
+    <db:title>
+        <xsl:apply-templates select="@*|node()"/>
+    </db:title>
+</xsl:template>
  
 </xsl:stylesheet>
