@@ -11,18 +11,12 @@
 
 <xsl:template match="md:derived-from">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting md:derived-from title and authors</xsl:with-param></xsl:call-template>
-    <xsl:if test="not(*/md:metadata)">
+    <xsl:if test="not(metadata)">
       <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: md:metadata (cnxml0.6+) not found. The derived-from information may not have authors in it</xsl:with-param></xsl:call-template>
     </xsl:if>
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
-		<!-- Support cnxml0.5 md4:title elements -->
-		<md:title>
-		    <xsl:apply-templates select="*/*[local-name()='metadata']/*[local-name()='title']/@*"/>
-            <xsl:apply-templates select="*/*[local-name()='metadata']/*[local-name()='title']/node()"/>
-		</md:title>
-		<xsl:apply-templates select="*/*[local-name()='metadata']/md:actors"/>
-		<xsl:apply-templates select="*/*[local-name()='metadata']/md:roles"/>
+	    <xsl:apply-templates select="metadata/node()"/>
 	</xsl:copy>
 </xsl:template>
 
