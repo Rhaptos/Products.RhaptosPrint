@@ -88,6 +88,7 @@
                         <xsl:value-of select="$attributionId"/>
                     </xsl:attribute>
                     <db:simplelist>
+                        <xsl:variable name="titlesDiffer" select="ext:original-title/text() != db:title/text()"/>
                         <xsl:variable name="originalTitle">
                             <xsl:choose>
                                 <xsl:when test="ext:original-title">
@@ -105,7 +106,7 @@
                                 <xsl:copy-of select="$originalTitle"/>
                             </db:link>
                         </db:member>
-                        <xsl:if test="ext:original-title">
+                        <xsl:if test="ext:original-title and $titlesDiffer">
                             <db:member>
                                 <xsl:text>Used here as: </xsl:text>
                                 <xsl:apply-templates select="db:title/node()"/>
