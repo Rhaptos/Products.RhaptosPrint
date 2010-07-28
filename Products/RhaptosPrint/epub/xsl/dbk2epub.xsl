@@ -450,7 +450,7 @@
 
 <!-- Customize the metadata generated for the epub.
     Originally from docbook-xsl/epub/docbook.xsl -->
-<xsl:template mode="opf.metadata" match="db:authorgroup[@role='all']">
+<xsl:template mode="opf.metadata" match="db:authorgroup[@role='all' or not(@role)]">
     <xsl:apply-templates mode="opf.metadata" select="node()"/>
 </xsl:template>
 
