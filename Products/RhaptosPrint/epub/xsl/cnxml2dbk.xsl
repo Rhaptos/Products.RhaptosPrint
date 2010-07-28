@@ -154,6 +154,11 @@
    		<xsl:when test="$inline-only != 0">
 			<xsl:apply-templates select="node()"/>
    		</xsl:when>
+   		<xsl:when test="db:title">
+            <db:formalpara>
+                <xsl:apply-templates select="node()"/>
+            </db:formalpara>
+   		</xsl:when>
    		<xsl:otherwise>
 	    	<db:para>
 				<xsl:apply-templates select="node()"/>
@@ -530,7 +535,12 @@
                 <xsl:if test="count(parent::c:definition/c:meaning) > 1">
                         <xsl:number count="c:meaning" format="1. "/>
                 </xsl:if>
-                <xsl:apply-templates select="node()"/>
+                <xsl:if test="c:title">
+                    <db:emphasis>
+                        <xsl:apply-templates select="c:title/node()"/>
+                    </db:emphasis>
+                </xsl:if>
+                <xsl:apply-templates select="node()[not(self::c:title)]"/>
         </db:para>
 </xsl:template>
 

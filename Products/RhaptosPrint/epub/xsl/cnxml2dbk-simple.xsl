@@ -133,6 +133,9 @@
 <xsl:template match="c:title">
 	<db:title><xsl:apply-templates select="@*|node()"/></db:title>
 </xsl:template>
+<xsl:template match="c:item/c:title">
+    <db:emphasis role="bold" ext:element="title"><xsl:apply-templates select="@*|node()"/></db:emphasis>
+</xsl:template>
 
 <xsl:template match="c:sub">
     <db:subscript><xsl:apply-templates select="@*|node()"/></db:subscript>
