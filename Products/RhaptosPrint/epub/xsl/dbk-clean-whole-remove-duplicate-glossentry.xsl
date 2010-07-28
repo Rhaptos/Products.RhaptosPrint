@@ -43,7 +43,7 @@
 
 
 <!-- Add an attribution section with all the modules at the end of the book -->
-<xsl:template match="db:book">
+<xsl:template match="db:book[not(@ext:element='module')]">
     <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
         <db:appendix>
