@@ -479,10 +479,12 @@
 <xsl:template match="c:document/c:title">
 	<db:title>
 		<xsl:apply-templates select="@*|node()"/>
-		<!-- TODO: Remove debugging line. -->
-		<xsl:text> [</xsl:text>
-		<xsl:value-of select="$cnx.module.id"/>
-		<xsl:text>]</xsl:text>
+		<!-- Add the module id to titles for debugging. -->
+		<xsl:if test="$cnx.debug!=0">
+			<xsl:text> [</xsl:text>
+			<xsl:value-of select="$cnx.module.id"/>
+			<xsl:text>]</xsl:text>
+	    </xsl:if>
 	</db:title>
 </xsl:template>
 

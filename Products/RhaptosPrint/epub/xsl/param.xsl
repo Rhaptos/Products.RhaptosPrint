@@ -4,6 +4,9 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	version="1.0">
 
+<!-- Sprinkle in useful debugging information to the content (like module id in titles) -->
+<xsl:param name="cnx.debug" select="0"/>
+
 <!-- Is this a cnx site or a Rhaptos site? -->
 <xsl:param name="cnx.iscnx" select="1"></xsl:param>
 
