@@ -572,7 +572,15 @@
     <div id="copyright_page">
         <xsl:if test="$licensors">
             <div id="copyright_statement">
-                <xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="@ext:element='module'">
+                        <xsl:text>This module is copyrighted by </xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>This selection and arrangement of content as a collection is copyrighted by </xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
                 <xsl:call-template name="person.name.list">
                     <xsl:with-param name="person.list" select="$licensors"/>
                 </xsl:call-template>
@@ -593,20 +601,30 @@
             </div>
         </xsl:if>
         <div id="copyright_revised">
-            <xsl:text>Collection structure revised: </xsl:text>
+            <xsl:choose>
+                <xsl:when test="@ext:element='module'">
+                    <xsl:text>Module revised: </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Collection structure revised: </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            
             <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
             <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
         </div>
-        <div id="copyright_attribution">
-            <xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
-            <xsl:call-template name="simple.xlink">
-                <xsl:with-param name="linkend" select="$attribution.section.id"/>
-                <xsl:with-param name="content">
-                    <xsl:text>Attributions</xsl:text>
-                </xsl:with-param>
-            </xsl:call-template>
-            <xsl:text>" section at the end of the collection.</xsl:text>
-        </div>
+        <xsl:if test="not(@ext:element='module')">
+	        <div id="copyright_attribution">
+	            <xsl:text>For copyright and attribution information for the modules contained in this collection, see the "</xsl:text>
+	            <xsl:call-template name="simple.xlink">
+	                <xsl:with-param name="linkend" select="$attribution.section.id"/>
+	                <xsl:with-param name="content">
+	                    <xsl:text>Attributions</xsl:text>
+	                </xsl:with-param>
+	            </xsl:call-template>
+	            <xsl:text>" section at the end of the collection.</xsl:text>
+	        </div>
+	    </xsl:if>
     </div>
 </xsl:template>
 
