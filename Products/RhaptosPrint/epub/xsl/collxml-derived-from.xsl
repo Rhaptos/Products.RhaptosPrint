@@ -24,7 +24,7 @@
 	</xsl:variable>
 	<xsl:variable name="urlSource">
 		<xsl:value-of select="$url"/>
-		<xsl:text>source</xsl:text>
+		<xsl:text>@@metadata</xsl:text>
 	</xsl:variable>
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: XIncluding md:derived-from url '<xsl:value-of select="$urlSource"/>'</xsl:with-param></xsl:call-template>
 	<xsl:copy>
