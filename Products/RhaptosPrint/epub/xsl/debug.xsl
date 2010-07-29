@@ -1,6 +1,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:c="http://cnx.rice.edu/cnxml"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:md="http://cnx.rice.edu/mdml"
     >
 <!-- This file:
 	* Does all the logging
@@ -140,5 +141,15 @@
 	<xsl:value-of select="$object/@xml:id"/>
 </xsl:template>
 
+<xsl:template name="cnx.url">
+    <xsl:choose>
+        <xsl:when test="//md:repository">
+            <xsl:value-of select="//md:repository[1]/text()"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:call-template name="cnx.url"/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

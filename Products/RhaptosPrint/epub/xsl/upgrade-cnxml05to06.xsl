@@ -24,7 +24,13 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id, '/', $version, '/index.cnxml/@@metadata')"/>
+    <xsl:variable name="url">
+        <xsl:call-template name="cnx.url"/>
+        <xsl:call-template name="cnx.module.id"/>
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select="$version"/>
+        <xsl:text>/index.cnxml/@@metadata</xsl:text>
+    </xsl:variable>
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: Getting md:metadata info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
     <xsl:variable name="metadata" select="document($url)"/>
     <xsl:copy>

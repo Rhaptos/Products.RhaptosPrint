@@ -2,6 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:svg="http://www.w3.org/2000/svg"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   version="1.0">
@@ -23,6 +24,16 @@
 <xsl:param name="toc.section.depth">0</xsl:param>
 
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
+
+<!-- To support international characters, add some fonts -->
+<xsl:param name="cnx.font.catchall">STIXGeneral,STIXSize,Code2000</xsl:param>
+<xsl:param name="body.font.family">serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="dingbat.font.family">serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="monospace.font.family">monospace,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="sans.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="symbol.font.family">Symbol,ZapfDingbats,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="title.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+
 
 
 <!-- Add a template for newlines.
@@ -132,5 +143,43 @@
   </fo:inline>
 </xsl:template>
 
+<!-- Discard MathML -->
+<xsl:template match="mml:*"/>
+
+<xsl:template match="db:authorgroup[@role='all']|db:othercredit|db:editor"/>
+
+<xsl:template match="svg:*/@font-family">
+    <xsl:attribute name="font-family">
+        <xsl:value-of select="."/>
+        <xsl:text>,</xsl:text>
+        <xsl:value-of select="$cnx.font.catchall"/>
+    </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="svg:*/@style">
+    <xsl:variable name="containsFamily" select="contains(., 'font-family')"/>
+    <xsl:attribute name="style">
+	    <xsl:choose>
+	        <xsl:when test="$containsFamily">
+			    <xsl:variable name="before" select="substring-before(., 'font-family:')"/>
+			    <xsl:variable name="family" select="substring-before(substring-after(., 'font-family:'), ';')"/>
+			    <xsl:variable name="after" select="substring-after(substring-after(., 'font-family:'), ';')"/>
+		        <xsl:value-of select="$before"/>
+		        <xsl:value-of select="$family"/>
+		        <xsl:if test="$family != ''">
+		            <xsl:text>,</xsl:text>
+		        </xsl:if>
+		        <xsl:value-of select="$cnx.font.catchall"/>
+		        <xsl:value-of select="$after"/>
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:value-of select="."/>
+	            <xsl:text>;font-family:</xsl:text>
+	            <xsl:value-of select="$cnx.font.catchall"/>
+	            <xsl:text>;</xsl:text>
+	        </xsl:otherwise>
+	    </xsl:choose>
+    </xsl:attribute>
+</xsl:template>
 
 </xsl:stylesheet>

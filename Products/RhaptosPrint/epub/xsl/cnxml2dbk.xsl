@@ -49,7 +49,10 @@
 <xsl:template match="c:document">
     <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
                                                   .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
-    <xsl:variable name="url" select="concat($cnx.url, $cnx.module.id)"/>
+    <xsl:variable name="url">
+        <xsl:call-template name="cnx.url"/>
+        <xsl:value-of select="$cnx.module.id"/>
+    </xsl:variable>
     <xsl:variable name="lang" select="c:metadata/md:language/text()"/>
     <db:section ext:element="module" ext:url="{$url}" lang="{$lang}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
@@ -283,7 +286,7 @@
 		<xsl:value-of select="$cnx.module.separator"/>
 	</xsl:variable>
 	<xsl:variable name="url">
-		<xsl:value-of select="$cnx.url"/>
+		<xsl:call-template name="cnx.url"/>
 		<xsl:value-of select="$cnx.module.id"/>
         <xsl:text>/</xsl:text>
 		<xsl:if test="not(/c:document/c:metadata/md:version)">

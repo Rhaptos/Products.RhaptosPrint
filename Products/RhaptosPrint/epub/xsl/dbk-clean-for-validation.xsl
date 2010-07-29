@@ -2,7 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
-	xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"

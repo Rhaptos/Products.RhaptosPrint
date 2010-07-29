@@ -217,7 +217,7 @@
     				</xsl:when>
     				<xsl:otherwise>
 				   		<xsl:if test="$cnx.resource.local = 0">
-					    	<xsl:value-of select="$cnx.url"/>
+					    	<xsl:call-template name="cnx.url"/>
 					    </xsl:if>
 					    <xsl:value-of select="$document"/>
 					    <xsl:text>/</xsl:text>
