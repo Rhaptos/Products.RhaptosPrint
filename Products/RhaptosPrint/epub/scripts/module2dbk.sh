@@ -20,7 +20,7 @@ CONVERT="convert "
 #Temporary files
 CNXML=$WORKING_DIR/index.cnxml
 CNXML1=$WORKING_DIR/_cnxml1.xml
-CNXML2=$WORKING_DIR/_cnxml2.xml
+CNXML_UPGRADED=$WORKING_DIR/index_auto_upgrade.cnxml
 CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
 CNXML5=$WORKING_DIR/_cnxml5.xml
@@ -43,7 +43,7 @@ UPGRADE_SIX_XSL=$ROOT/xsl/upgrade-cnxml06to07.xsl
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
-CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
+CNXML_UPGRADEDDOCBOOK_XSL=$ROOT/xsl/CNXML_UPGRADEDdbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
@@ -56,7 +56,6 @@ EXIT_STATUS=0
 
 # remove all the temp files first so we don't accidentally use old ones
 [ -s $CNXML1 ] && rm $CNXML1
-[ -s $CNXML2 ] && rm $CNXML2
 [ -s $CNXML3 ] && rm $CNXML3
 [ -s $CNXML4 ] && rm $CNXML4
 [ -s $CNXML5 ] && rm $CNXML5
@@ -117,19 +116,27 @@ if [ -s $WORKING_DIR/__err.txt ]; then
 fi
 #rm $WORKING_DIR/__err.txt
 
-# Upgrade from 0.5 to 0.6
-$XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
-if [ $? != 0 ]; then
-  cp $CNXML $CNXML1
+
+if [ ! -s $CNXML_UPGRADED ]; then
+  if [ ! -s $CNXML ]; then
+    echo "LOG: ERROR: index.cnxml not found! Cannot convert" 1>&2
+    exit 1
+  fi
+
+  # Upgrade from 0.5 to 0.6
+  $XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
+  if [ $? != 0 ]; then
+    cp $CNXML $CNXML1
+  fi
+
+  # Upgrade from 0.6 to 0.7
+  $XSLTPROC -o $CNXML_UPGRADED $UPGRADE_SIX_XSL $CNXML1
+  if [ $? != 0 ]; then
+    cp $CNXML1 $CNXML_UPGRADED
+  fi
 fi
 
-# Upgrade from 0.6 to 0.7
-$XSLTPROC -o $CNXML2 $UPGRADE_SIX_XSL $CNXML1
-if [ $? != 0 ]; then
-  cp $CNXML1 $CNXML2
-fi
-
-$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML2
+$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML_UPGRADED
 EXIT_STATUS=$EXIT_STATUS || $?
 
 $XSLTPROC -o $CNXML4 $CLEANUP2_XSL $CNXML3
@@ -153,7 +160,7 @@ $XSLTPROC --xinclude -o $DERIVED_POST $INCLUDE_DERIVED_FROM_CLEANUP_XSL $DERIVED
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $DERIVED_POST
+$XSLTPROC -o $DOCBOOK1 $CNXML_UPGRADEDDOCBOOK_XSL $DERIVED_POST
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG
@@ -165,7 +172,7 @@ EXIT_STATUS=$EXIT_STATUS || $MATH2SVG_ERROR
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 #if [ $MATH2SVG_ERROR -eq 0 ]; then 
 #  rm $CNXML1
-#  rm $CNXML2
+#  rm $CNXML_UPGRADED
 #  rm $CNXML3
 #  rm $DOCBOOK1
 #fi
