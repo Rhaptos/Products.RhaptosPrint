@@ -22,7 +22,7 @@
 	<xsl:variable name="id">
 		<xsl:value-of select="col:metadata/md:content-id/text()"/>
 	</xsl:variable>
-	<db:book ext:url="{col:metadata/md:content-url/text()}" ext:id="{col:metadata/md:content-id/text()}">
+	<db:book ext:url="{col:metadata/md:content-url/text()}" ext:id="{col:metadata/md:content-id/text()}" ext:repository="{col:metadata/md:repository/text()}">
 		<xsl:apply-templates select="@*|node()"/>
 	</db:book>
 </xsl:template>

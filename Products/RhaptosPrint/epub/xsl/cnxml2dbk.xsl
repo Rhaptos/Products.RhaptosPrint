@@ -57,7 +57,7 @@
     <db:section ext:element="module" ext:url="{$url}" lang="{$lang}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <xsl:attribute name="xml:lang"><xsl:value-of select="$lang"/></xsl:attribute>
-        <db:sectioninfo>
+        <db:sectioninfo ext:repository="{c:metadata/md:repository/text()}">
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>
         </db:sectioninfo>

@@ -2,6 +2,7 @@
 	xmlns:c="http://cnx.rice.edu/cnxml"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:md="http://cnx.rice.edu/mdml"
+    xmlns:ext="http://cnx.org/ns/docbook+"
     >
 <!-- This file:
 	* Does all the logging
@@ -143,7 +144,12 @@
 
 <xsl:template name="cnx.url">
     <xsl:choose>
+        <xsl:when test="//@ext:repository">
+            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using @ext:repository</xsl:with-param></xsl:call-template>
+            <xsl:value-of select="//@ext:repository[1]"/>
+        </xsl:when>
         <xsl:when test="//md:repository">
+            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using md:repository</xsl:with-param></xsl:call-template>
             <xsl:value-of select="//md:repository[1]/text()"/>
         </xsl:when>
         <xsl:otherwise>
