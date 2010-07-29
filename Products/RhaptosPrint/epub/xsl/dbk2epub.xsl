@@ -798,7 +798,9 @@
         </xsl:attribute>
     </xsl:when>
     <xsl:otherwise>
-        <span id="{$id}"/>
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Inserting a span tag instead of an anchor tag for <xsl:value-of select="local-name($node)"/></xsl:with-param></xsl:call-template>
+        <!-- Webkit parses the HTML incorrectly if a span is self-closed -->
+        <span id="{$id}"/><xsl:text> </xsl:text></span>
     </xsl:otherwise>
 </xsl:choose>
     </xsl:if>

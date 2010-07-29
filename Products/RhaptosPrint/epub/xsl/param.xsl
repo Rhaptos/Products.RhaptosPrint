@@ -84,6 +84,9 @@
 <xsl:param name="chunk.section.depth" select="0"></xsl:param>
 <xsl:param name="chunk.first.sections" select="0"></xsl:param>
 
+<!-- Generate @id attributes instead of anchor tags -->
+<xsl:param name="generate.id.attributes" select="1"/>
+
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
