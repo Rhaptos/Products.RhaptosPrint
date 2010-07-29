@@ -6,7 +6,8 @@
   version="1.0">
 
 <!-- This file: Converts a module docbook file (root is a db:section) into a db:book
-    with one db:chapter. This is done so we generate a title page and cover image.
+     with one db:preface (db:preface instead of db:chapter to prevent labeling and numbering). 
+     This is done so we generate a title page and cover image.
  -->
 
 <xsl:import href="param.xsl"/>
@@ -17,9 +18,9 @@
     <db:book>
         <xsl:apply-templates select="@*"/>
         <xsl:apply-templates select="db:sectioninfo" mode="cnx.bookify"/>
-        <db:chapter>
+        <db:preface>
             <xsl:apply-templates select="node()"/>
-        </db:chapter>
+        </db:preface>
     </db:book>
 </xsl:template>
 
@@ -37,9 +38,9 @@
 
 <xsl:template match="/db:section/db:sectioninfo">
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Discarding module-as-a-book metadata (except for the title)</xsl:with-param></xsl:call-template> 
-    <db:chapterinfo>
+    <db:prefaceinfo>
         <xsl:apply-templates select="@*|db:title|db:abstract"/>
-    </db:chapterinfo>
+    </db:prefaceinfo>
 </xsl:template>
 
 <!-- Discard all people except authors or licensors -->
