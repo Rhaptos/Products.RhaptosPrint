@@ -19,8 +19,9 @@ CONVERT="convert "
 
 #Temporary files
 CNXML=$WORKING_DIR/index.cnxml
-CNXML1=$WORKING_DIR/_cnxml1.xml
 CNXML_UPGRADED=$WORKING_DIR/index_auto_upgrade.cnxml
+CNXML1=$WORKING_DIR/_cnxml1.xml
+CNXML2=$WORKING_DIR/_cnxml2.xml
 CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
 CNXML5=$WORKING_DIR/_cnxml5.xml
@@ -56,6 +57,7 @@ EXIT_STATUS=0
 
 # remove all the temp files first so we don't accidentally use old ones
 [ -s $CNXML1 ] && rm $CNXML1
+[ -s $CNXML2 ] && rm $CNXML2
 [ -s $CNXML3 ] && rm $CNXML3
 [ -s $CNXML4 ] && rm $CNXML4
 [ -s $CNXML5 ] && rm $CNXML5
@@ -117,26 +119,31 @@ fi
 #rm $WORKING_DIR/__err.txt
 
 
-if [ ! -s $CNXML_UPGRADED ]; then
+if [ -s $CNXML_UPGRADED ]; then
+  cp $CNXML_UPGRADED $CNXML2
+else
+  echo "LOG: DEBUG: index_auto_upgraded.cnxml not found! Upgrading index.cnxml" 1>&2
   if [ ! -s $CNXML ]; then
     echo "LOG: ERROR: index.cnxml not found! Cannot convert" 1>&2
     exit 1
   fi
 
+  echo "LOG: DEBUG: Upgrading 0.5 to 0.6" 1>&2
   # Upgrade from 0.5 to 0.6
   $XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
   if [ $? != 0 ]; then
     cp $CNXML $CNXML1
   fi
 
+  echo "LOG: DEBUG: Upgrading 0.5 to 0.6" 1>&2
   # Upgrade from 0.6 to 0.7
-  $XSLTPROC -o $CNXML_UPGRADED $UPGRADE_SIX_XSL $CNXML1
+  $XSLTPROC -o $CNXML2 $UPGRADE_SIX_XSL $CNXML1
   if [ $? != 0 ]; then
-    cp $CNXML1 $CNXML_UPGRADED
+    cp $CNXML1 $CNXML2
   fi
 fi
 
-$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML_UPGRADED
+$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML2
 EXIT_STATUS=$EXIT_STATUS || $?
 
 $XSLTPROC -o $CNXML4 $CLEANUP2_XSL $CNXML3
