@@ -199,7 +199,9 @@
 	<!-- Pick the correct image. To get Music Theory to use the included SVG file, 
 	     we try to xinclude it here and then remove the xinclude in the cleanup phase.
 	 -->
-        <db:alt>
+	 <!-- Including alt text as per http://docbook.org/tdg/en/html/textobject.html -->
+        <db:textobject>
+          <db:phrase>
             <xsl:choose>
                 <!-- If the image has an alt value, use it. -->
                 <xsl:when test="@alt != ''">
@@ -258,7 +260,8 @@
                      </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
-        </db:alt>
+          </db:phrase>
+        </db:textobject>
 	<xsl:apply-templates select="c:image[contains(@src, '.eps')]"/>
 	<xsl:choose>
 	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']">

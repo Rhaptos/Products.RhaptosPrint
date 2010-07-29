@@ -2,6 +2,7 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:d="http://docbook.org/ns/docbook"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
@@ -65,21 +66,6 @@
       </xsl:attribute>
 </xsl:template>
 
-<!-- Ignore the SVG element and use the @fileref (SVG-to-PNG conversion) -->
-<xsl:template match="db:imagedata[@fileref]" xmlns:svg="http://www.w3.org/2000/svg">
-    <img src="{@fileref}">
-        <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-        <!-- Ignore the SVG child -->
-    </img>
-<!--
-  <object id="{$id}" type="image/svg+xml" data="{$chunkfn}" width="{@width}" height="{@height}">
-     <xsl:if test="svg:metadata/pmml2svg:baseline-shift">
-        <xsl:attribute name="style">position:relative; top:<xsl:value-of
-        select="svg:metadata/pmml2svg:baseline-shift" />px;</xsl:attribute>
-      </xsl:if>
-    <img src="{@fileref}" width="{@width}" height="{@height}"/>
-  </object>
---></xsl:template>
 
 <xsl:template match="db:imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
     <xsl:choose>
@@ -823,6 +809,134 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+
+<!-- Taken from docbook-xsl/epub/graphics.xsl . Added default for "alt" param. -->
+  <!-- we can't deal with no img/@alt, because it's required. Try grabbing a title before it instead (hopefully meaningful) --> 
+  <xsl:template name="process.image.attributes"> 
+    <!-- BEGIN customization -->
+    <xsl:param name="alt" select="ancestor::d:mediaobject/d:textobject[d:phrase]|ancestor::d:inlinemediaobject/d:textobject[d:phrase]"/>
+    <!-- END customization -->
+    <xsl:param name="html.width"/> 
+    <xsl:param name="html.depth"/> 
+    <xsl:param name="longdesc"/> 
+    <xsl:param name="scale"/> 
+    <xsl:param name="scalefit"/> 
+    <xsl:param name="scaled.contentdepth"/> 
+    <xsl:param name="scaled.contentwidth"/> 
+    <xsl:param name="viewport"/> 
+ 
+    <xsl:choose> 
+      <xsl:when test="@contentwidth or @contentdepth"> 
+        <!-- ignore @width/@depth, @scale, and @scalefit if specified --> 
+        <xsl:if test="@contentwidth and $scaled.contentwidth != ''"> 
+          <xsl:attribute name="width"> 
+            <xsl:value-of select="$scaled.contentwidth"/> 
+          </xsl:attribute> 
+        </xsl:if> 
+        <xsl:if test="@contentdepth and $scaled.contentdepth != ''"> 
+          <xsl:attribute name="height"> 
+            <xsl:value-of select="$scaled.contentdepth"/> 
+          </xsl:attribute> 
+        </xsl:if> 
+      </xsl:when> 
+ 
+      <xsl:when test="number($scale) != 1.0"> 
+        <!-- scaling is always uniform, so we only have to specify one dimension --> 
+        <!-- ignore @scalefit if specified --> 
+        <xsl:attribute name="width"> 
+          <xsl:value-of select="$scaled.contentwidth"/> 
+        </xsl:attribute> 
+      </xsl:when> 
+ 
+      <xsl:when test="$scalefit != 0"> 
+        <xsl:choose> 
+          <xsl:when test="contains($html.width, '%')"> 
+            <xsl:choose> 
+              <xsl:when test="$viewport != 0"> 
+                <!-- The *viewport* will be scaled, so use 100% here! --> 
+                <xsl:attribute name="width"> 
+                  <xsl:value-of select="'100%'"/> 
+                </xsl:attribute> 
+              </xsl:when> 
+              <xsl:otherwise> 
+                <xsl:attribute name="width"> 
+                  <xsl:value-of select="$html.width"/> 
+                </xsl:attribute> 
+              </xsl:otherwise> 
+            </xsl:choose> 
+          </xsl:when> 
+ 
+          <xsl:when test="contains($html.depth, '%')"> 
+            <!-- HTML doesn't deal with this case very well...do nothing --> 
+          </xsl:when> 
+ 
+          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''                         and $scaled.contentdepth != '' and $html.depth != ''"> 
+            <!-- scalefit should not be anamorphic; figure out which direction --> 
+            <!-- has the limiting scale factor and scale in that direction --> 
+            <xsl:choose> 
+              <xsl:when test="$html.width div $scaled.contentwidth &gt;                             $html.depth div $scaled.contentdepth"> 
+                <xsl:attribute name="height"> 
+                  <xsl:value-of select="$html.depth"/> 
+                </xsl:attribute> 
+              </xsl:when> 
+              <xsl:otherwise> 
+                <xsl:attribute name="width"> 
+                  <xsl:value-of select="$html.width"/> 
+                </xsl:attribute> 
+              </xsl:otherwise> 
+            </xsl:choose> 
+          </xsl:when> 
+ 
+          <xsl:when test="$scaled.contentwidth != '' and $html.width != ''"> 
+            <xsl:attribute name="width"> 
+              <xsl:value-of select="$html.width"/> 
+            </xsl:attribute> 
+          </xsl:when> 
+ 
+          <xsl:when test="$scaled.contentdepth != '' and $html.depth != ''"> 
+            <xsl:attribute name="height"> 
+              <xsl:value-of select="$html.depth"/> 
+            </xsl:attribute> 
+          </xsl:when> 
+        </xsl:choose> 
+      </xsl:when> 
+    </xsl:choose> 
+ 
+    <!-- AN OVERRIDE --> 
+    <xsl:if test="not(@format ='SVG')"> 
+      <xsl:attribute name="alt"> 
+        <xsl:choose> 
+          <xsl:when test="$alt != ''"> 
+            <xsl:value-of select="normalize-space($alt)"/> 
+          </xsl:when> 
+          <xsl:when test="preceding::d:title[1]"> 
+            <xsl:value-of select="normalize-space(preceding::d:title[1])"/> 
+          </xsl:when> 
+          <xsl:otherwise> 
+            <xsl:text>(missing alt)</xsl:text> 
+          </xsl:otherwise> 
+        </xsl:choose> 
+      </xsl:attribute> 
+    </xsl:if> 
+    <!-- END OF OVERRIDE --> 
+ 
+    <xsl:if test="$longdesc != ''"> 
+      <xsl:attribute name="longdesc"> 
+        <xsl:value-of select="$longdesc"/> 
+      </xsl:attribute> 
+    </xsl:if> 
+ 
+    <xsl:if test="@align and $viewport = 0"> 
+      <xsl:attribute name="style"><xsl:text>text-align: </xsl:text> 
+        <xsl:choose> 
+          <xsl:when test="@align = 'center'">middle</xsl:when> 
+          <xsl:otherwise> 
+            <xsl:value-of select="@align"/> 
+          </xsl:otherwise> 
+        </xsl:choose> 
+      </xsl:attribute> 
+    </xsl:if> 
+  </xsl:template> 
 
 </xsl:stylesheet>
 
