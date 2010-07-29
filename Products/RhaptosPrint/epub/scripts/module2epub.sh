@@ -1,8 +1,9 @@
 #!/bin/sh
 
 # 1st arg is the path to the collection
-# 2nd arg (optional) is the module name
-# 3rd arg is the epub zip file
+# 2nd arg is the epub zip file
+# 3rd arg is the path to the dbk2___.xsl file ("epub" for epub generation, and "html" for the html zip)
+
 WORKING_DIR=$1
 EPUB_FILE=$2
 DBK_TO_HTML_XSL=$3
@@ -20,7 +21,6 @@ fi
 if [ -s $WORKING_DIR/index.cnxml ]; then 
   DBK_FILE=$WORKING_DIR/index.dbk
   MODULE=`basename $WORKING_DIR`;
-  MODULE=${MODULE%%_*}
   bash $ROOT/scripts/module2dbk.sh $WORKING_DIR $MODULE
   EXIT_STATUS=$EXIT_STATUS || $?
 
