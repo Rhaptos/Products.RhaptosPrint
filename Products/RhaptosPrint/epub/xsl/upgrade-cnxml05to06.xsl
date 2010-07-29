@@ -26,27 +26,27 @@
     </xsl:variable>
     <xsl:variable name="url">
         <xsl:call-template name="cnx.url"/>
-        <xsl:call-template name="cnx.module.id"/>
+        <xsl:value-of select="$cnx.module.id"/>
         <xsl:text>/</xsl:text>
         <xsl:value-of select="$version"/>
         <xsl:text>/index.cnxml/@@metadata</xsl:text>
     </xsl:variable>
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: NET: Getting md:metadata info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
     <xsl:variable name="metadata" select="document($url)"/>
-    <xsl:copy>
-        <xsl:apply-templates select="@*"/>
 	    <xsl:choose>
 	        <xsl:when test="count($metadata) != 0">
-	            <xsl:call-template name="cnx.copy.remote">
-	                <xsl:with-param name="nodes" select="$metadata/metadata/*"/>
-	            </xsl:call-template>
+			    <xsl:copy>
+			        <xsl:apply-templates select="@*"/>
+			        <xsl:call-template name="cnx.copy.remote">
+			            <xsl:with-param name="nodes" select="$metadata/metadata/*"/>
+			        </xsl:call-template>
+			    </xsl:copy>
 	        </xsl:when>
 	        <xsl:otherwise>
 	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: NET: Could not get md:metadata info from url '<xsl:value-of select="$url"/>'</xsl:with-param></xsl:call-template>
-                <xsl:apply-templates select="node()"/>
+                <xsl:apply-imports/>
 	        </xsl:otherwise>
 	    </xsl:choose>
-    </xsl:copy>
 </xsl:template>
 
 <!-- XSL doesn't allow xsl:apply-templates on remotely-retrieved nodes, so copy them manually -->
