@@ -95,6 +95,7 @@
 <!-- Use .html for viewing in IE
      Use .xhtml so browsers are in XML-mode (and render inline SVG). -->
 <xsl:param name="html.ext">.html</xsl:param>
+<xsl:param name="chunker.output.omit-xml-declaration" select="'yes'"/>
 
 <!-- There are 2 namespaces for mdml, so we convert the old one to the new one, and process it -->
 <xsl:param name="exsl.node.set.available"> 

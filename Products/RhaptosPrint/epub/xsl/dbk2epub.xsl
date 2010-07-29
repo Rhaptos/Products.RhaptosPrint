@@ -33,6 +33,7 @@
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
+<xsl:param name="chunker.output.omit-xml-declaration" select="'yes'"/>
 
 <!-- Prevent a TOC from being generated for module EPUBs -->
 <xsl:param name="generate.toc">
@@ -49,7 +50,7 @@
 <!-- Defined in docbook-xsl/epub/docbook.xsl but the default does not use the $html.ext defined in docbook -->
 <xsl:param name="epub.cover.html" select="concat('cover', $html.ext)" />
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
 
 <!-- Output the PNG with the baseline info -->
 <xsl:template match="@pmml2svg:baseline-shift">
