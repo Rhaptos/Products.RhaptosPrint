@@ -43,7 +43,7 @@ UPGRADE_SIX_XSL=$ROOT/xsl/upgrade-cnxml06to07.xsl
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
-CNXML_UPGRADEDDOCBOOK_XSL=$ROOT/xsl/CNXML_UPGRADEDdbk.xsl
+CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
@@ -160,7 +160,7 @@ $XSLTPROC --xinclude -o $DERIVED_POST $INCLUDE_DERIVED_FROM_CLEANUP_XSL $DERIVED
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML_UPGRADEDDOCBOOK_XSL $DERIVED_POST
+$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $DERIVED_POST
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG
