@@ -33,6 +33,18 @@
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
 
+<!-- Prevent a TOC from being generated for module EPUBs -->
+<xsl:param name="generate.toc">
+  <xsl:choose>
+    <xsl:when test="db:book/@ext:element='module'">
+      book nop
+    </xsl:when>
+    <xsl:otherwise>
+      book toc,title
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
+
 <!-- Defined in docbook-xsl/epub/docbook.xsl but the default does not use the $html.ext defined in docbook -->
 <xsl:param name="epub.cover.html" select="concat('cover', $html.ext)" />
 
