@@ -164,7 +164,7 @@ text-align: left;
 
 /* ========== list & item ========== */
 
-div.itemizedlist{
+div.itemizedlist, div.orderedlist{
   margin: 1em 0;
 }
 

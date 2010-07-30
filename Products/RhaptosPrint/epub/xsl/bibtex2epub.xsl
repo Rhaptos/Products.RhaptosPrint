@@ -6,19 +6,6 @@
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns="http://www.w3.org/1999/xhtml" >
 
-  <!-- Bibtex File -->
-  <xsl:template match="bib:file">
-    <ol>
-      <xsl:apply-templates/>
-    </ol>
-  </xsl:template>
-
-  <xsl:template match="bib:entry">
-    <li id="{@id}">
-      <xsl:apply-templates/>
-    </li>
-  </xsl:template>
-
   <!-- BOOK and BOOKLET and INBOOK -->
   <xsl:template match="bib:book|bib:booklet|bib:inbook">
     <xsl:apply-templates select="bib:author|bib:editor"/>

@@ -89,14 +89,21 @@
         <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
 </xsl:template>
+<xsl:template match="bib:file">
+    <db:orderedlist>
+        <xsl:apply-templates select="node()"/>
+    </db:orderedlist>
+</xsl:template>
 <!-- Every bib:entry must have @id, not @xml:id -->
 <xsl:template match="bib:entry">
-    <xsl:copy>
+    <db:listitem>
         <xsl:attribute name="id">
             <xsl:call-template name="cnx.id"/>
         </xsl:attribute>
-        <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
+        <db:para>
+          <xsl:apply-templates select="@*|node()"/>
+        </db:para>
+    </db:listitem>
 </xsl:template>
 
 
