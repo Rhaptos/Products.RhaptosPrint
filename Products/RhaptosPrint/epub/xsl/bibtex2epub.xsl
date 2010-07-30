@@ -111,6 +111,9 @@
   <xsl:variable name="ampersand">&amp;</xsl:variable>
   <xsl:variable name="semicolon">;</xsl:variable>
 
+  <!-- Don't output empty elements. Docbook will output these as code and make them red. -->
+  <xsl:template match="bib:*[string-length(normalize-space(text()))=0]" priority="-1"/>
+
   <!-- AUTHOR, BOOKTITLE, CHAPTER, INSTITUTION, ORGANIZATION, PUBLISHER, TYPE, HOWPUBLISHED (adds period, unless element already ends in punctuation) -->
   <xsl:template match="bib:author[string-length(normalize-space(text()))>0]       |
                        bib:booktitle[string-length(normalize-space(text()))>0]    |

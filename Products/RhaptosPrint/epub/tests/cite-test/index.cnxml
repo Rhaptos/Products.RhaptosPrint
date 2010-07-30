@@ -87,6 +87,16 @@
 	</content>
 
    <bib:file>
+
+                <bib:entry id="tropp1">
+                        <bib:article>
+                                <bib:author>Tropp, Joel A.</bib:author>
+                                <bib:title>Greed Is Good: Algorithmic Results for Sparse Approximation</bib:title>
+                                <bib:journal/>
+                                <bib:year>2003</bib:year>
+                        </bib:article>
+                </bib:entry>
+
           <bib:entry id="esbensen">
       <bib:book>
     <bib:author>Kim Esbensen; Tonje Midtgaard; Suzanne Schonkopf</bib:author>
