@@ -23,6 +23,7 @@
 <xsl:import href="param.xsl"/>
 <xsl:include href="dbkplus.xsl"/>
 <xsl:include href="table2epub.xsl"/>
+<xsl:include href="bibtex2epub.xsl"/>
 
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>

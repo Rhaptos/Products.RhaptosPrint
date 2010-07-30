@@ -71,7 +71,16 @@
         	</db:section>
         </xsl:if>
         <xsl:apply-templates select="c:glossary"/>
-        <xsl:apply-templates select="bib:file"/>
+        <xsl:for-each select="bib:file">
+            <db:section>
+                <xsl:apply-templates select="@*"/>
+                <db:title>
+                    <!-- TODO: gentext for 'References' -->
+                    <xsl:text>References</xsl:text>
+                </db:title>
+                <xsl:apply-templates select="self::bib:file"/>
+            </db:section>
+        </xsl:for-each>
     </db:section>
 </xsl:template>
 
