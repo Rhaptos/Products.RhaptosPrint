@@ -143,18 +143,31 @@
 </xsl:template>
 
 <xsl:template name="cnx.url">
+    <xsl:variable name="url">
+	    <xsl:choose>
+	        <xsl:when test="//@ext:repository">
+	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using @ext:repository</xsl:with-param></xsl:call-template>
+	            <xsl:value-of select="//@ext:repository[1]"/>
+	        </xsl:when>
+	        <xsl:when test="//md:repository">
+	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using md:repository</xsl:with-param></xsl:call-template>
+	            <xsl:value-of select="//md:repository[1]/text()"/>
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Using xslt cnx.url property (as a last resort).</xsl:with-param></xsl:call-template>
+	            <xsl:value-of select="$cnx.url"/>
+	        </xsl:otherwise>
+	    </xsl:choose>
+    </xsl:variable>
     <xsl:choose>
-        <xsl:when test="//@ext:repository">
-            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using @ext:repository</xsl:with-param></xsl:call-template>
-            <xsl:value-of select="//@ext:repository[1]"/>
-        </xsl:when>
-        <xsl:when test="//md:repository">
-            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using md:repository</xsl:with-param></xsl:call-template>
-            <xsl:value-of select="//md:repository[1]/text()"/>
+        <xsl:when test="starts-with($url, 'http://foo/')">
+            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found md:repository with a url that starts with 'http://foo/'</xsl:with-param></xsl:call-template>
+            <xsl:value-of select="$cnx.url"/>
+            <xsl:value-of select="substring-after($url, '/content/')"/>
+            <xsl:text>/</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Using xslt cnx.url property (as a last resort).</xsl:with-param></xsl:call-template>
-            <xsl:value-of select="$cnx.url"/>
+            <xsl:value-of select="$url"/>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
