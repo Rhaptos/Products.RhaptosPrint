@@ -148,10 +148,12 @@
 	        <xsl:when test="//@ext:repository">
 	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using @ext:repository</xsl:with-param></xsl:call-template>
 	            <xsl:value-of select="//@ext:repository[1]"/>
+                <xsl:text>/</xsl:text>
 	        </xsl:when>
 	        <xsl:when test="//md:repository">
 	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: For cnx.url using md:repository</xsl:with-param></xsl:call-template>
 	            <xsl:value-of select="//md:repository[1]/text()"/>
+	            <xsl:text>/</xsl:text>
 	        </xsl:when>
 	        <xsl:otherwise>
 	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Using xslt cnx.url property (as a last resort).</xsl:with-param></xsl:call-template>
@@ -161,10 +163,12 @@
     </xsl:variable>
     <xsl:choose>
         <xsl:when test="starts-with($url, 'http://foo/')">
-            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found md:repository with a url that starts with 'http://foo/'</xsl:with-param></xsl:call-template>
-            <xsl:value-of select="$cnx.url"/>
-            <xsl:value-of select="substring-after($url, '/content/')"/>
-            <xsl:text>/</xsl:text>
+            <xsl:variable name="url2">
+	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Found md:repository with a url that starts with 'http://foo/'</xsl:with-param></xsl:call-template>
+	            <xsl:value-of select="$cnx.url"/>
+	            <xsl:value-of select="substring-after($url, '/content/')"/>
+	        </xsl:variable>
+            <xsl:value-of select="$url2"/>
         </xsl:when>
         <xsl:otherwise>
             <xsl:value-of select="$url"/>

@@ -25,6 +25,7 @@
         <!-- Wrap the value in single quotes so it is treated as a string by xsltproc -->
         <xsl:text> "</xsl:text>
         <xsl:value-of select="text()"/>
+        <xsl:text>/</xsl:text>
         <xsl:text>"</xsl:text>
         <!-- Print a newline -->
         <xsl:text>
