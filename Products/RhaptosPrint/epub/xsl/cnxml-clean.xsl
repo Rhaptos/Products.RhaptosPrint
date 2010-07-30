@@ -36,6 +36,14 @@ xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
 	</c:link>
 </xsl:template>
 
+<!-- Some modules (like m11938) have a c:link/@document=''. Replace it with the current module id -->
+<xsl:template match="c:link[@document='']/@document">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: replacing c:link/@document='' with the current module id</xsl:with-param></xsl:call-template>
+    <xsl:attribute name="document">
+        <xsl:value-of select="$cnx.module.id"/>
+    </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:media[@src]">
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
