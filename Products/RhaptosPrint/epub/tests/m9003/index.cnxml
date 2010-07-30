@@ -26,6 +26,45 @@
 </metadata>
 
 	<content>
+
+    <section xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="conclusions">
+      <name xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/">Rounding Off the Experience</name>
+      <para xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="concp1">
+        The experience of grilling a steak in your own back yard is
+        part of what makes the home cooked steak so enjoyable.  It is
+        necessary to cook in the evening as it is getting cool and to
+        enjoy your beverage of choice.  Finally, one of the best ways to
+        enjoy a steak is in the company of your friends.
+      </para>
+      <para xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="cookingexam">
+        To make sure that you were paying attention to my tutorial, I've
+        included a one question exam:
+      </para>
+
+      <exercise xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="grilltest">
+        <problem xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/">
+          <para xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="grilltestp1">
+            For food safety, a steak should be cooked to a minimum
+            temperature of what?
+          </para>
+        </problem>
+        <solution xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/">
+          <para xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="sol1p1">
+            160 F or until the juices run clear and the meat is no
+            longer pink
+          </para>
+
+        </solution>
+      </exercise>
+      <para xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" id="tobecontinued">
+        For more marinades see
+        the <link xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" src="http://www.2eatcab.com">Angus Beef website</link>.
+        Finally, a good resource is the <cite xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/">Steak Lover's Cookbook --
+          William Rice; Paperback</cite>.  
+      </para>
+    </section>
+
+
 		<para id="opening_paragraph"><title>Title of paragraph</title>This brief paragraph was put in before a section tag 
 to ensure that it was styled correctly.</para><equation id="content_equation">
 			<name>This equation has been thrown in as a child of content for styling purposes.</name>
