@@ -188,6 +188,11 @@ ol.orderedlist{
   padding: .5em 0 .25em;
 }
 
+/* override for "attributions" section */
+.appendix .simplelist td{
+  padding: .1em;
+}
+
 .simplelist ul.itemizedlist{ margin-left: 2.1em; }
 .simplelist ol.orderedlist{ margin-left: 2.5em; }
 
