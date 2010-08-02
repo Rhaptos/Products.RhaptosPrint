@@ -369,6 +369,15 @@ cumulative relative frequencies to three decimal places.</item>
             </code>
         </section>
 
+        <section><title>Misc problems</title>
+            <para>A catch-all for bugs in tickets</para>
+            <media id="media1" alt="Media alternate text"><image id="image1" src="non-existant.png" mime-type="image/png"/></media>
+            <list>
+                <item><link target-id="media1"/> : A link to the preceeding media element</item>
+                <item><link target-id="image1"/> : A link to the preceeding image element</item>
+            </list>
+        </section>
+
 	</content>
 
         <glossary id="gloss">                  
