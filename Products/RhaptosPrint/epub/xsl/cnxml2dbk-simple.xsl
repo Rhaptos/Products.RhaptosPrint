@@ -257,10 +257,18 @@
     </xsl:choose>
 </xsl:template>
 
-<xsl:template match="c:code">
+<xsl:template match="c:code" name="cnx.convert.code">
     <db:code><xsl:apply-templates select="@*|node()"/></db:code>
 </xsl:template>
-<xsl:template match="c:code[@display='block']">
+<xsl:template match="c:code[c:title]">
+    <db:formalpara>
+        <xsl:apply-templates select="@*|c:title"/>
+        <db:screen>
+            <xsl:apply-templates select="node()[not(self::c:title)]"/>
+        </db:screen>
+    </db:formalpara>
+</xsl:template>
+<xsl:template match="c:code[not(c:title) and @display='block']">
     <db:screen><xsl:apply-templates select="@*|node()"/></db:screen>
     <!-- db:programlisting or db:literallayout/db:code are two potential alterantives to db:screen -->
 </xsl:template>

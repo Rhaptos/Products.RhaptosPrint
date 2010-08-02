@@ -360,6 +360,14 @@ cumulative relative frequencies to three decimal places.</item>
 </item>
 <item><label>c</label>Construct a box plot and a histogram on the same set of axes.  Make comments about the box plot, the histogram, and the chart.</item></list>
 
+        <section><title>Red db:title cases</title>
+            <para>There are several cases where a red "&lt;db:title&gt;blah-blah&lt;/db:title&gt;" are generated in the epub.
+                Below are several cases where the text did pop up (and should be fixed)
+            </para>
+            <code display="block"><title>The title of a code block</title>
+            Some code
+            </code>
+        </section>
 
 	</content>
 
