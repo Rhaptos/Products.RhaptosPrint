@@ -21,6 +21,7 @@ fi
 if [ -s $WORKING_DIR/index.cnxml ]; then 
   DBK_FILE=$WORKING_DIR/index.dbk
   MODULE=`basename $WORKING_DIR`;
+  MODULE=${MODULE%%_*}
   bash $ROOT/scripts/module2dbk.sh $WORKING_DIR $MODULE
   EXIT_STATUS=$EXIT_STATUS || $?
 
