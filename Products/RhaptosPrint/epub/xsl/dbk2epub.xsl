@@ -491,6 +491,8 @@
     <xsl:variable name="collectionAuthorgroup" select="db:bookinfo/db:authorgroup[@role='collection' or not(../db:authorgroup[@role='collection'])]"/>
     <xsl:variable name="collectionAuthors" select="$collectionAuthorgroup/db:author"/>
     <xsl:variable name="moduleAuthors" select="db:bookinfo/db:authorgroup[@role='module' or not(../db:authorgroup[@role='module'])]/db:author"/>
+    <!-- Only modules have editors -->
+    <xsl:variable name="editors" select="db:bookinfo/db:authorgroup[not(@role)]/db:editor"/>
     <xsl:variable name="translators" select="$collectionAuthorgroup/db:othercredit[@class='translator']"/>
     <xsl:variable name="licensors" select="$collectionAuthorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
     <xsl:variable name="authorsMismatch">
@@ -534,6 +536,17 @@
             </xsl:call-template>
         </span>
     </div>
+    <!-- Only for modules -->
+    <xsl:if test="$editors">
+        <div>
+            <strong><xsl:text>Edited by: </xsl:text></strong>
+            <span>
+                <xsl:call-template name="person.name.list">
+                    <xsl:with-param name="person.list" select="$editors"/>
+                </xsl:call-template>
+            </span>
+        </div>
+    </xsl:if>
     <xsl:if test="$translators">
         <div id="title_page_translators">
             <strong><xsl:text>Translated by: </xsl:text></strong>
@@ -560,7 +573,7 @@
         <strong><xsl:text>Online: </xsl:text></strong>
         <span>
             <xsl:call-template name="cnx.cuteurl">
-                <xsl:with-param name="url" select="concat(@ext:url,'/')"/>
+                <xsl:with-param name="url" select="concat(@ext:url, '/')"/>
             </xsl:call-template>
         </span>
     </div>

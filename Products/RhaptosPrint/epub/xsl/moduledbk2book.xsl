@@ -43,6 +43,6 @@
     </db:prefaceinfo>
 </xsl:template>
 
-<!-- Discard all people except authors or licensors -->
-<xsl:template match="db:sectioninfo/db:authorgroup/db:editor|db:sectioninfo/db:authorgroup/db:othercredit[not(db:credit/text()='licensor')]"/>
+<!-- Discard all people except maintainers -->
+<xsl:template match="db:sectioninfo/db:authorgroup/db:othercredit[db:contrib/text()='maintainer']"/>
 </xsl:stylesheet>
