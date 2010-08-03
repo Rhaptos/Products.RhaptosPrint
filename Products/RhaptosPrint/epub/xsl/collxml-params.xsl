@@ -20,7 +20,7 @@
   </xsl:template>
 
   <!-- This file outputs the md:repository to be used as args to xsltproc -->
-  <xsl:template match="md:repository">
+  <xsl:template match="col:metadata/md:repository">
         <xsl:text>cnx.url</xsl:text>
         <!-- Wrap the value in single quotes so it is treated as a string by xsltproc -->
         <xsl:text> "</xsl:text>
