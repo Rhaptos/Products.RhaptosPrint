@@ -51,11 +51,18 @@
                 <xsl:value-of select="$attribution.section.id"/>
             </xsl:attribute>
             <db:title>Attributions</db:title>
-            <xsl:for-each select=".//db:prefaceinfo|.//db:chapterinfo|.//db:sectioninfo|.//db:appendixinfo">
+            <xsl:for-each select=".//db:bookinfo|.//db:prefaceinfo|.//db:chapterinfo|.//db:sectioninfo|.//db:appendixinfo">
                 <xsl:variable name="id">
-                    <xsl:call-template name="cnx.id">
-                        <xsl:with-param name="object" select=".."/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="self::db:bookinfo">
+                            <xsl:value-of select="parent::db:book/@ext:id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="cnx.id">
+                                <xsl:with-param name="object" select=".."/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="url">
                     <xsl:call-template name="cnx.repository.url"/>
@@ -99,12 +106,23 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
+                        <xsl:variable name="collectionAuthorgroup" select="db:authorgroup[@role='collection' or not(../db:authorgroup[@role='collection'])]"/>
                         <db:member>
                             <xsl:apply-templates select="db:title/@*"/>
-                            <xsl:text>Module: </xsl:text>
-                            <db:link linkend="{$id}">
-                                <xsl:copy-of select="$originalTitle"/>
-                            </db:link>
+                            <xsl:choose>
+                                <xsl:when test="self::db:bookinfo">
+                                    <xsl:text>Collection: </xsl:text>
+                                    <db:emphasis role="bold">
+                                        <xsl:copy-of select="$originalTitle"/>
+                                    </db:emphasis>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>Module: </xsl:text>
+                                    <db:link linkend="{$id}">
+                                        <xsl:copy-of select="$originalTitle"/>
+                                    </db:link>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </db:member>
                         <xsl:if test="ext:original-title and $titlesDiffer">
                             <db:member>
@@ -113,10 +131,20 @@
                             </db:member>
                         </xsl:if>
                         <db:member>
-                            <xsl:text>By: </xsl:text>
-                            <ext:persons>
-                                <xsl:apply-templates select="db:authorgroup/db:author"/>
-                            </ext:persons>
+                            <xsl:choose>
+                                <xsl:when test="self::db:bookinfo">
+                                    <xsl:text>Edited by: </xsl:text>
+                                    <ext:persons>
+                                        <xsl:apply-templates select="$collectionAuthorgroup/db:author"/>
+                                    </ext:persons>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>By: </xsl:text>
+                                    <ext:persons>
+                                        <xsl:apply-templates select="db:authorgroup/db:author"/>
+                                    </ext:persons>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </db:member>
                         <xsl:if test="db:authorgroup/db:editor">
                             <db:member>
@@ -126,14 +154,28 @@
                                 </ext:persons>
                             </db:member>
                         </xsl:if>
-                        <xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
-                            <db:member>
-                                <xsl:text>Translated by: </xsl:text>
-                                <ext:persons>
-                                    <xsl:apply-templates select="db:authorgroup/db:othercredit[@class='translator']"/>
-                                </ext:persons>
-                            </db:member>
-                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="self::db:bookinfo">
+                                <xsl:if test="$collectionAuthorgroup/db:othercredit[@class='translator']">
+                                    <db:member>
+                                        <xsl:text>Translated by: </xsl:text>
+                                        <ext:persons>
+                                            <xsl:apply-templates select="$collectionAuthorgroup/db:othercredit[@class='translator']"/>
+                                        </ext:persons>
+                                    </db:member>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:if test="db:authorgroup/db:othercredit[@class='translator']">
+                                    <db:member>
+                                        <xsl:text>Translated by: </xsl:text>
+                                        <ext:persons>
+                                            <xsl:apply-templates select="db:authorgroup/db:othercredit[@class='translator']"/>
+                                        </ext:persons>
+                                    </db:member>
+                                </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <db:member>
                             <xsl:text>URL: </xsl:text>
                             <db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
@@ -143,9 +185,18 @@
                                  Can somebody be removed once we populate this info for 0.5 modules -->
                             <db:member>
                                 <xsl:text>Copyright: </xsl:text>
-                                <ext:persons>
-                                    <xsl:apply-templates select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
-                                </ext:persons>
+                                <xsl:choose>
+                                    <xsl:when test="self::db:bookinfo">
+                                        <ext:persons>
+                                            <xsl:apply-templates select="$collectionAuthorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+                                        </ext:persons>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <ext:persons>
+                                            <xsl:apply-templates select="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor']"/>
+                                        </ext:persons>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </db:member>
                         </xsl:if>
                         <xsl:if test="db:legalnotice">

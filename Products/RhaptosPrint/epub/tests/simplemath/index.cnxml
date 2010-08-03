@@ -12,6 +12,7 @@
   </md:actors>
   <md:roles>
     <md:role type="author">phil</md:role>
+    <md:role type="translator">phil</md:role>
   </md:roles>
 </metadata>
 
