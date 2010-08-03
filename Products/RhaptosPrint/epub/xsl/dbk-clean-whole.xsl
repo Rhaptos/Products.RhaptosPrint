@@ -154,6 +154,10 @@
 					<xsl:when test="@version">
 						<xsl:value-of select="@version"/>
 					</xsl:when>
+					<xsl:when test="key('id', @document)">
+					   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to a resource and using the contained module version</xsl:with-param></xsl:call-template>
+					   <xsl:value-of select="key('id', @document)/@ext:version"/>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>latest</xsl:text>
 					</xsl:otherwise>

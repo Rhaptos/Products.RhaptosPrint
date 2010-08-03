@@ -49,12 +49,10 @@
 <xsl:template match="c:document">
     <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
                                                   .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
-    <xsl:variable name="url">
-        <xsl:call-template name="cnx.url"/>
-        <xsl:value-of select="$cnx.module.id"/>
-    </xsl:variable>
     <xsl:variable name="lang" select="c:metadata/md:language/text()"/>
-    <db:section ext:element="module" ext:url="{$url}" lang="{$lang}">
+    <db:section ext:element="module" lang="{$lang}"
+            ext:url="{c:metadata/md:content-url/text()}/"
+            ext:version="{c:metadata/md:version/text()}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <xsl:attribute name="xml:lang"><xsl:value-of select="$lang"/></xsl:attribute>
         <db:sectioninfo ext:repository="{c:metadata/md:repository/text()}">
@@ -304,14 +302,16 @@
 		<xsl:value-of select="$cnx.module.id"/>
 		<xsl:value-of select="$cnx.module.separator"/>
 	</xsl:variable>
+	<xsl:variable name="version" select="/c:document/c:metadata/md:version"/>
 	<xsl:variable name="url">
 		<xsl:call-template name="cnx.url"/>
 		<xsl:value-of select="$cnx.module.id"/>
         <xsl:text>/</xsl:text>
-		<xsl:if test="not(/c:document/c:metadata/md:version)">
+		<xsl:if test="not($version)">
+		  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: This module does not have a md:version tag</xsl:with-param></xsl:call-template>
 		  <xsl:text>latest</xsl:text>
 		</xsl:if>
-		<xsl:value-of select="/c:document/c:metadata/md:version"/>
+		<xsl:value-of select="$version"/>
 		<xsl:text>/#</xsl:text>
 		<xsl:value-of select="substring-after($fullId, $modulePrefix)"/>
 	</xsl:variable>
@@ -647,6 +647,5 @@
 <xsl:template match="c:metadata">
 	<xsl:apply-templates/>
 </xsl:template>
-
 
 </xsl:stylesheet>

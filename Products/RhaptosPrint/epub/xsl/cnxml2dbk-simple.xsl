@@ -5,7 +5,7 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
@@ -200,6 +200,9 @@
         <xsl:choose>
             <xsl:when test="@version">
                 <xsl:value-of select="@version"/>
+            </xsl:when>
+            <xsl:when test="not(@document) or @document=$cnx.module.id">
+                <xsl:value-of select="/c:document/c:metadata/md:version/text()"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>latest</xsl:text>

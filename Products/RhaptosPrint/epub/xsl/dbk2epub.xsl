@@ -573,7 +573,7 @@
         <strong><xsl:text>Online: </xsl:text></strong>
         <span>
             <xsl:call-template name="cnx.cuteurl">
-                <xsl:with-param name="url" select="concat(@ext:url, '/')"/>
+                <xsl:with-param name="url" select="@ext:url"/>
             </xsl:call-template>
         </span>
     </div>
