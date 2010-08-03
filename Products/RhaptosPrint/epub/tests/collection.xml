@@ -119,6 +119,8 @@ v&#7851;n&#273;&#236;nh&#22899;&#23130;&#12375;&#12383;</md:title>
   
   <col:content>
 
+      <col:module document="m12818"/>
+
       <col:module document="simplemath">
         <md:title>Overriding title for [simplemath]</md:title>
         <col:featured-links>

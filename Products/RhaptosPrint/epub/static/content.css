@@ -81,6 +81,10 @@ h1, .titlepage h1, .book h2{
   margin-top: 3em;
 }
 
+#title_page_derivation{
+  font-size: .9em;
+}
+
 /* ============== ToC ============= */
 
 .toc dt{

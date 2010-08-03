@@ -557,18 +557,24 @@
             </span>
         </div>
     </xsl:if>
-    <xsl:if test="db:bookinfo/ext:derived-from">
+    <xsl:for-each select="db:bookinfo/ext:derived-from">
         <div id="title_page_derivation">
         <strong><xsl:text>Based on: </xsl:text></strong>
         <span>
-            <xsl:apply-templates select="db:bookinfo/ext:derived-from/db:title/node()"/>
+            <xsl:apply-templates select="db:title/node()"/>
             <xsl:call-template name="cnx.cuteurl">
-                <xsl:with-param name="url" select="db:bookinfo/ext:derived-from/@url"/>
+                <xsl:with-param name="url" select="@url"/>
             </xsl:call-template>
+            <xsl:if test="ancestor::db:book[@ext:element='module']">
+                <xsl:text> by </xsl:text>
+                <xsl:call-template name="person.name.list">
+                    <xsl:with-param name="person.list" select="db:authorgroup/db:author"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:text>.</xsl:text>
         </span>
         </div>
-    </xsl:if>
+    </xsl:for-each>
     <div id="title_page_url">
         <strong><xsl:text>Online: </xsl:text></strong>
         <span>
