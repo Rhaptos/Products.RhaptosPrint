@@ -147,7 +147,7 @@
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:variable name="url">
-				<xsl:call-template name="cnx.url"/>
+				<xsl:call-template name="cnx.repository.url"/>
 				<xsl:value-of select="@document"/>
 				<xsl:text>/</xsl:text>
 				<xsl:choose>

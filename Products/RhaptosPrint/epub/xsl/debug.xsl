@@ -142,7 +142,7 @@
 	<xsl:value-of select="$object/@xml:id"/>
 </xsl:template>
 
-<xsl:template name="cnx.url">
+<xsl:template name="cnx.repository.url">
     <xsl:variable name="url">
 	    <xsl:choose>
 	        <xsl:when test="//@ext:repository">

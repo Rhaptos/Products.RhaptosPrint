@@ -12,7 +12,7 @@
 
 <!-- Used to update the ids so they are unique within a collection -->
 <xsl:param name="cnx.module.id"/>
-<xsl:param name="cnx.url">http://cnx.org/content/</xsl:param>
+<xsl:param name="cnx.repository.url">http://cnx.org/content/</xsl:param>
 <!-- Possible options for this param:
 	* "" to disable chunking
 	* "svg" to chunk but not convert

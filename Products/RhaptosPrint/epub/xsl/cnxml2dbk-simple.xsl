@@ -220,7 +220,7 @@
     				</xsl:when>
     				<xsl:otherwise>
 				   		<xsl:if test="$cnx.resource.local = 0">
-					    	<xsl:call-template name="cnx.url"/>
+					    	<xsl:call-template name="cnx.repository.url"/>
 					    </xsl:if>
 					    <xsl:value-of select="$document"/>
 					    <xsl:text>/</xsl:text>

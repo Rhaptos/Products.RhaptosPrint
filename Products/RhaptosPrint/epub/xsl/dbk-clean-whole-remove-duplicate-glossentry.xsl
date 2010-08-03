@@ -58,7 +58,7 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:variable name="url">
-                    <xsl:call-template name="cnx.url"/>
+                    <xsl:call-template name="cnx.repository.url"/>
                     <xsl:value-of select="$id"/>
                     <xsl:text>/</xsl:text>
                     <!-- Some modules don't have md:version set (db:edition), so pull it from the collection -->

@@ -304,7 +304,7 @@
 	</xsl:variable>
 	<xsl:variable name="version" select="/c:document/c:metadata/md:version"/>
 	<xsl:variable name="url">
-		<xsl:call-template name="cnx.url"/>
+		<xsl:call-template name="cnx.repository.url"/>
 		<xsl:value-of select="$cnx.module.id"/>
         <xsl:text>/</xsl:text>
 		<xsl:if test="not($version)">
