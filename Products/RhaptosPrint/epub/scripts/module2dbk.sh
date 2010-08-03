@@ -25,9 +25,6 @@ CNXML2=$WORKING_DIR/_cnxml2.xml
 CNXML3=$WORKING_DIR/_cnxml3.xml
 CNXML4=$WORKING_DIR/_cnxml4.xml
 CNXML5=$WORKING_DIR/_cnxml5.xml
-CNXML6=$WORKING_DIR/_cnxml6.xml
-DERIVED_PRE=$WORKING_DIR/_cnxml7.derived.pre.xml
-DERIVED_POST=$WORKING_DIR/_cnxml7.derived.post.xml
 DOCBOOK_INCLUDED=$WORKING_DIR/index.included.dbk # Important. Used in collxml2docbook xinclude
 DOCBOOK=$WORKING_DIR/index.dbk # Important. Used in module2epub
 DOCBOOK1=$WORKING_DIR/_index1.dbk
@@ -39,19 +36,15 @@ VALID=$WORKING_DIR/_valid.dbk
 PARAMS=$WORKING_DIR/../_params.txt
 
 #XSLT files
-UPGRADE_FIVE_XSL=$ROOT/xsl/upgrade-cnxml05to06.xsl
-UPGRADE_SIX_XSL=$ROOT/xsl/upgrade-cnxml06to07.xsl
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
-CNXML2DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
+CNXML_TO_DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
 MATH2SVG_XSL=$ROOT/xslt2/math2svg-in-docbook.xsl
 SVG2PNG_FILES_XSL=$ROOT/xsl/dbk-svg2png.xsl
 DOCBOOK_BOOK_XSL=$ROOT/xsl/moduledbk2book.xsl
-INCLUDE_DERIVED_FROM_XSL=$ROOT/xsl/collxml-derived-from.xsl
-INCLUDE_DERIVED_FROM_CLEANUP_XSL=$ROOT/xsl/collxml-derived-from-cleanup.xsl
 
 EXIT_STATUS=0
 
@@ -61,9 +54,6 @@ EXIT_STATUS=0
 [ -s $CNXML3 ] && rm $CNXML3
 [ -s $CNXML4 ] && rm $CNXML4
 [ -s $CNXML5 ] && rm $CNXML5
-[ -s $CNXML6 ] && rm $CNXML6
-[ -s $DERIVED_PRE ] && rm $DERIVED_PRE
-[ -s $DERIVED_POST ] && rm $DERIVED_POST
 [ -s $DOCBOOK_INCLUDED ] && rm $DOCBOOK_INCLUDED
 [ -s $DOCBOOK ] && rm $DOCBOOK
 [ -s $DOCBOOK1 ] && rm $DOCBOOK1
@@ -100,7 +90,6 @@ XMLVALIDATE="xmllint"
 #if [ $? -ne 0 ]; then exit 0; fi
 
 # Skip validation by just replacing all entities with &amp;
-#sed -i "" 's/&[a-zA-Z][a-zA-Z]*/\&amp/g' $CNXML
 ($XMLVALIDATE --nonet --noout $CNXML 2>&1) > $WORKING_DIR/__err.txt
 if [ -s $WORKING_DIR/__err.txt ]; then 
 
@@ -119,55 +108,35 @@ fi
 #rm $WORKING_DIR/__err.txt
 
 
+# Use the auto-upgraded cnxml file, otherwise index.cnxml is at the current version 
 if [ -s $CNXML_UPGRADED ]; then
-  cp $CNXML_UPGRADED $CNXML2
+  cp $CNXML_UPGRADED $CNXML1
 else
-  echo "LOG: DEBUG: index_auto_upgraded.cnxml not found! Upgrading index.cnxml" 1>&2
+  echo "LOG: DEBUG: index_auto_upgraded.cnxml not found! Assuming index.cnxml is at the latest version" 1>&2
   if [ ! -s $CNXML ]; then
     echo "LOG: ERROR: index.cnxml not found! Cannot convert" 1>&2
     exit 1
   fi
-
-  echo "LOG: DEBUG: Upgrading 0.5 to 0.6" 1>&2
-  # Upgrade from 0.5 to 0.6
-  $XSLTPROC -o $CNXML1 $UPGRADE_FIVE_XSL $CNXML
-  if [ $? != 0 ]; then
-    cp $CNXML $CNXML1
-  fi
-
-  echo "LOG: DEBUG: Upgrading 0.5 to 0.6" 1>&2
-  # Upgrade from 0.6 to 0.7
-  $XSLTPROC -o $CNXML2 $UPGRADE_SIX_XSL $CNXML1
-  if [ $? != 0 ]; then
-    cp $CNXML1 $CNXML2
-  fi
+  cp $CNXML $CNXML1
 fi
 
-$XSLTPROC -o $CNXML3 $CLEANUP_XSL $CNXML2
+$XSLTPROC -o $CNXML2 $CLEANUP_XSL $CNXML1
 EXIT_STATUS=$EXIT_STATUS || $?
 
-$XSLTPROC -o $CNXML4 $CLEANUP2_XSL $CNXML3
+$XSLTPROC -o $CNXML3 $CLEANUP2_XSL $CNXML2
 EXIT_STATUS=$EXIT_STATUS || $?
 # Have to run the cleanup twice because we remove empty mml:mo,
 # then remove mml:munder with only 1 child.
 # See m21903
-$XSLTPROC -o $CNXML5 $CLEANUP2_XSL $CNXML4
+$XSLTPROC -o $CNXML4 $CLEANUP2_XSL $CNXML3
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert "simple" MathML to cnxml
-$XSLTPROC -o $CNXML6 $SIMPLIFY_MATHML_XSL $CNXML5
-EXIT_STATUS=$EXIT_STATUS || $?
-
-# If the module has a md:derived-from, include it
-$XSLTPROC -o $DERIVED_PRE $INCLUDE_DERIVED_FROM_XSL $CNXML6
-EXIT_STATUS=$EXIT_STATUS || $?
-
-# Clean up the md:derived-from
-$XSLTPROC --xinclude -o $DERIVED_POST $INCLUDE_DERIVED_FROM_CLEANUP_XSL $DERIVED_PRE
+$XSLTPROC -o $CNXML5 $SIMPLIFY_MATHML_XSL $CNXML4
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert to docbook
-$XSLTPROC -o $DOCBOOK1 $CNXML2DOCBOOK_XSL $DERIVED_POST
+$XSLTPROC -o $DOCBOOK1 $CNXML_TO_DOCBOOK_XSL $CNXML5
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Convert MathML to SVG
@@ -177,18 +146,9 @@ MATH2SVG_ERROR=$?
 EXIT_STATUS=$EXIT_STATUS || $MATH2SVG_ERROR
 
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
-#if [ $MATH2SVG_ERROR -eq 0 ]; then 
-#  rm $CNXML1
-#  rm $CNXML_UPGRADED
-#  rm $CNXML3
-#  rm $DOCBOOK1
-#fi
 
 $XSLTPROC -o $DOCBOOK_SVG $DOCBOOK_CLEANUP_XSL $DOCBOOK2
 EXIT_STATUS=$EXIT_STATUS || $?
-#if [ $MATH2SVG_ERROR -eq 0 ]; then 
-#  rm $DOCBOOK2
-#fi
 
 # Create a list of files to convert from svg to png
 $XSLTPROC -o $DOCBOOK_INCLUDED $SVG2PNG_FILES_XSL $DOCBOOK_SVG 2> $SVG2PNG_FILES_LIST
@@ -198,7 +158,7 @@ EXIT_STATUS=$EXIT_STATUS || $?
 $XSLTPROC -o $DOCBOOK $DOCBOOK_BOOK_XSL $DOCBOOK_INCLUDED
 EXIT_STATUS=$EXIT_STATUS || $?
 
-# Convert the files
+# Convert the SVG files to an image
 for ID_AND_EXT in `cat $SVG2PNG_FILES_LIST`
 do
   ID=${ID_AND_EXT%%|*}
@@ -225,6 +185,7 @@ do
   fi
 done
 
+# Generate a cover image for the book version of the module
 bash $ROOT/scripts/dbk2cover.sh $DOCBOOK
 
 echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
