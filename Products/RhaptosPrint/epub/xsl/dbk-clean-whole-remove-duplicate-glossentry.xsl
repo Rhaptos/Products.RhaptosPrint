@@ -217,11 +217,6 @@
                                     <xsl:value-of select="@url"/>
                                 </db:ulink>
                                 <xsl:text>&gt;</xsl:text>
-
-                                <!-- FIXME: The following condition should eventually be removed.  Temporarily here because collection.xml doesn't have enough info to 
-                                     display the derived collection's authors. -->
-                                <xsl:if test="not(parent::db:bookinfo)">
-
                                 <!-- "arranged by" for collections, "by" for modules -->
                                 <xsl:if test="parent::db:bookinfo">
                                     <xsl:text> arranged</xsl:text>
@@ -241,9 +236,6 @@
                                         <xsl:text>, </xsl:text>
                                     </xsl:if>
                                 </xsl:for-each>
-
-                                </xsl:if>
-
                                 <xsl:text>.</xsl:text>
                             </db:member>
                         </xsl:for-each>
