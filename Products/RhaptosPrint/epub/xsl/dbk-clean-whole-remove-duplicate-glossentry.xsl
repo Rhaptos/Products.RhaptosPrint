@@ -208,6 +208,45 @@
                         <xsl:if test="not(db:legalnotice)">
                             <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Module contains no license info</xsl:with-param></xsl:call-template>
                         </xsl:if>
+                        <xsl:for-each select="ext:derived-from">
+                            <db:member>
+                                <xsl:text>Based on: </xsl:text>
+                                <xsl:value-of select="db:title/node()"/>
+                                <xsl:text> &lt;</xsl:text>
+                                <db:ulink url="{@url}">
+                                    <xsl:value-of select="@url"/>
+                                </db:ulink>
+                                <xsl:text>&gt;</xsl:text>
+
+                                <!-- FIXME: The following condition should eventually be removed.  Temporarily here because collection.xml doesn't have enough info to 
+                                     display the derived collection's authors. -->
+                                <xsl:if test="not(parent::db:bookinfo)">
+
+                                <!-- "arranged by" for collections, "by" for modules -->
+                                <xsl:if test="parent::db:bookinfo">
+                                    <xsl:text> arranged</xsl:text>
+                                </xsl:if>
+                                <xsl:text> by </xsl:text>
+                                <xsl:variable name="authorCount" select="count(db:authorgroup/db:author)"/>
+                                <xsl:for-each select="db:authorgroup/db:author">
+                                    <xsl:if test="position()=last() and $authorCount &gt; 1">
+                                        <xsl:text>and </xsl:text>
+                                    </xsl:if>
+                                    <xsl:value-of select="db:firstname"/>
+                                    <xsl:if test="db:firstname and db:surname">
+                                        <xsl:text> </xsl:text>
+                                    </xsl:if>
+                                    <xsl:value-of select="db:surname"/>
+                                    <xsl:if test="position()!=last() and $authorCount &gt; 2">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+
+                                </xsl:if>
+
+                                <xsl:text>.</xsl:text>
+                            </db:member>
+                        </xsl:for-each>
                     </db:simplelist>
                 </db:para>
             </xsl:for-each>
