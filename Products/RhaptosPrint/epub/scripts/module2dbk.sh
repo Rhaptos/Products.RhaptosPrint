@@ -19,7 +19,7 @@ CONVERT="convert "
 
 #Temporary files
 CNXML=$WORKING_DIR/index.cnxml
-CNXML_UPGRADED=$WORKING_DIR/index_auto_upgrade.cnxml
+CNXML_UPGRADED=$WORKING_DIR/index_auto_generated.cnxml
 CNXML1=$WORKING_DIR/_cnxml1.xml
 CNXML2=$WORKING_DIR/_cnxml2.xml
 CNXML3=$WORKING_DIR/_cnxml3.xml
@@ -112,7 +112,7 @@ fi
 if [ -s $CNXML_UPGRADED ]; then
   cp $CNXML_UPGRADED $CNXML1
 else
-  echo "LOG: DEBUG: index_auto_upgraded.cnxml not found! Assuming index.cnxml is at the latest version" 1>&2
+  echo "LOG: DEBUG: index_auto_generated.cnxml not found! Assuming index.cnxml is at the latest version" 1>&2
   if [ ! -s $CNXML ]; then
     echo "LOG: ERROR: index.cnxml not found! Cannot convert" 1>&2
     exit 1
