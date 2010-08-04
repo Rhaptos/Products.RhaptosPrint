@@ -71,4 +71,5 @@ db_files.each {|docbook_file|
   end  
   puts "Rendering DocBook file #{docbook_file} to #{epub_file}" if verbose
   e.render_to_file(epub_file)
+  FileUtils.remove_dir(dir)
 }  
