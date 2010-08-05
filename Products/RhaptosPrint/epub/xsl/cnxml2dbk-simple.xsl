@@ -419,5 +419,24 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- Prevent empty CNXML elements from getting into docbook.  Elements not listed here should either not be able to be empty or should have valid uses as an empty element. -->
+<xsl:template match="c:title[not(node())]|
+                     c:emphasis[not(node())]|
+                     c:quote[not(node())]|
+                     c:foreign[not(node())]|
+                     c:code[not(node())]|
+                     c:term[not(node())]|
+                     c:meaning[not(node())]|
+                     c:span[not(node())]|
+                     c:div[not(node())]|
+                     c:para[not(node())]|
+                     c:cite-title[not(node())]|
+                     c:footnote[not(node())]|
+                     c:caption[not(node())]|
+                     c:preformat[not(node())]|
+                     c:sup[not(node())]|
+                     c:sub[not(node())]">
+    <xsl:comment> empty <xsl:value-of select="local-name()"/> tag </xsl:comment>
+</xsl:template>
 
 </xsl:stylesheet>
