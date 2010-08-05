@@ -183,10 +183,10 @@
 </xsl:template>
 
 <xsl:template match="c:link" name="cnx.link">
-	<xsl:param name="label">
-		<xsl:apply-templates select="node()"/>
-	</xsl:param>
-	<xsl:variable name="document">
+    <xsl:param name="label">
+        <xsl:apply-templates select="node()"/>
+    </xsl:param>
+    <xsl:variable name="document">
         <xsl:choose>
             <xsl:when test="@document">
                 <xsl:value-of select="@document"/>
@@ -211,52 +211,52 @@
     </xsl:variable>
     <!-- Either it's a db:link (outside Docbook) or a db:xref (inside Docbook) -->
     <xsl:choose>
-    	<xsl:when test="@url or @resource">
-    		<xsl:variable name="href">
-    			<!-- either use the @url or construct one (if it's a resource) -->
-    			<xsl:choose>
-    				<xsl:when test="@url">
-    					<xsl:value-of select="@url"/>
-    				</xsl:when>
-    				<xsl:otherwise>
-				   		<xsl:if test="$cnx.resource.local = 0">
-					    	<xsl:call-template name="cnx.repository.url"/>
-					    </xsl:if>
-					    <xsl:value-of select="$document"/>
-					    <xsl:text>/</xsl:text>
-					    <xsl:value-of select="$version"/>
+        <xsl:when test="@url or @resource">
+            <xsl:variable name="href">
+                <!-- either use the @url or construct one (if it's a resource) -->
+                <xsl:choose>
+                    <xsl:when test="@url">
+                        <xsl:value-of select="@url"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="$cnx.resource.local = 0">
+                            <xsl:call-template name="cnx.repository.url"/>
+                        </xsl:if>
+                        <xsl:value-of select="$document"/>
                         <xsl:text>/</xsl:text>
-					    <xsl:value-of select="@resource"/>    		
-    				</xsl:otherwise>
-    			</xsl:choose>
-    		</xsl:variable>
-    		<db:link xlink:href="{$href}" ext:document="{$document}" ext:resource="{@resource}">
-      			<xsl:apply-templates select="@*"/>
-    			<xsl:copy-of select="$label"/>
-    		</db:link>
-    	</xsl:when>
-    	<xsl:otherwise>
-    		<xsl:variable name="href">
-    			<xsl:value-of select="$document"/>
-		        <xsl:if test="@target-id">
-			        <xsl:value-of select="$cnx.module.separator"/>
-			        <xsl:value-of select="@target-id"/>
-			    </xsl:if>
-    		</xsl:variable>
-    		<xsl:choose>
-    			<xsl:when test="$label!=''">
-		    		<db:link linkend="{$href}">
-		    			<xsl:apply-templates select="@*"/>
-		    			<xsl:copy-of select="$label"/>
-		    		</db:link>
-    			</xsl:when>
-    			<xsl:otherwise>
-		    		<db:xref linkend="{$href}">
-		    			<xsl:apply-templates select="@*"/>
-		    		</db:xref>
-    			</xsl:otherwise>
-    		</xsl:choose>
-    	</xsl:otherwise>
+                        <xsl:value-of select="$version"/>
+                        <xsl:text>/</xsl:text>
+                        <xsl:value-of select="@resource"/>    		
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <db:link xlink:href="{$href}" ext:document="{$document}" ext:resource="{@resource}">
+                <xsl:apply-templates select="@*"/>
+                <xsl:copy-of select="$label"/>
+            </db:link>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:variable name="href">
+                <xsl:value-of select="$document"/>
+                <xsl:if test="@target-id">
+                    <xsl:value-of select="$cnx.module.separator"/>
+                    <xsl:value-of select="@target-id"/>
+                </xsl:if>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="$label!=''">
+                    <db:link linkend="{$href}">
+                        <xsl:apply-templates select="@*"/>
+                        <xsl:copy-of select="$label"/>
+                    </db:link>
+                </xsl:when>
+                <xsl:otherwise>
+                    <db:xref linkend="{$href}">
+                        <xsl:apply-templates select="@*"/>
+                    </db:xref>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
 
