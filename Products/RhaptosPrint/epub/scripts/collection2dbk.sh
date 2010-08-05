@@ -68,7 +68,7 @@ if [ "$SKIP_MODULE_CONVERSION" = "0" ]; then
   do
     if [ -d $WORKING_DIR/$MODULE ];
     then
-      bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE
+      bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE $ID
       EXIT_STATUS=$EXIT_STATUS || $?
     fi
   done

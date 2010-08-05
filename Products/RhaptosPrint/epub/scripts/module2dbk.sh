@@ -2,6 +2,7 @@
 
 WORKING_DIR=$1
 ID=$2
+COLID=${3:-0}
 
 echo "LOG: INFO: ------------ Working on $ID ------------"
 
@@ -78,6 +79,7 @@ if [ -s $PARAMS ]; then
     XSLTPROC="$XSLTPROC $XSLTPROC_ARGS"
 fi
 
+XSLTPROC+=" --param inCollection $COLID"
 
 # Just some code to filter what gets re-converted so all modules don't have to.
 #GREP_FOUND=`grep "newline" $CNXML`

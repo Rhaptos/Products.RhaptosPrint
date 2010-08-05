@@ -237,13 +237,48 @@
         </xsl:when>
         <xsl:otherwise>
             <xsl:variable name="href">
-                <xsl:value-of select="$document"/>
-                <xsl:if test="@target-id">
-                    <xsl:value-of select="$cnx.module.separator"/>
-                    <xsl:value-of select="@target-id"/>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="$inCollection = 0">
+                        <xsl:choose>
+                            <xsl:when test="@document or @version">
+                                <xsl:if test="$cnx.resource.local = 0">
+                                    <xsl:call-template name="cnx.repository.url"/>
+                                </xsl:if>
+                                <xsl:value-of select="$document"/>
+                                <xsl:text>/</xsl:text>
+                                <xsl:value-of select="$version"/>
+                                <xsl:text>/</xsl:text>
+                                <xsl:if test="@target-id">
+                                    <xsl:text>#</xsl:text>
+                                    <xsl:value-of select="@target-id"/>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="@target-id">
+                                <xsl:value-of select="$document"/>
+                                <xsl:value-of select="$cnx.module.separator"/>
+                                <xsl:value-of select="@target-id"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$document"/>
+                        <xsl:if test="@target-id">
+                            <xsl:value-of select="$cnx.module.separator"/>
+                            <xsl:value-of select="@target-id"/>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:variable>
             <xsl:choose>
+                <xsl:when test="( @document  or @version ) and $inCollection = 0">
+                    <db:link xlink:href="{$href}" ext:document="{$document}" ext:resource="{@resource}">
+                        <xsl:apply-templates select="@*"/>
+                        <xsl:if test="$label=''">
+                            <xsl:value-of select="@document"/>
+                        </xsl:if>
+                        <xsl:copy-of select="$label"/>
+                    </db:link>
+                </xsl:when>
                 <xsl:when test="$label!=''">
                     <db:link linkend="{$href}">
                         <xsl:apply-templates select="@*"/>
