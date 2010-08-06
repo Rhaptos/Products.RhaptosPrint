@@ -271,7 +271,7 @@
             </xsl:variable>
             <xsl:choose>
                 <xsl:when test="( @document  or @version ) and $inCollection = 0">
-                    <db:link xlink:href="{$href}" ext:document="{$document}" ext:resource="{@resource}">
+                    <db:link xlink:href="{$href}" type="external-content" class="external-content">
                         <xsl:apply-templates select="@*"/>
                         <xsl:if test="$label=''">
                             <xsl:value-of select="@document"/>
