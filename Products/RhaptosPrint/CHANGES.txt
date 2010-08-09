@@ -1,3 +1,5 @@
+  - add epub generation (lots of new dependecies)
+
 RhaptosPrint-0.4.3
   - rework queue tool transaction usage
 

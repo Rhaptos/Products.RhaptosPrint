@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:bib="http://bibtexml.sf.net/" id="cite-test" cnxml-version="0.7">
+	<name>Cite Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+  <md:actors>
+      <md:person userid="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+  </md:roles>
+</metadata>
+
+	<content>
+	<section id="1"><title>About This Test</title>
+	   <para>This module tests c:cite elements with various children, titles, labels, parents, etc.
+	   </para>
+	</section>
+	<section><title>Links to c:cite</title>
+		<list>
+			<item><link target-id="2"/></item>
+			<item><link target-id="3"/></item>
+			<item><link target-id="4"/></item>
+			<item><link target-id="5"/></item>
+			<item><link target-id="6"/></item>
+			<item><link target-id="7"/></item>
+			<item><link target-id="8"/></item>
+			<item><link target-id="9"/></item>
+			<item><link target-id="10"/></item>
+		</list>
+	</section>
+	
+	<section><title>Assorted combinations of c:cite</title>
+		<list>
+			<item><cite id="2">cite</cite>: An empty citation</item>
+			<item><cite id="3"><cite-title id="4">title</cite-title> cite</cite>: A citation with a title</item>
+			
+			<item><cite id="5" url="http://cnx.org">cite</cite>: A citation with a url</item>
+			<item><cite id="6" url="http://cnx.org"><cite-title>title</cite-title> cite</cite>: A citation with a url and title</item>
+	
+			<item><cite id="7" target-id="1">cite</cite>: A citation with a target-id</item>
+			<item><cite id="8" target-id="1"><cite-title>title</cite-title> cite</cite>: A citation with a target-id and title</item>
+	
+			<item><cite id="9" document="cite-test" target-id="1">cite</cite>: A citation with a target-id and document</item>
+			<item><cite id="10" document="cite-test" resource="nonexistant.pdf">cite</cite>: A citation with a document and resource</item>
+	
+		</list>
+	</section>
+	
+	<section><title>Assorted links (since c:cite uses the link generation code)</title>
+		<list>
+			<item><link id="link1" url="http://cnx.org"/>: A link with a url and no text</item>
+			<item><link id="link2" url="http://cnx.org">cnx.org</link>: A link with a url and text</item>
+			<item><link id="link3" target-id="1"><m:math><m:apply><m:divide/><m:ci>x</m:ci><m:cn>2</m:cn></m:apply></m:math></link>: A link with a url and mathml for text (x/2)</item>
+			<item><link id="link4" target-id="1"/>: A link with a target-id and no text</item>
+			<item><link id="link5" target-id="1">back to top</link>: A link with a target-id and text</item>
+			<item><link id="link6" document="cite-test" target-id="1"/>: A link with a document, target-id, and no text</item>
+			<item><link id="link7" document="cite-test" resource="non-existent.pdf"/>: A link with a document, resource, and no text</item>
+		</list>
+	</section>
+
+	<section><title>Links to links (craziness!)</title>
+		<list>
+			<item><link target-id="link1"/>: Link to the 1st link</item>
+			<item><link target-id="link2"/>: Link to the 2nd link</item>
+			<item><link target-id="link3"/>: Link to the 3rd link</item>
+			<item><link target-id="link4"/>: Link to the 4th link</item>
+			<item><link target-id="link5"/>: Link to the 5th link</item>
+			<item><link target-id="link6"/>: Link to the 6th link</item>
+			<item><link target-id="link7"/>: Link to the 7th link</item>
+			<item><link id="link8" target-id="link9"/>: Link to the 9th link (recursive)</item>
+			<item><link id="link9" target-id="link8"/>: Link to the 8th link (recursive)</item>
+		</list>
+	</section>
+
+    <section><title>BibTeXML References (from m11215)</title>
+        <para>Additionally, there is a BibTeXML reference in this module which should show up in a "References" section below.</para>
+        <list>
+            <item><link target-id="esbensen"/> : Link to a bib:entry</item>
+            <item><link target-id="martens.nes"/> : Link to another bib:entry</item>
+        </list>
+    </section>
+
+<code id="id10431344" display="block"/><para id="id2255752">C. Sidney Burrus</para>
+
+    <para id="id2255759">Houston, Texas</para>
+    <para id="id2255765">October 20, 2008</para>
+
+
+	</content>
+
+   <bib:file>
+
+                <bib:entry id="tropp1">
+                        <bib:article>
+                                <bib:author>Tropp, Joel A.</bib:author>
+                                <bib:title>Greed Is Good: Algorithmic Results for Sparse Approximation</bib:title>
+                                <bib:journal/>
+                                <bib:year>2003</bib:year>
+                        </bib:article>
+                </bib:entry>
+
+          <bib:entry id="esbensen">
+      <bib:book>
+    <bib:author>Kim Esbensen; Tonje Midtgaard; Suzanne Schonkopf</bib:author>
+    <bib:title>Multivariate Analysis in Practice</bib:title>
+    <bib:publisher>Camo AS</bib:publisher>
+    <bib:year>1994</bib:year>
+    <bib:address>Trondheim</bib:address>
+      </bib:book>
+    </bib:entry>
+
+    <bib:entry id="martens.nes">
+      <bib:book>
+    <bib:author>Harald Martens; Tormod Nas</bib:author>
+    <bib:title>Multivariate Calibration</bib:title>
+    <bib:publisher>John Wiley &amp; Sons Ltd.</bib:publisher>
+    <bib:year>1989</bib:year>
+    <bib:address>Chichester</bib:address>
+      </bib:book>
+    </bib:entry>
+  </bib:file>
+
+</document>

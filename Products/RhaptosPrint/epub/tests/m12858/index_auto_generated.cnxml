@@ -1,0 +1,1026 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="id3292147" module-id="" cnxml-version="0.7">
+  <title>Gauss' Theorem</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://wakizashi.cnx.rice.edu:8080/content</md:repository>
+  <md:content-url>http://wakizashi.cnx.rice.edu:8080/content/m12858/1.4</md:content-url>
+  <md:content-id>m12858</md:content-id>
+  <md:title>Gauss' Theorem</md:title>
+  <md:version>1.4</md:version>
+  <md:created>2005/07/01 14:09:05 GMT-5</md:created>
+  <md:revised>2005/07/07 09:14:18 GMT-5</md:revised>
+  <md:actors>
+    <md:person userid="padley">
+      <md:firstname>Paul</md:firstname>
+      <md:surname>Padley</md:surname>
+      <md:fullname>Paul Padley</md:fullname>
+      <md:email>padley@rice.edu</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">padley</md:role>
+    <md:role type="maintainer">padley</md:role>
+    <md:role type="licensor">padley</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/2.0/" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>Divergence</md:keyword>
+    <md:keyword>Gauss</md:keyword>
+    <md:keyword>Gauss Law</md:keyword>
+    <md:keyword>Gauss' Law</md:keyword>
+    <md:keyword>Gauss's Theorem</md:keyword>
+    <md:keyword>Gauss Theorem</md:keyword>
+    <md:keyword>Gauss' Theorem</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract>A simple exposition of Gauss's theorem or the divergence theorem.</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+  <content>
+<section id="id3302186">
+<title>Gauss' Theorem</title>
+<para id="id3302194">
+   Consider the following volume enclosed by a surface we will call
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>S</m:mi>
+     </m:mrow>
+   </m:math>.
+</para>
+<para id="id3302214">
+   
+   
+
+   <figure id="id3302227"><media id="id3627156" alt=""><image src="Gauss_Law_Drawings_4.gif" mime-type="image/gif"/></media></figure>
+
+Now
+   we will embed
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>S</m:mi>
+     </m:mrow>
+   </m:math>
+   in a vector
+   field:
+
+   <figure id="id3302255"><media id="id3627181" alt=""><image src="Gauss_Law_Drawings_6.gif" mime-type="image/gif"/></media></figure>
+
+</para>
+<para id="id3302266">
+   We will cut the the object into two volumes that are enclosed by surfaces we
+   will call
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mi>S</m:mi>
+         <m:mn>1</m:mn>
+       </m:msub>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mi>S</m:mi>
+         <m:mn>2</m:mn>
+       </m:msub>
+     </m:mrow>
+   </m:math>.
+   
+
+   <figure id="id3302867"><media id="id3625204" alt=""><image src="Gauss_Law_Drawings_5.gif" mime-type="image/gif"/></media></figure>
+
+ Again
+   we embed it in the same vector
+   field.
+
+   <figure id="id3302882"><media id="id3625218" alt=""><image src="Gauss_Law_Drawings_8.gif" mime-type="image/gif"/></media></figure>
+
+It
+   is clear that flux through
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mi>S</m:mi>
+         <m:mn>1</m:mn>
+       </m:msub>
+     </m:mrow>
+   </m:math>
+   +
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mi>S</m:mi>
+         <m:mn>2</m:mn>
+       </m:msub>
+     </m:mrow>
+   </m:math>
+   is equal to flux through
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>S</m:mi>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>This
+   is because the flux through one side of the plane is exactly opposite to the
+   flux through the other side of the
+   plane:
+
+   <figure id="id3302963"><media id="id3625284" alt=""><image src="Gauss_Law_Drawings_7.gif" mime-type="image/gif"/></media></figure>
+
+So
+   we see that
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:msub>
+             <m:mo form="prefix" largeop="true">∮</m:mo>
+             <m:mi>S</m:mi>
+           </m:msub>
+           <m:mrow>
+             <m:mrow>
+               <m:mover accent="true">
+                 <m:mi>F</m:mi>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+               <m:mo form="infix">⋅</m:mo>
+               <m:mi>d</m:mi>
+             </m:mrow>
+             <m:mo/>
+             <m:mover accent="true">
+               <m:mi>a</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mrow>
+             <m:msub>
+               <m:mo form="prefix" largeop="true">∮</m:mo>
+               <m:msub>
+                 <m:mi>S</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:msub>
+             <m:mrow>
+               <m:mrow>
+                 <m:mover accent="true">
+                   <m:mi>F</m:mi>
+                   <m:mo accent="true" form="postfix">⃗</m:mo>
+                 </m:mover>
+                 <m:mo form="infix">⋅</m:mo>
+                 <m:mi>d</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mover accent="true">
+                 <m:msub>
+                   <m:mi>a</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+             </m:mrow>
+           </m:mrow>
+           <m:mo form="infix">+</m:mo>
+           <m:mrow>
+             <m:msub>
+               <m:mo form="prefix" largeop="true">∮</m:mo>
+               <m:msub>
+                 <m:mi>S</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:msub>
+             <m:mrow>
+               <m:mrow>
+                 <m:mover accent="true">
+                   <m:mi>F</m:mi>
+                   <m:mo accent="true" form="postfix">⃗</m:mo>
+                 </m:mover>
+                 <m:mo form="infix">⋅</m:mo>
+                 <m:mi>d</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mover accent="true">
+                 <m:msub>
+                   <m:mi>a</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>
+   We could subdivide the surface as much as we want and so for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+     </m:mrow>
+   </m:math>
+   subdivisions the integral becomes:
+</para>
+<para id="id3303288">
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:msub>
+             <m:mo form="prefix" largeop="true">∮</m:mo>
+             <m:mi>S</m:mi>
+           </m:msub>
+           <m:mrow>
+             <m:mrow>
+               <m:mover accent="true">
+                 <m:mi>F</m:mi>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+               <m:mo form="infix">⋅</m:mo>
+               <m:mi>d</m:mi>
+             </m:mrow>
+             <m:mo/>
+             <m:mover accent="true">
+               <m:mi>a</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munderover>
+             <m:mo movablelimits="true" form="prefix" largeop="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>i</m:mi>
+               <m:mo form="infix">=</m:mo>
+               <m:mn>1</m:mn>
+             </m:mrow>
+             <m:mi>n</m:mi>
+           </m:munderover>
+           <m:mrow>
+             <m:msub>
+               <m:mo form="prefix" largeop="true">∮</m:mo>
+               <m:msub>
+                 <m:mi>S</m:mi>
+                 <m:mi>i</m:mi>
+               </m:msub>
+             </m:msub>
+             <m:mrow>
+               <m:mrow>
+                 <m:mover accent="true">
+                   <m:mi>F</m:mi>
+                   <m:mo accent="true" form="postfix">⃗</m:mo>
+                 </m:mover>
+                 <m:mo form="infix">⋅</m:mo>
+                 <m:mi>d</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mover accent="true">
+                 <m:msub>
+                   <m:mi>a</m:mi>
+                   <m:mi>i</m:mi>
+                 </m:msub>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>
+   What is
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mo form="prefix" largeop="true">∮</m:mo>
+         <m:msub>
+           <m:mi>S</m:mi>
+           <m:mi>i</m:mi>
+         </m:msub>
+       </m:msub>
+       <m:mrow>
+         <m:mrow>
+           <m:mover accent="true">
+             <m:mi>F</m:mi>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+           <m:mo form="infix">⋅</m:mo>
+           <m:mi>d</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mover accent="true">
+           <m:msub>
+             <m:mi>a</m:mi>
+             <m:mi>i</m:mi>
+           </m:msub>
+           <m:mo accent="true" form="postfix">⃗</m:mo>
+         </m:mover>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.?
+   We can subdivide the volume into a bunch of little
+   cubes:
+
+   <figure id="id3303633"><media id="id3627641" alt=""><image src="Gauss_Law_Drawings_10.gif" mime-type="image/gif"/></media></figure>
+
+To
+   first order (which is all that matters since we will take the limit of a small
+   volume) the field at a point at the bottom of the box is
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:msub>
+         <m:mi>F</m:mi>
+         <m:mi>z</m:mi>
+       </m:msub>
+       <m:mo form="infix">+</m:mo>
+       <m:mrow>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">Δ</m:mo>
+             <m:mi>x</m:mi>
+           </m:mrow>
+           <m:mn>2</m:mn>
+         </m:mfrac>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>x</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+       <m:mo form="infix">+</m:mo>
+       <m:mrow>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">Δ</m:mo>
+             <m:mi>y</m:mi>
+           </m:mrow>
+           <m:mn>2</m:mn>
+         </m:mfrac>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>y</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   where we have assumed the middle of the bottom of the box is the point
+   <m:math display="inline">
+     <m:mrow>
+       <m:mo stretchy="false" fence="true" form="prefix">(</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo form="infix">+</m:mo>
+           <m:mfrac>
+             <m:mrow>
+               <m:mo form="prefix">Δ</m:mo>
+               <m:mi>x</m:mi>
+             </m:mrow>
+             <m:mn>2</m:mn>
+           </m:mfrac>
+         </m:mrow>
+         <m:mo form="infix">,</m:mo>
+         <m:mrow>
+           <m:mi>y</m:mi>
+           <m:mo form="infix">+</m:mo>
+           <m:mfrac>
+             <m:mrow>
+               <m:mo form="prefix">Δ</m:mo>
+               <m:mi>y</m:mi>
+             </m:mrow>
+             <m:mn>2</m:mn>
+           </m:mfrac>
+         </m:mrow>
+         <m:mo form="infix">,</m:mo>
+         <m:mi>z</m:mi>
+       </m:mrow>
+       <m:mo stretchy="false" fence="true" form="postfix">)</m:mo>
+     </m:mrow>
+   </m:math>.
+   Through the top of the box
+   <m:math display="inline">
+     <m:mrow>
+       <m:mo stretchy="false" fence="true" form="prefix">(</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo form="infix">+</m:mo>
+           <m:mfrac>
+             <m:mrow>
+               <m:mo form="prefix">Δ</m:mo>
+               <m:mi>x</m:mi>
+             </m:mrow>
+             <m:mn>2</m:mn>
+           </m:mfrac>
+         </m:mrow>
+         <m:mo form="infix">,</m:mo>
+         <m:mrow>
+           <m:mi>y</m:mi>
+           <m:mo form="infix">+</m:mo>
+           <m:mfrac>
+             <m:mrow>
+               <m:mo form="prefix">Δ</m:mo>
+               <m:mi>y</m:mi>
+             </m:mrow>
+             <m:mn>2</m:mn>
+           </m:mfrac>
+         </m:mrow>
+         <m:mo form="infix">,</m:mo>
+         <m:mrow>
+           <m:mi>z</m:mi>
+           <m:mo form="infix">+</m:mo>
+           <m:mrow>
+             <m:mo form="prefix">Δ</m:mo>
+             <m:mi>z</m:mi>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo stretchy="false" fence="true" form="postfix">)</m:mo>
+     </m:mrow>
+   </m:math>you
+   get
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:msub>
+         <m:mi>F</m:mi>
+         <m:mi>z</m:mi>
+       </m:msub>
+       <m:mo form="infix">+</m:mo>
+       <m:mrow>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">Δ</m:mo>
+             <m:mi>x</m:mi>
+           </m:mrow>
+           <m:mn>2</m:mn>
+         </m:mfrac>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>x</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+       <m:mo form="infix">+</m:mo>
+       <m:mrow>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">Δ</m:mo>
+             <m:mi>y</m:mi>
+           </m:mrow>
+           <m:mn>2</m:mn>
+         </m:mfrac>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>y</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+       <m:mo form="infix">+</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:mi>z</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>z</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   Through the top and bottom surfaces you get Flux Top - Flux
+   bottom<m:math mode="display" display="block">
+   </m:math>
+</para>
+<para id="id3304343">
+   Which is
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:mi>x</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:mi>y</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:mi>z</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>z</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:mi>V</m:mi>
+         </m:mrow>
+         <m:mo/>
+         <m:mfrac>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:msub>
+               <m:mi>F</m:mi>
+               <m:mi>z</m:mi>
+             </m:msub>
+           </m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">∂</m:mo>
+             <m:mi>z</m:mi>
+           </m:mrow>
+         </m:mfrac>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id3304518">
+   Likewise you get the same result in the other dimensionsHence
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:msub>
+           <m:mo form="prefix" largeop="true">∮</m:mo>
+           <m:msub>
+             <m:mi>S</m:mi>
+             <m:mi>i</m:mi>
+           </m:msub>
+         </m:msub>
+         <m:mrow>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mi>F</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+             <m:mo form="infix">⋅</m:mo>
+             <m:mi>d</m:mi>
+           </m:mrow>
+           <m:mo/>
+           <m:mover accent="true">
+             <m:msub>
+               <m:mi>a</m:mi>
+               <m:mi>i</m:mi>
+             </m:msub>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:msub>
+             <m:mi>V</m:mi>
+             <m:mi>i</m:mi>
+           </m:msub>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo symmetric="true" stretchy="true" fence="true" form="prefix">[</m:mo>
+           <m:mrow>
+             <m:mfrac>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:msub>
+                   <m:mi>F</m:mi>
+                   <m:mi>x</m:mi>
+                 </m:msub>
+               </m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:mi>x</m:mi>
+               </m:mrow>
+             </m:mfrac>
+             <m:mo form="infix">+</m:mo>
+             <m:mfrac>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:msub>
+                   <m:mi>F</m:mi>
+                   <m:mi>y</m:mi>
+                 </m:msub>
+               </m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:mi>y</m:mi>
+               </m:mrow>
+             </m:mfrac>
+             <m:mo form="infix">+</m:mo>
+             <m:mfrac>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:msub>
+                   <m:mi>F</m:mi>
+                   <m:mi>z</m:mi>
+                 </m:msub>
+               </m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">∂</m:mo>
+                 <m:mi>z</m:mi>
+               </m:mrow>
+             </m:mfrac>
+           </m:mrow>
+           <m:mo symmetric="true" stretchy="true" fence="true" form="postfix">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id3304828">
+   or
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:msub>
+           <m:mo form="prefix" largeop="true">∮</m:mo>
+           <m:msub>
+             <m:mi>S</m:mi>
+             <m:mi>i</m:mi>
+           </m:msub>
+         </m:msub>
+         <m:mrow>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mi>F</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+             <m:mo form="infix">⋅</m:mo>
+             <m:mi>d</m:mi>
+           </m:mrow>
+           <m:mo/>
+           <m:mover accent="true">
+             <m:msub>
+               <m:mi>a</m:mi>
+               <m:mi>i</m:mi>
+             </m:msub>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mover accent="true">
+             <m:mo form="prefix">∇</m:mo>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+           <m:mo form="infix">⋅</m:mo>
+           <m:mover accent="true">
+             <m:mi>F</m:mi>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo form="prefix">Δ</m:mo>
+           <m:msub>
+             <m:mi>V</m:mi>
+             <m:mi>i</m:mi>
+           </m:msub>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mstyle displaystyle="true">
+         <m:mtable>
+           <m:mtr>
+             <m:mtd groupalign="right left">
+               <m:maligngroup/>
+               <m:mrow>
+                 <m:mrow>
+                   <m:msub>
+                     <m:mo form="prefix" largeop="true">∮</m:mo>
+                     <m:mi>S</m:mi>
+                   </m:msub>
+                   <m:mrow>
+                     <m:mrow>
+                       <m:mover accent="true">
+                         <m:mi>F</m:mi>
+                         <m:mo accent="true" form="postfix">⃗</m:mo>
+                       </m:mover>
+                       <m:mo form="infix">⋅</m:mo>
+                       <m:mi>d</m:mi>
+                     </m:mrow>
+                     <m:mo/>
+                     <m:mover accent="true">
+                       <m:mi>a</m:mi>
+                       <m:mo accent="true" form="postfix">⃗</m:mo>
+                     </m:mover>
+                   </m:mrow>
+                 </m:mrow>
+                 <m:maligngroup/>
+                 <m:mo form="infix">=</m:mo>
+                 <m:mrow>
+                   <m:munderover>
+                     <m:mo movablelimits="true" form="prefix" largeop="true">∑</m:mo>
+                     <m:mrow>
+                       <m:mi>i</m:mi>
+                       <m:mo form="infix">=</m:mo>
+                       <m:mn>1</m:mn>
+                     </m:mrow>
+                     <m:mi>n</m:mi>
+                   </m:munderover>
+                   <m:mrow>
+                     <m:msub>
+                       <m:mo form="prefix" largeop="true">∮</m:mo>
+                       <m:msub>
+                         <m:mi>S</m:mi>
+                         <m:mi>i</m:mi>
+                       </m:msub>
+                     </m:msub>
+                     <m:mrow>
+                       <m:mrow>
+                         <m:mover accent="true">
+                           <m:mi>F</m:mi>
+                           <m:mo accent="true" form="postfix">⃗</m:mo>
+                         </m:mover>
+                         <m:mo form="infix">⋅</m:mo>
+                         <m:mi>d</m:mi>
+                       </m:mrow>
+                       <m:mo/>
+                       <m:mover accent="true">
+                         <m:msub>
+                           <m:mi>a</m:mi>
+                           <m:mi>i</m:mi>
+                         </m:msub>
+                         <m:mo accent="true" form="postfix">⃗</m:mo>
+                       </m:mover>
+                     </m:mrow>
+                   </m:mrow>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd groupalign="right left">
+               <m:maligngroup/>
+               <m:maligngroup/>
+               <m:mo form="infix">=</m:mo>
+               <m:mrow>
+                 <m:munderover>
+                   <m:mo movablelimits="true" form="prefix" largeop="true">∑</m:mo>
+                   <m:mrow>
+                     <m:mi>i</m:mi>
+                     <m:mo form="infix">=</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                   <m:mi>n</m:mi>
+                 </m:munderover>
+                 <m:mrow>
+                   <m:mrow>
+                     <m:mover accent="true">
+                       <m:mo form="prefix">∇</m:mo>
+                       <m:mo accent="true" form="postfix">⃗</m:mo>
+                     </m:mover>
+                     <m:mo form="infix">⋅</m:mo>
+                     <m:mover accent="true">
+                       <m:mi>F</m:mi>
+                       <m:mo accent="true" form="postfix">⃗</m:mo>
+                     </m:mover>
+                   </m:mrow>
+                   <m:mo/>
+                   <m:mrow>
+                     <m:mo form="prefix">Δ</m:mo>
+                     <m:msub>
+                       <m:mi>V</m:mi>
+                       <m:mi>i</m:mi>
+                     </m:msub>
+                   </m:mrow>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id3305453">
+   So in the limit that
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mo form="prefix">Δ</m:mo>
+         <m:msub>
+           <m:mi>V</m:mi>
+           <m:mi>i</m:mi>
+         </m:msub>
+       </m:mrow>
+       <m:mo form="infix">→</m:mo>
+       <m:mn>0</m:mn>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+       <m:mo form="infix">→</m:mo>
+       <m:mi>∞</m:mi>
+     </m:mrow>
+   </m:math>
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:msub>
+           <m:mo form="prefix" largeop="true">∮</m:mo>
+           <m:mi>S</m:mi>
+         </m:msub>
+         <m:mrow>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mi>F</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+             <m:mo form="infix">⋅</m:mo>
+             <m:mi>d</m:mi>
+           </m:mrow>
+           <m:mo/>
+           <m:mover accent="true">
+             <m:mi>a</m:mi>
+             <m:mo accent="true" form="postfix">⃗</m:mo>
+           </m:mover>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:msub>
+           <m:mo form="prefix" largeop="true">∮</m:mo>
+           <m:mi>V</m:mi>
+         </m:msub>
+         <m:mrow>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mo form="prefix">∇</m:mo>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+             <m:mo form="infix">⋅</m:mo>
+             <m:mover accent="true">
+               <m:mi>F</m:mi>
+               <m:mo accent="true" form="postfix">⃗</m:mo>
+             </m:mover>
+           </m:mrow>
+           <m:mo/>
+           <m:mrow>
+             <m:mo form="prefix">ⅆ</m:mo>
+             <m:mi>V</m:mi>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id3305712">
+   
+</para>
+<para id="id3305722">
+   This result is intimately connected to the fundamental definition of the
+   divergence which is
+   <m:math mode="display" display="block">
+     <m:mrow>
+       <m:mrow>
+         <m:mover accent="true">
+           <m:mo form="prefix">∇</m:mo>
+           <m:mo accent="true" form="postfix">⃗</m:mo>
+         </m:mover>
+         <m:mo form="infix">⋅</m:mo>
+         <m:mover accent="true">
+           <m:mi>F</m:mi>
+           <m:mo accent="true" form="postfix">⃗</m:mo>
+         </m:mover>
+       </m:mrow>
+       <m:mo form="infix">≡</m:mo>
+       <m:mrow>
+         <m:munder>
+           <m:mo mathcolor="gray" movablelimits="true" form="prefix">lim</m:mo>
+           <m:mrow>
+             <m:mi>V</m:mi>
+             <m:mo form="infix">→</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+         </m:munder>
+         <m:mrow>
+           <m:mfrac>
+             <m:mn>1</m:mn>
+             <m:mi>V</m:mi>
+           </m:mfrac>
+           <m:mo/>
+           <m:mrow>
+             <m:msub>
+               <m:mo form="prefix" largeop="true">∮</m:mo>
+               <m:mi>S</m:mi>
+             </m:msub>
+             <m:mrow>
+               <m:mrow>
+                 <m:mover accent="true">
+                   <m:mi>F</m:mi>
+                   <m:mo accent="true" form="postfix">⃗</m:mo>
+                 </m:mover>
+                 <m:mo form="infix">⋅</m:mo>
+                 <m:mi>d</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mover accent="true">
+                 <m:mi>a</m:mi>
+                 <m:mo accent="true" form="postfix">⃗</m:mo>
+               </m:mover>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   where the integral is taken over the surface enclosing the volume
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>V</m:mi>
+     </m:mrow>
+   </m:math>.
+   The divergence is the flux out of a volume, per unit volume, in the limit of
+   an infinitely small volume.  By our proof of Gauss' theorem, we have shown
+   that the del operator acting on a vector field captures this definition.
+</para>
+</section>
+</content>
+</document>

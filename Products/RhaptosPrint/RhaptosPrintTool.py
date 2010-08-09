@@ -266,6 +266,13 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             return "%s/printing/Makefile" % package_home(GLOBALS)
         return makefile
 
+    security.declareProtected(ManagePermission, 'getEpubDir')
+    def getEpubDir(self):
+        """Return makefile path; meant only for manager consumption.
+         'default' if true returns a default value if the field is empty.
+        """
+        return "%s/epub" % package_home(GLOBALS)
+
     security.declareProtected(ManagePermission, 'getPortalPath')
     def getPortalPath(self, default=1):
         """Return path to the Rhaptos portal; meant only for manager consumption.

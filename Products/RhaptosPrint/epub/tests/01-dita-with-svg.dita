@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xml:lang="en-us"
+       xsi:noNamespaceSchemaLocation="urn:oasis:names:tc:dita:xsd:topic.xsd:1.1"
+       id="topic0">
+   <title>Check that SVG in a foreign tags is not ignored</title>
+   <body>
+     <p>SVG works if you can see the uppercase version of "correct" after the colon:
+       <foreign>
+         <svg xmlns="http://www.w3.org/2000/svg"
+            height="10">
+           <text y="10" font-size="10">CORRECT</text>
+         </svg>
+       </foreign>
+     </p>
+   </body>
+</topic>

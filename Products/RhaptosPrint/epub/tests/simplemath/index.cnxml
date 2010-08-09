@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:bib="http://bibtexml.sf.net/" id="simplemath" cnxml-version="0.7">
+	<name>SimpleMath Test</name>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+
+  <md:actors>
+      <md:person userid="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:email>p@cnx</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+    <md:role type="translator">phil</md:role>
+  </md:roles>
+</metadata>
+
+	<content>
+	<section><title>About This Test</title>
+	   <para>This module tests that "simple" MathML is converted into cnxml when possible but not when it's too "com.plex". The generated HTML checked via grep by making sure all the words (including single characters, like cue, doubleu, and the three last letters of the alphabet exist in the resulting HTML and that the word "com.plex" (without the period) does not.
+	   </para>
+	</section>
+	<section><title>Math displays</title>
+	   <para><list>
+           <item><m:math><m:mtext>math-display1</m:mtext></m:math> : math with no display attribute</item>
+           <item><m:math display="inline"><m:mtext>math-display2</m:mtext></m:math> : math with display=inline</item>
+           <item><m:math display="block"><m:mtext>math-display3</m:mtext></m:math> : math with display=block</item>
+	   </list></para>
+    </section>
+    
+	<section><title>Terminals</title>
+	   <para><list>
+           <item><m:math><m:mtext>mtext-test</m:mtext></m:math></item>
+           <item><m:math><m:mn>3.14159627</m:mn></m:math> : mn</item>
+           <item><m:math><m:mi>q</m:mi></m:math> : mi (italicized)</item>
+           <item><m:math><m:mi>#</m:mi></m:math> : mi (NOT italicized)</item>
+           <item><m:math><m:mo>+</m:mo></m:math> : mo (a "+")</item>
+           <item><m:math><m:mo>z</m:mo></m:math> : mo (a "z")</item>
+           <item><m:math><m:mo>-</m:mo></m:math> : mo (a dash, longer than "-")</item>
+           <item><m:math><m:apply><m:plus/><m:exponentiale/><m:imaginaryi/><m:primes/><m:naturalnumbers/><m:integers/><m:complexes/><m:reals/></m:apply></m:math> : exponentiale, imaginaryi, prines, naturals, integers, complexes, reals</item>
+           <item><m:math><m:apply><m:divide/><m:apply><m:plus/><m:exponentiale/><m:imaginaryi/><m:primes/><m:naturalnumbers/><m:integers/><m:complexes/><m:reals/></m:apply><m:cn>2</m:cn></m:apply></m:math> : (exponentiale, imaginaryi, prines, naturals, integers, complexes, reals) divided by two (make sure image generation of those characters works)</item>
+	   </list></para>
+	   <para>mathvariant on mml:mi<list>
+           <item><m:math><m:mi>q</m:mi></m:math> : mi (italicized)</item>
+           <item><m:math><m:mi>&#8734;</m:mi></m:math> : mi (NOT italicized)</item>
+           <item><m:math><m:mi mathvariant="normal">mi-normal</m:mi></m:math> : mi (variant='normal')</item>
+           <item><m:math><m:mi mathvariant="bold">mi-bold</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="italic">mi-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-italic">mi-bold-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="double-struck">mi-double-struck</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-fraktur">mi-fraktur</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="script">mi-script</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-script">mi-bold-script</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="fraktur">mi-fraktur</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif">mi-sans-serif</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="bold-sans-serif">mi-bold-sans-serif</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif-italic">mi-sans-serif-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="sans-serif-bold-italic">mi-sans-serif-bold-italic</m:mi></m:math> : mi (variant='...')</item>
+           <item><m:math><m:mi mathvariant="monospace">mi-monospace</m:mi></m:math> : mi (variant='...')</item>
+	   </list></para>
+    </section>
+    <section><title>Non-terminals</title>
+        <para><list>
+           <item><m:math><m:mrow><m:mtext>mrow-test</m:mtext></m:mrow></m:math></item>
+           <item><m:math><m:mrow><m:mi>x</m:mi><m:mi>y</m:mi></m:mrow></m:math> : row with just mi's (no space between letters)</item>
+           <item><m:math><m:mrow><m:mn>1.123</m:mn><m:mi>w</m:mi></m:mrow></m:math> : row with mi and mn (italicize the letter but not the number)</item>
+           <item><m:math><m:semantics><m:mtext>semantics-test</m:mtext></m:semantics></m:math></item>
+           <item><m:math><m:msub><m:mtext>msub1</m:mtext><m:mn>1.234</m:mn></m:msub></m:math> : msub</item>
+           <item><m:math><m:msub><m:mtext>msub2</m:mtext><m:mi>k</m:mi></m:msub></m:math> : another msub</item>
+           <item><m:math><m:msup><m:mtext>msup1</m:mtext><m:mn>u</m:mn></m:msup></m:math> : msup</item>
+           <item><m:math><m:msup><m:mtext>msup2</m:mtext><m:mi>b</m:mi></m:msup></m:math> : another msup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup1</m:mtext><m:mi>a</m:mi><m:mn>1</m:mn></m:msubsup></m:math> : simple msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup2</m:mtext><m:mn>2</m:mn><m:mo>+</m:mo></m:msubsup></m:math> : simple msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup3</m:mtext><m:mn>3</m:mn><m:mtext>mtext</m:mtext></m:msubsup></m:math> : Still do-able msubsup</item>
+           <item><m:math><m:msubsup><m:mtext>msubsup4</m:mtext><m:mtext>msubsup4-test</m:mtext><m:mn>4</m:mn></m:msubsup></m:math> : Still do-able msubsup (the order is flipped)</item>
+
+
+           <item><m:math><m:msubsup><m:mtext>complex</m:mtext><m:mtext>mtext</m:mtext><m:mrow><m:mn>5</m:mn></m:mrow></m:msubsup></m:math> : Too complicated</item>
+
+           <item><m:math><m:mfenced><m:mtext>mfenced1</m:mtext></m:mfenced></m:math> : mfenced with 1 item</item>
+           <item><m:math><m:mfenced><m:mtext>mfenced2</m:mtext><m:mn>2</m:mn></m:mfenced></m:math> : mfenced with 2 items</item>
+           <item><m:math><m:mfenced separators=" "><m:mtext>mfenced3</m:mtext><m:mn>3</m:mn></m:mfenced></m:math> : mfenced with separators=" "</item>
+           <item><m:math><m:mfenced separators="|"><m:mtext>mfenced4</m:mtext><m:mn>4</m:mn></m:mfenced></m:math> : mfenced with separators="|"</item>
+           <item><m:math><m:mfenced open="[" close="]"><m:mtext>mfenced5</m:mtext><m:mn>5</m:mn></m:mfenced></m:math> : mfenced with brackets</item>
+           <item><m:math><m:mfenced open="{" close="}"><m:mtext>mfenced6</m:mtext><m:mn>6</m:mn></m:mfenced></m:math> : mfenced with curly braces</item>
+           <item><m:math><m:mfenced><m:mfenced><m:mtext>mfenced7</m:mtext><m:mn>7</m:mn></m:mfenced></m:mfenced></m:math> : nested mfenced</item>
+
+           <item><m:math><m:mfenced><m:msub><m:mtext>complex</m:mtext><m:mn>8</m:mn></m:msub></m:mfenced></m:math> : Too complicated (mfenced/msub). Requires stretchy parens</item>
+           <item><m:math><m:mrow><m:mo>(</m:mo><m:msub><m:mtext>complex</m:mtext><m:mn>9</m:mn></m:msub><m:mo>]</m:mo></m:mrow></m:math> : Too complicated mrow ( "(" next to a msub )</item>
+
+           <item><m:math><m:apply><m:divide/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in an image.</item>
+           <item><m:math><m:apply><m:minus/><m:reals/><m:mn>2</m:mn></m:apply></m:math> : Using m:reals in cnxml (should _not_ be italic).</item>
+
+        </list></para>
+    </section>
+    
+    <section><title>Cnx collection parameters</title>
+        <para><list>
+            <item><m:math><m:apply><m:grad/><m:ci>x</m:ci></m:apply></m:math> : gradient-notation=symbolicnotation (should display an upside down triangle)</item>
+        </list></para>
+    </section>
+
+    <section><title>Cnx csymbol customizations</title>
+        <equation><m:math>
+            <m:apply>
+               <m:eq/>
+               <m:ci>A</m:ci>
+               <m:ci>B</m:ci>
+               <m:ci>C</m:ci>
+             </m:apply>
+        </m:math> : multiple equals in an equation ("=C" should show up on a second line)</equation>
+
+        <para><list>
+            <item><m:math>
+                <m:apply>
+                   <m:eq/>
+                   <m:ci>A</m:ci>
+                   <m:ci>B</m:ci>
+                   <m:ci>C</m:ci>
+                 </m:apply>
+            </m:math> : multiple equals ("=C" should show up on the same line)</item>
+            <item><m:math>
+                <m:apply>
+                   <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+                   <m:ci type='matrix'>U</m:ci>
+                 </m:apply>
+            </m:math> : adjoint. Should have a "H" superscipt</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#argmax"/>
+       <m:domainofapplication>
+         <m:ci type='vector'>T</m:ci>
+       </m:domainofapplication>
+       <m:apply>
+         <m:ci type='fn'>p</m:ci>
+         <m:ci type='vector'>x</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : argmax </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://www.openmath.org/cd/combinat1.ocd"/>
+       <m:ci>N</m:ci>
+       <m:ci>n</m:ci>
+     </m:apply>
+            </m:math> : argmin. The "N" is on top and "n" is on bottom</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#complement"/>
+       <m:ci>A</m:ci>
+     </m:apply>
+            </m:math> : complement. A with a ' to denote complement</item>
+            <item><m:math>
+     <m:apply>
+       <m:eq/>
+       <m:apply>
+         <m:ci type='fn'>x</m:ci>
+         <m:ci>t</m:ci>
+       </m:apply>
+       <m:apply>
+   <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+     <m:apply>
+             <m:ci type='fn'>R</m:ci>
+             <m:ci>t</m:ci>
+           </m:apply>
+     <m:apply>
+             <m:ci type='fn'>h</m:ci>
+             <m:apply>
+               <m:minus/>
+     <m:ci>t</m:ci>
+             </m:apply>
+     </m:apply>
+     <m:apply>
+             <m:ci type='fn'>h</m:ci>
+             <m:ci>t</m:ci>
+     </m:apply>
+  </m:apply>
+     </m:apply>
+            </m:math> : convolve </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#cdf'>f</m:csymbol>
+       <m:bvar>
+         <m:ci>T</m:ci>
+       </m:bvar>
+       <m:ci>x</m:ci>
+     </m:apply>
+            </m:math> : cdf </item>
+            <item><m:math>
+     <m:apply>
+       <m:diff definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#vectorderivative'/>
+       <m:bvar>
+         <m:ci>T</m:ci>
+       </m:bvar>
+       <m:apply>
+         <m:ci type='vector'>s</m:ci>
+         <m:ci>T</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : vectorderivative </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#distance"/>
+       <m:ci><m:msub>
+           <m:mi>p</m:mi>
+           <m:mn>1</m:mn>
+         </m:msub></m:ci>
+       <m:ci><m:msub>
+           <m:mi>p</m:mi>
+           <m:mn>0</m:mn>
+         </m:msub></m:ci>
+     </m:apply>
+            </m:math> : distance </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#estimate"/>
+       <m:ci><m:msub>
+           <m:mi>T</m:mi>
+           <m:mi>ML</m:mi>
+         </m:msub></m:ci>
+     </m:apply>
+            </m:math> : estimate </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#evaluateat'/>
+       <m:bvar>
+   <m:ci>x</m:ci>
+       </m:bvar>
+       <m:interval>
+         <m:cn>0</m:cn>
+   <m:cn>3</m:cn>
+       </m:interval>
+       <m:apply>
+         <m:int/>
+         <m:bvar>
+     <m:ci>x</m:ci>
+   </m:bvar>
+         <m:apply>
+           <m:power/>
+     <m:ci>x</m:ci>
+           <m:cn>2</m:cn>
+         </m:apply>
+       </m:apply>
+     </m:apply>
+            </m:math> : evaluateat </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#expectedvalue"/>
+       <m:bvar>
+         <m:cn>0</m:cn>
+       </m:bvar>
+       <m:apply>
+         <m:ci type='fn'>L</m:ci>
+         <m:ci type='vector'>r</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : expectedvalue </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#mutualinformation"/>
+       <m:ci><m:msub>
+         <m:mi>r</m:mi>
+         <m:mn>1</m:mn>
+       </m:msub></m:ci>
+       <m:ci><m:msub>
+         <m:mi>r</m:mi>
+         <m:mn>2</m:mn>
+       </m:msub></m:ci>
+     </m:apply>
+            </m:math> : mutualinformation </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       <m:domainofapplication>
+         <m:cn>2</m:cn>
+       </m:domainofapplication>
+       <m:ci type='vector'>x</m:ci>
+     </m:apply>
+            </m:math> : norm </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#distributedin"/>
+       <m:ci>X</m:ci>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#normaldistribution"/>
+         <m:ci>mu</m:ci>
+         <m:ci>sigma</m:ci>
+       </m:apply>
+     </m:apply>
+            </m:math> : normaldistribution </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochastic"/>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochasticpiece"/>
+         <m:cn>1</m:cn>
+         <m:ci>p</m:ci>
+       </m:apply>
+       <m:apply>
+         <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#stochasticpiece"/>
+         <m:cn>0</m:cn>
+         <m:apply>
+           <m:minus/>
+           <m:cn>1</m:cn>
+           <m:ci>p</m:ci>
+         </m:apply>
+       </m:apply>
+     </m:apply>
+            </m:math> : stochastic </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#probability'/>
+       <m:condition>
+         <m:ci>Y</m:ci>
+       </m:condition>
+       <m:ci>X</m:ci>
+     </m:apply>
+            </m:math> : probability </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+       <m:bvar>
+         <m:ci>r</m:ci>
+       </m:bvar>
+       <m:condition>
+         <m:ci>theta</m:ci>
+       </m:condition>
+       <m:ci>x</m:ci>
+     </m:apply> 
+            </m:math> : pdf </item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol class='discrete' definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+       <m:bvar>
+         <m:ci>r</m:ci>
+       </m:bvar>
+       <m:condition>
+         <m:ci>theta</m:ci>
+       </m:condition>
+       <m:ci>x</m:ci>
+     </m:apply> 
+            </m:math> : pdf (class='discrete'). The probability mass function</item>
+            <item><m:math>
+     <m:apply>
+       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#surfaceintegral"/>
+       <m:bvar>
+         <m:ci>S</m:ci>
+       </m:bvar>
+       <m:domainofapplication>
+         <m:ci>s</m:ci>
+       </m:domainofapplication>
+       <m:ci>D</m:ci>
+     </m:apply>
+            </m:math> : surfaceintegral </item>
+        </list></para>
+    </section>
+
+	</content>
+</document>

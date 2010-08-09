@@ -1,0 +1,3893 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m10349" module-id="" cnxml-version="0.7">
+  
+  <title>Analog Signal Processing Problems</title>
+  
+  <metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://wakizashi.cnx.rice.edu:8080/content</md:repository>
+  <md:content-url>http://wakizashi.cnx.rice.edu:8080/content/m10349/2.42</md:content-url>
+  <md:content-id>m10349</md:content-id>
+  <md:title>Analog Signal Processing Problems</md:title>
+  <md:version>2.42</md:version>
+  <md:created>2001/08/22</md:created>
+  <md:revised>2009/08/04 23:12:29 GMT-5</md:revised>
+  <md:actors>
+    <md:person userid="ernsnave">
+      <md:firstname>Erin</md:firstname>
+      <md:surname>Snavely</md:surname>
+      <md:fullname>Erin Snavely</md:fullname>
+      <md:email>ernsnave@alumni.rice.edu</md:email>
+    </md:person>
+    <md:person userid="jsilv">
+      <md:firstname>Jeffrey</md:firstname>
+      <md:surname>Silverman</md:surname>
+      <md:fullname>Jeffrey Silverman</md:fullname>
+      <md:email>JSilverman@astro.berkeley.edu</md:email>
+    </md:person>
+    <md:person userid="brentmh">
+      <md:firstname>Brent</md:firstname>
+      <md:surname>Hendricks</md:surname>
+      <md:fullname>Brent Hendricks</md:fullname>
+      <md:email>brentmh@rice.edu</md:email>
+    </md:person>
+    <md:person userid="dhj">
+      <md:firstname>Don</md:firstname>
+      <md:surname>Johnson</md:surname>
+      <md:fullname>Don Johnson</md:fullname>
+      <md:email>dhj@rice.edu</md:email>
+    </md:person>
+    <md:person userid="bfite">
+      <md:firstname>Benjamin</md:firstname>
+      <md:surname>Fite</md:surname>
+      <md:fullname>Benjamin Fite</md:fullname>
+      <md:email>bfite@rice.edu</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">dhj</md:role>
+    <md:role type="maintainer">dhj bfite brentmh jsilv ernsnave</md:role>
+    <md:role type="licensor">dhj</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/1.0" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>analog</md:keyword>
+    <md:keyword>analog problem</md:keyword>
+    <md:keyword>ASP</md:keyword>
+    <md:keyword>problems</md:keyword>
+    <md:keyword>signals</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract>Problems Dealing with Analog Signal Processing</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+<content>    
+    <q:problemset>
+      
+   <q:item id="NP2" type="text-response">
+	<q:question>
+	  <section id="secNP2">
+	    <title>Simple Circuit Analysis</title>
+	    <figure id="NP2fig" orient="horizontal">
+	      <subfigure id="NP2a">
+		<title>Circuit a</title>
+		<media id="NP2afig" alt="">
+                  <image src="circuit40a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit40a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="NP2b">
+		   <title>Circuit b</title>
+		   <media id="NP2bfig" alt="">
+                  <image src="circuit40b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit40b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="NP2c">
+		   <title>Circuit c</title>
+		   <media id="NP2cfig" alt="">
+                  <image src="circuit40c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit40c.eps" mime-type="application/postscript"/>
+           </media>
+	      </subfigure>
+	    </figure>
+	    
+	    <para id="p1NP2">
+	    For each circuit shown in <link target-id="NP2fig" strength="3"/>, the current
+	    <m:math><m:ci>i</m:ci></m:math> equals
+	    <m:math>
+	      <m:apply><m:cos/>
+	        <m:apply><m:times/>
+	          <m:cn>2</m:cn><m:pi/><m:ci>t</m:ci>
+	        </m:apply>
+	      </m:apply>
+	    </m:math>.
+<list id="NP2.1" list-type="enumerated">
+	      <item>
+	      What is the voltage across each element and what is the voltage
+	      <m:math>
+	      <m:ci>v</m:ci>
+	      </m:math> in each case?
+	      </item>
+          <item>
+          For the last circuit, are there element values that make the voltage
+          <m:math>
+	      <m:ci>v</m:ci>
+	      </m:math>
+	      equal zero?
+          If so, what element values work?
+          </item>
+          <item>
+          Again, for the last circuit, if zero voltage where possible, what circuit element could substitute for the capacitor-inductor series combination that would yield the same voltage? 
+          </item>
+          </list>
+        </para>
+	  </section>
+	</q:question>
+   </q:item>
+
+
+      <q:item id="i1" type="text-response">
+        <q:question>
+	  <section id="ex31sec">
+	    <title>Solving Simple Circuits</title>
+	    <list id="list3.1" list-type="enumerated">
+	      <item>		
+		Write the set of equations that govern
+               <link target-id="fig3.1" strength="3">Circuit A's</link>
+		behavior.  
+	      </item>
+
+	      <item>
+		Solve these equations for
+		<m:math>
+		  <m:apply>
+		    <m:ci>
+		      <m:msub> 
+			<m:mi>i</m:mi> 
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:math>: 		
+		In other words, express this current in terms of
+		element and source values by eliminating non-source
+		voltages and currents.  
+	      </item>
+
+	      <item>
+		For Circuit B, find the value for
+		<m:math>
+		  <m:apply><m:ci><m:msub><m:ci>R</m:ci><m:mtext>L</m:mtext></m:msub></m:ci>
+		  </m:apply>
+		</m:math>
+		that results in a current of 5 A passing through
+		it. 
+	      </item>
+	      <item>
+	      What is the power dissipated by the load resistor
+		<m:math>
+		  <m:apply><m:ci><m:msub><m:ci>R</m:ci><m:mtext>L</m:mtext></m:msub></m:ci>
+		  </m:apply>
+		</m:math>
+		in this case?
+	      </item>
+	    </list>
+
+	    <figure id="fig3.1" orient="horizontal">
+	      <subfigure id="id1168755698383">
+		<title>Circuit A</title>
+		<media id="id8683367" alt="">
+                  <image src="circuit6.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit6.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168752033085">
+		<title>Circuit B</title>
+		<media id="id1168754583151" alt="">
+                  <image src="circuit7.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit7.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="i2" type="text-response">
+	<q:question>
+	  <section id="s2">
+	    <title>Equivalent Resistance</title> <para id="crack"> For
+	    each of the <link target-id="fig3.2" strength="3">following
+	    circuits</link>, find the equivalent resistance using
+	    series and parallel combination rules.
+	    </para>
+
+	    <figure id="fig3.2" orient="horizontal">
+	      <subfigure id="id8533944">
+		<title>circuit a</title>
+		<media id="id1168752839411" alt="">
+                  <image src="circuit8a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit8a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168753954626">
+		<title>circuit b</title>
+		<media id="id1168749621936" alt="">
+                  <image src="circuit8b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit8b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168755731698">
+		<title>circuit c</title>
+		<media id="id1168749813446" alt="">
+                  <image src="circuit8c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit8c.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168749741742">
+		<title>circuit d</title>
+		<media id="id8596583" alt="">
+                  <image src="circuit8d.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit8d.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+
+	    <para id="pipe">
+	      Calculate the conductance seen at the terminals for
+	      circuit (c) in terms of each element's conductance.
+	      Compare this equivalent conductance formula with the
+	      equivalent resistance formula you found for circuit (b).
+	      How is the circuit (c) derived from circuit (b)?
+	    </para>
+	  </section>
+	</q:question>        
+      </q:item>
+
+
+      <q:item id="i3" type="text-response">
+        <q:question>
+	  <section id="s33">
+	    <title>Superposition Principle</title>
+	    <para id="blumentopf">
+	      One of the most important consequences of circuit laws
+	      is the <term>Superposition Principle</term>: The current
+	      or voltage defined for any element equals the sum of the
+	      currents or voltages produced in the element by the
+	      independent sources. This Principle has important
+	      consequences in simplifying the calculation of ciruit
+	      variables in multiple source circuits.
+	    </para>
+
+	    <figure id="fig3.3">
+	      <media id="id1168754736816" alt="">
+                <image src="circuit9.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit9.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <list id="list3.3" list-type="enumerated">
+	      <item> For the <link target-id="fig3.3" strength="3">depicted circuit</link>, find the
+		indicated current using any technique you like (you
+		should use the simplest).
+	      </item>
+
+	      <item>
+		You should have found that the current 
+		<m:math><m:ci>i</m:ci></m:math> 		
+		is a linear combination of the two source values:
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>i</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>C</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>v</m:mi>
+			      <m:mi>in</m:mi>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>C</m:mi>
+			      <m:mn>2</m:mn>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>i</m:mi>
+			      <m:mi>in</m:mi>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:math>. 
+		This result means that we can think of the current as
+		a superposition of two components, each of which is
+		due to a source. We can find each component by setting
+		the other sources to zero. Thus, to find the voltage
+		source component, you can set the current source to
+		zero (an open circuit) and use the usual tricks. To
+		find the current source component, you would set the
+		voltage source to zero (a short circuit) and find the
+		resulting current. Calculate the total current 
+		<m:math><m:ci>i</m:ci></m:math> using the
+		Superposition Principle. Is applying the Superposition
+		Principle easier than the technique you used in part
+		(1)?
+	      </item>
+	    </list>
+
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="i4" type="text-response">
+	<q:question>
+	  <section id="s3.4">
+	    <title>Current and Voltage Divider</title>
+	    <para id="p3.4">
+	      Use current or voltage divider rules to calculate the
+	      indicated circuit variables in <link target-id="fig3.4" strength="3"/>.
+	    </para>
+
+	    <figure id="fig3.4" orient="horizontal">
+	      <subfigure id="id1168753544225">
+		<title>circuit a</title>
+		<media id="id1168756624039" alt="">
+                  <image src="circuit10a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit10a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168748949944">
+		<title>circuit b</title>
+		<media id="id7119569" alt="">
+                  <image src="circuit10b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit10b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168755038937">
+		<title>circuit c</title>
+		<media id="id1168753751506" alt="">
+                  <image src="circuit10c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit10c.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i5" type="text-response">
+	<q:question>
+	  <section id="s3.5">
+	    <title>Thévenin and Mayer-Norton Equivalents</title>
+	    <para id="p3.5">	      
+	      Find the Thévenin and Mayer-Norton equivalent
+	      circuits for the
+              <link target-id="fig3.5" strength="3">following circuits</link>.
+	    </para>
+
+	    <figure id="fig3.5" orient="horizontal">
+	      <subfigure id="id5541195">
+		<title>circuit a</title>
+		<media id="id1168748876183" alt="">
+                  <image src="circuit11a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit11a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id2886304">
+		<title>circuit b</title>
+		<media id="id1168750017590" alt="">
+                  <image src="circuit11b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit11b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id5583467">
+		<title>circuit c</title>
+		<media id="id9023001" alt="">
+                  <image src="circuit11c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit11c.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>	   
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i6" type="text-response">
+	<q:question>
+	  <section id="sec3.6">
+	    <title>Detective Work</title> 
+	    
+	    <para id="p3.6">
+	      In the <link target-id="fig3.6" strength="3">depicted
+              circuit</link>, the circuit
+	      <m:math>
+		<m:apply>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>N</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:apply>
+	      </m:math>
+	      has the v-i relation	      
+	      <m:math display="inline">
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>3</m:cn>
+		      <m:apply>
+			<m:ci>
+			  <m:msub>
+			    <m:mi>i</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub>
+			</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:cn>7</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	      when	      
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>i</m:mi>
+			<m:mi>s</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:math>.
+	      
+	      <list id="list3.6" list-type="enumerated">
+		<item>
+		  Find the Thévenin equivalent circuit for
+		  circuit 
+		  <m:math>
+		    <m:apply>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>N</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:math>.
+		</item>		
+		<item>
+		  With 
+		  <m:math display="inline">
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci>
+			  <m:msub>
+			    <m:mi>i</m:mi>
+			    <m:mi>s</m:mi>
+			  </m:msub>
+			</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:math>, 
+		  determine <m:math><m:ci>R</m:ci></m:math> such that
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci><m:msub>
+			    <m:mi>i</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub></m:ci>
+		      </m:apply>
+		      <m:cn>-1</m:cn>
+		    </m:apply>
+		  </m:math>.
+		</item>
+	      </list>
+	    </para>
+
+	    <figure id="fig3.6">
+	      <media id="id1168752814384" alt="">
+                <image src="circuit17.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit17.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+      <q:item id="bridge" type="text-response">
+      <q:question>
+        <section id="bridgesec"><title>Bridge Circuits</title>
+          <para id="bridgep1">
+          Circuits having the form of <link target-id="figbridge"/> are termed <term>bridge circuits</term>.
+          </para>
+          <figure id="figbridge">
+            <media id="bridgefig" alt="">
+              <image src="circuit41.png" mime-type="image/png"/>
+              <image for="pdf" src="circuit41.eps" mime-type="application/postscript"/>
+            </media>
+          </figure>
+          <list id="bridgelist" list-type="enumerated">
+            <item>
+            What resistance does the current source see when nothing is connected to the output terminals?
+            </item>
+            
+            <item>
+            What resistor values, if any, will result in a zero voltage for
+            <m:math>
+            <m:ci>
+              <m:msub>
+                <m:mi>v</m:mi>
+                <m:mi>out</m:mi>
+              </m:msub>
+            </m:ci>
+            </m:math>?
+            </item>
+            
+            <item>
+            Assume
+            <m:math>
+              <m:apply><m:eq/>
+                <m:ci>
+                  <m:msub>
+                    <m:mi>R</m:mi>
+                    <m:mn>1</m:mn>
+                  </m:msub>
+                </m:ci>
+                <m:cn>1Ω</m:cn>
+              </m:apply>
+            </m:math>,
+            <m:math>
+              <m:apply><m:eq/>
+                <m:ci>
+                  <m:msub>
+                    <m:mn>R</m:mn>
+                    <m:mi>2</m:mi>
+                  </m:msub>
+                </m:ci>
+                <m:cn>2Ω</m:cn>
+              </m:apply>
+            </m:math>,
+            <m:math>
+              <m:apply><m:eq/>
+                <m:ci>
+                  <m:msub>
+                    <m:mn>R</m:mn>
+                    <m:mi>3</m:mi>
+                  </m:msub>
+                </m:ci>
+                <m:cn>2Ω</m:cn>
+              </m:apply>
+            </m:math> and
+            <m:math>
+              <m:apply><m:eq/>
+                <m:ci>
+                  <m:msub>
+                    <m:mn>R</m:mn>
+                    <m:mi>4</m:mi>
+                  </m:msub>
+                </m:ci>
+                <m:cn>4Ω</m:cn>
+              </m:apply>
+            </m:math>.
+            Find the current
+            <m:math><m:ci>i</m:ci></m:math> when the current source
+            <m:math>
+              <m:ci><m:msub><m:mi>i</m:mi><m:mi>in</m:mi></m:msub></m:ci>
+            </m:math>
+            is
+            <m:math>
+              <m:apply><m:imaginary/>
+                <m:apply><m:times/>
+                  <m:apply><m:plus/>
+                    <m:ci>4</m:ci>
+                    <m:apply><m:times/>
+                      <m:cn>2</m:cn>
+                      <m:imaginaryi/>
+                    </m:apply>
+                  </m:apply>
+                  <m:apply><m:exp/>
+			        <m:apply><m:times/>
+				      <m:imaginaryi/>
+				      <m:cn>2</m:cn>
+				      <m:pi/>
+				      <m:cn>20</m:cn>
+				       <m:ci>t</m:ci>
+			        </m:apply>
+			      </m:apply>
+                </m:apply>
+              </m:apply>
+            </m:math>.
+            Express your answer as a sinusoid.
+            </item>
+            
+          </list>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="c1" type="text-response">
+      <q:question>
+        <section id="pc1"><title>Cartesian to Polar Conversion</title>
+          <para id="parac1">
+          Convert the following expressions into polar form.  Plot
+	      their location in the <link document="m10596" strength="3">complex plane</link>.
+          </para>
+          	<list id="problist" list-type="enumerated">
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>-3</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>3</m:cn>
+		<m:apply>
+		  <m:power/>
+		  <m:imaginaryi/>
+		  <m:cn>4</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>6</m:cn>
+		      <m:apply>
+			<m:root/>
+			<m:cn>3</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>2</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>6</m:cn>
+		      <m:apply>
+			<m:root/>
+			<m:cn>3</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>4</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:imaginaryi/>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item> 
+	    <m:math>
+	      <m:apply>
+		<m:plus/>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>3</m:cn>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:pi/>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>4</m:cn>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:divide/>
+			<m:pi/>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		  <m:imaginaryi/>
+		</m:apply>
+		<m:cn>2</m:cn>
+		<m:apply>
+		  <m:root/>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:divide/>
+			<m:pi/>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	  <item>
+	    <m:math>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>3</m:cn>
+		<m:apply>
+		  <m:plus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:cn>3</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+        </section>
+      </q:question>
+      </q:item>
+      
+      <q:item id="c7" type="text-response">
+      <q:question>
+        <section id="pc7"><title>The Complex Plane</title>
+          <para id="parac7">
+          The complex variable
+          <m:math>
+            <m:ci>z</m:ci>
+          </m:math> is related to the real variable
+          <m:math>
+            <m:ci>u</m:ci>
+          </m:math> according to
+	      <m:math display="block">
+	        <m:apply><m:eq/>
+	          <m:ci>z</m:ci>
+	          <m:apply><m:plus/>
+	            <m:cn>1</m:cn>
+	            <m:apply><m:exp/>
+	              <m:apply><m:times/>
+	                <m:imaginaryi/>
+	                <m:ci>u</m:ci>
+	              </m:apply>
+	            </m:apply>
+	          </m:apply>
+	        </m:apply>
+	      </m:math>
+          </para>
+          
+          <list id="lp7">
+            <item>
+              Sketch the contour of values
+              <m:math><m:ci>z</m:ci></m:math> takes on in the complex plane.
+            </item>
+            
+            <item>
+              What are the maximum and minimum values attainable by
+              <m:math><m:apply><m:abs/><m:ci>z</m:ci></m:apply></m:math>?
+            </item>
+            
+            <item>
+              Sketch the contour the rational function
+                <m:math>
+                  <m:apply><m:divide/>
+                    <m:apply><m:minus/>
+                      <m:ci>z</m:ci>
+                      <m:cn>1</m:cn>
+                    </m:apply>
+                    <m:apply><m:plus/>
+                      <m:ci>z</m:ci>
+                      <m:cn>1</m:cn>
+                    </m:apply>
+                  </m:apply>
+                </m:math>
+              traces in the complex plane.
+            </item>
+          </list>
+        </section>
+      </q:question>
+      </q:item>
+      
+      <q:item id="c6" type="text-response">
+      <q:question>
+        <section id="pc6"><title>Cool Curves</title>
+          <para id="parac6">
+          In the following expressions, the variable <m:math><m:ci>x</m:ci></m:math> runs from zero to infinity.
+	 What geometric shapes do the following trace in the complex plane?
+          </para>
+          	 <list id="prob6" list-type="enumerated">
+	   <item>
+	     <m:math>
+	       <m:apply><m:exp/>
+	         <m:apply><m:times/>
+	           <m:imaginaryi/>
+	           <m:ci>x</m:ci>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:plus/>
+	         <m:cn>1</m:cn>
+	         <m:apply><m:exp/>
+	           <m:apply><m:times/>
+	             <m:imaginaryi/>
+	             <m:ci>x</m:ci>
+	           </m:apply>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:times/>
+	         <m:apply><m:exp/>
+	           <m:apply><m:minus/><m:ci>x</m:ci></m:apply>
+	         </m:apply>
+	         <m:apply><m:exp/>
+	           <m:apply><m:times/>
+	             <m:imaginaryi/>
+	             <m:ci>x</m:ci>
+	           </m:apply>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:plus/>
+	         <m:apply><m:exp/>
+	           <m:apply><m:times/>
+	             <m:imaginaryi/>
+	             <m:ci>x</m:ci>
+	           </m:apply>
+	         </m:apply>
+	         <m:apply><m:exp/>
+	           <m:apply><m:times/>
+	             <m:imaginaryi/>
+	             <m:apply><m:plus/>
+	               <m:ci>x</m:ci>
+	               <m:apply><m:divide/><m:pi/><m:cn>4</m:cn></m:apply>
+	             </m:apply>
+	           </m:apply>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	 </list>
+        </section>
+      </q:question>
+      </q:item>
+      
+      <q:item id="c5" type="text-response">
+      <q:question>
+        <section id="pc5"><title>Trigonometric Identities and Complex Exponentials</title>
+        <para id="parac5">
+        Show the following trigonometric identities using complex exponentials.
+	   In many cases, they were derived using this approach.
+        </para>
+        	   <list id="prob5" list-type="enumerated">
+	   <item>
+	     <m:math>
+	       <m:apply><m:eq/>
+	         <m:apply><m:sin/>
+	           <m:apply><m:times/>
+	             <m:cn>2</m:cn>
+	             <m:ci>u</m:ci>
+	           </m:apply>
+	         </m:apply>
+	         <m:apply><m:times/>
+	           <m:cn>2</m:cn>
+	           <m:apply><m:sin/><m:ci>u</m:ci></m:apply>
+	           <m:apply><m:cos/><m:ci>u</m:ci></m:apply>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:eq/>
+	         <m:apply><m:power/>
+	           <m:apply><m:cos/><m:ci>u</m:ci></m:apply>
+	           <m:cn>2</m:cn>
+	         </m:apply>
+	         <m:apply><m:divide/>
+	           <m:apply><m:plus/>
+	             <m:cn>1</m:cn>
+	             <m:apply><m:cos/>
+	               <m:apply><m:times/><m:cn>2</m:cn><m:ci>u</m:ci></m:apply>
+	             </m:apply>
+	           </m:apply>
+	           <m:cn>2</m:cn>
+	         </m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:eq/>
+	         <m:apply><m:plus/>
+	           <m:apply><m:power/>
+	             <m:apply><m:cos/><m:ci>u</m:ci></m:apply>
+	             <m:cn>2</m:cn>
+	           </m:apply>	           
+	           <m:apply><m:power/>
+	             <m:apply><m:sin/><m:ci>u</m:ci></m:apply>
+	             <m:cn>2</m:cn>
+	           </m:apply>	           
+	         </m:apply>
+	         <m:cn>1</m:cn>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   <item>
+	     <m:math>
+	       <m:apply><m:eq/>
+	         <m:apply><m:diff/>
+	           <m:bvar><m:ci>u</m:ci></m:bvar>
+	           <m:apply><m:sin/><m:ci>u</m:ci></m:apply>
+	         </m:apply>
+	         <m:apply><m:cos/><m:ci>u</m:ci></m:apply>
+	       </m:apply>
+	     </m:math>
+	   </item>
+	   </list>
+        </section>
+      </q:question>
+      </q:item>
+      
+
+      <q:item id="i7" type="text-response">
+	<q:question>
+	  <section id="sec3.7">
+	    <title>Transfer Functions</title>
+	    <para id="p3.7">
+	      Find the transfer function relating the complex
+	      amplitudes of the indicated variable and the
+	      source shown in <link target-id="fig3.7" strength="3"/>.
+              Plot the magnitude and phase of the transfer
+	      function.
+	    </para>
+
+	    <figure id="fig3.7" orient="horizontal">
+	      <subfigure id="id1168755723153">
+		<title>circuit a</title>
+		<media id="id1168752119611" alt="">
+                  <image src="circuit18a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit18a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168756727199">
+		<title>circuit b</title>
+		<media id="id4768232" alt="">
+                  <image src="circuit18b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit18b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168749612868">
+		<title>circuit c</title>
+		<media id="id4617459" alt="">
+                  <image src="circuit18c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit18c.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168749746486">
+		<title>circuit d</title>
+		<media id="id1168749820370" alt="">
+                  <image src="circuit18d.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit18d.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i8" type="text-response">
+	<q:question>
+	  <section id="s3.8">
+	    <title>Using Impedances</title>
+	    <para id="p3.8">
+	      Find the differential equation relating the indicated
+	      variable to the source(s) using impedances for each circuit
+              shown in <link target-id="list3.8" strength="3"/>.
+	    </para>
+
+	    <figure id="list3.8" orient="horizontal">
+	      <subfigure id="id4368989">
+		<title>circuit a</title>
+		<media id="id1168749940201" alt="">
+                  <image src="circuit19a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit19a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168748819540">
+		<title>circuit b</title>
+		<media id="id1168751935874" alt="">
+                  <image src="circuit19b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit19b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168753718257">
+		<title>circuit c</title>
+		<media id="id6523701" alt="">
+                  <image src="circuit19c.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit19c.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168751875565">
+		<title>circuit d</title>
+		<media id="id1168756311086" alt="">
+                  <image src="circuit19d.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit19d.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="chaos" type="text-response">
+	<q:question>
+	  <section id="chaossec">
+	    <title>Measurement Chaos</title>
+	    <para id="chaosp1">
+	    The <link target-id="chaosfig">following simple circuit</link> was constructed but the signal measurements were made haphazardly.
+	    When the source was
+	    <m:math>
+	      <m:apply><m:sin/>
+	        <m:apply><m:times/>
+	          <m:cn>2</m:cn><m:pi/>
+	          <m:ci><m:msub><m:mi>f</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+	          <m:ci>t</m:ci>
+	        </m:apply>
+	      </m:apply>
+	    </m:math>, the current
+	    <m:math>
+	      <m:apply><m:ci type="fn">i</m:ci><m:ci>t</m:ci></m:apply>
+	    </m:math>
+	    equaled
+	    <m:math>
+	      <m:apply><m:times/>
+	        <m:apply><m:divide/>
+	          <m:apply><m:root/><m:cn>2</m:cn></m:apply>
+	          <m:cn>3</m:cn>
+	        </m:apply>
+	        <m:apply><m:sin/>
+	          <m:apply><m:plus/>
+	            <m:apply><m:times/>
+	              <m:cn>2</m:cn><m:pi/>
+	              <m:ci><m:msub><m:mi>f</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+	              <m:ci>t</m:ci>
+	            </m:apply>
+	            <m:apply><m:divide/>
+	              <m:pi/><m:cn>4</m:cn>
+	            </m:apply>
+	          </m:apply>
+	        </m:apply>
+	      </m:apply>
+	    </m:math>
+	    and the voltage
+	    <m:math>
+	      <m:apply><m:eq/>
+	         <m:apply><m:ci type="fn">
+	           <m:msub><m:mi>v</m:mi><m:mn>2</m:mn></m:msub></m:ci><m:ci>t</m:ci>
+	         </m:apply>
+	         <m:apply><m:times/>
+	           <m:apply><m:divide/>
+	             <m:cn>1</m:cn><m:cn>3</m:cn>
+	           </m:apply>
+	           <m:apply><m:sin/>
+	             <m:apply><m:times/>
+	               <m:cn>2</m:cn><m:pi/>
+	               <m:ci><m:msub><m:mi>f</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+	               <m:ci>t</m:ci>
+	             </m:apply>
+	           </m:apply>
+	         </m:apply>
+	      </m:apply>
+	    </m:math>.
+
+	    <figure id="chaosfig" orient="horizontal">
+		  <media id="chaosfig1" alt="">
+            <image src="circuit43.png" mime-type="image/png"/>
+            <image for="pdf" src="circuit43.eps" mime-type="application/postscript"/>
+          </media>
+	    </figure>
+        
+	    </para>
+	    
+	    <list id="chaosparts" list-type="enumerated">
+	      <item>
+            What is the voltage
+            <m:math>
+              <m:apply><m:ci type="fn">
+	           <m:msub><m:mi>v</m:mi><m:mn>1</m:mn></m:msub></m:ci><m:ci>t</m:ci>
+	         </m:apply>
+            </m:math>?
+	      </item>
+	      
+	      <item>
+	        Find the impedances
+	        <m:math>
+	          <m:ci><m:msub><m:mi>Z</m:mi><m:mn>1</m:mn></m:msub></m:ci>
+	        </m:math>
+	        and
+	        <m:math>
+	          <m:ci><m:msub><m:mi>Z</m:mi><m:mn>2</m:mn></m:msub></m:ci>
+	        </m:math>.
+          </item>
+          
+          <item>
+          Construct these impedances from elementary circuit elements.
+          </item>
+          
+	    </list>
+	  </section>
+	</q:question>
+	</q:item>
+
+
+      <q:item id="i9" type="text-response">
+	<q:question>
+	  <section id="sec3.9">
+	    <title>Transfer Functions</title>
+	    <para id="p3.9">
+	      In the <link target-id="fig3.9" strength="3">following
+              circuit</link>, the voltage source equals
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mi>in</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>10</m:cn>
+		    <m:apply>
+		      <m:sin/>
+		      <m:apply>
+			<m:divide/>
+			<m:ci>t</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	    </para>
+
+	    <figure id="fig3.9">
+	      <media id="id2919116" alt="">
+                <image src="circuit21.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit21.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.9" list-type="enumerated">
+	      <item>
+		Find the transfer function between the source and the
+		indicated output voltage.
+	      </item>
+	      <item>
+		For the given source, find the output voltage.
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="q1.1" type="text-response">
+	<q:question>
+	  <section id="sq1.1">
+	    <title>A Simple Circuit</title>
+
+	    <para id="pq1.1">You are given this <link target-id="fig3.9a" strength="3">simple circuit</link>.
+	    </para>
+
+	    <figure id="fig3.9a">
+	      <media id="id6981301" alt="">
+                <image src="circuit33.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit33.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <list id="l3.9a" list-type="enumerated">
+	      <item>What is the transfer function between the source
+	      and the indicated output current?
+	      </item>
+
+	      <item>If the output current is measured to be
+		<m:math>
+		  <m:apply>
+		    <m:cos/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>, what was the source?
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+      </q:item>
+
+      <q:item id="i10" type="text-response">
+	<q:question>
+	  <section id="s3.10">
+	    <title>Circuit Design</title>
+
+	    <figure id="fig3.10">
+	      <media id="id1168750853430" alt="">
+                <image src="circuit23.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit23.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <list id="list3.10" list-type="enumerated">
+	      <item>
+		Find the transfer function between the input and the
+		output voltages for the circuits shown in
+                <link target-id="fig3.10" strength="3"/>.  
+	      </item>
+
+	      <item>
+		At what frequency does the transfer function have a
+		phase shift of zero? What is the circuit's gain at
+		this frequency?
+	      </item>
+	      
+	      <item>
+		Specifications demand that this circuit have an output
+		impedance (its equivalent impedance) less than 8Ω
+		for frequencies above 1 kHz, the frequency at which
+		the transfer function is maximum. Find element values
+		that satisfy this criterion.
+	      </item>
+	    </list>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+<q:item id="p19a" type="text-response">
+<q:question>
+  <section id="s19as1"><title>Equivalent Circuits and Power</title>
+    <para id="p19ap1">
+    Suppose we have an arbitrary circuit of resistors that we collapse into an equivalent resistor using the series and parallel rules.
+Is the power dissipated by the equivalent resistor equal to the sum of the powers dissipated by the actual resistors comprising the circuit?
+Let's start with simple cases and build up to a complete proof.
+	  <list id="p19al1" list-type="enumerated">
+	    <item>
+	    Suppose resistors
+	    <m:math>
+	     <m:msub><m:ci>R</m:ci><m:cn>1</m:cn></m:msub>
+	    </m:math>
+	    and
+	    <m:math>
+	     <m:msub><m:ci>R</m:ci><m:cn>2</m:cn></m:msub>
+	    </m:math>
+are connected in parallel.
+Show that the power dissipated by
+       <m:math>
+       <m:apply>
+	  <m:ci><m:mo>∥</m:mo></m:ci>
+	  <m:msub><m:ci>R</m:ci><m:cn>1</m:cn></m:msub>
+       <m:msub><m:ci>R</m:ci><m:cn>1</m:cn></m:msub>
+       </m:apply>
+       </m:math>
+       equals the sum of the powers dissipated by the component resistors.
+      </item>
+      
+      <item>
+      Now suppose
+      	    <m:math>
+	     <m:msub><m:ci>R</m:ci><m:cn>1</m:cn></m:msub>
+	    </m:math>
+and
+	    <m:math>
+	     <m:msub><m:ci>R</m:ci><m:cn>2</m:cn></m:msub>
+	    </m:math>
+are connected in series.
+Show the same result for this combination.
+   </item>
+   
+   <item>
+   Use these two results to prove the general result we seek.
+
+   </item>
+ </list>
+    </para>
+  </section>
+</q:question>
+</q:item>
+
+
+      <q:item id="p19" type="text-response">
+      <q:question>
+        <section id="s19"><title>Power Transmission</title>
+          <para id="p19p1">
+            The network shown in <link target-id="p19figa"/> represents a simple power transmission system.
+            The generator produces 60 Hz and is modeled by a simple Thévenin equivalent.
+            The transmission line consists of a long length of copper wire and can be accurately described as a 50Ω resistor.
+            
+            <list id="p19l" list-type="enumerated">
+              <item>
+              Determine the load current
+              <m:math>
+                <m:msub><m:ci>R</m:ci><m:mtext>L</m:mtext></m:msub>
+              </m:math>
+              and the average power the generator must produce so that the load receives 1,000 watts of average power.
+              Why does the generator need to generate more than 1,000 watts of average power to meet this requirement?
+              </item>
+              
+              <item>
+              Suppose the load is changed to that shown in <link target-id="p19figb"/>.
+              Now how much power must the generator produce to meet the same power requirement?
+              Why is it more than it had to produce to meet the requirement for the resistive load?
+              </item>
+              
+              <item>
+              The load can be <emphasis>compensated</emphasis> to have a unity <term>power factor</term> (see <link document="m17308" target-id="rms">exercise</link>) so that the voltage and current are in phase for maximum power efficiency.
+              The compensation technique is to place a circuit in parallel to the load circuit. What element works and what is its value?
+              </item>
+              
+              <item>
+              With this compensated circuit, how much power must the generator produce to deliver 1,000  average power to the load?
+              </item>
+            </list>
+          </para>
+            
+          <figure id="p19fig" orient="horizontal">
+	    <subfigure id="id1168750832105">
+            <title>Simple power transmission system</title>
+	      <media id="id1168755734962" alt="">
+                <image src="circuit37a.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit37a.eps" mime-type="application/postscript"/>
+              </media>
+	    </subfigure>
+	    <subfigure id="id4369564"><title>Modified load circuit</title>
+              <media id="id1168749810731" alt="">
+                <image src="circuit37b.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit37b.eps" mime-type="application/postscript"/>
+              </media>
+	       </subfigure>
+	     </figure>
+
+        </section>
+      </q:question>
+      </q:item>
+
+      <q:item id="p20" type="text-response">
+      <q:question>
+        <section id="p20s"><title>Optimal Power Transmission</title>
+          <para id="p20p1">
+          The following <link target-id="p20fig">figure</link> shows a general model for power transmission.
+          The power generator is represented by a Thévinin equivalent and the load by a simple impedance.
+          In most applications, the source components are fixed while there is some latitude in choosing the load.
+            <list id="p20list" list-type="enumerated">
+              <item>
+                Suppose we wanted the maximize "voltage transmission:"
+                make the voltage across the load as large as possible.
+                What choice of load impedance creates the largest load voltage?
+                What is the largest load voltage?
+              </item>
+              
+              <item>
+                If we wanted the maximum current to pass through the load, what would we choose the load impedance to be?
+                What is this largest current?
+              </item>
+              
+              <item>
+                What choice for the load impedance maximizes the average power dissipated in the load?
+                What is most power the generator can deliver?
+              </item>
+            </list>
+            <note id="id1168755681906">
+              One way to maximize a function of a complex variable is to write the expression in terms of the variable's real and imaginary parts, evaluate derivatives with respect to each, set both derivatives to zero and solve the two equations simultaneously.
+            </note>
+          </para>
+          
+          <figure id="p20fig">
+            <media id="id5557656" alt="">
+              <image src="circuit38.png" mime-type="image/png"/>
+              <image for="pdf" src="circuit38.eps" mime-type="application/postscript"/>
+            </media>
+          </figure>
+        </section>
+      </q:question>
+      </q:item>
+      
+      <q:item id="i11" type="text-response">
+	<q:question>
+	  <section id="s3.11">
+	    <title>Sharing a Channel</title>
+	    <para id="p3.12">
+	      Two transmitter-receiver pairs want to share the same
+	      digital communications channel. The transmitter signals
+	      will be added together by the channel. Receiver design
+	      is greatly simplified if first we remove the unwanted
+	      transmission (as much as possible). Each transmitter
+	      signal has the form
+	      
+	      <m:math display="block">
+		<m:apply>
+		  <m:forall/>
+		  <m:bvar>
+		    <m:ci>t</m:ci>
+		  </m:bvar>
+		  <m:condition>
+		    <m:apply>
+		      <m:leq/>
+		      <m:apply>
+			<m:leq/>
+			<m:cn>0</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:ci>T</m:ci> 
+		    </m:apply> 
+		  </m:condition>
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:mi>x</m:mi>
+			  <m:mi>i</m:mi>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>A</m:ci>
+		      <m:apply>
+			<m:sin/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>f</m:mi>
+			      <m:mi>i</m:mi>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>t</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply> 
+	      </m:math> 
+	      
+	      where the amplitude is either zero or
+	      <m:math><m:ci>A</m:ci></m:math> 	      
+	      and each transmitter uses its own frequency	      
+	      <m:math>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>f</m:mi>
+		    <m:mi>i</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:math>.
+	      Each frequency is harmonically related to the bit
+	      interval duration 
+	      <m:math>
+		<m:ci>T</m:ci>
+	      </m:math>, 	      
+	      where the transmitter 1 uses the the frequency
+	      <m:math>
+		<m:apply>
+		  <m:divide/> 
+		  <m:cn>1</m:cn>
+		  <m:ci>T</m:ci>
+		</m:apply>
+	      </m:math>. 
+	      The datarate is 10Mbps.
+
+	      <list id="list3.11" list-type="enumerated">
+		<item>
+		  Draw a block diagram that expresses this
+		  communication scenario.
+		</item>
+		<item>
+		  Find circuits that the receivers could employ to
+		  separate unwanted transmissions. Assume the received
+		  signal is a voltage and the output is to be a
+		  voltage as well.
+		</item> 
+		<item>
+		  Find the second transmitter's frequency so that the
+		  receivers can suppress the unwanted transmission by
+		  at least a factor of ten.
+		</item>		
+	      </list>
+
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i12" type="text-response">
+	<q:question>
+	  <section id="sec3.12">
+	    <title>Circuit Detective Work</title>
+	    <para id="p12">
+	      In the lab, the open-circuit voltage measured across an
+	      unknown circuit's terminals equals
+	      <m:math>
+		<m:apply>
+		  <m:sin/>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>. 
+	      When a 1Ω resistor is place across the terminals, a
+	      voltage of
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>t</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:pi/>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	      appears.
+	      
+	      <list id="list3.12" list-type="enumerated">
+		<item>
+		  What is the Thévenin equivalent circuit?
+		</item>
+		<item>
+		  What voltage will appear if we place a 1F capacitor
+		  across the terminals?
+		</item>
+	      </list>
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+
+      <q:item id="mystery" type="text-response">
+	<q:question>
+	  <section id="myssec">
+	    <title>Mystery Circuit</title>
+	    <para id="mysp1">
+	    We want to determine as much as we can about the circuit lurking in the impenetrable box shown in <link target-id="mysfig"/>.
+	    A voltage source
+	    <m:math>
+	      <m:apply><m:eq/>
+	        <m:ci><m:msub><m:mi>v</m:mi><m:mi>in</m:mi></m:msub></m:ci>
+	        <m:cn>2</m:cn>
+	      </m:apply>
+	    </m:math>volts
+	    has been attached to the left-hand terminals, leaving the right terminals for tests and measurements.
+	    </para>
+
+	    <figure id="mysfig">
+          <media id="mysfigfile" alt="">
+            <image src="circuit42.png" mime-type="image/png"/>
+            <image for="pdf" src="circuit42.eps" mime-type="application/postscript"/>
+          </media>
+        </figure>
+	    
+	    <list id="mysparts" list-type="enumerated">
+	      <item>
+	      Sammy measures
+	      <m:math>
+	        <m:apply><m:eq/>
+	          <m:ci>v</m:ci>
+	          <m:cn>10</m:cn>
+	        </m:apply>
+	      </m:math>volts when a 1Ω resistor is attached to the terminals.
+Samantha says he is wrong.
+Who is correct and why?
+	      </item>
+	      
+	      <item>
+	      When nothing is attached to the right-hand terminals, a voltage of
+	      <m:math>
+	        <m:apply><m:eq/>
+	          <m:ci>v</m:ci>
+	          <m:cn>1</m:cn>
+	        </m:apply>
+	      </m:math>volt is measured.
+What circuit could produce this output?
+	      </item>
+	      
+	      <item>
+	      When a current source is attached so that
+	      <m:math>
+	        <m:apply><m:eq/>
+	          <m:ci>i</m:ci>
+	          <m:cn>2</m:cn>
+	        </m:apply>
+	      </m:math>amp, the voltage
+	      <m:math><m:ci>v</m:ci></m:math> is now 3 volts.
+What resistor circuit would be consistent with this and the previous part?
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+	</q:item>
+
+
+      <q:item id="q1.2" type="text-response">
+	<q:question>
+	  <section id="sq1.2">
+	    <title>More Circuit Detective Work</title>
+
+	    <para id="pq1.2">The left terminal pair of a two
+	    terminal-pair circuit is attached to a testing
+	    circuit. The test source
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>v</m:mi>
+		      <m:mi>in</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math> equals
+	      <m:math>
+		<m:apply>
+		  <m:sin/>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math> (<link target-id="fig3.12a" strength="3"/>).
+	    </para>
+ 
+	    <figure id="fig3.12a">
+	      <media id="id2846837" alt="">
+                <image src="circuit31.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit31.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <para id="pq1.2a">We make the following measurements.
+
+	      <list id="list3.12a">
+		<item>With nothing attached to the terminals on the
+		right, the voltage
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn">v</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:math> equals
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:root/>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:cos/>
+			<m:apply>
+			  <m:plus/>
+			  <m:ci>t</m:ci>
+			  <m:apply>
+			    <m:divide/>
+			    <m:pi/>
+			    <m:cn>4</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>.
+		</item>
+
+		<item>When a wire is placed across the terminals on
+		the right, the current
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn">i</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:math> was
+		  <m:math>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:sin/>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>.
+		</item>
+	      </list>
+
+	      <list id="l3.12a" list-type="enumerated">
+		<item>What is the impedance “seen” from the terminals
+		on the right?
+		</item>
+
+		<item>Find the voltage
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn">v</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:math> if a current source is attached to the
+		  terminals on the right so that
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn">i</m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:sin/>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>.
+		</item>
+	      </list>
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i13" type="text-response">
+	<q:question>
+	  <section id="sex13">
+	    <title>Linear, Time-Invariant Systems</title>
+	    <para id="p13">	      
+	      For a system to be completely characterized by a
+	      transfer function, it needs not only be linear, but also
+	      to be time-invariant. A system is said to be
+	      time-invariant if delaying the input delays the output
+	      by the same amount. Mathematically, if
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">S</m:ci>
+		    <m:apply>
+		      <m:ci type="fn">x</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">y</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>,	      
+	      meaning 	      
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">y</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>	      
+	      is the output of a system	      
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">S</m:ci>
+		  <m:ci>•</m:ci>
+		</m:apply>
+	      </m:math>	      
+	      when
+	      <m:math display="inline">
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>	      
+	      is the input, 	      
+	      <m:math display="inline">
+		<m:apply>
+		  <m:ci type="fn">S</m:ci>
+		  <m:ci>•</m:ci>
+		</m:apply>
+	      </m:math>	      
+	      is the time-invariant if	      
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">S</m:ci>
+		    <m:apply>
+		      <m:ci type="fn">x</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>t</m:ci>
+			<m:ci>τ</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">y</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:ci>τ</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>	      
+	      for all delays
+	      <m:math>
+		<m:ci>τ</m:ci>
+	      </m:math> 
+	      and all inputs	      
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">x</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>.	      
+	      Note that both linear and nonlinear systems have this
+	      property. For example, a system that squares its input
+	      is time-invariant.
+
+	      <list id="list3.13" list-type="enumerated">
+		<item>
+		  Show that if a circuit has fixed circuit elements
+		  (their values don't change over time), its
+		  input-output relationship is time-invariant.
+		  <emphasis>Hint</emphasis>: Consider the differential
+		  equation that describes a circuit's input-output
+		  relationship. What is its general form?  Examine the
+		  derivative(s) of delayed signals.
+		</item>
+		<item>
+		  Show that impedances cannot characterize
+		  time-varying circuit elements (R, L, and C).
+		  Consequently, show that linear, time-varying systems
+		  do not have a transfer function.
+		</item>
+		<item>
+		  Determine the linearity and time-invariance of the
+		  following. Find the transfer function of the linear,
+		  time-invariant (LTI) one(s).
+
+		  <list id="list3.13.01" list-type="enumerated">
+		    <item>diode</item>
+		    <item>
+		      <m:math display="inline">
+			<m:apply>
+			  <m:eq/>
+			  <m:apply>
+			    <m:ci type="fn">y</m:ci>
+			    <m:ci>t</m:ci>
+			  </m:apply>
+			  <m:apply>
+			    <m:times/>
+			    <m:apply>
+			      <m:ci type="fn">x</m:ci>
+			      <m:ci>t</m:ci>
+			    </m:apply>
+			    <m:apply>
+			      <m:sin/>
+			      <m:apply>	
+				<m:times/>
+				<m:cn>2</m:cn>
+				<m:pi/>
+				<m:ci>
+				  <m:msub>
+				    <m:mi>f</m:mi>
+				    <m:mn>0</m:mn>
+				  </m:msub>
+				</m:ci>
+				<m:ci>t</m:ci>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:math>
+		    </item>
+		    
+		    <item>
+		      <m:math>
+			<m:apply>
+			  <m:eq/>
+			  <m:apply>
+			    <m:ci type="fn">y</m:ci>
+			    <m:ci>t</m:ci>
+			  </m:apply>
+			  <m:apply>
+			    <m:ci type="fn">x</m:ci>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>t</m:ci>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>τ</m:mi>
+				  <m:mn>0</m:mn>
+				</m:msub>
+			      </m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:math>
+		    </item>
+		    
+		    <item>
+		      <m:math display="inline">
+			<m:apply>
+			  <m:eq/>
+			  <m:apply>
+			    <m:ci type="fn">y</m:ci>
+			    <m:ci>t</m:ci>
+			  </m:apply>
+			  <m:apply>
+			    <m:plus/>
+			    <m:apply>
+			      <m:ci type="fn">x</m:ci>
+			      <m:ci>t</m:ci>
+			    </m:apply>
+			    <m:apply>
+			      <m:ci type="fn">N</m:ci>
+			      <m:ci>t</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:math>
+		    </item>
+		  </list>
+		</item>
+	      </list>
+	    </para>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+
+      <q:item id="i14" type="text-response">
+	<q:question>
+	  <section id="sec3.1415">
+	    <title>Long and Sleepless Nights</title>
+	    <para id="short">
+	      Sammy went to lab after a long, sleepless night, and
+	      constructed the circuit shown in <link target-id="fig3.14" strength="3"/>.
+	      He cannot remember what the circuit, represented by the
+	      impedance <m:math><m:ci>Z</m:ci></m:math>, was. Clearly,
+	      this forgotten circuit is important as the output is the
+	      current passing through it.
+	      
+	      <list id="list3.14" list-type="enumerated">
+		<item>
+		  What is the Thévenin equivalent circuit seen by
+		  the impedance?
+		</item>
+		<item>		  
+		  In searching his notes, Sammy finds that the circuit
+		  is to realize the transfer function
+
+		  <m:math display="block">
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn">H</m:ci>
+			<m:ci>f</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:cn>10</m:cn>
+			    <m:pi/>
+			    <m:ci>f</m:ci>
+			  </m:apply>	
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		  
+		  Find the impedance <m:math><m:ci>Z</m:ci></m:math>
+		  as well as values for the other circuit elements.
+		</item>		
+	      </list>
+	    </para>
+
+	    <figure id="fig3.14">
+	      <media id="id1168755692929" alt="">
+                <image src="circuit1.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit1.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="F1" type="text-response">
+	<q:question>
+	  <section id="sF1">
+	    <title>A Testing Circuit</title>
+
+	    <para id="pF1">The simple circuit <link target-id="figF1" strength="3">here</link> was given on a test.
+	    </para>
+
+	    <figure id="figF1">
+	      <media id="id1168749643516" alt="">
+                <image src="circuit34.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit34.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    <para id="pF1a">
+	      When the voltage source is
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>5</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:sin/>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>, the current
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">i</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:root/>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:cos/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>t</m:ci>
+			  <m:apply>
+			    <m:arctan/>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+			<m:apply>
+			  <m:divide/>
+			  <m:pi/>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+
+	      <list id="lF1" list-type="enumerated">
+		<item>What is voltage
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:mi>v</m:mi>
+			  <m:mi>out</m:mi>
+			</m:msub></m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:math>?
+		</item>
+
+		<item>What is the impedance
+		<m:math><m:ci>Z</m:ci></m:math> at the frequency of
+		the source?
+		</item>
+	      </list>
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i15" type="text-response">
+	<q:question>
+	  <section id="sec3.15">
+	    <title>Black-Box Circuit</title>
+	    <para id="asdf">
+	      You are given a <link target-id="fig3.15" strength="3">circuit</link> that has two terminals for
+              attaching circuit elements.
+	    </para>
+
+	    <figure id="fig3.15">
+	      <media id="id1168755706733" alt="">
+                <image src="circuit27.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit27.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <para id="jklsemi">
+	      When you attach a voltage source equaling
+	      <m:math>
+		<m:apply>
+		  <m:sin/>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>
+	      to the terminals, the current through the source equals	      
+	      <m:math>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>4</m:cn>
+		    <m:apply>
+		      <m:sin/>
+		      <m:apply>
+			<m:plus/>
+			<m:ci>t</m:ci>
+			<m:apply>
+			  <m:divide/>
+			  <m:pi/>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:sin/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>4</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.	      
+	      When no source is attached (open-circuited terminals),
+	      the voltage across the terminals has the form	      
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>A</m:ci>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>	
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>4</m:cn>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:ci>φ</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	      
+	      <list id="list3.15" list-type="enumerated">
+		<item>
+		  What will the terminal current be when you replace the
+		  source by a short circuit?
+		</item>
+		<item>
+		  If you were to build a circuit that was identical
+		  (from the viewpoint of the terminals) to the given
+		  one, what would your circuit be?
+		</item>
+		<item>
+		  For your circuit, what are <m:math><m:ci>A</m:ci></m:math> and
+		  <m:math><m:ci>φ</m:ci></m:math>?
+		</item>
+	      </list>
+	    </para>	    
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="i16a" type="text-response">
+	<q:question>
+	  <section id="sec3.16a">
+	    <title>Solving a Mystery Circuit</title>
+	    <para id="p3.16a">
+	      Sammy must determine as much as he can about a mystery
+	      circuit by attaching elements to the terminal and
+	      measuring the resulting voltage.  When he attaches a 1Ω
+              resistor to the circuit's terminals, he measures
+	      the voltage across the terminals to be
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>3</m:cn>
+		  <m:apply>
+		    <m:sin/>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	      When he attaches a 1F capacitor across the terminals,
+	      the voltage is now
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>3</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>t</m:ci>
+		      <m:apply>
+			<m:divide/>
+			<m:pi/>
+			<m:cn>4</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	    </para>
+
+	    <list id="list3.16a" list-type="enumerated">
+	      <item>
+		What voltage should he measure when he attaches
+		nothing to the mystery circuit?
+	      </item>
+	      <item>
+		What voltage should Sammy measure if he doubled the
+		size of the capacitor to 2 F and attached it to the
+		circuit?
+	      </item>
+	    </list>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+
+      <q:item id="i16" type="text-response">
+	<q:question>
+	  <section id="sec3.16">
+	    <title>Find the Load Impedance</title>
+	    <para id="p3.16">
+	      The <link target-id="fig3.16" strength="3">depicted circuit</link>
+              has a transfer function between the
+	      output voltage and the source equal to
+	      
+	      <m:math display="block">
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">H</m:ci>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>-8</m:cn>
+		      <m:apply>
+			<m:power/>
+			<m:pi/>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:ci>f</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>-8</m:cn>
+			<m:apply>
+			  <m:power/>
+			  <m:pi/>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>f</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>4</m:cn>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>6</m:cn>
+			<m:pi/>
+			<m:ci>f</m:ci>
+		      </m:apply>	
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	    </para>
+	    
+
+	    <figure id="fig3.16">
+	      <media id="id1168748868451" alt="">
+                <image src="circuit24.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit24.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+
+	    <list id="list3.16" list-type="enumerated">
+	      <item>
+		Sketch the magnitude and phase of the transfer
+		function.
+	      </item>
+	      <item>
+		At what frequency does the phase equal 
+		<m:math>
+		  <m:apply>
+		    <m:divide/>
+		    <m:pi/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		</m:math>?
+	      </item>
+	      <item>		
+		Find a circuit that corresponds to this load
+		impedance. Is your answer unique? If so, show it to be
+		so; if not, give another example.
+	      </item>	      
+	    </list>
+
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      
+      <q:item id="i17" type="text-response">
+	<q:question>
+	  <section id="sec3.17">
+	    <title>Analog “Hum” Rejection</title>
+	    <para id="p3.17">
+	      “Hum” refers to corruption from wall socket
+	      power that frequently sneaks into
+	      circuits. “Hum” gets its name because it
+	      sounds like a persistent humming sound. We want to find
+	      a circuit that will remove hum from any signal. A Rice
+	      engineer suggests using a <link target-id="fig3.17" strength="3">simple voltage divider circuit</link>
+	      consisting of two series impedances.
+	    </para>
+	    
+
+	    <figure id="fig3.17">
+	      <media id="id5465162" alt="">
+                <image src="circuit28a.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit28a.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+
+	    <list id="list3.17" list-type="enumerated">
+	      <item>
+		The impedance
+		<m:math>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>Z</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:math>
+		is a resistor. The Rice engineer must decide between
+		<link target-id="fig3.17b" strength="3">two circuits</link> for the impedance
+		<m:math>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>Z</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:math>.
+		Which of these will work?    
+	      </item>
+	      <item>		
+		Picking one circuit that works, choose circuit element
+		values that will remove hum.
+	      </item>
+	      <item>
+		Sketch the magnitude of the resulting frequency
+		response.
+	      </item>
+	    </list>	    
+
+	    <figure id="fig3.17b">
+	      <media id="id1168756695052" alt="">
+                <image src="circuit28b.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit28b.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>	    
+
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+
+      <q:item id="i18" type="text-response">
+	<q:question>
+	  <section id="sec3.18">
+	    <title>An Interesting Circuit</title>
+	    
+	    <figure id="fig3.18">
+	      <media id="id1168748923127" alt="">
+                <image src="circuit29.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit29.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.18" list-type="enumerated">
+	      <item>
+		For the circuit shown in <link target-id="fig3.18" strength="3"/>,
+                find the transfer function.
+	      </item>
+	      <item>		
+		What is the output voltage when the input has the form
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>i</m:mi>
+			<m:mi>in</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>5</m:cn>
+		      <m:apply>
+			<m:sin/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2000</m:cn>
+			  <m:pi/>
+			  <m:ci>t</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:math>?
+	      </item>  
+	    </list>	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i19a" type="text-response">
+	<q:question>
+	  <section id="s3.19a">
+	    <title>A Simple Circuit</title>
+	    <para id="p3.19a">
+	      You are given the
+             <link target-id="figQ1_2" strength="3">depicted circuit</link>.
+	    </para>
+	    
+	    <figure id="figQ1_2">
+	      <media id="id2856142" alt="">
+                <image src="circuit30.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit30.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.19a" list-type="enumerated">
+	      <item>
+		What is the transfer function between the source and
+		the output voltage?
+	      </item>
+	      <item>
+		What will the voltage be when the source equals
+		<m:math>
+		  <m:apply>
+		    <m:sin/>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:math>?
+	      </item>
+	      <item>
+		Many function generators produce a constant offset in
+		addition to a sinusoid.  If the source equals
+		<m:math>
+		  <m:apply>
+		    <m:plus/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:sin/>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>, 
+		what is the output voltage?
+	      </item>
+	    </list>
+
+	  </section>
+	</q:question>
+      </q:item>
+
+
+
+      <q:item id="i19" type="text-response">
+	<q:question>
+	  <section id="s3.19">
+	    <title>An Interesting and Useful Circuit</title>
+	    <para id="p3.19">
+	      The <link target-id="fig3.19" strength="3">depicted circuit</link>
+              has interesting properties, which
+	      are exploited in high-performance oscilloscopes.</para>
+	    
+	    <figure id="fig3.19">
+	      <media id="id1168749739632" alt="">
+                <image src="circuit20.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit20.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <para id="p3.19b">
+	      The portion of the circuit labeled "Oscilloscope"
+	      represents the scope's input impedance.
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>R</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>1</m:cn>
+		    <m:ci>MΩ</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>	      
+	      and	      
+	      <m:math display="inline">
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>C</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>30</m:cn>
+		    <m:ci>pF</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>	      
+	      (note the label under the channel 1 input in the lab's
+	      oscilloscopes). A <emphasis>probe</emphasis> is a device
+	      to attach an oscilloscope to a circuit, and it has the
+	      indicated circuit inside it.
+	      
+	      <list id="list3.19" list-type="enumerated">
+		<item>
+		  Suppose for a moment that the probe is merely a wire
+		  and that the oscilloscope is attached to a circuit
+		  that has a resistive Thévenin equivalent
+		  impedance. What would be the effect of the
+		  oscilloscope's input impedance on measured voltages?
+		</item>
+		<item>
+		  Using the node method, find the transfer function
+		  relating the indicated voltage to the source when
+		  the probe is used.
+		</item>
+		<item>
+		  Plot the magnitude and phase of this transfer
+		  function when
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>R</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:times/>
+			<m:cn>9</m:cn>
+			<m:ci>MΩ</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>		  
+		  and		  
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>C</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:ci>pF</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>.
+		</item>
+		<item>		  
+		  For a particular relationship among the element
+		  values, the transfer function is quite simple. Find
+		  that relationship and describe what is so special
+		  about it.
+		</item>
+		
+		<item>
+		  The arrow through
+		  <m:math>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		  </m:math>
+		  indicates that its value can be varied. Select the
+		  value for this capacitor to make the special
+		  relationship valid. What is the impedance seen by
+		  the circuit being measured for this special value?
+		</item>		
+	      </list>
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      
+      <q:item id="i20" type="text-response">
+	<q:question>
+	  <section id="sec3.20">
+	    <title>A Circuit Problem</title>
+	    <para id="p3.20">
+	      You are given the
+              <link target-id="fig3.20" strength="3">depicted circuit</link>.
+	    </para>
+	    
+	    <figure id="fig3.20">
+	      <media id="id1168753863451" alt="">
+                <image src="circuit2.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit2.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.20" list-type="enumerated">
+	      <item>
+		Find the differential equation relating the output
+		voltage to the source.
+	      </item>
+	      <item>
+		What is the impedance “seen” by the capacitor?
+	      </item> 
+	    </list>
+	  </section>
+	</q:question>
+      </q:item>
+      
+      <q:item id="q1.3" type="text-response">
+	<q:question>
+	  <section id="sq1.3">
+	    <title>Analog Computers</title>
+
+	    <para id="pq1.3">Because the differential equations
+	    arising in circuits resemble those that describe
+	    mechanical motion, we can use circuit models to describe
+	    mechanical systems. An ELEC 241 student wants to
+	    understand the suspension system on his car. Without a
+	    suspension, the car's body moves in concert with the bumps
+	    in the raod. A well-designed suspension system will smooth
+	    out bumpy roads, reducing the car's vertical motion. If
+	    the bumps are very gradual (think of a hill as a large but
+	    very gradual bump), the car's vertical motion should
+	    follow that of the road. The student wants to find a
+	    simple circuit that will model the car's motion. He is
+	    trying to decide between two circuit models (<link target-id="figq1.3" strength="3"/>).
+	    </para>
+	    
+	    <figure id="figq1.3">
+	      <media id="id3101333" alt="">
+                <image src="circuit32.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit32.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <para id="pq1.3a">
+	    Here, road and car displacements are represented by the voltages
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>v</m:mi>
+		      <m:mi>road</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math> and
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn"><m:msub>
+		      <m:mi>v</m:mi>
+		      <m:mi>car</m:mi>
+		    </m:msub></m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	      </m:math>, respectively.
+	   
+	      <list id="lq1.3" list-type="enumerated">
+		<item>Which circuit would you pick? Why?</item>
+
+		<item>For the circuit you picked, what will be the
+		amplitude of the car's motion if the road has a
+		displacement given by
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn"><m:msub>
+			    <m:mi>v</m:mi>
+			    <m:mi>road</m:mi>
+			  </m:msub></m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:plus/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:sin/>
+			  <m:apply>
+			    <m:times/>
+			    <m:cn>2</m:cn>
+			    <m:ci>t</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>?
+		</item>
+	      </list>
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+	      
+
+      <q:item id="i22" type="text-response">
+	<q:question>
+	  <section id="sec3.22">
+	    <title>Transfer Functions and Circuits</title>
+	    <para id="thisisnotaparagraph">
+	      You are given the
+              <link target-id="fig3.22" strength="3">depicted network</link>.
+	    </para>
+	    
+	    <figure id="fig3.22">
+	      <media id="id2790009" alt="">
+                <image src="circuit26.png" mime-type="image/png"/>
+                <image for="pdf" src="circuit26.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <list id="list3.22" list-type="enumerated">
+	      <item>
+		Find the transfer function between		
+		<m:math>  
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>V</m:mi>
+		      <m:mi>in</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:math>
+		and
+		<m:math>  
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>V</m:mi>
+		      <m:mi>out</m:mi>
+		    </m:msub>
+		  </m:ci>
+		</m:math>.
+	      </item>	      
+	      <item>		
+		Sketch the magnitude and phase of your transfer
+		function. Label important frequency, amplitude and
+		phase values.
+	      </item>
+	      <item> 
+		Find 
+		<m:math display="inline"> 
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mi>out</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:math>		
+		when		
+		<m:math display="inline">
+		  <m:apply>
+		    <m:eq/>
+		    <m:apply>
+		      <m:ci type="fn">
+			<m:msub>
+			  <m:mi>v</m:mi>
+			  <m:mi>in</m:mi>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:sin/>
+		      <m:apply>
+			<m:plus/>
+			<m:apply>
+			  <m:divide/>
+			  <m:ci>t</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:divide/>
+			  <m:pi/>
+			  <m:cn>4</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:math>.
+	      </item>
+	    </list>	
+
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+
+      <q:item id="i23" type="text-response">
+	<q:question>
+	  <section id="sec3.23">
+	    <title>Fun in the Lab</title>
+	    <para id="p3.23">
+	      You are given an unopenable box that has two terminals
+	      sticking out. You assume the box contains a circuit. You
+	      measure the voltage
+	      <m:math>
+		<m:apply>
+		  <m:sin/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>t</m:ci>
+		    <m:apply>
+		      <m:divide/>
+		      <m:pi/>
+		      <m:cn>4</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	      across the terminals when nothing is connected to them
+	      and the current
+	      <m:math>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:root/>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:cos/>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	      when you place a wire across the terminals.
+
+	      <list id="list3.23" list-type="enumerated">
+		<item>
+		  Find a circuit that has these characteristics.
+		</item>
+		<item>
+		  You attach a 1 H inductor across the terminals. What
+		  voltage do you measure?
+		</item>
+	      </list>	
+	    </para>	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i21" type="text-response">
+	<q:question>
+	  <section id="sec3.21">
+	    <title>Dependent Sources</title>
+	    <para id="p3.21">
+	      Find the voltage
+	      <m:math>  
+		<m:ci>
+		  <m:msub>
+		    <m:mi>v</m:mi>
+		    <m:mi>out</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:math>
+	      in each of the
+              <link target-id="fig3.21" strength="3">depicted circuits</link>.
+	    </para>
+
+	    <figure id="fig3.21" orient="horizontal">
+	      <subfigure id="id5666453">
+		<title>circuit a</title>
+		<media id="id4586457" alt="">
+                  <image src="circuit21a.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit21a.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id5456515">
+		<title>circuit b</title>
+		<media id="id4395706" alt="">
+                  <image src="circuit21b.png" mime-type="image/png"/>
+                  <image for="pdf" src="circuit21b.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="i24" type="text-response">
+	<q:question>
+	  <section id="sec3.24">
+	    <title>Operational Amplifiers</title> <para id="p3.24"> Find
+	    the transfer function between the source voltage(s) and
+	    the indicated output voltage for the circuits shown in
+	    <link target-id="figure3.24" strength="3"/>.
+	    </para>
+
+	    <figure id="figure3.24" orient="vertical">
+	      <subfigure id="id1168750026845">
+		<title>op-amp a</title>
+		<media id="id7641752" alt="">
+                  <image src="opamp1.png" mime-type="image/png"/>
+                  <image for="pdf" src="opamp1.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168752285505">
+		<title>op-amp b</title>
+		<media id="id6843001" alt="">
+                  <image src="opamp2.png" mime-type="image/png"/>
+                  <image for="pdf" src="opamp2.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id1168753845233">
+		<title>op-amp c</title>
+		<media id="id8601421" alt="">
+                  <image src="opamp3.png" mime-type="image/png"/>
+                  <image for="pdf" src="opamp3.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	      <subfigure id="id8008522">
+		<title>op-amp d</title>
+		<media id="id1168753816529" alt="">
+                  <image src="opamp15.png" mime-type="image/png"/>
+                  <image for="pdf" src="opamp15.eps" mime-type="application/postscript"/>
+                </media>
+	      </subfigure>
+	    </figure>	
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="useful" type="text-response">
+	<q:question>
+	  <section id="usefuls">
+	    <title>Op-Amp Circuit</title>
+	    <para id="usefulp1">
+	    The <link target-id="opampfig">following circuit</link> is claimed to serve a useful purpose.
+	    </para>
+	    <figure id="usefulfig">
+	      <media id="usefulm" alt="">
+            <image src="opamp25.png" mime-type="image/png"/>
+            <image for="pdf" src="opamp25.eps" mime-type="application/postscript"/>
+	      </media>
+	    </figure>
+	    
+	    <list id="usefulparts" list-type="enumerated">
+	      <item>
+	      What is the transfer function relating the complex amplitude of the output signal, the current
+	      <m:math>
+	        <m:ci><m:msub><m:mi>I</m:mi><m:mi>out</m:mi></m:msub></m:ci>
+	      </m:math>, to the complex amplitude of the input, the voltage
+	      <m:math>
+	        <m:ci><m:msub><m:mi>V</m:mi><m:mi>in</m:mi></m:msub></m:ci>
+	      </m:math>?
+	      </item>
+	      
+	      <item>
+	      What equivalent circuit does the load resistor
+	      <m:math>
+	        <m:ci><m:msub><m:mi>R</m:mi><m:mi>L</m:mi></m:msub></m:ci>
+	      </m:math>
+	      see?
+	      </item>
+	      
+	      <item>
+	      Find the output current when
+	      <m:math>
+	        <m:apply><m:eq/>
+	          <m:ci><m:msub><m:mi>v</m:mi><m:mi>in</m:mi></m:msub></m:ci>
+	          <m:apply><m:times/>
+	            <m:ci><m:msub><m:mi>V</m:mi><m:mn>0</m:mn></m:msub></m:ci>
+	            <m:apply><m:exp/>
+	              <m:apply><m:minus/>
+	                <m:apply><m:divide/>
+	                  <m:ci>t</m:ci>
+	                  <m:ci>τ</m:ci>
+	                </m:apply>
+	              </m:apply>
+	            </m:apply>
+	          </m:apply>
+	        </m:apply>
+	      </m:math>.
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+	</q:item>
+	    
+	    
+	    
+	    <q:item id="i25" type="text-response">
+	<q:question>
+	  <section id="sec3.25">
+	    <title>Why Op-Amps are Useful</title> <para id="p3.25"> The
+	    <link target-id="fig3.25" strength="3">circuit</link> of a
+	    cascade of op-amp circuits illustrate the reason why
+	    op-amp realizations of transfer functions are so useful.
+	    </para>
+	    
+	    <figure id="fig3.25">
+	      <media id="id6692497" alt="">
+                <image src="opamp4.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp4.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.25" list-type="enumerated">
+	      <item>		
+		Find the transfer function relating the complex
+		amplitude of the voltage
+		<m:math>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mi>out</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:math>
+		to the source. Show that this transfer function equals
+		the product of each stage's transfer function.
+	      </item> 
+	      <item>
+		What is the load impedance appearing across the first
+		op-amp's output?  </item> <item> <link target-id="thisout"/> illustrates that sometimes
+		“designs” can go wrong. Find the transfer
+		function for this <link target-id="thisout" strength="3">op-amp circuit</link>, and then show that
+		it can't work!  Why can't it?
+	      </item>
+	    </list>
+
+	    <figure id="thisout">	    
+	      <media id="id1168749812283" alt="">
+                <image src="opamp5.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp5.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i26" type="text-response">
+	<q:question>
+	  <section id="sec3.26">
+	    <title>Operational Amplifiers</title>
+	    <para id="cornholio">
+	      Consider the
+             <link target-id="fig3.26" strength="3">depicted circuit</link>.
+	    </para>
+	    
+	    <figure id="fig3.26">
+	      <media id="id1168749533823" alt="">
+                <image src="opamp6.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp6.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.26" list-type="enumerated">
+	      <item>
+		Find the transfer function relating the voltage
+		<m:math>
+		  <m:apply>
+		    <m:ci type="fn">
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mi>out</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:math>
+		to the source.
+	      </item>	      
+	      <item>
+		In particular,
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>R</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci> 
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>530</m:cn>
+		      <m:ci>Ω</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>,
+		
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci> 
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>1</m:cn>
+		      <m:ci>μF</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>,
+		
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>R</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub></m:ci> 
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>5.3</m:cn>
+		      <m:ci>kΩ</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>,
+		
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>2</m:mn>
+		      </m:msub>
+		    </m:ci> 
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>0.01</m:cn>
+		      <m:ci>μF</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>,		
+		and		
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>R</m:mi>
+			<m:mn>3</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>R</m:mi>
+			<m:mn>4</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>5.3</m:cn>
+		      <m:ci>kΩ</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>.		
+		Characterize the resulting transfer function and
+		determine what use this circuit might have.
+	      </item>	      
+	    </list>	
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i27" type="text-response">
+	<q:question>
+	  <section id="sec3.27">
+	    <title>Designing a Bandpass Filter</title>
+	    <para id="p3.27">	      
+	      We want to design a bandpass filter that has transfer
+	      the function
+	      
+	      <m:math display="block">
+		<m:apply>
+		  <m:eq/>
+		  <m:apply>
+		    <m:ci type="fn">H</m:ci>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>10</m:cn>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+			<m:ci>f</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:apply>
+			      <m:divide/>
+			      <m:ci>f</m:ci>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>f</m:mi>
+				  <m:mi>l</m:mi>
+				</m:msub>
+			      </m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:apply>
+			      <m:divide/>
+			      <m:ci>f</m:ci>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>f</m:mi>
+				  <m:mi>h</m:mi>
+				</m:msub>
+			      </m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:cn>1</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	      
+	      Here, 
+	      <m:math>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>f</m:mi>
+		    <m:mi>l</m:mi>		  
+		  </m:msub>
+		</m:ci>
+	      </m:math>
+	      is the cutoff frequency of the low-frequency edge of the
+	      passband and 
+	      <m:math>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>f</m:mi>
+		    <m:mi>h</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:math>
+	      is the cutoff frequency of the high-frequency edge. We
+	      want 
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>f</m:mi>
+		      <m:mi>l</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>1</m:cn>
+		    <m:ci>kHz</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>	      
+	      and
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>f</m:mi>
+		      <m:mi>h</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>10</m:cn>
+		    <m:ci>kHz</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>.
+	      
+	      <list id="list3.27" list-type="enumerated">
+		<item>
+		  Plot the magnitude and phase of this frequency
+		  response. Label important amplitude and phase values
+		  and the frequencies at which they occur.
+		</item>
+		<item>		  
+		  Design a bandpass filter that meets these
+		  specifications. Specify component values.
+		</item>		
+	      </list>	
+	    </para>
+	  </section>
+	</q:question>
+      </q:item>
+      
+
+      <q:item id="q2.1" type="text-response">
+	<q:question>
+	  <section id="sq2.1">
+	    <title>Pre-emphasis or De-emphasis?</title>
+
+	    <para id="pq2.1">In audio applications, prior to
+	    analog-to-digital conversion signals are passed through
+	    what is known as a <term>pre-emphasis circuit</term> that
+	    leaves the low frequencies alone but provides increasing
+	    gain at increasingly higher frequencies beyond some
+	    frequency
+	      <m:math>
+		<m:ci><m:msub> <m:mi>f</m:mi> <m:mn>0</m:mn>
+		    </m:msub></m:ci> </m:math>.  <term>De-emphasis
+		    circuits</term> do the opposite and are applied
+		    after digital-to-analog conversion. After
+		    pre-emphasis, digitization, conversion back to
+		    analog and de-emphasis, the signal's spectrum
+		    should be what it was.</para>
+
+	    <para id="pq2.1a">The op-amp circuit <link target-id="figq2.1" strength="3">here</link> has been
+	    designed for pre-emphasis or de-emphasis (Samantha can't
+	    recall which).
+	    </para>
+
+	    <figure id="figq2.1">
+	      <media id="id5624452" alt="">
+                <image src="opamp21.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp21.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+
+	    <list id="lq2.1" list-type="enumerated">
+	      <item>Is this a pre-emphasis or de-emphasis circuit?
+	      Find the frequency
+		<m:math>
+		  <m:ci><m:msub>
+		      <m:mi>f</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub></m:ci>
+		</m:math> 
+		that defines the transition from low to high
+		frequencies.
+	      </item>
+
+	      <item>What is the circuit's output when the input voltage is 
+		<m:math>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>f</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>, with
+		<m:math>
+		  <m:apply>
+		    <m:eq/>
+		    <m:ci>f</m:ci>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>4</m:cn>
+		      <m:ci>kHz</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>?
+	      </item>
+
+	      <item>What circuit could perform the opposite function
+	      to your answer for the first part?
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i28" type="text-response">
+	<q:question>
+	  <section id="sec3.28">
+	    <title>Active Filter</title>
+	    <para id="beavis">
+	      Find the transfer function of the <link target-id="fig3.28" strength="3">depicted active filter</link>.
+	    </para>
+	    
+	    <figure id="fig3.28">
+	      <media id="id4770998" alt="">
+                <image src="opamp17.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp17.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i29" type="text-response">
+	<q:question>
+	  <section id="s3.29">
+	    <title>This is a filter?</title>
+	    <para id="p3.29">
+	      You are given a <link target-id="fig3.29" strength="3">circuit</link>.
+	    </para>
+	    
+	    <figure id="fig3.29">
+	      <media id="id6205008" alt="">
+                <image src="opamp18.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp18.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="list3.29" list-type="enumerated">
+	      <item>
+		What is this circuit's transfer function? Plot the
+		magnitude and phase.
+	      </item>
+	      <item>
+		If the input signal is the sinusoid 
+		<m:math>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>f</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>, 
+		what will the output be when		
+		<m:math> 
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>f</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		</m:math>		
+		is larger than the filter's “cutoff frequency”?
+	      </item>
+	    </list>
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="i30" type="text-response">
+	<q:question>
+	  <section id="s3.30">
+	    <title>Optical Receivers</title>
+	    <para id="qmlsucks">
+	      In your optical telephone, the receiver circuit had the form
+              <link target-id="fig3.30" strength="3">shown</link>.
+	    </para>
+	    
+	    <figure id="fig3.30">
+	      <media id="id1168749742690" alt="">
+                <image src="opamp7.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp7.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <para id="p30">
+	      This circuit served as a transducer, converting light
+	      energy into a voltage 
+	      <m:math>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>v</m:mi>
+		    <m:mi>out</m:mi>
+		  </m:msub>
+		</m:ci>
+	      </m:math>.  The photodiode acts as a current source,
+	      producing a current proportional to the light intesity
+	      falling upon it. As is often the case in this crucial
+	      stage, the signals are small and noise can be a
+	      problem. Thus, the op-amp stage serves to boost the
+	      signal and to filter out-of-band noise.
+	      
+	      <list id="list3.30" list-type="enumerated">
+		<item>
+		  Find the transfer function relating light intensity
+		  to
+		  <m:math> 
+		    <m:ci>
+		      <m:msub>
+			<m:mi>v</m:mi>
+			<m:mi>out</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:math>.
+		</item>
+		<item>		  
+		  What should the circuit realizing the feedback
+		  impedance 
+		  <m:math>
+		  <m:ci>
+		      <m:msub>
+			<m:mi>Z</m:mi>
+			<m:mi>f</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:math>
+		  be so that the transducer acts as a 5 kHz lowpass
+		  filter?
+		</item>		
+		<item>
+		  A clever engineer suggests an <link target-id="altcircuit" strength="3">alternative
+                  circuit</link> to accomplish the same
+                  task. Determine whether the idea works or not. If it
+                  does, find the impedance
+		  <m:math>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>Z</m:mi>
+			<m:mi>in</m:mi>
+		      </m:msub>
+		    </m:ci>
+		  </m:math>
+		  that accomplishes the lowpass filtering task. If
+		  not, show why it does not work.
+		</item>
+	      </list>	
+	    </para>
+	    
+	    <figure id="altcircuit">
+	      <media id="id1168752013174" alt="">
+                <image src="opamp8.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp8.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+
+      <q:item id="Q2_1" type="text-response">
+	<q:question>
+	  <section id="sec3.31a">
+	    <title>Reverse Engineering</title>
+	    <para id="chicken">
+	      The <link target-id="figQ2_1" strength="3">depicted
+	      circuit</link> has been developed by the TBBG
+	      Electronics design group.  They are trying to keep its
+	      use secret; we, representing RU Electronics, have
+	      discovered the schematic and want to figure out the
+	      intended application.  Assume the diode is ideal.
+	    </para>
+	    
+	    <figure id="figQ2_1">
+	      <media id="id1168752065757" alt="">
+                <image src="opamp19.png" mime-type="image/png"/>
+                <image for="pdf" src="opamp19.eps" mime-type="application/postscript"/>
+              </media>
+	    </figure>
+	    
+	    <list id="listQ2_1" list-type="enumerated">
+	      <item>
+		Assuming the diode is a short-circuit (it has been
+		removed from the circuit), what is the circuit's
+		transfer function?
+	      </item>
+	      
+	      <item>		
+		With the diode in place, what is the circuit's output
+		when the input voltage is
+		<m:math>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>f</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:math>?
+	      </item>	      
+	      <item>
+		What function might this circuit have?
+	      </item>
+	    </list>
+	    
+	  </section>
+	</q:question>
+      </q:item>
+
+    </q:problemset>
+
+  </content>
+</document>

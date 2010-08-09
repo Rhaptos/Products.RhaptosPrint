@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m10842" module-id="" cnxml-version="0.7">  <title>Form in Music</title>  <metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://wakizashi.cnx.rice.edu:8080/content</md:repository>
+  <md:content-url>http://wakizashi.cnx.rice.edu:8080/content/m10842/2.12</md:content-url>
+  <md:content-id>m10842</md:content-id>
+  <md:title>Form in Music</md:title>
+  <md:version>2.12</md:version>
+  <md:created>2002/09/05 19:00:00 GMT-5</md:created>
+  <md:revised>2009/12/14 19:43:37 US/Central</md:revised>
+  <md:actors>
+    <md:person userid="Catherine">
+      <md:firstname>Catherine</md:firstname>
+      <md:surname>Schmidt-Jones</md:surname>
+      <md:fullname>Catherine Schmidt-Jones</md:fullname>
+      <md:email>casjones@soltec.net</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">Catherine</md:role>
+    <md:role type="maintainer">Catherine</md:role>
+    <md:role type="licensor">Catherine</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/1.0" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>chorus</md:keyword>
+    <md:keyword>form</md:keyword>
+    <md:keyword>music</md:keyword>
+    <md:keyword>refrain</md:keyword>
+    <md:keyword>symphony</md:keyword>
+    <md:keyword>verse</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Arts</md:subject>
+  </md:subjectlist>
+  <md:abstract>A basic introduction to recognizing form in music.</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="supplemental">
+      <link url="http://cnx.rice.edu/content/m11607/latest/" strength="3">Overall Destiny (for older students and adults)</link>
+      <link url="http://cnx.rice.edu/content/m11434/latest/" strength="3">Time's Effect on the Material (for older students and adults)</link>
+      <link url="http://cnx.rice.edu/content/m11629/latest/" strength="3">Musical Form (for older students and adults)</link>
+      <link url="http://cnx.rice.edu/content/m11466/latest/" strength="2">Sound Reasoning (for older students and adults)</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>    
+
+   <section id="s1">
+    <title>Form is the Basic Structure</title>
+
+    <para id="p1a">
+Every piece of music has an overall plan or structure, the "big picture", so to speak. This is called the <term>form</term> of the music.
+    </para>
+    <para id="p1b">It is easy to recognize and grasp the form of some things, because they are small and simple, like a grain of salt, or repetitive, like a wall made of bricks of the same size. Other forms are easy to understand because they are so familiar; if you see dogs more often than you do sea cucumbers, it should be easier for you to recognize the form of an unfamiliar dog than of an unfamiliar sea cucumber. Other things, like a forest ecosystem, or the structure of a government, are so complex that they have to be explored or studied before their structure can be understood.</para>
+     <para id="p1c">Musical forms offer a great range of complexity. Most listeners will quickly grasp the form of a short and simple piece, or of one built from many short repetitions. It is also easier to recognize familiar musical forms. The average American, for example, can distinguish easily between the verses and refrain of any pop song, but will have trouble recognizing what is going on in a piece of music for Balinese gamelan. Classical music traditions around the world tend to encourage longer, more complex forms which may be difficult to recognize without the familiarity that comes from study or repeated hearings.
+     </para>
+   </section>
+
+   <para id="element-160">You can enjoy music without recognizing its form, of course. But understanding the form of a piece helps a musician put together a more credible performance of it. Anyone interested in music theory or history, or in arranging or composing music, must have a firm understanding of form. And being able to "see the big picture" does help the listener enjoy the music even more.</para><section id="s2">
+     <title>Describing Form</title>
+
+     <para id="p2a">Musicians traditionally have two ways to describe the form of a piece of music. One way involves labelling each large section with a letter. The other way is to simply give a name to a form that is very common.
+     </para>
+     <section id="s21">
+       <title>Labelling Form With Letters</title>
+     <para id="p21b">Letters can be used to label the form of any piece of music, from the simplest to the most complex. Each major section of the music is labelled with a letter; for example, the first section is the A section. If the second section (or third or fourth) is exactly the same as the first, it is also labelled A. If it is very much like the A section, but with some important differences, it can be labelled A' (pronounced "A prime"). The A' section can also show up later in the piece, or yet another variation of A, A'' (pronounced "A double prime") can show up, and so on.
+     </para>
+     <para id="p21c">The first major section of the piece that is very different from A is labelled B, and other sections that are like it can be labelled B, B', B'', and so on. Sections that are not like A or B are labelled C, and so on.
+     </para>
+     <para id="p21d">How do you recognize the sections? With familiar kinds of music, this is pretty easy. (See <link target-id="fig21a"/> for some examples of forms that will be familiar to most listeners.) With unfamiliar types of music, it can be more of a challenge. Whether the music is classical, modern, jazz, or pop, listen for repeated sections of music. Also, listen for big changes, in the <link document="m11646">rhythm</link>, <link document="m11647">melody</link>, <link document="m11654">harmony</link>, <link document="m11645">texture</link>, and <link document="m11059">timbre</link>. A new section that is not a repetition will usually have noticeable differences in more than one of these areas. For an excellent discussion of form, with plenty of chances to practice hearing the beginnings of new sections, please see Professor Brandt's <link document="col10214">Sound Reasoning</link> course. In particular, <link document="m11629" strength="3">Musical Form</link> deals with recognizing when something new is being introduced (A/B instead of A only), and <link document="m11434" strength="3">Time's Effect on the Material</link> deals with recognizing when a section reappears changed (A', B', or A'').
+     </para>
+     
+     <figure id="fig21a"><title>Some Familiar Forms</title>
+<media id="id3881896" alt=""><image src="ABForms.png" mime-type="image/png"/><image for="pdf" src="ABForms-0.eps" mime-type="application/postscript"/></media>
+<caption>Most folk and popular music features simple forms that encourage participation.</caption>
+     </figure>
+
+<exercise id="element-183"><problem id="id3881926">
+		<para id="element-615">Practice identifying some easy musical forms. Pick some favorite songs and listen to each repeatedly until you are satisfied that you have identified its full form using letters and primes. Compare the forms of the tunes to spot similarities and differences.
+		</para>
+    <para id="element-850">Listen for:</para><list id="list1"><item>
+<emphasis>Verses</emphasis> have the same melody but different words. 
+    </item>
+    <item>
+<emphasis>Refrains</emphasis> have the same melody and the same words.
+    </item>
+    <item>
+<emphasis>Bridge Sections</emphasis> are new material that appears late in the song, usually appearing only once or twice, often in place of a verse and usually leading into the refrain. (You may want to note the differences - and the similarity - in the use of the term <term>bridge</term> by popular musicians and jazz musicians; see <link target-id="element-301">below</link>).
+    </item>
+    <item>
+<emphasis>Instrumentals</emphasis> are important sections that have no vocals. They can come at the beginning or end, or in between other sections. Is there more than one? Do they have the same melody as a verse or refrain? Are they similar to each other?
+    </item>
+    </list>
+	</problem>
+
+	<solution id="id14415898">
+		<para id="element-798">Your answers will depend on the songs you choose. Check them with a teacher if you can. (Bring the music so the teacher can listen to it while checking your answers.)</para>
+	</solution>
+</exercise><para id="element-731">While discussing a piece of music in detail, musicians may also use letters to label smaller parts of the piece within larger sections, even down to labelling individual <link document="m11647" target-id="s2">phrases</link>. For example, the song "The Girl I Left Behind" has many verses with no refrain, an A A' A''- type form. However, a <link target-id="element-962">look</link> at the tune of one verse shows that within that overall form is an A A' B A'' phrase structure.</para>
+
+<figure id="element-962"><title>Phrase Structure in "The Girl I Left Behind"</title>
+<media id="id14417250" alt=""><image src="GirlLeftBehind.png" mime-type="image/png"/><image for="pdf" src="GirlLeftBehind-0.eps" mime-type="application/postscript"/></media>
+<caption>In detailed discussions of a piece of music, smaller sections, and even individual phrases, may also be labelled with letters, in order to discuss the piece in greater detail. The A A B A form of this verse is very common, found in verses of everything from folk to jazz to pop music. Verses of blues songs are more likely to have an A A' B form.</caption>
+</figure><exercise id="element-614"><problem id="id14417291">
+		<para id="element-818">Now try labeling the phrases of a verse or a refrain of some of the songs you listened to in <link target-id="element-183"/>. Listen for phrases that use similar melodies. (Sometimes, but not always, they even use the same words.) How many of your refrains and verses were basically A A B A? What were the others?
+		</para>
+	</problem>
+
+	<solution id="id14417320">
+<para id="solv2">
+If one is available, have a music teacher check your answers.
+</para>
+        </solution></exercise>
+
+     </section>
+
+     <section id="s22">
+       <title>Naming Forms</title>
+
+       <para id="p22a">Often a musical form becomes so popular with composers that it is given a name. For example, if a piece of music is called a "theme and variations", it is expected to have an overall plan quite different from a piece called a "rondo".
+(Specifically, the theme and variations would follow an A A' A'' A'''... plan, with each section being a new variation on the theme in the first section. A rondo follows an A B A C A ... plan, with a familiar section returning in between sections of new music.) 
+       </para>
+       <para id="p22aa">Also, many genres of music tend to follow a preset form, like the "typical pop song form" in <link target-id="fig21a"/>. A <term>symphony</term>, for example, is usually a piece of music written for a fairly large number of instruments. It is also associated with a particular form, so knowing that a piece of music is called a symphony should lead you to expect certain things about it. For example, listeners familiar with the symphonic form expect a piece called a symphony to have three or four (depending on when it was written) main sections, called <term>movements</term>. They expect a moment of silence in between movements, and also expect the movements to sound very different from each other; for example if the first movement is fast and loud, they might expect that the second movement would be slow and quiet. If they have heard many symphonies, they also would not be at all surprised if the first movement is in sonata form and the third movement is based on a dance.        
+<note id="id3880382">Although a large group of people who play classical music together is often called a symphony, the more accurate term for the group is <term>orchestra</term>. The confusion occurs because many orchestras call themselves "symphony orchestras" because they spend so much time playing symphonies (as opposed to, for example, an "opera orchestra" or a "pops orchestra"). 
+       </note>
+       </para>
+       <para id="p22ab">Other kinds of music are also so likely to follow a particular overall plan that they have become associated with a particular form. You can hear musicians talk about something being concerto form or sonata form, for example (even if the piece is not technically a concerto or sonata). Particular dances (a minuet, for example), besides having a set <link document="m11648" strength="2">tempo</link> and <link document="m10956" strength="2">time signature</link>, will sometimes have a set form that suits the dance steps. And many marches are similar enough in form that there are names for the expected sections (first strain, second strain, trio, break strain). 
+       </para>
+       <para id="p22b">But it is important to remember that forms are not sets of rules that composers are required to follow. Some symphonies don't have silence between movements, and some don't use the sonata form in any of their movements. Plenty of marches have been written that don't have a trio section, and the development section of a sonata movement can take unexpected turns. And hybrid forms, like the sonata rondo, can become popular with some composers. After all, in architecture, "house" form suggests to most Americans a front and back door, a dining room off the kitchen, and bedrooms with closets, but an architect is free to leave out the dining room, and put the main door at the side of the house and the closets in the bathrooms. Whether a piece of music is a march, a sonata, or a theme and variations, the composer is always free to experiment with the overall architecture of the piece.
+       </para>
+       <para id="p22c">
+Being able to spot that overall architecture as we listen - knowing, so to speak, which room we are in right now - gives us important clues that help us understand and appreciate the music.
+       </para><list id="element-301" list-type="bulleted"><title>Some Common Forms</title>
+<item>
+<emphasis>Through-composed</emphasis> - One section (usually not very long) that does not contain any large repetitions. If a short piece includes repeated phrases, it may be classified by the structure of its phrases.
+</item>
+<item>
+<emphasis>Strophic</emphasis> - Composed of verses. The music is repeated sections with fairly small changes. May or may not include a <link target-id="list1">refrain</link>.
+</item>
+<item>
+<emphasis>Variations</emphasis> - One section repeated many times. Most commonly, the melody remains recognizable in each section, and the underlying <link document="m11643">harmonic structure</link> remains basically the same, but big changes in <link document="m11646">rhythm</link>, <link document="m11648">tempo</link>, <link document="m11645">texture</link>, or <link document="m11059">timbre</link> keep each section sounding fresh and interesting. Writing a set of variations is considered an excellent exercise for students interested in composing, arranging, and orchestration.
+</item>
+<item>
+<emphasis>Jazz standard song form</emphasis> - Jazz utilizes many different forms, but one very common form is closely related to the strophic and variation forms. A <link document="m11654" target-id="l0b">chord progression</link> in A A B A form (with the B section called the <link target-id="list1">bridge</link>) is repeated many times. On the first and last repetition, the melody is played or sung, and soloists improvise during the other repetitions. The overall form of verse-like repetition, with the melody played only the first and final times, and improvisations on the other repetitions, is very common in jazz even when the A A B A song form is not being used.
+</item>
+<item>
+<emphasis>Rondo</emphasis> - One section returns repeatedly, with a section of new music before each return. (A B A C A ; sometimes A B A C A B A)
+</item>
+<item>
+<emphasis>Dance forms</emphasis> - Dance forms usually consist of repeated sections (so there is plenty of music to dance to), with each section containing a set number of <link document="m10956" target-id="s1">measures</link> (often four, eight, sixteen, or thirty-two) that fits the dance steps. Some very structured dance forms (Minuet, for example) are associated even with particular <link document="m11647" target-id="s2">phrase</link> structures and <link document="m11643">harmonic progressions</link> within each section.
+</item>
+<item>
+<emphasis>Binary Form</emphasis> - Two different main sections (A B). Commonly in <link document="m11421">Western</link> classical music, the A section will move away from the <link document="m10851" target-id="p1a">tonic</link>, with a strong <link document="m12402">cadence</link> in another key, and the B section will move back and end strongly in the tonic.
+</item>
+<item>
+<emphasis>Ternary Form</emphasis> - Three main sections, usually A B A or A B A'. 
+</item>
+<item>
+<emphasis>Cyclic Form</emphasis> - There are two very different uses of this term. One refers to long multimovement works (a "song cycle", for example) that have an overarching theme and structure binding them together. It may also refer to a single movement or piece of music with a form based on the constant repetition of a single short section. This may be an exact repetition (<term>ostinato</term>) in one part of the music (for example, the bass line, or the rhythm section), while development, variation, or new melodies occur in other parts. Or it may be a repetition that gradually changes and evolves. This intense-repetition type of cyclic form is very common in folk musics around the world and often finds its way into classical and popular musics, too.
+</item>
+<item>
+<emphasis>Sonata form</emphasis> - may also be called sonata-allegro or first-movement form. It is in fact often found in the first movement of a sonata, but it has been an extremely popular form with many well-known composers, and so can be found anywhere from the first movement of a quartet to the final movement of a symphony. In this relatively complex form (too complex to outline here), repetition and development of melodic themes within a framework of expected key changes allow the composer to create a long movement that is unified enough that it makes sense to the listener, but varied enough that it does not get boring.
+</item></list>
+
+     </section>
+
+   </section>
+
+   </content>
+        </document>

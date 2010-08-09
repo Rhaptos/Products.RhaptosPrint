@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml"
+                xmlns:cnx="http://cnx.rice.edu/cnxml"
+                xmlns:cnxorg="http://cnx.rice.edu/system-info"
+                xmlns:md="http://cnx.rice.edu/mdml"
+                xmlns:col="http://cnx.rice.edu/collxml"
+                xmlns:cnxml="http://cnx.rice.edu/cnxml"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xmlns:q="http://cnx.rice.edu/qml/1.0"
+                xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                xmlns:bib="http://bibtexml.sf.net/"
+                xmlns:cc="http://web.resource.org/cc/"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xml:lang="en" type="Course">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+
+  <md:repository>http://localhost/from-md-repository-in-collxml</md:repository>
+  <md:content-url>http://cnx.org/content/col10268/1.13</md:content-url>
+  <md:content-id>col10268</md:content-id>
+  <md:title>Tests. &#50500;&#51649;&#46020; &#1046;&#1077;&#1085;&#1080;&#1090;&#1077; 
+&#202;&#234;&#191;&#241;&#250;&#252;&#2058;&#2376;&#2336;&#25874;&#1566;&#14897;&#1578;&#1585;&#1610;&#1583; &#1571;&#1606; 
+&#1578;&#1578;&#1586;&#1608;&#1580;&#1504;&#1513;&#1497;&#1501; &#1514;&#1503;&#3612;&#3641;&#3657;&#3627;&#3597;&#3636;&#3591;Ph&#7909; 
+v&#7851;n&#273;&#236;nh&#22899;&#23130;&#12375;&#12383;</md:title>
+
+  <md:version>1.13</md:version>
+  <md:created>2005/02/01 06:46:04.559 US/Central</md:created>
+  <md:revised>2009/08/10 23:51:14.691 GMT-5</md:revised>
+
+  <md:actors>
+    
+    
+    <md:person userid="phil">
+      <md:firstname>Philip</md:firstname>
+      <md:surname>Schatz</md:surname>
+      <md:fullname>Philip Schatz</md:fullname>
+      <md:email>p@cnx</md:email>
+    </md:person>
+    
+    <md:person userid="zzz123456">
+      <md:firstname>Annoying</md:firstname>
+      <md:surname>Editor</md:surname>
+      <md:fullname>Some annoying editor causing the title page to list editors and authors</md:fullname>
+      <md:email>email@nospam</md:email>
+    </md:person>
+
+  </md:actors>
+  <md:roles>
+    <md:role type="author">phil</md:role>
+    <md:role type="maintainer">phil</md:role>
+    <md:role type="licensor">phil</md:role>
+    <md:role type="translator">zzz123456</md:role>
+  </md:roles>
+
+  <md:license url="http://creativecommons.org/licenses/by/2.0/" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  
+  
+  <md:derived-from url="http://foo/plone/content/col10151/1.21"/>
+  <!-- Another test: md:derived-from url="http://foo/plone/content/phil-test-nonexistant-collection"/ -->
+  <!-- col10151 -->
+
+  
+
+  <md:keywordlist>
+    <md:keyword>keyword1</md:keyword>
+    <md:keyword>keyword phrase</md:keyword>
+  </md:keywordlist>
+
+  <md:subjectlist>
+    <md:subject>Testing</md:subject>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+
+  <md:abstract>A collection of tests. This abstract contains some math: <m:math><m:apply><m:power/><m:pi/><m:ci>x</m:ci></m:apply></m:math>.</md:abstract>
+
+  <md:language>en</md:language>
+
+  
+
+  
+  
+  <md:institution>The Connexions Institution</md:institution>
+  <md:course-code>TST100</md:course-code>
+  <md:instructor>Instructor Phil</md:instructor>
+
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+  <col:parameters>
+    <col:param name="real-imaginary-notation" value="font"/>
+    <col:param name="and-or-notation"
+               value="propositional-logic"/>
+    <col:param name="gradient-notation" value="symbolicnotation"/>
+    <col:param name="mean-notation" value="bar"/>
+    <col:param name="remainder-notation" value="text"/>
+    <col:param name="conjugate-notation" value="bar"/>
+    <col:param name="imaginary-i-notation" value="i"/>
+    <col:param name="scalar-product-notation"
+               value="angle-bracket"/>
+    <col:param name="print-font-size" value="10pt"/>
+    <col:param name="curl-notation" value="text"/>
+    <col:param name="for-all-equation-layout"
+               value="symbolic"/>
+    <col:param name="vector-notation" value="bold"/>
+    <col:param name="print-paper-size" value="8.5x11"/>
+    <col:param name="print-font" value="computer-modern"/>
+    <col:param name="print-paragraph-spacing"
+               value="compact"/>
+  </col:parameters>
+  
+  <col:content>
+
+      <col:module document="m12818"/>
+      <col:module document="m19522"/>
+
+      <col:module document="simplemath">
+        <md:title>Overriding title for [simplemath]</md:title>
+        <col:featured-links>
+            <cnxml:link-group type="supplemental">
+              <cnxml:link url="http://cnx.rice.edu/content/m12614/latest/">Programmare in Processing (italian version)</cnxml:link>
+            </cnxml:link-group>
+        </col:featured-links>
+      </col:module>
+
+		<col:module document="m9003" cnxorg:version-at-this-collection-version="2.68"/>
+		<col:module document="mathml2svg-test"/>
+
+<col:subcollection>
+	<md:title>A subcollection of our test modules: [m21891-exercises], [exercise-test] (several combinations of problems and solutions. Presented after the other exercises to make sure they are numbered per module, not per chapter), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
+	<col:content>
+		<col:module document="m21891-exercises">
+            <md:title>Overriding title for [m21891-exercises]</md:title>
+		</col:module>
+		<col:module document="exercise-test"/>
+		<col:module document="m10349"/>
+		<col:module document="m10622"/>
+	</col:content>
+</col:subcollection>
+
+	<col:module document="cite-test"/>
+	<col:module document="rule-test"/>
+
+	<col:module document="m10842"/>
+	<col:module document="m11624"/>
+	<col:module document="m12827"/>
+	<col:module document="m12858"/>
+	<col:module document="m13243"/>
+<col:subcollection>
+	<md:title>Another subcollection with only 1 module [m14134]</md:title>
+	<col:content>
+
+	<col:module document="m14134"/>
+	</col:content>
+</col:subcollection>
+
+	<col:module document="m17521"/>
+	<col:module document="m20119"/>
+    
+  </col:content>
+</col:collection>
