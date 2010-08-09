@@ -1,3 +1,6 @@
+RhaptosPrint-0.4.3
+  - rework queue tool transaction usage
+
 RhaptosPrint-0.4.2
   - hotfix for PDF TOC issue w/ non existent Solutions 
 
