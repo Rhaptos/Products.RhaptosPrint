@@ -8,8 +8,10 @@ WORKING_DIR=$1
 EPUB_FILE=$2
 DBK_TO_HTML_XSL=$3
 
-ROOT=`dirname "$0"`
-ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
+ROOT=$(dirname "$0")
+ROOT=$(cd "$ROOT/.."; pwd) # .. since we live in scripts/
+
+RUBY=$(which ruby)
 
 EXIT_STATUS=0
 
@@ -20,7 +22,7 @@ fi
 
 if [ -s $WORKING_DIR/index.cnxml ]; then 
   DBK_FILE=$WORKING_DIR/index.dbk
-  MODULE=`basename $WORKING_DIR`;
+  MODULE=$(basename $WORKING_DIR);
   MODULE=${MODULE%%_*}
   bash $ROOT/scripts/module2dbk.sh $WORKING_DIR $MODULE
   EXIT_STATUS=$EXIT_STATUS || $?
@@ -35,7 +37,7 @@ else
   exit 1
 fi
 
-$ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $ROOT/static/content.css -d $DBK_FILE -o $EPUB_FILE
+$RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $ROOT/static/content.css -d $DBK_FILE -o $EPUB_FILE
 EXIT_STATUS=$EXIT_STATUS || $?
 
 exit $EXIT_STATUS
