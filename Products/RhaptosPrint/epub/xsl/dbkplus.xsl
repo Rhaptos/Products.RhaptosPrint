@@ -47,6 +47,10 @@
 
 </xsl:template>
 
+<xsl:template match="ext:*[not(db:title[normalize-space(text()) !=''])]">
+  <xsl:call-template name="informal.object"/>
+</xsl:template>
+
 <!-- Can't use docbook-xsl/common/gentext.xsl because labels and titles can contain XML (makes things icky) -->
 <xsl:template match="ext:*" mode="object.title.markup">
 	<xsl:apply-templates select="." mode="cnx.template"/>
