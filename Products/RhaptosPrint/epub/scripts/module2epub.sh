@@ -26,6 +26,10 @@ if [ -s $WORKING_DIR/index.cnxml ]; then
   MODULE=${MODULE%%_*}
   bash $ROOT/scripts/module2dbk.sh $WORKING_DIR $MODULE
   EXIT_STATUS=$EXIT_STATUS || $?
+  
+  # Generate a cover image for the book version of the module
+  bash $ROOT/scripts/dbk2cover.sh $DBK_FILE
+  EXIT_STATUS=$EXIT_STATUS || $?
 
 elif [ -s $WORKING_DIR/collection.xml ]; then
   DBK_FILE=$WORKING_DIR/collection.dbk

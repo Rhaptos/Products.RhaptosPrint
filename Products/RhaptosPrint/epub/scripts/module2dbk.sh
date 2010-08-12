@@ -187,9 +187,6 @@ do
   fi
 done
 
-# Generate a cover image for the book version of the module
-bash $ROOT/scripts/dbk2cover.sh $DOCBOOK
-
 echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS
 
