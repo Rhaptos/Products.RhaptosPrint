@@ -47,7 +47,7 @@
 
 </xsl:template>
 
-<xsl:template match="ext:*[not(db:title[normalize-space(text()) !=''])]">
+<xsl:template match="ext:problem[not(db:title[normalize-space(text()) !=''])]">
   <xsl:call-template name="informal.object"/>
 </xsl:template>
 
