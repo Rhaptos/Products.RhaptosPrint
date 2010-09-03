@@ -1,0 +1,1066 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="None" module-id="" cnxml-version="0.7">
+  <title>Adding Multimedia to Your Connexions Content</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://cnx.org/content</md:repository>
+  <md:content-url>http://cnx.org/content/m12660/1.18</md:content-url>
+  <md:content-id>m12660</md:content-id>
+  <md:title>Adding Multimedia to Your Connexions Content</md:title>
+  <md:version>1.18</md:version>
+  <md:created>2004/12/13 10:07:53 US/Central</md:created>
+  <md:revised>2010/08/09 09:25:46 GMT-5</md:revised>
+  <md:actors>
+    <md:person userid="dcwill">
+      <md:firstname>Daniel</md:firstname>
+      <md:surname>Williamson</md:surname>
+      <md:fullname>Daniel Williamson</md:fullname>
+      <md:email>dcwill@cnx.org</md:email>
+    </md:person>
+    <md:person userid="jago">
+      <md:firstname>Adan</md:firstname>
+      <md:surname>Galvan</md:surname>
+      <md:fullname>Adan Galvan</md:fullname>
+      <md:email>agalvan@gmail.com</md:email>
+    </md:person>
+    <md:person userid="mhusband">
+      <md:firstname>Mark</md:firstname>
+      <md:surname>Husband</md:surname>
+      <md:fullname>Mark Husband</md:fullname>
+      <md:email>mshusband@comcast.net</md:email>
+    </md:person>
+    <md:organization userid="cnxorg">
+      <md:shortname>Connexions</md:shortname>
+      <md:fullname>Connexions</md:fullname>
+      <md:email>cnx@cnx.org</md:email>
+    </md:organization>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">cnxorg jago mhusband dcwill</md:role>
+    <md:role type="maintainer">cnxorg jago mhusband</md:role>
+    <md:role type="licensor">jago mhusband</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/1.0" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>alternate</md:keyword>
+    <md:keyword>audio</md:keyword>
+    <md:keyword>flash</md:keyword>
+    <md:keyword>image</md:keyword>
+    <md:keyword>java applet</md:keyword>
+    <md:keyword>movie</md:keyword>
+    <md:keyword>mpeg</md:keyword>
+    <md:keyword>multimedia</md:keyword>
+    <md:keyword>multimedia object</md:keyword>
+    <md:keyword>music</md:keyword>
+    <md:keyword>quicktime</md:keyword>
+    <md:keyword>real audio</md:keyword>
+    <md:keyword>sounds</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract>An explanation of how to add various types of multimedia objects to your Connexions content. Examples of some of the more common multimedia objects are included.</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="supplemental">
+      <link url="http://www.duke.edu/websrv/file-extensions.html"
+            strength="2">MIME Type List</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+<para id="contents"><title>Contents</title>
+<list id="TOC" type="bulleted">
+ <item><link target-id="intro">Introduction</link></item>
+ <item><link target-id="accessibility">Making Multimedia Accessible for All Users</link></item>
+ <!--<item><link target-id="uploading">Uploading Media Files</link></item>-->
+ <item><link target-id="embedding">Embedding Media Elements in Your Module</link>
+  <newline/>
+  <list id="embedelements" type="bulleted">
+   <item><link target-id="media">The &lt;media&gt; Element</link></item>
+   <item><link target-id="figure">The &lt;figure&gt; Element</link></item>
+   <item><link target-id="subfigure">The &lt;subfigure&gt; Element</link></item>
+   <item><link target-id="alternate">Including Alternate Media for Print</link></item>
+  </list>
+ </item>
+ <item><link target-id="mediasubtypes" class="cnxn">Media Subtypes</link>
+  <newline/>
+  <list id="subtypes">
+   <item><link target-id="image" class="cnxn">Images</link></item>
+   <item><link target-id="video" class="cnxn">Video</link></item>
+   <item><link target-id="flash" class="cnxn">Flash objects</link></item>
+   <item><link target-id="audiofiles" class="cnxn">Audio</link></item>
+   <item><link target-id="java" class="cnxn">Java Applets</link></item>
+   <item><link target-id="labview" class="cnxn">LabVIEW Demonstrations</link></item>
+   <item><link target-id="paramsect" class="cnxn">Parameters</link></item>
+  </list>
+ </item>
+ <item><link target-id="externalservices" class="cnxn">Using Third-Party Services</link>
+  <newline/>
+  <list id="services"><item><link target-id="youtube" class="cnxn">Embedding YouTube Videos</link></item>
+   <item><link target-id="slideshare" class="cnxn">Embedding SlideShare Presentations</link></item>
+  </list>
+ </item></list>
+</para>
+    <section id="intro"><title>Introduction</title><para id="intropara1">Connexions modules can contain many different types of embedded multimedia files. This document explains how to use these elements to create media-rich modules.  Though you are welcome to skip ahead at any time, we strongly recommend that you read the sections on Accessibility, Uploading Media Files, and Embedding Media Elements in Your Module before moving on to a specific medium as these sections cover several important aspects common to all media types.
+
+      </para>
+      <note id="eip-374">This module contains a number of code examples designed to illustrate specific aspects of the CNXML language.  As a result, these code snippets will not always take advantage of all of the available options and attributes for every element.  Feel free to experiment with different combinations and structures as you build your modules to learn how these options can enhance your module's multimedia content.</note>
+
+<para id="intropara2">Connexions supports the use of any media format that has a valid MIME type (see <link url="http://www.ietf.org/rfc/rfc1341.txt?number=1341" window="new">this page</link> for more information).  In order to take advantage of the media, however, end-users must also have any necessary software and/or browser plugins installed on their browsers.  For this reason, it is advisable to stick with common file formats when authoring in Connexions.  This module provides a number of CNXML code snippets that cover several typical use cases, though this list is not exhaustive.</para>
+      
+
+       	<note id="eip-504" type="tip">If you need assistance adding multimedia to your modules, have questions about an object not listed in this module, or have any other authoring issues that you need help with, please contact Connexions technical support at <link url="mailto:techsupport@cnx.org">techsupport@cnx.org</link>.
+       	  </note>
+</section>
+
+<section id="accessibility"><title>Making Multimedia Accessible for All Users</title>
+<para id="element-15">It is important for authors to remember that not all users are able to experience media the same way.  Visually impaired users will not be able to view graphical content, while those hard of hearing will not be able to experience audio content as intended.  As an author, should always strive to make their content accessible to as many audiences as possible; in addition to allowing more users to enjoy and benefit from your work, you will also make it easier for the many organizations required by policy or law to meet accessibility standards to use and adopt your content.
+</para>
+
+<para id="alttext"><title>Alt Text</title><term>Alt text</term> allows authors to provide a short description of the visual content of a media element.   These descriptions can be read by screen reading software packages used to assist visually impaired users.  Keep your alt text short but descriptive; imagine somebody trying to describe an image you cannot see and think about the information you would find most important.  A few tips:
+   <list id="altlist" list-type="bulleted">
+    <item>Don't be redundant.  The user is already aware that this is an image, so don't start your 
+          description with "This image is . . . " or "A picture of . . . "
+    </item>
+    <item>Keep it short and sweet.  Describe only the relevant aspects of the image; for example, it might be important to describe the subject of a photograph as having freckles, but it is probably
+          not necessary to count how many freckles she has on each cheek.
+    </item>
+    <item>
+          Use correct grammar and spelling.  For the majority of users requiring alt text descriptions,
+          this content will be read out loud; these descriptions should adhere to the same quality and
+          style standards used elsewhere in your work.
+    </item>
+</list>
+
+<note id="eip-id1171175651523" type="important">Alt text is <emphasis>required</emphasis> for all <code>&lt;media&gt;</code> elements.</note></para><para id="element-116"><title>longdesc</title>A <term>longdesc</term> (or "long description") file is used to describe images that are too complex to summarize in alt text.  Rather than including the description in the CNXML markup, the full, detailed description is contained in a separate file that is linked from the <code>media</code> element.  This allows you to describe the image in as much detail as necessary without needing to keep the description short.  A longdesc file:
+
+<list id="longdesclist" list-type="bulleted">
+ <item>Can be any file type, though a basic text-only HTML file is most appropriate.</item>
+ <item>Can be loaded into a Connexions module like any other image or resource file.</item>
+ <item>Is not a replacement for alt text, but instead is a chance for the author to elaborate on alt text.</item>
+ <item>Is only necessary when the image is so complicated that an alt text description is not sufficient to describe it.</item>
+</list>
+
+The following example shows how to link to a longdesc file titled <code>earnings_report_desc.html</code>:
+
+<code id="longdesccode" display="block">
+&lt;media id="longdesc_example" 
+       alt="An earnings graph showing steady growth of 6% over the past two quarters." 
+       longdesc="earnings_report_desc.html"&gt;
+   &lt;image mime-type="image/png" src="earnings_report.png" /&gt;
+&lt;/media&gt;
+</code>
+
+In this example, <code>earnings_report_desc.html</code> would most likely be a simple text file describing the details of the chart, including the data points, overall trends, and any other relevant information.  While the alt text describes "steady growth of 6% over the past two quarters," the longdesc file can talk about specific features of the chart, such as a dip that coincided with a recent merger or a spike that represented a major product release.  A screen reader user would have the option of following this link in order to get a detailed understanding of the data that would otherwise be conveyed and understood by sighted users through visual information.
+
+<note id="eip-id1169568196212" type="tip">Remember, longdesc files are not common, and are usually only used when the media element contains important visual information that is too complex and/or detailed for alt text.</note></para><para id="element-580"><title>Captioned Video and Audio Transcripts</title>Captioning is another important consideration when dealing with video content.  Users who are hearing impaired may not be able to understand all of the information being conveyed in a video, limiting their access to the material being described.  This can be addressed by submitting videos that are captioned, allowing those users to read along with the spoken materials.  If you are not able to caption your videos, another option is to include audio transcripts of the materials as a module resource that can be easily accessed using a link.  While there are no specific tools or standards for providing this type of content, the important thing to remember is to make it as easy as possible for as many people as possible to access the information you are trying to communicate.</para><note id="id45017921">You can read more about how Connexions addresses accessibility concerns in <link document="m17212" class="cnxn">m17212 - Accessibility Features of Connexions</link>.</note></section>
+
+<!--
+<section id="uploading"><title>Uploading Multimedia Files</title>
+<para id="eip-300">The preferred method for including multimedia files in your Connexions modules is to attach them to the module itself.  In addition to ensuring that the media files are always available, this process also makes those files available under the same Creative Commons Attribution license as the module itself, allowing others to more easily reuse and repurpose your work.
+</para>
+<para id="twomethods">There are two methods for uploading content depending on the number of files you are working with.</para>
+
+<section id="eip-105"><title>Uploading a Single File</title><para id="eip-397">
+To upload a single file, first click on the "Files" tab in the module editor:
+<figure id="filestabfigure">
+ <media id="filestabmedia" alt="Screenshot of the Files tab selected in an example module">
+  <image mime-type="image/jpeg" src="/content/m19610/latest/module-filestab-justindexfile.JPG"/>
+ </media>
+</figure>
+From the drop-down menu, select 
+</para>
+</section>
+
+<section id="eip-49"><title>Uploading Multiple Files</title><para id="eip-116">
+Insert paragraph text here.
+</para>
+</section>
+
+</section>
+
+-->
+
+<section id="embedding"><title>Embedding Media Elements in Your Module</title><section id="media"><title>The &lt;media&gt; Element</title><para id="eip-147">Once you've attached your multimedia files to your module, the next step is to embed the media files in your content.  This can be done by using the <code>&lt;media&gt;</code> element.</para>
+
+<para id="eip-192">The <code>&lt;media&gt;</code> element is the primary building block for including multimedia files in your module. In its simplest form, a <code>&lt;media&gt;</code> element contains three pieces of information:
+<list id="media-components" type="bulleted">
+ <item>A unique id</item>
+ <item>Alt text</item>
+ <item>A media subtype element, such as <code>&lt;image&gt;</code></item>
+</list></para>
+
+
+<para id="media-usage">The code snippet below shows a simple example of <code>&lt;media&gt;</code> element:
+
+<code id="id45044717" display="block">
+&lt;media id="media_example" alt="a dog on a bed"&gt;
+   &lt;image mime-type="image/jpeg" src="image1.jpg"/&gt;
+&lt;/media&gt;
+</code>
+</para>
+<para id="media-example-result">
+This code results in the following display:
+<newline/>
+<newline/>
+<media id="media_example" alt="a dog on a bed">
+   <image src="image1.jpg" mime-type="image/jpeg"/>
+</media>
+</para>
+
+<para id="media-inline">Note that the resulting image displays <term>inline</term>; when included as the child of another element, such as <code>&lt;para&gt;</code>, the media element will display in line with the surrounding text by default:
+
+<code id="id450447171" display="block">
+&lt;para id="myparagraph"&gt;
+ &lt;media id="media_example2" alt="a dog on a bed"&gt;
+    &lt;image mime-type="image/jpeg" src="image1.jpg"/&gt;
+ &lt;/media&gt;
+
+ This is my dog.  Isn't he cute?
+
+&lt;/para&gt;
+</code>
+</para>
+
+<para id="media-example-result-2">
+
+This code results in the following display:
+<newline/>
+<newline/>
+<media id="media_example2" alt="a dog on a bed">
+   <image src="image1.jpg" mime-type="image/jpeg"/>
+</media>
+This is my dog.  Isn't he cute?
+</para>
+
+<!--
+
+COMMENTED OUT - DOES display="block" NOT WORK?
+
+<para id="media-block">To force the image to display as a <term>block</term> element, you can take advantage of the optional <code>display</code> parameter:
+
+<code id="id450447172" display="block">
+&lt;para id="myparagraph"&gt;
+ &lt;media id="media_example3" alt="a dog on a bed" display="block"&gt;
+    &lt;image mime-type="image/jpeg" src="image1.jpg"/&gt;
+ &lt;/media&gt;
+
+ This is my dog.  Isn't he cute?
+
+&lt;/para&gt;
+</code>
+</para>
+
+<para id="media-example-result-3">
+
+This code results in the following display:
+<newline/>
+<newline/>
+<media id="media_example3" alt="a dog on a bed" display="block">
+   <image src="image1.jpg" mime-type="image/jpeg"/>
+</media>
+This is my dog.  Isn't he cute?
+</para>
+-->
+
+
+<para id="eip-31">Each <code>&lt;media&gt;</code> must contain a <term>media subtype</term> element from the following list:
+
+<list id="media-subtypes" type="bulleted"><item><code>&lt;image&gt;</code></item>
+ <item><code>&lt;video&gt;</code></item>
+ <item><code>&lt;flash&gt;</code></item>
+ <item><code>&lt;audio&gt;</code></item>
+ <item><code>&lt;java-applet&gt;</code></item>
+ <item><code>&lt;labview&gt;</code></item>
+ <item><code>&lt;text&gt;</code></item>
+ <item><code>&lt;download&gt;</code></item>
+
+</list>
+</para>
+</section>
+
+     <section id="figure"><title>The &lt;figure&gt; Element</title><para id="eip-319">The <code>&lt;figure&gt;</code> element allows you to set a media element apart from the surrounding text and highlight it as a labeled figure within the module.  In it's simplest form, a <code>&lt;figure&gt;</code> contains two pieces of information:
+<list id="figure-components" type="bulleted">
+ <item>A unique ID</item>
+ <item>A <code>&lt;media&gt;</code> element</item>
+</list>
+</para><para id="eip-233">The code snippet below shows an example of a <code>&lt;figure&gt;</code> element:
+
+<code id="figexample1" display="block">
+&lt;figure id="figure_example"&gt;
+ &lt;media id="dog_on_bed" alt="a dog on a bed"&gt;
+   &lt;image mime-type="image/jpeg" src="image1.jpg"/&gt;
+ &lt;/media&gt;
+&lt;/figure&gt;
+</code></para><para id="eip-164">This example results in the following:
+<newline/>
+<newline/>
+<figure id="figure_example">
+ <media id="dog_on_bed" alt="a dog on a bed">
+  <image mime-type="image/jpeg" src="image1.jpg"/>
+ </media>
+</figure></para><para id="eip-580">You'll notice that the figure is labeled as "<link target-id="figure_example"/>" - this information was not provided in the CNXML code, but is instead supplied automatically by Connexions based on the figure's place within the document. As you add, move, and delete figures in your module, you do not have to worry about keeping track of the figure numbering - this is done for you when the page is displayed to the reader.  Also, unlike the <code>&lt;media&gt;</code> example shown previously, the image in this example is displayed in <term>block</term> mode rather than <term>inline</term> mode.</para><note id="eip-582" type="tip">When referring to figures in your Connexions modules, you can take advantage of the figure's unique ID to create a <term>dynamic reference</term> that is automatically labeled for you.  To do so, simply create an empty <code>&lt;link&gt;</code> that points to the <code>&lt;figure&gt;</code>; in this case,
+<code id="dynamicreference" display="block">
+&lt;link target-id="figure_example" /&gt;
+</code>
+results in the following link: <link target-id="figure_example"/>.  
+<newline/><newline/>
+Connexions will automatically label the text of the link to match the figure's label.  Dynamic references can also be created for other "numbered" elements, such as <code>&lt;equation&gt;</code>, <code>&lt;example&gt;</code>, <code>&lt;exercise&gt;</code>, etc.</note><para id="eip-398">The <code>&lt;figure&gt;</code> also provides additional options that allow you to further highlight and describe an enclosed <code>&lt;media&gt;</code> element.  The following example illustrates several additional elements:
+<list id="figureoptions" type="bulleted">
+ <item><code>&lt;title&gt;</code>, which adds a title to the figure.</item>
+ <item><code>&lt;caption&gt;</code>, which adds a caption allowing the author to provide a description or context for the figure.</item>
+ <item><code>&lt;label&gt;</code>, which overrides the default 'Figure' label; this is especially useful for modules not written in English.</item>
+</list>
+
+<code id="ext_fig" display="block">
+&lt;figure id="figure_example_extended"&gt;
+ &lt;label&gt;Figura&lt;/label&gt;
+ &lt;title&gt;Mi Perro Benny&lt;/title&gt;
+ &lt;media id="dogpic" alt="Perro sentado en la cama"&gt;
+  &lt;image mime-type="image/jpeg" src="image1.jpg" /&gt;
+ &lt;/media&gt;
+ &lt;caption&gt;Este es mi perro Benny haciendo lo que hace mejor.&lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+
+This example results in the following display:
+
+<figure id="figure_example_extended"><label>Figura</label><title>Mi Perro Benny</title>
+  <media id="dogpic" alt="Perro sentado en la cama">
+    <image mime-type="image/jpeg" src="image1.jpg"/>
+  </media>
+  
+<caption>Este es mi perro Benny
+    haciendo lo que hace mejor.</caption></figure>
+</para><note id="eip-649" type="tip">Remember, the <code>&lt;figure&gt;</code> element is not necessary to display a <code>&lt;media&gt;</code> element.  Use <code>&lt;figure&gt;</code> when you want to set your multimedia content apart from the surrounding text, add a title or caption, or create a numbered figure label for your media.  If you just want your media to display inline, only use the <code>&lt;media&gt;</code> element.</note></section>
+
+
+<section id="subfigure">
+       <title>The &lt;subfigure&gt; Element</title><para id="imagepara4">You can place two or more images within the same figure using the 
+	<code>subfigure</code> tag. This is useful when you have two 
+	related images that you want to display side-by-side or one
+	above the other. The following CNXML snippet can be used to display two subfigures side-by-side:
+<code id="id45086524" display="block">&lt;figure id="figure-2" orient="horizontal"&gt;
+   &lt;subfigure id="subfigure-1"&gt;
+      &lt;title&gt;Blue on Blue&lt;/title&gt;
+      &lt;media id="sub_example" alt="An envelope with a blue page"&gt;          
+         &lt;image mime-type="image/png" src="Xenvelope-blue-on-blue.png"/&gt;
+         &lt;caption&gt;Subfigure 1.&lt;/caption&gt;
+      &lt;/media&gt;
+   &lt;/subfigure&gt;
+   &lt;subfigure id="subfigure-2"&gt;
+      &lt;title&gt;Orange on White&lt;/title&gt;
+      &lt;media id="sub_example2" alt="An envelope with a white page"&gt;
+         &lt;image mime-type="image/png" src="Xenvelope.png"/&gt;
+         &lt;caption&gt;Subfigure 2.&lt;/caption&gt;
+      &lt;/media&gt;
+   &lt;/subfigure&gt;
+   &lt;caption&gt;Two images displayed horizontally in one figure.&lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+      </para>
+      
+      <para id="imagepara5">The resulting figure is displayed below:
+
+	<figure id="figure-2" orient="horizontal"><subfigure id="subfigure-1">
+          <title>Blue on Blue</title>
+          <media id="sub_example" alt="An envelope with a blue page"><image src="Xenvelope-blue-on-blue.png" mime-type="image/png"/></media>
+          <caption>
+          Subfigure 1.
+          </caption>
+        </subfigure>
+        <subfigure id="subfigure-2">
+          <title>Orange on White</title>
+          <media id="sub_example2" alt="An envelope with a white page"><image src="Xenvelope.png" mime-type="image/png"/></media>
+          <caption>
+            Subfigure 2.            
+          </caption>
+	  </subfigure>
+	  <caption>Two images displayed horizontally in one figure.</caption>
+	</figure>
+      </para>
+      
+      <para id="imagepara6">The optional <code>orient</code> attribute determines how the subfigures are arranged
+        respective to one another.  This attribute can have a value of either
+        <code>horizontal</code> (default) or <code>vertical</code>.  Modifying the previous example so that <code display="inline">orient="vertical"</code> results in the following:
+      
+
+	<figure id="subfig-vertical" orient="vertical"><subfigure id="subfigure-2_1">
+          <title>Blue on Blue</title>
+          <media id="sub_example_2_1" alt="An envelope with a blue page"><image src="Xenvelope-blue-on-blue.png" mime-type="image/png"/></media>
+          <caption>
+          Subfigure 1.
+          </caption>
+        </subfigure>
+        <subfigure id="subfigure-2_2">
+          <title>Orange on White</title>
+          <media id="sub_example_2_2" alt="An envelope with a white page"><image src="Xenvelope.png" mime-type="image/png"/></media>
+          <caption>
+            Subfigure 2.            
+          </caption>
+	  </subfigure>
+	  
+	<caption>Two images displayed vertically in one figure.</caption></figure></para><note id="eip-289" type="tip">Only use subfigures when the images are related to one another.</note>
+</section>
+
+<section id="alternate"><title>Including Alternate Media for Print</title><para id="printp">Connexions allows you to insert an alternate 
+	  media file in your module that can be formatted and sized 
+	  specifically for the print version of your content.  For example,
+          you may want to provide a color image for online use and a black-and-white image for print.  You can also use this feature to provide alternate 
+          media types, such as using a Java applet for online use and an image 
+          for print.
+	</para>  
+	<para id="printp2">To create an alternate image for print, 
+            simply include two <code>image</code> elements (or, say, a <code>video</code> element and an <code>image</code> element) inside the
+            <code>media</code> tag.  Use the <code>for</code> attribute to specify whether this element should be used for the online version, the 
+            PDF version, or used as the default selection.
+        </para>
+        <para id="printmedia">The following code gives one example for including an alternate 
+          print image.  In this case, online users will see <code>image.png</code>, while <code>image.eps</code> will be used for the print version of the module.
+
+	  <code id="id45086439" display="block">
+&lt;figure id='printimage'&gt;
+   &lt;media id="print_image_example"&gt;
+      &lt;image mime-type='image/png' src='image.png'/&gt;
+      &lt;image mime-type='application/postscript' src='image.eps' for="pdf"/&gt;
+   &lt;/media&gt;
+&lt;/figure&gt;
+          </code>
+	  
+	</para><para id="eip-441">Possible values for the <code display="inline">for</code> attribute include:
+
+<list id="forvalues" type="labeled-item" list-type="labeled-item"><item><label>default</label>(Default) This element is used for both PDF and online versions unless another, version-specific element is present.</item>
+ <item><label>online</label>This element is used only for the online version of the content.</item>
+ <item><label>pdf</label>This element is used only for the pdf version of the content.</item>
+</list>
+
+Note that it is not necessary to specify a media element for both online and print versions.  For example, given the code snippet above, the first image ("<code display="inline">image.png</code>") is the default and will be automatically used for the online version of the content, while the second image ("<code display="inline">image.eps</code>") is explicitly assigned to the PDF version of the content.  If no default had been specified, then no image would have appeared in the online version of the content.</para>
+      
+<note id="alternatetip" type="tip">
+You can use any two media objects in this way to create 
+          alternative media for the online and PDF versions of your content.  When two media subtype objects are included inside a 
+          <code>media</code> element, use the <code>for</code> attribute to specify when that object should be displayed.
+</note></section>
+    </section>
+<section id="mediasubtypes"><title>Media Subtypes</title>
+<para id="ms1">Within each <code>&lt;media&gt;</code> element, at least one media subtype is required.  The following sections describe how to create the various possible subtype elements.</para>
+    
+    <section id="image"><title>Images</title><para id="imagepara1">Some of the image file types and their corresponding MIME types used 
+	in Connexions modules are:
+	<list id="l4" list-type="labeled-item" mark-suffix=" -">
+	  <item><label>eps</label>mime-type="application/postscript"</item>
+	  <item><label>png</label>mime-type="image/png" </item>
+	  <item><label>jpg</label>mime-type="image/jpeg"</item>
+	  <item><label>gif</label>mime-type="image/gif"</item>
+	</list>
+	This list is not all inclusive. Any image with a valid 
+	<link url="http://www.duke.edu/websrv/file-extensions.html" window="new">MIME type</link> 
+	can be used in a module.
+      </para>
+      
+
+
+<section id="insert_image"><title>Embedding Images</title>
+<para id="imagepara2">
+	To embed images in your module, insert CNXML entries similar to the 
+	following example into the "index.cnxml" file for your module:
+	<code id="id45018053" display="block">
+&lt;figure id="figure-01"&gt;
+   &lt;title&gt;Example Figure&lt;/title&gt;
+   &lt;media id="figureexample" alt="an envelope with a blue page"&gt;
+      &lt;image mime-type="image/png" src="Xenveope-blue-on-blue.png"/&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;A graphic image displayed as a figure.&lt;/caption&gt;
+&lt;/figure&gt; 
+</code>
+      </para>
+      
+      <para id="imagepara3">The <code>src</code> attribute in the image tag gives the location 
+	or source of the image that you want to appear in the module. After
+        loading the image file into the 'Files' tab on your module, simply
+        provide the full file name (e.g. "<code>envelope-taller.png</code>") to specify 
+        which image should be used.
+      </para>
+      
+      <para id="imagepara3a">
+	The <link target-id="figure-01" class="cnxn">actual display</link> for the previous 
+	CNXML example is:
+<figure id="figure-01"><title>Example Figure</title><media id="figureexample" alt="an envelope with a blue page">
+      <image src="Xenvelope-blue-on-blue.png" mime-type="image/png"/>
+   </media>
+   
+<caption>A graphic image displayed as a figure.</caption></figure>
+       </para>
+</section>
+
+
+<section id="resize_image"><title>Adjusting the Size of the Image</title><para id="element-559">You can use optional size attributes to control the size of the image displayed in both online and print versions of the content.  There are a few things to keep in mind when specifying image sizes in CNXML:
+
+<list id="sizenotes" list-type="bulleted">
+ <item>
+  Images that are displayed larger than their original size will look fuzzy or grainy.
+ </item>
+ <item>
+  Resizing an image online relies on the web browser to determine how to redraw the image.  This
+  can sometimes lead to unpredictable and undesirable results that vary from browser to browser.
+  Whenever possible, resize the image to the desired dimensions before loading the file into 
+  Connexions to avoid this problem.
+ </item>
+ <item>
+  It is not necessary to specify both the height and width of an image.  If you supply only one
+  of these, the other value will be calculated to preserve the same height-width ratio as the
+  original image.  You only need to supply both when you wish to change the shape of the image.
+ </item>
+ <item>
+  You can choose to resize an image for online viewing, printing, or both by supplying the 
+  corresponding attributes as described below.  Sizes specified for one version have no effect 
+  on the other.  If you do not supply sizing information, the image will be displayed in its original size by default.
+ </item>
+</list></para>
+
+<section id="adjust_image_online"><title>Adjusting the Size of an Online Image</title>
+
+<para id="add_param">
+You can adjust the size of the image in the on-line version of your document by using the <code>height</code> and <code>width</code> attributes.
+</para>
+
+<para id="original_t_m">
+The following code will display the image in its original, default size:
+</para>
+
+<code id="original_t_m_code" display="block">&lt;figure id="element-439"&gt;
+   &lt;media id="tajmahal" alt="The Taj Mahal"&gt;
+      &lt;image src="TajMahal_medium.jpg" mime-type="image/jpeg"/&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;
+      The photograph of the Taj Mahal in this figure and the following figures
+      was taken by &lt;link url="http://www.flickr.com/photos/babasteve/"&gt;Steve
+      Evans&lt;/link&gt;.  It is licensed for public use under the Creative Commons 
+      Attribution License.
+   &lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+
+<para id="original_t_m_result">
+This code results in the following image:
+</para>
+
+<figure id="element-439"><media id="tajmahal" alt="The Taj Mahal">
+    <image src="TajMahal_medium.jpg" mime-type="image/jpeg"/>
+  </media>
+  
+<caption>The photograph of the Taj Mahal in this figure and the following figures was taken by <link url="http://www.flickr.com/photos/babasteve/" window="new">Steve
+	  Evans</link>.  It is licensed for public use under the
+	  Creative Commons Attribution License.</caption></figure>
+
+
+
+<para id="element-702">The following CNXML code shows how to display the same image with a specific size (in this case, 250 pixels wide by 250 pixels tall):
+</para>
+
+<code id="id449730411" display="block">&lt;figure id="figure_size_adjusted"&gt;
+   &lt;media id="TajMahal" alt="The Taj Mahal"&gt;
+      &lt;image mime-type="image/jpeg" 
+             src="TajMahal_medium.jpg"
+             height="250"
+             width="250" /&gt;
+   &lt;/media&gt;
+&lt;/figure&gt;
+</code>
+
+<para id="size_adjust_results">
+The resulting figure is displayed below:
+</para>
+
+<figure id="figure_size_adjusted">
+   <media id="TajMahal" alt="The Taj Mahal">
+      <image mime-type="image/jpeg" src="TajMahal_medium.jpg" height="250" width="250"/>
+   </media>
+</figure>
+
+<para id="size_pixels">
+When specifying <code>width</code> and <code>height</code>, enter the value in pixels.  For example, the code above will produce a print image that is 250 pixels tall and 250 pixels inches wide.
+
+<note id="id323245" type="tip">
+It is not necessary to specify both the <code>height</code> and <code>width</code> of an image.  If you supply only one of these, the other value will be calculated to preserve the same height-width ratio as the original image.  You only need to supply both when you wish to change the shape of the image.
+</note>
+
+<note id="id-123123" type="tip">The <code>height</code> and <code>width</code> attributes do not affect the size of the image in the print (PDF) version of the module.  To change the printed size of the image, use the <code>print-width</code> attribute (see below).  You can use any combination of print and online sizing attributes for an image.
+</note>
+
+</para>
+
+
+
+</section>
+<section id="adjust_image_print"><title>Adjusting the Size of a Printed Image</title>
+
+<para id="pw_param">You can adjust the size of the image in the print (PDF) version of your document by using the <code>print-width</code> attribute.  The height of the image will be adjusted proportionately to the width set in <code>print-width</code>.  There is no <code>print-height</code> attribute.
+</para>
+<para id="element-70888">The following CNXML code shows how to display the Taj Majal image above with a specific printed size (in this case, 4.5 inches wide):
+</para>
+
+<code id="id44973041" display="block">&lt;figure id="figure_size_adjusted"&gt;
+   &lt;media id="TajMahal" alt="The Taj Mahal"&gt;
+      &lt;image mime-type="image/jpeg" 
+             src="TajMahal_medium.jpg"
+             print-width="4.5in" /&gt;
+   &lt;/media&gt;
+&lt;/figure&gt;
+</code>
+
+<para id="print-attribute-notes">When specifying <code>print-width</code> include the unit of measurement in the value.  This can be <code>in</code> (inches), <code>cm</code> (centimeters), <code>pt</code> (points) or <link window="new" url="http://www-h.eng.cam.ac.uk/help/tpl/textprocessing/teTeX/latex/latex2e-html/ltx-86.html">any other value supported in LaTeX</link>.  The code above will produce a print image that is 4.5 inches wide and a height proportional to its original dimensions.</para>
+
+
+
+
+<note id="id-1231234" type="tip">The <code>print-width</code> attribute does not affect the size of the image when viewing the version of the module.  To change the online size of the image, use the <code>height</code> and <code>width</code> attributes.  You can use any combination of print and online sizing attributes for an image.
+</note>
+
+      </section>
+
+
+      
+      <section id="image_thumbnail"><title>Creating a Linked Thumbnail Image</title>
+	
+	<para id="linked">
+	  A thumbnail is a small version of an image that, when clicked, displays the larger, full-size version of that image. You can create a thumbnail in your modules by completing the following steps:
+	  <list id="tlist" list-type="enumerated">
+	    <item>Using image-editing software, create a thumbnail-sized version of your image file.  Make sure to change the name of the thumbnail image so that you know which is which (e.g. "myimage_thumb.png").</item>
+            <item>Add the thumbnail image to your module using the files tab as you would with any image fie.</item>
+	    <item>Create the <code>media</code> and <code>image</code> elements as you would normally do for a full-sized image.</item>
+	    <item>Use the optional <code>thumbnail</code> attribute to the <code>image</code> element as shown in the example below.
+	    </item>
+	  </list>
+	  Here is an example of the CNXML code required to include a thumbnail 
+	  image that links to a full size version:
+	  <code id="id45086195" display="block">&lt;figure id='thumbnail'&gt;
+   &lt;media id="thumbnailmedia" alt="The Taj Mahal (thumbnail version)"&gt;
+      &lt;image mime-type='image/jpeg' 
+             src='TajMahal_medium.jpg'
+             thumbnail='TajMahal_Thumb.jpg'/&gt;
+      &lt;/image&gt;
+   &lt;/media&gt;
+&lt;/figure&gt;
+	  </code>
+	This code results in the following linked image:
+	   <figure id="thumbnail"><media id="thumbnailmedia" alt="The Taj Mahal (thumbnail version)"><image src="TajMahal_medium.jpg" mime-type="image/jpeg" thumbnail="TajMahal_Thumb.jpg"/></media>
+	    
+	  </figure>
+	</para>
+      </section>
+      
+
+    </section>
+
+
+
+
+
+ 
+</section>
+
+
+
+    <section id="video"><title>Video</title><section id="video_local"><title>Embedding Videos Attached to the Module</title>
+
+<para id="moviep">Movies can be added to your module using the same basic structure as
+        with other media types.
+	<code id="id45068458" display="block">&lt;figure id='moviefig2'&gt;
+   &lt;media id="movie" alt="Building on the Past"&gt;
+      &lt;video mime-type="video/mpeg" 
+             src="Building_on_the_Past.mpg"
+             width="350"
+             height="300"
+             autoplay="false" /&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;
+     The Creative Commons movie: "Building on the Past". 
+     Click the Play button to start the movie.
+   &lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+	The movie is displayed below:
+	<figure id="moviefig2">
+	  <media id="movie" alt="Building on the Past"><video src="Building_on_the_Past.mpg" mime-type="video/mpeg" autoplay="false" width="350" height="300"/></media>
+	  <caption>The Creative Commons movie: "Building on the Past". 
+	    Click the Play button to start the movie.</caption>
+	</figure>
+      </para>
+	
+</section>
+
+    
+</section>
+
+    <section id="flash">
+      <title>Flash Objects</title>
+      <para id="flpara">
+	You can insert Flash objects in your module. Here is an example of 
+	the CNXML code required to include a Flash object:
+	<code id="id45068286" display="block">&lt;figure id='flashfig'&gt;
+   &lt;media id="new_flash" alt="flash animation of the connexions logo"&gt;
+      &lt;flash mime-type="application/x-shockwave-flash" 
+             src="flash.swf"
+             height="250"
+             width="250" /&gt;
+      &lt;/flash&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;"Welcome to Connexions" example Flash object.&lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+	The <link target-id="flashfig" class="cnxn">Flash object</link> appears in your 
+	module the same way in which a movie or an image appears: 
+          <figure id="flashfig"><media id="new_flash" alt="flash animation of the connexions logo"><flash src="flash2.swf" mime-type="application/x-shockwave-flash" height="250" width="250"/></media>
+	  
+          <caption>"Welcome to Connexions" example Flash object.</caption></figure>
+      </para>
+	
+    </section>
+
+
+
+
+    <section id="audiofiles">
+      <title>Audio Files</title>
+      <para id="audiop">
+	Audio files such as mp3, real audio, and wav files can be inserted 
+	into your module quickly and easily. To include audio files in your 
+	document, upload the corresponding audio file and include code similar 
+	to the following in your "index.cnxml" document:
+<code id="id45068747" display="block">
+&lt;figure id='musicscale'&gt;
+   &lt;media id="music_example" alt="chromatic scale slurred"&gt;
+      &lt;audio mime-type="audio/x-wav" src="chromatic_slurred.wav"/&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;A chromatic scale performed on clarinet by Michael Lawrence.&lt;/caption&gt;
+&lt;/figure&gt;
+</code>	  
+      </para>
+      <para id="parascale">
+	The <link target-id="musicscale" class="cnxn">actual display</link> for the previous 
+	CNXML example is:
+      	 <figure id="musicscale"><media id="music_example" alt="chromatic scale slurred"><audio src="chromatic_slurred.wav" mime-type="audio/x-wav"/></media>
+	  
+         <caption>A chromatic scale performed on clarinet by Michael Lawrence.</caption></figure>
+      </para>
+	
+    </section>
+
+    <section id="java">
+      <title>Java Applets</title>
+      <para id="javap">Java applets are another media type you can use in your Connexions 
+        modules:
+<code id="id45068596" display="block">
+&lt;figure id="javafig"&gt;
+   &lt;media id="java_example" alt="a complex sinusoid"&gt;
+      &lt;java-applet mime-type="application/x-java-applet"
+                   code="PhasorDemo.class"
+                   width="430"
+                   height="500" /&gt;
+   &lt;/media&gt;
+   &lt;caption&gt;3D Animation of a Complex Sinusoid. Click the Run button to start the animation.&lt;/caption&gt;
+&lt;/figure&gt;
+</code>
+	The <link target-id="javafig" class="cnxn">actual display</link> for the previous 
+	CNXML example is:
+	<figure id="javafig"><media id="java_example" alt="a complex sinusoid"><java-applet mime-type="application/x-java-applet" code="PhasorDemo.class" width="430" height="500"/></media>
+	  
+        <caption>3D Animation of a Complex Sinusoid. Click the Run button 
+	    to start the animation.</caption></figure>
+        If the graphic does not appear in the figure above, you may 
+        need to install or upgrade the Java plug-in on your computer. Please 
+        go to <link url="http://java.com">java.com</link> to download the 
+        latest version of the Java plug-in.
+      </para>
+	
+    </section>
+
+    <section id="labview">
+      <title>LabVIEW Demonstrations</title>
+      <para id="labviewp">
+	For information on including LabVIEW demonstrations in your 
+	module, please see 
+	<link document="m11601" class="cnxn">Creating LabVIEW demonstrations for Connexions</link>.
+      </para>
+    </section>
+ 
+    <section id="paramsect">
+      <title>Parameters</title>
+      <para id="parampara1">
+	Some multimedia objects need options or parameters to display 
+	properly. You can pass this information to the multimedia objects 
+	with the <code>param</code> tag. 
+        The <code>param</code> tag allows you to specify the run-time 
+        settings for an object inserted into XHTML documents.
+      </para>
+      
+      <para id="parampara2">
+        Here is an example of a <code>param</code> tag for an audio (wav) object:
+      <code id="id45068982" display="block">&lt;figure id="audio2"&gt;
+  &lt;media id="music_example2" alt="Slurred chromatic scale"&gt;      
+    &lt;audio mime-type="audio/x-wav" src="chromatic_slurred.wav"&gt;
+      &lt;param name="title" value="Chromatic Scale"/&gt;
+    &lt;/audio&gt;
+  &lt;/media&gt;
+&lt;/figure&gt;</code>
+</para><para id="eip-850">The <link target-id="audio2">actual display</link> for the previous example is
+<figure id="audio2">
+  <media id="music_example2" alt="Slurred chromatic scale">
+    <audio mime-type="audio/x-wav" src="chromatic_slurred.wav">
+      <param name="title" value="Chromatic Scale"/>
+    </audio>
+  </media>
+</figure>
+</para>
+  </section>
+</section>
+<section id="externalservices"><title>Using Third-Party Services</title>
+
+<para id="yt-1">It is possible to embed videos and other multimedia files from sites such as <link url="http://www.youtube.com/">YouTube</link> or <link url="http://www.slideshare.net">SlideShare</link> into your module, just as you might embed them on your own personal web site. Please keep in mind, however, that unlike media files attached to Connexions modules, there is no guarantee that these resources will be always be available to your readers.  Also, content hosted on third-party websites is not necessarily released under the same open licenses as Connexions content, meaning that other authors won't have the same rights to edit and modify content as they would with an attached media file.  For these reasons we strongly encourage you to consider providing your own attached media files whenever possible.</para>
+
+
+<para id="yt-2">Most resources hosted by a third-party service can be embedded using the same process as an attached video or flash file as described earlier, with the <code>src</code> attribute pointing to the URL of the video rather than a local file.  Some of these external resources, however, require a little extra work by the author.</para>
+
+
+<section id="youtube"><title>Embedding YouTube Videos</title>
+
+<para id="yt-2point5">If you choose to include YouTube videos in your module, you will need to first copy the information provided in the <emphasis>Embed</emphasis> HTML snippet provided by YouTube for the video you wish to use.  As an example, consider <link url="http://www.youtube.com/watch?v=RMINSD7MmT4">this video</link> of Neil Armstrong walking on the moon.  The Embed snippet for this video is as follows:
+
+<code id="embed-snippet" display="block">
+&lt;object width="425" height="344"&gt;
+ &lt;param name="movie" value="http://www.youtube.com/v/RMINSD7MmT4&amp;hl=en&amp;fs=1&amp;rel=0"&gt;&lt;/param&gt;
+ &lt;param name="allowFullScreen" value="true"&gt;&lt;/param&gt;
+ &lt;param name="allowscriptaccess" value="always"&gt;&lt;/param&gt;
+ &lt;embed src="http://www.youtube.com/v/RMINSD7MmT4&amp;hl=en&amp;fs=1&amp;rel=0" 
+        type="application/x-shockwave-flash" allowscriptaccess="always" 
+        allowfullscreen="true" width="425" height="344"&gt;
+ &lt;/embed&gt;
+&lt;/object&gt;
+</code>
+
+Since this code is designed for use on websites and not the CNXML language, the majority of this snippet is not necessary.  The part that <emphasis>is</emphasis> important is the <term>embed tag</term>:
+
+<code id="embed-attribute" display="block">
+ &lt;embed src="http://www.youtube.com/v/RMINSD7MmT4&amp;hl=en&amp;fs=1&amp;rel=0" 
+        type="application/x-shockwave-flash" allowscriptaccess="always" 
+        allowfullscreen="true" width="425" height="344"&gt;
+</code>
+
+The CNXML example below illustrates how to embed a YouTube video in your module. Notice that it is implemented like a standalone video, with a few key features:
+
+<list id="yt-list" type="bulleted"><item>The media subtype is <code>&lt;flash&gt;</code>, not <code>&lt;video&gt;</code> - this is because the YouTube player is itself a flash object.  In practice, the <code>&lt;video&gt;</code> element would work just fine to embed a simple YouTube player, but some features (such as being able to view the movie in full screen mode) would not be available.</item>
+
+<item>The <term>mime-type</term> attribute is set to "application/x-shockwave-flash" - this is the format used by YouTube videos.</item>
+ <item>The <term>src</term> attribute is set to the <emphasis>embed</emphasis> URL for the video, <emphasis>not the URL for the video on the YouTube website</emphasis>. The embed URL is the one found in the code snippet as shown above and is always of the form <code display="inline">http://www.youtube.com/v/[VideoID]</code> (where <code>[VideoID]</code> is the ID of the video you wish to include in your module).</item>
+ <item>After you copy the embed URL, you need to replace the <emphasis><code display="inline">&amp;</code></emphasis> characters with <emphasis><code display="inline">&amp;amp;</code></emphasis>.  The <code display="inline">&amp;</code> character is a special character in CNXML and must be escaped in this manner, otherwise you will get an error when you try to save your module.  In this example,
+<code id="eip-id1169913917735" display="block">src="http://www.youtube.com/v/RMINSD7MmT4<emphasis>&amp;</emphasis>hl=en<emphasis>&amp;</emphasis>fs=1<emphasis>&amp;</emphasis>rel=0"</code>
+becomes
+<code id="eip-id1169915590572" display="block">src="http://www.youtube.com/v/RMINSD7MmT4<emphasis>&amp;amp;</emphasis>hl=en<emphasis>&amp;amp;</emphasis>fs=1<emphasis>&amp;amp;</emphasis>rel=0"</code>
+
+</item>
+</list>
+</para>
+
+<para id="eip-587">The final CNXML code for embedding this movie is as follows:</para><code id="yt-example" display="block">
+&lt;figure id="moonlanding-youtube"&gt;
+ &lt;title&gt;One Small Step for (a) Man&lt;/title&gt;
+ &lt;media id="yt-media" display="block" alt="Video of the Neil Armstrong on the Moon"&gt;
+  &lt;flash id="yt-video" 
+         mime-type="application/x-shockwave-flash" 
+         src="http://www.youtube.com/v/RMINSD7MmT4&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0" 
+         width="425" 
+         height="344"&gt;
+   &lt;param name="allowscriptaccess" value="always" /&gt;
+   &lt;param name="allowsfullscreen" value="true" /&gt;
+  &lt;/flash&gt;
+ &lt;/media&gt;
+&lt;/figure&gt;</code>
+
+<para id="eip-968">And results in the following:</para><figure id="moonlanding-youtube"><title>One Small Step for (a) Man</title><media id="yt-media" display="block" alt="Video of the Neil Armstrong on the Moon">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/RMINSD7MmT4&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0" width="425" height="344">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowfullscreen" value="true"/>
+  </flash>
+ </media>
+</figure><note id="eip-302" type="tip">Though the steps described above may look intimidating, the actual process isn't actually that hard.  To embed your YouTube video, just perform the following steps:
+
+<list id="shortversion" list-type="enumerated" number-style="arabic" class="stepwise"><item>Copy the example code above into your module.</item>
+<item>Replace the URL with the one provided in the &lt;embed&gt; element in the HTML snippet provided by YouTube.</item>
+<item>Escape the ampersand characters in the URL by replacing <emphasis><code>&amp;</code></emphasis> with <emphasis><code>&amp;amp;</code></emphasis>.</item>
+<item>Adjust the height and width parameters to change the size of the video (optional).</item>
+
+</list>
+
+If you are including more than one YouTube video and are using the code provided, don't forget to change the <code>id</code> for the <code>&lt;figure&gt;</code>, <code>&lt;media&gt;</code>, and <code>&lt;flash&gt;</code> elements each time you add a new video.</note>
+</section>
+
+<section id="slideshare"><title>Embedding SlideShare Presentations</title>
+<para id="ss-2point5">If you choose to include SlideShare presentations in your module, you will need to first copy the information provided in the <emphasis>Embed</emphasis> HTML snippet provided by SlideShare for the presentation you wish to use.  As an example, consider <link url="http://www.slideshare.net/cnxorg/cnxdemo">this slideshow</link> taken from our standard Connexions presentation.  The Embed snippet for this presentation is as follows:
+
+ <code id="eip-811" display="block"><title>Connexions: Create Globally, Educate Locally</title>&lt;object style="margin:0px" width="425" height="355"&gt;
+ &lt;param name="movie" 
+  value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02&amp;stripped_title=cnxdemo"/&gt;
+ &lt;param name="allowFullScreen" value="true"/&gt;
+ &lt;param name="allowScriptAccess" value="always"/&gt;
+ &lt;embed 
+  src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02&amp;stripped_title=cnxdemo" 
+  type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"
+  width="425" height="355"&gt;
+ &lt;/embed&gt;
+&lt;/object&gt;
+</code>
+
+Since this code is designed for use on websites and not the CNXML language, the majority of this snippet is not necessary.  The part that <emphasis>is</emphasis> important is the <term>embed tag</term>:
+
+<code id="embed-attribute-ss" display="block">
+ &lt;embed 
+  src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02&amp;stripped_title=cnxdemo" 
+  type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"
+  width="425" height="355"&gt;
+ &lt;/embed&gt;
+</code>
+
+The CNXML example below illustrates how to embed a SlideShare player in your module. Notice that it is implemented like a standalone flash object, with a few key features:
+
+<list id="ss-list" type="bulleted">
+
+ <item>The <term>src</term> attribute is set to the <emphasis>embed</emphasis> URL for the slideshow, <emphasis>not the URL for the page on the SlideShare website</emphasis>. The embed URL is the one found in the code snippet as shown above and is of the form <code display="inline">"http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=[PresentationID]"</code> (where <code>[PresentationID]</code> is the ID and title of the slideshow you wish to include in your module).</item>
+ <item>After you copy the embed URL, you need to replace the <emphasis><code display="inline">&amp;</code></emphasis> characters with <emphasis><code display="inline">&amp;amp;</code></emphasis>.  The <code display="inline">&amp;</code> character is a special character in CNXML and must be escaped in this manner, otherwise you will get an error when you try to save your module.  In this example,
+<code id="eip-id11676991335" display="block">src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02<emphasis>&amp;
+</emphasis>stripped_title=cnxdemo"</code>
+becomes
+<code id="eip-id116991335" display="block">src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02<emphasis>&amp;amp;
+</emphasis>stripped_title=cnxdemo"</code>
+
+</item>
+</list>
+</para>
+
+<para id="eip-587123">The final CNXML code for embedding this presentation is as follows:</para><code id="ss-example" display="block">
+&lt;figure id="slidesharefigure"&gt;
+ &lt;media id="slidesharemedia" alt="Slide show introducing the ideas behind Connexions."&gt;
+  &lt;flash id="slideshareflash" height="355" width="425" mime-type="application/x-shockwave-flash"
+   src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02&amp;amp;stripped_title=cnxdemo"&gt;
+   &lt;param name="allowScriptAccess" value="always"/&gt;
+   &lt;param name="allowFullScreen" value="true"/&gt;
+  &lt;/flash&gt;
+ &lt;/media&gt;
+&lt;/figure&gt;</code>
+
+<para id="eip-9613128">And results in the following:</para>
+<figure id="cnx-slideshare"><title>Connexions: Create Globally, Educate Locally</title><media id="ss-media" display="block" alt="Slide show introducing the ideas behind Connexions.">
+  <flash id="ss-video" mime-type="application/x-shockwave-flash" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=cnxdemo-090820214427-phpapp02&amp;stripped_title=cnxdemo" width="425" height="344">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowfullscreen" value="true"/>
+  </flash>
+ </media>
+</figure><note id="eip-301232" type="tip">Though the steps described above may look intimidating, the actual process isn't actually that hard.  To embed your SlideShare presentation, just perform the following steps:
+
+<list id="ssshortversion" list-type="enumerated" number-style="arabic" class="stepwise"><item>Copy the example code above into your module.</item>
+<item>Replace the URL with the one provided in the &lt;embed&gt; element in the HTML snippet provided by SlideShare.</item>
+<item>Escape the ampersand characters in the URL by replacing <emphasis><code>&amp;</code></emphasis> with <emphasis><code>&amp;amp;</code></emphasis>.</item>
+<item>Adjust the height and width parameters to change the size of the presentation (optional).</item>
+
+</list>
+
+If you are including more than one SlideShare presentation and are using the code provided, don't forget to change the <code>id</code> for the <code>&lt;figure&gt;</code>, <code>&lt;media&gt;</code>, and <code>&lt;flash&gt;</code> elements each time you add a new video.</note>
+
+</section><section id="eip-708"><title>Embedding Prezi Presentations</title><para id="eip-329">If you choose to include Prezi presentations in your module, you will need to first copy the information provided in the <emphasis>Embed</emphasis> HTML snippet provided by Prezi for the presentation you wish to use.  As an example, consider <link url="http://prezi.com/n5c7h_bctk1c/">this presentation</link> taken from a presentation developed by <link url="http://theuniqu.com">UniqU</link>.  The Embed snippet for this presentation is as follows:
+
+ <code id="eip-id1172720225097" display="block">&lt;div class="prezi-player"&gt;
+&lt;style type="text/css" media="screen"&gt;.prezi-player { width: 550px; } .prezi-player-links { text-align: center; }&lt;/style&gt;
+&lt;object id="prezi_n5c7h_bctk1c" name="prezi_n5c7h_bctk1c" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="550" height="400"&gt;
+&lt;param name="movie" value="http://prezi.com/bin/preziloader.swf"/&gt;
+&lt;param name="allowfullscreen" value="true"/&gt;
+&lt;param name="allowscriptaccess" value="always"/&gt;
+&lt;param name="bgcolor" value="#ffffff"/&gt;
+&lt;param name="flashvars" value="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"/&gt;
+&lt;embed id="preziEmbed_n5c7h_bctk1c" name="preziEmbed_n5c7h_bctk1c" 
+src="http://prezi.com/bin/preziloader.swf" type="application/x-shockwave-flash" allowfullscreen="true" 
+allowscriptaccess="always" width="550" height="400" bgcolor="#ffffff" 
+flashvars="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"&gt;
+&lt;/embed&gt;
+&lt;/object&gt;
+&lt;div class="prezi-player-links"&gt;
+&lt;p&gt;
+&lt;a title="How to think about Connexions!" href="http://prezi.com/n5c7h_bctk1c/"&gt;UniqU: Making Connexions Easy!&lt;/a&gt; on 
+&lt;a href="http://prezi.com"&gt;Prezi&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code>
+
+Since this code is designed for use on websites and not the CNXML language, the majority of this snippet is not necessary.  The part that <emphasis>is</emphasis> important is the <term>embed tag</term> and the <term>param tags</term>:
+
+<code id="eip-id3804809" display="block">&lt;param name="movie" value="http://prezi.com/bin/preziloader.swf"/&gt;
+&lt;param name="allowfullscreen" value="true"/&gt;
+&lt;param name="allowscriptaccess" value="always"/&gt;
+&lt;param name="bgcolor" value="#ffffff"/&gt;
+&lt;param name="flashvars" value="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"/&gt;
+
+&lt;embed id="preziEmbed_n5c7h_bctk1c" name="preziEmbed_n5c7h_bctk1c" 
+src="http://prezi.com/bin/preziloader.swf" type="application/x-shockwave-flash" allowfullscreen="true" 
+allowscriptaccess="always" width="550" height="400" bgcolor="#ffffff" 
+flashvars="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"&gt;
+&lt;/embed&gt;</code>
+
+The CNXML example below illustrates how to embed a Prezi player in your module. Notice that it is implemented like a standalone flash object, with a few key features:
+
+<list id="eip-id1172715114186" type="bulleted"><item>The <term>src</term> attribute is set to the <emphasis>embed</emphasis> URL for the slideshow, <emphasis>not the URL for the page on the Prezi website</emphasis>. The embed URL is the one found in the code snippet as shown above and is of the form <code display="inline">"http://prezi.com/bin/preziloader.swf</code>).</item>
+<item>Copy all <term>param</term> tags from the <emphasis>embed</emphasis> snippet.</item></list>
+</para><para id="eip-861">The final CNXML code for embedding this presentation is as follows:</para><code id="eip-732" display="block"><newline/>
+&lt;media id="slidesharemed345234524352345ia" alt="Slide show introducing the ideas behind Connexions."&gt;
+  &lt;flash id="slidesharefldfadsfasfash" 
+height="400px" width="550px" 
+mime-type="application/x-shockwave-flash" 
+src="http://prezi.com/bin/preziloader.swf"&gt;
+
+&lt;param name="movie" value="http://prezi.com/bin/preziloader.swf"/&gt;
+&lt;param name="allowfullscreen" value="true"/&gt;
+&lt;param name="allowscriptaccess" value="always"/&gt;
+&lt;param name="bgcolor" value="#ffffff"/&gt;
+&lt;param name="flashvars" value="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"/&gt;
+
+  &lt;/flash&gt;
+ &lt;/media&gt;
+</code><para id="eip-635">And results in the following:</para><figure id="eip-id16741473">
+<media id="slidesharemed345234524352345ia" alt="Slide show introducing the ideas behind Connexions.">
+  <flash id="slidesharefldfadsfasfash" height="400px" width="550px" mime-type="application/x-shockwave-flash" src="http://prezi.com/bin/preziloader.swf">
+<param name="movie" value="http://prezi.com/bin/preziloader.swf"/>
+<param name="allowfullscreen" value="true"/>
+<param name="allowscriptaccess" value="always"/>
+<param name="bgcolor" value="#ffffff"/>
+<param name="flashvars" value="prezi_id=n5c7h_bctk1c&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no"/>
+
+  </flash>
+ </media>
+</figure><note id="eip-94" type="tip">Though the steps described above may look intimidating, the actual process isn't actually that hard.  To embed your Prezi presentation, just perform the following steps:
+
+<list id="ssshortversion2" list-type="enumerated" number-style="arabic" class="stepwise"><item>Copy the <link target-id="eip-732">example code</link> above into your module.</item>
+<item>Replace the URL with the one provided in the &lt;embed&gt; element in the HTML snippet provided by Prezi.</item>
+<item>Replace the param tags from the example with those that are provided in the &lt;embed&gt; element in the HTML snippet provided by Prezi.</item>
+<item>Escape the ampersand characters in the URL by replacing <emphasis><code>&amp;</code></emphasis> with <emphasis><code>&amp;amp;</code></emphasis>, if any are present.</item>
+<item>Adjust the height and width parameters to change the size of the presentation (optional).</item>
+
+</list>
+
+If you are including more than one Prezi presentation and are using the code provided, don't forget to change the <code>id</code> for the <code>&lt;figure&gt;</code>, <code>&lt;media&gt;</code>, and <code>&lt;flash&gt;</code> elements each time you add a new video.</note>
+</section>
+
+</section>
+
+  </content>
+  
+</document>

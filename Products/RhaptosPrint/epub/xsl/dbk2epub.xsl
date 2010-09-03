@@ -54,6 +54,9 @@
 
 <xsl:output indent="yes" method="xml" omit-xml-declaration="yes" encoding="ASCII"/>
 
+<!-- Discard any c:media tags that haven't been converted into docbook images or links to the content -->
+<xsl:template match="c:media"/>
+
 <!-- Output the PNG with the baseline info -->
 <xsl:template match="@pmml2svg:baseline-shift">
     <xsl:attribute name="style">
