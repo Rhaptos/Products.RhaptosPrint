@@ -106,7 +106,7 @@ module DocBook
       callouts = copy_callouts()
       # zip -X -r ../book.epub mimetype META-INF OEBPS
       # Double-quote stylesheet & file to help Windows cmd.exe
-      zip_cmd = "cd \"#{@output_dir}\" &&  #{ZIPPER} #{quiet} -X -r  \"#{File.expand_path(output_file)}\" \"#{mimetype_filename}\" \"#{meta}\" \"#{oebps}\""
+      zip_cmd = "cd \"#{@output_dir}\" &&  #{ZIPPER} #{quiet} -X -r  \"#{File.expand_path(output_file)}\" \"#{mimetype_filename}\" \"#{meta}\" \"#{oebps}\" *html"
       puts zip_cmd if $DEBUG
       success = system(zip_cmd)
       raise "Could not bundle into .epub file to #{output_file}" unless success
