@@ -4,6 +4,8 @@ WORKING_DIR=$1
 ID=$2
 COLID=${3:-0}
 
+DEBUG=$4
+
 echo "LOG: INFO: ------------ Working on $ID ------------"
 
 # If XSLTPROC_ARGS is set (by say a hadoop job) then pass those through
@@ -186,6 +188,21 @@ do
     EXIT_STATUS=$EXIT_STATUS || 1
   fi
 done
+
+
+# remove all the temp files so the complete zip doesn't contain them
+if [ ".$DEBUG" == "." ]; then
+  [ -s $WORKING_DIR/__err.txt ] && rm $WORKING_DIR/__err.txt
+  [ -s $CNXML1 ] && rm $CNXML1
+  [ -s $CNXML2 ] && rm $CNXML2
+  [ -s $CNXML3 ] && rm $CNXML3
+  [ -s $CNXML4 ] && rm $CNXML4
+  [ -s $CNXML5 ] && rm $CNXML5
+  [ -s $DOCBOOK1 ] && rm $DOCBOOK1
+  [ -s $DOCBOOK2 ] && rm $DOCBOOK2
+  [ -s $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+  [ -s $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
+fi
 
 echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS

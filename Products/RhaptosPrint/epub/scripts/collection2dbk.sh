@@ -3,6 +3,8 @@
 WORKING_DIR=$1
 ID=$2
 
+DEBUG=$3
+
 SKIP_MODULE_CONVERSION=0
 
 ROOT=`dirname "$0"`
@@ -28,6 +30,7 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL=$ROOT/xsl/dbk-clean-whole-remove-duplicate-glosse
 MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
 # remove all the temp files first so we don't accidentally use old ones
+[ -s $DOCBOOK ] && rm $DOCBOOK
 [ -s $DOCBOOK2 ] && rm $DOCBOOK2
 [ -s $DOCBOOK3 ] && rm $DOCBOOK3
 [ -s $DBK_FILE ] && rm $DBK_FILE
@@ -68,7 +71,7 @@ if [ "$SKIP_MODULE_CONVERSION" = "0" ]; then
   do
     if [ -d $WORKING_DIR/$MODULE ];
     then
-      bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE $ID
+      bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE $ID $DEBUG
       EXIT_STATUS=$EXIT_STATUS || $?
     fi
   done
@@ -89,7 +92,15 @@ $XSLTPROC -o $DBK_FILE $DOCBOOK_NORMALIZE_GLOSSARY_XSL $DOCBOOK3
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Create cover SVG and convert it to an image
-bash $ROOT/scripts/dbk2cover.sh $DBK_FILE
+bash $ROOT/scripts/dbk2cover.sh $DBK_FILE $DEBUG
 
+
+# remove all the temp files so the complete zip doesn't contain them
+if [ ".$DEBUG" == "." ]; then
+  [ -s $PARAMS ] && rm $PARAMS
+  [ -s $DOCBOOK ] && rm $DOCBOOK
+  [ -s $DOCBOOK2 ] && rm $DOCBOOK2
+  [ -s $DOCBOOK3 ] && rm $DOCBOOK3
+fi
 
 exit $EXIT_STATUS
