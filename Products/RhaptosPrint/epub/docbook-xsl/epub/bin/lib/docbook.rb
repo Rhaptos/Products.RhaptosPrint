@@ -15,7 +15,7 @@ module DocBook
     OUTPUT_DIR = ".epubtmp#{Time.now.to_f.to_s}"
     MIMETYPE = "application/epub+zip"
     META_DIR = "META-INF"
-    OEBPS_DIR = "OEBPS"
+    OEBPS_DIR = "content"
     ZIPPER = "zip"
 
     attr_reader :output_dir
