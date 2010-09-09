@@ -55,6 +55,20 @@
   <xsl:param name="complementnotation"
              select="$parameters/parameter[@name='complementnotation']/@value"/>
 
+  <!-- Fix our brain-dead, XML-insensitive escaping of LaTeX special 
+       characters, at least for curly braces that appear in 
+       m:mfenced/@open & @close attributes. -->
+  <xsl:template match="m:mfenced/@open|m:mfenced/@close">
+    <xsl:choose>
+      <xsl:when test=".='\{' or .='\}'">
+        <xsl:attribute name="{name(self::node())}">
+          <xsl:value-of select="translate(., '\', '')"/>
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 <!-- MATH -->
   <xsl:template match="m:math">
     <m:math>
