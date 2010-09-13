@@ -25,20 +25,19 @@
 
 <!-- Chunk out a separate "start.html" file just above the OEBPS dir that has a link to the TOC -->
 <xsl:template match="/">
+    <xsl:variable name="titleFilename">
+         <xsl:call-template name="make-relative-filename">
+             <xsl:with-param name="base.dir" select="$base.dir"/>
+             <xsl:with-param name="base.name">
+                 <xsl:value-of select="$root.filename"/>
+                 <xsl:value-of select="$html.ext"/>
+             </xsl:with-param>
+         </xsl:call-template>
+    </xsl:variable>
+
     <xsl:variable name="content">
         <xsl:choose>
             <xsl:when test="db:book/@ext:element='module'">
-            
-               <xsl:variable name="titleFilename">
-                    <xsl:call-template name="make-relative-filename">
-                        <xsl:with-param name="base.dir" select="$base.dir"/>
-                        <xsl:with-param name="base.name">
-                            <xsl:value-of select="$root.filename"/>
-                            <xsl:value-of select="$html.ext"/>
-                        </xsl:with-param>
-                    </xsl:call-template>
-               </xsl:variable>
-
                <xsl:variable name="filename">
                     <xsl:call-template name="make-relative-filename">
                         <xsl:with-param name="base.dir" select="$base.dir"/>
@@ -61,7 +60,6 @@
             </xsl:when>
             <xsl:otherwise>
                 <!-- It's a collection and has a TOC so make a frame -->
-                <xsl:variable name="coverFilename" select="$epub.cover.filename"/>
                 <xsl:variable name="tocFilename">
                     <!-- The following is taken from Docbook. Apparently this is sprinkled (~ 6 times) in the Docbook Source -->
                     <xsl:call-template name="make-relative-filename">
@@ -75,7 +73,7 @@
                 <html>
                     <frameset cols="20%,80%">
                         <frame src="{$tocFilename}" />
-                        <frame src="{$coverFilename}" name="main" />
+                        <frame src="{$titleFilename}" name="main" />
                     </frameset>
                 </html>
             </xsl:otherwise>
