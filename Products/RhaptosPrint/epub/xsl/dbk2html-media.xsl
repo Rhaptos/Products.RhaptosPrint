@@ -48,9 +48,9 @@
         </xsl:for-each> 
         <span class="cnx_label"> 
           <!--Media File:--> 
-          <xsl:call-template name="gentext"> 
+          <xsl:call-template name="cnx.gentext"> 
             <xsl:with-param name="key">MediaFile</xsl:with-param> 
-            <xsl:with-param name="lang" select="/module/metadata/language"/> 
+            <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
           </xsl:call-template> 
           <xsl:text>: </xsl:text> 
         </span> 
@@ -171,9 +171,9 @@
                   </xsl:when> 
                   <xsl:otherwise> 
                     <!--Figure--> 
-                    <xsl:call-template name="gentext"> 
+                    <xsl:call-template name="cnx.gentext"> 
                       <xsl:with-param name="key">Figure</xsl:with-param> 
-                      <xsl:with-param name="lang" select="/module/metadata/language"/> 
+                      <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
                     </xsl:call-template> 
                     <xsl:text> </xsl:text> 
                     <xsl:variable name="figuretype" select="translate(ancestor::cnx:figure[1]/@type,$upper,$lower)"/> 
@@ -206,9 +206,9 @@
                   </xsl:when> 
                   <xsl:otherwise> 
                     <!--Figure--> 
-                    <xsl:call-template name="gentext"> 
+                    <xsl:call-template name="cnx.gentext"> 
                       <xsl:with-param name="key">Figure</xsl:with-param> 
-                      <xsl:with-param name="lang" select="/module/metadata/language"/> 
+                      <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
                     </xsl:call-template> 
                   </xsl:otherwise> 
                 </xsl:choose> 
@@ -301,9 +301,9 @@
     <div class="media labview example"> 
       <xsl:call-template name="IdCheck"/> 
       <span class="cnx_label"> 
-        <xsl:call-template name="gentext"> 
+        <xsl:call-template name="cnx.gentext"> 
           <xsl:with-param name="key">LabVIEWExample</xsl:with-param> 
-          <xsl:with-param name="lang" select="/module/metadata/language"/> 
+          <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
         </xsl:call-template>:
         <xsl:text> </xsl:text> 
         <!--LabVIEW Example:--> 
@@ -352,16 +352,16 @@
       </object> 
       <p> 
         <!--Download--> 
-        <xsl:call-template name="gentext"> 
+        <xsl:call-template name="cnx.gentext"> 
           <xsl:with-param name="key">Download</xsl:with-param> 
-          <xsl:with-param name="lang" select="/module/metadata/language"/> 
+          <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
         </xsl:call-template> 
         <xsl:text> </xsl:text> 
         <a class="cnxn" href="{@src}"> 
           <!--LabVIEW source--> 
-          <xsl:call-template name="gentext"> 
+          <xsl:call-template name="cnx.gentext"> 
             <xsl:with-param name="key">LabVIEWSource</xsl:with-param> 
-            <xsl:with-param name="lang" select="/module/metadata/language"/> 
+            <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
           </xsl:call-template> 
         </a> 
       </p> 
@@ -415,9 +415,9 @@
       <xsl:call-template name="IdCheck"/> 
       <span class="cnx_label"> 
         <!--Audio File:--> 
-        <xsl:call-template name="gentext"> 
+        <xsl:call-template name="cnx.gentext"> 
           <xsl:with-param name="key">AudioFile</xsl:with-param> 
-          <xsl:with-param name="lang" select="/module/metadata/language"/> 
+          <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
         </xsl:call-template>:
       </span> 
       <a class="link" href="{@src}"> 
@@ -439,9 +439,9 @@
       <xsl:call-template name="IdCheck"/> 
       <span class="cnx_label"> 
         <!--Musical Example:--> 
-        <xsl:call-template name="gentext"> 
+        <xsl:call-template name="cnx.gentext"> 
           <xsl:with-param name="key">MusicalExample</xsl:with-param> 
-          <xsl:with-param name="lang" select="/module/metadata/language"/> 
+          <xsl:with-param name="lang" select="ancestor-or-self::*[@xml:lang]/@xml:lang"/> 
         </xsl:call-template>:
       </span> 
       <a class="cnxn" href="{@src}"> 

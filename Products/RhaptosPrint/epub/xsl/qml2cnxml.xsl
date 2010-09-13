@@ -43,7 +43,7 @@
         </xsl:choose>
       </xsl:attribute>
       <title>
-        <xsl:call-template name="gentext">
+        <xsl:call-template name="cnx.gentext">
           <xsl:with-param name="key">ProblemSet</xsl:with-param>
           <xsl:with-param name="lang" select="$modlang"/>
         </xsl:call-template>
@@ -81,7 +81,7 @@
         </xsl:when>
         <xsl:otherwise>
           <label>
-            <xsl:call-template name="gentext">
+            <xsl:call-template name="cnx.gentext">
               <xsl:with-param name="key">Problem</xsl:with-param>
               <xsl:with-param name="lang" select="$modlang"/>
             </xsl:call-template>
@@ -105,7 +105,7 @@
         <xsl:value-of select="generate-id()"/>
       </xsl:attribute>
       <label>
-        <xsl:call-template name="gentext">
+        <xsl:call-template name="cnx.gentext">
           <xsl:with-param name="key">Problem</xsl:with-param>
           <xsl:with-param name="lang" select="$modlang"/>
         </xsl:call-template>
@@ -125,7 +125,7 @@
             <xsl:choose>
               <xsl:when test="@type='single-response'">
 <!--
-                <xsl:call-template name="gentext">
+                <xsl:call-template name="cnx.gentext">
                   <xsl:with-param name="key">singleresponsehelp</xsl:with-param>
                   <xsl:with-param name="lang" select="$modlang"/>
                 </xsl:call-template>
@@ -134,7 +134,7 @@
               </xsl:when>
               <xsl:when test="@type='multiple-response'">
 <!--
-                <xsl:call-template name="gentext">
+                <xsl:call-template name="cnx.gentext">
                   <xsl:with-param name="key">multipleresponsehelp</xsl:with-param>
                   <xsl:with-param name="lang" select="$modlang"/>
                 </xsl:call-template>
@@ -143,7 +143,7 @@
               </xsl:when>
               <xsl:when test="@type='ordered-response'">
 <!--
-                <xsl:call-template name="gentext">
+                <xsl:call-template name="cnx.gentext">
                   <xsl:with-param name="key">orderedresponsehelp</xsl:with-param>
                   <xsl:with-param name="lang" select="$modlang"/>
                 </xsl:call-template>
@@ -168,7 +168,7 @@
           <span effect="italics">
             <!-- FIXME: These may need to be parameterized for PDF vs. EPUB to read "See hint(s) in footnote(s)" vs. "See hint(s) in note(s)", respectively. -->
 <!--
-            <xsl:call-template name="gentext">
+            <xsl:call-template name="cnx.gentext">
               <xsl:with-param name="key">
                 <xsl:choose>
                   <xsl:when test="count(q:hint) &gt; 1">hintinnoteplural</xsl:when>
@@ -262,7 +262,7 @@
       </xsl:if>
       <xsl:text> (</xsl:text>
 <!--
-      <xsl:call-template name="gentext">
+      <xsl:call-template name="cnx.gentext">
         <xsl:with-param name="key">seeresource</xsl:with-param>
         <xsl:with-param name="lang" select="$modlang"/>
       </xsl:call-template>

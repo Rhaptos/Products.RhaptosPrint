@@ -15,6 +15,9 @@
 <xsl:import href="dbk2epub.xsl"/>
 <xsl:import href="dbk2html-media.xsl"/>
 
+<!-- Import our local translation keys -->
+<xsl:import href="l10n/cnxmll10n.xsl"/>
+
 <xsl:param name="cnx.epub.start.filename" select="concat('start', $html.ext)"/>
 
 <!-- Discard the "unsupported media link" and convert the inner c:media element -->

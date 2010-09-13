@@ -8,8 +8,8 @@
  
   <!-- Begin section of translations for english text that appear in this file--> 
   <xsl:param name="output-l10n-keys" select="'0'"/> 
-  <xsl:param name="l10n.xml" select="document('l10n.xml')"/> 
-  <xsl:param name="local.l10n.xml" select="document('')"/> 
+  <xsl:param name="cnx.l10n.xml" select="document('l10n.xml')"/> 
+  <xsl:param name="cnx.local.l10n.xml" select="document('')"/> 
   <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
     <l:l10n language="en" english-language-name="English"> 
       <!-- for cnxml_render.xsl --> 
@@ -126,15 +126,15 @@
   </l:i18n> 
  
   <!-- Our hacked version of the gentext template --> 
-  <xsl:template name="gentext"> 
+  <xsl:template name="cnx.gentext"> 
     <xsl:param name="key" select="local-name(.)"/> 
     <xsl:param name="lang"/> 
   
     <xsl:variable name="local.l10n.gentext"
-                  select="($local.l10n.xml/xsl:stylesheet/l:i18n/l:l10n[@language=$lang]/l:gentext[@key=$key])[1]"/> 
+                  select="($cnx.local.l10n.xml/xsl:stylesheet/l:i18n/l:l10n[@language=$lang]/l:gentext[@key=$key])[1]"/> 
   
     <xsl:variable name="l10n.gentext"
-                  select="($l10n.xml/l:i18n/l:l10n[@language=$lang]/l:gentext[@key=$key])[1]"/> 
+                  select="($cnx.l10n.xml/l:i18n/l:l10n[@language=$lang]/l:gentext[@key=$key])[1]"/> 
     <xsl:if test="$output-l10n-keys = '1'"> 
       <xsl:message>l10n key: <xsl:value-of select="$key"/></xsl:message> 
     </xsl:if> 
@@ -163,14 +163,14 @@
         </xsl:message> 
           
           <xsl:variable name="local.en.l10n.gentext"
-            select="($local.l10n.xml//l:i18n/l:l10n[@language='en']/l:gentext[@key=$key])[1]"/> 
+            select="($cnx.local.l10n.xml//l:i18n/l:l10n[@language='en']/l:gentext[@key=$key])[1]"/> 
           
           <xsl:choose> 
             <xsl:when test="$local.en.l10n.gentext"> 
               <xsl:value-of select="$local.en.l10n.gentext/@text"/> 
             </xsl:when> 
             <xsl:otherwise> 
-              <xsl:value-of select="($l10n.xml/l:i18n/l:l10n[@language='en']/l:gentext[@key=$key])[1]/@text"/> 
+              <xsl:value-of select="($cnx.l10n.xml/l:i18n/l:l10n[@language='en']/l:gentext[@key=$key])[1]/@text"/> 
             </xsl:otherwise> 
           </xsl:choose> 
       </xsl:otherwise> 
