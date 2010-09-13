@@ -149,27 +149,43 @@
 </xsl:template>
 
 
+<xsl:key name="id" match="*" use="@id|@xml:id"/>
+<!-- Convert links to resources to be local links -->
 <xsl:template match="db:link[@ext:resource!='']">
-    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating local link to resource</xsl:with-param></xsl:call-template>
-    <xsl:variable name="linkend">
-        <xsl:if test="$cnx.module.id != ''">
-            <!-- If we're generating a collection, include the module dir. -->
-            <xsl:value-of select="@ext:document"/>
-            <xsl:text>/</xsl:text>
-        </xsl:if>
-        <xsl:value-of select="@ext:resource"/>
-    </xsl:variable>
-    <xsl:variable name="content">
-        <xsl:value-of select="@ext:resource"/>
-    </xsl:variable>
-
-    <xsl:message>linkend=<xsl:value-of select="$linkend"/> content="<xsl:value-of select="$content"/></xsl:message>
-    
-    <xsl:call-template name="simple.xlink">
-	    <xsl:with-param name="node" select="."/>
-	    <xsl:with-param name="linkend" select="$linkend"/>
-	    <xsl:with-param name="content" select="$content"/>
-    </xsl:call-template>
+    <xsl:choose>
+        <xsl:when test="@document and count(key('id', @document) )=0">
+            <xsl:apply-imports/>
+        </xsl:when>
+		<xsl:otherwise>
+		    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Generating local link to resource</xsl:with-param></xsl:call-template>
+		    <xsl:variable name="linkend">
+		        <xsl:if test="not(/db:book[@ext:element='module'])">
+		            <!-- If we're generating a collection, include the module dir. -->
+		            <xsl:value-of select="@ext:document"/>
+		            <xsl:text>/</xsl:text>
+		        </xsl:if>
+		        <xsl:value-of select="@ext:resource"/>
+		    </xsl:variable>
+		    <xsl:variable name="content">
+		        <xsl:choose>
+		            <xsl:when test="text()">
+		                <xsl:value-of select="text()"/>
+		            </xsl:when>
+		            <xsl:otherwise>
+		                <xsl:value-of select="@ext:resource"/>
+		            </xsl:otherwise>
+		        </xsl:choose>
+		    </xsl:variable>
+		
+		    <xsl:call-template name="simple.xlink">
+		        <xsl:with-param name="node" select="."/>
+		        <xsl:with-param name="linkend" select="$linkend"/>
+		        <xsl:with-param name="xhref" select="$linkend"/>
+		        <xsl:with-param name="content" select="$content"/>
+		    </xsl:call-template>
+		</xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
+

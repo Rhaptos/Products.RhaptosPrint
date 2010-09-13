@@ -248,6 +248,7 @@
                                 <xsl:text>/</xsl:text>
                                 <xsl:value-of select="$version"/>
                                 <xsl:text>/</xsl:text>
+                                <xsl:value-of select="@resource"/>
                                 <xsl:if test="@target-id">
                                     <xsl:text>#</xsl:text>
                                     <xsl:value-of select="@target-id"/>
