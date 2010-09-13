@@ -7,7 +7,8 @@
 
 WORKING_DIR=$1
 EPUB_FILE=$2
-DBK_TO_HTML_XSL=$3
+CONTENT_ID_AND_VERSION=$3
+DBK_TO_HTML_XSL=$4
 
 SKIP_DBK_GENERATION=""
 
@@ -25,7 +26,7 @@ fi
 
 if [ -s $WORKING_DIR/index.cnxml ]; then 
   DBK_FILE=$WORKING_DIR/index.dbk
-  MODULE=$(basename $WORKING_DIR);
+  MODULE=$CONTENT_ID_AND_VERSION
   MODULE=${MODULE%%_*}
   
   if [ ".$SKIP_DBK_GENERATION" == "." ]; then
