@@ -30,10 +30,10 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL=$ROOT/xsl/dbk-clean-whole-remove-duplicate-glosse
 MODULE2DOCBOOK=$ROOT/scripts/module2dbk.sh
 
 # remove all the temp files first so we don't accidentally use old ones
-[ -s $DOCBOOK ] && rm $DOCBOOK
-[ -s $DOCBOOK2 ] && rm $DOCBOOK2
-[ -s $DOCBOOK3 ] && rm $DOCBOOK3
-[ -s $DBK_FILE ] && rm $DBK_FILE
+[ -a $DOCBOOK ] && rm $DOCBOOK
+[ -a $DOCBOOK2 ] && rm $DOCBOOK2
+[ -a $DOCBOOK3 ] && rm $DOCBOOK3
+[ -a $DBK_FILE ] && rm $DBK_FILE
 
 
 echo "LOG: INFO: ------------ Starting on $WORKING_DIR --------------"
@@ -97,10 +97,10 @@ bash $ROOT/scripts/dbk2cover.sh $DBK_FILE $DEBUG
 
 # remove all the temp files so the complete zip doesn't contain them
 if [ ".$DEBUG" == "." ]; then
-  [ -s $PARAMS ] && rm $PARAMS
-  [ -s $DOCBOOK ] && rm $DOCBOOK
-  [ -s $DOCBOOK2 ] && rm $DOCBOOK2
-  [ -s $DOCBOOK3 ] && rm $DOCBOOK3
+  [ -a $PARAMS ] && rm $PARAMS
+  [ -a $DOCBOOK ] && rm $DOCBOOK
+  [ -a $DOCBOOK2 ] && rm $DOCBOOK2
+  [ -a $DOCBOOK3 ] && rm $DOCBOOK3
 fi
 
 exit $EXIT_STATUS
