@@ -44,6 +44,15 @@ xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
     </xsl:attribute>
 </xsl:template>
 
+<!-- Some modules (like m12669) have a c:link/@url="file.pdf" (use the URL attribute to point to a resource) -->
+<xsl:template match="c:link[not(contains(@url, '/'))]/@url">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: replacing c:link/@url='resource.file' with @resource='resource.file'</xsl:with-param></xsl:call-template>
+    <xsl:attribute name="resource">
+        <xsl:value-of select="."/>
+    </xsl:attribute>
+</xsl:template>
+
+
 <xsl:template match="c:media[@src]">
 	<xsl:copy>
 		<xsl:apply-templates select="@*"/>
