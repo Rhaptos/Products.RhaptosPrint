@@ -364,7 +364,7 @@
   Taken from docbook-xsl/xhtml-1_1/titlepage.templates.xsl -->
 <xsl:template name="section.titlepage" xmlns:exsl="http://exslt.org/common">
 <!-- START: edit -->
-<xsl:if test="db:title">
+<xsl:if test="db:title or db:*[contains(local-name(), 'info')]/db:info">
 <!-- END: edit -->
   <div class="titlepage">
     <xsl:variable name="recto.content">
