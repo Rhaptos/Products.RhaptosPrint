@@ -38,49 +38,65 @@
          </xsl:call-template>
     </xsl:variable>
 
+    <!-- It's a collection and has a TOC so make a frame -->
+    <xsl:variable name="tocFilename">
+        <!-- The following is taken from Docbook. Apparently this is sprinkled (~ 6 times) in the Docbook Source -->
+        <xsl:call-template name="make-relative-filename">
+            <xsl:with-param name="base.dir" select="$base.dir"/>
+            <xsl:with-param name="base.name">
+                <xsl:call-template name="toc-href"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+
+    <!-- If it's a module, generate a static TOC -->
+    <xsl:if test="db:book/@ext:element='module'">
+    
+        <!-- Both of these file names need to not have the base.dir prepended to them -->
+        <xsl:variable name="moduleFilename">
+             <xsl:call-template name="make-relative-filename">
+                 <xsl:with-param name="base.name">
+                     <xsl:apply-templates select=".//db:preface" mode="recursive-chunk-filename"/>
+                 </xsl:with-param>
+             </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="justTitleFilename">
+            <xsl:value-of select="$root.filename"/>
+            <xsl:value-of select="$html.ext"/>
+        </xsl:variable>
+
+        <xsl:variable name="content">
+            <html>
+                <body>
+                    <p>Table of Contents</p>
+                    <dl>
+                        <dt><a href="{$justTitleFilename}" target="main">Title Page</a></dt>
+                        <dt><a href="{$moduleFilename}" target="main"><xsl:value-of select="db:book/db:bookinfo/db:title"/></a></dt>
+                    </dl>
+                </body>
+            </html>
+        </xsl:variable>
+        
+        <xsl:call-template name="write.chunk"> 
+	        <xsl:with-param name="filename" select="$tocFilename"/> 
+	        <xsl:with-param name="method" select="'xml'" /> 
+	        <xsl:with-param name="encoding" select="'utf-8'" /> 
+	        <xsl:with-param name="indent" select="'yes'" /> 
+	        <xsl:with-param name="quiet" select="$chunk.quietly" /> 
+	        <xsl:with-param name="doctype-public" select="''"/> <!-- intentionally blank --> 
+	        <xsl:with-param name="doctype-system" select="''"/> <!-- intentionally blank --> 
+	        <xsl:with-param name="content" select="$content"/> 
+        </xsl:call-template>
+        
+    </xsl:if>
+
     <xsl:variable name="content">
-        <xsl:choose>
-            <xsl:when test="db:book/@ext:element='module'">
-               <xsl:variable name="filename">
-                    <xsl:call-template name="make-relative-filename">
-                        <xsl:with-param name="base.dir" select="$base.dir"/>
-                        <xsl:with-param name="base.name">
-                            <xsl:apply-templates select=".//db:preface" mode="recursive-chunk-filename"/>
-                        </xsl:with-param>
-                    </xsl:call-template>
-               </xsl:variable>
-               <html>
-                   <head>
-                       <script type="text/javascript">
-                           window.location.href="<xsl:value-of select="$filename"/>";
-                       </script>
-                   </head>
-                   <body>
-                       <a href="{$titleFilename}">Open the title page</a>
-                       <a href="{$filename}">Open the module</a>
-                   </body>
-               </html>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- It's a collection and has a TOC so make a frame -->
-                <xsl:variable name="tocFilename">
-                    <!-- The following is taken from Docbook. Apparently this is sprinkled (~ 6 times) in the Docbook Source -->
-                    <xsl:call-template name="make-relative-filename">
-                        <xsl:with-param name="base.dir" select="$base.dir"/>
-                        <xsl:with-param name="base.name">
-                            <xsl:call-template name="toc-href"/>
-                        </xsl:with-param>
-                    </xsl:call-template>
-                </xsl:variable>
-            
-                <html>
-                    <frameset cols="20%,80%">
-                        <frame src="{$tocFilename}" />
-                        <frame src="{$titleFilename}" name="main" />
-                    </frameset>
-                </html>
-            </xsl:otherwise>
-        </xsl:choose>
+        <html>
+            <frameset cols="20%,80%">
+                <frame src="{$tocFilename}" />
+                <frame src="{$titleFilename}" name="main" />
+            </frameset>
+        </html>
     </xsl:variable>
     
     <xsl:call-template name="write.chunk"> 
