@@ -323,7 +323,7 @@
 
     <!-- Add an asterisk linking to a module's attribution. The XPath ugliness below is like preface/prefaceinfo/title/text(), but also for chapter and section -->
     <!-- FIXME: not working for some reason in modules that front matter (i.e. in db:preface).   Haven't tested module EPUBs or EPUBs of collections with no subcollections. -->
-    <xsl:template match="*[@ext:element='module']/db:*[contains(local-name(),'info')]/db:title/text()">
+    <xsl:template match="*[@ext:element='module']/db:*[contains(local-name(),'info')]/db:title/text()|*[@ext:element='module']/db:title/text()">
     	<xsl:variable name="moduleId">
     		<xsl:call-template name="cnx.id">
     			<xsl:with-param name="object" select="../../.."/>
@@ -362,44 +362,6 @@
   If a section has no title then an empty div @class="titlepage" is rendered causing CSS problems
   (the following text becomes blue). This code disables that from happening.
   Taken from docbook-xsl/xhtml-1_1/titlepage.templates.xsl -->
-<xsl:template name="section.titlepage" xmlns:exsl="http://exslt.org/common">
-<!-- START: edit -->
-<xsl:if test="db:title or db:*[contains(local-name(), 'info')]/db:info">
-<!-- END: edit -->
-  <div class="titlepage">
-    <xsl:variable name="recto.content">
-      <xsl:call-template name="section.titlepage.before.recto"/>
-      <xsl:call-template name="section.titlepage.recto"/>
-    </xsl:variable>
-    <xsl:variable name="recto.elements.count">
-      <xsl:choose>
-        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
-        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
-          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
-        <xsl:otherwise>1</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:if test="(normalize-space($recto.content) != '') or ($recto.elements.count &gt; 0)">
-      <div><xsl:copy-of select="$recto.content"/></div>
-    </xsl:if>
-    <xsl:variable name="verso.content">
-      <xsl:call-template name="section.titlepage.before.verso"/>
-      <xsl:call-template name="section.titlepage.verso"/>
-    </xsl:variable>
-    <xsl:variable name="verso.elements.count">
-      <xsl:choose>
-        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
-        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
-          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
-        <xsl:otherwise>1</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:if test="(normalize-space($verso.content) != '') or ($verso.elements.count &gt; 0)">
-      <div><xsl:copy-of select="$verso.content"/></div>
-    </xsl:if>
-    <xsl:call-template name="section.titlepage.separator"/>
-  </div>
-</xsl:if>
-</xsl:template>
+
 
 </xsl:stylesheet>
