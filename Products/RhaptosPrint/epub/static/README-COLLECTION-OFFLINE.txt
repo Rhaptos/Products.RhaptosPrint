@@ -8,7 +8,7 @@ INCLUDED FILES:
 ===============
 HTML files of the collection's contents:
 - start.html - A shortcut for viewing the collection's contents in a set of frames.
-- content/cover.html amd cover.png - Collection cover page and image.
+- content/cover.html and cover.png - Collection cover page and image.
 - content/index.html - Collection title page.
 - content/bk01-toc.html - Collection table of contents.
 - content/*.html - HTML pages that make up the collection's contents.  Navigate to these pages by opening start.html in your browser.
