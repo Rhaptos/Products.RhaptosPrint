@@ -40,7 +40,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-
+<xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
   </xsl:call-template>
@@ -48,6 +48,7 @@
 </xsl:template>
 
 <xsl:template match="ext:problem[not(db:title[normalize-space(text()) !=''])]">
+<xsl:comment>calling informal.object</xsl:comment>
   <xsl:call-template name="informal.object"/>
 </xsl:template>
 
@@ -355,5 +356,51 @@
 		<xsl:with-param name="person.list" select="db:*"/>
 	</xsl:call-template>
 </xsl:template>
+
+
+<!-- cnxml supports sections without titles while Docbook does not.
+  If a section has no title then an empty div @class="titlepage" is rendered causing CSS problems
+  (the following text becomes blue). This code disables that from happening.
+  Taken from docbook-xsl/xhtml-1_1/titlepage.templates.xsl -->
+<xsl:template name="section.titlepage" xmlns:exsl="http://exslt.org/common">
+<!-- START: edit -->
+<xsl:if test="db:title or db:*[contains(local-name(), 'info')]/db:title">
+<!-- END: edit -->
+  <div class="titlepage">
+    <xsl:variable name="recto.content">
+      <xsl:call-template name="section.titlepage.before.recto"/>
+      <xsl:call-template name="section.titlepage.recto"/>
+    </xsl:variable>
+    <xsl:variable name="recto.elements.count">
+      <xsl:choose>
+        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
+        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
+          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($recto.content)/*)"/></xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="(normalize-space($recto.content) != '') or ($recto.elements.count &gt; 0)">
+      <div><xsl:copy-of select="$recto.content"/></div>
+    </xsl:if>
+    <xsl:variable name="verso.content">
+      <xsl:call-template name="section.titlepage.before.verso"/>
+      <xsl:call-template name="section.titlepage.verso"/>
+    </xsl:variable>
+    <xsl:variable name="verso.elements.count">
+      <xsl:choose>
+        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
+        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
+          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="(normalize-space($verso.content) != '') or ($verso.elements.count &gt; 0)">
+      <div><xsl:copy-of select="$verso.content"/></div>
+    </xsl:if>
+    <xsl:call-template name="section.titlepage.separator"/>
+  </div>
+</xsl:if>
+</xsl:template>
+
 
 </xsl:stylesheet>

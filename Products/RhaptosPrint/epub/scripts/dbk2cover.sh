@@ -3,6 +3,8 @@
 WORKING_DIR=`dirname $1`
 DBK_FILE=$1
 
+DEBUG=$2
+
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
@@ -14,7 +16,7 @@ DBK2SVG_COVER_XSL=$ROOT/xsl/dbk2svg-cover.xsl
 
 COVER_PREFIX=cover
 COLLECTION_COVER_PREFIX=_collection_$COVER_PREFIX
-COVER_SVG=$WORKING_DIR/_$COVER_PREFIX.svg
+COVER_SVG=$WORKING_DIR/$COVER_PREFIX.svg
 COVER_PNG=$WORKING_DIR/$COVER_PREFIX.png
 
 INKSCAPE=`which inkscape`
@@ -26,8 +28,8 @@ if [ ".$INKSCAPE" == "." ]; then
   fi
 fi
 
-[ -s $COVER_SVG ] && rm $COVER_SVG
-[ -s $COVER_PNG ] && rm $COVER_PNG
+[ -a $COVER_SVG ] && rm $COVER_SVG
+[ -a $COVER_PNG ] && rm $COVER_PNG
 
 # Create cover SVG and convert it to an image
 COVER_FILES=`find $WORKING_DIR -name $COLLECTION_COVER_PREFIX.??g | sort -r`
@@ -60,5 +62,8 @@ else
   fi
 fi
 
-
+# remove all the temp files so the complete zip doesn't contain them
+if [ ".$DEBUG" == "." ]; then
+  [ -a $WORKING_DIR/__err.txt ] && rm $WORKING_DIR/__err.txt
+fi
 exit $EXIT_STATUS

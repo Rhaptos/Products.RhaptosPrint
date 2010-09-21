@@ -4,6 +4,8 @@ WORKING_DIR=$1
 ID=$2
 COLID=${3:-0}
 
+DEBUG=$4
+
 echo "LOG: INFO: ------------ Working on $ID ------------"
 
 # If XSLTPROC_ARGS is set (by say a hadoop job) then pass those through
@@ -50,17 +52,17 @@ DOCBOOK_BOOK_XSL=$ROOT/xsl/moduledbk2book.xsl
 EXIT_STATUS=0
 
 # remove all the temp files first so we don't accidentally use old ones
-[ -s $CNXML1 ] && rm $CNXML1
-[ -s $CNXML2 ] && rm $CNXML2
-[ -s $CNXML3 ] && rm $CNXML3
-[ -s $CNXML4 ] && rm $CNXML4
-[ -s $CNXML5 ] && rm $CNXML5
-[ -s $DOCBOOK_INCLUDED ] && rm $DOCBOOK_INCLUDED
-[ -s $DOCBOOK ] && rm $DOCBOOK
-[ -s $DOCBOOK1 ] && rm $DOCBOOK1
-[ -s $DOCBOOK2 ] && rm $DOCBOOK2
-[ -s $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
-[ -s $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
+[ -a $CNXML1 ] && rm $CNXML1
+[ -a $CNXML2 ] && rm $CNXML2
+[ -a $CNXML3 ] && rm $CNXML3
+[ -a $CNXML4 ] && rm $CNXML4
+[ -a $CNXML5 ] && rm $CNXML5
+[ -a $DOCBOOK_INCLUDED ] && rm $DOCBOOK_INCLUDED
+[ -a $DOCBOOK ] && rm $DOCBOOK
+[ -a $DOCBOOK1 ] && rm $DOCBOOK1
+[ -a $DOCBOOK2 ] && rm $DOCBOOK2
+[ -a $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+[ -a $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
 
 # Load up the custom collection params to xsltproc:
 if [ -s $PARAMS ]; then
@@ -186,6 +188,21 @@ do
     EXIT_STATUS=$EXIT_STATUS || 1
   fi
 done
+
+
+# remove all the temp files so the complete zip doesn't contain them
+if [ ".$DEBUG" == "." ]; then
+  [ -a $WORKING_DIR/__err.txt ] && rm $WORKING_DIR/__err.txt
+  [ -a $CNXML1 ] && rm $CNXML1
+  [ -a $CNXML2 ] && rm $CNXML2
+  [ -a $CNXML3 ] && rm $CNXML3
+  [ -a $CNXML4 ] && rm $CNXML4
+  [ -a $CNXML5 ] && rm $CNXML5
+  [ -a $DOCBOOK1 ] && rm $DOCBOOK1
+  [ -a $DOCBOOK2 ] && rm $DOCBOOK2
+  [ -a $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+  [ -a $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
+fi
 
 echo "LOG: DEBUG: Skipping Docbook Validation. Remove next line to enable"
 exit $EXIT_STATUS

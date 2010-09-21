@@ -315,9 +315,11 @@
 		<xsl:text>/#</xsl:text>
 		<xsl:value-of select="substring-after($fullId, $modulePrefix)"/>
 	</xsl:variable>
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Found c:media that is not converted. Adding a link to the online version.</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Found c:media that is not converted. Adding a link to the online version and retaining the original media tag.</xsl:with-param></xsl:call-template>
 	<db:link xlink:href="{$url}">
 		<xsl:text>(This media type is not supported in this reader. Click to open media in browser.)</xsl:text>
+	    <xsl:comment>Adding the original media tag for use by the offline HTML generation XSLT</xsl:comment>
+	    <xsl:copy-of select="."/>
 	</db:link>
 </xsl:template>
 <xsl:template match="c:media[not(ancestor::c:para)]" priority="0">

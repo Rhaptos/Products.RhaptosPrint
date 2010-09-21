@@ -25,6 +25,9 @@
 <xsl:include href="table2epub.xsl"/>
 <xsl:include href="bibtex2epub.xsl"/>
 
+
+<xsl:param name="epub.oebps.dir" select="'content/'"/>
+
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
@@ -53,6 +56,9 @@
 <xsl:param name="epub.cover.html" select="concat('cover', $html.ext)" />
 
 <xsl:output indent="yes" method="xml" omit-xml-declaration="yes" encoding="ASCII"/>
+
+<!-- Discard any c:media tags that haven't been converted into docbook images or links to the content -->
+<xsl:template match="c:media"/>
 
 <!-- Output the PNG with the baseline info -->
 <xsl:template match="@pmml2svg:baseline-shift">
