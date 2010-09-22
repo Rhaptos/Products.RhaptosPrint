@@ -13,6 +13,7 @@
 <xsl:import href="param.xsl"/>
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
+<xsl:import href="dbk-link-externalizer.xsl"/>
 
 <xsl:template match="/db:section">
     <db:book>
