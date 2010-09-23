@@ -76,7 +76,7 @@
     <xsl:attribute name="ext:role">
         <xsl:value-of select="$role"/>
     </xsl:attribute>
-    <xsl:apply-templates select="@*|../../md:actors/md:*[@userid=$id]"/>
+    <xsl:apply-templates select="../../md:actors/md:*[@userid=$id]"/>
 </xsl:template>
 
 <xsl:template match="md:license">
