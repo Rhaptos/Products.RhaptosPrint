@@ -20,7 +20,7 @@
 <xsl:template match="db:xref[@document]|db:link[@document]">
 	<xsl:choose>
 		<!-- if the target (or module) is in the document, then all is well -->
-		<xsl:when test="key('id', @linkend)">
+		<xsl:when test="id(@linkend)">
 			<xsl:copy>
 				<xsl:apply-templates select="@*|node()"/>
 			</xsl:copy>
@@ -51,10 +51,10 @@
 			</xsl:variable>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to content</xsl:with-param></xsl:call-template>
 			<db:link xlink:href="{$url}" type="external-content" class="external-content">
-                <xsl:apply-templates select="@*|node()"/>
 				<xsl:if test="not(text())">
 					<xsl:value-of select="@document"/>
 				</xsl:if>
+                <xsl:apply-templates select="node()"/>
 			</db:link>
 		</xsl:otherwise>
 	</xsl:choose>

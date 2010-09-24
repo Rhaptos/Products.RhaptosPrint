@@ -122,13 +122,12 @@
 
 <xsl:template match="c:caption">
 	<db:caption>
-                <xsl:apply-templates select="@*"/>
                 <xsl:if test="parent::c:subfigure">
                         <db:emphasis role="bold">
                                 <xsl:number count="c:subfigure" format="(a) "/>
                         </db:emphasis>
                 </xsl:if>
-                <xsl:apply-templates select="node()"/>
+                <xsl:apply-templates select="@*|node()"/>
         </db:caption>
 </xsl:template>
 <xsl:template match="c:title">
