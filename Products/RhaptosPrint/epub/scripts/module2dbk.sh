@@ -51,8 +51,8 @@ DOCBOOK_BOOK_XSL=$ROOT/xsl/moduledbk2book.xsl
 
 
 # Special super-secret debug files (annotates the cnxml for things like a collection link-checker)
-DEBUG_CNXML=$WORKING_DIR/_cnxml_xpath.xml
-DEBUG_ANNOTATE_XPATH_XSL=$ROOT/xsl/debug/cnxml-annotate-xpath.xsl
+#DEBUG_CNXML=$WORKING_DIR/_cnxml_xpath.xml
+#DEBUG_ANNOTATE_XPATH_XSL=$ROOT/xsl/debug/cnxml-annotate-xpath.xsl
 
 EXIT_STATUS=0
 
@@ -130,12 +130,12 @@ else
 fi
 
 # If debugging is enabled, this annotates every cnxml element with an @ext:xpath attribute
-if [ ".$DEBUG" != "." ]; then
-  echo "LOG: DEBUG: Annotating cnxml with Xpath information for debugging" 1>&2
-  $XSLTPROC -o $DEBUG_CNXML $DEBUG_ANNOTATE_XPATH_XSL $CNXML1
-  EXIT_STATUS=$EXIT_STATUS || $?
-  mv $DEBUG_CNXML $CNXML1
-fi
+#if [ ".$DEBUG" != "." ]; then
+#  echo "LOG: DEBUG: Annotating cnxml with Xpath information for debugging" 1>&2
+#  $XSLTPROC -o $DEBUG_CNXML $DEBUG_ANNOTATE_XPATH_XSL $CNXML1
+#  EXIT_STATUS=$EXIT_STATUS || $?
+#  mv $DEBUG_CNXML $CNXML1
+#fi
 
 $XSLTPROC -o $CNXML2 $CLEANUP_XSL $CNXML1
 EXIT_STATUS=$EXIT_STATUS || $?
