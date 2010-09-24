@@ -20,14 +20,12 @@
 <xsl:template match="db:xref[@document]|db:link[@document]">
 	<xsl:choose>
 		<!-- if the target (or module) is in the document, then all is well -->
-		<xsl:when test="id(@linkend)">
-		<xsl:message>PHIL: Keeping internal: <xsl:value-of select="@linkend"/></xsl:message>
+		<xsl:when test="key('id', @linkend)">
 			<xsl:copy>
 				<xsl:apply-templates select="@*|node()"/>
 			</xsl:copy>
 		</xsl:when>
 		<xsl:otherwise>
-		<xsl:message>PHIL: Making external: linkend=<xsl:value-of select="@linkend"/> document=<xsl:value-of select="@document"/></xsl:message>
 			<xsl:variable name="url">
 				<xsl:call-template name="cnx.repository.url"/>
 				<xsl:value-of select="@document"/>
@@ -37,7 +35,7 @@
 						<xsl:value-of select="@version"/>
 					</xsl:when>
 					<xsl:when test="key('id', @document)">
-					   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to a resource and using the contained module version</xsl:with-param></xsl:call-template>
+		  			   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to a resource and using the contained module version</xsl:with-param></xsl:call-template>
 					   <xsl:value-of select="key('id', @document)/@ext:version"/>
 					</xsl:when>
 					<xsl:otherwise>
@@ -53,10 +51,10 @@
 			</xsl:variable>
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Making external link to content</xsl:with-param></xsl:call-template>
 			<db:link xlink:href="{$url}" type="external-content" class="external-content">
+                <xsl:apply-templates select="@*|node()"/>
 				<xsl:if test="not(text())">
 					<xsl:value-of select="@document"/>
 				</xsl:if>
-				<xsl:apply-templates select="node()"/>
 			</db:link>
 		</xsl:otherwise>
 	</xsl:choose>
