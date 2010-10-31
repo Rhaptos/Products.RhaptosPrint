@@ -1,7 +1,4 @@
-try:
-    from Interface import Interface
-except ImportError:
-    from Interface import Base as Interface
+from zope.interface import Interface
 
 class rhaptos_print(Interface):
     """
