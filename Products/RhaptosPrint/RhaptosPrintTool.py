@@ -8,6 +8,8 @@ This software is subject to the provisions of the GNU Lesser General
 Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 """
 
+from zope.interface import implements
+
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
@@ -22,6 +24,7 @@ from config import GLOBALS
 from interfaces import rhaptos_print
 from ZODB.POSException import POSKeyError
 
+
 import zLOG
 def log(msg, severity=zLOG.INFO):
     zLOG.LOG("RhaptosPrintTool: ", severity, msg)
@@ -33,7 +36,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
     id = 'rhaptos_print'
     meta_type = 'Print Tool'
-    __implements__ = (rhaptos_print)
+    implements(rhaptos_print)
 
     security = AccessControl.ClassSecurityInfo()
 
