@@ -1,12 +1,55 @@
 /* Based on src/Products.CNXContent/Products/CNXContent/skins/CNXContent/cnx-styles/newlook/content.css */
 
+/* Add the embedded STIX fonts for embedded math symbols */
+
+@font-face {
+  font-family: "STIXGeneral";
+  font-style: normal;
+  font-weight: normal;
+  src:url(STIXGeneral.ttf);
+}
+
+@font-face {
+  font-family: "STIXGeneral";
+  font-style: normal;
+  font-weight: bold;
+  src:url(STIXGeneralBol.ttf);
+}
+
+@font-face {
+  font-family: "STIXGeneral";
+  font-style: italic;
+  font-weight: bold;
+  src:url(STIXGeneralBolIta.ttf);
+}
+
+@font-face {
+  font-family: "STIXGeneral";
+  font-style: italic;
+  font-weight: normal;
+  src:url(STIXGeneralItalic.ttf);
+}
+
+@font-face {
+  font-family: "STIXSymbol";
+  font-style: normal;
+  font-weight: normal;
+  src:url(STIXSiz1Sym.ttf);
+}
+
+@font-face {
+  font-family: "STIXSymbol";
+  font-style: normal;
+  font-weight: bold;
+  src:url(STIXSiz1SymBol.ttf);
+}
+
+
 /* ======== general ============ */
 
 body{
   font-size: .75em;
-/*
-  font-family: georgia, palatino linotype, serif;
-*/
+  font-family: STIXGeneral, STIXSymbol, serif;
 }
 
 a{

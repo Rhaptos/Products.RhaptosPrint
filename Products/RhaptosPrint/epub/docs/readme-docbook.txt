@@ -37,13 +37,10 @@ docbook-xsl/fo/graphics.xsl will need submitted-patches/inline-svg.diff
 
 We're ready to do some converting!
 
-To generate an epub file, you will need (due to a bug in docbook) to run the following line:
-$ echo 'cnx.output "html"' >> params.txt
-
 
 First, we need to convert the collection and modules into individual docbook files:
 Run the following line (where $COLLECTION_DIR is the directory you unzipped the collection):
-  ./scripts/collection2dbk.sh $COLLECTION_DIR
+  ./scripts/collection2dbk.sh "rhaptos" $COLLECTION_DIR
 
 For details on the output, check out the accompanying txt file.
 
@@ -58,6 +55,6 @@ Now, we can do the most time-consuming parts: generate the XSL-FO file and final
 Aside: You can customize the docbook2fo step by creating a params.txt file in the current directory and having space-separated params which are defined in http://docbook.sourceforge.net/release/xsl/current/doc/fo/index.html 
 
 Run the following script (It will take a while. If you want, you can remove all exercises by adding <xsl:template match="c:exercise"/> to ./xsl/cnxml-clean.xsl)
-  ./scripts/collectiondbk2pdf.sh $COLLECTION_DIR
+  ./scripts/collectiondbk2pdf.sh "rhaptos" $COLLECTION_DIR
 
 Done! Now you should have a PDF!
