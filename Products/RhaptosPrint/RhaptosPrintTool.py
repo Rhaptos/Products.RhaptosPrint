@@ -21,7 +21,7 @@ from BTrees.OOBTree import OOBTree
 import AccessControl
 
 from config import GLOBALS
-from interfaces import rhaptos_print
+from interfaces.rhaptos_print import rhaptos_print
 from ZODB.POSException import POSKeyError
 
 
