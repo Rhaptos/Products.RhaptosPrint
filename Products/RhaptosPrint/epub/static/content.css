@@ -410,6 +410,10 @@ blockquote{
   display: inline;
 }
 
+.bold .glossterm, .glossterm .bold{
+  font-style: italic;
+}
+
 .glosslist dl, .glossary dl{
   margin: 1em 0;
 }
