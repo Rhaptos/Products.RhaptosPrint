@@ -68,8 +68,7 @@
         <xsl:variable name="content">
             <html>
                 <head>
-                    <link rel="stylesheet" href="content.css" type="text/css"/>
-                    <link rel="stylesheet" href="offline-zip-overrides.css" type="text/css"/>
+                    <link rel="stylesheet" href="{$html.stylesheet}" type="text/css"/>
                 </head>
                 <body>
                     <h1><xsl:value-of select="db:book/db:bookinfo/db:title"/></h1>

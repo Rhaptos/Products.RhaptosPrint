@@ -11,6 +11,7 @@ WORKING_DIR=$2
 EPUB_FILE=$3
 CONTENT_ID_AND_VERSION=$4
 DBK_TO_HTML_XSL=$5
+CSS_FILE=$6
 
 SKIP_DBK_GENERATION=""
 
@@ -21,9 +22,9 @@ RUBY=$(which ruby)
 
 EXIT_STATUS=0
 
-# If the user did not supply a custom stylesheet, use the default one
-if [ ".$DBK_TO_HTML_XSL" = "." ]; then
-  DBK_TO_HTML_XSL=$ROOT/xsl/dbk2epub.xsl
+# If the user did not supply a custom CSS, use the default one
+if [ ".$CSS_PATH" = "." ]; then
+  CSS_PATH=$ROOT/static/content.css
 fi
 
 if [ -s $WORKING_DIR/index.cnxml ]; then 
@@ -60,7 +61,7 @@ do
   EMBEDDED_FONTS_ARGS="$EMBEDDED_FONTS_ARGS --font $FONT_FILENAME"
 done
 
-$RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $ROOT/static/content.css $EMBEDDED_FONTS_ARGS -o $EPUB_FILE -d $DBK_FILE
+$RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $CSS_FILE $EMBEDDED_FONTS_ARGS -o $EPUB_FILE -d $DBK_FILE
 EXIT_STATUS=$EXIT_STATUS || $?
 
 exit $EXIT_STATUS
