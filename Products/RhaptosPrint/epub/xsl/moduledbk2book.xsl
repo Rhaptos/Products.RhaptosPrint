@@ -16,7 +16,7 @@
 <xsl:import href="dbk-link-externalizer.xsl"/>
 
 <xsl:template match="/db:section">
-    <db:book>
+    <db:book ext:site-type="{$cnx.site-type}">
         <xsl:apply-templates select="@*"/>
         <xsl:apply-templates select="db:sectioninfo" mode="cnx.bookify"/>
         <db:preface>

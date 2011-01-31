@@ -152,7 +152,7 @@
          doesn't seem like there could be. Try this later. -->
     <xsl:if test="not(cnx:colspec/@colwidth or descendant::cnx:code or 
             descendant::cnx:definition or descendant::cnx:example or 
-            descendant::cnx:exercise  or descendant::cnx:figure or descendant::cnx:media or 
+            descendant::cnx:exercise  or descendant::cnx:figure or 
             descendant::cnx:list or descendant::cnx:note or 
             descendant::cnx:preformat or descendant::cnx:quote or 
             descendant::cnx:rule or descendant::cnx:equation or
@@ -175,7 +175,7 @@
            I can't see how it would get called.  Is this right? -->
       <xsl:when test="cnx:colspec/@colwidth or descendant::cnx:code or 
                 descendant::cnx:definition or descendant::cnx:example or 
-                descendant::cnx:exercise  or descendant::cnx:figure or descendant::cnx:media or 
+                descendant::cnx:exercise  or descendant::cnx:figure or 
                 descendant::cnx:list or descendant::cnx:note or 
                 descendant::cnx:preformat or descendant::cnx:quote or 
                 descendant::cnx:rule or descendant::cnx:equation or
@@ -185,7 +185,7 @@
                to go with it as it is. -->
           <xsl:when test="descendant::cnx:code or 
                     descendant::cnx:definition or descendant::cnx:example or 
-                    descendant::cnx:exercise  or descendant::cnx:figure or descendant::cnx:media or 
+                    descendant::cnx:exercise  or descendant::cnx:figure or 
                     descendant::cnx:list or descendant::cnx:note or 
                     descendant::cnx:preformat or descendant::cnx:quote or 
                     descendant::cnx:rule or descendant::cnx:equation">

@@ -40,6 +40,11 @@
 <xsl:param name="chunker.output.omit-xml-declaration" select="'yes'"/>
 <xsl:param name="chunker.output.encoding" select="'ASCII'"/>
 
+<!-- Embedded fonts are passed in from the dbk2epub script.
+    This is necessary because the script adds the fonts into the epub manually
+ -->
+<!-- xsl:param name="epub.embedded.fonts" select="'fonts/STIXGeneral.ttf,fonts/STIXGeneralBol.ttf,fonts/STIXGeneralBolIta.ttf,fonts/STIXGeneralItalic.ttf,fonts/STIXSiz1Sym.ttf,fonts/STIXSiz1SymBol.ttf'"/ -->
+
 <!-- Prevent a TOC from being generated for module EPUBs -->
 <xsl:param name="generate.toc">
   <xsl:choose>
@@ -589,7 +594,7 @@
             </xsl:call-template>
         </span>
     </div>
-    <xsl:if test="$cnx.iscnx != 0">
+    <xsl:if test="/db:book/@ext:site-type = 'cnx'">
         <div id="portal_statement">
             <div id="portal_title"><span><xsl:text>CONNEXIONS</xsl:text></span></div>
             <div id="portal_location"><span><xsl:text>Rice University, Houston, Texas</xsl:text></span></div>
@@ -964,6 +969,38 @@
         </xsl:choose> 
       </xsl:attribute> 
     </xsl:if> 
+  </xsl:template> 
+
+
+<!-- Add any embedded TrueType fonts (allow support for TTF in addition to opentype) -->
+<!-- Originally taken from docbook-xsl/epub/docbook.xsl -->
+  <xsl:template name="embedded-font-item"> 
+    <xsl:param name="font.file"/> 
+    <xsl:param name="font.order" select="1"/> 
+ 
+    <xsl:element namespace="http://www.idpf.org/2007/opf" name="item"> 
+      <xsl:attribute name="id"> 
+        <xsl:value-of select="concat('epub.embedded.font.', $font.order)"/> 
+      </xsl:attribute> 
+      <xsl:attribute name="href"><xsl:value-of select="$font.file"/></xsl:attribute> 
+      <xsl:choose> 
+        <xsl:when test="contains($font.file, 'otf')"> 
+          <xsl:attribute name="media-type">font/opentype</xsl:attribute> 
+        </xsl:when> 
+<!-- SSTART: edit -->
+        <xsl:when test="contains($font.file, 'ttf')">
+            <xsl:attribute name="media-type">font/truetype</xsl:attribute>
+        </xsl:when>
+<!-- END: edit -->
+        <xsl:otherwise> 
+          <xsl:message> 
+            <xsl:text>WARNING: OpenType fonts should be supplied! (</xsl:text> 
+            <xsl:value-of select="$font.file"/> 
+            <xsl:text>)</xsl:text> 
+          </xsl:message> 
+        </xsl:otherwise>  
+      </xsl:choose> 
+    </xsl:element> 
   </xsl:template> 
 
 </xsl:stylesheet>

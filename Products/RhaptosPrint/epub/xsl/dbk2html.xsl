@@ -67,12 +67,18 @@
 
         <xsl:variable name="content">
             <html>
+                <head>
+                    <link rel="stylesheet" href="{$html.stylesheet}" type="text/css"/>
+                </head>
                 <body>
-                    <p>Table of Contents</p>
-                    <dl>
-                        <dt><a href="{$justTitleFilename}" target="main">Title Page</a></dt>
-                        <dt><a href="{$moduleFilename}" target="main"><xsl:value-of select="db:book/db:bookinfo/db:title"/></a></dt>
-                    </dl>
+                    <h1><xsl:value-of select="db:book/db:bookinfo/db:title"/></h1>
+                    <div class="toc">
+                        <p><b>Table of Contents</b></p>
+                        <dl>
+                            <dt><a href="{$justTitleFilename}" target="main">Title Page</a></dt>
+                            <dt><a href="{$moduleFilename}" target="main"><xsl:value-of select="db:book/db:bookinfo/db:title"/></a></dt>
+                        </dl>
+                    </div>
                 </body>
             </html>
         </xsl:variable>

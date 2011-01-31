@@ -14,7 +14,7 @@
 	
 	<!-- The big titlepage SVG -->
 <xsl:choose>
-  <xsl:when test="$cnx.iscnx != 0">
+  <xsl:when test="$cnx.site-type = 'Connexions'">
 
 <!-- Connexions branded cover -->
 <svg id="Layer_1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 596.275 842.986" xml:space="preserve" height="842.99px" viewBox="0 0 596.275 842.986" width="596.28px" version="1.1" y="0px" x="0px" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><metadata id="metadata86"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/><dc:title/></cc:Work></rdf:RDF></metadata>

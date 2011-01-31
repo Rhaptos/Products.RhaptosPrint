@@ -14,7 +14,8 @@ HTML files of the collection's contents:
 - content/*.html - HTML pages that make up the collection's contents.  Navigate to these pages by opening start.html in your browser.
 
 Other support and advanced files:
-- content/content.css - CSS file for styling the HTML files.
+- content/content.css - Primary CSS file for styling the HTML files.
+- content/offline-zip-overrides.css - An additional CSS file for styling the HTML files.
 - content/collection.xml - XML file that defines the structure of the collection, written in CollXML.  It cannot be reimported in the editing interface.
 - content/collection.dbk - The collection converted into Docbook format.  Each module directory contains a Docbook file as well.
 

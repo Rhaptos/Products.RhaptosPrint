@@ -14,7 +14,8 @@ HTML pages of the module's contents:
 - content/pr01.html - The module's contents.
 
 Other support and advanced files:
-- content/content.css - CSS file for styling the HTML files.
+- content/content.css - Primary CSS file for styling the HTML files.
+- content/offline-zip-overrides.css - An additional CSS file for styling the HTML files.
 - content/index.cnxml - The original XML source code representing the contents and metadata of the module, written in CNXML.
 - content/index_auto_generated.cnxml - A read-only version of the module XML file that has been upgraded to the latest version of CNXML and that includes extended metadata.
 - content/index.dbk - The index.cnxml file converted into a standalone Docbook file format.

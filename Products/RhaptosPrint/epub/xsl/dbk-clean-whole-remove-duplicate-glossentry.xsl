@@ -243,7 +243,7 @@
                 </db:para>
             </xsl:for-each>
         </db:appendix>
-        <xsl:if test="$cnx.iscnx != 0">
+        <xsl:if test="$cnx.site-type = 'Connexions'">
             <db:colophon>
                 <db:title>About Connexions</db:title>
                 <db:para>

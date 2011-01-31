@@ -266,7 +266,7 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:text>
-    \usepackage[utf8]{inputenc}
+    \usepackage[utf8x]{inputenc}
     \usepackage[C40,T1]{fontenc}
         </xsl:text>
       </xsl:otherwise>
@@ -300,6 +300,7 @@
     \DeclareUnicodeCharacter {974} {[U+03CE]}
     \DeclareUnicodeCharacter {978}  {\ensuremath{\Upsilon}}
     \DeclareUnicodeCharacter {988}  {\ensuremath{\digamma}}
+    \DeclareUnicodeCharacter {8260} {/}
     \DeclareUnicodeCharacter {8289} {}
     \DeclareUnicodeCharacter {8290} {}
     \DeclareUnicodeCharacter {8407} {\ensuremath{\rightarrow}}
@@ -314,6 +315,7 @@
     \DeclareUnicodeCharacter {9001} {\ensuremath{\textless}}
     \DeclareUnicodeCharacter {9002} {\ensuremath{\textgreater}}   
     \DeclareUnicodeCharacter {9474} {\ensuremath{\textbar}}
+    \DeclareUnicodeCharacter {10003} {\checkmark}
   
     \DeclareUnicodeCharacter {61168}{\ensuremath{\jmath}}
     \DeclareUnicodeCharacter {61237}{\ensuremath{\mathscr{A}}}
