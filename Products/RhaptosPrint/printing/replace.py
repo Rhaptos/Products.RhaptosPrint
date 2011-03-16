@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.4
+#!/usr/bin/env python
 """
   Replace characters in stdin byte-stream, using mapping from 
   first arg file.

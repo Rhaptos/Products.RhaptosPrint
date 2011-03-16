@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.4
+#!/usr/bin/env python
 
 ## Takes one argument: a directory to start walking, looking for 
 ## directories whose names match the pattern for module or collection IDs.  

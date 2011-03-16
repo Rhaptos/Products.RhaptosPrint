@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.4
+#!/usr/bin/env python
 """
 Takes a file containing a list of object IDs as arg.
 For each object ID, reads PDFs on the paths

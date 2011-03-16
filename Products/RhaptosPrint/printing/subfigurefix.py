@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.4
+#!/usr/bin/env python
 
 """Read a LaTeX file, and for any figures that have subfigures, restrict their size so that they
 will all fit on the same page.

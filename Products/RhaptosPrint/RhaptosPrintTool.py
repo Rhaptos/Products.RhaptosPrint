@@ -210,19 +210,19 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         if storagePath != '' and storagePath != None:
             self.storagePath = storagePath
         else:
-            self.storagePath=DEFAULT_STORAGE_PATH
+            self.storagePath=self.DEFAULT_STORAGE_PATH
         if namePattern != '' and namePattern != None:
             self.namePattern = namePattern
         else:
-            self.namePattern=DEFAULT_NAME_PATTERN
+            self.namePattern=self.DEFAULT_NAME_PATTERN
         if objectType != '' and objectType != None:
             self.objectType = objectType
         else:
-            self.objType=DEFAULT_OBJECT_TYPE
+            self.objType=self.DEFAULT_OBJECT_TYPE
         if containerType != '' and containerType != None:
             self.containerType = containerType
         else:
-            self.containerType=DEFAULT_CONTAINER
+            self.containerType=self.DEFAULT_CONTAINER
         if REQUEST:
             return self.manage_configure(manage_tabs_message="RhaptosPrint updated")
 

@@ -7,7 +7,7 @@
 # This software is subject to the provisions of the GNU Lesser General
 # Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 #
-PYTHON = /usr/bin/python2.4
+PYTHON = /usr/bin/python
 PRINT_DIR = /opt/printing
 HOST = http://localhost:8080
 COLLECTION_VERSION = latest
