@@ -190,14 +190,15 @@
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="$default"/>
+      <xsl:text> </xsl:text>
+      <xsl:apply-templates select="$c/." mode="number"/>
+      <xsl:if test="$c/db:title">
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="$c/." mode="title.markup"/>
+      </xsl:if>
 		</xsl:otherwise>
 	</xsl:choose>
-	<xsl:text> </xsl:text>
-	<xsl:apply-templates select="$c/." mode="number"/>
-	<xsl:if test="$c/db:title">
-		<xsl:text> </xsl:text>
-		<xsl:apply-templates select="$c/." mode="title.markup"/>
-	</xsl:if>
+
 </xsl:template>
 
 <xsl:template match="ext:problem" mode="cnx.template">
@@ -401,6 +402,5 @@
   </div>
 </xsl:if>
 </xsl:template>
-
 
 </xsl:stylesheet>
