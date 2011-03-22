@@ -3,7 +3,7 @@
   <c:content>
     <!--Chapter-->
     <c:section>
-      <c:title>Force</c:title>
+      <c:title>Forces</c:title>
       <c:section class="introduction">
         <c:title>Custom Title for Introduction</c:title>
         <c:figure id="chapter-title">
