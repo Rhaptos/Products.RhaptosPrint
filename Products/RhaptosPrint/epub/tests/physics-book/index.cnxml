@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<c:document xmlns:c="http://cnx.rice.edu/cnxml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/">
+  <c:content>
+    <!--Chapter-->
+    <c:section>
+      <c:title>Force</c:title>
+      <c:section class="introduction">
+        <c:title>Custom Title for Introduction</c:title>
+        <c:figure id="chapter-title">
+          <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit
+amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, ultricies sit amet pretium a, laoreet sit amet arcu mattis eu erat.</c:caption>
+          <c:media>
+            <c:image src="chapter-title.png"/>
+          </c:media>
+        </c:figure>
+        <c:para>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque et metus mattis et porttitor dui vulputate. In iaculis auctor pulvi- nar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio. Vestibulum lacus lacus, congue a vehicu- la condimentum, feugiat ut leo. Sed ut laoreet libero.
+</c:para>
+        <c:para>
+Donec bibendum ante eu nisl adipiscing ut ornare quam im- perdiet. Aenean tincidunt tempus justo, non malesuada libero bibendum sit amet. Sed non elit urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio.
+</c:para>
+<!--
+        <c:para>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque et metus mattis et porttitor dui vulputate. In iaculis auc- tor pulvinar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po- suere cubilia Curae; In hac habitasse platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio.
+</c:para>
+-->
+        <c:para>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque et metus mattis et porttitor <c:link target-id="chapter-title"/>
+                    
+                     dui vulputate. In iaculis auctor pulvinar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque et metus mattis et porttitor dui vulputate. In iaculis auctor pulvinar. Sed interdum metus tellus, vitae ullamcorper elit. In iaculis auctor pulvinar. Sed interdum metus praesent nisl diam, iaculis quis aliquet id, vulputate in odio
+</c:para>
+        <!--End introduction-->
+      </c:section>
+      <c:section id="weight-and-mass">
+        <c:title>Weight and Mass</c:title>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para>Lorem ipsum dolor sit amet, consectetur adipi- scing elit. Morbi at enim elit, non porta lacus. Ves- tibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</c:para>
+          </c:problem>
+          <c:solution>
+            <c:para>Solution1</c:para>
+          </c:solution>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para>Quisque at erat quam, non rhoncus nisi. Nulla faci- lisi. Suspendisse vitae sapien vitae ipsum aliquam congue vitae quis velit. Figure 4.2 Morbi laoreet faci- lisis orci, at porttitor lectus varius in. Donec eu urna et odio commodo blandit ut sed lorem.</c:para>
+          </c:problem>
+          <c:solution>
+            <c:para>Solution2</c:para>
+          </c:solution>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para>Sed sed nulla bibendum dolor ultrices ornare. Pha- sellus commodo dapibus ipsum, sed euismod sem consectetur ac. Aliquam erat volutpat.</c:para>
+          </c:problem>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para> Quisque rutrum fringilla interdum. Praesent porta accumsan volutpat.</c:para>
+          </c:problem>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para> Duis risus neque, posuere sit amet volutpat id, consectetur eget risus. Nulla nec magna felis, non varius urna. Nam tempor vehicula lobortis.Praesent in nisi nec turpis lacinia sollicitudin eu at leo. Etiam diam dui, convallis sit amet condimentum sed, vestibulum eget ante. <c:link target-id="fig3"/>
+                            
+                             Donec viverra semper faucibus.</c:para>
+          </c:problem>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para>In consequat dapibus felis, et vestibulum odio rutrum sed. Quisque dui odio, pretium aliquam porta sed, accumsan vel est. Mauris in placerat eros. Nunc semper sagittis magna quis dapibus.</c:para>
+          </c:problem>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para>Donec in condimentum nisi. Pellentesque habi- tant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc tristique facilisis nisi sit amet volutpat.</c:para>
+          </c:problem>
+        </c:exercise>
+        <c:figure id="fig2" class="margin">
+          <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
+          <c:media>
+            <c:image src="fig-4.2.png" height="" width=""/>
+          </c:media>
+        </c:figure>
+        <c:para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscingneque et metus mattis et porttitor dui vulputate. In iaculis auctor pulvinar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna.</c:para>
+        <c:section>
+          <c:title>B-Head</c:title>
+          <c:para>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In <c:emphasis>[hac habitasse]</c:emphasis>
+                        
+                        
+                    
+                    
+                     platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio. Vestibulum <c:link target-id="fig2"/>
+                        
+                        
+                    
+                    
+                     lacus lacus, congue a vehicula condimentum, feugiat ut leo. Sed ut laoreet libero. Donec bibendum ante eu nisl adipiscing ut ornare quam imperdiet. Aenean tincidunt tempus justo, non malesuada libero bibendum sit amet.</c:para>
+          <c:figure id="fig3">
+            <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
+            <c:media>
+              <c:image src="fig-4.3.png" height="" width=""/>
+            </c:media>
+          </c:figure>
+          <c:para>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique.</c:para>
+          <c:para>Phasellus vel sem sollicitudin nunc sodales sollicitudin. Vivamus imperdiet luctus ligula, eget laoreet orci eleifend in. Curabitur sit amet lectus ut magna sodales ultricies. Nam tortor nisi, fermentum ac suscipit sed, malesuada euismod turpis. <c:link target-id="fig3"/>
+                        
+                        
+                    
+                    
+                     Phasellus lorem nibh, dignis- sim in feugiat eget, sodales in nisl. Nullam a augue libero, quis congue metus vitae metus. Ut eu nunc non tortor facilisis scelerisque. Nullam sit amet neque arcu, at fringilla magna. Proin scelerisque eleifend massa,</c:para>
+          <c:note>
+            <c:title>Newton's Law of Universal Gravitation</c:title>
+            <c:para>
+Every particle in the universe exerts an attractive force on every other par- ticle. A particle is a piece of matter, small enough in size to be regarded as a methematical point. For two particles that have masses m1 and m2 and are seperated by a distance r, the force that each exerts on the other is directed along the line joining the particles.</c:para>
+          </c:note>
+          <c:para>vitae consequat tellus condimentum in. Praesent viverra pretium est sit amet feugiat. Praesent erat dui, condimentum et rhoncus semper, tincid- unt at velit.</c:para>
+        </c:section>
+      </c:section>
+      <!-- New module! -->
+      <c:section id="normal-force">
+        <c:title>Normal Force</c:title>
+        <c:figure id="fig4" class="margin">
+          <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
+          <c:media>
+            <c:image src="fig4.png"/>
+          </c:media>
+        </c:figure>
+        <c:para>Vivamus condimentum <c:link target-id="fig4"/>
+                      
+                      
+                   ultricies erat eget imperdiet. Vivamus condimentum ultrices tellus, quis facilisis ligula semper eu. In ligula metus, hendrerit dignissim pretium non, porttitor dictum nisi. Integer facilisis condimentum augue, id <c:link target-id="fig5"/>
+                      
+                      
+                   lobortis dolor dignissim eget. Sed ullamcorper libero ac sapien blandit et gravida est porttitor. Duis pellen
+          
+          tesque semper lacus, in viverra libero gravida eu. Fusce est eros, hendre- rit vitae viverra ut, sollicitudin placerat sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi blandit magna eget urna tempor aliquet quis vitae nisl. Suspendisse auc- tor sem vitae lectus egestas non lacinia libero luctus. Vivamus et felis id odio ultricies fringilla. Morbi massa ante, pretium eu adipiscing et, sagittis ut turpis. Nam sed rutrum erat. Vestibulum ante ipsum primis in faucibus
+    </c:para>
+    <c:note type="tip" class="margin">
+    <c:label>Problem Solving Tip</c:label>
+      <c:para>Praesent scelerisque mi purusd orci fringilla lacinia porta purus id orci fringilla lacinia</c:para>
+    </c:note>
+        <c:figure id="fig5">
+          <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat.</c:caption>
+          <c:media>
+            <c:image src="fig-4.5.png"/>
+          </c:media>
+        </c:figure>
+        <c:note class="important">
+          <c:title>Newton's First Law of Motion</c:title>
+          <c:para>An object continues in a state of rest or in a state of motion at a constant velocity (contstant speed in a constant direction), unless compelled to change that state by a net force.</c:para>
+        </c:note>
+        <c:figure id="fig6" class="margin">
+          <c:caption/>
+          <c:media>
+            <c:image src="fig-4.6.png"/>
+          </c:media>
+        </c:figure>
+        <c:para>orci luctus et ultrices posuere cubilia Curae; Pellentesque quis mauris nec erat sodales molestie. <c:link target-id="fig6"/>
+                      
+                       Cras in quam mi, feugiat consequat nisl. Quisque accumsan pulvinar velit id dictum. Maecenas tempus erat a lectus posuere et tincidunt ligula ultrices.
+Donec dignissim dolor quam, eu gravida urna. Etiam pharetra diam
+non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas in luctus a, semper ac est. Pellentesque tincidunt lectus non magna tristique non commodo augue molestie. Duis quis erat quam. Inte- ger eget mattis arcu. <c:link target-id="fig7"/>
+                      
+                       Vestibulum ut dolor quam. Mauris et elit mauris, <c:term>id ornare nibh</c:term>
+                      
+                      . Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at et velit.
+</c:para>
+        <c:figure id="fig7" class="margin">
+          <c:caption/>
+          <c:media>
+            <c:image src="fig7.png"/>
+          </c:media>
+        </c:figure>
+        <c:equation id="eq1">
+          <c:para>
+            <c:emphasis>force = mass X acceleration</c:emphasis>
+          </c:para>
+          <c:para>or <c:emphasis type="bold">OR</c:emphasis>
+          </c:para>
+          <c:para>
+            <c:emphasis>f = ma</c:emphasis>
+          </c:para>
+          <c:para>(Insert some MathML here)</c:para>
+        </c:equation>
+<c:note type="check" class="margin">
+<c:label>Concept Check</c:label>
+<c:para>Praesent scelerisque mi et purus:</c:para>
+<c:list>
+<c:item>Vivamus porta purus orci</c:item>
+<c:item>Id orci fringilla lacinia</c:item>
+<c:item>Vivamus porta purus id orci fringilla lacinia</c:item>
+</c:list>
+</c:note>
+
+        <c:example id="ex1">
+          <c:exercise>
+            <c:label>Walking Exercise</c:label>
+            <c:problem>
+              <c:para>Pellentesque vitae mi justo. Cras massa libero, interdum non mattis ves- tibulum, tincidunt et velit. Ut vulputate dui nec nibh malesuada vehicula. Praesent tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tortor sed massa. Morbi porttitor augue ut ligula ultricies dapibus.</c:para>
+              <c:figure id="ex1-fig1">
+                <c:media>
+                  <c:image src="ex1-1.png"/>
+                </c:media>
+              </c:figure>
+              <c:para>Sed sed ligula turpis. Cras et nulla nibh, eu malesuada urna.</c:para>
+            </c:problem>
+            <c:solution class="strategy">
+              <c:label>Strategy</c:label>
+              <c:para>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Maecenas eget turpis sem, in molestie ante. Suspendisse tempor, ante vel pellentesque gravida, diam nulla iaculis eros, id sodales elit elit vitae urna. Vivamus porta purus id orci fringilla lacinia.</c:para>
+            </c:solution>
+            <c:solution>
+              <c:para>Nulla facilisi. Suspendisse nec purus augue, vel ornare metus. Morbi mattis arcu in urna venenatis semper. Nam vel lacinia felis. Suspendisse porta nibh velit. Ut ut nulla massa, sit amet ultrices neque. Pellentesque vitae purus felis.</c:para>
+            </c:solution>
+          </c:exercise>
+        </c:example>
+
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Vivamus semper interdum turpis a semper. Nam vehicula tortor a metus iaculis pellentesque. <c:link target-id="fig4"/>
+                                
+                                 Quisque quis vulputate nunc.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Praesent id risus purus, nec scelerisque velit. Nunc sit amet tellus ultricies justo pharetra auctor vel nec risus. Praesent nec dolor consectetur tortor interdum sagittis. Sed ut nisl enim.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Aliquam non sem in urna luctus feugiat vitae ac sem. Nam pretium aliquet odio, eget sagittis eros facilisis nec. Morbi eu lectus sit amet nulla ornare fringilla. Sed metus libero, egestas vel molestie eget, facilisis et massa.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Nulla at mi eu mauris interdum pharetra. Ut ul- lamcorper commodo ligula, et fringilla erat tincidunt quis. Sed vestibulum <c:link target-id="fig5"/>
+                                
+                                 laoreet quam et congue.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Nam eget purus risus, quis condimentum lacus. Cum sociis natoque penatibus et magnis dis parturi- ent montes, nascetur ridiculus mus.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Duis neque diam, vestibulum sed varius sit amet, adipiscing non odio. Aliquam massa nulla, convallis at ornare nec, facilisis ac nisl.</c:para>
+            </c:problem>
+          </c:exercise>
+          <c:exercise class="end-of-chapter-problems">
+            <c:problem>
+              <c:para>Maecenas at lorem non dui placerat lacinia in eu</c:para>
+            </c:problem>
+          </c:exercise>
+
+
+      </c:section>
+      <!-- End of dbk-level section-->
+      <c:section>
+        <c:title>Action and Reaction</c:title>
+        
+            <c:note type="tip" class="margin">
+    <c:label>Problem Solving Tip</c:label>
+      <c:para>Praesent scelerisque mi purusd orci fringilla lacinia porta purus id orci fringilla lacinia</c:para>
+    </c:note>
+
+        <c:para>Vivamus condimentum <c:link target-id="fig8"/>
+                    
+                     ultricies erat eget imperdiet. Vivamus condimentum ultrices tellus, quis facilisis ligula semper eu. In ligula me- tus, hendrerit dignissim pretium non, porttitor dictum
+ nisi. Integer facilisis condimentum augue, id lobortis dolor dignissim eget. Sed ullamcorper libero ac sapien blandit et gravida est porttitor. Duis pellentesque sem-mauris, id ornare nibh. Nullam at tortor
+ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at
+et velit.</c:para>
+
+        <c:figure id="fig8" class="margin">
+          <c:media>
+            <c:image src="fig8.png"/>
+          </c:media>
+        </c:figure>
+
+        <c:para>Vivamus condimentum ultricies erat eget imperdiet. Vivamus con- dimentum ultrices tellus, quis facilisis ligula semper eu. In ligula metus, hendrerit dignissim pretium non, porttitor dictum nisi. Integ
+er facilisis con- dimentum augue, id lobortis dolor dignissim eget. Sed ullamcorper libero ac sapien blandit et gravida est porttitor.</c:para>
+
+        <c:exercise>
+          <c:label>Check for Understanding</c:label>
+          <c:problem><c:label><!--No label--></c:label>
+          <c:list list-type="enumerated">
+            <c:item>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultri- cies sit amet pretium a, laoreet sit amet arcu.</c:item>
+            <c:item>Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at et velit.</c:item>
+          </c:list>
+          </c:problem>
+          <c:solution>
+            <c:label>Answers</c:label>
+
+          <c:list list-type="enumerated">
+            <c:item>Nullam at tortor ac elit auctor lacinia.</c:item>
+            <c:item>Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae.</c:item>
+          </c:list>
+          </c:solution>
+        </c:exercise>
+      </c:section>
+      <c:section>
+        <c:title>Force Vectors</c:title>
+        <c:para>Vivamus condimentum ultricies erat eget imperdiet. Vivamus condimen- tum ultrices tellus, quis facilisis ligula semper eu. In ligula metus, hendre- rit <c:link target-id="fig9"/>
+                     dignissim pretium non, porttitor dict
+um nisi. Integer facilisis condimentum augue, id lobortis dolor dignissim eget. Sed ullamcorper libero ac sapien blandit et gravida est porttitor. Duis pellentesque semper lacus, in viverra libero gravida eu.
+ Fusce est eros, hendrerit vitae viverra ut, sollicitudin placerat sem. Pellentesque vitae mi justo. Cras massa libero, interdum non mattis vestibulum, tincidunt et velit. Ut vulputate dui nec nibh malesuada
+vehicula.
+</c:para>
+        <c:figure id="fig9">
+          <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Lam porta rhoncus nisl sit amet tristique.</c:caption>
+          <c:media>
+            <c:image src="fig9.png"/>
+          </c:media>
+        </c:figure>
+        <c:figure id="fig10" class="margin">
+          <c:caption>Tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tor- tor sed massa.</c:caption>
+          <c:media>
+            <c:image src="fig10.png"/>
+          </c:media>
+        </c:figure>
+        <c:para>Praesent tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euis- mod nisl tortor sed massa. Morbi porttitor augue u
+t ligula ultricies dapi- bus. Sed sed ligula turpis. Cras et nulla nibh, eu <c:link target-id="fig10"/>
+                     malesuada urna. Pellentesque vitae mi justo. Cras massa libero, interdum non mattis vestibulum, tincidunt et velit. Pell
+entesque vitae mi justo. Cras massa</c:para>
+
+      </c:section>
+    </c:section>
+  </c:content>
+</c:document>
