@@ -278,11 +278,11 @@
         </db:textobject>
 	<xsl:apply-templates select="c:image[contains(@src, '.eps')]"/>
 	<xsl:choose>
-	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']">
-	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']"/>
+	 	<xsl:when test="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps')) and @for = 'pdf']">
+	 		<xsl:apply-templates select="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps')) and @for = 'pdf']"/>
 	 	</xsl:when>
-	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]">
-	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]"/>
+	 	<xsl:when test="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps'))]">
+	 		<xsl:apply-templates select="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps'))]"/>
 	 	</xsl:when>
 		<xsl:when test="c:image[contains(@src, '.eps')]">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No suitable image found. Hoping that a SVG file with the same name as the EPS file exists</xsl:with-param></xsl:call-template>
@@ -351,14 +351,14 @@
 		</xsl:attribute>
 		<db:imagedata fileref="{@src}">
 			<xsl:choose>
-				<xsl:when test="@print-width">
+				<xsl:when test="@print-width and @print-width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
 				</xsl:when>
-				<xsl:when test="@width">
+				<xsl:when test="@width and @width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
 				</xsl:when>
 			</xsl:choose>
-			<xsl:if test="@height">
+			<xsl:if test="@height and @height != ''">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
 		</db:imagedata>
@@ -378,11 +378,11 @@
 				<xsl:when test="@print-width">
 					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
 				</xsl:when>
-				<xsl:when test="@width">
+				<xsl:when test="@width and @width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
 				</xsl:when>
 			</xsl:choose>
-			<xsl:if test="@height">
+			<xsl:if test="@height and @height != ''">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
 			
