@@ -20,10 +20,7 @@
 <xsl:param name="chunk.first.sections" select="0"></xsl:param>
 
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
-<xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
-
-<xsl:param name="insert.xref.page.number">yes</xsl:param>
 
 <!-- To support international characters, add some fonts -->
 <xsl:param name="cnx.font.catchall">STIXGeneral,STIXSize,Code2000</xsl:param>
@@ -48,26 +45,10 @@
 </xsl:template>
 
 
-<!-- Print the current module that is being worked on.
+<!-- No longer used: Print the current module that is being worked on.
 	Converting Docbook to XSL-FO may take hours so 
 	it's useful to see that progress is being made
  -->
-<xsl:template match="*[@xml:id or @id]" priority="1000000">
-	<xsl:if test="@id and not(contains(@id, '.'))">
-		<xsl:message>
-			<xsl:text>LOG: Converting </xsl:text>
-			<xsl:choose>
-				<xsl:when test="@xml:id">
-					<xsl:value-of select="@xml:id"/>
-				</xsl:when>
-				<xsl:when test="@id">
-					<xsl:value-of select="@id"/>
-				</xsl:when>
-			</xsl:choose>
-		</xsl:message>
-	</xsl:if>
-	<xsl:apply-imports select="."/>
-</xsl:template>
 
 <!-- ORIGINAL: docbook-xsl/fo/lists.xsl
 	Changes: In addition to outputting "???" if a link is broken, 
