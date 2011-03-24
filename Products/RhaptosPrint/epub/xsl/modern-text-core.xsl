@@ -169,6 +169,7 @@ procedure before
 
 <xsl:attribute-set name="cnx.note">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
+  <xsl:attribute name="padding-bottom">1em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.margin">
@@ -241,8 +242,10 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.problems.title">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.title">
@@ -468,8 +471,10 @@ procedure before
           <xsl:text>Problems</xsl:text>
         </fo:marker>
       
-        <fo:block xsl:use-attribute-sets="cnx.introduction.title">
-          <xsl:text>Problems</xsl:text>
+        <fo:block xsl:use-attribute-sets="cnx.formal.title">
+          <fo:inline xsl:use-attribute-sets="example.title.properties">
+            <xsl:text>Problems</xsl:text>
+          </fo:inline>
         </fo:block>
         
         <xsl:for-each select="db:section[.//*[@class='end-of-chapter-problems']]">
@@ -589,7 +594,7 @@ procedure before
             <fo:block xsl:use-attribute-sets="cnx.introduction.title">
               <xsl:choose>
                 <xsl:when test="d:section[@class='introduction']/db:title">
-                  <xsl:apply-templates select="d:section[@class='introduction']/db:title"/>
+                  <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:text>Introduction</xsl:text>
@@ -782,6 +787,7 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="d:caption"/>
   </fo:block>
 </xsl:template>
+
 
 
 <!-- A block-level element inside another block-level element should use the inner formatting -->

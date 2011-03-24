@@ -61,7 +61,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
         </c:exercise>
         <c:exercise class="end-of-chapter-problems">
           <c:problem>
-            <c:para> Duis risus neque, posuere sit amet volutpat id, consectetur eget risus. Nulla nec magna felis, non varius urna. Nam tempor vehicula lobortis.Praesent in nisi nec turpis lacinia sollicitudin eu at leo. Etiam diam dui, convallis sit amet condimentum sed, vestibulum eget ante. <c:link target-id="fig3"/>
+            <c:para> Duis risus neque, posuere sit amet volutpat id, consectetur eget risus. Nulla nec magna felis, non varius urna. Nam tempor vehicula lobortis.
+            </c:para>
+            <c:figure>
+              <c:media>
+                <c:image src="ex1-2.png" width="200"/>
+              </c:media>
+            </c:figure>
+          </c:problem>
+        </c:exercise>
+        <c:exercise class="end-of-chapter-problems">
+          <c:problem>
+            <c:para> Praesent in nisi nec turpis lacinia sollicitudin eu at leo. Etiam diam dui, convallis sit amet condimentum sed, vestibulum eget ante. <c:link target-id="fig3"/>
                             
                              Donec viverra semper faucibus.</c:para>
           </c:problem>
@@ -69,6 +80,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
         <c:exercise class="end-of-chapter-problems">
           <c:problem>
             <c:para>In consequat dapibus felis, et vestibulum odio rutrum sed. Quisque dui odio, pretium aliquam porta sed, accumsan vel est. Mauris in placerat eros. Nunc semper sagittis magna quis dapibus.</c:para>
+              <c:figure>
+                <c:media>
+                  <c:image src="ex1-1.png" width="200"/>
+                </c:media>
+              </c:figure>
+
           </c:problem>
         </c:exercise>
         <c:exercise class="end-of-chapter-problems">
@@ -208,6 +225,11 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
             <c:solution class="strategy">
               <c:label>Strategy</c:label>
               <c:para>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Maecenas eget turpis sem, in molestie ante. Suspendisse tempor, ante vel pellentesque gravida, diam nulla iaculis eros, id sodales elit elit vitae urna. Vivamus porta purus id orci fringilla lacinia.</c:para>
+              <c:figure id="ex1-fig2">
+                <c:media>
+                  <c:image src="ex1-2.png"/>
+                </c:media>
+              </c:figure>
             </c:solution>
             <c:solution>
               <c:para>Nulla facilisi. Suspendisse nec purus augue, vel ornare metus. Morbi mattis arcu in urna venenatis semper. Nam vel lacinia felis. Suspendisse porta nibh velit. Ut ut nulla massa, sit amet ultrices neque. Pellentesque vitae purus felis.</c:para>
