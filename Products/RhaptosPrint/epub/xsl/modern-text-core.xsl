@@ -19,7 +19,6 @@
 <!-- ============================================== -->
 <!-- Customize docbook params for this style        -->
 <!-- ============================================== -->
-<xsl:param name="cnx.margin.outer">2.5</xsl:param>
 
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
@@ -29,12 +28,6 @@
 <xsl:param name="toc.section.depth">1</xsl:param>
 
 <xsl:param name="body.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
-
-<!-- @class='margin': Custom page layout (for things like marginalia) -->
-<xsl:param name="page.margin.outer">
-  <xsl:value-of select="$cnx.margin.outer"/>
-  <xsl:text>in</xsl:text>
-</xsl:param>
 
 <xsl:param name="body.font.master">10</xsl:param>
 
@@ -68,13 +61,25 @@ procedure before
 <xsl:param name="cnx.color.blue">#0A4383</xsl:param>
 <xsl:param name="cnx.color.red">#BF7822</xsl:param>
 <xsl:param name="cnx.color.silver">#FAECD4</xsl:param>
+<xsl:param name="cnx.color.aqua">#EBEDF1</xsl:param>
 <xsl:param name="cnx.color.green">#79A52B</xsl:param>
+
+<xsl:attribute-set name="normal.para.spacing">
+  <xsl:attribute name="text-indent">2em</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.underscore">
+  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
+  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation">
   <xsl:attribute name="keep-together">10</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title">
+<xsl:attribute-set name="cnx.formal.title"
+    use-attribute-sets="cnx.underscore">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -84,9 +89,6 @@ procedure before
   <xsl:attribute name="padding-before">2px</xsl:attribute>
   <xsl:attribute name="padding-after">2px</xsl:attribute>
   <xsl:attribute name="margin-right">1em</xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.text">
@@ -159,12 +161,10 @@ procedure before
   <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="admonition.title.properties">
+<xsl:attribute-set name="admonition.title.properties"
+    use-attribute-sets="cnx.underscore">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$body.font.master"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note">
@@ -172,20 +172,46 @@ procedure before
   <xsl:attribute name="padding-bottom">1em</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.margin">
+<xsl:attribute-set name="cnx.note.concept" use-attribute-sets="cnx.note">
   <xsl:attribute name="padding-before">0.5em</xsl:attribute>
+  <xsl:attribute name="padding-left">1em</xsl:attribute>
+  <xsl:attribute name="padding-right">1em</xsl:attribute>
   <xsl:attribute name="border-top-width">2px</xsl:attribute>
   <xsl:attribute name="border-top-style">solid</xsl:attribute>
-  <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+  <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.margin.title">
+<xsl:attribute-set name="cnx.note.concept.title">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.note.tip.body" use-attribute-sets="cnx.note cnx.underscore">
+  <xsl:attribute name="border-top-width">2px</xsl:attribute>
+  <xsl:attribute name="border-top-style">solid</xsl:attribute>
+  <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.aqua"/></xsl:attribute>
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
+  <xsl:attribute name="text-align">center</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.note.tip.title">
+  <xsl:attribute name="text-align">center</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.note.tip.title.inline">
+  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
+  <xsl:attribute name="color">white</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+  <xsl:attribute name="padding-left">1em</xsl:attribute>
+  <xsl:attribute name="padding-right">1em</xsl:attribute>
+  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
+  <xsl:attribute name="padding-after">0.25em</xsl:attribute>
+</xsl:attribute-set>
+
 
 <xsl:attribute-set name="cnx.introduction.chapter">
 <!--
@@ -210,12 +236,10 @@ procedure before
   <xsl:attribute name="font-style">italic</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.title">
+<xsl:attribute-set name="cnx.introduction.title"
+    use-attribute-sets="cnx.underscore">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
-  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.header">
@@ -230,6 +254,10 @@ procedure before
 
 <xsl:attribute-set name="cnx.introduction.toc.number"
     use-attribute-sets="cnx.introduction.toc.title">
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.introduction.toc.number.inline"
+    use-attribute-sets="cnx.underscore">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
@@ -268,7 +296,6 @@ procedure before
 <!-- Generate custom page layouts for:
      - Chapter introduction
      - 2-column end-of-chapter problems
-     - Custom body with marginalia
 -->
 <xsl:param name="cnx.pagemaster.body">cnx-body</xsl:param>
 <xsl:param name="cnx.pagemaster.introduction">cnx-intro</xsl:param>
@@ -381,10 +408,10 @@ procedure before
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}">
       <xsl:attribute name="margin-{$direction.align.start}">
-        <xsl:value-of select="$page.margin.outer"/>
+        <xsl:value-of select="$page.margin.inner"/>
       </xsl:attribute>
       <xsl:attribute name="margin-{$direction.align.end}">
-        <xsl:value-of select="$page.margin.inner"/>
+        <xsl:value-of select="$page.margin.outer"/>
       </xsl:attribute>
       <xsl:if test="$axf.extensions != 0">
         <xsl:call-template name="axf-page-master-properties">
@@ -406,7 +433,7 @@ procedure before
 
 </xsl:template>
 
-<!-- Override the default body pagemaster so the margin is always on the left -->
+<!-- Override the default body pagemaster so we use a custom body -->
 <xsl:template name="select.user.pagemaster">
   <xsl:param name="element"/>
   <xsl:param name="pageclass"/>
@@ -642,7 +669,7 @@ procedure before
   <fo:table-row xsl:use-attribute-sets="cnx.introduction.toc.row">
     <fo:table-cell>
       <fo:block xsl:use-attribute-sets="cnx.introduction.toc.number">
-        <fo:basic-link internal-destination="{$id}">
+        <fo:basic-link internal-destination="{$id}" xsl:use-attribute-sets="cnx.introduction.toc.number.inline">
           <xsl:apply-templates mode="label.markup" select="."/>
         </fo:basic-link>
       </fo:block>
@@ -758,7 +785,7 @@ procedure before
 </xsl:template>
 
 
-<!-- Handle figures (in-page and in margins) differently.
+<!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
 <xsl:template match="d:figure">
   <xsl:variable name="id">
@@ -931,10 +958,23 @@ Combination of formal.object and formal.object.heading -->
   </fo:block>
 </xsl:template>
 
-<!-- Concept Check, or default notes for the margin -->
-<xsl:template match="db:note[@class='margin']">
-  <fo:block xsl:use-attribute-sets="cnx.note.margin">
-    <fo:block xsl:use-attribute-sets="cnx.note.margin.title">
+<xsl:template match="db:note[@type='tip']">
+  <fo:block xsl:use-attribute-sets="cnx.note.tip">
+    <fo:block xsl:use-attribute-sets="cnx.note.tip.title">
+      <fo:inline xsl:use-attribute-sets="cnx.note.tip.title.inline">
+        <xsl:apply-templates select="db:title/node()|db:label/node()"/>
+      </fo:inline>
+    </fo:block>
+    <fo:block xsl:use-attribute-sets="cnx.note.tip.body">
+      <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>
+    </fo:block>
+  </fo:block>
+</xsl:template>
+
+<!-- Concept Check -->
+<xsl:template match="db:note[@type='check']">
+  <fo:block xsl:use-attribute-sets="cnx.note.concept">
+    <fo:block xsl:use-attribute-sets="cnx.note.concept.title">
       <xsl:apply-templates select="db:title/node()|db:label/node()"/>
     </fo:block>
     <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>

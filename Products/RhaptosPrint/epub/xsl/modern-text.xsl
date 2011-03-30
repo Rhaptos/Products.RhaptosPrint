@@ -17,33 +17,6 @@
 
 
 <!-- ============================================== -->
-<!-- New Feature: @class='margin'                   -->
-<!-- ============================================== -->
-
-<!-- These are magic settings to get a block to float left -->
-<xsl:attribute-set name="cnx.margin">
-  <xsl:attribute name="margin-left">-2.5in</xsl:attribute>
-  <xsl:attribute name="padding-left">0.2in</xsl:attribute>
-  <xsl:attribute name="padding-right">2in</xsl:attribute>
-  <xsl:attribute name="margin-right">-1.7in</xsl:attribute>
-  <xsl:attribute name="width">0in</xsl:attribute>
-  <xsl:attribute name="position">absolute</xsl:attribute>
-</xsl:attribute-set>
-
-<!-- Marginalia support. Make position absolute so it doesn't take up space, then in another pass move it left/right -->
-<xsl:template match="*[@class='margin']">
-<!-- This outer, empty block container is necessary becuase FOP uses it to 
-  know where to vertically position the figure/thing -->
-<fo:block-container>
-  <fo:block-container xsl:use-attribute-sets="cnx.margin">
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-imports/>
-  </fo:block-container>
-</fo:block-container>
-</xsl:template>
-
-
-<!-- ============================================== -->
 <!-- New Feature: @class='end-of-chapter-problems'  -->
 <!-- (See included XSLT file for more) -->
 <!-- ============================================== -->

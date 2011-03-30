@@ -54,6 +54,11 @@
 <xsl:template match="c:note[@type='warning']">
     <db:warning><xsl:call-template name="block-id-and-children"/></db:warning>
 </xsl:template>
+<xsl:template match="c:note/@*">
+    <xsl:attribute name="{local-name()}">
+        <xsl:value-of select="."/>
+    </xsl:attribute>
+</xsl:template>
 <xsl:template match="c:footnote">
     <db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
 </xsl:template>

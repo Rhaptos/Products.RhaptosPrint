@@ -44,6 +44,11 @@
 </xsl:template>
 
 <xsl:template match="@type|@src|@format|@alt"/>
+<xsl:template match="c:note/@*">
+    <xsl:attribute name="{local-name()}">
+        <xsl:value-of select="."/>
+    </xsl:attribute>
+</xsl:template>
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
