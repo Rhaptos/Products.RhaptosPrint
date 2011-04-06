@@ -31,6 +31,8 @@
 
 <xsl:param name="body.font.master">10</xsl:param>
 
+<xsl:param name="header.rule" select="0"/>
+
 <xsl:param name="generate.toc">
 appendix  toc,title
 <!--chapter   toc,title-->
@@ -39,6 +41,10 @@ book      toc,title
 
 <!-- To get page titles to match left/right alignment, we need to add blank pages between chapters (wi they all start on the same left/right side) -->
 <xsl:param name="double.sided" select="1"/>
+
+<xsl:param name="page.margin.inner">1.5in</xsl:param>
+<xsl:param name="page.margin.outer">1.5in</xsl:param>
+<xsl:param name="cnx.margin.problems">1in</xsl:param>
 
 <xsl:param name="formal.title.placement">
 figure after
@@ -58,11 +64,17 @@ procedure before
 <xsl:param name="cnx.font.larger" select="$body.font.master * 1.4"/>
 <xsl:param name="cnx.font.huge" select="$body.font.master * 6.0"/>
 <xsl:param name="cnx.color.orange">#EDA642</xsl:param>
-<xsl:param name="cnx.color.blue">#0A4383</xsl:param>
+<xsl:param name="cnx.color.blue">#0A3F7B</xsl:param>
 <xsl:param name="cnx.color.red">#BF7822</xsl:param>
 <xsl:param name="cnx.color.silver">#FAECD4</xsl:param>
 <xsl:param name="cnx.color.aqua">#EBEDF1</xsl:param>
 <xsl:param name="cnx.color.green">#79A52B</xsl:param>
+
+<xsl:attribute-set name="list.item.spacing">
+  <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:attribute-set name="normal.para.spacing">
   <xsl:attribute name="text-indent">2em</xsl:attribute>
@@ -71,7 +83,7 @@ procedure before
 <xsl:attribute-set name="cnx.underscore">
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
+  <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation">
@@ -80,7 +92,7 @@ procedure before
 
 <xsl:attribute-set name="cnx.formal.title"
     use-attribute-sets="cnx.underscore">
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
   <xsl:attribute name="space-before.minimum">16</xsl:attribute>
@@ -88,7 +100,6 @@ procedure before
   <xsl:attribute name="space-before.maximum">20</xsl:attribute>
   <xsl:attribute name="padding-before">2px</xsl:attribute>
   <xsl:attribute name="padding-after">2px</xsl:attribute>
-  <xsl:attribute name="margin-right">1em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.text">
@@ -140,6 +151,7 @@ procedure before
 <xsl:attribute-set name="cnx.figure.properties">
   <xsl:attribute name="keep-together">1</xsl:attribute>
   <xsl:attribute name="font-size">8</xsl:attribute>
+  <xsl:attribute name="padding-after">0.5em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.figure.content">
@@ -147,13 +159,11 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="formal.object.properties">
+  <xsl:attribute name="space-before">2em</xsl:attribute>
+  <xsl:attribute name="space-after">2em</xsl:attribute>
   <xsl:attribute name="keep-together">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <!--inherited overrides-->
-  <xsl:attribute name="space-before">0px</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0px</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0px</xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0px</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="xref.properties">
@@ -219,27 +229,30 @@ procedure before
   <xsl:attribute name="border-style">solid</xsl:attribute>
   <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 -->
+  <xsl:attribute name="padding-left">0.05em</xsl:attribute>
+  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="text-align">left</xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.huge"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <!-- Magic to get the text to show up a little lower and to the left of the image -->
-  <xsl:attribute name="padding-top">10px</xsl:attribute>
-  <xsl:attribute name="margin-left">-0.5em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.chapter.number">
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.chapter.title">
   <xsl:attribute name="color">white</xsl:attribute>
-  <xsl:attribute name="font-style">italic</xsl:attribute>
+  <xsl:attribute name="font-variant">small-caps</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.title"
     use-attribute-sets="cnx.underscore">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.introduction.toc.table">
+  <xsl:attribute name="border-width">2px</xsl:attribute>
+  <xsl:attribute name="border-style">solid</xsl:attribute>
+  <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.header">
@@ -298,45 +311,19 @@ procedure before
      - 2-column end-of-chapter problems
 -->
 <xsl:param name="cnx.pagemaster.body">cnx-body</xsl:param>
-<xsl:param name="cnx.pagemaster.introduction">cnx-intro</xsl:param>
 <xsl:param name="cnx.pagemaster.problems">cnx-problems-2column</xsl:param>
 <xsl:template name="user.pagemasters">
     <!-- title pages -->
-    <fo:simple-page-master master-name="{$cnx.pagemaster.introduction}"
-                           page-width="{$page.width}"
-                           page-height="{$page.height}"
-                           margin-top="{$page.margin.top}"
-                           margin-bottom="{$page.margin.bottom}">
-      <xsl:attribute name="margin-{$direction.align.start}">
-        <xsl:value-of select="$page.margin.inner"/>
-      </xsl:attribute>
-      <xsl:attribute name="margin-{$direction.align.end}">
-        <xsl:value-of select="$page.margin.inner"/>
-      </xsl:attribute>
-      <fo:region-body margin-bottom="{$body.margin.bottom}"
-                      margin-top="{$body.margin.top}"
-                      column-gap="{$column.gap.titlepage}"
-                      column-count="1">
-      </fo:region-body>
-      <fo:region-before region-name="xsl-region-before-first"
-                        extent="{$region.before.extent}"
-                        display-align="before"/>
-      <fo:region-after region-name="xsl-region-after-first"
-                       extent="{$region.after.extent}"
-                        display-align="after"/>
-    </fo:simple-page-master>
-
-
     <fo:simple-page-master master-name="{$cnx.pagemaster.problems}"
                            page-width="{$page.width}"
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}">
       <xsl:attribute name="margin-{$direction.align.start}">
-        <xsl:value-of select="$page.margin.inner"/>
+        <xsl:value-of select="$cnx.margin.problems"/>
       </xsl:attribute>
       <xsl:attribute name="margin-{$direction.align.end}">
-        <xsl:value-of select="$page.margin.inner"/>
+        <xsl:value-of select="$cnx.margin.problems"/>
       </xsl:attribute>
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -382,7 +369,7 @@ procedure before
         <xsl:value-of select="$page.margin.outer"/>
       </xsl:attribute>
       <xsl:attribute name="margin-{$direction.align.end}">
-        <xsl:value-of select="$page.margin.inner"/>
+        <xsl:value-of select="$page.margin.outer"/>
       </xsl:attribute>
       <xsl:if test="$axf.extensions != 0">
         <xsl:call-template name="axf-page-master-properties">
@@ -455,11 +442,15 @@ procedure before
 
 <!-- Render problem sections at the bottom of a chapter -->
 <xsl:template match="db:chapter">
+  <xsl:variable name="master-reference">
+    <xsl:call-template name="select.pagemaster"/>
+  </xsl:variable>
+
   <xsl:call-template name="page.sequence">
-    <xsl:with-param name="master-reference">
-      <xsl:value-of select="$cnx.pagemaster.introduction"/>
-    </xsl:with-param>
+    <xsl:with-param name="master-reference" select="$master-reference"/>
+    <xsl:with-param name="initial-page-number">auto</xsl:with-param>
     <xsl:with-param name="content">
+
       <!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
       <xsl:variable name="id">
         <xsl:call-template name="object.id"/>
@@ -468,17 +459,6 @@ procedure before
                 xsl:use-attribute-sets="component.titlepage.properties">
         <xsl:call-template name="chapter.titlepage"/>
       </fo:block>
-    </xsl:with-param>
-  </xsl:call-template>
-
-    <xsl:variable name="master-reference">
-      <xsl:call-template name="select.pagemaster"/>
-    </xsl:variable>
-
-  <xsl:call-template name="page.sequence">
-    <xsl:with-param name="master-reference" select="$master-reference"/>
-    <xsl:with-param name="initial-page-number">auto</xsl:with-param>
-    <xsl:with-param name="content">
 
       <xsl:apply-templates/>
 
@@ -579,87 +559,84 @@ procedure before
   </fo:marker>
   -->
   <fo:block text-align="center" xsl:use-attribute-sets="cnx.tilepage.graphic">
+    <fo:block xsl:use-attribute-sets="cnx.introduction.chapter">
+      <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.number">
+        <xsl:apply-templates select="." mode="label.markup"/>
+      </fo:inline>
+      <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.title">
+        <xsl:apply-templates select="." mode="title.markup"/>
+      </fo:inline>
+    </fo:block>
+  </fo:block>
+  <xsl:if test="d:section[@class='introduction']/db:figure">
+        <xsl:apply-templates select="d:section[@class='introduction']/db:figure"/>
+  </xsl:if>
+  <xsl:call-template name="chapter.titlepage.toc"/>
+  <fo:block xsl:use-attribute-sets="cnx.introduction.title">
     <xsl:choose>
-      <xsl:when test="d:section[@class='introduction']/db:figure">
-
-        <fo:block-container>
-          <!-- Render the image with some text floating on top of it -->
-          <!-- Hence the need for all the fo:block-container -->
-          <xsl:apply-templates select="d:section[@class='introduction']/db:figure"/>
-          <fo:block-container position="absolute">
-            <fo:block xsl:use-attribute-sets="cnx.introduction.chapter">
-              <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.number">
-                <xsl:apply-templates select="." mode="label.markup"/>
-              </fo:inline>
-              <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.title">
-                <xsl:apply-templates select="." mode="title.markup"/>
-              </fo:inline>
-            </fo:block>
-          </fo:block-container>
-        </fo:block-container>
-
+      <xsl:when test="d:section[@class='introduction']/db:title">
+        <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
       </xsl:when>
-      <xsl:when test="d:chapterinfo/d:title">
-        <xsl:apply-templates
-               mode="book.titlepage.recto.auto.mode"
-               select="d:chapterinfo/d:title"/>
-      </xsl:when>
-      <xsl:when test="d:title">
-        <xsl:apply-templates 
-               mode="book.titlepage.recto.auto.mode" 
-               select="d:title"/>
-      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>Introduction</xsl:text>
+      </xsl:otherwise>
     </xsl:choose>
   </fo:block>
-  <fo:block>
-    <fo:table inline-progression-dimension="100%" table-layout="fixed">
-      <fo:table-column column-width="66%"/>
-      <fo:table-column column-width="33%"/>
-      <fo:table-body>
-        <fo:table-row>
-          <fo:table-cell>
-            <fo:block xsl:use-attribute-sets="cnx.introduction.title">
-              <xsl:choose>
-                <xsl:when test="d:section[@class='introduction']/db:title">
-                  <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:text>Introduction</xsl:text>
-                </xsl:otherwise>
-              </xsl:choose>
-            </fo:block>
-            <xsl:apply-templates select="d:section[@class='introduction']/*[not(self::db:figure)]"/>
-          </fo:table-cell>
-          <fo:table-cell display-align="after" padding-start="10px">
-            <fo:block xsl:use-attribute-sets="cnx.introduction.toc" text-align="right">
+  <xsl:apply-templates select="d:section[@class='introduction']/*[not(self::db:figure)]"/>
 
-              <xsl:call-template name="chapter.titlepage.toc"/>
-
-            </fo:block>
-          </fo:table-cell> 
-        </fo:table-row >  
-      </fo:table-body> 
-    </fo:table>
-  </fo:block>
 </xsl:template>
 
 <xsl:template name="chapter.titlepage.toc">
-  <fo:table inline-progression-dimension="100%" table-layout="fixed">
-    <fo:table-column column-width="25%"/>
-    <fo:table-column column-width="75%"/>
-    <fo:table-header>
+<fo:block space-before="2em" space-after="2em">
+  <!-- Tables in FOP can't be centered, so we nest them -->
+  <xsl:call-template name="table.layout.center">
+    <xsl:with-param name="content">
+      <fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.introduction.toc.table">
+        <fo:table-column column-width="0.5in"/>
+        <fo:table-column column-width="2in"/>
+        <fo:table-header>
+          <fo:table-row>
+            <fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
+              <fo:block><xsl:text>Key Concepts</xsl:text></fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-header>
+        <fo:table-body>
+          <xsl:apply-templates mode="introduction.toc" select="*"/>
+        </fo:table-body>
+      </fo:table>
+      <xsl:call-template name="component.toc.separator"/>
+    </xsl:with-param>
+  </xsl:call-template>
+</fo:block>
+</xsl:template>
+
+<!-- Tables in FOP can't be centered, so we nest them -->
+<xsl:template name="table.layout.center">
+  <xsl:param name="content"/>
+
+  <fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column/>
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-body start-indent="0pt">
       <fo:table-row>
-        <fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
-          <fo:block><xsl:text>Key Concepts</xsl:text></fo:block>
+        <fo:table-cell/>
+        <fo:table-cell>
+
+          <fo:table>
+            <fo:table-body start-indent="0pt">
+              <fo:table-row><fo:table-cell><fo:block>
+                <xsl:copy-of select="$content"/>
+               </fo:block></fo:table-cell></fo:table-row>
+            </fo:table-body>
+          </fo:table>
+
         </fo:table-cell>
+        <fo:table-cell/>
       </fo:table-row>
-    </fo:table-header>
-    <fo:table-body>
-      <xsl:apply-templates mode="introduction.toc" select="*"/>
     </fo:table-body>
   </fo:table>
-  <xsl:call-template name="component.toc.separator"/>
-
 </xsl:template>
 
 <xsl:template mode="introduction.toc" match="db:chapter/db:section[not(@class='introduction')]">
@@ -667,7 +644,7 @@ procedure before
     <xsl:call-template name="object.id"/>
   </xsl:variable>
   <fo:table-row xsl:use-attribute-sets="cnx.introduction.toc.row">
-    <fo:table-cell>
+    <fo:table-cell padding-left="1em">
       <fo:block xsl:use-attribute-sets="cnx.introduction.toc.number">
         <fo:basic-link internal-destination="{$id}" xsl:use-attribute-sets="cnx.introduction.toc.number.inline">
           <xsl:apply-templates mode="label.markup" select="."/>
@@ -785,6 +762,10 @@ procedure before
 </xsl:template>
 
 
+<xsl:template name="pi.dbfo_keep-together">
+  <xsl:text>10</xsl:text>
+</xsl:template>
+
 <!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
 <xsl:template match="d:figure">
@@ -799,7 +780,7 @@ Combination of formal.object and formal.object.heading -->
   <fo:block id="{$id}"
             xsl:use-attribute-sets="cnx.figure.properties">
     <xsl:if test="$keep.together != ''">
-      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+      <xsl:attribute name="keep-together"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
     </xsl:if>
 
@@ -887,6 +868,16 @@ Combination of formal.object and formal.object.heading -->
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
+      <fo:block>
+        <xsl:if test="$keep.together != ''">
+          <xsl:attribute name="keep-together"><xsl:value-of
+                          select="$keep.together"/></xsl:attribute>
+        </xsl:if>
+
   <xsl:apply-templates mode="formal.object.heading" select=".">
     <xsl:with-param name="placement" select="$placement"/>
   </xsl:apply-templates>
@@ -896,10 +887,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="d:caption"/>
   </xsl:variable>
 
-  <xsl:variable name="keep.together">
-    <xsl:call-template name="pi.dbfo_keep-together"/>
-  </xsl:variable>
-
   <xsl:choose>
     <!-- tables have their own templates and
          are not handled by formal.object -->
@@ -907,7 +894,7 @@ Combination of formal.object and formal.object.heading -->
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="example.properties">
         <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together.within-column"><xsl:value-of
+          <xsl:attribute name="keep-together"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
         <xsl:copy-of select="$content"/>
@@ -917,7 +904,7 @@ Combination of formal.object and formal.object.heading -->
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="cnx.equation">
         <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together.within-column"><xsl:value-of
+          <xsl:attribute name="keep-together"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
         <xsl:copy-of select="$content"/>
@@ -927,7 +914,7 @@ Combination of formal.object and formal.object.heading -->
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="procedure.properties">
         <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together.within-column"><xsl:value-of
+          <xsl:attribute name="keep-together"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
         <xsl:copy-of select="$content"/>
@@ -937,13 +924,15 @@ Combination of formal.object and formal.object.heading -->
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="formal.object.properties">
         <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together.within-column"><xsl:value-of
+          <xsl:attribute name="keep-together"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
+      </fo:block>
+
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">
