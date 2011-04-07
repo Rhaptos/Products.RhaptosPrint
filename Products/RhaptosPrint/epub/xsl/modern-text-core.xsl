@@ -76,9 +76,11 @@ procedure before
   <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
 </xsl:attribute-set>
 
+<!-- Don't indent all the time
 <xsl:attribute-set name="normal.para.spacing">
   <xsl:attribute name="text-indent">2em</xsl:attribute>
 </xsl:attribute-set>
+-->
 
 <xsl:attribute-set name="cnx.underscore">
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
@@ -106,8 +108,6 @@ procedure before
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
   <xsl:attribute name="padding-before">4px</xsl:attribute>
   <xsl:attribute name="padding-after">4px</xsl:attribute>
-  <xsl:attribute name="padding-start">1em</xsl:attribute>
-  <xsl:attribute name="padding-end">4px</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.inner">
@@ -159,8 +159,8 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="formal.object.properties">
-  <xsl:attribute name="space-before">2em</xsl:attribute>
-  <xsl:attribute name="space-after">2em</xsl:attribute>
+  <xsl:attribute name="space-before">1em</xsl:attribute>
+  <xsl:attribute name="space-after">1em</xsl:attribute>
   <xsl:attribute name="keep-together">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <!--inherited overrides-->
@@ -177,6 +177,18 @@ procedure before
   <xsl:attribute name="font-size"><xsl:value-of select="$body.font.master"/></xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:attribute-set name="nongraphical.admonition.properties">
+  <!-- Override Docbook Defaults -->
+  <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
+  <xsl:attribute name="margin-{$direction.align.start}">1em</xsl:attribute>
+  <xsl:attribute name="margin-{$direction.align.end}">1em</xsl:attribute>
+</xsl:attribute-set>
+
 <xsl:attribute-set name="cnx.note">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <xsl:attribute name="padding-bottom">1em</xsl:attribute>
@@ -185,7 +197,6 @@ procedure before
 <xsl:attribute-set name="cnx.note.concept" use-attribute-sets="cnx.note">
   <xsl:attribute name="padding-before">0.5em</xsl:attribute>
   <xsl:attribute name="padding-left">1em</xsl:attribute>
-  <xsl:attribute name="padding-right">1em</xsl:attribute>
   <xsl:attribute name="border-top-width">2px</xsl:attribute>
   <xsl:attribute name="border-top-style">solid</xsl:attribute>
   <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
@@ -200,7 +211,7 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.tip.body" use-attribute-sets="cnx.note cnx.underscore">
-  <xsl:attribute name="border-top-width">2px</xsl:attribute>
+  <xsl:attribute name="border-top-width">1px</xsl:attribute>
   <xsl:attribute name="border-top-style">solid</xsl:attribute>
   <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.aqua"/></xsl:attribute>
@@ -216,8 +227,6 @@ procedure before
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="padding-left">1em</xsl:attribute>
-  <xsl:attribute name="padding-right">1em</xsl:attribute>
   <xsl:attribute name="padding-before">0.25em</xsl:attribute>
   <xsl:attribute name="padding-after">0.25em</xsl:attribute>
 </xsl:attribute-set>
@@ -437,7 +446,7 @@ procedure before
 
 
 <!-- ============================================== -->
-<!-- New Feature: @class='end-of-chapter-problems'  -->
+<!-- New Feature: @class='problems-exercises'  -->
 <!-- ============================================== -->
 
 <!-- Render problem sections at the bottom of a chapter -->
@@ -466,7 +475,7 @@ procedure before
   </xsl:call-template>
   
   <!-- Create a 2column page for problems. Insert the section number and title before each problem set -->
-  <xsl:if test="count(.//*[@class='end-of-chapter-problems']) &gt; 0">
+  <xsl:if test="count(.//*[@class='problems-exercises']) &gt; 0">
     <xsl:call-template name="page.sequence">
       <xsl:with-param name="master-reference">
         <xsl:value-of select="$cnx.pagemaster.problems"/>
@@ -484,7 +493,7 @@ procedure before
           </fo:inline>
         </fo:block>
         
-        <xsl:for-each select="db:section[.//*[@class='end-of-chapter-problems']]">
+        <xsl:for-each select="db:section[.//*[@class='problems-exercises']]">
           <xsl:variable name="sectionId">
             <xsl:call-template name="object.id"/>
           </xsl:variable>
@@ -496,8 +505,8 @@ procedure before
               </xsl:apply-templates>
             </fo:basic-link>
           </fo:block>
-          <xsl:apply-templates select=".//*[@class='end-of-chapter-problems']">
-            <xsl:with-param name="render" select="'true'"/>
+          <xsl:apply-templates select=".//*[@class='problems-exercises']">
+            <xsl:with-param name="render" select="true()"/>
           </xsl:apply-templates>
         </xsl:for-each>
 
@@ -506,19 +515,22 @@ procedure before
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:exercise[ancestor-or-self::*[@class='end-of-chapter-problems']]">
-<xsl:variable name="id">
-  <xsl:call-template name="object.id"/>
-</xsl:variable>
-<fo:block id="{$id}" xsl:use-attribute-sets="informal.object.properties">
-  <xsl:apply-templates select="." mode="number"/>
-  <xsl:text> </xsl:text>
-  <xsl:variable name="first">
-    <xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+<xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises']]">
+<xsl:param name="render" select="false()"/>
+<xsl:if test="$render">
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
   </xsl:variable>
-  <xsl:copy-of select="$first"/>
-  <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
-</fo:block>
+  <fo:block id="{$id}" xsl:use-attribute-sets="informal.object.properties">
+    <xsl:apply-templates select="." mode="number"/>
+    <xsl:text> </xsl:text>
+    <xsl:variable name="first">
+      <xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+    </xsl:variable>
+    <xsl:copy-of select="$first"/>
+    <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
+  </fo:block>
+</xsl:if>
 </xsl:template>
 
 
@@ -568,8 +580,8 @@ procedure before
       </fo:inline>
     </fo:block>
   </fo:block>
-  <xsl:if test="d:section[@class='introduction']/db:figure">
-        <xsl:apply-templates select="d:section[@class='introduction']/db:figure"/>
+  <xsl:if test="d:section[@class='introduction']/db:figure[@class='splash']">
+        <xsl:apply-templates select="d:section[@class='introduction']/db:figure[@class='splash']"/>
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
   <fo:block xsl:use-attribute-sets="cnx.introduction.title">
@@ -582,7 +594,7 @@ procedure before
       </xsl:otherwise>
     </xsl:choose>
   </fo:block>
-  <xsl:apply-templates select="d:section[@class='introduction']/*[not(self::db:figure)]"/>
+  <xsl:apply-templates select="d:section[@class='introduction']/*[not(self::db:figure[@class='splash'])]"/>
 
 </xsl:template>
 
@@ -799,7 +811,7 @@ Combination of formal.object and formal.object.heading -->
 
 
 <!-- A block-level element inside another block-level element should use the inner formatting -->
-<xsl:template mode="formal.object.heading" match="db:example//*">
+<xsl:template mode="formal.object.heading" match="*[ancestor::ext:exercise or ancestor::db:example]">
   <xsl:param name="object" select="."/>
   <xsl:param name="placement" select="'before'"/>
 
@@ -839,9 +851,13 @@ Combination of formal.object and formal.object.heading -->
                name="keep-with-previous.within-column">always</xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
+    <!-- FOP doesn't support @padding-end for fo:inline elements -->
+    <xsl:text>&#160;&#160;</xsl:text>
     <xsl:apply-templates select="$object" mode="object.title.markup">
       <xsl:with-param name="allow-anchors" select="1"/>
     </xsl:apply-templates>
+    <!-- FOP doesn't support @padding-end for fo:inline elements -->
+    <xsl:text>&#160;&#160;</xsl:text>
   </xsl:variable>
 
   <!-- CNX: added special case for examples and notes -->
@@ -951,7 +967,11 @@ Combination of formal.object and formal.object.heading -->
   <fo:block xsl:use-attribute-sets="cnx.note.tip">
     <fo:block xsl:use-attribute-sets="cnx.note.tip.title">
       <fo:inline xsl:use-attribute-sets="cnx.note.tip.title.inline">
+        <!-- FOP doesn't support @padding-end for fo:inline elements -->
+        <xsl:text>&#160;</xsl:text>
         <xsl:apply-templates select="db:title/node()|db:label/node()"/>
+        <!-- FOP doesn't support @padding-end for fo:inline elements -->
+        <xsl:text>&#160;</xsl:text>
       </fo:inline>
     </fo:block>
     <fo:block xsl:use-attribute-sets="cnx.note.tip.body">

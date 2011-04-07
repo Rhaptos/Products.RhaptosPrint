@@ -137,20 +137,30 @@
 <xsl:template match="ext:exercise|ext:problem|ext:solution|ext:commentary" mode="label.markup"/>
 
 <xsl:template match="ext:exercise" mode="cnx.template">
-	<xsl:call-template name="cnx.label">
-		<xsl:with-param name="default">
-                        <xsl:choose>
-                                <xsl:when test="ancestor::db:example">
-                                        <!-- TODO: gentext for "Problem" -->
-                                	<xsl:text>Problem</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                        <!-- TODO: gentext for "Exercise" -->
-                                	<xsl:text>Exercise</xsl:text>
-                                </xsl:otherwise>
-                        </xsl:choose>
-		</xsl:with-param>
-	</xsl:call-template>
+  <xsl:variable name="label">
+    <xsl:call-template name="cnx.label">
+      <xsl:with-param name="default">
+                          <xsl:choose>
+                                  <xsl:when test="ancestor::db:example">
+                                          <!-- TODO: gentext for "Problem" -->
+                                    <xsl:text>Problem</xsl:text>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                          <!-- TODO: gentext for "Exercise" -->
+                                    <xsl:text>Exercise</xsl:text>
+                                  </xsl:otherwise>
+                          </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="title">
+  	<xsl:apply-templates select="db:title/node()"/>
+  </xsl:variable>
+  <xsl:copy-of select="$label"/>
+  <xsl:if test="$label != '' and $title != ''">
+    <xsl:text>: </xsl:text>
+  </xsl:if>
+  <xsl:copy-of select="$title"/>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="cnx.template">

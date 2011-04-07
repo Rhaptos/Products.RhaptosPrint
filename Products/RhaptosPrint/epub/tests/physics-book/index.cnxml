@@ -6,7 +6,7 @@
       <c:title>Forces</c:title>
       <c:section class="introduction">
         <c:title>Custom Title for Introduction</c:title>
-        <c:figure id="chapter-title">
+        <c:figure id="chapter-title" class="splash">
           <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit
 amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, ultricies sit amet pretium a, laoreet sit amet arcu mattis eu erat.</c:caption>
           <c:media>
@@ -33,7 +33,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
       </c:section>
       <c:section id="weight-and-mass">
         <c:title>Weight and Mass</c:title>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para>Lorem ipsum dolor sit amet, consectetur adipi- scing elit. Morbi at enim elit, non porta lacus. Ves- tibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</c:para>
           </c:problem>
@@ -41,7 +41,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
             <c:para>Solution1</c:para>
           </c:solution>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para>Quisque at erat quam, non rhoncus nisi. Nulla faci- lisi. Suspendisse vitae sapien vitae ipsum aliquam congue vitae quis velit. <c:link target-id="fig2"/> Morbi laoreet faci- lisis orci, at porttitor lectus varius in. Donec eu urna et odio commodo blandit ut sed lorem.</c:para>
           </c:problem>
@@ -49,17 +49,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
             <c:para>Solution2</c:para>
           </c:solution>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para>Sed sed nulla bibendum dolor ultrices ornare. Pha- sellus commodo dapibus ipsum, sed euismod sem consectetur ac. Aliquam erat volutpat.</c:para>
           </c:problem>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para> Quisque rutrum fringilla interdum. Praesent porta accumsan volutpat.</c:para>
           </c:problem>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para> Duis risus neque, posuere sit amet volutpat id, consectetur eget risus. Nulla nec magna felis, non varius urna. Nam tempor vehicula lobortis.
             </c:para>
@@ -70,14 +70,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
             </c:figure>
           </c:problem>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para> Praesent in nisi nec turpis lacinia sollicitudin eu at leo. Etiam diam dui, convallis sit amet condimentum sed, vestibulum eget ante. <c:link target-id="fig3"/>
                             
                              Donec viverra semper faucibus.</c:para>
           </c:problem>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para>In consequat dapibus felis, et vestibulum odio rutrum sed. Quisque dui odio, pretium aliquam porta sed, accumsan vel est. Mauris in placerat eros. Nunc semper sagittis magna quis dapibus.</c:para>
               <c:figure>
@@ -88,7 +88,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
 
           </c:problem>
         </c:exercise>
-        <c:exercise class="end-of-chapter-problems">
+        <c:exercise class="problems-exercises">
           <c:problem>
             <c:para>Donec in condimentum nisi. Pellentesque habi- tant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc tristique facilisis nisi sit amet volutpat.</c:para>
           </c:problem>
@@ -109,6 +109,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
                      lacus lacus, congue a vehicula condimentum, feugiat ut leo. Sed ut laoreet libero. Donec bibendum ante eu nisl adipiscing ut ornare quam imperdiet. Aenean tincidunt tempus justo, non malesuada libero bibendum sit amet.</c:para>
           <c:para>Vivamus condimentum ultricies erat eget imperdiet. Vivamus condimentum ultrices tellus, quis facilisis ligula semper eu semper lacus, in viverra libero gravida eu. Fusce est eros, hendrerit vitae viverra ut, sollicitudin placerat sem. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum. Maecenas tempus erat a lectus posuere et tincidunt ligula ultrices.</c:para>
           <c:note>
+            <c:label/>
             <c:title>Newton's Law of Universal Gravitation</c:title>
             <c:para>
 Every particle in the universe exerts an attractive force on every other par- ticle. A particle is a piece of matter, small enough in size to be regarded as a methematical point. For two particles that have masses m1 and m2 and are seperated by a distance r, the force that each exerts on the other is directed along the line joining the particles.</c:para>
@@ -220,7 +221,7 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
           </c:para>
           <c:para>(Insert some MathML here)</c:para>
         </c:equation>
-<c:note type="check">
+<c:note type="concept-check">
 <c:label>Concept Check</c:label>
 <c:para>Praesent scelerisque mi et purus:</c:para>
 <c:list>
@@ -232,7 +233,8 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
 
         <c:example id="ex1">
           <c:exercise>
-            <c:label>Walking Exercise</c:label>
+            <c:label/>
+            <c:title>Walking Exercise</c:title>
             <c:problem>
               <c:para>Pellentesque vitae mi justo. Cras massa libero, interdum non mattis ves- tibulum, tincidunt et velit. Ut vulputate dui nec nibh malesuada vehicula. Praesent tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tortor sed massa. Morbi porttitor augue ut ligula ultricies dapibus.</c:para>
               <c:figure id="ex1-fig1">
@@ -242,7 +244,7 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
               </c:figure>
               <c:para>Sed sed ligula turpis. Cras et nulla nibh, eu malesuada urna.</c:para>
             </c:problem>
-            <c:solution class="strategy">
+            <c:solution print-placement="here" type="strategy">
               <c:label>Strategy</c:label>
               <c:para>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Maecenas eget turpis sem, in molestie ante. Suspendisse tempor, ante vel pellentesque gravida, diam nulla iaculis eros, id sodales elit elit vitae urna. Vivamus porta purus id orci fringilla lacinia.</c:para>
               <c:figure id="ex1-fig2">
@@ -251,47 +253,47 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
                 </c:media>
               </c:figure>
             </c:solution>
-            <c:solution>
+            <c:solution print-placement="here">
               <c:para>Nulla facilisi. Suspendisse nec purus augue, vel ornare metus. Morbi mattis arcu in urna venenatis semper. Nam vel lacinia felis. Suspendisse porta nibh velit. Ut ut nulla massa, sit amet ultrices neque. Pellentesque vitae purus felis.</c:para>
             </c:solution>
           </c:exercise>
         </c:example>
 
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Vivamus semper interdum turpis a semper. Nam vehicula tortor a metus iaculis pellentesque. <c:link target-id="fig4"/>
                                 
                                  Quisque quis vulputate nunc.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Praesent id risus purus, nec scelerisque velit. Nunc sit amet tellus ultricies justo pharetra auctor vel nec risus. Praesent nec dolor consectetur tortor interdum sagittis. Sed ut nisl enim.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Aliquam non sem in urna luctus feugiat vitae ac sem. Nam pretium aliquet odio, eget sagittis eros facilisis nec. Morbi eu lectus sit amet nulla ornare fringilla. Sed metus libero, egestas vel molestie eget, facilisis et massa.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Nulla at mi eu mauris interdum pharetra. Ut ul- lamcorper commodo ligula, et fringilla erat tincidunt quis. Sed vestibulum <c:link target-id="fig5"/>
                                 
                                  laoreet quam et congue.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Nam eget purus risus, quis condimentum lacus. Cum sociis natoque penatibus et magnis dis parturi- ent montes, nascetur ridiculus mus.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Duis neque diam, vestibulum sed varius sit amet, adipiscing non odio. Aliquam massa nulla, convallis at ornare nec, facilisis ac nisl.</c:para>
             </c:problem>
           </c:exercise>
-          <c:exercise class="end-of-chapter-problems">
+          <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Maecenas at lorem non dui placerat lacinia in eu</c:para>
             </c:problem>
@@ -324,15 +326,16 @@ et velit.</c:para>
         <c:para>Vivamus condimentum ultricies erat eget imperdiet. Vivamus con- dimentum ultrices tellus, quis facilisis ligula semper eu. In ligula metus, hendrerit dignissim pretium non, porttitor dictum nisi. Integ
 er facilisis con- dimentum augue, id lobortis dolor dignissim eget. Sed ullamcorper libero ac sapien blandit et gravida est porttitor.</c:para>
 
-        <c:exercise>
-          <c:label>Check for Understanding</c:label>
+        <c:exercise type="check-understanding">
+          <c:label/>
+          <c:title>Check for Understanding</c:title>
           <c:problem><c:label><!--No label--></c:label>
           <c:list list-type="enumerated">
             <c:item>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultri- cies sit amet pretium a, laoreet sit amet arcu.</c:item>
             <c:item>Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at et velit.</c:item>
           </c:list>
           </c:problem>
-          <c:solution>
+          <c:solution print-placement="here">
             <c:label>Answers</c:label>
 
           <c:list list-type="enumerated">
