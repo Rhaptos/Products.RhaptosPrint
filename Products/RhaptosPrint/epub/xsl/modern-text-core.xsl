@@ -63,12 +63,13 @@ procedure before
 <xsl:param name="cnx.font.large" select="$body.font.master * 1.2"/>
 <xsl:param name="cnx.font.larger" select="$body.font.master * 1.4"/>
 <xsl:param name="cnx.font.huge" select="$body.font.master * 6.0"/>
-<xsl:param name="cnx.color.orange">#EDA642</xsl:param>
-<xsl:param name="cnx.color.blue">#0A3F7B</xsl:param>
-<xsl:param name="cnx.color.red">#BF7822</xsl:param>
-<xsl:param name="cnx.color.silver">#FAECD4</xsl:param>
-<xsl:param name="cnx.color.aqua">#EBEDF1</xsl:param>
-<xsl:param name="cnx.color.green">#79A52B</xsl:param>
+<xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
+<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.red">#D89016</xsl:param>
+<xsl:param name="cnx.color.green">#8FB733</xsl:param>
+<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
+<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
 
 <xsl:attribute-set name="list.item.spacing">
   <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
