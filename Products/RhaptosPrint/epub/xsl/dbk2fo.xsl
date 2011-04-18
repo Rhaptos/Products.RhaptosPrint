@@ -13,6 +13,9 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- Enable Apache FOP specific extensions (and disable things unsupported in FOP) -->
+<xsl:param name="fop1.extensions" select="1"/>
+
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"></xsl:param>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
@@ -31,6 +34,13 @@
 <xsl:param name="symbol.font.family">Symbol,ZapfDingbats,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 <xsl:param name="title.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
+
+<!-- Disable "Document Properties" in acrobat reader.
+     Setting "fop1.extensions" causes this to be rendered which causes
+     a stack underflow during the 2nd pass of rendering the PDF using
+     the Development version of FOP -->
+<!-- Metadata support ("Document Properties" in Adobe Reader) -->
+<xsl:template name="fop1-document-information"/>
 
 
 <!-- Add a template for newlines.
