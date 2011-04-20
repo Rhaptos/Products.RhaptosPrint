@@ -1,3 +1,6 @@
+RhaptosPrint-0.7
+  - Bugfix 2010: (some) unicode characters, embedded fonts in epub
+
 RhaptosPrint-0.6
   - sword import support
 

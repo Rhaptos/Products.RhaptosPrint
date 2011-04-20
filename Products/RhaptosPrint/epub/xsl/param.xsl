@@ -8,7 +8,7 @@
 <xsl:param name="cnx.debug" select="0"/>
 
 <!-- Is this a cnx site or a Rhaptos site? -->
-<xsl:param name="cnx.iscnx" select="1"></xsl:param>
+<xsl:param name="cnx.site-type" select="'Connexions'"></xsl:param>
 
 <!-- Used to update the ids so they are unique within a collection -->
 <xsl:param name="cnx.module.id"/>

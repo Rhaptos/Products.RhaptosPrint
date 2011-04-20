@@ -1,9 +1,10 @@
 #!/bin/sh
 
-WORKING_DIR=$1
-ID=$2
+CNX_OR_RHAPTOS=$1 # either "Connexions" or something else (we do something special for Connexions)
+WORKING_DIR=$2
+ID=$3
 
-DEBUG=$3
+DEBUG=$4
 
 SKIP_MODULE_CONVERSION=0
 
@@ -19,7 +20,7 @@ DOCBOOK2=$WORKING_DIR/_collection2.normalized.dbk
 DOCBOOK3=$WORKING_DIR/_collection3.dbk
 DBK_FILE=$WORKING_DIR/collection.dbk
 
-XSLTPROC="xsltproc"
+XSLTPROC="xsltproc --stringparam cnx.site-type $CNX_OR_RHAPTOS"
 COLLXML_PARAMS=$ROOT/xsl/collxml-params.xsl
 COLLXML2DOCBOOK_XSL=$ROOT/xsl/collxml2dbk.xsl
 
@@ -71,7 +72,7 @@ if [ "$SKIP_MODULE_CONVERSION" = "0" ]; then
   do
     if [ -d $WORKING_DIR/$MODULE ];
     then
-      bash $MODULE2DOCBOOK $WORKING_DIR/$MODULE $MODULE $ID $DEBUG
+      bash $MODULE2DOCBOOK $CNX_OR_RHAPTOS $WORKING_DIR/$MODULE $MODULE $ID $DEBUG
       EXIT_STATUS=$EXIT_STATUS || $?
     fi
   done
@@ -92,7 +93,7 @@ $XSLTPROC -o $DBK_FILE $DOCBOOK_NORMALIZE_GLOSSARY_XSL $DOCBOOK3
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Create cover SVG and convert it to an image
-bash $ROOT/scripts/dbk2cover.sh $DBK_FILE $DEBUG
+bash $ROOT/scripts/dbk2cover.sh $CNX_OR_RHAPTOS $DBK_FILE $DEBUG
 
 
 # remove all the temp files so the complete zip doesn't contain them

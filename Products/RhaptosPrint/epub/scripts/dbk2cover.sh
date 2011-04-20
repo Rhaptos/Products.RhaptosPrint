@@ -1,7 +1,9 @@
 #!/bin/sh
 
-WORKING_DIR=`dirname $1`
-DBK_FILE=$1
+CNX_OR_RHAPTOS=$1
+
+WORKING_DIR=`dirname $2`
+DBK_FILE=$2
 
 DEBUG=$2
 
@@ -11,7 +13,7 @@ ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 EXIT_STATUS=0
 
 
-XSLTPROC="xsltproc"
+XSLTPROC="xsltproc --stringparam cnx.site-type $CNX_OR_RHAPTOS"
 DBK2SVG_COVER_XSL=$ROOT/xsl/dbk2svg-cover.xsl
 
 COVER_PREFIX=cover
@@ -21,6 +23,7 @@ COVER_PNG=$WORKING_DIR/$COVER_PREFIX.png
 
 INKSCAPE=`which inkscape`
 if [ ".$INKSCAPE" == "." ]; then
+  # Try to use the Mac version of Inkscape
   INKSCAPE=/Applications/Inkscape.app/Contents/Resources/bin/inkscape
   if [ ! -e $INKSCAPE ]; then
     echo "LOG: ERROR: Inkscape not found." 1>&2
