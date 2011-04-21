@@ -240,6 +240,8 @@ procedure before
   <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 -->
   <xsl:attribute name="padding-left">0.05em</xsl:attribute>
+  <xsl:attribute name="padding-before">0.05em</xsl:attribute>
+  <xsl:attribute name="padding-after">0.05em</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="text-align">left</xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.huge"/></xsl:attribute>
@@ -300,16 +302,26 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.title">
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
+<!--  <xsl:attribute name="font-weight">bold</xsl:attribute> -->
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.subtitle">
-  <xsl:attribute name="font-style">italic</xsl:attribute>
+<!--  <xsl:attribute name="font-style">italic</xsl:attribute> -->
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.header.pagenumber">
+  <xsl:attribute name="font-weight">thin</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.separator">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 </xsl:attribute-set>
+
+<!-- Page Headers should be marked as all-uppercase.
+     Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
+-->
+<xsl:variable name="cnx.smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+<xsl:variable name="cnx.uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
 
 <!-- ============================================== -->
@@ -490,7 +502,7 @@ procedure before
       
         <fo:block xsl:use-attribute-sets="cnx.formal.title">
           <fo:inline xsl:use-attribute-sets="example.title.properties">
-            <xsl:text>Problems</xsl:text>
+            <xsl:text>&#160; Problems &#160;</xsl:text>
           </fo:inline>
         </fo:block>
         
@@ -571,13 +583,16 @@ procedure before
     <xsl:apply-templates mode="title.markup" select="."/>
   </fo:marker>
   -->
+  <xsl:variable name="title">
+    <xsl:apply-templates select="." mode="title.markup"/>
+  </xsl:variable>
   <fo:block text-align="center" xsl:use-attribute-sets="cnx.tilepage.graphic">
     <fo:block xsl:use-attribute-sets="cnx.introduction.chapter">
       <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.number">
         <xsl:apply-templates select="." mode="label.markup"/>
       </fo:inline>
       <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.title">
-        <xsl:apply-templates select="." mode="title.markup"/>
+        <xsl:copy-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
       </fo:inline>
     </fo:block>
   </fo:block>
@@ -1021,16 +1036,21 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
   
   <xsl:variable name="title">
-    <fo:inline xsl:use-attribute-sets="cnx.header.title">
+    <!-- Convert titles to uppercase -->
+    <xsl:variable name="title">
       <xsl:apply-templates select="$context" mode="object.xref.markup"/>
+    </xsl:variable>
+    <fo:inline xsl:use-attribute-sets="cnx.header.title">
+      <xsl:value-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
     </fo:inline>
     
+    <!-- Add a separator and convert subtitle to uppercase -->
     <xsl:if test="$subtitle != ''">
       <fo:inline xsl:use-attribute-sets="cnx.header.separator">
         <xsl:text>&#160;|&#160;</xsl:text>
       </fo:inline>
       <fo:inline xsl:use-attribute-sets="cnx.header.subtitle">
-        <xsl:copy-of select="$subtitle"/>
+        <xsl:value-of select="translate($subtitle, $cnx.smallcase, $cnx.uppercase)"/>
       </fo:inline>
     </xsl:if>
   </xsl:variable>
@@ -1046,7 +1066,9 @@ Combination of formal.object and formal.object.heading -->
 
       <xsl:when test="$double.sided != 0 and $sequence = 'even'
                       and $position='left'">
-        <fo:page-number/>
+        <fo:inline xsl:use-attribute-sets="cnx.header.pagenumber">
+          <fo:page-number/>
+        </fo:inline>
         <xsl:text> &#160; &#160; </xsl:text>
         <xsl:copy-of select="$title"/>
       </xsl:when>
@@ -1065,10 +1087,14 @@ Combination of formal.object and formal.object.heading -->
       <xsl:when test="$sequence='blank'">
         <xsl:choose>
           <xsl:when test="$double.sided != 0 and $position = 'left'">
-            <fo:page-number/>
+            <fo:inline xsl:use-attribute-sets="cnx.header.pagenumber">
+              <fo:page-number/>
+            </fo:inline>
           </xsl:when>
           <xsl:when test="$double.sided = 0 and $position = 'center'">
-            <fo:page-number/>
+            <fo:inline xsl:use-attribute-sets="cnx.header.pagenumber">
+              <fo:page-number/>
+            </fo:inline>
           </xsl:when>
           <xsl:otherwise>
             <!-- nop -->
