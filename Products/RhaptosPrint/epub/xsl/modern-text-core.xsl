@@ -62,7 +62,7 @@ procedure before
 
 <xsl:param name="cnx.font.large" select="$body.font.master * 1.2"/>
 <xsl:param name="cnx.font.larger" select="$body.font.master * 1.4"/>
-<xsl:param name="cnx.font.huge" select="$body.font.master * 6.0"/>
+<xsl:param name="cnx.font.huge" select="$body.font.master * 4.0"/>
 <xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
 <xsl:param name="cnx.color.blue">#0061AA</xsl:param>
 <xsl:param name="cnx.color.red">#D89016</xsl:param>
@@ -117,14 +117,6 @@ procedure before
   <xsl:attribute name="padding-before">5px</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="section.title.properties">
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <!-- font size is calculated dynamically by section.heading template -->
-  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
-  <xsl:attribute name="font-size">12pt</xsl:attribute>
-  <xsl:attribute name="padding-before">6pt</xsl:attribute>
-</xsl:attribute-set>
-
 <xsl:attribute-set name="example.title.properties" use-attribute-sets="cnx.formal.title.text">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
@@ -141,10 +133,17 @@ procedure before
   <xsl:attribute name="space-after.maximum">10</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="section.title.properties">
+<xsl:attribute-set name="section.title.level1.properties">
+  <xsl:attribute name="padding-before">6pt</xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
 </xsl:attribute-set>
-<xsl:attribute-set name="section.title.number" use-attribute-sets="section.title.properties">
+<xsl:attribute-set name="section.title.level2.properties">
+  <xsl:attribute name="padding-before">6pt</xsl:attribute>
+  <xsl:attribute name="font-weight">normal</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="section.title.number" use-attribute-sets="section.title.level1.properties">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
 
@@ -159,12 +158,24 @@ procedure before
   <xsl:attribute name="text-align">center</xsl:attribute>
 </xsl:attribute-set>
 
+<!-- "Check for Understanding" is an exercise whose problem 
+    is a list. These should be bold or larger
+-->
+<xsl:attribute-set name="cnx.exercise.listitem">
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
+
 <xsl:attribute-set name="formal.object.properties">
   <xsl:attribute name="space-before">1em</xsl:attribute>
   <xsl:attribute name="space-after">1em</xsl:attribute>
   <xsl:attribute name="keep-together">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <!--inherited overrides-->
+</xsl:attribute-set>
+
+<xsl:attribute-set name="informal.object.properties">
+  <xsl:attribute name="start-indent">1em</xsl:attribute>
+  <xsl:attribute name="end-indent">1em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="xref.properties">
@@ -239,9 +250,9 @@ procedure before
   <xsl:attribute name="border-style">solid</xsl:attribute>
   <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 -->
-  <xsl:attribute name="padding-left">0.05em</xsl:attribute>
+  <xsl:attribute name="padding-left">0.1em</xsl:attribute>
   <xsl:attribute name="padding-before">0.05em</xsl:attribute>
-  <xsl:attribute name="padding-after">0.05em</xsl:attribute>
+  <xsl:attribute name="padding-after">0em</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="text-align">left</xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.huge"/></xsl:attribute>
@@ -255,14 +266,16 @@ procedure before
   <xsl:attribute name="font-variant">small-caps</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.title"
+<xsl:attribute-set name="cnx.introduction.title">
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.title.text"
     use-attribute-sets="cnx.underscore">
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.table">
-  <xsl:attribute name="border-width">2px</xsl:attribute>
+  <xsl:attribute name="border-width">1px</xsl:attribute>
   <xsl:attribute name="border-style">solid</xsl:attribute>
   <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
@@ -290,8 +303,8 @@ procedure before
 <xsl:attribute-set name="cnx.introduction.toc.title">
   <xsl:attribute name="text-align">start</xsl:attribute>
   <xsl:attribute name="display-align">after</xsl:attribute>
-  <xsl:attribute name="padding-before">7pt</xsl:attribute>
-  <xsl:attribute name="padding-after">7pt</xsl:attribute>
+  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
+  <xsl:attribute name="padding-after">0.25em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.problems.title">
@@ -317,12 +330,12 @@ procedure before
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 </xsl:attribute-set>
 
+
 <!-- Page Headers should be marked as all-uppercase.
      Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
 -->
-<xsl:variable name="cnx.smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
-<xsl:variable name="cnx.uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-
+<xsl:variable name="cnx.smallcase" select="'abcdefghijklmnopqrstuvwxyz&#228;&#235;&#239;&#246;&#252;&#225;&#233;&#237;&#243;&#250;&#224;&#232;&#236;&#242;&#249;&#226;&#234;&#238;&#244;&#251;&#229;&#248;&#227;&#245;&#230;&#339;&#231;&#322;&#241;'"/>
+<xsl:variable name="cnx.uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ&#196;&#203;&#207;&#214;&#220;&#193;&#201;&#205;&#211;&#218;&#192;&#200;&#204;&#210;&#217;&#194;&#202;&#206;&#212;&#219;&#197;&#216;&#195;&#213;&#198;&#338;&#199;&#321;&#209;'"/>
 
 <!-- ============================================== -->
 <!-- Custom page layouts for modern-textbook        -->
@@ -557,25 +570,55 @@ procedure before
   <xsl:param name="title"/>
   <xsl:param name="marker.title"/>
 
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
+  <xsl:variable name="cnx.title">
+    <fo:inline xsl:use-attribute-sets="section.title.number">
+      <xsl:value-of select="substring-before($title, $marker.title)"/>
+    </fo:inline>
+    <xsl:copy-of select="$marker.title"/>
   </xsl:variable>
-  
-  <fo:block id="{$id}" xsl:use-attribute-sets="section.title.properties">
+
+  <fo:block xsl:use-attribute-sets="section.title.properties">
     <xsl:if test="$marker != 0">
       <fo:marker marker-class-name="section.head.marker">
         <xsl:copy-of select="$marker.title"/>
       </fo:marker>
     </xsl:if>
 
-    <fo:inline xsl:use-attribute-sets="section.title.number">
-      <xsl:value-of select="substring-before($title, $marker.title)"/>
-    </fo:inline>
-
-    <xsl:copy-of select="$marker.title"/>
+    <xsl:choose>
+      <xsl:when test="$level=1">
+        <fo:block xsl:use-attribute-sets="section.title.level1.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="$level=2">
+        <fo:block xsl:use-attribute-sets="section.title.level2.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="$level=3">
+        <fo:block xsl:use-attribute-sets="section.title.level3.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="$level=4">
+        <fo:block xsl:use-attribute-sets="section.title.level4.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="$level=5">
+        <fo:block xsl:use-attribute-sets="section.title.level5.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block xsl:use-attribute-sets="section.title.level6.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </fo:block>
-
 </xsl:template>
+
 
 <xsl:template name="chapter.titlepage">
   <!--
@@ -601,14 +644,17 @@ procedure before
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
   <fo:block xsl:use-attribute-sets="cnx.introduction.title">
-    <xsl:choose>
-      <xsl:when test="d:section[@class='introduction']/db:title">
-        <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:text>Introduction</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
+    <fo:inline xsl:use-attribute-sets="cnx.introduction.title.text">
+      <xsl:choose>
+        <xsl:when test="d:section[@class='introduction']/db:title">
+          <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>Introduction</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>&#160; &#160; &#160;</xsl:text>
+    </fo:inline>
   </fo:block>
   <xsl:apply-templates select="d:section[@class='introduction']/*[not(self::db:figure[@class='splash'])]"/>
 
@@ -621,7 +667,7 @@ procedure before
     <xsl:with-param name="content">
       <fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.introduction.toc.table">
         <fo:table-column column-width="0.5in"/>
-        <fo:table-column column-width="2in"/>
+        <fo:table-column column-width="3in"/>
         <fo:table-header>
           <fo:table-row>
             <fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
@@ -644,9 +690,9 @@ procedure before
   <xsl:param name="content"/>
 
   <fo:table width="100%" table-layout="fixed">
-    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column column-width="1in"/>
     <fo:table-column/>
-    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column column-width="1in"/>
     <fo:table-body start-indent="0pt">
       <fo:table-row>
         <fo:table-cell/>
@@ -868,12 +914,12 @@ Combination of formal.object and formal.object.heading -->
       </xsl:otherwise>
     </xsl:choose>
     <!-- FOP doesn't support @padding-end for fo:inline elements -->
-    <xsl:text>&#160;&#160;</xsl:text>
+    <xsl:text>&#160; &#160; &#160;</xsl:text>
     <xsl:apply-templates select="$object" mode="object.title.markup">
       <xsl:with-param name="allow-anchors" select="1"/>
     </xsl:apply-templates>
     <!-- FOP doesn't support @padding-end for fo:inline elements -->
-    <xsl:text>&#160;&#160;</xsl:text>
+    <xsl:text>&#160; &#160; &#160;</xsl:text>
   </xsl:variable>
 
   <!-- CNX: added special case for examples and notes -->
@@ -1005,6 +1051,18 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>
   </fo:block>
 </xsl:template>
+
+<!-- Lists inside an exercise (that isn't at the bottom of the chapter)
+     (ie "Check for Understanding")
+     have a larger number. overriding docbook-xsl/fo/lists.xsl
+     see <xsl:template match="d:orderedlist/d:listitem">
+ -->
+<xsl:template match="ext:exercise[not(ancestor-or-self::*[@class='problems-exercises'])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
+  <fo:wrapper xsl:use-attribute-sets="cnx.exercise.listitem">
+    <xsl:apply-imports/>
+  </fo:wrapper>
+</xsl:template>
+
 
 <!-- ============================================== -->
 <!-- Customize page headers                         -->
