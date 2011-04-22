@@ -5,13 +5,13 @@
     <c:section>
       <c:title>Forces</c:title>
       <c:section class="introduction">
-        <c:title>Custom Title for Introduction</c:title>
+        <c:title>Introduction</c:title>
         <c:figure id="chapter-title" class="splash">
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="chapter-title.png"/>
+          </c:media>
           <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit
 amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, ultricies sit amet pretium a, laoreet sit amet arcu mattis eu erat.</c:caption>
-          <c:media>
-            <c:image src="chapter-title.png"/>
-          </c:media>
         </c:figure>
         <c:para>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque et metus mattis et porttitor dui vulputate. In iaculis auctor pulvi- nar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Praesent nisl diam, iaculis quis aliquet id, vulputate in odio. Vestibulum lacus lacus, congue a vehicu- la condimentum, feugiat ut leo. Sed ut laoreet libero.
@@ -64,8 +64,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
             <c:para> Duis risus neque, posuere sit amet volutpat id, consectetur eget risus. Nulla nec magna felis, non varius urna. Nam tempor vehicula lobortis.
             </c:para>
             <c:figure>
-              <c:media>
-                <c:image src="ex1-2.png" width="200"/>
+              <c:media alt="INSERT_ALT_TEXT_HERE">
+                <c:image mime-type="image/jpeg" src="ex1-2.png" width="200"/>
               </c:media>
             </c:figure>
           </c:problem>
@@ -81,8 +81,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
           <c:problem>
             <c:para>In consequat dapibus felis, et vestibulum odio rutrum sed. Quisque dui odio, pretium aliquam porta sed, accumsan vel est. Mauris in placerat eros. Nunc semper sagittis magna quis dapibus.</c:para>
               <c:figure>
-                <c:media>
-                  <c:image src="ex1-1.png" width="200"/>
+                <c:media alt="INSERT_ALT_TEXT_HERE">
+                  <c:image mime-type="image/jpeg" src="ex1-1.png" width="200"/>
                 </c:media>
               </c:figure>
 
@@ -96,7 +96,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing neque 
         <c:para>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscingneque et metus mattis et porttitor dui vulputate. In iaculis auctor pulvinar. Sed interdum metus tellus, vitae ullamcorper elit. Sed non elit urna.</c:para>
         <c:section>
           <c:title>B-Head</c:title>
-          <c:para>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In <c:emphasis>[hac habitasse]</c:emphasis>
+          <c:para>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In <c:term>hac habitasse</c:term>
                         
                         
                     
@@ -118,15 +118,15 @@ Every particle in the universe exerts an attractive force on every other par- ti
           <c:para>Donec dignissim dolor quam, eu gravida urna. Etiam pharetra diam non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas in luctus a, semper ac est. Pellentesque tincidunt lectus non magna tristique non commodo augue molestie. Duis quis erat quam. Integer eget mattis arcu. Vestibulum ut dolor quam. Mauris et elit mauris, id ornare nibh. Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultri- cies at et velit.</c:para>
           <c:para>Hasellus vel sem sollicitudin nunc sodales sollicitudin. Vivamus imperdiet luctus ligula, eget laoreet orci eleifend in. Curabitur sit amet lectus ut magna sodales ultricies. Nam tortor nisi, fermentum ac suscipit sed, malesuada euismod turpis. Phasellus lorem nibh, dignissim in feugiat eget, sodales in nisl. Nullam a augue libero, quis congue metus vitae metus. Ut eu nunc non tortor facilisis scelerisque. Nullam sit amet neque arcu, at fringilla magna. Proin scelerisque eleifend massa, vitae consequat tellus condimentum in. Praesent viverra pretium est sit amet feugiat. Prae- sent erat dui, condimentum et rhoncus semper, tincidunt at velit.</c:para>
           <c:figure id="fig2">
-            <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
-            <c:media>
-              <c:image src="fig-4.2.png" height="" width=""/>
+            <!-- <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption> -->
+            <c:media alt="INSERT_ALT_TEXT_HERE">
+              <c:image mime-type="image/jpeg" src="fig-4.2.png" height="" width=""/>
             </c:media>
           </c:figure>
           <c:figure id="fig3">
-            <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique.</c:caption>
-            <c:media>
-              <c:image src="fig-4.3.png" height="" width=""/>
+            <!-- <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique.</c:caption> -->
+            <c:media alt="INSERT_ALT_TEXT_HERE">
+              <c:image mime-type="image/jpeg" src="fig-4.3.png" height="" width=""/>
             </c:media>
           </c:figure>
 
@@ -142,7 +142,7 @@ Every particle in the universe exerts an attractive force on every other par- ti
             <c:item>Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at et velit.</c:item>
           </c:list>
           </c:problem>
-          <c:solution>
+          <c:solution print-placement="here">
             <c:label>Answers</c:label>
 
           <c:list list-type="enumerated">
@@ -157,11 +157,11 @@ Every particle in the universe exerts an attractive force on every other par- ti
       </c:section>
       <!-- New module! -->
       <c:section id="normal-force">
-        <c:title>Normal Force</c:title>
+        <c:title>Physical Origin of the Normal Force</c:title>
         <c:figure id="fig4">
-          <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
-          <c:media>
-            <c:image src="fig4.png"/>
+          <!-- <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption> -->
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig4.png"/>
           </c:media>
         </c:figure>
         <c:para>Vivamus condimentum <c:link target-id="fig4"/>
@@ -179,19 +179,20 @@ Every particle in the universe exerts an attractive force on every other par- ti
       <c:para>Praesent scelerisque mi purusd orci fringilla lacinia porta purus id orci fringilla lacinia</c:para>
     </c:note>
         <c:figure id="fig5">
-          <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat.</c:caption>
-          <c:media>
-            <c:image src="fig-4.5.png"/>
+          <!-- <c:caption>Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat.</c:caption> -->
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig-4.5.png"/>
           </c:media>
         </c:figure>
-        <c:note class="important">
+        <c:note>
+          <c:label/>
           <c:title>Newton's First Law of Motion</c:title>
           <c:para>An object continues in a state of rest or in a state of motion at a constant velocity (contstant speed in a constant direction), unless compelled to change that state by a net force.</c:para>
         </c:note>
         <c:figure id="fig6">
-          <c:caption/>
-          <c:media>
-            <c:image src="fig-4.6.png"/>
+          
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig-4.6.png"/>
           </c:media>
         </c:figure>
         <c:para>orci luctus et ultrices posuere cubilia Curae; Pellentesque quis mauris nec erat sodales molestie. <c:link target-id="fig6"/>
@@ -205,21 +206,14 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
                       . Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultricies at et velit.
 </c:para>
         <c:figure id="fig7">
-          <c:caption/>
-          <c:media>
-            <c:image src="fig7.png"/>
+          
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig7.png"/>
           </c:media>
         </c:figure>
         <c:equation id="eq1">
-          <c:para>
-            <c:emphasis>force = mass X acceleration</c:emphasis>
-          </c:para>
-          <c:para>or <c:emphasis type="bold">OR</c:emphasis>
-          </c:para>
-          <c:para>
-            <c:emphasis>f = ma</c:emphasis>
-          </c:para>
-          <c:para>(Insert some MathML here)</c:para>
+          force = mass X acceleration
+          (Insert some MathML here)
         </c:equation>
 <c:note type="concept-check">
 <c:label>Concept Check</c:label>
@@ -237,21 +231,17 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
             <c:title>Walking Exercise</c:title>
             <c:problem>
               <c:para>Pellentesque vitae mi justo. Cras massa libero, interdum non mattis ves- tibulum, tincidunt et velit. Ut vulputate dui nec nibh malesuada vehicula. Praesent tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tortor sed massa. Morbi porttitor augue ut ligula ultricies dapibus.</c:para>
-              <c:figure id="ex1-fig1">
-                <c:media>
-                  <c:image src="ex1-1.png"/>
+                <c:media alt="INSERT_ALT_TEXT_HERE" id="ex1-fig1">
+                  <c:image mime-type="image/jpeg" src="ex1-1.png"/>
                 </c:media>
-              </c:figure>
               <c:para>Sed sed ligula turpis. Cras et nulla nibh, eu malesuada urna.</c:para>
             </c:problem>
             <c:solution print-placement="here" type="strategy">
               <c:label>Strategy</c:label>
               <c:para>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Maecenas eget turpis sem, in molestie ante. Suspendisse tempor, ante vel pellentesque gravida, diam nulla iaculis eros, id sodales elit elit vitae urna. Vivamus porta purus id orci fringilla lacinia.</c:para>
-              <c:figure id="ex1-fig2">
-                <c:media>
-                  <c:image src="ex1-2.png"/>
+                <c:media alt="INSERT_ALT_TEXT_HERE" id="ex1-fig2">
+                  <c:image mime-type="image/jpeg" src="ex1-2.png"/>
                 </c:media>
-              </c:figure>
             </c:solution>
             <c:solution print-placement="here">
               <c:para>Nulla facilisi. Suspendisse nec purus augue, vel ornare metus. Morbi mattis arcu in urna venenatis semper. Nam vel lacinia felis. Suspendisse porta nibh velit. Ut ut nulla massa, sit amet ultrices neque. Pellentesque vitae purus felis.</c:para>
@@ -318,8 +308,8 @@ ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, la
 et velit.</c:para>
 
         <c:figure id="fig8">
-          <c:media>
-            <c:image src="fig8.png"/>
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig8.png"/>
           </c:media>
         </c:figure>
 
@@ -354,15 +344,15 @@ um nisi. Integer facilisis condimentum augue, id lobortis dolor dignissim eget. 
 vehicula.
 </c:para>
         <c:figure id="fig9">
-          <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Lam porta rhoncus nisl sit amet tristique.</c:caption>
-          <c:media>
-            <c:image src="fig9.png"/>
+          <!-- <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique. Lam porta rhoncus nisl sit amet tristique.</c:caption> -->
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig9.png"/>
           </c:media>
         </c:figure>
         <c:figure id="fig10">
-          <c:caption>Tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tor- tor sed massa.</c:caption>
-          <c:media>
-            <c:image src="fig10.png"/>
+          <!-- <c:caption>Tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euismod nisl tor- tor sed massa.</c:caption> -->
+          <c:media alt="INSERT_ALT_TEXT_HERE">
+            <c:image mime-type="image/jpeg" src="fig10.png"/>
           </c:media>
         </c:figure>
         <c:para>Praesent tortor justo, dignissim quis convallis in, molestie sit amet enim. In porttitor, justo eu convallis sodales, nisl est sagittis nisi, a euis- mod nisl tortor sed massa. Morbi porttitor augue u
