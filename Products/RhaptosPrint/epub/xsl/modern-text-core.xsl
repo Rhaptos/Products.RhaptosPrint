@@ -29,7 +29,7 @@
 
 <xsl:param name="body.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
-<xsl:param name="body.font.master">10</xsl:param>
+<xsl:param name="body.font.master">9.5</xsl:param>
 
 <xsl:param name="header.rule" select="0"/>
 
@@ -42,6 +42,8 @@ book      toc,title
 <!-- To get page titles to match left/right alignment, we need to add blank pages between chapters (wi they all start on the same left/right side) -->
 <xsl:param name="double.sided" select="1"/>
 
+<xsl:param name="page.margin.top">0.25in</xsl:param>
+<xsl:param name="page.margin.bottom">0.25in</xsl:param>
 <xsl:param name="page.margin.inner">1.5in</xsl:param>
 <xsl:param name="page.margin.outer">1.5in</xsl:param>
 <xsl:param name="cnx.margin.problems">1in</xsl:param>
@@ -60,6 +62,7 @@ procedure before
 <!-- Customize colors and formatting                -->
 <!-- ============================================== -->
 
+<xsl:param name="cnx.font.small" select="$body.font.master * 0.8"/>
 <xsl:param name="cnx.font.large" select="$body.font.master * 1.2"/>
 <xsl:param name="cnx.font.larger" select="$body.font.master * 1.4"/>
 <xsl:param name="cnx.font.huge" select="$body.font.master * 4.0"/>
@@ -70,6 +73,10 @@ procedure before
 <xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
 <xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
 <xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+
+<xsl:attribute-set name="root.properties">
+  <xsl:attribute name="font-stretch">semi-condensed</xsl:attribute><!--light-->
+</xsl:attribute-set>
 
 <xsl:attribute-set name="list.item.spacing">
   <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
@@ -166,8 +173,14 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="formal.object.properties">
-  <xsl:attribute name="space-before">1em</xsl:attribute>
-  <xsl:attribute name="space-after">1em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0em</xsl:attribute>
+
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
+
   <xsl:attribute name="keep-together">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <!--inherited overrides-->
@@ -186,7 +199,8 @@ procedure before
 <xsl:attribute-set name="admonition.title.properties"
     use-attribute-sets="cnx.underscore">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$body.font.master"/></xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+  <xsl:attribute name="font-weight">normal</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="nongraphical.admonition.properties">
@@ -323,7 +337,7 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.pagenumber">
-  <xsl:attribute name="font-weight">thin</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.header.separator">
@@ -950,66 +964,66 @@ Combination of formal.object and formal.object.heading -->
     <xsl:call-template name="pi.dbfo_keep-together"/>
   </xsl:variable>
 
-      <fo:block>
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together"><xsl:value-of
-                          select="$keep.together"/></xsl:attribute>
-        </xsl:if>
+  <fo:wrapper>
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
 
-  <xsl:apply-templates mode="formal.object.heading" select=".">
-    <xsl:with-param name="placement" select="$placement"/>
-  </xsl:apply-templates>
-
-  <xsl:variable name="content">
-    <xsl:apply-templates select="*[not(self::d:caption)]"/>
-    <xsl:apply-templates select="d:caption"/>
-  </xsl:variable>
-
-  <xsl:choose>
-    <!-- tables have their own templates and
-         are not handled by formal.object -->
-    <xsl:when test="self::d:example">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="example.properties">
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together"><xsl:value-of
-                          select="$keep.together"/></xsl:attribute>
-        </xsl:if>
-        <xsl:copy-of select="$content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="self::d:equation">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="cnx.equation">
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together"><xsl:value-of
-                          select="$keep.together"/></xsl:attribute>
-        </xsl:if>
-        <xsl:copy-of select="$content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="self::d:procedure">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="procedure.properties">
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together"><xsl:value-of
-                          select="$keep.together"/></xsl:attribute>
-        </xsl:if>
-        <xsl:copy-of select="$content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:otherwise>
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="formal.object.properties">
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together"><xsl:value-of
-                          select="$keep.together"/></xsl:attribute>
-        </xsl:if>
-        <xsl:copy-of select="$content"/>
-      </fo:block>
-    </xsl:otherwise>
-  </xsl:choose>
-      </fo:block>
+    <xsl:apply-templates mode="formal.object.heading" select=".">
+      <xsl:with-param name="placement" select="$placement"/>
+    </xsl:apply-templates>
+  
+    <xsl:variable name="content">
+      <xsl:apply-templates select="*[not(self::d:caption)]"/>
+      <xsl:apply-templates select="d:caption"/>
+    </xsl:variable>
+  
+    <xsl:choose>
+      <!-- tables have their own templates and
+           are not handled by formal.object -->
+      <xsl:when test="self::d:example">
+        <fo:block id="{$id}"
+                  xsl:use-attribute-sets="example.properties">
+          <xsl:if test="$keep.together != ''">
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+          </xsl:if>
+          <xsl:copy-of select="$content"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="self::d:equation">
+        <fo:block id="{$id}"
+                  xsl:use-attribute-sets="cnx.equation">
+          <xsl:if test="$keep.together != ''">
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+          </xsl:if>
+          <xsl:copy-of select="$content"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="self::d:procedure">
+        <fo:block id="{$id}"
+                  xsl:use-attribute-sets="procedure.properties">
+          <xsl:if test="$keep.together != ''">
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+          </xsl:if>
+          <xsl:copy-of select="$content"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block id="{$id}"
+                  xsl:use-attribute-sets="formal.object.properties">
+          <xsl:if test="$keep.together != ''">
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+          </xsl:if>
+          <xsl:copy-of select="$content"/>
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
+  </fo:wrapper>
 
 </xsl:template>
 
@@ -1043,7 +1057,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <!-- Concept Check -->
-<xsl:template match="db:note[@type='check']">
+<xsl:template match="db:note[@type='concept-check']">
   <fo:block xsl:use-attribute-sets="cnx.note.concept">
     <fo:block xsl:use-attribute-sets="cnx.note.concept.title">
       <xsl:apply-templates select="db:title/node()|db:label/node()"/>
@@ -1135,7 +1149,9 @@ Combination of formal.object and formal.object.heading -->
                       and $position='right'">
         <xsl:copy-of select="$title"/>
         <xsl:text> &#160; &#160; </xsl:text>
-        <fo:page-number/>
+        <fo:inline xsl:use-attribute-sets="cnx.header.pagenumber">
+          <fo:page-number/>
+        </fo:inline>
       </xsl:when>
 
       <xsl:when test="$double.sided = 0 and $position='center'">
