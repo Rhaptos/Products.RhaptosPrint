@@ -62,10 +62,10 @@ procedure before
 <!-- Customize colors and formatting                -->
 <!-- ============================================== -->
 
-<xsl:param name="cnx.font.small" select="$body.font.master * 0.8"/>
-<xsl:param name="cnx.font.large" select="$body.font.master * 1.2"/>
-<xsl:param name="cnx.font.larger" select="$body.font.master * 1.4"/>
-<xsl:param name="cnx.font.huge" select="$body.font.master * 4.0"/>
+<xsl:param name="cnx.font.small" select="concat($body.font.master * 0.8, 'pt')"/>
+<xsl:param name="cnx.font.large" select="concat($body.font.master * 1.2, 'pt')"/>
+<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.4, 'pt')"/>
+<xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
 <xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
 <xsl:param name="cnx.color.blue">#0061AA</xsl:param>
 <xsl:param name="cnx.color.red">#D89016</xsl:param>
@@ -131,7 +131,7 @@ procedure before
 <xsl:attribute-set name="figure.title.properties"
                    use-attribute-sets="normal.para.spacing">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.red"/></xsl:attribute>
-  <xsl:attribute name="font-size">8</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
 
   <xsl:attribute name="font-weight">bold</xsl:attribute>
   <xsl:attribute name="hyphenate">false</xsl:attribute>
@@ -182,7 +182,7 @@ procedure before
   <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
 
   <xsl:attribute name="keep-together">1</xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
+  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
 </xsl:attribute-set>
 
