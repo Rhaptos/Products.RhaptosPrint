@@ -118,16 +118,16 @@ Every particle in the universe exerts an attractive force on every other par- ti
           <c:para>Donec dignissim dolor quam, eu gravida urna. Etiam pharetra diam non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas in luctus a, semper ac est. Pellentesque tincidunt lectus non magna tristique non commodo augue molestie. Duis quis erat quam. Integer eget mattis arcu. Vestibulum ut dolor quam. Mauris et elit mauris, id ornare nibh. Nullam at tortor ac elit auctor lacinia. Vestibulum velit augue, ultricies sit amet pretium a, laoreet sit amet arcu. Vestibulum mi enim, ultrices sed pulvinar vitae, mattis eu erat. Morbi et sem in enim gravida ultri- cies at et velit.</c:para>
           <c:para>Hasellus vel sem sollicitudin nunc sodales sollicitudin. Vivamus imperdiet luctus ligula, eget laoreet orci eleifend in. Curabitur sit amet lectus ut magna sodales ultricies. Nam tortor nisi, fermentum ac suscipit sed, malesuada euismod turpis. Phasellus lorem nibh, dignissim in feugiat eget, sodales in nisl. Nullam a augue libero, quis congue metus vitae metus. Ut eu nunc non tortor facilisis scelerisque. Nullam sit amet neque arcu, at fringilla magna. Proin scelerisque eleifend massa, vitae consequat tellus condimentum in. Praesent viverra pretium est sit amet feugiat. Prae- sent erat dui, condimentum et rhoncus semper, tincidunt at velit.</c:para>
           <c:figure id="fig2">
-            <!-- <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption> -->
             <c:media alt="INSERT_ALT_TEXT_HERE">
               <c:image mime-type="image/jpeg" src="fig-4.2.png" height="" width=""/>
             </c:media>
+            <c:caption>Etiam tincidunt enim in lectus varius ullamcorper. Cras in quam mi, feugiat consequat nisl. Quisque ac- cumsan pulvinar velit id dictum.</c:caption>
           </c:figure>
           <c:figure id="fig3">
-            <!-- <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique.</c:caption> -->
             <c:media alt="INSERT_ALT_TEXT_HERE">
               <c:image mime-type="image/jpeg" src="fig-4.3.png" height="" width=""/>
             </c:media>
+            <c:caption>Praesent scelerisque mi et purus porttitor et lobortis nisi elementum. Nam porta rhoncus nisl sit amet tristique.</c:caption>
           </c:figure>
 
           <c:para>Vivamus condimentum Figure 4.3 ultricies erat eget imperdiet. Vivamus condimentum ultrices tellus, quis facilisis ligula semper eu semper lacus, in viverra libero gravida eu. Fusce est eros, hendrerit vitae viverra ut, sollicitudin placerat sem. Cras in quam mi, feugiat consequat nisl. Quisque accumsan pulvinar velit id dictum. Maecenas tempus erat a lectus posuere et tincidunt ligula ultrices.</c:para>
@@ -249,6 +249,11 @@ non massa ullamcorper et interdum ipsum molestie. Mauris turpis felis, egestas i
           </c:exercise>
         </c:example>
 
+          <c:exercise type="conceptual-questions" class="conceptual-questions">
+            <c:problem>
+              <c:para>This is a conceptual question. <c:link target-id="fig4"/></c:para>
+            </c:problem>
+          </c:exercise>
           <c:exercise class="problems-exercises">
             <c:problem>
               <c:para>Vivamus semper interdum turpis a semper. Nam vehicula tortor a metus iaculis pellentesque. <c:link target-id="fig4"/>
