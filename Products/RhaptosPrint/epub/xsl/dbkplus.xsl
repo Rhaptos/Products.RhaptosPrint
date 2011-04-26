@@ -282,11 +282,27 @@
 
 <xsl:template match="ext:exercise" mode="number">
 	<xsl:call-template name="cnx.chapter.number"/>
-        <xsl:if test="ancestor::db:section[@ext:element='module']">
-                <xsl:number format="1" level="any" from="db:chapter" count="*[@ext:element='module']"/>
-		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
+  <xsl:if test="ancestor::db:section[@ext:element='module']">
+    <xsl:number format="1" level="any" from="db:chapter" count="*[@ext:element='module']"/>
+    <xsl:apply-templates select="." mode="intralabel.punctuation"/>
+    <xsl:call-template name="number-based-on-element-and-type"/>
 	</xsl:if>
-	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::db:example)]"/>
+</xsl:template>
+
+<!-- Some elements like exercises are numbered based on the @type.
+     This means that there may exist 2 "Exercise 4.1" in a chapter
+-->
+<xsl:template name="number-based-on-element-and-type">
+  <xsl:param name="name" select="local-name()"/>
+  <xsl:param name="type" select="@type"/>
+  <xsl:choose>
+    <xsl:when test="$type and $type != ''">
+      <xsl:number format="1." level="any" from="*[@ext:element='module']" count="*[local-name()=$name][not(ancestor::db:example) and @type=$type]"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:number format="1." level="any" from="*[@ext:element='module']" count="*[local-name()=$name][not(ancestor::db:example)]"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor::db:example]" mode="number">

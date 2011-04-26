@@ -157,7 +157,7 @@ procedure before
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
 <xsl:attribute-set name="cnx.figure.properties">
   <xsl:attribute name="keep-together">1</xsl:attribute>
-  <xsl:attribute name="font-size">8</xsl:attribute>
+  <xsl:attribute name="font-size">8pt</xsl:attribute>
   <xsl:attribute name="padding-after">0.5em</xsl:attribute>
 </xsl:attribute-set>
 
@@ -511,6 +511,36 @@ procedure before
 
       <xsl:apply-templates/>
 
+
+      <!-- TODO: Create a 1-column Chapter Summary -->
+      
+      <!-- Create a 1-column Listing of Conceptual Questions -->
+      <xsl:if test="count(.//*[@class='conceptual-questions']) &gt; 0">
+        <xsl:comment>CNX: Start Conceptual Questions Area</xsl:comment>
+        <fo:block xsl:use-attribute-sets="cnx.formal.title">
+          <fo:inline xsl:use-attribute-sets="example.title.properties">
+            <xsl:text>&#160; &#160; Conceptual Questions &#160; &#160;</xsl:text>
+          </fo:inline>
+        </fo:block>
+        
+        <xsl:for-each select="db:section[.//*[@class='conceptual-questions']]">
+          <xsl:variable name="sectionId">
+            <xsl:call-template name="object.id"/>
+          </xsl:variable>
+          <!-- Print the section title and link back to it -->
+          <fo:block xsl:use-attribute-sets="cnx.problems.title">
+            <fo:basic-link internal-destination="{$sectionId}">
+              <xsl:apply-templates select="." mode="object.title.markup">
+                <xsl:with-param name="allow-anchors" select="0"/>
+              </xsl:apply-templates>
+            </fo:basic-link>
+          </fo:block>
+          <xsl:apply-templates select=".//*[@class='conceptual-questions']">
+            <xsl:with-param name="render" select="true()"/>
+          </xsl:apply-templates>
+        </xsl:for-each>
+      </xsl:if>
+
     </xsl:with-param>
   </xsl:call-template>
   
@@ -529,7 +559,7 @@ procedure before
       
         <fo:block xsl:use-attribute-sets="cnx.formal.title">
           <fo:inline xsl:use-attribute-sets="example.title.properties">
-            <xsl:text>&#160; Problems &#160;</xsl:text>
+            <xsl:text>&#160; &#160; Problems &#160; &#160;</xsl:text>
           </fo:inline>
         </fo:block>
         
@@ -555,7 +585,7 @@ procedure before
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises']]">
+<xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises' or @class='conceptual-questions']]">
 <xsl:param name="render" select="false()"/>
 <xsl:if test="$render">
   <xsl:variable name="id">
@@ -571,6 +601,18 @@ procedure before
     <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
   </fo:block>
 </xsl:if>
+</xsl:template>
+
+<xsl:template match="ext:exercise" mode="number">
+  <xsl:param name="type" select="@type"/>
+  <xsl:choose>
+    <xsl:when test="$type and $type != ''">
+      <xsl:number format="1." level="any" from="db:chapter" count="ext:exercise[not(ancestor::db:example) and @type=$type]"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:number format="1." level="any" from="db:chapter" count="ext:exercise[not(ancestor::db:example)]"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 

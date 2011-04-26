@@ -43,7 +43,14 @@
 	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@type|@src|@format|@alt"/>
+<xsl:template match="@src|@format|@alt"/>
+<!-- Pass @type through so exercises, examples, etc are re-numberred based on type -->
+<xsl:template match="*/@type">
+  <xsl:copy>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="c:note/@*">
     <xsl:attribute name="{local-name()}">
         <xsl:value-of select="."/>
