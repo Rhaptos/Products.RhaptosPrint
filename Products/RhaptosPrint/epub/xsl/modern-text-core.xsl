@@ -513,6 +513,24 @@ procedure before
 
 
       <!-- TODO: Create a 1-column Chapter Summary -->
+      <xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
+        <fo:block space-before="2em" space-after="2em">
+          <fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.introduction.toc.table">
+            <fo:table-column column-width="0.5in"/>
+            <fo:table-column column-width="5in"/>
+            <fo:table-header>
+              <fo:table-row>
+                <fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
+                  <fo:block><xsl:text>Chapter Summary</xsl:text></fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-header>
+            <fo:table-body>
+              <xsl:apply-templates mode="cnx.chapter.summary" select="db:section"/>
+            </fo:table-body>
+          </fo:table>
+        </fo:block>
+      </xsl:if>
       
       <!-- Create a 1-column Listing of Conceptual Questions -->
       <xsl:if test="count(.//*[@class='conceptual-questions']) &gt; 0">
@@ -583,6 +601,26 @@ procedure before
       </xsl:with-param>
     </xsl:call-template>
   </xsl:if>
+</xsl:template>
+
+<xsl:template mode="cnx.chapter.summary" match="db:section[not(@class='introduction') and db:sectioninfo/db:abstract]">
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+  <fo:table-row xsl:use-attribute-sets="cnx.introduction.toc.row">
+    <fo:table-cell padding-left="1em">
+      <fo:block xsl:use-attribute-sets="cnx.introduction.toc.number">
+        <fo:basic-link internal-destination="{$id}" xsl:use-attribute-sets="cnx.introduction.toc.number.inline">
+          <xsl:apply-templates mode="label.markup" select="."/>
+        </fo:basic-link>
+      </fo:block>
+    </fo:table-cell>
+    <fo:table-cell>
+      <fo:block xsl:use-attribute-sets="cnx.introduction.toc.title">
+        <xsl:apply-templates select="db:sectioninfo/db:abstract"/>
+      </fo:block>
+    </fo:table-cell>
+  </fo:table-row>
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises' or @class='conceptual-questions']]">
