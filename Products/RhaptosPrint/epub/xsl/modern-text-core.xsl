@@ -30,6 +30,7 @@
 <xsl:param name="body.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
 <xsl:param name="body.font.master">9.5</xsl:param>
+<xsl:param name="body.start.indent">0px</xsl:param>
 
 <xsl:param name="header.rule" select="0"/>
 
@@ -185,6 +186,10 @@ procedure before
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
 </xsl:attribute-set>
+
+<!-- Used to get the indent working properly -->
+<xsl:attribute-set name="cnx.formal.object.inner"
+  use-attribute-sets="informal.object.properties"/>
 
 <xsl:attribute-set name="informal.object.properties">
   <xsl:attribute name="start-indent">1em</xsl:attribute>
@@ -1055,8 +1060,10 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   
     <xsl:variable name="content">
-      <xsl:apply-templates select="*[not(self::d:caption)]"/>
-      <xsl:apply-templates select="d:caption"/>
+      <fo:block xsl:use-attribute-sets="cnx.formal.object.inner">
+        <xsl:apply-templates select="*[not(self::d:caption)]"/>
+        <xsl:apply-templates select="d:caption"/>
+      </fo:block>
     </xsl:variable>
   
     <xsl:choose>
