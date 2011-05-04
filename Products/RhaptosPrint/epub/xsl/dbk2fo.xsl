@@ -11,7 +11,7 @@
 <xsl:import href="../docbook-xsl/fo/docbook.xsl"/>
 <xsl:import href="dbkplus.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="yes" method="xml" encoding="ASCII"/>
 
 <!-- Enable Apache FOP specific extensions (and disable things unsupported in FOP) -->
 <xsl:param name="fop1.extensions" select="1"/>
