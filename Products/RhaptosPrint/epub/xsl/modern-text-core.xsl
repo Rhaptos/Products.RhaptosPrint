@@ -228,10 +228,10 @@ procedure before
 <xsl:attribute-set name="cnx.note.concept" use-attribute-sets="cnx.note">
   <xsl:attribute name="padding-before">0.5em</xsl:attribute>
   <xsl:attribute name="padding-left">1em</xsl:attribute>
-  <xsl:attribute name="border-top-width">2px</xsl:attribute>
+  <xsl:attribute name="border-top-width">1px</xsl:attribute>
   <xsl:attribute name="border-top-style">solid</xsl:attribute>
   <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-width">2px</xsl:attribute>
+  <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
@@ -326,9 +326,16 @@ procedure before
   <xsl:attribute name="padding-after">0.25em</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.problems.title">
+<xsl:attribute-set name="cnx.problems.title"
+    use-attribute-sets="cnx.problems.subtitle">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.problems.subtitle">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
   <xsl:attribute name="padding-before">0.25em</xsl:attribute>
 </xsl:attribute-set>
@@ -628,21 +635,43 @@ procedure before
   </fo:table-row>
 </xsl:template>
 
+<!-- Renders an exercise only when "render" is set to true().
+     This allows us to move certain problem-sets to the end of a chapter.
+     Also, wither it renders the problem or the solution.
+     This way we can render the solutions at the end of a book
+-->
 <xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises' or @class='conceptual-questions']]">
 <xsl:param name="render" select="false()"/>
+<xsl:param name="renderSolution" select="false()"/>
 <xsl:if test="$render">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
-  <fo:block id="{$id}" xsl:use-attribute-sets="informal.object.properties">
-    <xsl:apply-templates select="." mode="number"/>
-    <xsl:text> </xsl:text>
-    <xsl:variable name="first">
-      <xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
-    </xsl:variable>
-    <xsl:copy-of select="$first"/>
-    <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
-  </fo:block>
+  <xsl:if test="not(not($renderSolution) or ext:solution)">
+    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
+  </xsl:if>
+  <xsl:if test="not($renderSolution) or ext:solution">
+    <fo:block id="{$id}" xsl:use-attribute-sets="informal.object.properties">
+      <xsl:apply-templates select="." mode="number"/>
+      <xsl:text> </xsl:text>
+      <xsl:choose>
+        <xsl:when test="$renderSolution">
+          <xsl:variable name="first">
+            <xsl:apply-templates select="ext:solution/*[position() = 1]/node()"/>
+          </xsl:variable>
+          <xsl:copy-of select="$first"/>
+          <xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="first">
+            <xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+          </xsl:variable>
+          <xsl:copy-of select="$first"/>
+          <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </fo:block>
+  </xsl:if>
 </xsl:if>
 </xsl:template>
 
@@ -658,6 +687,70 @@ procedure before
   </xsl:choose>
 </xsl:template>
 
+<!-- ============================================== -->
+<!-- New Feature: Solutions at end of book          -->
+<!-- ============================================== -->
+
+<!-- when the placeholder element is encountered (since I didn't want to
+      rewrite the match="d:book" template) run a nested for-loop on all
+      chapters (and then sections) that contain a solution to be printed ( *[@class='problems-exercises' and .//ext:solution] ).
+      Print the "exercise" solution with numbering.
+-->
+<xsl:template match="ext:cnx-solutions-placeholder[..//*[@class='problems-exercises' and .//ext:solution]]">
+  <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
+
+  <xsl:call-template name="page.sequence">
+    <xsl:with-param name="master-reference">
+      <xsl:value-of select="$cnx.pagemaster.problems"/>
+    </xsl:with-param>
+    <xsl:with-param name="initial-page-number">auto</xsl:with-param>
+    <xsl:with-param name="content">
+  
+      <fo:marker marker-class-name="section.head.marker">
+        <xsl:text>Answers</xsl:text>
+      </fo:marker>
+    
+      <fo:block xsl:use-attribute-sets="cnx.formal.title">
+        <fo:inline xsl:use-attribute-sets="example.title.properties">
+          <xsl:text>&#160; &#160; Answers &#160; &#160;</xsl:text>
+        </fo:inline>
+      </fo:block>
+      
+      <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[@class='problems-exercises' and .//ext:solution]]">
+  
+        <xsl:variable name="chapterId">
+          <xsl:call-template name="object.id"/>
+        </xsl:variable>
+        <!-- Print the chapter number (not title) and link back to it -->
+        <fo:block xsl:use-attribute-sets="cnx.problems.title">
+          <fo:basic-link internal-destination="{$chapterId}">
+            <xsl:apply-templates select="." mode="object.xref.markup"/>
+          </fo:basic-link>
+        </fo:block>
+
+        <xsl:for-each select="db:section[.//*[@class='problems-exercises']]">
+          <xsl:variable name="sectionId">
+            <xsl:call-template name="object.id"/>
+          </xsl:variable>
+          <!-- Print the section title and link back to it -->
+          <fo:block xsl:use-attribute-sets="cnx.problems.subtitle">
+            <fo:basic-link internal-destination="{$sectionId}">
+              <xsl:apply-templates select="." mode="object.title.markup">
+                <xsl:with-param name="allow-anchors" select="0"/>
+              </xsl:apply-templates>
+            </fo:basic-link>
+          </fo:block>
+          <xsl:apply-templates select=".//*[@class='problems-exercises']">
+            <xsl:with-param name="render" select="true()"/>
+            <xsl:with-param name="renderSolution" select="true()"/>
+          </xsl:apply-templates>
+        </xsl:for-each>
+
+      </xsl:for-each>
+  
+    </xsl:with-param>
+  </xsl:call-template>
+</xsl:template>
 
 <!-- ============================================== -->
 <!-- New Feature: @class='introduction'             -->
@@ -1176,7 +1269,7 @@ Combination of formal.object and formal.object.heading -->
   <xsl:param name="position" select="''"/>
   <xsl:param name="gentext-key" select="''"/>
 
-  <xsl:variable name="context" select="ancestor-or-self::*[self::db:preface | self::db:chapter | self::db:appendix]"/>
+  <xsl:variable name="context" select="ancestor-or-self::*[self::db:preface | self::db:chapter | self::db:appendix | self::ext:cnx-solutions-placeholder]"/>
 
   <xsl:variable name="subtitle">
     <!-- Don't render the section name.

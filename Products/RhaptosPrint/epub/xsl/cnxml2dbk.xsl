@@ -59,8 +59,10 @@
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
     <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
                                                   .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
+-->
     <xsl:variable name="lang" select="c:metadata/md:language/text()"/>
     <db:section ext:element="module" lang="{$lang}"
             ext:url="{c:metadata/md:content-url/text()}/"
@@ -74,12 +76,14 @@
         
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move some exercise solutions to the end of a module -->
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
         <xsl:if test="$moving.solutions">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
                         <xsl:apply-templates select="$moving.solutions" />
         	</db:section>
         </xsl:if>
+-->
         <xsl:apply-templates select="c:glossary"/>
         <xsl:for-each select="bib:file">
             <db:section>
@@ -408,18 +412,25 @@
 </xsl:template>
 
 <!-- Create a custom ext:exercise element that will be converted and labeled later on -->
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
 <xsl:template match="c:exercise">
 	<ext:exercise>
 		<xsl:apply-templates select="@*|node()[not(self::c:solution[not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end'])]"/>
 	</ext:exercise>
 </xsl:template>
 
-<!-- Create a custom ext:exercise element that will be converted and labeled later on -->
 <xsl:template match="c:exercise[ancestor::c:example]">
 	<ext:exercise>
 		<xsl:apply-templates select="@*|node()[not(self::c:solution[@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))])]"/>
 	</ext:exercise>
 </xsl:template>
+-->
+<xsl:template match="c:exercise">
+	<ext:exercise>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:exercise>
+</xsl:template>
+
 
 <!-- Create a custom ext:problem element that will be converted and labeled later on -->
 <xsl:template match="c:problem">

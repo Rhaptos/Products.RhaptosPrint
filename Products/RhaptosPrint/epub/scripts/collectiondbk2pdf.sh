@@ -50,9 +50,18 @@ cd $COL_PATH
 time $FOP $FO -at "application/pdf" $ABSTRACT_TREE
 EXIT_STATUS=$EXIT_STATUS || $?
 
-echo "Step 5 Converting serialized tree to PDF (Using Apache FOP)"
-time $FOP -atin $ABSTRACT_TREE $PDF
-EXIT_STATUS=$EXIT_STATUS || $?
+# Retry a couple of times before failing
+RET=0
+for i in {1..3}
+do
+  echo "Step 5 Converting serialized tree to PDF (Using Apache FOP)"
+  time $FOP -atin $ABSTRACT_TREE $PDF
+  RET=$?
+  if [ $RET = 0 ]; then
+    break
+  fi
+done
+EXIT_STATUS=$EXIT_STATUS || $RET
 
 cd $ROOT
 

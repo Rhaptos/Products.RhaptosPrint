@@ -25,6 +25,34 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- PHIL: This is a hack to see what elem algebra would look like -->
+<xsl:template match="db:section[count(ext:exercise|db:title)=count(*)]">
+  <xsl:copy>
+    <xsl:attribute name="class">problems-exercises</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<xsl:template match="db:section[db:sectioninfo/db:title/text() = 'Objectives']">
+<xsl:copy>
+    <xsl:attribute name="class">introduction</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
+<xsl:template match="ext:solution[not(@print-placement='here')]">
+</xsl:template>
+-->
+
+<xsl:template match="@class">
+  <xsl:attribute name="class">
+    <xsl:choose>
+      <xsl:when test=". = 'homework'">problems-exercises</xsl:when>
+      <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:template>
+
+
 <!-- Collapse XIncluded modules -->
 <xsl:template match="db:chapter[count(db:section)=1]|db:preface[count(db:section)=1]|db:appendix[count(db:section)=1]|db:section[@document and count(db:section)=1]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>

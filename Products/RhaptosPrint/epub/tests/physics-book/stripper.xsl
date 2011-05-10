@@ -23,7 +23,17 @@
   </db:chapter>
 </xsl:template>
 
-<xsl:template match="db:book/db:preface/db:section[position()=last()]"/>
+
+<!-- TODO: Hack to get a separate end-of-book section for solutions. move into normal pipeline -->
+<xsl:template match="db:book">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+    <ext:cnx-solutions-placeholder>
+      <db:title>Answers</db:title>
+    </ext:cnx-solutions-placeholder>
+  </xsl:copy>
+</xsl:template>
+
 
 </xsl:stylesheet>
 
