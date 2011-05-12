@@ -560,22 +560,22 @@
 <xsl:template name="definition">
 	<db:glossentry>
 		<xsl:apply-templates select="@*|c:term"/>
-                <xsl:for-each select="c:meaning">
-                        <!-- Put each c:meaning in a db:glossdef, along with any of its associated c:examples -->
-			<db:glossdef>
-        			<xsl:apply-templates select=".|following-sibling::c:example[generate-id(preceding-sibling::c:meaning[1]) = generate-id(current())]"/>
-	        	</db:glossdef>
-                </xsl:for-each>
-                <xsl:apply-templates select="c:seealso"/>
+      <xsl:for-each select="c:meaning">
+        <!-- Put each c:meaning in a db:glossdef, along with any of its associated c:examples -->
+        <db:glossdef>
+          <xsl:apply-templates select=".|following-sibling::c:example[generate-id(preceding-sibling::c:meaning[1]) = generate-id(current())]"/>
+        </db:glossdef>
+      </xsl:for-each>
+      <xsl:apply-templates select="c:seealso"/>
 	</db:glossentry>
 </xsl:template>
 
 <xsl:template match="c:seealso">
-        <db:glossdef>
-                <db:glossseealso>
-                        <xsl:apply-templates/>
-                </db:glossseealso>
-        </db:glossdef>
+  <db:glossdef>
+    <db:glossseealso>
+      <xsl:apply-templates/>
+    </db:glossseealso>
+  </db:glossdef>
 </xsl:template>
 
 <xsl:template match="c:meaning">
@@ -595,19 +595,20 @@
 
 <xsl:template match="c:term[not(@url)]">
 	<db:glossterm>
-                <xsl:apply-templates select="@*"/>
-                <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
-                        <xsl:choose>
-                                <xsl:when test="c:label">
-                                        <xsl:apply-templates select="c:label" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                        <xsl:text>Definition: </xsl:text>
-                                </xsl:otherwise>
-                        </xsl:choose>
-                </xsl:if>
-                <xsl:apply-templates select="node()"/>
-        </db:glossterm>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
+      <xsl:choose>
+        <xsl:when test="c:label">
+          <xsl:apply-templates select="c:label" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>Definition: </xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </db:glossterm>
+  <xsl:call-template name="cnx.indexterm"/>
 </xsl:template>
 
 <xsl:template match="c:term[@document|@target-id]">
@@ -617,9 +618,17 @@
 		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-    <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
+  <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
+  <xsl:call-template name="cnx.indexterm"/>
 </xsl:template>
 
+<xsl:template name="cnx.indexterm">
+  <db:indexterm>
+    <db:primary>
+      <xsl:apply-templates/>
+    </db:primary>
+  </db:indexterm>
+</xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">

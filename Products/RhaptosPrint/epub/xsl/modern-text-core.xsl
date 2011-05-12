@@ -356,6 +356,9 @@ procedure before
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:attribute-set name="cnx.index.title.body"
+    use-attribute-sets="cnx.problems.title">
+</xsl:attribute-set>
 
 <!-- Page Headers should be marked as all-uppercase.
      Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
@@ -1255,6 +1258,20 @@ Combination of formal.object and formal.object.heading -->
   <fo:wrapper xsl:use-attribute-sets="cnx.exercise.listitem">
     <xsl:apply-imports/>
   </fo:wrapper>
+</xsl:template>
+
+<!-- ============================================== -->
+<!-- Customize index page for modern-textbook       -->
+<!-- ============================================== -->
+
+<xsl:template name="index.titlepage">
+  <fo:block xsl:use-attribute-sets="cnx.formal.title">
+        <fo:inline xsl:use-attribute-sets="example.title.properties">
+          <xsl:text>&#160; &#160; </xsl:text>
+          <xsl:apply-templates select="." mode="title.markup"/>
+          <xsl:text> &#160; &#160;</xsl:text>
+        </fo:inline>
+  </fo:block>
 </xsl:template>
 
 
