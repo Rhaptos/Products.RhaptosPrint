@@ -1274,6 +1274,76 @@ Combination of formal.object and formal.object.heading -->
   </fo:block>
 </xsl:template>
 
+<!-- ============================================== -->
+<!-- Customize Table of Contents                    -->
+<!-- ============================================== -->
+
+<xsl:attribute-set name="toc.line.properties">
+  <xsl:attribute name="font-size">
+    <xsl:choose>
+      <xsl:when test="self::d:chapter or self::d:appendix"><xsl:value-of select="$cnx.font.larger"/></xsl:when>
+      <xsl:otherwise><xsl:value-of select="$body.font.master"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+
+  <xsl:attribute name="color">
+    <xsl:choose>
+      <xsl:when test="self::d:chapter"><xsl:value-of select="$cnx.color.blue"/></xsl:when>
+      <xsl:otherwise>black</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="table.of.contents.titlepage.recto.style"
+    use-attribute-sets="cnx.underscore">
+</xsl:attribute-set>
+
+<!-- Don't include the introduction section in the TOC -->
+<xsl:template match="db:section[@class='introduction']" mode="toc"/>
+
+<xsl:template name="toc.line">
+  <xsl:param name="toc-context" select="NOTANODE"/>  
+  <xsl:variable name="id">  
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
+  <xsl:variable name="label">  
+    <xsl:apply-templates select="." mode="label.markup"/>  
+  </xsl:variable>
+
+  <fo:block xsl:use-attribute-sets="toc.line.properties">  
+    <fo:inline keep-with-next.within-line="always">
+      
+      <fo:basic-link internal-destination="{$id}">  
+
+<!-- CNX: Add the word "Chapter" or Appendix in front of the number -->
+        <xsl:if test="self::db:appendix or self::db:chapter">
+          <xsl:call-template name="gentext">
+            <xsl:with-param name="key" select="local-name()"/>
+          </xsl:call-template>
+          <xsl:text> </xsl:text>
+        </xsl:if>
+
+        <xsl:if test="$label != ''">
+          <xsl:copy-of select="$label"/>
+          <xsl:value-of select="$autotoc.label.separator"/>
+        </xsl:if>
+        <xsl:apply-templates select="." mode="title.markup"/>  
+      </fo:basic-link>
+    </fo:inline>
+    <fo:inline keep-together.within-line="always"> 
+      <xsl:text> </xsl:text>
+      <fo:leader leader-pattern="dots"
+                 leader-pattern-width="3pt"
+                 leader-alignment="reference-area"
+                 keep-with-next.within-line="always"/>
+      <xsl:text> </xsl:text>
+      <fo:basic-link internal-destination="{$id}">
+        <fo:page-number-citation ref-id="{$id}"/>
+      </fo:basic-link>
+    </fo:inline>
+  </fo:block>
+</xsl:template>
 
 <!-- ============================================== -->
 <!-- Customize page headers                         -->
