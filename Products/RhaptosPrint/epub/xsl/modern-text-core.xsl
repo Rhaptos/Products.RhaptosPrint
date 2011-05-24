@@ -1068,7 +1068,11 @@ Combination of formal.object and formal.object.heading -->
 
 
 <!-- A block-level element inside another block-level element should use the inner formatting -->
-<xsl:template mode="formal.object.heading" match="*[ancestor::ext:exercise or ancestor::db:example]">
+<xsl:template mode="formal.object.heading" match="*[
+        ancestor::ext:exercise or 
+        ancestor::db:example or 
+        ancestor::ext:rule or
+        ancestor::db:glosslist]">
   <xsl:param name="object" select="."/>
   <xsl:param name="placement" select="'before'"/>
 
