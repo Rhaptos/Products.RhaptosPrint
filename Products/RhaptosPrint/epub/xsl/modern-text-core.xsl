@@ -632,10 +632,21 @@ procedure before
     </fo:table-cell>
     <fo:table-cell>
       <fo:block xsl:use-attribute-sets="cnx.introduction.toc.title">
-        <xsl:apply-templates select="db:sectioninfo/db:abstract"/>
+        <xsl:apply-templates select="db:sectioninfo/db:abstract">
+          <xsl:with-param name="render" select="true()"/>
+        </xsl:apply-templates>
       </fo:block>
     </fo:table-cell>
   </fo:table-row>
+</xsl:template>
+
+<!-- Renders an abstract onnly when "render" is set to true().
+-->
+<xsl:template match="d:abstract" mode="titlepage.mode">
+  <xsl:param name="render" select="false()"/>
+  <xsl:if test="$render">
+    <xsl:apply-imports/>
+  </xsl:if>
 </xsl:template>
 
 <!-- Renders an exercise only when "render" is set to true().
