@@ -31,6 +31,8 @@
     <ext:cnx-solutions-placeholder>
       <db:title>Answers</db:title>
     </ext:cnx-solutions-placeholder>
+    <!-- Auto-generate an index -->
+    <db:index/>
   </xsl:copy>
 </xsl:template>
 
