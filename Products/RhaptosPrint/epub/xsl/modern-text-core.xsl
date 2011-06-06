@@ -98,7 +98,7 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation">
-  <xsl:attribute name="keep-together">10</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">10</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title"
@@ -157,7 +157,7 @@ procedure before
 
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
 <xsl:attribute-set name="cnx.figure.properties">
-  <xsl:attribute name="keep-together">1</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">1</xsl:attribute>
   <xsl:attribute name="font-size">8pt</xsl:attribute>
   <xsl:attribute name="padding-after">0.5em</xsl:attribute>
 </xsl:attribute-set>
@@ -182,7 +182,7 @@ procedure before
   <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
 
-  <xsl:attribute name="keep-together">1</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
 </xsl:attribute-set>
@@ -1060,7 +1060,7 @@ Combination of formal.object and formal.object.heading -->
   <fo:block id="{$id}"
             xsl:use-attribute-sets="cnx.figure.properties">
     <xsl:if test="$keep.together != ''">
-      <xsl:attribute name="keep-together"><xsl:value-of
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
     </xsl:if>
 
@@ -1162,7 +1162,7 @@ Combination of formal.object and formal.object.heading -->
 
   <fo:wrapper>
     <xsl:if test="$keep.together != ''">
-      <xsl:attribute name="keep-together"><xsl:value-of
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
     </xsl:if>
 
@@ -1184,7 +1184,7 @@ Combination of formal.object and formal.object.heading -->
         <fo:block id="{$id}"
                   xsl:use-attribute-sets="example.properties">
           <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together"><xsl:value-of
+            <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
@@ -1194,7 +1194,7 @@ Combination of formal.object and formal.object.heading -->
         <fo:block id="{$id}"
                   xsl:use-attribute-sets="cnx.equation">
           <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together"><xsl:value-of
+            <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
@@ -1204,7 +1204,7 @@ Combination of formal.object and formal.object.heading -->
         <fo:block id="{$id}"
                   xsl:use-attribute-sets="procedure.properties">
           <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together"><xsl:value-of
+            <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
@@ -1214,7 +1214,7 @@ Combination of formal.object and formal.object.heading -->
         <fo:block id="{$id}"
                   xsl:use-attribute-sets="formal.object.properties">
           <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together"><xsl:value-of
+            <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
