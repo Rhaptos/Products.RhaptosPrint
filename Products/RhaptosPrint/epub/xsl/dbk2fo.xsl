@@ -13,6 +13,9 @@
 
 <xsl:output indent="yes" method="xml" encoding="ASCII"/>
 
+<!-- Remove reliance on external "draft" graphic -->
+<xsl:param name="draft.mode">no</xsl:param>
+
 <!-- Enable Apache FOP specific extensions (and disable things unsupported in FOP) -->
 <xsl:param name="fop1.extensions" select="1"/>
 
