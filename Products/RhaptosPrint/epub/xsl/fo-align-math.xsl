@@ -15,6 +15,71 @@
 <xsl:include href="debug.xsl"/>
 <xsl:include href="ident.xsl"/>
 
+
+<!-- HACK: With the multi-column PDF layout spanning a note or image
+     across both columns is possible only when it is the child of
+     fo:flow. To accomplish this, we manually close all the
+     ancestor tags and then reopen them with the same attributes.
+-->
+<xsl:template match="fo:*[@span='all']" name="cnx.span-all">
+
+  <!-- close the tags.
+       They must be done in reverse order so
+       xsl:for-each/xsl:sort isn't good enough here -->
+  <xsl:comment>auto-gen close tags:start</xsl:comment>
+  <xsl:call-template name="cnx.reverse-close">
+    <xsl:with-param name="c" select=".."/>
+  </xsl:call-template>
+  <xsl:text>
+</xsl:text>
+  <xsl:comment>auto-gen close tags:done</xsl:comment>
+
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+  
+  <!-- re-open the tags -->
+  <xsl:comment>auto-gen re-open tags:start</xsl:comment>
+  <xsl:for-each select="ancestor::*[ancestor::fo:flow]">
+
+    <!-- generate open tag -->
+    <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
+    <xsl:value-of select="name()"/>
+
+    <!-- generate attributes (except for id's) -->
+    <xsl:for-each select="@*[not(name() = 'id' or name() = 'xml:id')]">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="name()"/>
+      <xsl:text>="</xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>"</xsl:text>
+    </xsl:for-each>
+    <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+  </xsl:for-each>
+
+  <xsl:text>
+</xsl:text>
+  <xsl:comment>auto-gen reopen tags:done</xsl:comment>
+</xsl:template>
+
+<!-- Used to close all the open fo:block/fo:wrap tags -->
+<xsl:template name="cnx.reverse-close">
+  <xsl:param name="c"/>
+  <xsl:if test="$c[ancestor::fo:flow]">
+    <!-- generate close tag -->
+    <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="name($c)"/>
+    <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+
+    <!-- Generate the other close tags 1st -->
+    <xsl:call-template name="cnx.reverse-close">
+      <xsl:with-param name="c" select="$c/parent::*[1]"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+
 <!-- Move the image up or down according to its baseline -->
 <xsl:template match="fo:instream-foreign-object[svg:svg/svg:metadata/pmml2svg:baseline-shift]">
 	<xsl:copy>
