@@ -1617,7 +1617,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			</para>
 			<para id="note2">Chemistry lab was always a lot of fun. We played
 	with a lot of chemicals such as Sulfuri and Hydrochloric acid.
-<note span="all" type="" id="cnxn_to_null_string_note"> SPANNED!!! This note does <emphasis>not</emphasis> have a string in its type attribute. 
+<note class="span-all" type="" id="cnxn_to_null_string_note"> SPANNED!!! This note does <emphasis>not</emphasis> have a string in its type attribute. 
 	  Please handle with caution. </note>
 
 <note id="cnxn_to_null_note"> This note does <emphasis>not</emphasis> have a type attribute. 
@@ -1950,7 +1950,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
         Here is an example of a figure with a large table inside
         it.  For exhaustive examples of figures, subfigures, and captions in many shapes, sizes, and combinations, see <link document="m10221" strength="3"/>.  Currently, figures cannot be placed in paragraph tags.
       </para>
-			<figure span="all" id="ascii" orient="horizontal">
+			<figure class="span-all" id="ascii" orient="horizontal">
 				<title>SPANNED!!!! Ascii table</title>
 				<table frame="all" id="table_ascii" summary="">
 					<title>Budget - Comparison by year</title>
@@ -2041,7 +2041,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 	Here's is a very simple example of a table, similiar to ones
 	seen previously in this module.
       </para>
-			<table span="all" frame="all" id="budgettable1" summary="">
+			<table class="span-all" frame="all" id="budgettable1" summary="">
 
 				<title>SPANNED!!! Budget - Comparison by year</title>
 				<tgroup cols="4" align="left" colsep="1" rowsep="1">

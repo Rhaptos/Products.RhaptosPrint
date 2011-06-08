@@ -98,11 +98,15 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation">
-  <xsl:attribute name="keep-together.within-column">10</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together">always</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title"
     use-attribute-sets="cnx.underscore">
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="color">white</xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -157,7 +161,9 @@ procedure before
 
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
 <xsl:attribute-set name="cnx.figure.properties">
-  <xsl:attribute name="keep-together.within-column">1</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together">always</xsl:attribute>
   <xsl:attribute name="font-size">8pt</xsl:attribute>
   <xsl:attribute name="padding-after">0.5em</xsl:attribute>
 </xsl:attribute-set>
@@ -182,7 +188,9 @@ procedure before
   <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
 
-  <xsl:attribute name="keep-together.within-column">1</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together">always</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
 </xsl:attribute-set>
@@ -256,6 +264,8 @@ procedure before
 
 <xsl:attribute-set name="cnx.note.tip.title">
   <xsl:attribute name="text-align">center</xsl:attribute>
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.tip.title.inline">
@@ -429,33 +439,33 @@ procedure before
 
 
     <fo:simple-page-master master-name="{$cnx.pagemaster.body}-odd"
-                           page-width="{$page.width}"
-                           page-height="{$page.height}"
-                           margin-top="{$page.margin.top}"
-                           margin-bottom="{$page.margin.bottom}">
-      <xsl:attribute name="margin-{$direction.align.start}">
+                            page-width="{$page.width}"
+                            page-height="{$page.height}"
+                            margin-top="{$page.margin.top}"
+                            margin-bottom="{$page.margin.bottom}">
+       <xsl:attribute name="margin-{$direction.align.start}">
         <xsl:value-of select="$page.margin.outer"/>
-      </xsl:attribute>
-      <xsl:attribute name="margin-{$direction.align.end}">
+       </xsl:attribute>
+       <xsl:attribute name="margin-{$direction.align.end}">
         <xsl:value-of select="$page.margin.outer"/>
-      </xsl:attribute>
+       </xsl:attribute>
       <xsl:if test="$axf.extensions != 0">
         <xsl:call-template name="axf-page-master-properties">
           <xsl:with-param name="page.master">body-odd</xsl:with-param>
         </xsl:call-template>
       </xsl:if>
-      <fo:region-body margin-bottom="{$body.margin.bottom}"
-                      margin-top="{$body.margin.top}"
+       <fo:region-body margin-bottom="{$body.margin.bottom}"
+                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.body}"
                       column-count="{$column.count.body}">
-      </fo:region-body>
+       </fo:region-body>
       <fo:region-before region-name="xsl-region-before-odd"
-                        extent="{$region.before.extent}"
-                        display-align="before"/>
+                         extent="{$region.before.extent}"
+                         display-align="before"/>
       <fo:region-after region-name="xsl-region-after-odd"
-                       extent="{$region.after.extent}"
+                        extent="{$region.after.extent}"
                        display-align="after"/>
-    </fo:simple-page-master>
+     </fo:simple-page-master>
 
     <fo:simple-page-master master-name="{$cnx.pagemaster.body}-even"
                            page-width="{$page.width}"
@@ -485,7 +495,6 @@ procedure before
                        extent="{$region.after.extent}"
                        display-align="after"/>
     </fo:simple-page-master>
-
 </xsl:template>
 
 <!-- Override the default body pagemaster so we use a custom body -->
@@ -1047,8 +1056,10 @@ procedure before
 
 
 <xsl:template name="pi.dbfo_keep-together">
-  <xsl:text>10</xsl:text>
+  <xsl:text>always</xsl:text>
 </xsl:template>
+
+<xsl:template match="@class"/>
 
 <!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
@@ -1063,8 +1074,13 @@ Combination of formal.object and formal.object.heading -->
 
   <fo:block id="{$id}"
             xsl:use-attribute-sets="cnx.figure.properties">
+    <xsl:apply-templates select="@class"/>
     <xsl:if test="$keep.together != ''">
       <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+      <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+      <xsl:attribute name="keep-together"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
     </xsl:if>
 
@@ -1168,6 +1184,10 @@ Combination of formal.object and formal.object.heading -->
     <xsl:if test="$keep.together != ''">
       <xsl:attribute name="keep-together.within-column"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
+      <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+      <xsl:attribute name="keep-together"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
     </xsl:if>
 
     <xsl:apply-templates mode="formal.object.heading" select=".">
@@ -1190,6 +1210,10 @@ Combination of formal.object and formal.object.heading -->
           <xsl:if test="$keep.together != ''">
             <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
         </fo:block>
@@ -1199,6 +1223,10 @@ Combination of formal.object and formal.object.heading -->
                   xsl:use-attribute-sets="cnx.equation">
           <xsl:if test="$keep.together != ''">
             <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
@@ -1210,6 +1238,10 @@ Combination of formal.object and formal.object.heading -->
           <xsl:if test="$keep.together != ''">
             <xsl:attribute name="keep-together.within-column"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
         </fo:block>
@@ -1219,6 +1251,10 @@ Combination of formal.object and formal.object.heading -->
                   xsl:use-attribute-sets="formal.object.properties">
           <xsl:if test="$keep.together != ''">
             <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together.within-page"><xsl:value-of
+                            select="$keep.together"/></xsl:attribute>
+            <xsl:attribute name="keep-together"><xsl:value-of
                             select="$keep.together"/></xsl:attribute>
           </xsl:if>
           <xsl:copy-of select="$content"/>
@@ -1237,12 +1273,14 @@ Combination of formal.object and formal.object.heading -->
 
 <xsl:template match="db:note">
   <fo:block xsl:use-attribute-sets="cnx.note">
+    <xsl:apply-templates select="@class"/>
     <xsl:apply-imports/>
   </fo:block>
 </xsl:template>
 
 <xsl:template match="db:note[@type='tip']">
   <fo:block xsl:use-attribute-sets="cnx.note.tip">
+    <xsl:apply-templates select="@class"/>
     <fo:block xsl:use-attribute-sets="cnx.note.tip.title">
       <fo:inline xsl:use-attribute-sets="cnx.note.tip.title.inline">
         <!-- FOP doesn't support @padding-end for fo:inline elements -->
@@ -1261,6 +1299,7 @@ Combination of formal.object and formal.object.heading -->
 <!-- Concept Check -->
 <xsl:template match="db:note[@type='concept-check']">
   <fo:block xsl:use-attribute-sets="cnx.note.concept">
+    <xsl:apply-templates select="@class"/>
     <fo:block xsl:use-attribute-sets="cnx.note.concept.title">
       <xsl:apply-templates select="db:title/node()|db:label/node()"/>
     </fo:block>
