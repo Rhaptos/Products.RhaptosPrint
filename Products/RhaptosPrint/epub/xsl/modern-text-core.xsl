@@ -175,12 +175,12 @@ procedure before
 
 <xsl:attribute-set name="formal.object.properties">
   <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
 
   <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
 
   <xsl:attribute name="keep-together.within-column">1</xsl:attribute>
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
@@ -223,9 +223,13 @@ procedure before
 <xsl:attribute-set name="cnx.note">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
   <xsl:attribute name="padding-bottom">1em</xsl:attribute>
+  <xsl:attribute name="space-before">1em</xsl:attribute>
+  <xsl:attribute name="space-after">1em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.concept" use-attribute-sets="cnx.note">
+  <xsl:attribute name="space-before">1em</xsl:attribute>
+  <xsl:attribute name="space-after">1em</xsl:attribute>
   <xsl:attribute name="padding-before">0.5em</xsl:attribute>
   <xsl:attribute name="padding-left">1em</xsl:attribute>
   <xsl:attribute name="border-top-width">1px</xsl:attribute>
