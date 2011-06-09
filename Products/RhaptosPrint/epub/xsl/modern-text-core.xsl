@@ -230,7 +230,8 @@ procedure before
 
 <xsl:attribute-set name="cnx.note">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
-  <xsl:attribute name="padding-bottom">1em</xsl:attribute>
+  <xsl:attribute name="padding-top">0.25em</xsl:attribute>
+  <xsl:attribute name="padding-bottom">0.25em</xsl:attribute>
   <xsl:attribute name="space-before">1em</xsl:attribute>
   <xsl:attribute name="space-after">1em</xsl:attribute>
 </xsl:attribute-set>
@@ -246,6 +247,8 @@ procedure before
   <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.concept.title">
