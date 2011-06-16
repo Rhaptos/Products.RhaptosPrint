@@ -65,7 +65,7 @@
       </xsl:if>
       <xsl:choose>
         <xsl:when test="$mode='solutions'">
-          <xsl:apply-templates mode="solutions"/>
+          <xsl:apply-templates mode="inside-solutions"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates/>
@@ -119,7 +119,7 @@
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
       <solutions>
-        <xsl:apply-templates select="descendant::cnx:solution|descendant::qml:item" mode="solutions"/>
+        <xsl:apply-templates select="." mode="solutions"/>
       </solutions>
     </xsl:copy>
   </xsl:template>
@@ -237,18 +237,22 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*" mode="solutions">
+  <xsl:template match="node()|@*" mode="solutions">
+    <xsl:apply-templates mode="solutions"/>
+  </xsl:template>
+
+  <xsl:template match="*" mode="inside-solutions">
     <xsl:copy>
-      <xsl:apply-templates select="@*" mode="solutions"/>
-      <xsl:apply-templates mode="solutions"/>
+      <xsl:apply-templates select="@*" mode="inside-solutions"/>
+      <xsl:apply-templates mode="inside-solutions"/>
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="@*" mode="solutions">
+  <xsl:template match="@*" mode="inside-solutions">
     <xsl:copy/>
   </xsl:template>
 
-  <xsl:template match="text()|processing-instruction()" mode="solutions">
+  <xsl:template match="text()|processing-instruction()" mode="inside-solutions">
     <xsl:copy/>
   </xsl:template>
 
