@@ -7,14 +7,14 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   exclude-result-prefixes="col md"
   >
-<xsl:output indent="yes"/>
+<xsl:output omit-xml-declaration="yes"/>
 
 <xsl:template match="col:param[@name='print-style']">
   <xsl:value-of select="@value"/>
 </xsl:template>
 
 <xsl:template match="col:*">
-  <xsl:apply-templates select="@*|node()"/>
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <xsl:template match="text()"/>
