@@ -30,13 +30,12 @@ DOCBOOK2FO_XSL=$ROOT/xsl/modern-text.xsl
 ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 MARGINALIA_XSL=$ROOT/xsl/fo-marginalia.xsl
 
-
 echo "Step 1 (Cleaning up Docbook)"
 $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
 EXIT_STATUS=$EXIT_STATUS || $?
 
 echo "Step 2 (Docbook to XSL:FO)"
-time $XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2
+$XSLTPROC -o $UNALIGNED $DOCBOOK2FO_XSL $DOCBOOK2
 EXIT_STATUS=$EXIT_STATUS || $?
 
 echo "Step 3 (Aligning math in XSL:FO)"
@@ -47,15 +46,16 @@ echo "Step 4 Converting XSL:FO to PDF (using Apache FOP)"
 # Change to the collection dir so the relative paths to images work
 cd $COL_PATH
 #time $FOP $FO $PDF
-time $FOP $FO -at "application/pdf" $ABSTRACT_TREE
+$FOP $FO -at "application/pdf" $ABSTRACT_TREE
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Retry a couple of times before failing
+sleep 1
 RET=0
-for i in {1..3}
+for i in {1..6}
 do
   echo "Step 5 Converting serialized tree to PDF (Using Apache FOP)"
-  time $FOP -atin $ABSTRACT_TREE $PDF
+  $FOP -atin $ABSTRACT_TREE $PDF
   RET=$?
   if [ $RET = 0 ]; then
     break

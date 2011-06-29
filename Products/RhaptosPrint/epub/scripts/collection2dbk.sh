@@ -13,6 +13,8 @@ ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 EXIT_STATUS=0
 
+WORKING_DIR=`cd $WORKING_DIR; pwd`
+
 COLLXML=$WORKING_DIR/collection.xml
 PARAMS=$WORKING_DIR/_params.txt
 DOCBOOK=$WORKING_DIR/_collection1.dbk
