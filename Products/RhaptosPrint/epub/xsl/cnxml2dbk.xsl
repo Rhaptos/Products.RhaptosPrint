@@ -69,6 +69,7 @@
             ext:version="{c:metadata/md:version/text()}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <xsl:attribute name="xml:lang"><xsl:value-of select="$lang"/></xsl:attribute>
+        <xsl:apply-templates select="@class"/>
         <db:sectioninfo ext:repository="{c:metadata/md:repository/text()}">
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>

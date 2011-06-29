@@ -54,7 +54,7 @@
 
 
 <!-- Collapse XIncluded modules -->
-<xsl:template match="db:chapter[count(db:section)=1]|db:preface[count(db:section)=1]|db:appendix[count(db:section)=1]|db:section[@document and count(db:section)=1]">
+<xsl:template match="*[self::db:chapter or self::db:preface or self::db:appendix][db:section[@document] and count(*[not(self::db:sectioninfo)])=1]">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
@@ -62,8 +62,13 @@
 			<xsl:apply-templates select="db:title"/>
 			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
 		</xsl:element>
+		<xsl:apply-templates select="node()[local-name()!='sectioninfo']"/>
 		<xsl:apply-templates select="db:section/node()[local-name()!='sectioninfo']"/>
 	</xsl:copy>
+</xsl:template>
+
+<xsl:template match="db:sectioninfo/node()[not(self::db:title)]">
+  <xsl:message>DEBUG: Discarding Sectioninfo</xsl:message>
 </xsl:template>
 
 <!-- Save the original title for attribution later. -->
