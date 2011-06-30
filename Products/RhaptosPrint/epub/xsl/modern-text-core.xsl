@@ -390,6 +390,26 @@ procedure before
     use-attribute-sets="cnx.problems.title">
 </xsl:attribute-set>
 
+<xsl:attribute-set name="cnx.titlepage.title">
+  <xsl:attribute name="space-before">2in</xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="font-size">24pt</xsl:attribute>
+  <xsl:attribute name="text-align">center</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.titlepage.authors">
+  <xsl:attribute name="space-before.optimum">1in</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">12pt</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">2in</xsl:attribute>
+  <xsl:attribute name="font-size">12pt</xsl:attribute>
+  <xsl:attribute name="text-align">center</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="cnx.titlepage.strong">
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
+
+
 <!-- Page Headers should be marked as all-uppercase.
      Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
 -->
