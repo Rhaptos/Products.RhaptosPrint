@@ -173,7 +173,7 @@ EXIT_STATUS=$EXIT_STATUS || $MATH2SVG_ERROR
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 
 # Add in image info (like actual pixel height/width)
-python $ROOT/scripts/image-sizes.py $WORKING_DIR > $IMAGE_SIZES_XML
+python2.4 $ROOT/scripts/image-sizes.py $WORKING_DIR > $IMAGE_SIZES_XML
 $XSLTPROC --stringparam "image-sizes-xml-path" $IMAGE_SIZES_XML -o $DOCBOOK3 $ANNOTATE_IMAGES_XSL $DOCBOOK2
 EXIT_STATUS=$EXIT_STATUS || $?
 
