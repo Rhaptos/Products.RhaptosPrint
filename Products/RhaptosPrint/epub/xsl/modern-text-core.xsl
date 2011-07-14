@@ -1496,7 +1496,7 @@ Combination of formal.object and formal.object.heading -->
     </fo:inline>
     
     <!-- Add a separator and convert subtitle to uppercase -->
-    <xsl:if test="$subtitle != ''">
+    <xsl:if test="$subtitle != '' and $subtitle != $title">
       <fo:inline xsl:use-attribute-sets="cnx.header.separator">
         <xsl:text>&#160;|&#160;</xsl:text>
       </fo:inline>
