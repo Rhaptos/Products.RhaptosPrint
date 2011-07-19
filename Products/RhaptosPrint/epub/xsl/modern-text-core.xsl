@@ -1648,51 +1648,55 @@ Combination of formal.object and formal.object.heading -->
       </xsl:call-template>
     </xsl:attribute>
 
-    <xsl:attribute name="width">
-      <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-        <xsl:when test="contains(@width,'%')">
-          <xsl:value-of select="@width"/>
-        </xsl:when>
-        <xsl:when test="@width and not(@width = '')">
-          <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="@width"/>
-            <xsl:with-param name="default.units" select="'px'"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:when test="not(@depth) and $default.image.width != ''">
-          <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="$default.image.width"/>
-            <xsl:with-param name="default.units" select="'px'"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
+<!-- CNX HACK: Don't set the height/width if the width is being forced -->
+    <xsl:if test="not(@_actual-width) or @_actual-width &lt;= $cnx.pagewidth.pixels">
+      <xsl:attribute name="width">
+        <xsl:choose>
+          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+          <xsl:when test="contains(@width,'%')">
+            <xsl:value-of select="@width"/>
+          </xsl:when>
+          <xsl:when test="@width and not(@width = '')">
+            <xsl:call-template name="length-spec">
+              <xsl:with-param name="length" select="@width"/>
+              <xsl:with-param name="default.units" select="'px'"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:when test="not(@depth) and $default.image.width != ''">
+            <xsl:call-template name="length-spec">
+              <xsl:with-param name="length" select="$default.image.width"/>
+              <xsl:with-param name="default.units" select="'px'"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>auto</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
 
-    <xsl:attribute name="height">
-      <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-        <xsl:when test="contains(@depth,'%')">
-          <xsl:value-of select="@depth"/>
-        </xsl:when>
-        <xsl:when test="@depth">
-          <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="@depth"/>
-            <xsl:with-param name="default.units" select="'px'"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
+      <xsl:attribute name="height">
+        <xsl:choose>
+          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+          <xsl:when test="contains(@depth,'%')">
+            <xsl:value-of select="@depth"/>
+          </xsl:when>
+          <xsl:when test="@depth">
+            <xsl:call-template name="length-spec">
+              <xsl:with-param name="length" select="@depth"/>
+              <xsl:with-param name="default.units" select="'px'"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>auto</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
 
     <xsl:attribute name="content-width">
         <xsl:message>LOG: INFO: Image _actual-width=<xsl:value-of select="@_actual-width"/></xsl:message>
       <xsl:choose>
 <!-- CNX HACK -->
         <xsl:when test="@_actual-width > $cnx.pagewidth.pixels">
-          <xsl:message>LOG: WARNING: image width is too wide</xsl:message>
+          <xsl:message>LOG: WARNING: image width is too wide. Forcing width and ignoring height</xsl:message>
           <xsl:value-of select="$cnx.pagewidth.pixels"/>
+          <xsl:text>px</xsl:text>
         </xsl:when>
         <xsl:when test="@_actual-width">
           <xsl:value-of select="@_actual-width"/>
@@ -1716,26 +1720,29 @@ Combination of formal.object and formal.object.heading -->
       </xsl:choose>
     </xsl:attribute>
 
-    <xsl:attribute name="content-height">
-      <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-        <xsl:when test="contains(@contentdepth,'%')">
-          <xsl:value-of select="@contentdepth"/>
-        </xsl:when>
-        <xsl:when test="@contentdepth">
-          <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="@contentdepth"/>
-            <xsl:with-param name="default.units" select="'px'"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:when test="number($scale) != 1.0">
-          <xsl:value-of select="$scale * 100"/>
-          <xsl:text>%</xsl:text>
-        </xsl:when>
-        <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
+<!-- CNX HACK: Don't set the height if the width is being forced -->
+    <xsl:if test="not(@_actual-width) or @_actual-width &lt;= $cnx.pagewidth.pixels">
+      <xsl:attribute name="content-height">
+        <xsl:choose>
+          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+          <xsl:when test="contains(@contentdepth,'%')">
+            <xsl:value-of select="@contentdepth"/>
+          </xsl:when>
+          <xsl:when test="@contentdepth">
+            <xsl:call-template name="length-spec">
+              <xsl:with-param name="length" select="@contentdepth"/>
+              <xsl:with-param name="default.units" select="'px'"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:when test="number($scale) != 1.0">
+            <xsl:value-of select="$scale * 100"/>
+            <xsl:text>%</xsl:text>
+          </xsl:when>
+          <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
+          <xsl:otherwise>auto</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
 
     <xsl:if test="$content-type != ''">
       <xsl:attribute name="content-type">

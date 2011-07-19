@@ -367,6 +367,8 @@
 		    <xsl:call-template name="cnx.id"/>
 		</xsl:attribute>
 		<db:imagedata fileref="{@src}">
+      <xsl:copy-of select="@_actual-width"/>
+      <xsl:copy-of select="@_actual-height"/>
 			<xsl:choose>
 				<xsl:when test="@print-width and @print-width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
