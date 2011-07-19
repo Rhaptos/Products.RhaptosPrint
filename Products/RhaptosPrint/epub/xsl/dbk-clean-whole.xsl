@@ -54,16 +54,16 @@
 
 
 <!-- Collapse XIncluded modules -->
-<xsl:template match="*[self::db:chapter or self::db:preface or self::db:appendix][db:section[@document] and count(*[not(self::db:sectioninfo)])=1]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
+<xsl:template match="db:section[@document][db:section and count(*[not(self::db:title)])=1]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing wrapper element around Xincluded module inside a <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
 		<xsl:element name="db:{local-name()}info">
 			<xsl:apply-templates select="db:title"/>
 			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
 		</xsl:element>
-		<xsl:apply-templates select="node()[local-name()!='sectioninfo']"/>
-		<xsl:apply-templates select="db:section/node()[local-name()!='sectioninfo']"/>
+		<xsl:apply-templates select="node()[not(self::db:section or self::db:title)]"/>
+		<xsl:apply-templates select="db:section/node()[not(self::db:sectioninfo)]"/>
 	</xsl:copy>
 </xsl:template>
 

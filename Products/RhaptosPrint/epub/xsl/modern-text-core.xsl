@@ -1690,7 +1690,6 @@ Combination of formal.object and formal.object.heading -->
     </xsl:if>
 
     <xsl:attribute name="content-width">
-        <xsl:message>LOG: INFO: Image _actual-width=<xsl:value-of select="@_actual-width"/></xsl:message>
       <xsl:choose>
 <!-- CNX HACK -->
         <xsl:when test="@_actual-width > $cnx.pagewidth.pixels">
