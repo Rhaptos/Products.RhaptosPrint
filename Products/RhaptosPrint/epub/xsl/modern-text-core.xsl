@@ -198,12 +198,21 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="formal.object.properties" use-attribute-sets="cnx.vertical-spacing">
-
+  <xsl:attribute name="margin-top">0em</xsl:attribute>
   <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
   <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
   <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
+</xsl:attribute-set>
+
+<!-- In Docbook tables inherit formal.object.properties
+    This causes the background (including the title) to have a background color.
+    See "Customize Table Headings" below for more customizations
+ -->
+<xsl:attribute-set name="table.properties">
+  <xsl:attribute name="background-color">transparent</xsl:attribute>
+  <xsl:attribute name="margin-top">0em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Used to get the indent working properly -->
@@ -1146,6 +1155,72 @@ Combination of formal.object and formal.object.heading -->
     </fo:inline>
     <xsl:apply-templates select="d:caption"/>
   </fo:block>
+</xsl:template>
+
+<!-- "Customize Table Headings"
+    Taken from docbook-xsl/fo/tables.xsl with modifications marked with "CNX"
+ -->
+<xsl:template name="table.block">
+  <xsl:param name="table.layout" select="NOTANODE"/>
+
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
+  <xsl:variable name="param.placement"
+                select="substring-after(normalize-space(
+                   $formal.title.placement), concat(local-name(.), ' '))"/>
+
+  <xsl:variable name="placement">
+    <xsl:choose>
+      <xsl:when test="contains($param.placement, ' ')">
+        <xsl:value-of select="substring-before($param.placement, ' ')"/>
+      </xsl:when>
+      <xsl:when test="$param.placement = ''">before</xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$param.placement"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="keep.together">
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="self::d:table">
+      <fo:block id="{$id}"
+                xsl:use-attribute-sets="table.properties">
+        <xsl:if test="$keep.together != ''">
+          <xsl:attribute name="keep-together.within-column">
+            <xsl:value-of select="$keep.together"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="$placement = 'before'">
+          <xsl:call-template name="formal.object.heading">
+            <xsl:with-param name="placement" select="$placement"/>
+          </xsl:call-template>
+        </xsl:if>
+<!-- CNX Hack -->
+<fo:block xsl:use-attribute-sets="formal.object.properties">
+        <xsl:copy-of select="$table.layout"/>
+        <xsl:call-template name="table.footnote.block"/>
+</fo:block>
+        <xsl:if test="$placement != 'before'">
+          <xsl:call-template name="formal.object.heading">
+            <xsl:with-param name="placement" select="$placement"/>
+          </xsl:call-template>
+        </xsl:if>
+      </fo:block>
+    </xsl:when>
+    <xsl:otherwise>
+      <fo:block id="{$id}"
+                xsl:use-attribute-sets="informaltable.properties">
+        <xsl:copy-of select="$table.layout"/>
+        <xsl:call-template name="table.footnote.block"/>
+      </fo:block>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 
