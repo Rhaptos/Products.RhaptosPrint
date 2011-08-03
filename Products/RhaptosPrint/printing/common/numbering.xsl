@@ -160,13 +160,17 @@
       <xsl:copy-of select="@*"/>
       <xsl:if test="$mode = 'collection'">
         <xsl:attribute name="number">
-          <xsl:number level="single" format="1" count="*[@cnx:class='chapter']"/>
+          <xsl:apply-templates select="." mode="numbering"/>
         </xsl:attribute>
       </xsl:if>
       <xsl:apply-templates/>
     </xsl:copy>
   </xsl:template>
-  
+
+  <xsl:template match="*[@cnx:class='chapter']" mode="numbering">
+    <xsl:number level="single" format="1" count="*[@cnx:class='chapter']"/>
+  </xsl:template>
+
   <!-- Sections get numbered-->
   <xsl:template match="cnxml:section|*[starts-with(@cnx:class, 'section')]">
     <xsl:choose>
@@ -174,17 +178,7 @@
     	  <xsl:copy>
       	  <xsl:copy-of select="@*"/>
       	  <xsl:attribute name="number">
-        	  <xsl:choose>
-          	  <xsl:when test="$mode = 'collection'">
-            	  <xsl:number level="multiple" format="1.1"
-                        	count="cnxml:section|*[@cnx:class='chapter']|
-                               	*[starts-with(@cnx:class, 'section')]"/>
-          		</xsl:when>
-          		<xsl:when test="$mode = 'module' and self::cnxml:section">
-            	  <xsl:number level="multiple" format="1.1"
-                        	count="cnxml:section"/>
-          	  </xsl:when>
-        	  </xsl:choose>
+            <xsl:apply-templates select="." mode="numbering"/>
       	  </xsl:attribute>
       	  <xsl:apply-templates/>
     	  </xsl:copy>
@@ -197,6 +191,22 @@
       </xsl:otherwise>
      </xsl:choose>
   </xsl:template>
+
+  <xsl:template match="cnxml:section|*[starts-with(@cnx:class, 'section')]"
+                mode="numbering">
+    <xsl:choose>
+      <xsl:when test="$mode = 'collection'">
+        <xsl:number level="multiple" format="1.1"
+                    count="cnxml:section|*[@cnx:class='chapter']|
+                    *[starts-with(@cnx:class, 'section')]"/>
+      </xsl:when>
+      <xsl:when test="$mode = 'module' and self::cnxml:section">
+        <xsl:number level="multiple" format="1.1"
+                    count="cnxml:section"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
 
   <!-- EVERYTHING ELSE INSIDE OF A CHAPTER -->
   <xsl:template match="cnxml:figure|cnxml:definition|cnxml:equation">
@@ -326,44 +336,16 @@
   </xsl:template>
 
   <xsl:template match="cnxml:exercise[not(ancestor::cnxml:example)]">
-    <xsl:variable name="type" select="translate(@type, $upper-letters, $lower-letters)"/>
     <xsl:choose>
-      <xsl:when test="ancestor::*[@cnx:class='chapter'] or /module">
+      <xsl:when test="ancestor::*[@cnx:class='chapter']">
         <xsl:copy>
           <!--Add number attribute.-->
           <xsl:attribute name="number">
-            <xsl:choose>
-              <!-- Assessment documents use their own numbering logic. -->
-              <xsl:when test="ancestor::*[local-name()='document' and str:tokenize(@class)='assessment']">
-                <xsl:if test="$mode='collection' and ancestor::*[@cnx:class='chapter' or starts-with(@cnx:class, 'section')]">
-                  <xsl:number count="cnxml:section|*[@cnx:class='chapter' or starts-with(@cnx:class, 'section')]" level="multiple"/>
-                  <xsl:text>.</xsl:text>
-                </xsl:if>
-                <xsl:number count="cnxml:exercise" from="*[local-name()='document']" level="any"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <!-- We pay attention to @cnx:class='chapter' only in collection mode. -->
-                <xsl:if test="$mode = 'collection' and ancestor::*[@cnx:class='chapter']">
-                  <xsl:number level="single" count="*[@cnx:class='chapter']"/>
-                  <xsl:text>.</xsl:text>
-                </xsl:if>
-                <xsl:choose>
-                  <xsl:when test="$mode = 'collection' and $type">
-                    <xsl:number level="any" count="cnxml:exercise[not(ancestor::cnxml:example) and translate(@type, $upper-letters, $lower-letters)=$type][not(ancestor::*[self::document or self::cnxml:document][str:tokenize(@class)='assessment'])]" from="*[@cnx:class='chapter']" />
-                  </xsl:when>
-                  <xsl:when test="$mode = 'collection' and not($type)">
-                    <xsl:number level="any" count="cnxml:exercise[not(ancestor::cnxml:example) and not($type)][not(ancestor::*[self::document or self::cnxml:document][str:tokenize(@class)='assessment'])]" from="*[@cnx:class='chapter']" />
-                  </xsl:when>
-                  <!-- We ignore @cnx:class='chapter' in module mode. -->
-                  <xsl:when test="$mode = 'module' and $type">
-                    <xsl:number level="any" count="cnxml:exercise[not(ancestor::cnxml:example) and translate(@type, $upper-letters, $lower-letters)=$type][not(ancestor::*[self::document or self::cnxml:document][str:tokenize(@class)='assessment'])]"/>
-                  </xsl:when>
-                  <xsl:when test="$mode = 'module' and not($type)">
-                    <xsl:number level="any" count="cnxml:exercise[not(ancestor::cnxml:example) and not($type)][not(ancestor::*[self::document or self::cnxml:document][str:tokenize(@class)='assessment'])]"/>
-                  </xsl:when>
-                </xsl:choose>
-              </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="ancestor::*[local-name()='document']"
+                                 mode="numbering"/>
+            <xsl:text>.</xsl:text>
+            <xsl:number count="cnxml:exercise[not(ancestor::cnxml:example)]"
+                        level="any" from="*[local-name()='document']"/>
           </xsl:attribute>
           <xsl:apply-templates select="@*|node()" />
         </xsl:copy>

@@ -807,15 +807,36 @@ Rhaptos is a web-based collaborative publishing system for educational material.
         </xsl:call-template>
       </xsl:if>
     </xsl:variable>
-    <xsl:text>\chapter[</xsl:text>
-    <xsl:value-of select="name"/>
-    <xsl:text>]{</xsl:text>
-    <xsl:value-of select="name"/>
+    <xsl:variable name="title-rtf">
+      <xsl:choose>
+        <xsl:when test="name"><xsl:value-of select="name"/></xsl:when>
+        <xsl:when test="cnx:name"><xsl:value-of select="cnx:name"/></xsl:when>
+        <xsl:when test="cnx:title"><xsl:apply-templates select="cnx:title/node()"/></xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:text>\setcounter{footnote}{0}</xsl:text>
+    <xsl:text>\chapter</xsl:text>
+    <xsl:choose>
+      <xsl:when test="contains(string($title-rtf), 'Appendix') or normalize-space(string($title-rtf)) = 'Tables'">
+        <xsl:text>*</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>[</xsl:text>
+        <xsl:copy-of select="$title-rtf"/>
+        <xsl:text>]</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>{</xsl:text>
+    <xsl:copy-of select="$title-rtf"/>
     <xsl:value-of select="$moduleid"/>
     <xsl:value-of select="$module-footnotemark"/>
     <xsl:text>}
     </xsl:text>
     <xsl:value-of select="$module-footnotetext"/>
+    <xsl:if test="contains(string($title-rtf), 'Appendix')">
+      <xsl:text>\def\leftmark{APPENDIX}\def\rightmark{APPENDIX}
+      </xsl:text>
+    </xsl:if>
     <xsl:text>\setcounter{figure}{1}
     </xsl:text>
     <xsl:text>\setcounter{subfigure}{1}
@@ -874,7 +895,7 @@ Rhaptos is a web-based collaborative publishing system for educational material.
 
   <xsl:template match="solutions">
     <xsl:param name="chapnum" select="ancestor::*[@context:class='chapter']/@number"/>
-    <xsl:if test="count(cnx:solution|qml:answers)">
+    <xsl:if test="count(descendant::cnx:solution|descendant::qml:answers)">
       \newpage
       <xsl:choose>
         <xsl:when test="/module">
