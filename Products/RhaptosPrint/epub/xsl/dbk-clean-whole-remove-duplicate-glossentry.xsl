@@ -120,7 +120,7 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:text>Module: </xsl:text>
-                                    <db:link linkend="{$id}">
+                                    <db:link endterm="{$id}">
                                         <xsl:copy-of select="$originalTitle"/>
                                     </db:link>
                                 </xsl:otherwise>

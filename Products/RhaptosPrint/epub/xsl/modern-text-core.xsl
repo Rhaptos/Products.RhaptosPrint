@@ -60,6 +60,7 @@ procedure before
 <!--<xsl:param name="xref.with.number.and.title" select="0"/>-->
 
 <xsl:param name="cnx.pagewidth.pixels" select="400"/>
+<xsl:param name="cnx.columnwidth.pixels" select="200"/>
 
 <!-- ============================================== -->
 <!-- Customize colors and formatting                -->
@@ -100,8 +101,8 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation">
-  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
   <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
 </xsl:attribute-set>
 
@@ -126,33 +127,73 @@ procedure before
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.inner">
-  <xsl:attribute name="font-size">12</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="padding-before">5px</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.vertical-spacing">
-  <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
 
-  <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="normal.para.spacing"
     use-attribute-sets="cnx.vertical-spacing">
-  <!-- space-before.* already set -->
+  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:attribute-set name="list.block.spacing"
+    use-attribute-sets="cnx.vertical-spacing">
+  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="list.item.spacing"
+    use-attribute-sets="cnx.vertical-spacing">
+  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="list.block.properties"
+    use-attribute-sets="cnx.vertical-spacing">
+  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:attribute-set name="example.title.properties" use-attribute-sets="cnx.formal.title.text">
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="figure.title.properties"
-                   use-attribute-sets="normal.para.spacing">
+                   use-attribute-sets="cnx.vertical-spacing">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.red"/></xsl:attribute>
   <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
 
@@ -179,8 +220,8 @@ procedure before
 
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
 <xsl:attribute-set name="cnx.figure.properties">
-  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
   <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
   <xsl:attribute name="font-size">8pt</xsl:attribute>
   <xsl:attribute name="padding-after">0.5em</xsl:attribute>
@@ -199,11 +240,23 @@ procedure before
 
 <xsl:attribute-set name="formal.object.properties" use-attribute-sets="cnx.vertical-spacing">
   <xsl:attribute name="margin-top">0em</xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
   <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
   <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
   <!--inherited overrides-->
+</xsl:attribute-set>
+
+<xsl:attribute-set name="informal.object.properties"
+    use-attribute-sets="cnx.vertical-spacing">
+  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
+  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+
+  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">9</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">9</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- In Docbook tables inherit formal.object.properties
@@ -267,8 +320,8 @@ procedure before
   <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.concept.title">
@@ -1304,7 +1357,20 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
 
   <xsl:variable name="keep.together">
-    <xsl:call-template name="pi.dbfo_keep-together"/>
+    <xsl:choose>
+      <xsl:when test="self::ext:exercise">
+        <xsl:text>3</xsl:text>
+      </xsl:when>
+      <xsl:when test="self::ext:problem | self::ext:solution">
+        <xsl:text>4</xsl:text>
+      </xsl:when>
+      <xsl:when test="self::ext:*">
+        <xsl:text>2</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>1</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:variable>
 
   <fo:wrapper>
@@ -1709,6 +1775,28 @@ Combination of formal.object and formal.object.heading -->
     </xsl:call-template>
   </xsl:variable>
 
+  <xsl:variable name="imageWidth">
+    <xsl:choose>
+      <xsl:when test="@width">
+        <xsl:value-of select="@width"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@_actual-width"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="maxWidth">
+    <xsl:choose>
+      <xsl:when test="ancestor-or-self::*[@class='problems-exercises']">
+        <xsl:value-of select="$cnx.columnwidth.pixels"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$cnx.pagewidth.pixels"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <fo:external-graphic>
     <xsl:attribute name="src">
       <xsl:call-template name="fo-external-image">
@@ -1724,7 +1812,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:attribute>
 
 <!-- CNX HACK: Don't set the height/width if the width is being forced -->
-    <xsl:if test="not(@_actual-width) or @_actual-width &lt;= $cnx.pagewidth.pixels">
+    <xsl:if test="$imageWidth &lt;= $maxWidth">
       <xsl:attribute name="width">
         <xsl:choose>
           <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
@@ -1767,13 +1855,10 @@ Combination of formal.object and formal.object.heading -->
     <xsl:attribute name="content-width">
       <xsl:choose>
 <!-- CNX HACK -->
-        <xsl:when test="@_actual-width > $cnx.pagewidth.pixels">
-          <xsl:message>LOG: WARNING: image width is too wide. Forcing width and ignoring height</xsl:message>
-          <xsl:value-of select="$cnx.pagewidth.pixels"/>
+        <xsl:when test="$imageWidth > $maxWidth">
+          <xsl:message>LOG: WARNING: image width is too wide. Forcing width and ignoring height. Max of <xsl:value-of select="$maxWidth"/> is less than imageWidth:<xsl:value-of select="$imageWidth"/> actual: <xsl:value-of select="@_actual-width"/></xsl:message>
+          <xsl:value-of select="$maxWidth"/>
           <xsl:text>px</xsl:text>
-        </xsl:when>
-        <xsl:when test="@_actual-width">
-          <xsl:value-of select="@_actual-width"/>
         </xsl:when>
         <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
         <xsl:when test="contains(@contentwidth,'%')">
@@ -1790,12 +1875,19 @@ Combination of formal.object and formal.object.heading -->
           <xsl:text>%</xsl:text>
         </xsl:when>
         <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
+<!-- CNX HACK -->
+        <xsl:when test="@width">
+          <xsl:value-of select="@width"/>
+        </xsl:when>
+        <xsl:when test="@_actual-width">
+          <xsl:value-of select="@_actual-width"/>
+        </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
 
 <!-- CNX HACK: Don't set the height if the width is being forced -->
-    <xsl:if test="not(@_actual-width) or @_actual-width &lt;= $cnx.pagewidth.pixels">
+    <xsl:if test="not(@_actual-width) or $imageWidth &lt;= $maxWidth">
       <xsl:attribute name="content-height">
         <xsl:choose>
           <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
