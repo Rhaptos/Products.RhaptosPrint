@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -xv
 
 COL_PATH=$1
 
@@ -7,7 +7,7 @@ ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 EXIT_STATUS=0
 
-declare -x FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
+#declare -x FOP_OPTS=-Xmx14000M # FOP Needs a lot of memory (4+Gb for Elementary Algebra)
 DOCBOOK=$COL_PATH/collection.dbk
 DOCBOOK2=$COL_PATH/collection.cleaned.dbk
 UNALIGNED=$COL_PATH/collection.fo
@@ -26,7 +26,7 @@ FOP="sh $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
-DOCBOOK2FO_XSL=$ROOT/xsl/modern-text.xsl
+DOCBOOK2FO_XSL=$ROOT/xsl/modern-textbook.xsl
 ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 MARGINALIA_XSL=$ROOT/xsl/fo-marginalia.xsl
 

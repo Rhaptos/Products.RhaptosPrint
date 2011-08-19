@@ -9,7 +9,7 @@
   xmlns:ext="http://cnx.org/ns/docbook+"
   version="1.0">
 
-<xsl:import href="modern-text.xsl"/>
+<xsl:import href="modern-textbook.xsl"/>
 
 <!-- ============================================== -->
 <!-- Customize docbook params for this style        -->

@@ -273,6 +273,16 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         return "%s/epub" % package_home(GLOBALS)
 
+    security.declarePublic(ManagePermission, 'getAlternateStyles')
+    def getAlternateStyles(self):
+        """Returns a list of different print styles. The default is the LaTex format.
+          These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
+        """
+        return [ # {'title':'Default', 'id':''},
+                 {'title':'Modern Textbook', 'id':'modern-textbook'},
+                 {'title':'Modern Textbook (2 column)', 'id':'modern-textbook-2column'},
+               ]
+
     security.declareProtected(ManagePermission, 'getPortalPath')
     def getPortalPath(self, default=1):
         """Return path to the Rhaptos portal; meant only for manager consumption.
