@@ -1,6 +1,8 @@
 #!/bin/sh -xv
 
 COL_PATH=$1
+# The filename matches a file in $ROOT/xsl/
+PRINT_STYLE=$2
 
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
@@ -25,10 +27,15 @@ XSLTPROC="xsltproc --param cnx.output.fop 1"
 FOP="sh $ROOT/fop/fop -c $ROOT/lib/fop.xconf"
 
 # XSL files
+DOCBOOK2FO_XSL=$ROOT/xsl/${PRINT_STYLE}.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean-whole.xsl
-DOCBOOK2FO_XSL=$ROOT/xsl/modern-textbook.xsl
 ALIGN_XSL=$ROOT/xsl/fo-align-math.xsl
 MARGINALIA_XSL=$ROOT/xsl/fo-marginalia.xsl
+
+if [ ! -s ${DOCBOOK2FO_XSL} ]; then
+  echo "ERROR: Could not find style-specific XSLT file named 'epub/xsl/${PRINT_STYLE}"
+  exit 1
+fi
 
 echo "Step 1 (Cleaning up Docbook)"
 $XSLTPROC --xinclude -o $DOCBOOK2 $DOCBOOK_CLEANUP_XSL $DOCBOOK
