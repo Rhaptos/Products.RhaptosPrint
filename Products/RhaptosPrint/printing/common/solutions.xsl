@@ -65,7 +65,7 @@
       </xsl:if>
       <xsl:choose>
         <xsl:when test="$mode='solutions'">
-          <xsl:apply-templates mode="solutions"/>
+          <xsl:apply-templates mode="inside-solutions"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates/>
@@ -119,7 +119,7 @@
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
       <solutions>
-        <xsl:apply-templates select="descendant::cnx:solution|descendant::qml:item" mode="solutions"/>
+        <xsl:apply-templates select="." mode="solutions"/>
       </solutions>
     </xsl:copy>
   </xsl:template>
@@ -131,7 +131,35 @@
      - for ordered-response with multiple parts, add '(in that order)'; 
    -->
 
-  <xsl:template match="*[local-name()='document'][@class='assessment']" mode="solutions">
+  <xsl:template match="*[self::document or self::cnx:document]" mode="solutions">
+    <xsl:variable name="class-values" select="str:tokenize(@class)"/>
+    <xsl:variable name="title-string">
+      <xsl:choose>
+        <xsl:when test="name"><xsl:value-of select="name"/></xsl:when>
+        <xsl:when test="cnx:name"><xsl:value-of select="cnx:name"/></xsl:when>
+        <xsl:when test="cnx:title"><xsl:value-of select="cnx:title"/></xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="($class-values='assessment' or $class-values='homework' or 
+                $class-values='lab' or $class-values='practice' or $class-values='review') and
+                count(descendant::cnx:solution[@print-placement='end' or parent::*/processing-instruction('solution_in_back') or
+                (not(@print-placement='here') and not(ancestor::cnx:example or parent::cnx:exercise[@print-placement='here']))]) &gt; 0">
+        <xsl:call-template name="make-solutions-group"/>
+      </xsl:when>
+      <xsl:when test="(contains($title-string, 'Homework') or contains($title-string, 'Review') or 
+                contains($title-string, 'Practice') or contains($title-string, 'Lab')) and
+                count(descendant::cnx:solution[@print-placement='end' or parent::*/processing-instruction('solution_in_back') or
+                (not(@print-placement='here') and not(ancestor::cnx:example or parent::cnx:exercise[@print-placement='here']))]) &gt; 0">
+        <xsl:call-template name="make-solutions-group"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates name="descendant::cnx:solution|descendant::qml:item" mode="solutions"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="make-solutions-group">
     <solutions-group moduleid="{@id}">
       <xsl:copy-of select="*[local-name()='name' or local-name()='title']"/>
       <xsl:apply-templates select="descendant::cnx:solution|descendant::qml:item" mode="solutions"/>
@@ -209,18 +237,22 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*" mode="solutions">
+  <xsl:template match="node()|@*" mode="solutions">
+    <xsl:apply-templates mode="solutions"/>
+  </xsl:template>
+
+  <xsl:template match="*" mode="inside-solutions">
     <xsl:copy>
-      <xsl:apply-templates select="@*" mode="solutions"/>
-      <xsl:apply-templates mode="solutions"/>
+      <xsl:apply-templates select="@*" mode="inside-solutions"/>
+      <xsl:apply-templates mode="inside-solutions"/>
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="@*" mode="solutions">
+  <xsl:template match="@*" mode="inside-solutions">
     <xsl:copy/>
   </xsl:template>
 
-  <xsl:template match="text()|processing-instruction()" mode="solutions">
+  <xsl:template match="text()|processing-instruction()" mode="inside-solutions">
     <xsl:copy/>
   </xsl:template>
 

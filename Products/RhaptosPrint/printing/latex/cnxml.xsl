@@ -485,7 +485,36 @@
   <xsl:template match="/course/*[local-name()='language']">
   </xsl:template>
 
+  <xsl:template name="newpage-for-homework">
+    <xsl:param name="module-id"/>
+    <xsl:variable name="class-values" select="str:tokenize(@class)"/>
+    <xsl:variable name="title-string">
+      <xsl:choose>
+        <xsl:when test="name"><xsl:value-of select="name"/></xsl:when>
+        <xsl:when test="cnx:name"><xsl:value-of select="cnx:name"/></xsl:when>
+        <xsl:when test="cnx:title"><xsl:value-of select="cnx:title"/></xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="ancestor::group/name='Appendix'">
+        <xsl:if test="self::group or ((self::document or self::cnx:document) and generate-id() != generate-id(../*[self::group or self::document or self::cnx:document][1]))">
+          <xsl:text>\newpage  % appendix
+          </xsl:text>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="$class-values='lab' or $class-values='practice' or $class-values='homework' or $class-values='review'">
+        <xsl:text>\newpage
+        </xsl:text>
+      </xsl:when>
+      <xsl:when test="contains($title-string, 'Lab') or contains($title-string, 'Practice') or contains($title-string, 'Homework') or contains($title-string, 'Review') or contains($title-string, 'Summary')">
+        <xsl:text>\newpage
+        </xsl:text>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="document">
+    <xsl:call-template name="newpage-for-homework"/>
     <xsl:apply-templates/>
     <xsl:text>\label{</xsl:text>
     <xsl:value-of select="concat(@id, '**end')"/>
@@ -533,6 +562,7 @@
         </xsl:call-template>
       </xsl:if>
     </xsl:variable>
+    <xsl:call-template name="newpage-for-homework"/>
     <!-- Generate the correct section/subsection LaTeX based on $level -->
     <xsl:choose>
       <!-- Error trap -->

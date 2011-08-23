@@ -161,7 +161,13 @@
 			<xsl:with-param name="content" select="."/>
 		</xsl:call-template>
 	</xsl:variable>
+        <xsl:variable name="italicize">
+          <xsl:if test="ancestor::*[local-name()='document'][contains(@class, 'italicize-mtext')]">
+            <xsl:text>\it </xsl:text>
+          </xsl:if>
+        </xsl:variable>
 	<xsl:text>\text{</xsl:text>
+        <xsl:value-of select="$italicize"/>
 	<xsl:value-of select="$content"/>
 	<xsl:text>}</xsl:text>
 </xsl:template>
