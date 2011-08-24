@@ -10,9 +10,9 @@
 
 <xsl:output method="xml" encoding="ASCII"/>
 
-<xsl:template name="ident" match="@*|node()">
+<xsl:template name="ident" match="@*|node()|comment()|processing-instruction()">
     <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:apply-templates select="@*|node()|comment()|processing-instruction()"/>
     </xsl:copy>
 </xsl:template>
 
