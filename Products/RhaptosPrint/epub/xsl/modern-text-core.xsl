@@ -59,7 +59,7 @@ procedure before
 
 <!--<xsl:param name="xref.with.number.and.title" select="0"/>-->
 
-<xsl:param name="cnx.pagewidth.pixels" select="400"/>
+<xsl:param name="cnx.pagewidth.pixels" select="396"/>
 <xsl:param name="cnx.columnwidth.pixels" select="200"/>
 
 <!-- ============================================== -->
