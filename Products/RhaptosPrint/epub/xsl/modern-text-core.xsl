@@ -802,7 +802,7 @@ procedure before
 </xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:exercise" mode="number">
+<xsl:template match="ext:exercise[not(ancestor::db:example)]" mode="number">
   <xsl:param name="type" select="@type"/>
   <xsl:choose>
     <xsl:when test="$type and $type != ''">

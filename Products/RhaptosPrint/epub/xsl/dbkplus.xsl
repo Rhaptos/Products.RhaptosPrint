@@ -203,8 +203,12 @@
       <xsl:text> </xsl:text>
       <xsl:apply-templates select="$c/." mode="number"/>
       <xsl:if test="$c/db:title">
+        
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Not reprinting title, this might result in a bug</xsl:with-param></xsl:call-template>
+<!--
         <xsl:text> </xsl:text>
         <xsl:apply-templates select="$c/." mode="title.markup"/>
+-->
       </xsl:if>
 		</xsl:otherwise>
 	</xsl:choose>
