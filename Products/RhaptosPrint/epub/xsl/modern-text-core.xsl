@@ -29,7 +29,7 @@
 
 <xsl:param name="body.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
-<xsl:param name="body.font.master">9.5</xsl:param>
+<xsl:param name="body.font.master">8.5</xsl:param>
 <xsl:param name="body.start.indent">0px</xsl:param>
 
 <xsl:param name="header.rule" select="0"/>
@@ -45,8 +45,8 @@ book      toc,title
 
 <xsl:param name="page.margin.top">0.25in</xsl:param>
 <xsl:param name="page.margin.bottom">0.25in</xsl:param>
-<xsl:param name="page.margin.inner">1.5in</xsl:param>
-<xsl:param name="page.margin.outer">1.5in</xsl:param>
+<xsl:param name="page.margin.inner">1.0in</xsl:param>
+<xsl:param name="page.margin.outer">1.0in</xsl:param>
 <xsl:param name="cnx.margin.problems">1in</xsl:param>
 
 <xsl:param name="formal.title.placement">
