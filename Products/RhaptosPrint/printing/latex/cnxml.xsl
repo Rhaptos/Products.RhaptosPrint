@@ -492,7 +492,7 @@
       <xsl:choose>
         <xsl:when test="name"><xsl:value-of select="name"/></xsl:when>
         <xsl:when test="cnx:name"><xsl:value-of select="cnx:name"/></xsl:when>
-        <xsl:when test="cnx:title"><xsl:value-of select="cnx:title"/></xsl:when>
+        <!-- <xsl:when test="cnx:title"><xsl:value-of select="cnx:title"/></xsl:when>  FIXME: hack to avoid adding pagebreaks at subsubsections based on title - can still use @class-->
       </xsl:choose>
     </xsl:variable>
     <xsl:choose>
