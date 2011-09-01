@@ -7,6 +7,7 @@
   xmlns:db="http://docbook.org/ns/docbook"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   xmlns:ext="http://cnx.org/ns/docbook+"
+  xmlns:c="http://cnx.rice.edu/cnxml"
   version="1.0">
 
 <xsl:import href="debug.xsl"/>
@@ -59,6 +60,9 @@
 	</fo:block>
 </xsl:template>
 
+<xsl:template match="c:media">
+	<xsl:call-template name="log"><xsl:with-param name="str">INFO: Discarding media tag</xsl:with-param></xsl:call-template>
+</xsl:template>
 
 <!-- No longer used: Print the current module that is being worked on.
 	Converting Docbook to XSL-FO may take hours so 

@@ -336,7 +336,9 @@
 	<db:link xlink:href="{$url}">
 		<xsl:text>(This media type is not supported in this reader. Click to open media in browser.)</xsl:text>
 	    <xsl:comment>Adding the original media tag for use by the offline HTML generation XSLT</xsl:comment>
-	    <xsl:copy-of select="."/>
+	    <c:media>
+		    <xsl:apply-templates select="@*|node()"/>
+		  </c:media>
 	</db:link>
 </xsl:template>
 <xsl:template match="c:media[not(ancestor::c:para)]" priority="0">
