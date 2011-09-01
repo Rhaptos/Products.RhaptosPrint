@@ -100,6 +100,17 @@ procedure before
   <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
 </xsl:attribute-set>
 
+<!-- End-of-chapter questions and problem numbers -->
+<xsl:attribute-set name="cnx.question"
+		use-attribute-sets="informal.object.properties">
+	<xsl:attribute name="space-before.minimum">0.25em</xsl:attribute>
+	<xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
+	<xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.question.number">
+	<xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
+
 <xsl:attribute-set name="cnx.equation">
   <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
   <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
@@ -661,31 +672,12 @@ procedure before
       </xsl:if>
       
       <!-- Create a 1-column Listing of Conceptual Questions -->
-      <xsl:if test="count(.//*[@class='conceptual-questions']) &gt; 0">
-        <xsl:comment>CNX: Start Conceptual Questions Area</xsl:comment>
-        <fo:block xsl:use-attribute-sets="cnx.formal.title">
-          <fo:inline xsl:use-attribute-sets="example.title.properties">
-            <xsl:text>&#160; &#160; Conceptual Questions &#160; &#160;</xsl:text>
-          </fo:inline>
-        </fo:block>
-        
-        <xsl:for-each select="db:section[.//*[@class='conceptual-questions']]">
-          <xsl:variable name="sectionId">
-            <xsl:call-template name="object.id"/>
-          </xsl:variable>
-          <!-- Print the section title and link back to it -->
-          <fo:block xsl:use-attribute-sets="cnx.problems.title">
-            <fo:basic-link internal-destination="{$sectionId}">
-              <xsl:apply-templates select="." mode="object.title.markup">
-                <xsl:with-param name="allow-anchors" select="0"/>
-              </xsl:apply-templates>
-            </fo:basic-link>
-          </fo:block>
-          <xsl:apply-templates select=".//*[@class='conceptual-questions']">
-            <xsl:with-param name="render" select="true()"/>
-          </xsl:apply-templates>
-        </xsl:for-each>
-      </xsl:if>
+			<xsl:call-template name="cnx.end-of-chapter-problems">
+				<xsl:with-param name="title">
+					<xsl:text>Conceptual Questions</xsl:text>
+				</xsl:with-param>
+				<xsl:with-param name="attribute" select="'conceptual-questions'"/>
+			</xsl:call-template>
 
     </xsl:with-param>
   </xsl:call-template>
@@ -699,36 +691,58 @@ procedure before
       <xsl:with-param name="initial-page-number">auto</xsl:with-param>
       <xsl:with-param name="content">
 
-        <fo:marker marker-class-name="section.head.marker">
-          <xsl:text>Problems</xsl:text>
-        </fo:marker>
-      
-        <fo:block xsl:use-attribute-sets="cnx.formal.title">
-          <fo:inline xsl:use-attribute-sets="example.title.properties">
-            <xsl:text>&#160; &#160; Problems &#160; &#160;</xsl:text>
-          </fo:inline>
-        </fo:block>
-        
-        <xsl:for-each select="db:section[.//*[@class='problems-exercises']]">
-          <xsl:variable name="sectionId">
-            <xsl:call-template name="object.id"/>
-          </xsl:variable>
-          <!-- Print the section title and link back to it -->
-          <fo:block xsl:use-attribute-sets="cnx.problems.title">
-            <fo:basic-link internal-destination="{$sectionId}">
-              <xsl:apply-templates select="." mode="object.title.markup">
-                <xsl:with-param name="allow-anchors" select="0"/>
-              </xsl:apply-templates>
-            </fo:basic-link>
-          </fo:block>
-          <xsl:apply-templates select=".//*[@class='problems-exercises']">
-            <xsl:with-param name="render" select="true()"/>
-          </xsl:apply-templates>
-        </xsl:for-each>
+				<fo:marker marker-class-name="section.head.marker">
+					<xsl:text>Problems</xsl:text>
+				</fo:marker>
+
+				<xsl:call-template name="cnx.end-of-chapter-problems">
+					<xsl:with-param name="title">
+						<xsl:text>Problems</xsl:text>
+					</xsl:with-param>
+					<xsl:with-param name="attribute" select="'problems-exercises'"/>
+				</xsl:call-template>
 
       </xsl:with-param>
     </xsl:call-template>
   </xsl:if>
+</xsl:template>
+
+<xsl:template name="cnx.end-of-chapter-problems">
+	<xsl:param name="title"/>
+	<xsl:param name="attribute"/>
+
+	<!-- Create a 1-column Listing of "Conceptual Questions" or "end-of-chapter Problems" -->
+	<xsl:if test="count(.//*[@class=$attribute]) &gt; 0">
+		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
+		
+		<fo:block xsl:use-attribute-sets="cnx.formal.title">
+			<fo:inline xsl:use-attribute-sets="example.title.properties">
+				<xsl:text>&#160; &#160; </xsl:text>
+				<xsl:copy-of select="$title"/>
+				<xsl:text> &#160; &#160;</xsl:text>
+			</fo:inline>
+		</fo:block>
+		
+		<!-- This for-each is the main section (1.4 Newton) to print section title -->
+		<xsl:for-each select="db:section[descendant::*[@class=$attribute]]">
+			<xsl:variable name="sectionId">
+				<xsl:call-template name="object.id"/>
+			</xsl:variable>
+			<!-- Print the section title and link back to it -->
+			<fo:block xsl:use-attribute-sets="cnx.problems.title">
+				<fo:basic-link internal-destination="{$sectionId}">
+					<xsl:apply-templates select="." mode="object.title.markup">
+						<xsl:with-param name="allow-anchors" select="0"/>
+					</xsl:apply-templates>
+				</fo:basic-link>
+			</fo:block>
+			<!-- This for-each renders all the sections and exercises and numbers them -->
+			<xsl:apply-templates select="descendant::*[@class=$attribute]/node()">
+				<xsl:with-param name="render" select="true()"/>
+			</xsl:apply-templates>
+		</xsl:for-each>
+	</xsl:if>
+
 </xsl:template>
 
 <xsl:template mode="cnx.chapter.summary" match="db:section[not(@class='introduction') and db:sectioninfo/db:abstract]">
@@ -778,8 +792,10 @@ procedure before
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
   </xsl:if>
   <xsl:if test="not($renderSolution) or ext:solution">
-    <fo:block id="{$id}" xsl:use-attribute-sets="informal.object.properties">
-      <xsl:apply-templates select="." mode="number"/>
+    <fo:block id="{$id}" xsl:use-attribute-sets="cnx.question">
+      <fo:inline xsl:use-attribute-sets="cnx.question.number">
+	      <xsl:apply-templates select="." mode="number"/>
+	    </fo:inline>
       <xsl:text> </xsl:text>
       <xsl:choose>
         <xsl:when test="$renderSolution">
