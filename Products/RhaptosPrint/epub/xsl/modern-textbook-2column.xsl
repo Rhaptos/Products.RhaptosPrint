@@ -15,6 +15,8 @@
 <!-- Customize docbook params for this style        -->
 <!-- ============================================== -->
 
+<xsl:param name="cnx.pagewidth.pixels" select="$cnx.columnwidth.pixels"/>
+
 <xsl:param name="alignment">start</xsl:param>
 
 <xsl:param name="column.count.titlepage" select="1"/>
@@ -33,6 +35,39 @@
 <!-- ============================================== -->
 <!-- Custom page layouts for modern-textbook        -->
 <!-- ============================================== -->
+
+<xsl:param name="body.font.master">9</xsl:param>
+
+<xsl:param name="cnx.color.black">#000000</xsl:param>
+
+<xsl:param name="cnx.section.title.prefix"> | </xsl:param>
+
+<xsl:attribute-set name="section.title.number">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.black"/></xsl:attribute>
+	<!-- Overrides the border defined by section.title.level1.properties -->
+  <xsl:attribute name="border-bottom-color">transparent</xsl:attribute>
+  <xsl:attribute name="border-bottom-width">0px</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="section.title.level1.properties">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
+  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
+  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
+  <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="section.title.level2.properties">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="section.title.level3.properties">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="xref.properties">
+  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+</xsl:attribute-set>
+
 
 <!-- Generate custom page layouts for:
      - Chapter introduction
@@ -129,5 +164,51 @@
     </fo:simple-page-master>
 
 </xsl:template>
+
+<!-- 1st-level section titles have black numbering and a pipe character before the text is rendered -->
+
+<xsl:template name="section.heading">
+  <xsl:param name="level" select="1"/>
+  <xsl:param name="marker" select="1"/>
+  <xsl:param name="title"/>
+  <xsl:param name="marker.title"/>
+
+  <xsl:variable name="cnx.title">
+    <fo:inline xsl:use-attribute-sets="section.title.number">
+      <xsl:value-of select="substring-before($title, $marker.title)"/>
+    </fo:inline>
+    <xsl:if test="$level=1">
+			<xsl:copy-of select="$cnx.section.title.prefix"/>
+		</xsl:if>
+    <xsl:copy-of select="$marker.title"/>
+  </xsl:variable>
+
+  <fo:block xsl:use-attribute-sets="section.title.properties">
+    <xsl:if test="$marker != 0">
+      <fo:marker marker-class-name="section.head.marker">
+        <xsl:copy-of select="$marker.title"/>
+      </fo:marker>
+    </xsl:if>
+
+    <xsl:choose>
+      <xsl:when test="$level=1">
+        <fo:block xsl:use-attribute-sets="section.title.level1.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:when test="$level=2">
+        <fo:block xsl:use-attribute-sets="section.title.level2.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block xsl:use-attribute-sets="section.title.level3.properties">
+          <xsl:copy-of select="$cnx.title"/>
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
+  </fo:block>
+</xsl:template>
+
 
 </xsl:stylesheet>
