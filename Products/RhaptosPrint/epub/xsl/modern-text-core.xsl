@@ -60,7 +60,7 @@ procedure before
 <!--<xsl:param name="xref.with.number.and.title" select="0"/>-->
 
 <xsl:param name="cnx.pagewidth.pixels" select="396"/>
-<xsl:param name="cnx.columnwidth.pixels" select="200"/>
+<xsl:param name="cnx.columnwidth.pixels" select="228"/>
 
 <!-- ============================================== -->
 <!-- Customize colors and formatting                -->
@@ -68,7 +68,7 @@ procedure before
 
 <xsl:param name="cnx.font.small" select="concat($body.font.master * 0.8, 'pt')"/>
 <xsl:param name="cnx.font.large" select="concat($body.font.master * 1.2, 'pt')"/>
-<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.4, 'pt')"/>
+<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.6, 'pt')"/>
 <xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
 <xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
 <xsl:param name="cnx.color.blue">#0061AA</xsl:param>
@@ -98,6 +98,9 @@ procedure before
   <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
   <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.75em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- End-of-chapter questions and problem numbers -->
