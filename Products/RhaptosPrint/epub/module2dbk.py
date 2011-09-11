@@ -4,48 +4,34 @@ import sys
 import os
 import Image
 from StringIO import StringIO
-from tempfile import mkstemp
+import subprocess
 
 from lxml import etree
 import urllib2
-import subprocess
 import pkg_resources
+
+import util
 
 PKG_DIR = ''
 
-INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
-if not os.path.isfile(INKSCAPE_BIN):
-  INKSCAPE_BIN = 'inkscape'
 
 SAXON_PATH = pkg_resources.resource_filename(PKG_DIR + 'lib', 'saxon9he.jar')
 MATH2SVG_PATH = pkg_resources.resource_filename(PKG_DIR + 'xslt2', 'math2svg-in-docbook.xsl')
 
-# http://lxml.de/xpathxslt.html
-def makeXsl(filename):
-  """ Helper that creates a XSLT stylesheet """
-  path = pkg_resources.resource_filename(PKG_DIR + "xsl", filename)
-  #print "Loading resource: %s" % path
-  xml = etree.parse(path)#etree.XML(path)
-  return etree.XSLT(xml)
+CLEANUP_XSL = util.makeXsl('cnxml-clean.xsl')
+CLEANUP2_XSL = util.makeXsl('cnxml-clean-math.xsl')
+SIMPLIFY_MATHML_XSL = util.makeXsl('cnxml-clean-math-simplify.xsl')
+ANNOTATE_IMAGES_XSL = util.makeXsl('annotate-images.xsl')
+CNXML_TO_DOCBOOK_XSL = util.makeXsl('cnxml2dbk.xsl')
+DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean.xsl')
+DOCBOOK_VALIDATION_XSL = util.makeXsl('dbk-clean-for-validation.xsl')
+SVG2PNG_FILES_XSL = util.makeXsl('dbk-svg2png.xsl')
+DOCBOOK_BOOK_XSL = util.makeXsl('moduledbk2book.xsl')
 
-CLEANUP_XSL = makeXsl('cnxml-clean.xsl')
-CLEANUP2_XSL = makeXsl('cnxml-clean-math.xsl')
-SIMPLIFY_MATHML_XSL = makeXsl('cnxml-clean-math-simplify.xsl')
-ANNOTATE_IMAGES_XSL = makeXsl('annotate-images.xsl')
-CNXML_TO_DOCBOOK_XSL = makeXsl('cnxml2dbk.xsl')
-DOCBOOK_CLEANUP_XSL = makeXsl('dbk-clean.xsl')
-DOCBOOK_VALIDATION_XSL = makeXsl('dbk-clean-for-validation.xsl')
-SVG2PNG_FILES_XSL = makeXsl('dbk-svg2png.xsl')
-DOCBOOK_BOOK_XSL = makeXsl('moduledbk2book.xsl')
 
-NAMESPACES = {
-  'mml':'http://www.w3.org/1998/Math/MathML',
-  'db' :'http://docbook.org/ns/docbook',
-  'svg':'http://www.w3.org/2000/svg'}
-
-MATH_XPATH = etree.XPath('//mml:math', namespaces=NAMESPACES)
-DOCBOOK_SVG_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=NAMESPACES)
-DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=NAMESPACES)
+MATH_XPATH = etree.XPath('//mml:math', namespaces=util.NAMESPACES)
+DOCBOOK_SVG_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=util.NAMESPACES)
+DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NAMESPACES)
 
 
 def transform(xslDoc, xmlDoc):
@@ -75,17 +61,6 @@ def mathml2svg(xml):
     xml = etree.parse(StringIO(stdOut), parser)
   return xml, strErr
 
-# From http://stackoverflow.com/questions/2932408/
-def svg2png(svgStr):
-  _, pngPath = mkstemp(suffix='.png')
-  # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
-  strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-  strOut, strError = p.communicate(svgStr)
-  pngFile = open(pngPath)
-  pngData = pngFile.read()
-  pngFile.close()
-  return pngData
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
 def convert(cnxml, filesDict):
@@ -136,7 +111,7 @@ def convert(cnxml, filesDict):
     strImageName = "gd-%04d.png" % (position + 1)
     svg = etree.SubElement(image, "svg")
     svgStr = etree.tostring(svg)
-    pngStr = svg2png(svgStr)
+    pngStr = util.svg2png(svgStr)
     newFiles[strImageName] = pngStr
     image.set('fileref', strImageName)
 
