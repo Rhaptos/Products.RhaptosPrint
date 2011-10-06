@@ -1799,6 +1799,9 @@ Combination of formal.object and formal.object.heading -->
       <xsl:when test="@width">
         <xsl:value-of select="@width"/>
       </xsl:when>
+      <xsl:when test="@height">
+      	<xsl:value-of select="@height * @_actual-width / @_actual-height"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@_actual-width"/>
       </xsl:otherwise>
