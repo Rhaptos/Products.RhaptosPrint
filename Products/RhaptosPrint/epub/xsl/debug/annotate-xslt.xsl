@@ -24,8 +24,9 @@
 
 
 <xsl:import href="../ident.xsl"/>
+<xsl:import href="annotate-attribute-sets.xsl"/>
 
-<xsl:template match="xsl:template[@match]">
+<xsl:template match="xsl:template[@match and not(contains(@match,'@'))]">
   <xsl:copy>
     <xsl:apply-templates select="@*|xsl:param"/>
     <xsl:call-template name="comment"/>
@@ -36,27 +37,23 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="xsl:apply-templates|xsl:call-template">
-  <xsl:call-template name="comment"/>
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-  <xsl:call-template name="comment">
-    <xsl:with-param name="end" select="true()"/>
-  </xsl:call-template>
-</xsl:template>
-
 <xsl:template name="comment">
   <xsl:param name="end" select="0"/>
-  <xsl:element name="xsl:comment">
+	<xsl:variable name="v">
     <xsl:text> </xsl:text>
-    <xsl:if test="$end">
+    <xsl:if test="$end != 0">
       <xsl:text>/</xsl:text>
+    </xsl:if>
+    <xsl:if test="$end = 0">
+      <xsl:text> </xsl:text>
     </xsl:if>
     <xsl:value-of select="name(.)"/>
     <xsl:apply-templates mode="comment" select="@*"/>
     <xsl:apply-templates mode="comment" select="xsl:param|xsl:with-param"/>
     <xsl:text> </xsl:text>
+	</xsl:variable>
+  <xsl:element name="xsl:comment">
+  	<xsl:copy-of select="$v"/>
   </xsl:element>
 </xsl:template>
 
@@ -73,8 +70,9 @@
     <xsl:with-param name="value">
       <xsl:element name="xsl:value-of">
         <xsl:attribute name="select">
-          <xsl:text>$</xsl:text>
+          <xsl:text>substring(normalize-space($</xsl:text>
           <xsl:value-of select="@name"/>
+          <xsl:text>),1,20)</xsl:text>
         </xsl:attribute>
       </xsl:element>
     </xsl:with-param>
@@ -98,22 +96,24 @@
           <xsl:element name="xsl:choose">
             <xsl:element name="xsl:when">
               <xsl:attribute name="test">
-                <xsl:text>(</xsl:text>
+                <xsl:text>string-length(normalize-space(</xsl:text>
                 <xsl:value-of select="@select"/>
-                <xsl:text>)[node()]</xsl:text>
+                <xsl:text>)) &gt; 20</xsl:text>
               </xsl:attribute>
               <xsl:element name="xsl:value-of">
                 <xsl:attribute name="select">
-                  <xsl:text>name(</xsl:text>
+                  <xsl:text>substring(normalize-space(</xsl:text>
                   <xsl:value-of select="@select"/>
-                  <xsl:text>)</xsl:text>
+                  <xsl:text>),1,20)</xsl:text>
                 </xsl:attribute>
               </xsl:element>
             </xsl:element>
             <xsl:element name="xsl:otherwise">
               <xsl:element name="xsl:value-of">
                 <xsl:attribute name="select">
+                	<xsl:text>substring(normalize-space(</xsl:text>
                   <xsl:value-of select="@select"/>
+                  <xsl:text>),1,20)</xsl:text>
                 </xsl:attribute>
               </xsl:element>
             </xsl:element>
