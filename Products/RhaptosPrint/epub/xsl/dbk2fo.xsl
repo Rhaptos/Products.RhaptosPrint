@@ -78,7 +78,7 @@
 <xsl:template match="db:token[@class='simplemath']/text()">
     <xsl:choose>
         <xsl:when test="normalize-space(.) != '' and normalize-space(.) != ' '">
-            <fo:inline font-family="STIXGeneral">
+            <fo:inline font-family="STIXGeneral,STIXSize">
                 <xsl:value-of select="."/>
             </fo:inline>
         </xsl:when>
@@ -92,7 +92,7 @@
   <xsl:param name="content">
     <xsl:call-template name="simple.xlink">
       <xsl:with-param name="content">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="node()"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:param>
@@ -100,7 +100,7 @@
   <fo:inline font-weight="bold">
     <xsl:if test="ancestor::db:token[@class='simplemath']">
         <xsl:attribute name="font-family">
-            <xsl:text>STIXGeneral</xsl:text>
+            <xsl:text>STIXGeneral,STIXSize</xsl:text>
         </xsl:attribute>
     </xsl:if>
     <xsl:if test="@dir">
@@ -119,7 +119,7 @@
   <xsl:param name="content">
     <xsl:call-template name="simple.xlink">
       <xsl:with-param name="content">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="node()"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:param>
@@ -127,7 +127,7 @@
   <fo:inline font-style="italic">
     <xsl:if test="ancestor::db:token[@class='simplemath']">
         <xsl:attribute name="font-family">
-            <xsl:text>STIXGeneral</xsl:text>
+            <xsl:text>STIXGeneral,STIXSize</xsl:text>
         </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="anchor"/>
