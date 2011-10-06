@@ -58,14 +58,27 @@
 </xsl:attribute-set>
 <xsl:attribute-set name="section.title.level2.properties">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level3.properties">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="xref.properties">
   <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
+</xsl:attribute-set>
+
+
+<xsl:attribute-set name="cnx.note">
+  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
+  <xsl:attribute name="padding-top">0.25em</xsl:attribute>
+  <xsl:attribute name="padding-bottom">0.25em</xsl:attribute>
+  <xsl:attribute name="space-before">1em</xsl:attribute>
+  <xsl:attribute name="space-after">1em</xsl:attribute>
 </xsl:attribute-set>
 
 
