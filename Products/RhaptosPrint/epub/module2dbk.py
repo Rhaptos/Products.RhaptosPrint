@@ -33,15 +33,6 @@ MATH_XPATH = etree.XPath('//mml:math', namespaces=util.NAMESPACES)
 DOCBOOK_SVG_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=util.NAMESPACES)
 DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NAMESPACES)
 
-
-def transform(xslDoc, xmlDoc):
-  """ Performs an XSLT transform and parses the <xsl:message /> text """
-  ret = xslDoc(xmlDoc)
-  for entry in xslDoc.error_log:
-    # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print entry
-  return ret
-
 # Use pmml2svg to convert MathML to inline SVG
 def mathml2svg(xml):
   formularList = MATH_XPATH(xml)
@@ -63,11 +54,22 @@ def mathml2svg(xml):
 
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(cnxml, filesDict):
+def convert(moduleId, cnxml, filesDict):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
-  newFiles = {}
+  # params are XPaths so strings need to be quoted
+  params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
 
+  def transform(xslDoc, xmlDoc):
+    """ Performs an XSLT transform and parses the <xsl:message /> text """
+    ret = xslDoc(xmlDoc, **params)
+    for entry in xslDoc.error_log:
+      # TODO: Log the errors (and convert JSON to python) instead of just printing
+      print entry
+    return ret
+
+  newFiles = {}
+  
   cnxml2 = transform(CLEANUP_XSL, cnxml)
   cnxml3 = transform(CLEANUP2_XSL, cnxml2)
   # Have to run the cleanup twice because we remove empty mml:mo,

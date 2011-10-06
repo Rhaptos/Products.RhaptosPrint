@@ -8,7 +8,6 @@ from tempfile import mkstemp
 
 from lxml import etree
 import urllib2
-import pkg_resources
 
 import module2dbk
 import util
@@ -42,11 +41,10 @@ def convert(collxml, modulesDict):
   dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
 
   modDbkDict = {}
-  for module in modulesDict:
-    cnxml, filesDict = modulesDict[module]
+  for module, (cnxml, filesDict) in modulesDict.items():
     print "TODO: Send the collection parameters"
-    modDbk, newFiles = module2dbk.convert(cnxml, filesDict)
-    modDbkDict[module] = modDbk
+    modDbk, newFiles = module2dbk.convert(module, cnxml, filesDict)
+    modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
 
   # Combine into a single large file
   # Replacing Xpath xinclude magic with explicit pyhton code
