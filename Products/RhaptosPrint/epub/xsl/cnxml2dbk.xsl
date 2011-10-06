@@ -471,7 +471,7 @@
 
 <xsl:template match="c:foreign">
         <db:foreignphrase>
-        	<xsl:apply-templates/>
+        	<xsl:apply-templates select="node()"/>
         </db:foreignphrase>
 </xsl:template>
 
@@ -578,7 +578,7 @@
 <xsl:template match="c:seealso">
   <db:glossdef>
     <db:glossseealso>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </db:glossseealso>
   </db:glossdef>
 </xsl:template>
@@ -630,7 +630,7 @@
 <xsl:template name="cnx.indexterm">
   <db:indexterm>
     <db:primary>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </db:primary>
   </db:indexterm>
 </xsl:template>
@@ -684,7 +684,7 @@
 
 <!-- Add metadata like authors, an abstract, etc -->
 <xsl:template match="c:metadata">
-	<xsl:apply-templates/>
+	<xsl:apply-templates select="node()"/>
 </xsl:template>
 
 </xsl:stylesheet>
