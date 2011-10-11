@@ -61,7 +61,7 @@
 </xsl:template>
 
 <xsl:template match="c:media">
-	<xsl:call-template name="log"><xsl:with-param name="str">INFO: Discarding media tag</xsl:with-param></xsl:call-template>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="str">INFO: Discarding media tag</xsl:with-param></xsl:call-template>
 </xsl:template>
 
 <!-- No longer used: Print the current module that is being worked on.
@@ -423,5 +423,115 @@
     </xsl:choose>
 </xsl:template>
 
+
+<!-- Modified from docbook-xsl/fo/inline.xsl.
+		Changes are marked with a CNX comment.
+-->
+<xsl:template match="d:glossterm" name="glossterm">
+  <xsl:param name="firstterm" select="0"/>
+
+  <xsl:choose>
+    <xsl:when test="($firstterm.only.link = 0 or $firstterm = 1) and @linkend">
+      <xsl:variable name="targets" select="key('id',@linkend)"/>
+      <xsl:variable name="target" select="$targets[1]"/>
+
+      <xsl:choose>
+        <xsl:when test="$target">
+          <fo:basic-link internal-destination="{@linkend}" 
+                         xsl:use-attribute-sets="xref.properties">
+            <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+          </fo:basic-link>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+
+    <xsl:when test="not(@linkend)
+                    and ($firstterm.only.link = 0 or $firstterm = 1)
+                    and ($glossterm.auto.link != 0)
+                    and $glossary.collection != ''">
+      <xsl:variable name="term">
+        <xsl:choose>
+          <xsl:when test="@baseform"><xsl:value-of select="@baseform"/></xsl:when>
+          <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="cterm"
+           select="(document($glossary.collection,.)//d:glossentry[d:glossterm=$term])[1]"/>
+
+      <xsl:choose>
+        <xsl:when test="not($cterm)">
+          <xsl:message>
+            <xsl:text>There's no entry for </xsl:text>
+            <xsl:value-of select="$term"/>
+            <xsl:text> in </xsl:text>
+            <xsl:value-of select="$glossary.collection"/>
+          </xsl:message>
+          <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="id">
+            <xsl:call-template name="object.id">
+              <xsl:with-param name="object" select="$cterm"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <fo:basic-link internal-destination="{$id}"
+                         xsl:use-attribute-sets="xref.properties">
+            <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+          </fo:basic-link>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+
+    <xsl:when test="not(@linkend)
+                    and ($firstterm.only.link = 0 or $firstterm = 1)
+                    and $glossterm.auto.link != 0">
+      <xsl:variable name="term">
+        <xsl:choose>
+          <xsl:when test="@baseform">
+            <xsl:value-of select="normalize-space(@baseform)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="targets"
+                    select="//d:glossentry[normalize-space(d:glossterm)=$term
+                            or normalize-space(d:glossterm/@baseform)=$term]"/>
+
+      <xsl:variable name="target" select="$targets[1]"/>
+
+      <xsl:choose>
+        <xsl:when test="count($targets)=0">
+          <xsl:message>
+            <xsl:text>Error: no glossentry for glossterm: </xsl:text>
+            <xsl:value-of select="."/>
+            <xsl:text>.</xsl:text>
+          </xsl:message>
+          <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="termid">
+            <xsl:call-template name="object.id">
+              <xsl:with-param name="object" select="$target"/>
+            </xsl:call-template>
+          </xsl:variable>
+
+          <fo:basic-link internal-destination="{$termid}"
+                         xsl:use-attribute-sets="xref.properties">
+            <xsl:call-template name="inline.charseq"/>
+          </fo:basic-link>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- CNX: <xsl:call-template name="inline.italicseq"/> --><xsl:call-template name="inline.boldseq"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>
