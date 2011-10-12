@@ -673,6 +673,16 @@ procedure before
           </fo:table>
         </fo:block>
       </xsl:if>
+
+      <!-- Create a Review/Summary Section -->
+      <xsl:if test=".//*[@class='review']">
+				<xsl:call-template name="cnx.end-of-chapter-problems">
+					<xsl:with-param name="title">
+						<xsl:text>Chapter Review</xsl:text>
+					</xsl:with-param>
+					<xsl:with-param name="attribute" select="'review'"/>
+				</xsl:call-template>
+			</xsl:if>
       
       <!-- Create a 1-column Listing of Conceptual Questions -->
 			<xsl:call-template name="cnx.end-of-chapter-problems">
@@ -1302,7 +1312,8 @@ Combination of formal.object and formal.object.heading -->
         ancestor::ext:exercise or 
         ancestor::db:example or 
         ancestor::ext:rule or
-        ancestor::db:glosslist]">
+        ancestor::db:glosslist or
+        ancestor-or-self::db:list]">
   <xsl:param name="object" select="."/>
   <xsl:param name="placement" select="'before'"/>
 
