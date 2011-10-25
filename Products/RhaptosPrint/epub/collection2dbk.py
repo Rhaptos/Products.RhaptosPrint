@@ -1,10 +1,14 @@
-# from lxml import etree; import collection2dbk; print collection2dbk.convert(etree.parse('tests/collection.xml'), {'simplemath':(etree.parse('tests/simplemath/index.cnxml'), {}) })
+# python -c "from lxml import etree; import collection2dbk; print collection2dbk.convert(etree.parse('tests/collection.xml'), {'simplemath':(etree.parse('tests/simplemath/index.cnxml'), {}) })"
 
 import sys
 import os
 import Image
 from StringIO import StringIO
 from tempfile import mkstemp
+try:
+	import json
+except KeyError:
+	import simplejson as json
 
 from lxml import etree
 import urllib2
@@ -12,7 +16,7 @@ import urllib2
 import module2dbk
 import util
 
-COLLXML_PARAMS = util.makeXsl('collxml-params.xsl')
+COLLXML_PARAMS = util.makeXsl('collxml-params-json.xsl')
 COLLXML2DOCBOOK_XSL = util.makeXsl('collxml2dbk.xsl')
 
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
@@ -21,13 +25,15 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL = util.makeXsl('dbk-clean-whole-remove-duplicate-
 
 
 XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
+# etree.XSLT does not allow returning just a text node so the XSLT wraps it in a <root/>
+PARAMS_XPATH = etree.XPath('/root[1]/text()[1]', namespaces=util.NAMESPACES)
 
 def transform(xslDoc, xmlDoc):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
   ret = xslDoc(xmlDoc)
   for entry in xslDoc.error_log:
     # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print entry
+    print >> sys.stderr, entry
   return ret
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
@@ -36,14 +42,16 @@ def convert(collxml, modulesDict):
 
   newFiles = {}
 
-  params = transform(COLLXML_PARAMS, collxml)
-  print "TODO: Need to do something with collection parameters"
+  paramsStr = PARAMS_XPATH(COLLXML_PARAMS(collxml))[0]
+  collParamsUnicode = json.loads(paramsStr)
+  collParams = {}
+  for key, value in collParamsUnicode.items():
+  	collParams[key.encode('utf-8')] = value
   dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
 
   modDbkDict = {}
   for module, (cnxml, filesDict) in modulesDict.items():
-    print "TODO: Send the collection parameters"
-    modDbk, newFiles = module2dbk.convert(module, cnxml, filesDict)
+    modDbk, newFiles = module2dbk.convert(module, cnxml, filesDict, collParams)
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
 
   # Combine into a single large file
@@ -54,7 +62,7 @@ def convert(collxml, modulesDict):
     if id in modDbkDict:
       module.getparent().replace(module, modDbkDict[id])
     else:
-      print "ERROR: Didn't find module source!!!!"
+      print >> sys.stderr, "ERROR: Didn't find module source!!!!"
         
   # Clean up image paths
   dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
@@ -67,4 +75,4 @@ def convert(collxml, modulesDict):
 
   newFiles['cover.png'] = png
 
-  return etree.tostring(dbk4), newFiles
+  return dbk4, newFiles

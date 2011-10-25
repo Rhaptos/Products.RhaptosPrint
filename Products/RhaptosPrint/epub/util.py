@@ -29,10 +29,12 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL = makeXsl('dbk-clean-whole-remove-duplicate-gloss
 
 
 NAMESPACES = {
+  'c'  :'http://cnx.rice.edu/cnxml',
   'svg':'http://www.w3.org/2000/svg',
   'mml':'http://www.w3.org/1998/Math/MathML',
   'db' :'http://docbook.org/ns/docbook',
-  'xi':'http://www.w3.org/2001/XInclude'}
+  'xi' :'http://www.w3.org/2001/XInclude',
+  'col':'http://cnx.rice.edu/collxml'}
 
 
 # For SVG Cover image
@@ -42,16 +44,17 @@ COLLECTION_COVER_PREFIX='_collection_cover'
 
 # From http://stackoverflow.com/questions/2932408/
 def svg2png(svgStr):
-  _, pngPath = mkstemp(suffix='.png')
+  fd, pngPath = mkstemp(suffix='.png')
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
   strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
   strOut, strError = p.communicate(svgStr)
   pngFile = open(pngPath)
   pngData = pngFile.read()
   pngFile.close()
+  os.close(fd)
+  os.remove(pngPath)
   return pngData
-
 
 def dbk2cover(dbk, filesDict):
   newFiles = {}

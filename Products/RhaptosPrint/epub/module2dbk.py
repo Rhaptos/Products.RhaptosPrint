@@ -36,6 +36,7 @@ DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NA
 # Use pmml2svg to convert MathML to inline SVG
 def mathml2svg(xml):
   formularList = MATH_XPATH(xml)
+  strErr = ''
   if len(formularList) > 0:
     
     # Take XML from stdin and output to stdout
@@ -43,7 +44,7 @@ def mathml2svg(xml):
     strCmd = ['java','-jar', SAXON_PATH, '-s:-', '-xsl:%s' % MATH2SVG_PATH]
 
     # run the program with subprocess and pipe the input and output to variables
-    p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
     # set STDIN and STDOUT and wait untill the program finishes
     stdOut, strErr = p.communicate(etree.tostring(xml))
 
@@ -54,18 +55,21 @@ def mathml2svg(xml):
 
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(moduleId, cnxml, filesDict):
+def convert(moduleId, cnxml, filesDict, collParams):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
+  #print >> sys.stderr, "LOG: Working on Module %s" % moduleId
   # params are XPaths so strings need to be quoted
   params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
+  params.update(collParams)
 
   def transform(xslDoc, xmlDoc):
     """ Performs an XSLT transform and parses the <xsl:message /> text """
     ret = xslDoc(xmlDoc, **params)
     for entry in xslDoc.error_log:
       # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print entry
+      #print entry
+      pass
     return ret
 
   newFiles = {}
@@ -89,19 +93,21 @@ def convert(moduleId, cnxml, filesDict):
   # If there is an error, just use the original file
   if err and len(err) > 0:
     dbk2 = dbk1
-    print err
+    print >> sys.stderr, err
 
   # TODO: parse the XML and xpath/annotate it as we go.
-  for image in enumerate(DOCBOOK_IMAGE_XPATH(dbk2)):
+  for image in DOCBOOK_IMAGE_XPATH(dbk2):
     filename = image.get('fileref')
     # Exception thrown if image doesn't exist
-    bytes = filesDict[filename]
     try:
-      im = Image.open(bytes)
-      image.set('_actual-width', im.size[0])
-      image.set('_actual-height', im.size[1])
-      print '<image name="%s" width="%d" height="%d"/>' % (f, im.size[0], im.size[1])
+      bytes = filesDict[filename]
+      im = Image.open(StringIO(bytes))
+      image.set('_actual-width', str(im.size[0]))
+      image.set('_actual-height', str(im.size[1]))
     except IOError:
+      pass
+    except KeyError:
+      #print >> sys.stderr, 'LOG: Image missing %s' % filename
       pass
 
   dbkSvg = transform(DOCBOOK_CLEANUP_XSL, dbk2)
