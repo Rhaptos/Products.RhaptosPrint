@@ -75,6 +75,12 @@
         	<xsl:apply-templates select="c:metadata"/>
         </db:sectioninfo>
         
+        <!-- Make sure any keywords (that aren't terms in the content) get
+         			index entries pointing to this module -->
+<!--
+        <xsl:apply-templates select="c:metadata/md:keyword-list/md:keyword"/>
+-->
+
         <xsl:apply-templates select="c:content/*"/>
         <!-- Move some exercise solutions to the end of a module -->
 <!-- TODO: No longer discards solutions from the docbook. Fix epub generation
@@ -683,8 +689,23 @@
 </xsl:template>
 
 <!-- Add metadata like authors, an abstract, etc -->
-<xsl:template match="c:metadata">
+<!--
+<xsl:template match="c:metadata|md:keywordlist">
 	<xsl:apply-templates select="node()"/>
 </xsl:template>
+-->
+
+<!-- Make sure module keywords (that don't exist elsewhere in the module)
+		are added to the index -->
+<!--
+<xsl:template match="md:keyword">
+	<xsl:variable name="term" select="text()"/>
+	<xsl:if test="not(//c:term[text()=$term])">
+		<db:indexterm>
+			<db:primary><xsl:value-of select="$term"/></db:primary>
+		</db:indexterm>
+	</xsl:if>
+</xsl:template>
+-->
 
 </xsl:stylesheet>
