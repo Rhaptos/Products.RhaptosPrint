@@ -47,7 +47,7 @@ def svg2png(svgStr):
   fd, pngPath = mkstemp(suffix='.png')
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
   strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
   strOut, strError = p.communicate(svgStr)
   pngFile = open(pngPath)
   pngData = pngFile.read()
