@@ -641,60 +641,56 @@ procedure before
     <xsl:with-param name="master-reference" select="$master-reference"/>
     <xsl:with-param name="initial-page-number">auto</xsl:with-param>
     <xsl:with-param name="content">
-
-      <!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
-      <xsl:variable name="id">
-        <xsl:call-template name="object.id"/>
-      </xsl:variable>
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="component.titlepage.properties">
-        <xsl:call-template name="chapter.titlepage"/>
-      </fo:block>
-
-      <xsl:apply-templates/>
-
-
-      <!-- TODO: Create a 1-column Chapter Summary -->
-      <xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
-        <fo:block space-before="2em" space-after="2em">
-          <fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.introduction.toc.table">
-            <fo:table-column column-width="0.5in"/>
-            <fo:table-column column-width="5in"/>
-            <fo:table-header>
-              <fo:table-row>
-                <fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
-                  <fo:block><xsl:text>Chapter Summary</xsl:text></fo:block>
-                </fo:table-cell>
-              </fo:table-row>
-            </fo:table-header>
-            <fo:table-body>
-              <xsl:apply-templates mode="cnx.chapter.summary" select="db:section"/>
-            </fo:table-body>
-          </fo:table>
-        </fo:block>
-      </xsl:if>
-
-      <!-- Create a Review/Summary Section -->
-      <xsl:if test=".//*[@class='review']">
-				<xsl:call-template name="cnx.end-of-chapter-problems">
-					<xsl:with-param name="title">
-						<xsl:text>Chapter Review</xsl:text>
-					</xsl:with-param>
-					<xsl:with-param name="attribute" select="'review'"/>
-				</xsl:call-template>
-			</xsl:if>
-      
-      <!-- Create a 1-column Listing of Conceptual Questions -->
-			<xsl:call-template name="cnx.end-of-chapter-problems">
-				<xsl:with-param name="title">
-					<xsl:text>Conceptual Questions</xsl:text>
-				</xsl:with-param>
-				<xsl:with-param name="attribute" select="'conceptual-questions'"/>
-			</xsl:call-template>
-
+			<xsl:call-template name="chapter.titlepage"/>
+      <xsl:apply-templates select="node()[not(@class='introduction')]"/>
+			<xsl:call-template name="cnx.summarypage"/>
     </xsl:with-param>
   </xsl:call-template>
   
+	<xsl:call-template name="cnx.problemspage"/>
+</xsl:template>
+
+<xsl:template name="cnx.summarypage">
+	<!-- TODO: Create a 1-column Chapter Summary -->
+	<xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
+		<fo:block space-before="2em" space-after="2em">
+			<fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.introduction.toc.table">
+				<fo:table-column column-width="0.5in"/>
+				<fo:table-column column-width="5in"/>
+				<fo:table-header>
+					<fo:table-row>
+						<fo:table-cell number-columns-spanned="2" xsl:use-attribute-sets="cnx.introduction.toc.header">
+							<fo:block><xsl:text>Chapter Summary</xsl:text></fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-header>
+				<fo:table-body>
+					<xsl:apply-templates mode="cnx.chapter.summary" select="db:section"/>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:if>
+
+	<!-- Create a Review/Summary Section -->
+	<xsl:if test=".//*[@class='review']">
+		<xsl:call-template name="cnx.end-of-chapter-problems">
+			<xsl:with-param name="title">
+				<xsl:text>Chapter Review</xsl:text>
+			</xsl:with-param>
+			<xsl:with-param name="attribute" select="'review'"/>
+		</xsl:call-template>
+	</xsl:if>
+	
+	<!-- Create a 1-column Listing of Conceptual Questions -->
+	<xsl:call-template name="cnx.end-of-chapter-problems">
+		<xsl:with-param name="title">
+			<xsl:text>Conceptual Questions</xsl:text>
+		</xsl:with-param>
+		<xsl:with-param name="attribute" select="'conceptual-questions'"/>
+	</xsl:call-template>
+</xsl:template>
+
+<xsl:template name="cnx.problemspage">
   <!-- Create a 2column page for problems. Insert the section number and title before each problem set -->
   <xsl:if test="count(.//*[@class='problems-exercises']) &gt; 0">
     <xsl:call-template name="page.sequence">
@@ -974,28 +970,40 @@ procedure before
     <xsl:apply-templates mode="title.markup" select="."/>
   </fo:marker>
   -->
+	<!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
+	<xsl:variable name="id">
+		<xsl:call-template name="object.id"/>
+	</xsl:variable>
+	<fo:block id="{$id}"
+						xsl:use-attribute-sets="component.titlepage.properties">
+    <xsl:apply-templates select="db:section[@class='introduction']"/>
+	</fo:block>
+</xsl:template>
+
+<!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
+<xsl:template match="d:section[@class='introduction']">
   <xsl:variable name="title">
-    <xsl:apply-templates select="." mode="title.markup"/>
+    <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
   <fo:block text-align="center" xsl:use-attribute-sets="cnx.tilepage.graphic">
     <fo:block xsl:use-attribute-sets="cnx.introduction.chapter">
       <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.number">
-        <xsl:apply-templates select="." mode="label.markup"/>
+        <xsl:apply-templates select=".." mode="label.markup"/>
       </fo:inline>
       <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.title">
         <xsl:copy-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
       </fo:inline>
     </fo:block>
   </fo:block>
-  <xsl:if test="db:section[@class='introduction']//db:figure[@class='splash']">
-    <xsl:apply-templates mode="cnx.splash" select="db:section[@class='introduction']//db:figure[@class='splash']"/>
+  <xsl:if test=".//db:figure[@class='splash']">
+    <xsl:apply-templates mode="cnx.splash" select=".//db:figure[@class='splash']"/>
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
   <fo:block xsl:use-attribute-sets="cnx.introduction.title">
     <fo:inline xsl:use-attribute-sets="cnx.introduction.title.text">
       <xsl:choose>
-        <xsl:when test="d:section[@class='introduction']/db:title">
-          <xsl:apply-templates select="d:section[@class='introduction']/db:title/node()"/>
+        <xsl:when test="db:title">
+          <xsl:apply-templates select="db:title/node()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:text>Introduction</xsl:text>
@@ -1004,11 +1012,8 @@ procedure before
       <xsl:text>&#160; &#160; &#160;</xsl:text>
     </fo:inline>
   </fo:block>
-  <xsl:apply-templates select="d:section[@class='introduction']/node()"/>
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
-
-<!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
-<xsl:template match="d:section[@class='introduction']"/>
 
 
 
@@ -1205,8 +1210,12 @@ procedure before
 <!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
 <xsl:template match="d:figure" name="cnx.figure">
+	<xsl:param name="c" select="."/>
+	<xsl:param name="renderCaption" select="true()"/>
   <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
+    <xsl:call-template name="object.id">
+    	<xsl:with-param name="object" select="$c"/>
+    </xsl:call-template>
   </xsl:variable>
 
   <xsl:variable name="keep.together">
@@ -1215,7 +1224,7 @@ Combination of formal.object and formal.object.heading -->
 
   <fo:block id="{$id}"
             xsl:use-attribute-sets="cnx.figure.properties">
-    <xsl:apply-templates select="@class"/>
+    <xsl:apply-templates select="$c/@class"/>
     <xsl:if test="$keep.together != ''">
       <xsl:attribute name="keep-together.within-column"><xsl:value-of
                       select="$keep.together"/></xsl:attribute>
@@ -1228,14 +1237,16 @@ Combination of formal.object and formal.object.heading -->
     </xsl:if>
 
     <fo:block xsl:use-attribute-sets="cnx.figure.content">
-      <xsl:apply-templates select="*[not(self::d:caption)]"/>
+      <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
     </fo:block>
-    <fo:inline xsl:use-attribute-sets="figure.title.properties">
-      <xsl:apply-templates select="." mode="object.title.markup">
-        <xsl:with-param name="allow-anchors" select="1"/>
-      </xsl:apply-templates>
-    </fo:inline>
-    <xsl:apply-templates select="d:caption"/>
+		<xsl:if test="$renderCaption">
+			<fo:inline xsl:use-attribute-sets="figure.title.properties">
+				<xsl:apply-templates select="$c" mode="object.title.markup">
+					<xsl:with-param name="allow-anchors" select="1"/>
+				</xsl:apply-templates>
+			</fo:inline>
+			<xsl:apply-templates select="$c/d:caption"/>
+		</xsl:if>
   </fo:block>
 </xsl:template>
 
