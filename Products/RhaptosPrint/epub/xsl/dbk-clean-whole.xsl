@@ -25,6 +25,13 @@
 
 <xsl:output indent="yes" method="xml"/>
 
+<!-- Because FOP is picky with directories inject the absolute dir to images:
+     * If the current dir is the tempdir then the fop.xconf file needs absolute paths to fonts
+     * If the current dir is FOP then the images (this XML) needs absolute paths.
+-->
+<xsl:param name="cnx.tempdir.path"/>
+
+
 <!-- PHIL: This is a hack to see what elem algebra would look like -->
 <xsl:template match="db:section[count(ext:exercise|db:title)=count(*)]">
   <xsl:copy>
@@ -222,6 +229,19 @@
             </xsl:copy>
         </xsl:otherwise>
     </xsl:choose>
+</xsl:template>
+
+
+<!-- Because FOP is picky with directories inject the absolute dir to images:
+     * If the current dir is the tempdir then the fop.xconf file needs absolute paths to fonts
+     * If the current dir is FOP then the images (this XML) needs absolute paths.
+-->
+<xsl:template match="@fileref">
+  <xsl:attribute name="fileref">
+    <xsl:value-of select="$cnx.tempdir.path"/>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="."/>
+  </xsl:attribute>
 </xsl:template>
 
 </xsl:stylesheet>
