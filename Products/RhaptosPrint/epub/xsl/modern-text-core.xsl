@@ -370,6 +370,24 @@ procedure before
   <xsl:attribute name="padding-after">0.25em</xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:attribute-set name="cnx.note.feature">
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.title">
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.title.inline">
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.body">
+</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.body.inner">
+	<xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
+	<xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+	<xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
+	<xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
+	<xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+	<xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
+	<xsl:attribute name="margin-left">1em</xsl:attribute>
+	<xsl:attribute name="margin-right">1em</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.chapter">
 <!--
@@ -1577,6 +1595,23 @@ Combination of formal.object and formal.object.heading -->
     </fo:block>
     <fo:block xsl:use-attribute-sets="cnx.note.tip.body">
       <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>
+    </fo:block>
+  </fo:block>
+</xsl:template>
+
+<xsl:template match="db:note[contains(@class,'feature')]">
+  <fo:block xsl:use-attribute-sets="cnx.note.feature">
+    <xsl:apply-templates select="@class"/>
+    <fo:block xsl:use-attribute-sets="cnx.note.feature.title">
+      <fo:inline xsl:use-attribute-sets="cnx.note.feature.title.inline">
+        <xsl:apply-templates select="db:title/node()|db:label/node()"/>
+      </fo:inline>
+    </fo:block>
+    <fo:block xsl:use-attribute-sets="cnx.note.feature.body">
+    	<xsl:apply-templates select="processing-instruction('cnx.style')"/>
+			<fo:block xsl:use-attribute-sets="cnx.note.feature.body.inner">
+				<xsl:apply-templates select="node()[not(self::db:title or self::db:label or processing-instruction('cnx.style'))]"/>
+			</fo:block>
     </fo:block>
   </fo:block>
 </xsl:template>
