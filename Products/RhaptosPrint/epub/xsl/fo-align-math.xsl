@@ -15,6 +15,21 @@
 <xsl:include href="debug.xsl"/>
 <xsl:include href="ident.xsl"/>
 
+<!--
+<xsl:template match="fo:block[not(@font-family)]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|ancestor::*[@font-family]/@font-family|node()"/>
+  </xsl:copy>
+</xsl:template>
+-->
+
+<!-- The span-all hack below sometimes loses the xmlns:svg="..." declaration so this attribute adds it onto the root -->
+<xsl:template match="/*">
+  <xsl:copy>
+    <xsl:attribute name="svg:PHIL">this-attribute-is-to-ensure-the-svg-prefix-is-everywhere</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 <!-- HACK: With the multi-column PDF layout spanning a note or image
      across both columns is possible only when it is the child of
@@ -22,7 +37,7 @@
      ancestor tags and then reopen them with the same attributes.
 -->
 <xsl:template match="fo:*[@span='all']" name="cnx.span-all">
-
+<xsl:message>LOG: INFO: Moving @span-all out because FOP requires it to be a child of fo:flow</xsl:message>
   <!-- close the tags.
        They must be done in reverse order so
        xsl:for-each/xsl:sort isn't good enough here -->
