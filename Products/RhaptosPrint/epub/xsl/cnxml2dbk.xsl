@@ -25,6 +25,10 @@
     </xsl:copy>
 </xsl:template>
 
+<xsl:template match="processing-instruction()|comment()">
+	<xsl:copy/>
+</xsl:template>
+
 <!-- Boilerplate -->
 <xsl:template match="/">
 	<xsl:apply-templates select="*"/>
@@ -81,7 +85,7 @@
         <xsl:apply-templates select="c:metadata/md:keyword-list/md:keyword"/>
 -->
 
-        <xsl:apply-templates select="c:content/*"/>
+        <xsl:apply-templates select="c:content/node()"/>
         <!-- Move some exercise solutions to the end of a module -->
 <!-- TODO: No longer discards solutions from the docbook. Fix epub generation
         <xsl:if test="$moving.solutions">
