@@ -28,6 +28,7 @@
 
 <!-- Let @span='all' percolate through -->
 <xsl:template match="@class[.='span-all']">
+  <xsl:message>LOG: DEBUG: SPAN ALL on <xsl:value-of select="name(..)"/></xsl:message>
   <xsl:attribute name="span">all</xsl:attribute>
 </xsl:template>
 
