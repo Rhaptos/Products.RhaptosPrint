@@ -148,6 +148,11 @@
 
 <xsl:template match="db:authorgroup[@role='all']|db:othercredit|db:editor"/>
 
+<xsl:template match="svg:*|svg:*/@*">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+</xsl:copy>
+</xsl:template>
 <xsl:template match="svg:*/@font-family">
     <xsl:attribute name="font-family">
         <xsl:value-of select="."/>
