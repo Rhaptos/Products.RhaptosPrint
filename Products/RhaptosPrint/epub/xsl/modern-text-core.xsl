@@ -642,7 +642,7 @@ procedure before
     <xsl:with-param name="initial-page-number">auto</xsl:with-param>
     <xsl:with-param name="content">
 			<xsl:call-template name="chapter.titlepage"/>
-      <xsl:apply-templates select="node()[not(@class='introduction')]"/>
+      <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 			<xsl:call-template name="cnx.summarypage"/>
     </xsl:with-param>
   </xsl:call-template>
@@ -671,28 +671,32 @@ procedure before
 		</fo:block>
 	</xsl:if>
 
-	<!-- Create a Review/Summary Section -->
-	<xsl:if test=".//*[@class='review']">
-		<xsl:call-template name="cnx.end-of-chapter-problems">
-			<xsl:with-param name="title">
-				<xsl:text>Chapter Review</xsl:text>
-			</xsl:with-param>
-			<xsl:with-param name="attribute" select="'review'"/>
-		</xsl:call-template>
-	</xsl:if>
-	
-	<!-- Create a 1-column Listing of Conceptual Questions -->
-	<xsl:call-template name="cnx.end-of-chapter-problems">
-		<xsl:with-param name="title">
-			<xsl:text>Conceptual Questions</xsl:text>
-		</xsl:with-param>
-		<xsl:with-param name="attribute" select="'conceptual-questions'"/>
-	</xsl:call-template>
+ 	<!-- <?cnx.eoc class=review title=Review Notes?> -->
+ 	<xsl:variable name="context" select="."/>
+	<xsl:for-each select=".//processing-instruction('cnx.eoc')">
+		<xsl:variable name="val" select="concat(' ', .)"/>
+		<xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
+		<xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
+
+			<xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
+		
+		<xsl:if test="$context//*[contains(@class,$class)]">
+			<xsl:message>LOG: INFO: Found some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
+			<xsl:call-template name="cnx.end-of-chapter-problems">
+				<xsl:with-param name="context" select="$context"/>
+				<xsl:with-param name="title">
+					<xsl:value-of select="$title"/>
+				</xsl:with-param>
+				<xsl:with-param name="attribute" select="$class"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:for-each>
+
 </xsl:template>
 
 <xsl:template name="cnx.problemspage">
   <!-- Create a 2column page for problems. Insert the section number and title before each problem set -->
-  <xsl:if test="count(.//*[@class='problems-exercises']) &gt; 0">
+  <xsl:if test="count(.//*[contains(@class,'problems-exercises')]) &gt; 0">
     <xsl:call-template name="page.sequence">
       <xsl:with-param name="master-reference">
         <xsl:value-of select="$cnx.pagemaster.problems"/>
@@ -717,11 +721,12 @@ procedure before
 </xsl:template>
 
 <xsl:template name="cnx.end-of-chapter-problems">
+	<xsl:param name="context" select="."/>
 	<xsl:param name="title"/>
 	<xsl:param name="attribute"/>
 
 	<!-- Create a 1-column Listing of "Conceptual Questions" or "end-of-chapter Problems" -->
-	<xsl:if test="count(.//*[@class=$attribute]) &gt; 0">
+	<xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
 		<fo:block xsl:use-attribute-sets="cnx.formal.title">
@@ -733,7 +738,7 @@ procedure before
 		</fo:block>
 		
 		<!-- This for-each is the main section (1.4 Newton) to print section title -->
-		<xsl:for-each select="db:section[descendant::*[@class=$attribute]]">
+		<xsl:for-each select="$context/db:section[descendant::*[contains(@class,$attribute)]]">
 			<xsl:variable name="sectionId">
 				<xsl:call-template name="object.id"/>
 			</xsl:variable>
@@ -746,7 +751,7 @@ procedure before
 				</fo:basic-link>
 			</fo:block>
 			<!-- This for-each renders all the sections and exercises and numbers them -->
-			<xsl:apply-templates select="descendant::*[@class=$attribute]/node()">
+			<xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()">
 				<xsl:with-param name="render" select="true()"/>
 			</xsl:apply-templates>
 		</xsl:for-each>
@@ -754,7 +759,7 @@ procedure before
 
 </xsl:template>
 
-<xsl:template mode="cnx.chapter.summary" match="db:section[not(@class='introduction') and db:sectioninfo/db:abstract]">
+<xsl:template mode="cnx.chapter.summary" match="db:section[not(contains(@class,'introduction')) and db:sectioninfo/db:abstract]">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -790,7 +795,7 @@ procedure before
      Also, wither it renders the problem or the solution.
      This way we can render the solutions at the end of a book
 -->
-<xsl:template match="ext:exercise[ancestor-or-self::*[@class='problems-exercises' or @class='conceptual-questions']]">
+<xsl:template match="ext:exercise[ancestor-or-self::*[contains(@class,'problems-exercises') or contains(@class,'conceptual-questions')]]">
 <xsl:param name="render" select="false()"/>
 <xsl:param name="renderSolution" select="false()"/>
 <xsl:if test="$render">
@@ -845,10 +850,10 @@ procedure before
 
 <!-- when the placeholder element is encountered (since I didn't want to
       rewrite the match="d:book" template) run a nested for-loop on all
-      chapters (and then sections) that contain a solution to be printed ( *[@class='problems-exercises' and .//ext:solution] ).
+      chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
       Print the "exercise" solution with numbering.
 -->
-<xsl:template match="ext:cnx-solutions-placeholder[..//*[@class='problems-exercises' and .//ext:solution]]">
+<xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
   <xsl:call-template name="page.sequence">
@@ -868,7 +873,7 @@ procedure before
         </fo:inline>
       </fo:block>
       
-      <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[@class='problems-exercises' and .//ext:solution]]">
+      <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   
         <xsl:variable name="chapterId">
           <xsl:call-template name="object.id"/>
@@ -880,7 +885,7 @@ procedure before
           </fo:basic-link>
         </fo:block>
 
-        <xsl:for-each select="db:section[.//*[@class='problems-exercises']]">
+        <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
           <xsl:variable name="sectionId">
             <xsl:call-template name="object.id"/>
           </xsl:variable>
@@ -892,7 +897,7 @@ procedure before
               </xsl:apply-templates>
             </fo:basic-link>
           </fo:block>
-          <xsl:apply-templates select=".//*[@class='problems-exercises']">
+          <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
             <xsl:with-param name="render" select="true()"/>
             <xsl:with-param name="renderSolution" select="true()"/>
           </xsl:apply-templates>
@@ -976,12 +981,12 @@ procedure before
 	</xsl:variable>
 	<fo:block id="{$id}"
 						xsl:use-attribute-sets="component.titlepage.properties">
-    <xsl:apply-templates select="db:section[@class='introduction']"/>
+    <xsl:apply-templates select="db:section[contains(@class,'introduction')]"/>
 	</fo:block>
 </xsl:template>
 
 <!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
-<xsl:template match="d:section[@class='introduction']">
+<xsl:template match="d:section[contains(@class,'introduction')]">
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
@@ -995,8 +1000,8 @@ procedure before
       </fo:inline>
     </fo:block>
   </fo:block>
-  <xsl:if test=".//db:figure[@class='splash']">
-    <xsl:apply-templates mode="cnx.splash" select=".//db:figure[@class='splash']"/>
+  <xsl:if test=".//db:figure[contains(@class,'splash')]">
+    <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
   <fo:block xsl:use-attribute-sets="cnx.introduction.title">
@@ -1070,7 +1075,7 @@ procedure before
   </fo:table>
 </xsl:template>
 
-<xsl:template mode="introduction.toc" match="db:chapter/db:section[not(@class='introduction')]">
+<xsl:template mode="introduction.toc" match="db:chapter/db:section[not(contains(@class,'introduction'))]">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -1146,7 +1151,7 @@ procedure before
 <!-- CNX: Don't include the introduction Section
       <xsl:number format="{$format}" count="d:section"/>
 -->
-      <xsl:number format="{$format}" count="d:section[not(@class='introduction')]"/>
+      <xsl:number format="{$format}" count="d:section[not(contains(@class,'introduction'))]"/>
 
     </xsl:when>
   </xsl:choose>
@@ -1158,8 +1163,8 @@ procedure before
 <!-- ============================================== -->
 
 <!-- Splash figures are moved up so they need to be rendered in a separate mode -->
-<xsl:template match="d:figure[@class='splash']"/>
-<xsl:template mode="cnx.splash" match="d:figure[@class='splash']">
+<xsl:template match="d:figure[contains(@class,'splash')]"/>
+<xsl:template mode="cnx.splash" match="d:figure[contains(@class,'splash')]">
   <xsl:call-template name="cnx.figure"/>
 </xsl:template>
 
@@ -1205,7 +1210,43 @@ procedure before
   <xsl:text>always</xsl:text>
 </xsl:template>
 
-<xsl:template match="@class"/>
+<!-- The @class may have style attributes encoded in it.
+     examples include "color='#ffffcc' background-color='#808080'"
+-->
+<xsl:template match="@class|processing-instruction('cnx.style')" name="cnx.style.rec">
+  <xsl:param name="value" select="concat(normalize-space(.), ' ')"/>
+  <xsl:variable name="pair" select="substring-before($value,' ')"/>
+  <xsl:variable name="tail" select="substring-after($value,' ')"/>
+  <xsl:message>LOG: INFO: Found custom cnx.style PI </xsl:message>
+  <xsl:if test="contains($pair,'=')">
+  	<xsl:variable name="quot">
+  		<xsl:choose>
+				<xsl:when test="contains($pair,'&quot;')">"</xsl:when>
+				<xsl:otherwise>'</xsl:otherwise>
+			</xsl:choose>
+  	</xsl:variable>
+    <xsl:call-template name="cnx.style.pair">
+      <xsl:with-param name="name" select="substring-before($pair,'=')"/>
+      <xsl:with-param name="value" select="substring-before(substring-after($pair,$quot), $quot)"/>
+    </xsl:call-template>
+  </xsl:if>
+  <xsl:if test="$tail != ''">
+    <xsl:call-template name="cnx.style.rec">
+      <xsl:with-param name="value" select="$tail"/>
+    </xsl:call-template>
+  </xsl:if>    
+</xsl:template>
+
+<xsl:template name="cnx.style.pair">
+  <xsl:param name="name"/>
+  <xsl:param name="value"/>
+	<!-- TODO: Customize attribute names that are different between HTML and XSL-FO -->
+  <xsl:variable name="attrName" select="$name"/>
+  <xsl:message>LOG: INFO: Setting cnx.class.style <xsl:value-of select="$attrName"/> = <xsl:value-of select="$value"/> on <xsl:value-of select="name(..)"/></xsl:message>
+  <xsl:attribute name="{$attrName}">
+    <xsl:value-of select="$value"/>
+  </xsl:attribute>
+</xsl:template>
 
 <!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
@@ -1545,7 +1586,7 @@ Combination of formal.object and formal.object.heading -->
      have a larger number. overriding docbook-xsl/fo/lists.xsl
      see <xsl:template match="d:orderedlist/d:listitem">
  -->
-<xsl:template match="ext:exercise[not(ancestor-or-self::*[@class='problems-exercises'])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
+<xsl:template match="ext:exercise[not(ancestor-or-self::*[contains(@class,'problems-exercises')])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
   <fo:wrapper xsl:use-attribute-sets="cnx.exercise.listitem">
     <xsl:apply-imports/>
   </fo:wrapper>
@@ -1593,7 +1634,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:attribute-set>
 
 <!-- Don't include the introduction section in the TOC -->
-<xsl:template match="db:section[@class='introduction']" mode="toc"/>
+<xsl:template match="db:section[contains(@class,'introduction')]" mode="toc"/>
 
 <xsl:template name="toc.line">
   <xsl:param name="toc-context" select="NOTANODE"/>  
@@ -1832,7 +1873,7 @@ Combination of formal.object and formal.object.heading -->
 
   <xsl:variable name="maxWidth">
     <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@class='problems-exercises']">
+      <xsl:when test="ancestor-or-self::*[contains(@class,'problems-exercises')]">
         <xsl:value-of select="$cnx.columnwidth.pixels"/>
       </xsl:when>
       <xsl:otherwise>
