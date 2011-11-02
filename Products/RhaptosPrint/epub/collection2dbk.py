@@ -50,9 +50,13 @@ def convert(collxml, modulesDict):
   dbk1 = transform(COLLXML2DOCBOOK_XSL, collxml)
 
   modDbkDict = {}
+  # Each module can be converted in parallel
   for module, (cnxml, filesDict) in modulesDict.items():
-    modDbk, newFiles = module2dbk.convert(module, cnxml, filesDict, collParams)
+    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams)
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
+    # Add newFiles with the module prefix
+    for f, data in newFilesMod.items():
+    	newFiles[os.path.join(module, f)] = data
 
   # Combine into a single large file
   # Replacing Xpath xinclude magic with explicit pyhton code
