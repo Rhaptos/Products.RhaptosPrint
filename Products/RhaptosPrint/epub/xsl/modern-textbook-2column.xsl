@@ -17,7 +17,9 @@
 
 <xsl:param name="cnx.pagewidth.pixels" select="$cnx.columnwidth.pixels"/>
 
+<!--
 <xsl:param name="alignment">start</xsl:param>
+-->
 
 <xsl:param name="column.count.titlepage" select="1"/>
 <xsl:param name="column.count.lot" select="1"/>
