@@ -1,4 +1,4 @@
-# python -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('./tests');" > result.pdf
+# python -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('./tests', 'modern-textbook');" > result.pdf
 
 import sys
 import os
@@ -15,7 +15,7 @@ import util
 
 FOP_PATH = os.path.join(os.getcwd(), 'fop', 'fop')
 XCONF_PATH = os.path.join(os.getcwd(), 'lib', 'fop.xconf')
-PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
+#PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
 # XSL files
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
@@ -24,7 +24,7 @@ ALIGN_XSL = util.makeXsl('fo-align-math.xsl')
 
 #XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
 
-def __doStuff(dir):
+def __doStuff(dir, printStyle):
   collxml = etree.parse(os.path.join(dir, 'collection.xml'))
   
   MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
@@ -56,7 +56,7 @@ def __doStuff(dir):
 
   dbk, newFiles = collection2dbk.convert(collxml, modules)
   allFiles.update(newFiles)
-  pdf, stdErr = convert(dbk, allFiles)
+  pdf, stdErr = convert(dbk, allFiles, printStyle)
   return pdf
 
 # Use Apache FOP to convert the XSL-FO to PDF
@@ -101,7 +101,7 @@ def fo2pdf(fo, files, tempdir):
 
   return stdOut, stdErr
 
-def convert(dbk1, files):
+def convert(dbk1, files, printStyle):
   tempdir = mkdtemp(suffix='-fo2pdf')
 
   def transform(xslDoc, xmlDoc):
@@ -112,7 +112,7 @@ def convert(dbk1, files):
       print >> sys.stderr, entry
     return ret
 
-  DOCBOOK2FO_XSL=util.makeXsl('%s.xsl' % PRINT_STYLE)
+  DOCBOOK2FO_XSL=util.makeXsl('%s.xsl' % printStyle)
 
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2

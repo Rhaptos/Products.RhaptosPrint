@@ -1,5 +1,4 @@
 import os
-import pkg_resources
 from lxml import etree
 from tempfile import mkstemp
 import subprocess
@@ -8,13 +7,23 @@ INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
 if not os.path.isfile(INKSCAPE_BIN):
   INKSCAPE_BIN = 'inkscape'
 
+try:
+  import pkg_resources
+  resource_filename = pkg_resources.resource_filename
+except ImportError:
+  def resource_filename(dir, file):
+    return os.path.join(os.getcwd(), dir, file)
 
-PKG_DIR = ''
+INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+if not os.path.isfile(INKSCAPE_BIN):
+  INKSCAPE_BIN = 'inkscape'
+
+
 
 # http://lxml.de/xpathxslt.html
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
-  path = pkg_resources.resource_filename(PKG_DIR + "xsl", filename)
+  path = resource_filename("xsl", filename)
   #print "Loading resource: %s" % path
   xml = etree.parse(path)
   return etree.XSLT(xml)

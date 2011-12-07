@@ -5,10 +5,10 @@ import os
 import Image
 from StringIO import StringIO
 from tempfile import mkstemp
-try:
-	import json
-except KeyError:
-	import simplejson as json
+#try:
+#	import json
+#except KeyError:
+#	import simplejson as json
 
 from lxml import etree
 import urllib2
@@ -43,7 +43,7 @@ def convert(collxml, modulesDict):
   newFiles = {}
 
   paramsStr = PARAMS_XPATH(COLLXML_PARAMS(collxml))[0]
-  collParamsUnicode = json.loads(paramsStr)
+  collParamsUnicode = eval(paramsStr) #json.loads(paramsStr)
   collParams = {}
   for key, value in collParamsUnicode.items():
   	collParams[key.encode('utf-8')] = value

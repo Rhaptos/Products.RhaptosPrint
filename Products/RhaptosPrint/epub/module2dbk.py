@@ -8,15 +8,10 @@ import subprocess
 
 from lxml import etree
 import urllib2
-import pkg_resources
-
 import util
 
-PKG_DIR = ''
-
-
-SAXON_PATH = pkg_resources.resource_filename(PKG_DIR + 'lib', 'saxon9he.jar')
-MATH2SVG_PATH = pkg_resources.resource_filename(PKG_DIR + 'xslt2', 'math2svg-in-docbook.xsl')
+SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
+MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
 
 CLEANUP_XSL = util.makeXsl('cnxml-clean.xsl')
 CLEANUP2_XSL = util.makeXsl('cnxml-clean-math.xsl')
