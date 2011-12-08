@@ -13,6 +13,8 @@ import urllib2
 import collection2dbk
 import util
 
+DEBUG=True
+
 FOP_PATH = os.path.join(os.getcwd(), 'fop', 'fop')
 XCONF_PATH = os.path.join(os.getcwd(), 'lib', 'fop.xconf')
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
@@ -116,15 +118,23 @@ def convert(dbk1, files, printStyle):
 
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
+  if DEBUG:
+    open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=True))
 
   # Step 1 (Cleaning up Docbook)
   dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
+  if DEBUG:
+    open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
 
   # Step 2 (Docbook to XSL:FO)
   fo1 = transform(DOCBOOK2FO_XSL, dbk2)
+  if DEBUG:
+    open('temp-collection3.fo','w').write(etree.tostring(fo1,pretty_print=True))
 
   # Step 3 (Aligning math in XSL:FO)
   fo = transform(ALIGN_XSL, fo1)
+  if DEBUG:
+    open('temp-collection4.fo','w').write(etree.tostring(fo,pretty_print=True))
 
   #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
