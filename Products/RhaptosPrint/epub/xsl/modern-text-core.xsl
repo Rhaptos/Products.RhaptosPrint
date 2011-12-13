@@ -1680,14 +1680,16 @@ Combination of formal.object and formal.object.heading -->
 
 <!-- Don't render sections that contain a class that is collated at the end of the chapter (problems + Exercises, Conceptual Questions, etc -->
 <xsl:template match="db:section[@class]">
-	<xsl:variable name="class" select="@class"/>
-	<xsl:if test="not(../processing-instruction('cnx.eoc')[contains(., $class)])">
-		<xsl:message>LOG: DEBUG: Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
-		<xsl:apply-imports/>
-	</xsl:if>
-	<xsl:if test="../processing-instruction('cnx.eoc')[contains(., $class)]">
-		<xsl:message>LOG: DEBUG: NOT Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
-	</xsl:if>
+  <xsl:variable name="class" select="@class"/>
+  <xsl:choose>
+    <xsl:when test="not(ancestor::db:chapter[.//processing-instruction('cnx.eoc')[contains(., $class)]])">
+      <xsl:message>LOG: DEBUG: Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
+      <xsl:apply-imports/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>LOG: DEBUG: NOT Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="toc.line">
