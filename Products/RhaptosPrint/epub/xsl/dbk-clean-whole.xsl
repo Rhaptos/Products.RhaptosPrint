@@ -14,7 +14,7 @@
 	It:
 	* unwraps a module (whose root is db:section) and puts it in a db:preface, db:chapter, db:section
 	* puts in empty db:title elements for informal equations (TODO: Not sure why, maybe for labeling and linking)
-	//* generates a book-wide glossary instead of a module-wide one (and marks each glossary section with a letter)
+	* generates a per-chapter glossary instead of a module-wide one
 	* Converts links to content not included in the book to external links
  -->
 
@@ -120,17 +120,19 @@
 
 
 <!-- Combine all module glossaries into a single book glossary -->
-<xsl:template match="db:book">
+<xsl:template match="db:chapter">
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"/>
-<!-- DEAD: Removed in favor of module-level glossaries
-		<xsl:if test="//db:glossentry">
+		<xsl:if test=".//db:glossentry">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
 				<xsl:variable name="letters">
-					<xsl:apply-templates mode="glossaryletters" select="//db:glossentry/@ext:first-letter">
-						<xsl:sort select="."/>
-					</xsl:apply-templates>
+					<xsl:for-each select=".//db:glossentry/db:glossterm">
+						<xsl:sort select="translate(substring(text(), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:variable name="char" select="substring(text(), 1, 1)"/>
+						<xsl:variable name="letter" select="translate($char, $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:value-of select="$letter"/>
+					</xsl:for-each>
 				</xsl:variable>
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: letters="<xsl:value-of select="$letters"/>"</xsl:with-param></xsl:call-template>
 				<xsl:call-template name="cnx.glossary">
@@ -138,10 +140,8 @@
 				</xsl:call-template>
 			</db:glossary>
 		</xsl:if>
--->
 	</xsl:copy>
 </xsl:template>
-<!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template mode="glossaryletters" match="@*">
 	<xsl:value-of select="."/>
 </xsl:template>
@@ -150,11 +150,11 @@
 	<xsl:param name="letters"/>
 	<xsl:variable name="letter" select="substring($letters, 1, 1)"/>
 	
-	<!- - Skip all duplicates of letters until the last one, which we process - ->
+	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
 		<db:glossdiv>
-			<db:title><xsl:value-of select="$letter"/></db:title>
-			<xsl:apply-templates select="//db:glossentry[@ext:first-letter=$letter]">
+			<!-- <db:title><xsl:value-of select="$letter"/></db:title> -->
+			<xsl:apply-templates select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
 				<xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
 			</xsl:apply-templates>
 		</db:glossdiv>
@@ -166,16 +166,11 @@
 		</xsl:call-template>
 	</xsl:if>
 </xsl:template>
-<!- - Discard the @ext:first-letter attribute since it's no longer needed - ->
-<xsl:template match="@ext:first-letter">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: Writing out an entry whose first letter is "<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
-</xsl:template>
 
-<!- - Discard the module-level glossary - ->
+<!-- Discard the module-level glossary -->
 <xsl:template match="db:glossary">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module-level glossary and combining into book-level glossary</xsl:with-param></xsl:call-template>
 </xsl:template>
--->
 
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
 <xsl:template match="db:authorgroup/db:*">
@@ -242,6 +237,13 @@
     <xsl:text>/</xsl:text>
     <xsl:value-of select="."/>
   </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="db:figure[not(ancestor::db:example)]|db:table">
+  <xsl:copy>
+    <xsl:attribute name="class">span-all</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>

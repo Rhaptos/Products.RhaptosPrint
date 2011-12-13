@@ -122,4 +122,10 @@
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
 -->
 
+<!-- Page Headers should be marked as all-uppercase.
+     Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
+-->
+<xsl:variable name="cnx.smallcase" select="'abcdefghijklmnopqrstuvwxyz&#228;&#235;&#239;&#246;&#252;&#225;&#233;&#237;&#243;&#250;&#224;&#232;&#236;&#242;&#249;&#226;&#234;&#238;&#244;&#251;&#229;&#248;&#227;&#245;&#230;&#339;&#231;&#322;&#241;'"/>
+<xsl:variable name="cnx.uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ&#196;&#203;&#207;&#214;&#220;&#193;&#201;&#205;&#211;&#218;&#192;&#200;&#204;&#210;&#217;&#194;&#202;&#206;&#212;&#219;&#197;&#216;&#195;&#213;&#198;&#338;&#199;&#321;&#209;'"/>
+
 </xsl:stylesheet>

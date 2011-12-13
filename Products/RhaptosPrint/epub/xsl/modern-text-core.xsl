@@ -60,7 +60,7 @@ procedure before
 <!--<xsl:param name="xref.with.number.and.title" select="0"/>-->
 
 <xsl:param name="cnx.pagewidth.pixels" select="396"/>
-<xsl:param name="cnx.columnwidth.pixels" select="228"/>
+<xsl:param name="cnx.columnwidth.pixels" select="210"/> <!-- 228 -->
 
 <!-- ============================================== -->
 <!-- Customize colors and formatting                -->
@@ -756,7 +756,7 @@ procedure before
 				<xsl:text> &#160; &#160;</xsl:text>
 			</fo:inline>
 		</fo:block>
-		
+
 		<!-- This for-each is the main section (1.4 Newton) to print section title -->
 		<xsl:for-each select="$context/db:section[descendant::*[contains(@class,$attribute)]]">
 			<xsl:variable name="sectionId">
@@ -771,7 +771,7 @@ procedure before
 				</fo:basic-link>
 			</fo:block>
 			<!-- This for-each renders all the sections and exercises and numbers them -->
-			<xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()">
+			<xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
 				<xsl:with-param name="render" select="true()"/>
 			</xsl:apply-templates>
 		</xsl:for-each>
@@ -815,40 +815,48 @@ procedure before
      Also, wither it renders the problem or the solution.
      This way we can render the solutions at the end of a book
 -->
-<xsl:template match="ext:exercise[ancestor-or-self::*[contains(@class,'problems-exercises') or contains(@class,'conceptual-questions')]]">
+<xsl:template match="ext:exercise[ancestor-or-self::*[@class]]">
 <xsl:param name="render" select="false()"/>
 <xsl:param name="renderSolution" select="false()"/>
+<xsl:variable name="class" select="ancestor-or-self::*[@class][1]/@class"/>
 <xsl:if test="$render">
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-  </xsl:variable>
-  <xsl:if test="not(not($renderSolution) or ext:solution)">
-    <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
-  </xsl:if>
-  <xsl:if test="not($renderSolution) or ext:solution">
-    <fo:block id="{$id}" xsl:use-attribute-sets="cnx.question">
-      <fo:inline xsl:use-attribute-sets="cnx.question.number">
-	      <xsl:apply-templates select="." mode="number"/>
-	    </fo:inline>
-      <xsl:text> </xsl:text>
-      <xsl:choose>
-        <xsl:when test="$renderSolution">
-          <xsl:variable name="first">
-            <xsl:apply-templates select="ext:solution/*[position() = 1]/node()"/>
-          </xsl:variable>
-          <xsl:copy-of select="$first"/>
-          <xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="first">
-            <xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
-          </xsl:variable>
-          <xsl:copy-of select="$first"/>
-          <xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </fo:block>
-  </xsl:if>
+<xsl:choose>
+	<xsl:when test="ancestor::db:chapter//processing-instruction('cnx.eoc')[contains(., $class)] or $class='problems-exercises'">
+		<xsl:variable name="id">
+			<xsl:call-template name="object.id"/>
+		</xsl:variable>
+		<xsl:if test="not(not($renderSolution) or ext:solution)">
+			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
+		</xsl:if>
+		<xsl:if test="not($renderSolution) or ext:solution">
+			<fo:block id="{$id}" xsl:use-attribute-sets="cnx.question">
+				<fo:inline xsl:use-attribute-sets="cnx.question.number">
+					<xsl:apply-templates select="." mode="number"/>
+				</fo:inline>
+				<xsl:text> </xsl:text>
+				<xsl:choose>
+					<xsl:when test="$renderSolution">
+						<xsl:variable name="first">
+							<xsl:apply-templates select="ext:solution/*[position() = 1]/node()"/>
+						</xsl:variable>
+						<xsl:copy-of select="$first"/>
+						<xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="first">
+							<xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+						</xsl:variable>
+						<xsl:copy-of select="$first"/>
+						<xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</fo:block>
+		</xsl:if>
+	</xsl:when>
+	<xsl:otherwise>
+		<xsl:apply-imports/>
+	</xsl:otherwise>
+</xsl:choose>
 </xsl:if>
 </xsl:template>
 
@@ -1583,7 +1591,7 @@ Combination of formal.object and formal.object.heading -->
   </fo:block>
 </xsl:template>
 
-<xsl:template match="db:note[@type='tip']">
+<xsl:template match="db:note[@type='tip']|db:tip">
   <fo:block xsl:use-attribute-sets="cnx.note.tip">
     <xsl:apply-templates select="@class"/>
     <fo:block xsl:use-attribute-sets="cnx.note.tip.title">
@@ -1669,6 +1677,18 @@ Combination of formal.object and formal.object.heading -->
 
 <!-- Don't include the introduction section in the TOC -->
 <xsl:template match="db:section[contains(@class,'introduction')]" mode="toc"/>
+
+<!-- Don't render sections that contain a class that is collated at the end of the chapter (problems + Exercises, Conceptual Questions, etc -->
+<xsl:template match="db:section[@class]">
+	<xsl:variable name="class" select="@class"/>
+	<xsl:if test="not(../processing-instruction('cnx.eoc')[contains(., $class)])">
+		<xsl:message>LOG: DEBUG: Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
+		<xsl:apply-imports/>
+	</xsl:if>
+	<xsl:if test="../processing-instruction('cnx.eoc')[contains(., $class)]">
+		<xsl:message>LOG: DEBUG: NOT Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
+	</xsl:if>
+</xsl:template>
 
 <xsl:template name="toc.line">
   <xsl:param name="toc-context" select="NOTANODE"/>  
