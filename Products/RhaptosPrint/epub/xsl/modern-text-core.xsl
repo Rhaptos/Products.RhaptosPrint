@@ -693,7 +693,7 @@ procedure before
 
  	<!-- <?cnx.eoc class=review title=Review Notes?> -->
  	<xsl:variable name="context" select="."/>
-	<xsl:for-each select=".//processing-instruction('cnx.eoc')">
+	<xsl:for-each select=".//processing-instruction('cnx.eoc')[not(contains(.,'problems-exercises'))]">
 		<xsl:variable name="val" select="concat(' ', .)"/>
 		<xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
 		<xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
@@ -843,10 +843,14 @@ procedure before
 						<xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:variable name="first">
-							<xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
-						</xsl:variable>
-						<xsl:copy-of select="$first"/>
+						<xsl:choose>
+							<xsl:when test="ext:problem/*[position() = 1][self::db:para]">
+								<xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="ext:problem/*[position() = 1]"/>
+							</xsl:otherwise>
+						</xsl:choose>
 						<xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
 					</xsl:otherwise>
 				</xsl:choose>
