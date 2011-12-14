@@ -13,7 +13,7 @@ import urllib2
 import collection2dbk
 import util
 
-DEBUG=True
+DEBUG=False
 
 FOP_PATH = os.path.join(os.getcwd(), 'fop', 'fop')
 XCONF_PATH = os.path.join(os.getcwd(), 'lib', 'fop.xconf')
