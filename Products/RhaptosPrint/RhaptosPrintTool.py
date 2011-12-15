@@ -280,7 +280,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         return [ # {'title':'Default', 'id':''},
                  {'title':'Modern Textbook', 'id':'modern-textbook'},
-                 {'title':'Modern Textbook (2 column)', 'id':'modern-textbook-2column'},
+                 # {'title':'Modern Textbook (2 column)', 'id':'modern-textbook-2column'},
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
