@@ -1011,17 +1011,21 @@ procedure before
 	<xsl:variable name="id">
 		<xsl:call-template name="object.id"/>
 	</xsl:variable>
+
 	<fo:block id="{$id}"
 						xsl:use-attribute-sets="component.titlepage.properties">
-    <xsl:apply-templates select="db:section[contains(@class,'introduction')]"/>
+    <xsl:apply-templates mode="cnx.intro" select="d:section"/>
 	</fo:block>
 </xsl:template>
 
+<xsl:template mode="cnx.intro" match="node()"/>
+
 <!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
-<xsl:template match="d:section[contains(@class,'introduction')]">
+<xsl:template mode="cnx.intro" match="d:section[contains(@class,'introduction')]">
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
+
   <fo:block text-align="center" xsl:use-attribute-sets="cnx.tilepage.graphic">
     <fo:block xsl:use-attribute-sets="cnx.introduction.chapter">
       <fo:inline xsl:use-attribute-sets="cnx.introduction.chapter.number">
