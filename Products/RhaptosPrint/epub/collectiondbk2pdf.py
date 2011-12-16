@@ -16,8 +16,8 @@ import util
 
 DEBUG=False
 
+FOP_PATH = os.path.join('fop')
 BASE_PATH = os.path.join(os.getcwd())
-FOP_PATH = os.path.join(os.getcwd(), 'fop', 'fop')
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
 # XSL files
@@ -105,8 +105,8 @@ def fo2pdf(fo, files, tempdir):
   xconf.close()
   
   # Run FOP to generate an abstract tree 1st
-  # strCmd = [FOP_PATH, '-c', XCONF_PATH, '/dev/stdin']
-  strCmd = [FOP_PATH, '-c', XCONF_PATH, '-at', 'application/pdf', '/dev/stdout', '/dev/stdin']
+  # strCmd = [FOP_PATH, ', '-c', XCONF_PATH, '/dev/stdin']
+  strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-at', 'application/pdf', '/dev/stdout', '/dev/stdin']
   env = {'FOP_OPTS': '-Xmx14000M'}
 
   # run the program with subprocess and pipe the input and output to variables
@@ -114,8 +114,10 @@ def fo2pdf(fo, files, tempdir):
   # set STDIN and STDOUT and wait untill the program finishes
   stdOut, stdErr = p.communicate(etree.tostring(fo))
   abstractTree = stdOut
+  if DEBUG:
+    open('temp-collection5.at','w').write(abstractTree)
 
-  strCmd = [FOP_PATH, '-c', XCONF_PATH, '-atin', '/dev/stdin', '/dev/stdout']
+  strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-atin', '/dev/stdin', '/dev/stdout']
 
   # run the program with subprocess and pipe the input and output to variables
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
