@@ -61,6 +61,7 @@ procedure before
 
 <xsl:param name="cnx.pagewidth.pixels" select="396"/>
 <xsl:param name="cnx.columnwidth.pixels" select="210"/> <!-- 228 -->
+<xsl:param name="cnx.image.scaling" select="0.5"/>
 
 <!-- ============================================== -->
 <!-- Customize colors and formatting                -->
@@ -1864,6 +1865,74 @@ Combination of formal.object and formal.object.heading -->
   <!-- those elements have the same set of attributes, so we can -->
   <!-- handle them all in one place.                             -->
 
+	<!-- CNX Hack here! -->
+	<xsl:variable name="columnScaling">
+		<xsl:choose>
+			<xsl:when test="ancestor::*[contains(@class, 'problems-exercises')]">
+				<xsl:text>0.5</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>1.0</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+<!-- CNX: Customizations -->
+  <xsl:variable name="imageWidth">
+    <xsl:choose>
+      <xsl:when test="@width">
+        <xsl:value-of select="@width"/>
+      </xsl:when>
+      <xsl:when test="@depth">
+      	<xsl:value-of select="@depth * @_actual-width div @_actual-height"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@_actual-width"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="maxWidth">
+    <xsl:choose>
+      <xsl:when test="ancestor::*[contains(@class,'problems-exercises')]">
+        <xsl:value-of select="$cnx.columnwidth.pixels"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$cnx.pagewidth.pixels"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+	<xsl:variable name="widthUnscaled">
+		<xsl:choose>
+			<xsl:when test="$imageWidth &gt; $maxWidth">
+				<xsl:value-of select="$maxWidth"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$imageWidth"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="depthUnscaled">
+		<xsl:if test="@depth">
+			<xsl:choose>
+				<xsl:when test="$imageWidth &gt; $maxWidth">
+					<xsl:value-of select="@depth * ($imageWidth div $maxWidth)"/>
+				</xsl:when>
+				<xsl:when test="@width != $imageWidth">
+					<xsl:value-of select="@depth * (@width div $imageWidth)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="@depth"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+	</xsl:variable>
+
+	<xsl:variable name="width" select="$widthUnscaled * $cnx.image.scaling div $columnScaling"/>
+	<xsl:variable name="depth" select="$depthUnscaled * $cnx.image.scaling div  $columnScaling"/>
+	
   <xsl:variable name="scalefit">
     <xsl:choose>
       <xsl:when test="$ignore.image.scaling != 0">0</xsl:when>
@@ -1921,31 +1990,6 @@ Combination of formal.object and formal.object.heading -->
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:variable name="imageWidth">
-    <xsl:choose>
-      <xsl:when test="@width">
-        <xsl:value-of select="@width"/>
-      </xsl:when>
-      <xsl:when test="@depth">
-      	<xsl:value-of select="@depth * @_actual-width div @_actual-height"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="@_actual-width"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="maxWidth">
-    <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[contains(@class,'problems-exercises')]">
-        <xsl:value-of select="$cnx.columnwidth.pixels"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$cnx.pagewidth.pixels"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <fo:external-graphic>
     <xsl:attribute name="src">
       <xsl:call-template name="fo-external-image">
@@ -1960,55 +2004,46 @@ Combination of formal.object and formal.object.heading -->
       </xsl:call-template>
     </xsl:attribute>
 
-<!-- CNX HACK: Don't set the height/width if the width is being forced -->
-    <xsl:if test="$imageWidth &lt;= $maxWidth">
-      <xsl:attribute name="width">
-        <xsl:choose>
-          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-          <xsl:when test="contains(@width,'%')">
-            <xsl:value-of select="@width"/>
-          </xsl:when>
-          <xsl:when test="@width and not(@width = '')">
-            <xsl:call-template name="length-spec">
-              <xsl:with-param name="length" select="@width"/>
-              <xsl:with-param name="default.units" select="'px'"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:when test="not(@depth) and $default.image.width != ''">
-            <xsl:call-template name="length-spec">
-              <xsl:with-param name="length" select="$default.image.width"/>
-              <xsl:with-param name="default.units" select="'px'"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:otherwise>auto</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
+    <xsl:attribute name="width">
+      <xsl:choose>
+        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="contains($width,'%')">
+          <xsl:value-of select="$width"/>
+        </xsl:when>
+        <xsl:when test="$width and not($width = '')">
+          <xsl:call-template name="length-spec">
+            <xsl:with-param name="length" select="$width"/>
+            <xsl:with-param name="default.units" select="'px'"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="not(@depth) and $default.image.width != ''">
+          <xsl:call-template name="length-spec">
+            <xsl:with-param name="length" select="$default.image.width"/>
+            <xsl:with-param name="default.units" select="'px'"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
 
-      <xsl:attribute name="height">
-        <xsl:choose>
-          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-          <xsl:when test="contains(@depth,'%')">
-            <xsl:value-of select="@depth"/>
-          </xsl:when>
-          <xsl:when test="@depth">
-            <xsl:call-template name="length-spec">
-              <xsl:with-param name="length" select="@depth"/>
-              <xsl:with-param name="default.units" select="'px'"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:otherwise>auto</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:attribute name="height">
+      <xsl:choose>
+        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="contains($depth,'%')">
+          <xsl:value-of select="$depth"/>
+        </xsl:when>
+        <xsl:when test="@depth">
+          <xsl:call-template name="length-spec">
+            <xsl:with-param name="length" select="$depth"/>
+            <xsl:with-param name="default.units" select="'px'"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
 
     <xsl:attribute name="content-width">
       <xsl:choose>
-<!-- CNX HACK -->
-        <xsl:when test="$imageWidth > $maxWidth">
-          <xsl:message>LOG: WARNING: image width is too wide. Forcing width and ignoring height. Max of <xsl:value-of select="$maxWidth"/> is less than imageWidth:<xsl:value-of select="$imageWidth"/> actual: <xsl:value-of select="@_actual-width"/></xsl:message>
-          <xsl:value-of select="$maxWidth"/>
-          <xsl:text>px</xsl:text>
-        </xsl:when>
         <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
         <xsl:when test="contains(@contentwidth,'%')">
           <xsl:value-of select="@contentwidth"/>
@@ -2024,40 +2059,30 @@ Combination of formal.object and formal.object.heading -->
           <xsl:text>%</xsl:text>
         </xsl:when>
         <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
-<!-- CNX HACK -->
-        <xsl:when test="@width">
-          <xsl:value-of select="@width"/>
-        </xsl:when>
-        <xsl:when test="@_actual-width">
-          <xsl:value-of select="@_actual-width"/>
-        </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
 
-<!-- CNX HACK: Don't set the height if the width is being forced -->
-    <xsl:if test="not(@_actual-width) or $imageWidth &lt;= $maxWidth">
-      <xsl:attribute name="content-height">
-        <xsl:choose>
-          <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-          <xsl:when test="contains(@contentdepth,'%')">
-            <xsl:value-of select="@contentdepth"/>
-          </xsl:when>
-          <xsl:when test="@contentdepth">
-            <xsl:call-template name="length-spec">
-              <xsl:with-param name="length" select="@contentdepth"/>
-              <xsl:with-param name="default.units" select="'px'"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:when test="number($scale) != 1.0">
-            <xsl:value-of select="$scale * 100"/>
-            <xsl:text>%</xsl:text>
-          </xsl:when>
-          <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
-          <xsl:otherwise>auto</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:attribute name="content-height">
+      <xsl:choose>
+        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="contains(@contentdepth,'%')">
+          <xsl:value-of select="@contentdepth"/>
+        </xsl:when>
+        <xsl:when test="@contentdepth">
+          <xsl:call-template name="length-spec">
+            <xsl:with-param name="length" select="@contentdepth"/>
+            <xsl:with-param name="default.units" select="'px'"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="number($scale) != 1.0">
+          <xsl:value-of select="$scale * 100"/>
+          <xsl:text>%</xsl:text>
+        </xsl:when>
+        <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
 
     <xsl:if test="$content-type != ''">
       <xsl:attribute name="content-type">

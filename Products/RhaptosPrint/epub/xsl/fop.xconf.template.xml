@@ -2,7 +2,7 @@
 <fop version="1.0">
   <base>.</base>
   <strict-validation>false</strict-validation>
-  <source-resolution>150</source-resolution>
+  <source-resolution>72</source-resolution>
   <target-resolution>72</target-resolution>
   <renderers>
     <renderer mime="application/pdf">
