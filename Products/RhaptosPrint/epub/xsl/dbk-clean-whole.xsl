@@ -119,7 +119,8 @@
 
 
 
-<!-- Combine all module glossaries into a single book glossary -->
+<!-- Combine all module glossaries into an end-of-chapter glossary -->
+<!-- We can't just apply-templates on glossary entries because there are duplicates -->
 <xsl:template match="db:chapter">
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"/>
@@ -152,12 +153,9 @@
 	
 	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
-		<db:glossdiv>
-			<!-- <db:title><xsl:value-of select="$letter"/></db:title> -->
-			<xsl:apply-templates select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
-				<xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
-			</xsl:apply-templates>
-		</db:glossdiv>
+    <xsl:apply-templates select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
+      <xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
+    </xsl:apply-templates>
 	</xsl:if>
 
 	<xsl:if test="string-length($letters) > 1">
