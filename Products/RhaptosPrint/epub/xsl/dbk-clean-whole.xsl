@@ -129,8 +129,8 @@
 			<db:glossary>
 				<xsl:variable name="letters">
 					<xsl:for-each select=".//db:glossentry/db:glossterm">
-						<xsl:sort select="translate(substring(text(), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
-						<xsl:variable name="char" select="substring(text(), 1, 1)"/>
+						<xsl:sort select="translate(substring(normalize-space(text()), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:variable name="char" select="substring(normalize-space(text()), 1, 1)"/>
 						<xsl:variable name="letter" select="translate($char, $cnx.smallcase, $cnx.uppercase)"/>
 						<xsl:value-of select="$letter"/>
 					</xsl:for-each>
