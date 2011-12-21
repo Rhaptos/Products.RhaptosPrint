@@ -120,7 +120,7 @@ def fo2pdf(fo, files, tempdir):
   strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-atin', '/dev/stdin', '/dev/stdout']
 
   # run the program with subprocess and pipe the input and output to variables
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True, env=env)
   # set STDIN and STDOUT and wait untill the program finishes
   stdOut, stdErr2 = p.communicate(abstractTree)
 
