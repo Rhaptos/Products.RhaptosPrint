@@ -1865,26 +1865,26 @@ Combination of formal.object and formal.object.heading -->
   <!-- those elements have the same set of attributes, so we can -->
   <!-- handle them all in one place.                             -->
 
-	<!-- CNX Hack here! -->
-	<xsl:variable name="columnScaling">
-		<xsl:choose>
-			<xsl:when test="ancestor::*[contains(@class, 'problems-exercises')]">
-				<xsl:text>0.5</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>1.0</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	
+  <!-- CNX Hack here! -->
+  <xsl:variable name="columnScaling">
+    <xsl:choose>
+      <xsl:when test="ancestor::*[contains(@class, 'problems-exercises')]">
+        <xsl:text>0.5</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>1.0</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  
 <!-- CNX: Customizations -->
   <xsl:variable name="imageWidth">
     <xsl:choose>
-      <xsl:when test="@width">
+      <xsl:when test="@width and string(number(@width)) != 'NaN'">
         <xsl:value-of select="@width"/>
       </xsl:when>
       <xsl:when test="@depth">
-      	<xsl:value-of select="@depth * @_actual-width div @_actual-height"/>
+        <xsl:value-of select="@depth * @_actual-width div @_actual-height"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="@_actual-width"/>
@@ -1903,36 +1903,29 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
   </xsl:variable>
 
-	<xsl:variable name="widthUnscaled">
-		<xsl:choose>
-			<xsl:when test="$imageWidth &gt; $maxWidth">
-				<xsl:value-of select="$maxWidth"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$imageWidth"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+  <xsl:variable name="widthUnscaled">
+    <xsl:choose>
+      <xsl:when test="$imageWidth &gt; $maxWidth">
+        <xsl:value-of select="$maxWidth"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="round($imageWidth)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
-	<xsl:variable name="depthUnscaled">
-		<xsl:if test="@depth">
-			<xsl:choose>
-				<xsl:when test="$imageWidth &gt; $maxWidth">
-					<xsl:value-of select="@depth * ($imageWidth div $maxWidth)"/>
-				</xsl:when>
-				<xsl:when test="@width != $imageWidth">
-					<xsl:value-of select="@depth * (@width div $imageWidth)"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="@depth"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-	</xsl:variable>
-
-	<xsl:variable name="width" select="$widthUnscaled * $cnx.image.scaling div $columnScaling"/>
-	<xsl:variable name="depth" select="$depthUnscaled * $cnx.image.scaling div  $columnScaling"/>
-	
+  <xsl:variable name="width">
+    <xsl:choose>
+      <xsl:when test="@width and string(number(@width)) = 'NaN'">
+        <xsl:value-of select="@width"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$widthUnscaled * $cnx.image.scaling div $columnScaling"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  
+  
   <xsl:variable name="scalefit">
     <xsl:choose>
       <xsl:when test="$ignore.image.scaling != 0">0</xsl:when>
@@ -2010,7 +2003,7 @@ Combination of formal.object and formal.object.heading -->
         <xsl:when test="contains($width,'%')">
           <xsl:value-of select="$width"/>
         </xsl:when>
-        <xsl:when test="$width and not($width = '')">
+        <xsl:when test="not($width = '')">
           <xsl:call-template name="length-spec">
             <xsl:with-param name="length" select="$width"/>
             <xsl:with-param name="default.units" select="'px'"/>
@@ -2022,25 +2015,27 @@ Combination of formal.object and formal.object.heading -->
             <xsl:with-param name="default.units" select="'px'"/>
           </xsl:call-template>
         </xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
+        <xsl:otherwise>auto<xsl:message>PHIL-IMAGE_AUTO_WIDTH</xsl:message></xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
 
+<!-- CNX: we don't use height since width is always set
     <xsl:attribute name="height">
       <xsl:choose>
         <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
-        <xsl:when test="contains($depth,'%')">
-          <xsl:value-of select="$depth"/>
+        <xsl:when test="contains(@depth,'%')">
+          <xsl:value-of select="@depth"/>
         </xsl:when>
         <xsl:when test="@depth">
           <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="$depth"/>
+            <xsl:with-param name="length" select="@depth"/>
             <xsl:with-param name="default.units" select="'px'"/>
           </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
+-->
 
     <xsl:attribute name="content-width">
       <xsl:choose>
