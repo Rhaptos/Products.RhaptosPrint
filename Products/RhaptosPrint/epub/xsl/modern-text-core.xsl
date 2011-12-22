@@ -1075,7 +1075,7 @@ procedure before
           </fo:table-row>
         </fo:table-header>
         <fo:table-body>
-          <xsl:apply-templates mode="introduction.toc" select="*"/>
+          <xsl:apply-templates mode="introduction.toc" select="../db:section[not(contains(@class,'introduction'))]"/>
         </fo:table-body>
       </fo:table>
       <xsl:call-template name="component.toc.separator"/>
@@ -1099,9 +1099,9 @@ procedure before
 
           <fo:table>
             <fo:table-body start-indent="0pt">
-              <fo:table-row><fo:table-cell><fo:block>
+              <fo:table-row><fo:table-cell>
                 <xsl:copy-of select="$content"/>
-               </fo:block></fo:table-cell></fo:table-row>
+              </fo:table-cell></fo:table-row>
             </fo:table-body>
           </fo:table>
 
