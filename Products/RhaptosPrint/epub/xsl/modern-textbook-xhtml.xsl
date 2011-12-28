@@ -14,6 +14,8 @@
 <!-- Customize docbook params for this style        -->
 <!-- ============================================== -->
 
+<xsl:param name="cnx.font.catchall">sans-serif,STIXGeneral,STIXSize</xsl:param>
+
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"/>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
@@ -21,7 +23,7 @@
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="toc.section.depth">1</xsl:param>
 
-<xsl:param name="body.font.family">sans-serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
+<xsl:param name="body.font.family"><xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
 <xsl:param name="body.font.master">8.5</xsl:param>
 <xsl:param name="body.start.indent">0px</xsl:param>
@@ -376,7 +378,7 @@ procedure before
 	<xsl:attribute name="margin-bottom">1em</xsl:attribute>
 </xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="style">padding-left: 0.1em; padding-before: 0.05em; padding-after: 0em; background-color: <xsl:value-of select="$cnx.color.orange"/>; text-align: left; font-size: <xsl:value-of select="$cnx.font.huge"/>; </xsl:attribute>
+<xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="style">padding-left: 0.1em; padding-before: 0.05em; padding-after: 0em; background-color: <xsl:value-of select="$cnx.color.orange"/>; text-align: left; font-size: <xsl:value-of select="$cnx.font.huge"/>;</xsl:attribute>
 <!--
   <xsl:attribute name="border-width">2px</xsl:attribute>
   <xsl:attribute name="border-style">solid</xsl:attribute>
@@ -521,7 +523,7 @@ procedure before
 <xsl:template name="select.user.pagemaster">
   <xsl:param name="element"/>
   <xsl:param name="pageclass"/>
-  <xsl:param name="default-pagemaster"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="default-pagemaster"/>
   <xsl:choose>
     <xsl:when test="$default-pagemaster = 'body'">
       <xsl:value-of select="$cnx.pagemaster.body"/>
@@ -610,8 +612,6 @@ procedure before
       <xsl:with-param name="initial-page-number">auto</xsl:with-param>
       <xsl:with-param name="content">
 
-				<a name=""/>
-
 				<xsl:call-template name="cnx.end-of-chapter-problems">
 					<xsl:with-param name="title">
 						<xsl:text>Problems</xsl:text>
@@ -627,13 +627,18 @@ procedure before
 <xsl:template name="cnx.end-of-chapter-problems">
 	<xsl:param name="context" select="."/>
 	<xsl:param name="title"/>
-	<xsl:param name="attribute"/><xsl:param name="cnx.font.catchall"/>
+	<xsl:param name="attribute"/>
 
 	<!-- Create a 1-column Listing of "Conceptual Questions" or "end-of-chapter Problems" -->
 	<xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
-		<div class="{$attribute}" style="columns: 2;">
+		<div class="{$attribute}">
+		  <xsl:if test="$attribute='problems-exercises'">
+		    <xsl:attribute name="style">
+		      <xsl:text>columns: 2; page-break-before: always;</xsl:text>
+		    </xsl:attribute>
+		  </xsl:if>
 		<div xsl:use-attribute-sets="cnx.formal.title">
 			<span xsl:use-attribute-sets="example.title.properties">
 				<xsl:text>    </xsl:text>
@@ -689,7 +694,7 @@ procedure before
 <!-- Renders an abstract onnly when "render" is set to true().
 -->
 <xsl:template match="d:abstract" mode="titlepage.mode">
-  <xsl:param name="render" select="false()"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="render" select="false()"/>
   <xsl:if test="$render">
     <xsl:apply-imports/>
   </xsl:if>
@@ -702,7 +707,7 @@ procedure before
 -->
 <xsl:template match="ext:exercise[ancestor-or-self::*[@class]]">
 <xsl:param name="render" select="false()"/>
-<xsl:param name="renderSolution" select="false()"/><xsl:param name="cnx.font.catchall"/>
+<xsl:param name="renderSolution" select="false()"/>
 <xsl:variable name="class" select="ancestor-or-self::*[@class][1]/@class"/>
 <xsl:if test="$render">
 <xsl:choose>
@@ -750,7 +755,7 @@ procedure before
 </xsl:template>
 
 <xsl:template match="ext:exercise[not(ancestor::db:example)]" mode="number">
-  <xsl:param name="type" select="@type"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="type" select="@type"/>
   <xsl:choose>
     <xsl:when test="$type and $type != ''">
       <xsl:number format="1." level="any" from="db:chapter" count="ext:exercise[not(ancestor::db:example) and @type=$type]"/>
@@ -832,18 +837,27 @@ procedure before
   <xsl:param name="level" select="1"/>
   <xsl:param name="marker" select="1"/>
   <xsl:param name="title"/>
-  <xsl:param name="marker.title"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="marker.title"/>
 
   <xsl:variable name="cnx.title">
-    <span xsl:use-attribute-sets="section.title.number">
-      <xsl:value-of select="substring-before($title, $marker.title)"/>
-    </span>
-    <xsl:copy-of select="$marker.title"/>
+      <xsl:choose>
+        <xsl:when test="$marker.title != ''">
+          <span xsl:use-attribute-sets="section.title.number">
+            <xsl:value-of select="substring-before($title, $marker.title)"/>
+          </span>
+          <xsl:copy-of select="$marker.title"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="$title"/>
+        </xsl:otherwise>
+      </xsl:choose>
   </xsl:variable>
 
   <div xsl:use-attribute-sets="section.title.properties">
-    <xsl:if test="$marker != 0">
-      <a name=""/>
+    <xsl:if test="ancestor::db:section[1]/@xml:id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="ancestor::db:section[1]/@xml:id"/>
+      </xsl:attribute>
     </xsl:if>
 
     <xsl:choose>
@@ -906,7 +920,7 @@ procedure before
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
 
-  <div text-align="center" xsl:use-attribute-sets="cnx.tilepage.graphic">
+  <div class="introduction" xsl:use-attribute-sets="cnx.tilepage.graphic">
     <div xsl:use-attribute-sets="cnx.introduction.chapter">
       <span xsl:use-attribute-sets="cnx.introduction.chapter.number">
         <xsl:apply-templates select=".." mode="label.markup"/>
@@ -915,7 +929,7 @@ procedure before
         <xsl:copy-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
       </span>
     </div>
-  </div>
+
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
@@ -934,6 +948,8 @@ procedure before
     </span>
   </div>
   <xsl:apply-templates select="node()"/>
+  </div>
+
 </xsl:template>
 
 
@@ -965,7 +981,7 @@ procedure before
 
 <!-- Tables in FOP can't be centered, so we nest them -->
 <xsl:template name="table.layout.center">
-  <xsl:param name="content"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="content"/>
 
   <table>
     
@@ -1129,7 +1145,7 @@ procedure before
      examples include "color='#ffffcc' background-color='#808080'"
 -->
 <xsl:template match="@class|processing-instruction('cnx.style')" name="cnx.style.rec">
-  <xsl:param name="value" select="concat(normalize-space(.), ' ')"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="value" select="concat(normalize-space(.), ' ')"/>
   <xsl:variable name="pair" select="substring-before($value,' ')"/>
   <xsl:variable name="tail" select="substring-after($value,' ')"/>
   <xsl:message>LOG: INFO: Found custom cnx.style PI </xsl:message>
@@ -1154,7 +1170,7 @@ procedure before
 
 <xsl:template name="cnx.style.pair">
   <xsl:param name="name"/>
-  <xsl:param name="value"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="value"/>
 	<!-- TODO: Customize attribute names that are different between HTML and XSL-FO -->
   <xsl:variable name="attrName" select="$name"/>
   <xsl:message>LOG: INFO: Setting cnx.class.style <xsl:value-of select="$attrName"/> = <xsl:value-of select="$value"/> on <xsl:value-of select="name(..)"/></xsl:message>
@@ -1167,7 +1183,7 @@ procedure before
 Combination of formal.object and formal.object.heading -->
 <xsl:template match="d:figure" name="cnx.figure">
 	<xsl:param name="c" select="."/>
-	<xsl:param name="renderCaption" select="true()"/><xsl:param name="cnx.font.catchall"/>
+	<xsl:param name="renderCaption" select="true()"/>
   <xsl:variable name="id">
     <xsl:call-template name="object.id">
     	<xsl:with-param name="object" select="$c"/>
@@ -1207,7 +1223,7 @@ Combination of formal.object and formal.object.heading -->
     Taken from docbook-xsl/fo/tables.xsl with modifications marked with "CNX"
  -->
 <xsl:template name="table.block">
-  <xsl:param name="table.layout" select="NOTANODE"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="table.layout" select="NOTANODE"/>
 
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
@@ -1270,7 +1286,7 @@ Combination of formal.object and formal.object.heading -->
 <!-- A block-level element inside another block-level element should use the inner formatting -->
 <xsl:template mode="formal.object.heading" match="*[         ancestor::ext:exercise or          ancestor::db:example or          ancestor::ext:rule or         ancestor::db:glosslist or         ancestor-or-self::db:list]">
   <xsl:param name="object" select="."/>
-  <xsl:param name="placement" select="'before'"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="content">
     <xsl:choose>
@@ -1293,7 +1309,7 @@ Combination of formal.object and formal.object.heading -->
 
 <xsl:template mode="formal.object.heading" match="*" name="formal.object.heading">
   <xsl:param name="object" select="."/>
-  <xsl:param name="placement" select="'before'"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="content">
     <xsl:choose>
@@ -1562,7 +1578,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="toc.line">
-  <xsl:param name="toc-context" select="NOTANODE"/><xsl:param name="cnx.font.catchall"/>  
+  <xsl:param name="toc-context" select="NOTANODE"/>  
   <xsl:variable name="id">  
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -1611,7 +1627,7 @@ Combination of formal.object and formal.object.heading -->
   <xsl:param name="pageclass" select="''"/>
   <xsl:param name="sequence" select="''"/>
   <xsl:param name="position" select="''"/>
-  <xsl:param name="gentext-key" select="''"/><xsl:param name="cnx.font.catchall"/>
+  <xsl:param name="gentext-key" select="''"/>
 
   <xsl:variable name="context" select="ancestor-or-self::*[self::db:preface | self::db:chapter | self::db:appendix | self::ext:cnx-solutions-placeholder]"/>
 
@@ -1721,7 +1737,6 @@ Combination of formal.object and formal.object.heading -->
   <xsl:param name="content"/>
   <xsl:copy-of select="$content"/>
 </xsl:template>
-
 
 
 </xsl:stylesheet>
