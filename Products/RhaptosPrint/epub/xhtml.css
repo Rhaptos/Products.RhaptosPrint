@@ -1,0 +1,34 @@
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+body {
+  font-family: sans-serif, STIXGeneral, STIXSize
+}
+
+.toc a {
+  text-decoration: none;
+}
+
+/* TOC Chapter */
+.toc > dt > dl a {
+  font-size: 13.6pt;
+  color: #0061AA;
+}
+
+/* TOC Section */
+/* .toc > dl > dd > dl > dt */
+.toc dd dt a {
+  color: black;
+  font-weight: normal;
+}
+
+/* ___ ........................ 213 */
+.toc span:last-child a:after {
+  content: leader('.') target-counter(attr(href), page);
+}
+
+.introduction {
+  page-break-before: always;
+  page-break-after: always;
+}
