@@ -7,6 +7,7 @@
   xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:ext="http://cnx.org/ns/docbook+"
+  xmlns:svg="http://www.w3.org/2000/svg"
   version="1.0">
 
 <!-- This file converts dbk files to html (maybe chunked) which is used in EPUB and PDF generation.
@@ -65,6 +66,11 @@
 
 <xsl:template match="db:imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
     <xsl:choose>
+        <xsl:when test="$cnx.svg.compat = 'raw-svg'">
+          <span>
+            <xsl:apply-templates select="@pmml2svg:baseline-shift|svg:svg"/>
+          </span>
+        </xsl:when>
         <xsl:when test="$cnx.svg.compat = 'object'">
           <object type="image/png" data="{@fileref}" width="{@width}" height="{@height}">
             <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
@@ -79,6 +85,17 @@
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
+
+<!-- Docbook "supprts" svg by copying SVG elements but not the attributes ; ) -->
+<xsl:template match="svg:*|svg:*/@*|svg:*/node()">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+
+
+<xsl:template match="pmml2svg:*"/>
 
 <!-- Put the equation number on the RHS -->
 <xsl:template match="db:equation">

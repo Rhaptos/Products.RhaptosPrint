@@ -21,7 +21,7 @@
  -->
 <xsl:param name="cnx.svg.extension">png</xsl:param>
 <!-- Used to set whether or not <html:object/> should be generated as a fallback. -->
-<xsl:param name="cnx.svg.compat"></xsl:param>
+<xsl:param name="cnx.svg.compat">raw-svg</xsl:param>
 <xsl:param name="cnx.svg.chunk" select="1"/>
 
 <!-- Do not add the URL if we are generating a HTML zip -->
