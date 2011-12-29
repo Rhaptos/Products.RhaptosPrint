@@ -2,11 +2,11 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:d="http://docbook.org/ns/docbook" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ext="http://cnx.org/ns/docbook+" version="1.0">
 
 <xsl:import href="debug.xsl"/>
-<xsl:import href="../docbook-xsl/xhtml/docbook.xsl"/>
+<xsl:import href="../docbook-xsl/xhtml-1_1/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
 
 <!-- Ignore Section title pages overridden in dbkplus.xsl -->
-<xsl:import href="../docbook-xsl/xhtml/titlepage.templates.xsl"/>
+<xsl:import href="../docbook-xsl/xhtml-1_1/titlepage.templates.xsl"/>
 
 <xsl:output indent="yes" method="xml"/>
 
@@ -75,15 +75,9 @@ procedure before
 <xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
 <xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
 
-<xsl:attribute-set name="root.properties"><xsl:attribute name="style">font-stretch: semi-condensed; </xsl:attribute>
-  <xsl:attribute name="font-stretch">semi-condensed</xsl:attribute><!--light-->
-</xsl:attribute-set>
+<xsl:attribute-set name="root.properties"><xsl:attribute name="class">root-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="style">space-before.optimum: 0.2em; space-before.minimum: 0em; space-before.maximum: 0.8em; </xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing</xsl:attribute></xsl:attribute-set>
 
 <!-- Don't indent all the time
 <xsl:attribute-set name="normal.para.spacing">
@@ -91,403 +85,128 @@ procedure before
 </xsl:attribute-set>
 -->
 
-<xsl:attribute-set name="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; </xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">0.75em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.underscore"><xsl:attribute name="class">cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <!-- End-of-chapter questions and problem numbers -->
-<xsl:attribute-set name="cnx.question" use-attribute-sets="informal.object.properties"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; keep-together.within-column: 9; keep-together.within-page: 9; start-indent: 1em; end-indent: 1em; space-before.minimum: 0.25em; space-before.optimum: 0.25em; space-before.maximum: 0.5em; </xsl:attribute>
-	<xsl:attribute name="space-before.minimum">0.25em</xsl:attribute>
-	<xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-	<xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.question.number"><xsl:attribute name="style">font-weight: bold; </xsl:attribute>
-	<xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.question"><xsl:attribute name="class">cnx-question, informal-object-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.question.number"><xsl:attribute name="class">cnx-question-number</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.equation"><xsl:attribute name="style">keep-together.within-column: 2; keep-together.within-page: 2; </xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
-  <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.equation"><xsl:attribute name="class">cnx-equation</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title" use-attribute-sets="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; keep-with-next.within-column: always; keep-with-next.within-page: always; font-size: <xsl:value-of select="$cnx.font.large"/>; color: white; font-weight: bold; space-before.minimum: 16; space-before.optimum: 18; space-before.maximum: 20; padding-before: 2px; padding-after: 2px; </xsl:attribute>
-  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="color">white</xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">16</xsl:attribute>
-  <xsl:attribute name="space-before.optimum">18</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">20</xsl:attribute>
-  <xsl:attribute name="padding-before">2px</xsl:attribute>
-  <xsl:attribute name="padding-after">2px</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title, cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title.text"><xsl:attribute name="style">background-color: <xsl:value-of select="$cnx.color.green"/>; padding-before: 4px; padding-after: 4px; </xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.green"/></xsl:attribute>
-  <xsl:attribute name="padding-before">4px</xsl:attribute>
-  <xsl:attribute name="padding-after">4px</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.title.text"><xsl:attribute name="class">cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title.inner"><xsl:attribute name="style">font-size: <xsl:value-of select="$cnx.font.large"/>; color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.title.inner"><xsl:attribute name="class">cnx-formal-title-inner</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+<xsl:attribute-set name="cnx.vertical-spacing"><xsl:attribute name="class">cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="normal.para.spacing"><xsl:attribute name="class">normal-para-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="normal.para.spacing" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute>
-  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+<xsl:attribute-set name="list.block.spacing"><xsl:attribute name="class">list-block-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="list.block.properties"><xsl:attribute name="class">list-block-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="list.block.spacing" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute>
-  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+<xsl:attribute-set name="example.title.properties"><xsl:attribute name="class">example-title-properties, cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
 
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="list.item.spacing" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute>
-  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+<xsl:attribute-set name="figure.title.properties"><xsl:attribute name="class">figure-title-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
-
-<xsl:attribute-set name="list.block.properties" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute>
-  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
-
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-</xsl:attribute-set>
-
-<xsl:attribute-set name="example.title.properties" use-attribute-sets="cnx.formal.title.text"><xsl:attribute name="style">background-color: <xsl:value-of select="$cnx.color.green"/>; padding-before: 4px; padding-after: 4px; background-color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
-
-<xsl:attribute-set name="figure.title.properties" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; color: <xsl:value-of select="$cnx.color.red"/>; font-size: <xsl:value-of select="$cnx.font.small"/>; font-weight: bold; hyphenate: false; space-after.minimum: 8; space-after.optimum: 6; space-after.maximum: 10; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.red"/></xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
-
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="hyphenate">false</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">8</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">6</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">10</xsl:attribute>
-</xsl:attribute-set>
-
-<xsl:attribute-set name="section.title.level1.properties"><xsl:attribute name="style">padding-before: 6pt; font-weight: bold; font-size: <xsl:value-of select="$cnx.font.larger"/>; </xsl:attribute>
-  <xsl:attribute name="padding-before">6pt</xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="section.title.level2.properties"><xsl:attribute name="style">padding-before: 6pt; font-weight: normal; font-size: <xsl:value-of select="$cnx.font.large"/>; </xsl:attribute>
-  <xsl:attribute name="padding-before">6pt</xsl:attribute>
-  <xsl:attribute name="font-weight">normal</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="section.title.number" use-attribute-sets="section.title.level1.properties"><xsl:attribute name="style">padding-before: 6pt; font-weight: bold; font-size: <xsl:value-of select="$cnx.font.larger"/>; color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="section.title.level1.properties"><xsl:attribute name="class">section-title-level1-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="section.title.level2.properties"><xsl:attribute name="class">section-title-level2-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="section.title.number"><xsl:attribute name="class">section-title-number, section-title-level1-properties</xsl:attribute></xsl:attribute-set>
 
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
-<xsl:attribute-set name="cnx.figure.properties"><xsl:attribute name="style">keep-together.within-column: 2; keep-together.within-page: 2; font-size: 8pt; padding-after: 0.5em; </xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
-  <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
-  <xsl:attribute name="font-size">8pt</xsl:attribute>
-  <xsl:attribute name="padding-after">0.5em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.figure.properties"><xsl:attribute name="class">cnx-figure-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.figure.content"><xsl:attribute name="style">text-align: center; </xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.figure.content"><xsl:attribute name="class">cnx-figure-content</xsl:attribute></xsl:attribute-set>
 
 <!-- "Check for Understanding" is an exercise whose problem 
     is a list. These should be bold or larger
 -->
-<xsl:attribute-set name="cnx.exercise.listitem"><xsl:attribute name="style">font-weight: bold; </xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.exercise.listitem"><xsl:attribute name="class">cnx-exercise-listitem</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="formal.object.properties" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; margin-top: 0em; background-color: <xsl:value-of select="$cnx.color.light-green"/>; </xsl:attribute>
-  <xsl:attribute name="margin-top">0em</xsl:attribute>
-  <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.light-green"/></xsl:attribute>
-  <!--inherited overrides-->
-</xsl:attribute-set>
+<xsl:attribute-set name="formal.object.properties"><xsl:attribute name="class">formal-object-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="informal.object.properties" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; keep-together.within-column: 9; keep-together.within-page: 9; </xsl:attribute>
-  <!-- XSL seems to ignore the use-attribute-sets in some cases... -->
-  <xsl:attribute name="space-before.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
-
-  <xsl:attribute name="space-after.optimum">0.25em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.5em</xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">9</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">9</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
 <!-- In Docbook tables inherit formal.object.properties
     This causes the background (including the title) to have a background color.
     See "Customize Table Headings" below for more customizations
  -->
-<xsl:attribute-set name="table.properties"><xsl:attribute name="style">background-color: transparent; margin-top: 0em; </xsl:attribute>
-  <xsl:attribute name="background-color">transparent</xsl:attribute>
-  <xsl:attribute name="margin-top">0em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="table.properties"><xsl:attribute name="class">table-properties</xsl:attribute></xsl:attribute-set>
 
 <!-- Used to get the indent working properly -->
-<xsl:attribute-set name="cnx.formal.object.inner" use-attribute-sets="informal.object.properties"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; keep-together.within-column: 9; keep-together.within-page: 9; start-indent: 1em; end-indent: 1em; </xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.object.inner"><xsl:attribute name="class">cnx-formal-object-inner, informal-object-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="style">start-indent: 1em; end-indent: 1em; </xsl:attribute>
-  <xsl:attribute name="start-indent">1em</xsl:attribute>
-  <xsl:attribute name="end-indent">1em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="xref.properties"><xsl:attribute name="style">color: <xsl:value-of select="$cnx.color.red"/>; font-weight: bold; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.red"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="xref.properties"><xsl:attribute name="class">xref-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="admonition.title.properties" use-attribute-sets="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; color: <xsl:value-of select="$cnx.color.blue"/>; font-size: <xsl:value-of select="$cnx.font.large"/>; font-weight: normal; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="font-weight">normal</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="admonition.title.properties"><xsl:attribute name="class">admonition-title-properties, cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="nongraphical.admonition.properties"><xsl:attribute name="style">space-before.minimum: 0.5em; space-before.optimum: 0.5em; space-before.maximum: 1.0em; space-after.minimum: 0.5em; space-after.optimum: 0.5em; space-after.maximum: 1.0em; margin-{$direction.align.start}: 1em; margin-{$direction.align.end}: 1em; </xsl:attribute>
-  <!-- Override Docbook Defaults -->
-  <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
-  <xsl:attribute name="margin-{$direction.align.start}">1em</xsl:attribute>
-  <xsl:attribute name="margin-{$direction.align.end}">1em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="nongraphical.admonition.properties"><xsl:attribute name="class">nongraphical-admonition-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note"><xsl:attribute name="style">background-color: <xsl:value-of select="$cnx.color.silver"/>; padding-top: 0.25em; padding-bottom: 0.25em; space-before: 1em; space-after: 1em; </xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.silver"/></xsl:attribute>
-  <xsl:attribute name="padding-top">0.25em</xsl:attribute>
-  <xsl:attribute name="padding-bottom">0.25em</xsl:attribute>
-  <xsl:attribute name="space-before">1em</xsl:attribute>
-  <xsl:attribute name="space-after">1em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note"><xsl:attribute name="class">cnx-note</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.concept" use-attribute-sets="cnx.note"><xsl:attribute name="style">background-color: <xsl:value-of select="$cnx.color.silver"/>; padding-top: 0.25em; padding-bottom: 0.25em; space-before: 1em; space-after: 1em; space-before: 1em; space-after: 1em; padding-before: 0.5em; padding-left: 1em; border-top-width: 1px; border-top-style: solid; border-top-color: <xsl:value-of select="$cnx.color.blue"/>; border-bottom: 1px solid <xsl:value-of select="$cnx.color.blue"/>;border-bottom-style: solid; border-bottom-color: <xsl:value-of select="$cnx.color.blue"/>; keep-together.within-column: 2; keep-together.within-page: 2; </xsl:attribute>
-  <xsl:attribute name="space-before">1em</xsl:attribute>
-  <xsl:attribute name="space-after">1em</xsl:attribute>
-  <xsl:attribute name="padding-before">0.5em</xsl:attribute>
-  <xsl:attribute name="padding-left">1em</xsl:attribute>
-  <xsl:attribute name="border-top-width">1px</xsl:attribute>
-  <xsl:attribute name="border-top-style">solid</xsl:attribute>
-  <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="border-bottom-width">1px</xsl:attribute>
-  <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-  <xsl:attribute name="border-bottom-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.concept"><xsl:attribute name="class">cnx-note-concept, cnx-note</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.concept.title"><xsl:attribute name="style">font-size: <xsl:value-of select="$cnx.font.large"/>; color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.concept.title"><xsl:attribute name="class">cnx-note-concept-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip" use-attribute-sets="cnx.vertical-spacing"><xsl:attribute name="style">space-before.optimum: 0.25em; space-before.minimum: 0em; space-before.maximum: 0.5em; space-after.optimum: 0.25em; space-after.minimum: 0em; space-after.maximum: 0.5em; </xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip"><xsl:attribute name="class">cnx-note-tip, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip.body" use-attribute-sets="cnx.note cnx.underscore"><xsl:attribute name="style">border-top-width: 1px; border-top-style: solid; border-top-color: <xsl:value-of select="$cnx.color.orange"/>; background-color: <xsl:value-of select="$cnx.color.aqua"/>; color: <xsl:value-of select="$cnx.color.blue"/>; text-align: center; margin-top: 1px<!--To match the orange line-->; margin-bottom: 0em; </xsl:attribute>
-  <xsl:attribute name="border-top-width">1px</xsl:attribute>
-  <xsl:attribute name="border-top-style">solid</xsl:attribute>
-  <xsl:attribute name="border-top-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.aqua"/></xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-  <xsl:attribute name="margin-top">1px<!--To match the orange line--></xsl:attribute>
-  <xsl:attribute name="margin-bottom">0em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip.body"><xsl:attribute name="class">cnx-note-tip-body, cnx-note cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip.title"><xsl:attribute name="style">text-align: center; keep-with-next.within-column: always; keep-with-next.within-page: always; </xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
-  <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip.title"><xsl:attribute name="class">cnx-note-tip-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip.title.inline"><xsl:attribute name="style">background-color: <xsl:value-of select="$cnx.color.blue"/>; color: white; font-size: <xsl:value-of select="$cnx.font.large"/>; padding-before: 0.25em; padding-after: 0.25em; </xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="color">white</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
-  <xsl:attribute name="padding-after">0.25em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip.title.inline"><xsl:attribute name="class">cnx-note-tip-title-inline</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.feature"><xsl:attribute name="style">space-before.minimum: 0em; space-before.optimum: 0.5em; space-before.maximum: 1.0em; space-after.minimum: 0em; space-after.optimum: 0.5em; space-after.maximum: 1.0em; </xsl:attribute>
-	<xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-	<xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
-	<xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
-	<xsl:attribute name="space-after.minimum">0em</xsl:attribute>
-	<xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
-	<xsl:attribute name="space-after.maximum">1.0em</xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.title"><xsl:attribute name="style"/>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.title.inline"><xsl:attribute name="style"/>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.body"><xsl:attribute name="style"/>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.body.inner"><xsl:attribute name="style">margin-left: 1em; margin-right: 1em; margin-top: 1em; margin-bottom: 1em; </xsl:attribute>
-	<xsl:attribute name="margin-left">1em</xsl:attribute>
-	<xsl:attribute name="margin-right">1em</xsl:attribute>
-	<xsl:attribute name="margin-top">1em</xsl:attribute>
-	<xsl:attribute name="margin-bottom">1em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature"><xsl:attribute name="class">cnx-note-feature</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.title"><xsl:attribute name="class">cnx-note-feature-title</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.title.inline"><xsl:attribute name="class">cnx-note-feature-title-inline</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.body"><xsl:attribute name="class">cnx-note-feature-body</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.feature.body.inner"><xsl:attribute name="class">cnx-note-feature-body-inner</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="style">padding-left: 0.1em; padding-before: 0.05em; padding-after: 0em; background-color: <xsl:value-of select="$cnx.color.orange"/>; text-align: left; font-size: <xsl:value-of select="$cnx.font.huge"/>;</xsl:attribute>
-<!--
-  <xsl:attribute name="border-width">2px</xsl:attribute>
-  <xsl:attribute name="border-style">solid</xsl:attribute>
-  <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
--->
-  <xsl:attribute name="padding-left">0.1em</xsl:attribute>
-  <xsl:attribute name="padding-before">0.05em</xsl:attribute>
-  <xsl:attribute name="padding-after">0em</xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-  <xsl:attribute name="text-align">left</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.huge"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="class">cnx-introduction-chapter</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter.number"><xsl:attribute name="style"/>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.chapter.number"><xsl:attribute name="class">cnx-introduction-chapter-number</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="style">color: white; font-variant: small-caps; </xsl:attribute>
-  <xsl:attribute name="color">white</xsl:attribute>
-  <xsl:attribute name="font-variant">small-caps</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="class">cnx-introduction-chapter-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="style"/>
-</xsl:attribute-set>
-<xsl:attribute-set name="cnx.introduction.title.text" use-attribute-sets="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; font-size: <xsl:value-of select="$cnx.font.larger"/>; font-weight: bold; </xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="class">cnx-introduction-title</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text, cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.table"><xsl:attribute name="style">border-width: 1px; border-style: solid; border-color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="border-width">1px</xsl:attribute>
-  <xsl:attribute name="border-style">solid</xsl:attribute>
-  <xsl:attribute name="border-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.table"><xsl:attribute name="class">cnx-introduction-toc-table</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.header"><xsl:attribute name="style">text-align: center; font-size: <xsl:value-of select="$cnx.font.larger"/>; color: white; background-color: <xsl:value-of select="$cnx.color.blue"/>; </xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.larger"/></xsl:attribute>
-  <xsl:attribute name="color">white</xsl:attribute>
-  <xsl:attribute name="background-color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.header"><xsl:attribute name="class">cnx-introduction-toc-header</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.row"><xsl:attribute name="style"/>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.row"><xsl:attribute name="class">cnx-introduction-toc-row</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.number" use-attribute-sets="cnx.introduction.toc.title"><xsl:attribute name="style">text-align: start; display-align: after; padding-before: 0.25em; padding-after: 0.25em; </xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.number"><xsl:attribute name="class">cnx-introduction-toc-number, cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.number.inline" use-attribute-sets="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; font-size: <xsl:value-of select="$cnx.font.large"/>; font-weight: bold; </xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.number.inline"><xsl:attribute name="class">cnx-introduction-toc-number-inline, cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.title"><xsl:attribute name="style">text-align: start; display-align: after; padding-before: 0.25em; padding-after: 0.25em; </xsl:attribute>
-  <xsl:attribute name="text-align">start</xsl:attribute>
-  <xsl:attribute name="display-align">after</xsl:attribute>
-  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
-  <xsl:attribute name="padding-after">0.25em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.title"><xsl:attribute name="class">cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.problems.title" use-attribute-sets="cnx.problems.subtitle"><xsl:attribute name="style">color: <xsl:value-of select="$cnx.color.blue"/>; font-weight: bold; padding-before: 0.25em; color: <xsl:value-of select="$cnx.color.blue"/>; font-size: <xsl:value-of select="$cnx.font.large"/>; font-weight: bold; padding-before: 0.25em; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.large"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.problems.title"><xsl:attribute name="class">cnx-problems-title, cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.problems.subtitle"><xsl:attribute name="style">color: <xsl:value-of select="$cnx.color.blue"/>; font-weight: bold; padding-before: 0.25em; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.blue"/></xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="padding-before">0.25em</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.problems.subtitle"><xsl:attribute name="class">cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.header.title"><xsl:attribute name="style"/>
-<!--  <xsl:attribute name="font-weight">bold</xsl:attribute> -->
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.header.title"><xsl:attribute name="class">cnx-header-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.header.subtitle"><xsl:attribute name="style"/>
-<!--  <xsl:attribute name="font-style">italic</xsl:attribute> -->
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.header.subtitle"><xsl:attribute name="class">cnx-header-subtitle</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.header.pagenumber"><xsl:attribute name="style">font-size: <xsl:value-of select="$cnx.font.small"/>; </xsl:attribute>
-  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.header.pagenumber"><xsl:attribute name="class">cnx-header-pagenumber</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.header.separator"><xsl:attribute name="style">color: <xsl:value-of select="$cnx.color.orange"/>; </xsl:attribute>
-  <xsl:attribute name="color"><xsl:value-of select="$cnx.color.orange"/></xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.header.separator"><xsl:attribute name="class">cnx-header-separator</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.index.title.body" use-attribute-sets="cnx.problems.title"><xsl:attribute name="style">color: <xsl:value-of select="$cnx.color.blue"/>; font-size: <xsl:value-of select="$cnx.font.large"/>; font-weight: bold; padding-before: 0.25em; </xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.index.title.body"><xsl:attribute name="class">cnx-index-title-body, cnx-problems-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.titlepage.title"><xsl:attribute name="style">space-before: 2in; font-weight: bold; font-size: 24pt; text-align: center; </xsl:attribute>
-  <xsl:attribute name="space-before">2in</xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-  <xsl:attribute name="font-size">24pt</xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.titlepage.title"><xsl:attribute name="class">cnx-titlepage-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.titlepage.authors"><xsl:attribute name="style">space-before.optimum: 1in; space-before.minimum: 12pt; space-before.maximum: 2in; font-size: 12pt; text-align: center; </xsl:attribute>
-  <xsl:attribute name="space-before.optimum">1in</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">12pt</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">2in</xsl:attribute>
-  <xsl:attribute name="font-size">12pt</xsl:attribute>
-  <xsl:attribute name="text-align">center</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.titlepage.authors"><xsl:attribute name="class">cnx-titlepage-authors</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.titlepage.strong"><xsl:attribute name="style">font-weight: bold; </xsl:attribute>
-  <xsl:attribute name="font-weight">bold</xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="cnx.titlepage.strong"><xsl:attribute name="class">cnx-titlepage-strong</xsl:attribute></xsl:attribute-set>
 
 
 <!-- Page Headers should be marked as all-uppercase.
@@ -1525,40 +1244,9 @@ Combination of formal.object and formal.object.heading -->
 <!-- Customize Table of Contents                    -->
 <!-- ============================================== -->
 
-<xsl:attribute-set name="toc.line.properties"><xsl:attribute name="style">font-size: 
-    <xsl:choose>
-      <xsl:when test="self::d:chapter or self::d:appendix"><xsl:value-of select="$cnx.font.larger"/></xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$body.font.master"/>
-        <xsl:text>pt</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
-  ; color: 
-    <xsl:choose>
-      <xsl:when test="self::d:chapter"><xsl:value-of select="$cnx.color.blue"/></xsl:when>
-      <xsl:otherwise>black</xsl:otherwise>
-    </xsl:choose>
-  ; </xsl:attribute>
-  <xsl:attribute name="font-size">
-    <xsl:choose>
-      <xsl:when test="self::d:chapter or self::d:appendix"><xsl:value-of select="$cnx.font.larger"/></xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$body.font.master"/>
-        <xsl:text>pt</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:attribute>
+<xsl:attribute-set name="toc.line.properties"><xsl:attribute name="class">toc-line-properties</xsl:attribute></xsl:attribute-set>
 
-  <xsl:attribute name="color">
-    <xsl:choose>
-      <xsl:when test="self::d:chapter"><xsl:value-of select="$cnx.color.blue"/></xsl:when>
-      <xsl:otherwise>black</xsl:otherwise>
-    </xsl:choose>
-  </xsl:attribute>
-</xsl:attribute-set>
-
-<xsl:attribute-set name="table.of.contents.titlepage.recto.style" use-attribute-sets="cnx.underscore"><xsl:attribute name="style">border-bottom-color: <xsl:value-of select="$cnx.color.orange"/>; border-bottom-style: solid; border-bottom: 1px solid <xsl:value-of select="$cnx.color.orange"/>;space-after.minimum: 0.5em; space-after.optimum: 0.75em; space-after.maximum: 1.0em; </xsl:attribute>
-</xsl:attribute-set>
+<xsl:attribute-set name="table.of.contents.titlepage.recto.style"><xsl:attribute name="class">table-of-contents-titlepage-recto-style, cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <!-- Don't include the introduction section in the TOC -->
 <xsl:template match="db:section[contains(@class,'introduction')]" mode="toc"/>

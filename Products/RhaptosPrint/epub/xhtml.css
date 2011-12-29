@@ -3,7 +3,8 @@
  ***************************************************/
 
 body {
-  font-family: sans-serif, STIXGeneral, STIXSize
+  font-family: sans-serif, STIXGeneral, STIXSize;
+  font-size: 8pt;
 }
 
 .toc a {
@@ -12,7 +13,7 @@ body {
 
 /* TOC Chapter */
 .toc > dt > dl a {
-  font-size: 13.6pt;
+  font-size: 12pt;
   color: #0061AA;
 }
 
@@ -31,4 +32,357 @@ body {
 .introduction {
   page-break-before: always;
   page-break-after: always;
+}
+
+
+/* Styles from docbook attribute-sets */
+
+
+
+
+/* Colors and fonts:
+body.font.master=8.5
+<xsl:param name="cnx.font.small" select="concat($body.font.master * 0.8, 'pt')"/>
+<xsl:param name="cnx.font.large" select="concat($body.font.master * 1.2, 'pt')"/>
+<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.6, 'pt')"/>
+<xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
+
+<xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
+<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.red">#D89016</xsl:param>
+<xsl:param name="cnx.color.green">#8FB733</xsl:param>
+<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
+<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+*/
+
+.root-properties {
+}
+.list-item-spacing {
+	margin-top: 0.2em;
+}
+.cnx-underscore {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	margin-bottom: 0.75em;
+}
+.cnx-question {
+	/* end-indent: 1em; */
+	/* keep-together.within-column: 9; */
+
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	/* start-indent: 1em; */
+}
+.cnx-question-number {
+	font-weight: bold;
+}
+.cnx-equation {
+	/* keep-together.within-column: 2; */
+
+}
+.cnx-formal-title {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	/* keep-with-next.within-column: always; */
+	margin-bottom: 0.75em;
+	margin-top: 18;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+.cnx-formal-title-text {
+	background-color: #8FB733;
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+.cnx-formal-title-inner {
+	color: #0061AA;
+	font-size: large;
+}
+.cnx-vertical-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.normal-para-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-block-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-item-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-block-properties {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.example-title-properties {
+	background-color: #0061AA;
+	background-color: #8FB733;
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+.figure-title-properties {
+	color: #D89016;
+	font-size: small;
+	font-weight: bold;
+	/* hyphenate: false; */
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.section-title-level1-properties {
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 6pt;
+}
+.section-title-level2-properties {
+	font-size: large;
+	font-weight: normal;
+	padding-top: 6pt;
+}
+.section-title-number {
+	color: #0061AA;
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 6pt;
+}
+.cnx-figure-properties {
+	font-size: 8pt;
+	/* keep-together.within-column: 2; */
+
+	padding-bottom: 0.5em;
+}
+.cnx-figure-content {
+	text-align: center;
+}
+.cnx-exercise-listitem {
+	font-weight: bold;
+}
+.formal-object-properties {
+	background-color: #F1F6E6;
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	margin-top: 0em;
+}
+.informal-object-properties {
+	/* keep-together.within-column: 9; */
+
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.table-properties {
+	background-color: transparent;
+	margin-top: 0em;
+}
+.cnx-formal-object-inner {
+	/* end-indent: 1em; */
+	/* keep-together.within-column: 9; */
+
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	/* start-indent: 1em; */
+}
+.informal-object-properties {
+	/* end-indent: 1em; */
+	/* start-indent: 1em; */
+}
+.xref-properties {
+	color: #D89016;
+	font-weight: bold;
+}
+.admonition-title-properties {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	color: #0061AA;
+	font-size: large;
+	font-weight: normal;
+	margin-bottom: 0.75em;
+}
+.nongraphical-admonition-properties {
+}
+.cnx-note {
+	background-color: #FBF2E2;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+.cnx-note-concept {
+	background-color: #FBF2E2;
+	border-bottom: 1px solid #0061AA;
+	border-bottom-color: #0061AA;
+	border-bottom-style: solid;
+	border-top: 1px solid #0061AA;
+	border-top-color: #0061AA;
+	border-top-style: solid;
+	border-top-width: 1px;
+	/* keep-together.within-column: 2; */
+
+	margin-bottom: 1em;
+	margin-top: 1em;
+	padding-bottom: 0.25em;
+	padding-left: 1em;
+	padding-top: 0.25em;
+	padding-top: 0.5em;
+}
+.cnx-note-concept-title {
+	color: #0061AA;
+	font-size: large;
+}
+.cnx-note-tip {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.cnx-note-tip-body {
+	background-color: #EFF2F9;
+	border-top-color: #FAA61A;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #0061AA;
+	margin-bottom: 0em;
+	margin-top: 1px;
+	text-align: center;
+}
+.cnx-note-tip-title {
+	keep-with-next.within-column: always;
+	keep-with-next.within-page: always;
+	text-align: center;
+}
+.cnx-note-tip-title-inline {
+	background-color: #0061AA;
+	color: white;
+	font-size: large;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+.cnx-note-feature {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+.cnx-note-feature-title {
+}
+.cnx-note-feature-title-inline {
+}
+.cnx-note-feature-body {
+}
+.cnx-note-feature-body-inner {
+	margin-bottom: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 1em;
+}
+.cnx-introduction-chapter {
+	background-color: #FAA61A;
+	font-size: xx-large;
+	padding-bottom: 0em;
+	padding-left: 0.1em;
+	padding-top: 0.05em;
+	text-align: left;
+}
+.cnx-introduction-chapter-number {
+}
+.cnx-introduction-chapter-title {
+	color: white;
+	font-variant: small-caps;
+}
+.cnx-introduction-title {
+}
+.cnx-introduction-title-text {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	font-size: x-large;
+	font-weight: bold;
+	margin-bottom: 0.75em;
+}
+.cnx-introduction-toc-table {
+	border-color: #0061AA;
+	border-style: solid;
+	border-width: 1px;
+}
+.cnx-introduction-toc-header {
+	background-color: #0061AA;
+	color: white;
+	font-size: x-large;
+	text-align: center;
+}
+.cnx-introduction-toc-row {
+}
+.cnx-introduction-toc-number {
+	display-align: after;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+	text-align: start;
+}
+.cnx-introduction-toc-number-inline {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	font-size: large;
+	font-weight: bold;
+	margin-bottom: 0.75em;
+}
+.cnx-introduction-toc-title {
+	display-align: after;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+	text-align: start;
+}
+.cnx-problems-title {
+	color: #0061AA;
+	font-size: large;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-problems-subtitle {
+	color: #0061AA;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-header-title {
+}
+.cnx-header-subtitle {
+}
+.cnx-header-pagenumber {
+	font-size: small;
+}
+.cnx-header-separator {
+	color: #FAA61A;
+}
+.cnx-index-title-body {
+	color: #0061AA;
+	font-size: large;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-titlepage-title {
+	font-size: 24pt;
+	font-weight: bold;
+	margin-top: 2in;
+	text-align: center;
+}
+.cnx-titlepage-authors {
+	font-size: 12pt;
+	margin-top: 1in;
+	text-align: center;
+}
+.cnx-titlepage-strong {
+	font-weight: bold;
+}
+.toc-line-properties {
+}
+.table-of-contents-titlepage-recto-style {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	margin-bottom: 0.75em;
 }
