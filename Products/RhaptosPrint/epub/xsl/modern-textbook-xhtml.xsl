@@ -1089,15 +1089,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
   </xsl:variable>
 
-  <div>
-    <xsl:if test="$keep.together != ''">
-      <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-      <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-      <xsl:attribute name="keep-together"><xsl:value-of
-                      select="$keep.together"/></xsl:attribute>
--->
-    </xsl:if>
+  <div class="cnx.formal.object">
 
     <xsl:apply-templates mode="formal.object.heading" select=".">
       <xsl:with-param name="placement" select="$placement"/>

@@ -40,11 +40,12 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
+  <div class="{local-name()}">
 <xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
   </xsl:call-template>
-
+  </div>
 </xsl:template>
 
 <xsl:template match="ext:problem[not(db:title[normalize-space(text()) !=''])]">

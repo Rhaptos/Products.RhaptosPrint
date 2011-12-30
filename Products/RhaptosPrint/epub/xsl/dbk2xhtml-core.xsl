@@ -714,5 +714,11 @@
     </xsl:if> 
   </xsl:template> 
 
+  <xsl:template match="db:example">
+    <div class="{local-name()}">
+      <xsl:apply-imports/>
+    </div>
+  </xsl:template>
+
 </xsl:stylesheet>
 
