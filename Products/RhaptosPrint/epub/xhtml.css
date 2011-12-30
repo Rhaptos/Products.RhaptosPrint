@@ -2,6 +2,67 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
+@page {
+  margin-top: 3em;
+  font-size: 8pt;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+@page :left {
+  /* margin-left: 170pt; */
+
+  @top-left-corner {
+    content: counter(page);
+    padding-right: 1em;
+  }
+  @top-left {
+    content: string(header, first);
+    text-transform: uppercase;
+  }
+}
+
+@page :right {
+  /* margin-right: 170pt; */
+
+  @top-right-corner {
+    content: counter(page);
+    padding-left: 1em;
+  }
+  @top-right {
+    content: string(header, first);
+    text-transform: uppercase;
+  }
+}
+
+/* Used for page headers */
+.cnx-introduction-chapter-number {
+  string-set: chapter-number content();
+}
+.cnx-introduction-chapter-title {
+  string-set: header "Chapter " string(chapter-number, first) " | " content()
+}
+
+/* Properties for figures */
+
+.cnx-figure-properties {
+  display: inline;
+  float: outside;
+  width: 170pt;
+  /* margin-outside: -170pt; */
+  padding: 0.5em;
+}
+
+.exercise .cnx-figure-properties, .example .cnx-figure-properties {
+  display: inline;
+  float: none;
+}
+
+.cnx-figure-properties img {
+  width: 170pt;
+}
+
+
 body {
   font-family: sans-serif, STIXGeneral, STIXSize;
   font-size: 8pt;
@@ -25,8 +86,8 @@ body {
 }
 
 /* ___ ........................ 213 */
-.toc span:last-child a:after {
-  content: leader('.') target-counter(attr(href), page);
+.toc span:last-child a::after {
+  content: leader(' . ') target-counter(attr(href), page);
 }
 
 .introduction {
@@ -185,7 +246,8 @@ body.font.master=8.5
 .cnx-formal-object-inner {
 	/* end-indent: 1em; */
 	/* keep-together.within-column: 9; */
-
+  background-color: #FBF2E2;
+  padding: 0.5em;
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 	/* start-indent: 1em; */
