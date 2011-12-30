@@ -88,12 +88,12 @@ procedure before
 <xsl:attribute-set name="cnx.underscore"><xsl:attribute name="class">cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <!-- End-of-chapter questions and problem numbers -->
-<xsl:attribute-set name="cnx.question"><xsl:attribute name="class">cnx-question, informal-object-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.question"><xsl:attribute name="class">cnx-question informal-object-properties</xsl:attribute></xsl:attribute-set>
 <xsl:attribute-set name="cnx.question.number"><xsl:attribute name="class">cnx-question-number</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.equation"><xsl:attribute name="class">cnx-equation</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title, cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.text"><xsl:attribute name="class">cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
 
@@ -101,20 +101,20 @@ procedure before
 
 <xsl:attribute-set name="cnx.vertical-spacing"><xsl:attribute name="class">cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="normal.para.spacing"><xsl:attribute name="class">normal-para-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="normal.para.spacing"><xsl:attribute name="class">normal-para-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="list.block.spacing"><xsl:attribute name="class">list-block-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="list.block.spacing"><xsl:attribute name="class">list-block-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="list.block.properties"><xsl:attribute name="class">list-block-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="list.block.properties"><xsl:attribute name="class">list-block-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="example.title.properties"><xsl:attribute name="class">example-title-properties, cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="example.title.properties"><xsl:attribute name="class">example-title-properties cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="figure.title.properties"><xsl:attribute name="class">figure-title-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="figure.title.properties"><xsl:attribute name="class">figure-title-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level1.properties"><xsl:attribute name="class">section-title-level1-properties</xsl:attribute></xsl:attribute-set>
 <xsl:attribute-set name="section.title.level2.properties"><xsl:attribute name="class">section-title-level2-properties</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="section.title.number"><xsl:attribute name="class">section-title-number, section-title-level1-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="section.title.number"><xsl:attribute name="class">section-title-number section-title-level1-properties</xsl:attribute></xsl:attribute-set>
 
 <!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
 <xsl:attribute-set name="cnx.figure.properties"><xsl:attribute name="class">cnx-figure-properties</xsl:attribute></xsl:attribute-set>
@@ -126,9 +126,9 @@ procedure before
 -->
 <xsl:attribute-set name="cnx.exercise.listitem"><xsl:attribute name="class">cnx-exercise-listitem</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="formal.object.properties"><xsl:attribute name="class">formal-object-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="formal.object.properties"><xsl:attribute name="class">formal-object-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
 <!-- In Docbook tables inherit formal.object.properties
     This causes the background (including the title) to have a background color.
@@ -137,25 +137,25 @@ procedure before
 <xsl:attribute-set name="table.properties"><xsl:attribute name="class">table-properties</xsl:attribute></xsl:attribute-set>
 
 <!-- Used to get the indent working properly -->
-<xsl:attribute-set name="cnx.formal.object.inner"><xsl:attribute name="class">cnx-formal-object-inner, informal-object-properties</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.object.inner"><xsl:attribute name="class">cnx-formal-object-inner informal-object-properties</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="xref.properties"><xsl:attribute name="class">xref-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="admonition.title.properties"><xsl:attribute name="class">admonition-title-properties, cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="admonition.title.properties"><xsl:attribute name="class">admonition-title-properties cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="nongraphical.admonition.properties"><xsl:attribute name="class">nongraphical-admonition-properties</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note"><xsl:attribute name="class">cnx-note</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.concept"><xsl:attribute name="class">cnx-note-concept, cnx-note</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.concept"><xsl:attribute name="class">cnx-note-concept cnx-note</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.concept.title"><xsl:attribute name="class">cnx-note-concept-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip"><xsl:attribute name="class">cnx-note-tip, cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip"><xsl:attribute name="class">cnx-note-tip cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.note.tip.body"><xsl:attribute name="class">cnx-note-tip-body, cnx-note cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.note.tip.body"><xsl:attribute name="class">cnx-note-tip-body cnx-note cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.note.tip.title"><xsl:attribute name="class">cnx-note-tip-title</xsl:attribute></xsl:attribute-set>
 
@@ -174,7 +174,7 @@ procedure before
 <xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="class">cnx-introduction-chapter-title</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="class">cnx-introduction-title</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text, cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.table"><xsl:attribute name="class">cnx-introduction-toc-table</xsl:attribute></xsl:attribute-set>
 
@@ -182,13 +182,13 @@ procedure before
 
 <xsl:attribute-set name="cnx.introduction.toc.row"><xsl:attribute name="class">cnx-introduction-toc-row</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.number"><xsl:attribute name="class">cnx-introduction-toc-number, cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.number"><xsl:attribute name="class">cnx-introduction-toc-number cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.number.inline"><xsl:attribute name="class">cnx-introduction-toc-number-inline, cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc.number.inline"><xsl:attribute name="class">cnx-introduction-toc-number-inline cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.title"><xsl:attribute name="class">cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.problems.title"><xsl:attribute name="class">cnx-problems-title, cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.problems.title"><xsl:attribute name="class">cnx-problems-title cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.problems.subtitle"><xsl:attribute name="class">cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
 
@@ -200,7 +200,7 @@ procedure before
 
 <xsl:attribute-set name="cnx.header.separator"><xsl:attribute name="class">cnx-header-separator</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.index.title.body"><xsl:attribute name="class">cnx-index-title-body, cnx-problems-title</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.index.title.body"><xsl:attribute name="class">cnx-index-title-body cnx-problems-title</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.titlepage.title"><xsl:attribute name="class">cnx-titlepage-title</xsl:attribute></xsl:attribute-set>
 
