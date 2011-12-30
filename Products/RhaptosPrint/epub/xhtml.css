@@ -256,13 +256,18 @@ body.font.master=8.5
 	padding-top: 6pt;
 }
 .cnx-figure-properties {
-	font-size: small;
+	font-size: x-small;
 	/* keep-together.within-column: 2; */
-
 	padding-bottom: 0.5em;
+	margin-left: 20%;
+	margin-right: 20%;
 }
 .cnx-figure-content {
-	text-align: center;
+  text-align: center;
+}
+.cnx-figure-content div {
+  display: inline;
+  text-align: left;
 }
 .cnx-exercise-listitem {
 	font-weight: bold;
