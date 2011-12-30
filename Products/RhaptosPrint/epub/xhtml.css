@@ -47,6 +47,7 @@
 
 .cnx-figure-properties {
   display: inline;
+  float: left; /* Overridden in the next line for print */
   float: outside;
   width: 170pt;
   /* margin-outside: -170pt; */
@@ -58,9 +59,22 @@
   float: none;
 }
 
+.introduction .cnx-figure-properties {
+  display: block;
+  float: none;
+  width: 100%;
+}
+
 .cnx-figure-properties img {
   width: 170pt;
 }
+
+.introduction .cnx-figure-properties img {
+  width: 100%;
+}
+
+
+
 
 
 body {
@@ -158,8 +172,10 @@ body.font.master=8.5
 }
 .cnx-formal-title-text {
 	background-color: #8FB733;
-	padding-bottom: 4px;
 	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 .cnx-formal-title-inner {
 	color: #0061AA;
