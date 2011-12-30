@@ -360,9 +360,7 @@ procedure before
 		  </xsl:if>
 		<div xsl:use-attribute-sets="cnx.formal.title">
 			<span xsl:use-attribute-sets="example.title.properties">
-				<xsl:text>    </xsl:text>
 				<xsl:copy-of select="$title"/>
-				<xsl:text>    </xsl:text>
 			</span>
 		</div>
 
@@ -1031,21 +1029,9 @@ Combination of formal.object and formal.object.heading -->
   <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="content">
-    <xsl:choose>
-      <xsl:when test="$placement = 'before'">
-        <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:attribute name="keep-with-previous.within-column">always</xsl:attribute>
-      </xsl:otherwise>
-    </xsl:choose>
-    <!-- FOP doesn't support @padding-end for fo:inline elements -->
-    <xsl:text>     </xsl:text>
     <xsl:apply-templates select="$object" mode="object.title.markup">
       <xsl:with-param name="allow-anchors" select="1"/>
     </xsl:apply-templates>
-    <!-- FOP doesn't support @padding-end for fo:inline elements -->
-    <xsl:text>     </xsl:text>
   </xsl:variable>
 
   <!-- CNX: added special case for examples and notes -->
@@ -1225,9 +1211,7 @@ Combination of formal.object and formal.object.heading -->
 <xsl:template name="index.titlepage">
   <div xsl:use-attribute-sets="cnx.formal.title">
         <span xsl:use-attribute-sets="example.title.properties">
-          <xsl:text>    </xsl:text>
           <xsl:apply-templates select="." mode="title.markup"/>
-          <xsl:text>    </xsl:text>
         </span>
   </div>
 </xsl:template>
@@ -1277,7 +1261,6 @@ Combination of formal.object and formal.object.heading -->
           <xsl:call-template name="gentext">
             <xsl:with-param name="key" select="local-name()"/>
           </xsl:call-template>
-          <xsl:text> </xsl:text>
         </xsl:if>
 
         <xsl:if test="$label != ''">
@@ -1288,11 +1271,7 @@ Combination of formal.object and formal.object.heading -->
       </a>
     </span>
     <span keep-together.within-line="always"> 
-      <xsl:text> </xsl:text>
-      
-      <xsl:text> </xsl:text>
       <a href="#{$id}">
-        
       </a>
     </span>
   </div>
@@ -1400,13 +1379,6 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
   </div>
 </xsl:template>
-
-<xsl:template name="footer.content"/>
-
-<!-- Give the left and right headers enough room for the text
-      (ie make the center cell very small)
--->
-<xsl:param name="header.column.widths">100 1 100</xsl:param><xsl:param name="cnx.font.catchall">100 1 100</xsl:param>
 
 
 
