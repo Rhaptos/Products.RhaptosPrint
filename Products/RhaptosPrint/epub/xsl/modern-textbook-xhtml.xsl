@@ -93,7 +93,7 @@ procedure before
 
 <xsl:attribute-set name="cnx.equation"><xsl:attribute name="class">cnx-equation</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.formal.title.text"><xsl:attribute name="class">cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
 
@@ -353,11 +353,6 @@ procedure before
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
 		<div class="{$attribute}">
-		  <xsl:if test="$attribute='problems-exercises'">
-		    <xsl:attribute name="style">
-		      <xsl:text>columns: 2; page-break-before: always;</xsl:text>
-		    </xsl:attribute>
-		  </xsl:if>
 		<div xsl:use-attribute-sets="cnx.formal.title">
 			<span xsl:use-attribute-sets="example.title.properties">
 				<xsl:copy-of select="$title"/>
@@ -570,46 +565,26 @@ procedure before
       </xsl:choose>
   </xsl:variable>
 
-  <div xsl:use-attribute-sets="section.title.properties">
+
+  <xsl:variable name="head">
+    <xsl:choose>
+      <xsl:when test="number($level) &lt; 6">
+        <xsl:value-of select="$level"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>6</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:element name="h{$level}">
     <xsl:if test="ancestor::db:section[1]/@xml:id">
       <xsl:attribute name="id">
         <xsl:value-of select="ancestor::db:section[1]/@xml:id"/>
       </xsl:attribute>
     </xsl:if>
-
-    <xsl:choose>
-      <xsl:when test="$level=1">
-        <div xsl:use-attribute-sets="section.title.level1.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="$level=2">
-        <div xsl:use-attribute-sets="section.title.level2.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="$level=3">
-        <div xsl:use-attribute-sets="section.title.level3.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="$level=4">
-        <div xsl:use-attribute-sets="section.title.level4.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="$level=5">
-        <div xsl:use-attribute-sets="section.title.level5.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:when>
-      <xsl:otherwise>
-        <div xsl:use-attribute-sets="section.title.level6.properties">
-          <xsl:copy-of select="$cnx.title"/>
-        </div>
-      </xsl:otherwise>
-    </xsl:choose>
-  </div>
+    <xsl:copy-of select="$cnx.title"/>
+  </xsl:element>
 </xsl:template>
 
 
@@ -1075,7 +1050,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
   </xsl:variable>
 
-  <div class="cnx.formal.object">
+  <div class="cnx-formal-object">
 
     <xsl:apply-templates mode="formal.object.heading" select=".">
       <xsl:with-param name="placement" select="$placement"/>
