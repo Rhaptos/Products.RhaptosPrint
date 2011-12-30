@@ -31,6 +31,7 @@
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="xref.with.number.and.title">0</xsl:param>
 <xsl:param name="toc.section.depth">0</xsl:param>
+<xsl:param name="admon.style" select="''"/><!-- notes get margins by default -->
 
 <!-- Prevent a TOC from being generated for module books -->
 <xsl:param name="generate.toc">
