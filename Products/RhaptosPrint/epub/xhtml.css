@@ -44,6 +44,14 @@
 
 body {
   font-size: small;
+  font-family: sans-serif, STIXGeneral, STIXSize;
+}
+
+
+a {
+	color: #D89016;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 /* Properties for figures */
@@ -103,6 +111,8 @@ DISABLED.cnx-figure-properties img {
 }
 
 .toc a {
+	color: blue;
+	font-weight: large;
   text-decoration: none;
 }
 
@@ -224,7 +234,6 @@ body.font.master=8.5
 }
 .figure-title-properties {
 	color: #D89016;
-	font-size: small;
 	font-weight: bold;
 	/* hyphenate: false; */
 	margin-bottom: 0.25em;
@@ -307,6 +316,7 @@ body.font.master=8.5
 .nongraphical-admonition-properties {
 }
 .cnx-note {
+	page-break-inside: avoid;
 	background-color: #FBF2E2;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -314,6 +324,7 @@ body.font.master=8.5
 	padding-bottom: 0.1em;
 }
 .cnx-note-concept {
+	page-break-inside: avoid;
 	background-color: #FBF2E2;
 	border-bottom: 1px solid #0061AA;
 	border-bottom-color: #0061AA;
@@ -401,34 +412,35 @@ body.font.master=8.5
 	font-weight: bold;
 	margin-bottom: 0.75em;
 }
-.cnx-introduction-toc-table {
-	border-color: #0061AA;
-	border-style: solid;
-	border-width: 1px;
+table.cnx-introduction-toc {
+	border: 1px solid #0061AA;
+	margin: auto;
+	margin-bottom: 1em;
 }
-.cnx-introduction-toc-header {
+table.cnx-introduction-toc tr:first-child {
 	background-color: #0061AA;
 	color: white;
 	font-size: x-large;
 	text-align: center;
 }
-.cnx-introduction-toc-row {
-}
-.cnx-introduction-toc-number {
-	display-align: after;
+table.cnx-introduction-toc tr:not(:first-child) {
 	padding-bottom: 0.25em;
 	padding-top: 0.25em;
-	text-align: start;
 }
-.cnx-introduction-toc-number-inline {
+table.cnx-introduction-toc td a {
+  color: black;
+  font-weight: normal;
+}
+table.cnx-introduction-toc td:first-child a {
+  color: black;
 	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
-	border-bottom-style: solid;
 	font-size: large;
 	font-weight: bold;
 	margin-bottom: 0.75em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
-.cnx-introduction-toc-title {
+.cnx-introduction-toc td:last-child a {
 	display-align: after;
 	padding-bottom: 0.25em;
 	padding-top: 0.25em;

@@ -176,15 +176,9 @@ procedure before
 <xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="class">cnx-introduction-title</xsl:attribute></xsl:attribute-set>
 <xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text cnx-underscore</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.toc.table"><xsl:attribute name="class">cnx-introduction-toc-table</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc.header"><xsl:attribute name="class">cnx-introduction-toc-header</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc.row"><xsl:attribute name="class">cnx-introduction-toc-row</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.toc"><xsl:attribute name="class">cnx-introduction-toc</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.number"><xsl:attribute name="class">cnx-introduction-toc-number cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc.number.inline"><xsl:attribute name="class">cnx-introduction-toc-number-inline cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.toc.title"><xsl:attribute name="class">cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
 
@@ -647,57 +641,16 @@ procedure before
 
 
 <xsl:template name="chapter.titlepage.toc">
-<div space-before="2em" space-after="2em">
-  <!-- Tables in FOP can't be centered, so we nest them -->
-  <xsl:call-template name="table.layout.center">
-    <xsl:with-param name="content">
-      <table>
-        
-        
-        
+      <table xsl:use-attribute-sets="cnx.introduction.toc">
           <tr>
-            <td>
-              <div><xsl:text>Key Concepts</xsl:text></div>
-            </td>
+            <td colspan="2"><xsl:text>Key Concepts</xsl:text></td>
           </tr>
-        
-        
           <xsl:apply-templates mode="introduction.toc" select="../db:section[not(contains(@class,'introduction'))]"/>
         
       </table>
       <xsl:call-template name="component.toc.separator"/>
-    </xsl:with-param>
-  </xsl:call-template>
-</div>
 </xsl:template>
 
-<!-- Tables in FOP can't be centered, so we nest them -->
-<xsl:template name="table.layout.center">
-  <xsl:param name="content"/>
-
-  <table>
-    
-    
-    
-    
-      <tr>
-        <td/>
-        <td>
-
-          <table>
-            
-              <tr><td>
-                <xsl:copy-of select="$content"/>
-              </td></tr>
-            
-          </table>
-
-        </td>
-        <td/>
-      </tr>
-    
-  </table>
-</xsl:template>
 
 <xsl:template mode="introduction.toc" match="db:chapter/db:section[not(contains(@class,'introduction'))]">
   <xsl:variable name="id">
