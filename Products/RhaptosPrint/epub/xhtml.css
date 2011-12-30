@@ -3,10 +3,9 @@
  ***************************************************/
 
 @page {
-  margin-top: 3em;
-  font-size: 8pt;
-  margin-left: 3em;
-  margin-right: 3em;
+  margin: 5em;
+  font-size: x-small;
+  font-family: sans-serif, STIXGeneral, STIXSize;
 }
 
 @page :left {
@@ -43,9 +42,13 @@
   string-set: header "Chapter " string(chapter-number, first) " | " content()
 }
 
+body {
+  font-size: small;
+}
+
 /* Properties for figures */
 
-.cnx-figure-properties {
+DISABLED.cnx-figure-properties {
   display: inline;
   float: left; /* Overridden in the next line for print */
   float: outside;
@@ -54,18 +57,18 @@
   padding: 0.5em;
 }
 
-.exercise .cnx-figure-properties, .example .cnx-figure-properties {
+DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
   display: inline;
   float: none;
 }
 
-.introduction .cnx-figure-properties {
+DISABLED.introduction .cnx-figure-properties {
   display: block;
   float: none;
   width: 100%;
 }
 
-.cnx-figure-properties img {
+DISABLED.cnx-figure-properties img {
   width: 170pt;
 }
 
@@ -76,10 +79,27 @@
 
 
 
+.toc, .introduction, .index {
+  page-break-before: always;
+  page-break-after: always;
+  page-break-inside: avoid;
+}
 
-body {
-  font-family: sans-serif, STIXGeneral, STIXSize;
-  font-size: 8pt;
+.index {
+  columns: 2;
+}
+/* Docbook generates 2 divs with class=index. Ignore the outer one */
+.index .index {
+  columns: auto;
+  page-break-inside: auto;
+}
+
+.indexdiv h3 {
+  font-size: small;
+}
+.indexdiv dt {
+  font-size: small;
+  font-weight: normal;
 }
 
 .toc a {
@@ -104,16 +124,19 @@ body {
   content: leader(' . ') target-counter(attr(href), page);
 }
 
-.introduction {
-  page-break-before: always;
-  page-break-after: always;
-}
-
 
 /* Styles from docbook attribute-sets */
 
 
+.problems-exercises {
+  columns: 2;
+  page-break-before: always;
+}
 
+.problems-exercises img {
+  width: 3in;
+  height: auto;
+}
 
 /* Colors and fonts:
 body.font.master=8.5
@@ -138,9 +161,6 @@ body.font.master=8.5
 }
 .cnx-underscore {
 	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
-	border-bottom-style: solid;
-	margin-bottom: 0.75em;
 }
 .cnx-question {
 	/* end-indent: 1em; */
@@ -158,28 +178,25 @@ body.font.master=8.5
 
 }
 .cnx-formal-title {
-	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
-	border-bottom-style: solid;
 	color: white;
-	font-size: large;
+	font-size: 120%;
 	font-weight: bold;
 	/* keep-with-next.within-column: always; */
-	margin-bottom: 0.75em;
 	margin-top: 18;
-	padding-bottom: 2px;
 	padding-top: 2px;
+	margin-bottom: -2.5px; /* so the stupid bar lines up */
+	border-bottom: 1px solid #FAA61A;
 }
 .cnx-formal-title-text {
 	background-color: #8FB733;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 2px;
 	padding-left: 1em;
 	padding-right: 1em;
+	padding-bottom: 1px; /* so the stupid bar lines up */
 }
 .cnx-formal-title-inner {
 	color: #0061AA;
-	font-size: large;
+	font-size: 120%;
 }
 .cnx-vertical-spacing {
 	margin-bottom: 0.25em;
@@ -203,8 +220,6 @@ body.font.master=8.5
 }
 .example-title-properties {
 	background-color: #0061AA;
-	background-color: #8FB733;
-	padding-bottom: 4px;
 	padding-top: 4px;
 }
 .figure-title-properties {
@@ -232,7 +247,7 @@ body.font.master=8.5
 	padding-top: 6pt;
 }
 .cnx-figure-properties {
-	font-size: 8pt;
+	font-size: small;
 	/* keep-together.within-column: 2; */
 
 	padding-bottom: 0.5em;
@@ -258,6 +273,10 @@ body.font.master=8.5
 .table-properties {
 	background-color: transparent;
 	margin-top: 0em;
+}
+.cnx-formal-object {
+  margin-top: 1em;
+	page-break-inside: avoid;
 }
 .cnx-formal-object-inner {
 	/* end-indent: 1em; */
@@ -289,10 +308,10 @@ body.font.master=8.5
 }
 .cnx-note {
 	background-color: #FBF2E2;
-	margin-bottom: 1em;
-	margin-top: 1em;
-	padding-bottom: 0.25em;
-	padding-top: 0.25em;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
 }
 .cnx-note-concept {
 	background-color: #FBF2E2;
