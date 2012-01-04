@@ -104,6 +104,7 @@
     <xsl:attribute name="id">
       <xsl:call-template name="object.id"/>
     </xsl:attribute>
+    <!-- Put the label before the equation so it can float: right; -->
     <span class="label">
       <xsl:text>(</xsl:text>
       <xsl:apply-templates select="." mode="label.markup"/>

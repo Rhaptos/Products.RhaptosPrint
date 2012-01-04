@@ -183,10 +183,13 @@ body.font.master=8.5
 .cnx-question-number {
 	font-weight: bold;
 }
-.cnx-equation {
-	/* keep-together.within-column: 2; */
-
+.equation {
+  page-break-inside: avoid;
 }
+.equation .label {
+  float: right;
+}
+
 .cnx-formal-title {
 	color: white;
 	font-size: 120%;
@@ -320,13 +323,18 @@ body.font.master=8.5
 }
 .nongraphical-admonition-properties {
 }
-.cnx-note {
+.note {
 	page-break-inside: avoid;
 	background-color: #FBF2E2;
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: 0.1em;
 	padding-bottom: 0.1em;
+}
+.note .title {
+  display: block; /* so the underline stretches */
+  color: #0061AA;
+  border-bottom: 1px solid #FAA61A;
 }
 .cnx-note-concept {
 	page-break-inside: avoid;

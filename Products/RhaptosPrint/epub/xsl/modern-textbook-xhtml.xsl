@@ -5,9 +5,6 @@
 <xsl:import href="../docbook-xsl/xhtml-1_1/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
 
-<!-- Ignore Section title pages overridden in dbkplus.xsl -->
-<xsl:import href="../docbook-xsl/xhtml-1_1/titlepage.templates.xsl"/>
-
 <xsl:output indent="yes" method="xml"/>
 
 <!-- ============================================== -->
@@ -750,37 +747,6 @@ procedure before
      (notes, examples, exercises, nested elts)
   -->
 <!-- ============================================== -->
-
-<!-- Render equations with the number on the RHS -->
-<xsl:template match="db:equation">
-  <div xsl:use-attribute-set="cnx.equation">
-    <xsl:attribute name="id">
-      <xsl:call-template name="object.id"/>
-    </xsl:attribute>
-
-    <table>
-      
-      
-      
-        <tr>
-          <td>
-            <div text-align="center">
-              <xsl:apply-templates/>
-            </div>
-          </td>
-          <td>
-            <div text-align="end">
-              <xsl:text>(</xsl:text>
-              <xsl:apply-templates select="." mode="label.markup"/>
-              <xsl:text>)</xsl:text>
-            </div>
-          </td>
-        </tr>
-      
-    </table>
-  </div>
-</xsl:template>
-
 
 <xsl:template name="pi.dbfo_keep-together">
   <xsl:text>always</xsl:text>
