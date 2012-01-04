@@ -1,4 +1,3 @@
-Notes need blue underlined text
 Fonts need to be smaller
 lists need less padding
 PDF TOC needs chapters
