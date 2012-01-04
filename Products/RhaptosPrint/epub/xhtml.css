@@ -2,10 +2,21 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
+/* Print-specific styles <style media="print"... */
+
+/* Don't print module asterix (link to attribution) */
+sup a {
+  display: none;
+}
+
+
+/* General css for print/online */
+
 @page {
   margin: 5em;
   font-size: x-small;
-  font-family: sans-serif, STIXGeneral, STIXSize;
+  font-family: sans-serif, STIXGeneral, STIXSize1;
+  prince-image-resolution:200dpi;
 }
 
 @page :left {
@@ -44,7 +55,8 @@
 
 body {
   font-size: small;
-  font-family: sans-serif, STIXGeneral, STIXSize;
+  font-family: sans-serif, STIXGeneral, STIXSize1;
+  prince-image-resolution:200dpi;
 }
 
 
@@ -135,9 +147,6 @@ DISABLED.cnx-figure-properties img {
 }
 
 
-/* Styles from docbook attribute-sets */
-
-
 .problems-exercises {
   columns: 2;
   page-break-before: always;
@@ -147,6 +156,42 @@ DISABLED.cnx-figure-properties img {
   width: 3in;
   height: auto;
 }
+
+.equation {
+  page-break-inside: avoid;
+}
+.equation .label {
+  float: right;
+}
+
+/***************************************************************
+ * Clean up padding and spacing
+ ***************************************************************/
+li p, dd p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+ul {
+  margin-top: 0px;
+}
+h1, h2, h3 {
+  margin-bottom: 0em;
+}
+p {
+  margin-top: 0em;
+}
+      
+
+.glossary dt {
+  float: left;
+  font-weight: bold;
+}
+.glossary dt::after {
+  content: ":";
+  padding-right: 0.5em;
+}
+
+/* Styles from docbook attribute-sets */
 
 /* Colors and fonts:
 body.font.master=8.5
@@ -183,13 +228,6 @@ body.font.master=8.5
 .cnx-question-number {
 	font-weight: bold;
 }
-.equation {
-  page-break-inside: avoid;
-}
-.equation .label {
-  float: right;
-}
-
 .cnx-formal-title {
 	color: white;
 	font-size: 120%;

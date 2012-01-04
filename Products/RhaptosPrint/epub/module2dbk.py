@@ -110,6 +110,7 @@ def convert(moduleId, cnxml, filesDict, collParams):
   # Convert SVG elements to PNG files
   # (this mutates the document)
   for position, image in enumerate(DOCBOOK_SVG_XPATH(dbkSvg)):
+    print >> sys.stderr, 'LOG: Converting SVG to PNG'
     # TODO add the generated file to the edited files dictionary
     strImageName = "gd-%04d.png" % (position + 1)
     svg = etree.SubElement(image, "svg")

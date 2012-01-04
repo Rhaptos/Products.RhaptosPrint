@@ -1,7 +1,5 @@
 Fonts need to be smaller
-lists need less padding
 PDF TOC needs chapters
 Tables are not styled
 Glossary should be a 2 column table instead of <dl/>
-Summary section titles should be blue
 
