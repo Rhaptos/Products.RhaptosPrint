@@ -8,6 +8,7 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:ext="http://cnx.org/ns/docbook+"
   xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
   version="1.0">
 
 <!-- This file converts dbk files to html (maybe chunked) which is used in EPUB and PDF generation.
@@ -51,41 +52,56 @@
 <xsl:template match="c:media"/>
 
 <!-- Output the PNG with the baseline info -->
-<xsl:template match="@pmml2svg:baseline-shift">
+<xsl:template name="cnx.baseline-shift">
     <xsl:attribute name="style">
         <!-- Set the height and width in the style so it scales? -->
         <xsl:text>width:</xsl:text>
-        <xsl:value-of select="../@width"/>
+        <xsl:value-of select="ancestor::db:imagedata/@width"/>
         <xsl:text>; height:</xsl:text>
-        <xsl:value-of select="../@depth"/>
+        <xsl:value-of select="ancestor::db:imagedata/@depth"/>
         <xsl:text>; </xsl:text>
           <xsl:text>vertical-align:-</xsl:text>
-          <xsl:value-of select="." />
+          <xsl:value-of select="svg:svg/svg:metadata/pmml2svg:baseline-shift/text()" />
           <xsl:text>pt;</xsl:text>
       </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="db:imagedata[@fileref and svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
+<xsl:template match="db:imagedata[svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
     <xsl:choose>
         <xsl:when test="$cnx.svg.compat = 'raw-svg'">
-          <span>
-            <xsl:apply-templates select="@pmml2svg:baseline-shift|svg:svg"/>
+          <span class="cnx-svg">
+            <xsl:call-template name="cnx.baseline-shift"/>
+            <xsl:apply-templates select="svg:svg"/>
           </span>
         </xsl:when>
-        <xsl:when test="$cnx.svg.compat = 'object'">
-          <object type="image/png" data="{@fileref}" width="{@width}" height="{@height}">
-            <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
+        <xsl:when test="@fileref and $cnx.svg.compat = 'object'">
+          <object type="image/png" width="{@width}" height="{@height}">
+            <xsl:if test="@fileref">
+              <xsl:attribute name="data">
+                <xsl:value-of select="@fileref"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="cnx.baseline-shift"/>
             <!-- Insert the SVG inline -->
             <xsl:apply-templates select="node()"/>
           </object>
         </xsl:when>
+        <xsl:when test="mml:math">
+          <xsl:apply-templates select="mml:math"/>
+        </xsl:when>
+        <xsl:when test="@fileref">
+          <img src="{@fileref}">
+            <xsl:call-template name="cnx.baseline-shift"/>
+          </img>
+        </xsl:when>
         <xsl:otherwise>
-            <img src="{@fileref}">
-                <xsl:apply-templates select="@pmml2svg:baseline-shift"/>
-            </img>
+          <xsl:message>ERROR: Image does not contain SVG, MathML, or a path to the JPEG/PNG.</xsl:message>
+          <span class="error">ERROR: Image does not contain SVG, MathML, or a path to the JPEG/PNG.</span>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
+
+<xsl:template match="svg:metadata"/>
 
 <!-- Docbook "supprts" svg by copying SVG elements but not the attributes ; ) -->
 <xsl:template match="svg:*|svg:*/@*|svg:*/node()">
@@ -94,9 +110,6 @@
   </xsl:copy>
 </xsl:template>
 
-
-
-<xsl:template match="pmml2svg:*"/>
 
 <!-- Put the equation number on the RHS -->
 <xsl:template match="db:equation">
