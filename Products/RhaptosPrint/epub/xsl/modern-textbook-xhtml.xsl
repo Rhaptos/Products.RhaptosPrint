@@ -251,21 +251,12 @@ procedure before
 
 <!-- Render problem sections at the bottom of a chapter -->
 <xsl:template match="db:chapter">
-  <xsl:variable name="master-reference">
-    <xsl:call-template name="select.pagemaster"/>
-  </xsl:variable>
-
-  <xsl:call-template name="page.sequence">
-    <xsl:with-param name="master-reference" select="$master-reference"/>
-    <xsl:with-param name="initial-page-number">auto</xsl:with-param>
-    <xsl:with-param name="content">
-			<xsl:call-template name="chapter.titlepage"/>
-      <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
-			<xsl:call-template name="cnx.summarypage"/>
-    </xsl:with-param>
-  </xsl:call-template>
-  
-	<xsl:call-template name="cnx.problemspage"/>
+  <div class="chapter">
+		<xsl:call-template name="chapter.titlepage"/>
+    <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
+		<xsl:call-template name="cnx.summarypage"/>
+  	<xsl:call-template name="cnx.problemspage"/>
+  </div>
 </xsl:template>
 
 <xsl:template name="cnx.summarypage">
@@ -343,7 +334,7 @@ procedure before
 	<xsl:if test="count($context//*[contains(@class,$attribute)]) &gt; 0">
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
-		<div class="{$attribute}">
+		<div class="cnx-eoc {$attribute}">
 		<div xsl:use-attribute-sets="cnx.formal.title">
 			<span xsl:use-attribute-sets="example.title.properties">
 				<xsl:copy-of select="$title"/>
@@ -355,18 +346,20 @@ procedure before
 			<xsl:variable name="sectionId">
 				<xsl:call-template name="object.id"/>
 			</xsl:variable>
-			<!-- Print the section title and link back to it -->
-			<div xsl:use-attribute-sets="cnx.problems.title">
-				<a href="#{$sectionId}">
-					<xsl:apply-templates select="." mode="object.title.markup">
-						<xsl:with-param name="allow-anchors" select="0"/>
-					</xsl:apply-templates>
-				</a>
-			</div>
-			<!-- This for-each renders all the sections and exercises and numbers them -->
-			<xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
-				<xsl:with-param name="render" select="true()"/>
-			</xsl:apply-templates>
+			<div class="cnx-eoc-section">
+        <!-- Print the section title and link back to it -->
+        <div xsl:use-attribute-sets="cnx.problems.title">
+          <a href="#{$sectionId}">
+            <xsl:apply-templates select="." mode="object.title.markup">
+              <xsl:with-param name="allow-anchors" select="0"/>
+            </xsl:apply-templates>
+          </a>
+        </div>
+        <!-- This for-each renders all the sections and exercises and numbers them -->
+        <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
+          <xsl:with-param name="render" select="true()"/>
+        </xsl:apply-templates>
+      </div>
 		</xsl:for-each>
     </div>
 	</xsl:if>

@@ -14,7 +14,7 @@ sup a {
 
 @page {
   margin: 5em;
-  font-size: x-small;
+  font-size: xx-small;
   font-family: sans-serif, STIXGeneral, STIXSize1;
   prince-image-resolution:200dpi;
 }
@@ -54,7 +54,7 @@ sup a {
 }
 
 body {
-  font-size: small;
+  font-size: x-small;
   font-family: sans-serif, STIXGeneral, STIXSize1;
   prince-image-resolution:200dpi;
 }
@@ -97,34 +97,36 @@ DISABLED.cnx-figure-properties img {
 }
 
 
-
-
-.toc, .introduction, .index {
+.chapter {
   page-break-before: always;
   page-break-after: always;
-  page-break-inside: avoid;
+}  
+
+.toc, .introduction {
+  page-break-before: always;
+  page-break-after: always;
 }
 
-.index {
-  columns: 2;
+/* Docbook generates 2 divs with class=index. Ignore the inner one */
+.index[title=Index] {
+  page-break-before: always;
+  page-break-after: always;
 }
-/* Docbook generates 2 divs with class=index. Ignore the outer one */
 .index .index {
-  columns: auto;
-  page-break-inside: auto;
+  columns: 2;
 }
 
 .indexdiv h3 {
-  font-size: small;
+  font-size: x-small;
 }
 .indexdiv dt {
-  font-size: small;
+  font-size: x-small;
   font-weight: normal;
 }
 
 .toc a {
 	color: blue;
-	font-weight: large;
+	font-weight: medium;
   text-decoration: none;
 }
 
@@ -146,6 +148,14 @@ DISABLED.cnx-figure-properties img {
   content: leader(' . ') target-counter(attr(href), page);
 }
 
+/**************** Fix the PDF Outline *************/
+.cnx-introduction-chapter-title { prince-bookmark-level: 1 }
+h1 { prince-bookmark-level: 2 }
+h2, h3, h4, h5, h6 { prince-bookmark-level: none }
+
+.cnx-eoc, .cnx-eoc-section {
+  page-break-inside: avoid;
+}
 
 .problems-exercises {
   columns: 2;
@@ -155,6 +165,10 @@ DISABLED.cnx-figure-properties img {
 .problems-exercises img {
   width: 3in;
   height: auto;
+}
+
+.problems-exercises .cnx-eoc-section {
+  page-break-inside: auto;
 }
 
 .equation {
@@ -176,6 +190,12 @@ ul {
 }
 h1, h2, h3 {
   margin-bottom: 0em;
+}
+h2 {
+  font-size: medium;
+}
+h3 {
+  font-size: 1.17em;
 }
 p {
   margin-top: 0em;
@@ -281,23 +301,23 @@ body.font.master=8.5
 	margin-top: 0.25em;
 }
 .section-title-level1-properties {
-	font-size: x-large;
+	font-size: large;
 	font-weight: bold;
 	padding-top: 6pt;
 }
 .section-title-level2-properties {
-	font-size: large;
+	font-size: medium;
 	font-weight: normal;
 	padding-top: 6pt;
 }
 .section-title-number {
 	color: #0061AA;
-	font-size: x-large;
+	font-size: large;
 	font-weight: bold;
 	padding-top: 6pt;
 }
 .cnx-figure-properties {
-	font-size: x-small;
+	font-size: xx-small;
 	/* keep-together.within-column: 2; */
 	padding-bottom: 0.5em;
 	margin-left: 20%;
@@ -355,7 +375,7 @@ body.font.master=8.5
 	border-bottom-color: #FAA61A;
 	border-bottom-style: solid;
 	color: #0061AA;
-	font-size: large;
+	font-size: medium;
 	font-weight: normal;
 	margin-bottom: 0.75em;
 }
@@ -395,7 +415,7 @@ body.font.master=8.5
 }
 .cnx-note-concept-title {
 	color: #0061AA;
-	font-size: large;
+	font-size: medium;
 }
 .cnx-note-tip {
 	margin-bottom: 0.25em;
@@ -419,7 +439,7 @@ body.font.master=8.5
 .cnx-note-tip-title-inline {
 	background-color: #0061AA;
 	color: white;
-	font-size: large;
+	font-size: medium;
 	padding-bottom: 0.25em;
 	padding-top: 0.25em;
 }
@@ -441,7 +461,7 @@ body.font.master=8.5
 }
 .cnx-introduction-chapter {
 	background-color: #FAA61A;
-	font-size: xx-large;
+	font-size: x-large;
 	padding-bottom: 0em;
 	padding-left: 0.1em;
 	padding-top: 0.05em;
@@ -451,7 +471,7 @@ body.font.master=8.5
 }
 .cnx-introduction-chapter-title {
 	color: white;
-	font-variant: small-caps;
+	font-variant: x-small-caps;
 }
 .cnx-introduction-title {
 }
@@ -459,7 +479,7 @@ body.font.master=8.5
 	border-bottom: 1px solid #FAA61A;
 	border-bottom-color: #FAA61A;
 	border-bottom-style: solid;
-	font-size: x-large;
+	font-size: large;
 	font-weight: bold;
 	margin-bottom: 0.75em;
 }
@@ -471,7 +491,7 @@ table.cnx-introduction-toc {
 table.cnx-introduction-toc tr:first-child {
 	background-color: #0061AA;
 	color: white;
-	font-size: x-large;
+	font-size: large;
 	text-align: center;
 }
 table.cnx-introduction-toc tr:not(:first-child) {
@@ -485,7 +505,7 @@ table.cnx-introduction-toc td a {
 table.cnx-introduction-toc td:first-child a {
   color: black;
 	border-bottom: 1px solid #FAA61A;
-	font-size: large;
+	font-size: medium;
 	font-weight: bold;
 	margin-bottom: 0.75em;
   margin-left: 1em;
@@ -499,7 +519,7 @@ table.cnx-introduction-toc td:first-child a {
 }
 .cnx-problems-title {
 	color: #0061AA;
-	font-size: large;
+	font-size: medium;
 	font-weight: bold;
 	padding-top: 0.25em;
 }
@@ -513,14 +533,14 @@ table.cnx-introduction-toc td:first-child a {
 .cnx-header-subtitle {
 }
 .cnx-header-pagenumber {
-	font-size: small;
+	font-size: x-small;
 }
 .cnx-header-separator {
 	color: #FAA61A;
 }
 .cnx-index-title-body {
 	color: #0061AA;
-	font-size: large;
+	font-size: medium;
 	font-weight: bold;
 	padding-top: 0.25em;
 }
