@@ -137,20 +137,30 @@
 <xsl:template match="ext:exercise|ext:problem|ext:solution|ext:commentary" mode="label.markup"/>
 
 <xsl:template match="ext:exercise" mode="cnx.template">
-	<xsl:call-template name="cnx.label">
-		<xsl:with-param name="default">
-                        <xsl:choose>
-                                <xsl:when test="ancestor::db:example">
-                                        <!-- TODO: gentext for "Problem" -->
-                                	<xsl:text>Problem</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                        <!-- TODO: gentext for "Exercise" -->
-                                	<xsl:text>Exercise</xsl:text>
-                                </xsl:otherwise>
-                        </xsl:choose>
-		</xsl:with-param>
-	</xsl:call-template>
+  <xsl:variable name="label">
+    <xsl:call-template name="cnx.label">
+      <xsl:with-param name="default">
+                          <xsl:choose>
+                                  <xsl:when test="ancestor::db:example">
+                                          <!-- TODO: gentext for "Problem" -->
+                                    <xsl:text>Problem</xsl:text>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                          <!-- TODO: gentext for "Exercise" -->
+                                    <xsl:text>Exercise</xsl:text>
+                                  </xsl:otherwise>
+                          </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="title">
+  	<xsl:apply-templates select="db:title/node()"/>
+  </xsl:variable>
+  <xsl:copy-of select="$label"/>
+  <xsl:if test="$label != '' and $title != ''">
+    <xsl:text>: </xsl:text>
+  </xsl:if>
+  <xsl:copy-of select="$title"/>
 </xsl:template>
 
 <xsl:template match="ext:rule" mode="cnx.template">
@@ -190,14 +200,19 @@
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="$default"/>
+      <xsl:text> </xsl:text>
+      <xsl:apply-templates select="$c/." mode="number"/>
+      <xsl:if test="$c/db:title">
+        
+        <xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Not reprinting title, this might result in a bug</xsl:with-param></xsl:call-template>
+<!--
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="$c/." mode="title.markup"/>
+-->
+      </xsl:if>
 		</xsl:otherwise>
 	</xsl:choose>
-	<xsl:text> </xsl:text>
-	<xsl:apply-templates select="$c/." mode="number"/>
-	<xsl:if test="$c/db:title">
-		<xsl:text> </xsl:text>
-		<xsl:apply-templates select="$c/." mode="title.markup"/>
-	</xsl:if>
+
 </xsl:template>
 
 <xsl:template match="ext:problem" mode="cnx.template">
@@ -271,11 +286,27 @@
 
 <xsl:template match="ext:exercise" mode="number">
 	<xsl:call-template name="cnx.chapter.number"/>
-        <xsl:if test="ancestor::db:section[@ext:element='module']">
-                <xsl:number format="1" level="any" from="db:chapter" count="*[@ext:element='module']"/>
-		<xsl:apply-templates select="." mode="intralabel.punctuation"/>
+  <xsl:if test="ancestor::db:section[@ext:element='module']">
+    <xsl:number format="1" level="any" from="db:chapter" count="*[@ext:element='module']"/>
+    <xsl:apply-templates select="." mode="intralabel.punctuation"/>
+    <xsl:call-template name="number-based-on-element-and-type"/>
 	</xsl:if>
-	<xsl:number format="1." level="any" from="*[@ext:element='module']" count="ext:exercise[not(ancestor::db:example)]"/>
+</xsl:template>
+
+<!-- Some elements like exercises are numbered based on the @type.
+     This means that there may exist 2 "Exercise 4.1" in a chapter
+-->
+<xsl:template name="number-based-on-element-and-type">
+  <xsl:param name="name" select="local-name()"/>
+  <xsl:param name="type" select="@type"/>
+  <xsl:choose>
+    <xsl:when test="$type and $type != ''">
+      <xsl:number format="1." level="any" from="*[@ext:element='module']" count="*[local-name()=$name][not(ancestor::db:example) and @type=$type]"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:number format="1." level="any" from="*[@ext:element='module']" count="*[local-name()=$name][not(ancestor::db:example)]"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="ext:exercise[ancestor::db:example]" mode="number">
@@ -303,6 +334,63 @@
 </xsl:template>
 
 
+<!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
+<xsl:template match="db:example[ancestor::db:glossentry
+            or ancestor::*[@ext:element='rule']
+            ]" mode="label.markup">
+</xsl:template>
+<xsl:template match="db:example[ancestor::db:glossentry
+            or ancestor::*[@ext:element='rule']
+            ]" mode="intralabel.punctuation"/>
+<!-- Only number figures and tables if they are not in exercises.
+    Largely taken from docbook-xsl/common/labels.xsl
+ -->
+<xsl:template match="db:figure|db:table|db:example" mode="label.markup">
+  <xsl:variable name="pchap"
+                select="(ancestor::db:chapter
+                        |ancestor::db:appendix
+                        |ancestor::db:article[ancestor::db:book])[last()]"/>
+  <xsl:variable name="name" select="local-name()"/>
+  
+  <xsl:variable name="prefix">
+    <xsl:if test="count($pchap) &gt; 0">
+      <xsl:apply-templates select="$pchap" mode="label.markup"/>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="@label">
+      <xsl:value-of select="@label"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:choose>
+        <xsl:when test="$prefix != ''">
+            <xsl:apply-templates select="$pchap" mode="label.markup"/>
+            <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
+          <xsl:number format="1" from="db:chapter|db:appendix" count="*[$name=local-name() and not(
+               ancestor::db:glossentry
+               or ancestor::*[@ext:element='rule']
+               or ancestor::ext:exercise
+
+          )]" level="any"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number format="1" from="db:book|db:article" level="any" count="*[$name=local-name() and not(
+               ancestor::db:glossentry
+               or ancestor::*[@ext:element='rule']
+               or ancestor::ext:exercise
+               
+          )]"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- Don't label figures inside an exercise -->
+<xsl:template match="ext:exercise//db:figure" mode="object.title.markup">
+  <xsl:comment>CNX: Discarding title because this in an exercise</xsl:comment>
+</xsl:template>
 
 <!-- XREF templates -->
 
@@ -401,6 +489,5 @@
   </div>
 </xsl:if>
 </xsl:template>
-
 
 </xsl:stylesheet>

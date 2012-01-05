@@ -96,19 +96,19 @@ the location of this file.
         </font>
         -->
 
-        <font embed-url="../fonts/stix/STIXGeneral.ttf">
+        <font embed-url="/opt/enterprise-rhaptos/wordsandnumbers/src/Products.RhaptosPrint/Products/RhaptosPrint/epub/fonts/stix/STIXGeneral.ttf">
           <font-triplet name="STIXGeneral" style="normal" weight="normal"/>
         </font>
-        <font embed-url="../fonts/stix/STIXGeneralItalic.ttf">
+        <font embed-url="/opt/enterprise-rhaptos/wordsandnumbers/src/Products.RhaptosPrint/Products/RhaptosPrint/epub/fonts/stix/STIXGeneralItalic.ttf">
           <font-triplet name="STIXGeneral" style="italic" weight="normal"/>
         </font>
-        <font embed-url="../fonts/stix/STIXGeneralBol.ttf">
+        <font embed-url="/opt/enterprise-rhaptos/wordsandnumbers/src/Products.RhaptosPrint/Products/RhaptosPrint/epub/fonts/stix/STIXGeneralBol.ttf">
           <font-triplet name="STIXGeneral" style="normal" weight="bold"/>
         </font>
-        <font embed-url="../fonts/stix/STIXGeneralBolIta.ttf">
+        <font embed-url="/opt/enterprise-rhaptos/wordsandnumbers/src/Products.RhaptosPrint/Products/RhaptosPrint/epub/fonts/stix/STIXGeneralBolIta.ttf">
           <font-triplet name="STIXGeneral" style="italic" weight="bold"/>
         </font>
-        <font embed-url="../fonts/stix/STIXSiz1Sym.ttf">
+        <font embed-url="/opt/enterprise-rhaptos/wordsandnumbers/src/Products.RhaptosPrint/Products/RhaptosPrint/epub/fonts/stix/STIXSiz1Sym.ttf">
           <font-triplet name="STIXSize1" style="normal" weight="normal"/>
         </font>
 

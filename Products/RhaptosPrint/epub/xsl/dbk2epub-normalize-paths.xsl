@@ -27,7 +27,16 @@
 
 <!-- Make image (media) paths point into the module directory -->
 <xsl:template match="@fileref|c:*[(self::c:audio or self::c:flash or self::c:video or self::c:java-applet or self::c:labview or self::c:download) and not(contains(@src, '/'))]/@src">
-    <xsl:variable name="prefix" select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
+    <xsl:variable name="prefix">
+      <xsl:choose>
+        <xsl:when test="ancestor::db:section[@xml:base]">
+          <xsl:value-of select="substring-before(ancestor::db:section[@xml:base]/@xml:base, '/')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="ancestor::*[@document]/@document"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     
     <xsl:attribute name="{name(.)}">
         <xsl:if test="$prefix != ''">

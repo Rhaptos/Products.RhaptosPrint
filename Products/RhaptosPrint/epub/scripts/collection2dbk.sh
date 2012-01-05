@@ -6,12 +6,22 @@ ID=$3
 
 DEBUG=$4
 
+if [ "." = ".${CNX_OR_RHAPTOS}" ]; then
+  echo "Please provide 3 arguments:"
+  echo "1. 'Connexions' or 'Rhaptos'"
+  echo "2. The working directory (should have a collection.xml)"
+  echo "3. An id"
+  exit 1
+fi
+
 SKIP_MODULE_CONVERSION=0
 
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
 
 EXIT_STATUS=0
+
+WORKING_DIR=`cd $WORKING_DIR; pwd`
 
 COLLXML=$WORKING_DIR/collection.xml
 PARAMS=$WORKING_DIR/_params.txt

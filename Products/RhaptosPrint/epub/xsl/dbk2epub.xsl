@@ -134,55 +134,6 @@
     </div>
 </xsl:template>
 
-
-<!-- Don't number examples inside exercises. Original code taken from docbook-xsl/common/labels.xsl -->
-<xsl:template match="db:example[ancestor::db:glossentry
-            or ancestor::*[@ext:element='rule']
-            ]" mode="label.markup">
-</xsl:template>
-<xsl:template match="db:example[ancestor::db:glossentry
-            or ancestor::*[@ext:element='rule']
-            ]" mode="intralabel.punctuation"/>
-<xsl:template match="figure|table|example" mode="label.markup">
-  <xsl:variable name="pchap"
-                select="(ancestor::db:chapter
-                        |ancestor::db:appendix
-                        |ancestor::db:article[ancestor::db:book])[last()]"/>
-  <xsl:variable name="name" select="name()"/>
-  
-  <xsl:variable name="prefix">
-    <xsl:if test="count($pchap) &gt; 0">
-      <xsl:apply-templates select="$pchap" mode="label.markup"/>
-    </xsl:if>
-  </xsl:variable>
-
-  <xsl:choose>
-    <xsl:when test="@label">
-      <xsl:value-of select="@label"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:choose>
-        <xsl:when test="$prefix != ''">
-            <xsl:apply-templates select="$pchap" mode="label.markup"/>
-            <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
-          <xsl:number format="1" from="db:chapter|db:appendix" count="*[$name=name() and not(
-               ancestor::db:glossentry
-               or ancestor::*[@ext:element='rule']
-               
-          )]" level="any"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:number format="1" from="db:book|db:article" level="any" count="*[$name=name() and not(
-               ancestor::db:glossentry
-               or ancestor::*[@ext:element='rule']
-               
-          )]"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
 <!-- Override of docbook-xsl/xhtml-1_1/html.xsl -->
 <xsl:template match="*[@ext:element|@class]" mode="class.value">
   <xsl:param name="class" select="local-name(.)"/>

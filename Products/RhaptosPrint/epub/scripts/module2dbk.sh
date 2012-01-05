@@ -5,7 +5,7 @@ WORKING_DIR=$2
 ID=$3
 COLID=${4:-0}
 
-DEBUG=$5
+DEBUG=ON
 
 echo "LOG: INFO: ------------ Working on $ID ------------"
 
@@ -13,6 +13,8 @@ echo "LOG: INFO: ------------ Working on $ID ------------"
 
 ROOT=`dirname "$0"`
 ROOT=`cd "$ROOT/.."; pwd` # .. since we live in scripts/
+
+WORKING_DIR=`cd $WORKING_DIR; pwd` # the image-sizes.xml file needs a complete path so XSLT can include it
 
 SCHEMA=$ROOT/docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
@@ -35,6 +37,8 @@ DOCBOOK1=$WORKING_DIR/_index1.dbk
 DOCBOOK2=$WORKING_DIR/_index2.dbk
 DOCBOOK_SVG=$WORKING_DIR/_index.svg.dbk
 SVG2PNG_FILES_LIST=$WORKING_DIR/_svg2png-list.txt
+DOCBOOK3=$WORKING_DIR/_index3.dbk
+IMAGE_SIZES_XML=$WORKING_DIR/_image-sizes.xml # The XSLT requires the same name
 VALID=$WORKING_DIR/_valid.dbk
 # Custom collection-level params (how to convert content mathml)
 PARAMS=$WORKING_DIR/../_params.txt
@@ -43,6 +47,7 @@ PARAMS=$WORKING_DIR/../_params.txt
 CLEANUP_XSL=$ROOT/xsl/cnxml-clean.xsl
 CLEANUP2_XSL=$ROOT/xsl/cnxml-clean-math.xsl
 SIMPLIFY_MATHML_XSL=$ROOT/xsl/cnxml-clean-math-simplify.xsl
+ANNOTATE_IMAGES_XSL=$ROOT/xsl/annotate-images.xsl
 CNXML_TO_DOCBOOK_XSL=$ROOT/xsl/cnxml2dbk.xsl
 DOCBOOK_CLEANUP_XSL=$ROOT/xsl/dbk-clean.xsl
 DOCBOOK_VALIDATION_XSL=$ROOT/xsl/dbk-clean-for-validation.xsl
@@ -68,6 +73,8 @@ EXIT_STATUS=0
 [ -a $DOCBOOK1 ] && rm $DOCBOOK1
 [ -a $DOCBOOK2 ] && rm $DOCBOOK2
 [ -a $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+[ -a $IMAGE_SIZES_XML ] && rm $IMAGE_SIZES_XML
+[ -a $DOCBOOK3 ] && rm $DOCBOOK3
 [ -a $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
 
 # Load up the custom collection params to xsltproc:
@@ -165,7 +172,12 @@ EXIT_STATUS=$EXIT_STATUS || $MATH2SVG_ERROR
 
 if [ $MATH2SVG_ERROR -ne 0 ]; then mv $DOCBOOK1 $DOCBOOK2; fi
 
-$XSLTPROC -o $DOCBOOK_SVG $DOCBOOK_CLEANUP_XSL $DOCBOOK2
+# Add in image info (like actual pixel height/width)
+python2.4 $ROOT/scripts/image-sizes.py $WORKING_DIR > $IMAGE_SIZES_XML
+$XSLTPROC --stringparam "image-sizes-xml-path" $IMAGE_SIZES_XML -o $DOCBOOK3 $ANNOTATE_IMAGES_XSL $DOCBOOK2
+EXIT_STATUS=$EXIT_STATUS || $?
+
+$XSLTPROC -o $DOCBOOK_SVG $DOCBOOK_CLEANUP_XSL $DOCBOOK3
 EXIT_STATUS=$EXIT_STATUS || $?
 
 # Create a list of files to convert from svg to png
@@ -215,6 +227,8 @@ if [ ".$DEBUG" == "." ]; then
   [ -a $DOCBOOK1 ] && rm $DOCBOOK1
   [ -a $DOCBOOK2 ] && rm $DOCBOOK2
   [ -a $DOCBOOK_SVG ] && rm $DOCBOOK_SVG
+  [ -a $IMAGE_SIZES_XML ] && rm $IMAGE_SIZES_XML
+  [ -a $DOCBOOK3 ] && rm $DOCBOOK3
   [ -a $SVG2PNG_FILES_LIST ] && rm $SVG2PNG_FILES_LIST
 fi
 
