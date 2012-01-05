@@ -1,5 +1,2 @@
-Fonts need to be smaller
-PDF TOC needs chapters
 Tables are not styled
-Glossary should be a 2 column table instead of <dl/>
 
