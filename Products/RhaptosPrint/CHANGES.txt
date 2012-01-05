@@ -1,3 +1,6 @@
+RhaptosPrint-0.9
+  - modern textbook PDFs using fop
+
 RhaptosPrint-0.8
   - merge collabstats updates
 
