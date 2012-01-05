@@ -49,7 +49,7 @@ def __doStuff(dir, printStyle):
 
       modules[moduleId] = (cnxml, files)
 
-  dbk, newFiles = collection2dbk.convert(collxml, modules)
+  dbk, newFiles = collection2dbk.convert(collxml, modules, svg2png=False, math2svg=True)
   allFiles.update(newFiles)
   pdf, stdErr = convert(dbk, allFiles, printStyle)
   return pdf

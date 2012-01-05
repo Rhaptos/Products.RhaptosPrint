@@ -50,7 +50,7 @@ def mathml2svg(xml):
 
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(moduleId, cnxml, filesDict, collParams):
+def convert(moduleId, cnxml, filesDict, collParams, svg2png=True, math2svg=True):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
   #print >> sys.stderr, "LOG: Working on Module %s" % moduleId
@@ -83,12 +83,14 @@ def convert(moduleId, cnxml, filesDict, collParams):
   dbk1 = transform(CNXML_TO_DOCBOOK_XSL, cnxml5)
 
   # Convert MathML to SVG
-  dbk2, err = mathml2svg(dbk1)
-
-  # If there is an error, just use the original file
-  if err and len(err) > 0:
+  if math2svg:
+    dbk2, err = mathml2svg(dbk1)
+    # If there is an error, just use the original file
+    if err and len(err) > 0:
+      dbk2 = dbk1
+      print >> sys.stderr, err
+  else:
     dbk2 = dbk1
-    print >> sys.stderr, err
 
   # TODO: parse the XML and xpath/annotate it as we go.
   for image in DOCBOOK_IMAGE_XPATH(dbk2):
@@ -109,15 +111,16 @@ def convert(moduleId, cnxml, filesDict, collParams):
 
   # Convert SVG elements to PNG files
   # (this mutates the document)
-  for position, image in enumerate(DOCBOOK_SVG_XPATH(dbkSvg)):
-    print >> sys.stderr, 'LOG: Converting SVG to PNG'
-    # TODO add the generated file to the edited files dictionary
-    strImageName = "gd-%04d.png" % (position + 1)
-    svg = etree.SubElement(image, "svg")
-    svgStr = etree.tostring(svg)
-    pngStr = util.svg2png(svgStr)
-    newFiles[strImageName] = pngStr
-    image.set('fileref', strImageName)
+  if svg2png:
+    for position, image in enumerate(DOCBOOK_SVG_XPATH(dbkSvg)):
+      print >> sys.stderr, 'LOG: Converting SVG to PNG'
+      # TODO add the generated file to the edited files dictionary
+      strImageName = "gd-%04d.png" % (position + 1)
+      svg = etree.SubElement(image, "svg")
+      svgStr = etree.tostring(svg)
+      pngStr = util.svg2png(svgStr)
+      newFiles[strImageName] = pngStr
+      image.set('fileref', strImageName)
 
   # Clean up the image attributes
   dbkIncluded = transform(SVG2PNG_FILES_XSL, dbkSvg)
