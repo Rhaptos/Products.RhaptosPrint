@@ -1999,6 +1999,10 @@ Combination of formal.object and formal.object.heading -->
 
     <xsl:attribute name="width">
       <xsl:choose>
+        <!-- Use the @print-width attribute (it has units so it's not a number -->
+        <xsl:when test="@width and string(number(@width)) = 'NaN'">
+          <xsl:value-of select="@width"/>
+        </xsl:when>
         <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
         <xsl:when test="contains($width,'%')">
           <xsl:value-of select="$width"/>
