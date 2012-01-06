@@ -2,6 +2,7 @@
 
 import sys
 import os
+import shutil
 import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
@@ -16,9 +17,16 @@ import util
 
 DEBUG=False
 
-FOP_PATH = os.path.join('fop')
-BASE_PATH = os.path.join(os.getcwd())
+FOP_PATH = 'fop'
+BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
+
+STIX_FONTS = [ 
+    'STIXGeneral.ttf',
+    'STIXGeneralBol.ttf',
+    'STIXGeneralItalic.ttf',
+    'STIXGeneralBolIta.ttf',
+    'STIXSiz1SymBol.ttf' ]
 
 # XSL files
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
@@ -96,7 +104,13 @@ def fo2pdf(fo, files, tempdir):
     f.write(content)
     f.close()
   
-  # Generate a custom XCONF file that points to the STIX fonts
+  # Copy the STIX fonts into the fake HOME dir (under .fonts)
+  fontsDir = os.path.join(tempdir, '.fonts')
+  os.makedirs(fontsDir)
+  for fname in STIX_FONTS:
+    fontPath = os.path.join(BASE_PATH, 'fonts', 'stix', fname)
+    shutil.copyfile(fontPath, os.path.join(fontsDir, fname))
+  
   XCONF_PATH = os.path.join(tempdir, '_fop.xconf')
 
   xconfXml = XCONF_XSL(XCONF_TEMPLATE, **({'cnx.basepath': "'%s'" % BASE_PATH}))
@@ -107,7 +121,9 @@ def fo2pdf(fo, files, tempdir):
   # Run FOP to generate an abstract tree 1st
   # strCmd = [FOP_PATH, ', '-c', XCONF_PATH, '/dev/stdin']
   strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-at', 'application/pdf', '/dev/stdout', '/dev/stdin']
-  env = {'FOP_OPTS': '-Xmx14000M'}
+
+  # Batik needs a HOME dir to look up the fonts
+  env = {'FOP_OPTS': '-Xmx14000M', 'HOME': tempdir}
 
   # run the program with subprocess and pipe the input and output to variables
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True, env=env)
