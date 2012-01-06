@@ -16,7 +16,6 @@ sup a {
   margin: 5em;
   font-size: xx-small;
   font-family: sans-serif, STIXGeneral, STIXSize1;
-  prince-image-resolution:200dpi;
 }
 
 @page :left {
@@ -45,18 +44,24 @@ sup a {
   }
 }
 
+h1 {
+  background-color: #FAA61A;
+  padding: 0px 0.5em;
+  font-size: x-large;
+}
 /* Used for page headers */
-.cnx-introduction-chapter-number {
+.cnx-chapter-number {
   string-set: chapter-number content();
 }
-.cnx-introduction-chapter-title {
+.cnx-chapter-title {
   string-set: header "Chapter " string(chapter-number, first) " | " content()
+  text-transform: uppercase;
+  color: white;
 }
 
 body {
   font-size: x-small;
   font-family: sans-serif, STIXGeneral, STIXSize1;
-  prince-image-resolution:200dpi;
 }
 
 
@@ -103,16 +108,14 @@ DISABLED.cnx-figure-properties img {
 }  
 
 .toc, .introduction {
-  page-break-before: always;
   page-break-after: always;
 }
+
 
 /* Docbook generates 2 divs with class=index. Ignore the inner one */
 .index[title=Index] {
   page-break-before: always;
   page-break-after: always;
-}
-.index .index {
   columns: 2;
 }
 
@@ -123,6 +126,12 @@ DISABLED.cnx-figure-properties img {
   font-size: x-small;
   font-weight: normal;
 }
+.indexterm {
+  content: target-counter(attr(href), page);
+  color: black;
+  font-weight: bold;
+}
+
 
 .toc a {
 	color: blue;
@@ -149,9 +158,9 @@ DISABLED.cnx-figure-properties img {
 }
 
 /**************** Fix the PDF Outline *************/
-.cnx-introduction-chapter-title { prince-bookmark-level: 1 }
-h1 { prince-bookmark-level: 2 }
-h2, h3, h4, h5, h6 { prince-bookmark-level: none }
+h1 { prince-bookmark-level: 1 }
+h2 { prince-bookmark-level: 2 }
+h3, h4, h5, h6 { prince-bookmark-level: none }
 
 .cnx-eoc, .cnx-eoc-section {
   page-break-inside: avoid;
@@ -160,6 +169,10 @@ h2, h3, h4, h5, h6 { prince-bookmark-level: none }
 .problems-exercises {
   columns: 2;
   page-break-before: always;
+}
+
+img {
+  width: 33%;
 }
 
 .problems-exercises img {
@@ -173,6 +186,7 @@ h2, h3, h4, h5, h6 { prince-bookmark-level: none }
 
 .equation {
   page-break-inside: avoid;
+  text-align: center;
 }
 .equation .label {
   float: right;
@@ -185,11 +199,12 @@ li p, dd p {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-ul {
+ol, ul {
   margin-top: 0px;
+  margin-left: 20pt;
 }
 h1, h2, h3 {
-  margin-bottom: 0em;
+  margin: 0.5 0em;
 }
 h2 {
   font-size: medium;
@@ -198,7 +213,7 @@ h3 {
   font-size: 1.17em;
 }
 p {
-  margin-top: 0em;
+  margin: 0.5em 0em;
 }
       
 
@@ -209,6 +224,11 @@ p {
 .glossary dt::after {
   content: ":";
   padding-right: 0.5em;
+}
+
+em.glossterm {
+  font-weight: bold;
+  font-style: normal;
 }
 
 /* Styles from docbook attribute-sets */
@@ -320,8 +340,8 @@ body.font.master=8.5
 	font-size: xx-small;
 	/* keep-together.within-column: 2; */
 	padding-bottom: 0.5em;
-	margin-left: 20%;
-	margin-right: 20%;
+	margin-left: auto;
+	margin-right: auto;
 }
 .cnx-figure-content {
   text-align: center;

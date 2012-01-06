@@ -166,9 +166,9 @@ procedure before
 
 <xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="class">cnx-introduction-chapter</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter.number"><xsl:attribute name="class">cnx-introduction-chapter-number</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.chapter.number"><xsl:attribute name="class">cnx-chapter-number</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="class">cnx-introduction-chapter-title</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="class">cnx-chapter-title</xsl:attribute></xsl:attribute-set>
 
 <xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="class">cnx-introduction-title</xsl:attribute></xsl:attribute-set>
 <xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text cnx-underscore</xsl:attribute></xsl:attribute-set>
@@ -251,7 +251,13 @@ procedure before
 
 <!-- Render problem sections at the bottom of a chapter -->
 <xsl:template match="db:chapter">
-  <div class="chapter">
+
+	<!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
+	<xsl:variable name="id">
+		<xsl:call-template name="object.id"/>
+	</xsl:variable>
+
+	<div id="{$id}" class="chapter">
 		<xsl:call-template name="chapter.titlepage"/>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 		<xsl:call-template name="cnx.summarypage"/>
@@ -262,20 +268,14 @@ procedure before
 <xsl:template name="cnx.summarypage">
 	<!-- TODO: Create a 1-column Chapter Summary -->
 	<xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
-		<div space-before="2em" space-after="2em">
+		<div class="cnx-summarypage">
 			<table>
-				
-				
-				
-					<tr>
-						<td>
+			    <tr>
+						<th>
 							<div><xsl:text>Chapter Summary</xsl:text></div>
-						</td>
+						</th>
 					</tr>
-				
-				
 					<xsl:apply-templates mode="cnx.chapter.summary" select="db:section"/>
-				
 			</table>
 		</div>
 	</xsl:if>
@@ -552,16 +552,16 @@ procedure before
 
   <xsl:variable name="head">
     <xsl:choose>
-      <xsl:when test="number($level) &lt; 6">
+      <xsl:when test="number($level) &lt; 5">
         <xsl:value-of select="$level"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>6</xsl:text>
+        <xsl:text>5</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:element name="h{$level}">
+  <xsl:element name="h{$level + 1}">
     <xsl:if test="ancestor::db:section[1]/@xml:id">
       <xsl:attribute name="id">
         <xsl:value-of select="ancestor::db:section[1]/@xml:id"/>
@@ -573,19 +573,15 @@ procedure before
 
 
 <xsl:template name="chapter.titlepage">
-  <!--
-  <fo:marker marker-class-name="section.head.marker">
-    <xsl:apply-templates mode="title.markup" select="."/>
-  </fo:marker>
-  -->
-	<!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
-	<xsl:variable name="id">
-		<xsl:call-template name="object.id"/>
-	</xsl:variable>
-
-	<div id="{$id}" xsl:use-attribute-sets="component.titlepage.properties">
-    <xsl:apply-templates mode="cnx.intro" select="d:section"/>
-	</div>
+  <h1>
+    <span xsl:use-attribute-sets="cnx.introduction.chapter.number">
+      <xsl:apply-templates select="." mode="label.markup"/>
+    </span>
+    <span xsl:use-attribute-sets="cnx.introduction.chapter.title">
+      <xsl:apply-templates select="." mode="title.markup"/>
+    </span>
+  </h1>
+  <xsl:apply-templates mode="cnx.intro" select="d:section"/>
 </xsl:template>
 
 <xsl:template mode="cnx.intro" match="node()"/>
@@ -597,14 +593,6 @@ procedure before
   </xsl:variable>
 
   <div class="introduction" xsl:use-attribute-sets="cnx.tilepage.graphic">
-    <div xsl:use-attribute-sets="cnx.introduction.chapter">
-      <span xsl:use-attribute-sets="cnx.introduction.chapter.number">
-        <xsl:apply-templates select=".." mode="label.markup"/>
-      </span>
-      <span xsl:use-attribute-sets="cnx.introduction.chapter.title">
-        <xsl:copy-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
-      </span>
-    </div>
 
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
