@@ -32,7 +32,7 @@
 <xsl:param name="toc.section.depth">0</xsl:param>
 
 <!-- To support international characters, add some fonts -->
-<xsl:param name="cnx.font.catchall">STIXGeneral,STIXSize,Code2000</xsl:param>
+<xsl:param name="cnx.font.catchall">STIXGeneral,STIXSize1,Code2000</xsl:param>
 <xsl:param name="body.font.family">serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 <xsl:param name="dingbat.font.family">serif,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 <xsl:param name="monospace.font.family">monospace,<xsl:value-of select="$cnx.font.catchall"/></xsl:param>
@@ -78,7 +78,7 @@
 <xsl:template match="db:token[@class='simplemath']/text()">
     <xsl:choose>
         <xsl:when test="normalize-space(.) != '' and normalize-space(.) != ' '">
-            <fo:inline font-family="STIXGeneral,STIXSize">
+            <fo:inline font-family="STIXGeneral,STIXSize1">
                 <xsl:value-of select="."/>
             </fo:inline>
         </xsl:when>
@@ -100,7 +100,7 @@
   <fo:inline font-weight="bold">
     <xsl:if test="ancestor::db:token[@class='simplemath']">
         <xsl:attribute name="font-family">
-            <xsl:text>STIXGeneral,STIXSize</xsl:text>
+            <xsl:text>STIXGeneral,STIXSize1</xsl:text>
         </xsl:attribute>
     </xsl:if>
     <xsl:if test="@dir">
@@ -127,7 +127,7 @@
   <fo:inline font-style="italic">
     <xsl:if test="ancestor::db:token[@class='simplemath']">
         <xsl:attribute name="font-family">
-            <xsl:text>STIXGeneral,STIXSize</xsl:text>
+            <xsl:text>STIXGeneral,STIXSize1</xsl:text>
         </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="anchor"/>
