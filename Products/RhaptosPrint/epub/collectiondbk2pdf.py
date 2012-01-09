@@ -16,15 +16,15 @@ import util
 
 DEBUG=False
 
-FOP_PATH = os.path.join('fop')
-BASE_PATH = os.path.join(os.getcwd())
+FOP_PATH = 'fop'
+BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
+
+XCONF_PATH = os.path.join(BASE_PATH, 'lib', 'fop.xconf')
 
 # XSL files
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 ALIGN_XSL = util.makeXsl('fo-align-math.xsl')
-XCONF_XSL = util.makeXsl('fop.xconf.template.xsl')
-XCONF_TEMPLATE = etree.parse(os.path.join(BASE_PATH, 'xsl', 'fop.xconf.template.xml'))
 #MARGINALIA_XSL = util.makeXsl('fo-marginalia.xsl')
 
 #XINCLUDE_XPATH = etree.XPath('//xi:include', namespaces=util.NAMESPACES)
@@ -95,18 +95,11 @@ def fo2pdf(fo, files, tempdir):
     f = open(fpath, 'w')
     f.write(content)
     f.close()
-  
-  # Generate a custom XCONF file that points to the STIX fonts
-  XCONF_PATH = os.path.join(tempdir, '_fop.xconf')
-
-  xconfXml = XCONF_XSL(XCONF_TEMPLATE, **({'cnx.basepath': "'%s'" % BASE_PATH}))
-  xconf = open(XCONF_PATH, 'w')
-  xconf.write(etree.tostring(xconfXml))
-  xconf.close()
-  
+    
   # Run FOP to generate an abstract tree 1st
   # strCmd = [FOP_PATH, ', '-c', XCONF_PATH, '/dev/stdin']
   strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-at', 'application/pdf', '/dev/stdout', '/dev/stdin']
+
   env = {'FOP_OPTS': '-Xmx14000M'}
 
   # run the program with subprocess and pipe the input and output to variables
@@ -175,4 +168,3 @@ def convert(dbk1, files, printStyle):
   #os.rmdir(tempdir)
   
   return pdf, stdErr
-
