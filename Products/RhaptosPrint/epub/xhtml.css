@@ -50,67 +50,48 @@ h1 {
   font-size: x-large;
 }
 /* Used for page headers */
-.cnx-chapter-number {
+/* The 1st span contains the chapter number */
+h1 span:first-child, .cnx-chapter-number {
   string-set: chapter-number content();
 }
-.cnx-chapter-title {
+/* The 2nd span contains the chapter title */
+h1 span:last-child, .cnx-chapter-title {
   string-set: header "Chapter " string(chapter-number, first) " | " content()
   text-transform: uppercase;
   color: white;
 }
 
+
+/********************** Generic Elements ********************/
+
 body {
   font-size: x-small;
   font-family: sans-serif, STIXGeneral, STIXSize1;
 }
-
-
 a {
 	color: #D89016;
 	font-weight: bold;
 	text-decoration: none;
 }
-
-/* Properties for figures */
-
-DISABLED.cnx-figure-properties {
-  display: inline;
-  float: left; /* Overridden in the next line for print */
-  float: outside;
-  width: 170pt;
-  /* margin-outside: -170pt; */
-  padding: 0.5em;
+img {
+  width: 33%;
 }
-
-DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
-  display: inline;
-  float: none;
-}
-
-DISABLED.introduction .cnx-figure-properties {
-  display: block;
-  float: none;
-  width: 100%;
-}
-
-DISABLED.cnx-figure-properties img {
-  width: 170pt;
-}
-
-.introduction .cnx-figure-properties img {
-  width: 100%;
-}
-
 
 .chapter {
   page-break-before: always;
   page-break-after: always;
 }  
 
-.toc, .introduction {
-  page-break-after: always;
+.equation {
+  page-break-inside: avoid;
+  text-align: center;
+}
+.equation .label {
+  float: right;
 }
 
+
+/**************************** Index **************************/
 
 /* Docbook generates 2 divs with class=index. Ignore the inner one */
 .index[title=Index] {
@@ -133,6 +114,28 @@ DISABLED.cnx-figure-properties img {
 }
 
 
+/********************* Glossary Section **************/
+
+.glossary dt {
+  float: left;
+  font-weight: bold;
+}
+.glossary dt::after {
+  content: ":";
+  padding-right: 0.5em;
+}
+em.glossterm {
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+/*********************** Table of Contents ********************/
+
+.toc {
+  page-break-after: always;
+}
+
 .toc a {
 	color: blue;
 	font-weight: medium;
@@ -152,15 +155,27 @@ DISABLED.cnx-figure-properties img {
   font-weight: normal;
 }
 
-/* ___ ........................ 213 */
+/* Chapter 3 : Type Systems ........................ 213 */
 .toc span:last-child a::after {
   content: leader(' . ') target-counter(attr(href), page);
 }
+
 
 /**************** Fix the PDF Outline *************/
 h1 { prince-bookmark-level: 1 }
 h2 { prince-bookmark-level: 2 }
 h3, h4, h5, h6 { prince-bookmark-level: none }
+
+
+/****************** Modern-Textbook classes ****************/
+
+.introduction {
+  page-break-after: always;
+}
+
+.introduction .cnx-figure-properties img {
+  width: 100%;
+}
 
 .cnx-eoc, .cnx-eoc-section {
   page-break-inside: avoid;
@@ -171,26 +186,16 @@ h3, h4, h5, h6 { prince-bookmark-level: none }
   page-break-before: always;
 }
 
-img {
-  width: 33%;
-}
-
 .problems-exercises img {
   width: 3in;
   height: auto;
 }
 
+/* Allow sections in the 2-column problems-exercises to break */
 .problems-exercises .cnx-eoc-section {
   page-break-inside: auto;
 }
 
-.equation {
-  page-break-inside: avoid;
-  text-align: center;
-}
-.equation .label {
-  float: right;
-}
 
 /***************************************************************
  * Clean up padding and spacing
@@ -217,18 +222,31 @@ p {
 }
       
 
-.glossary dt {
-  float: left;
-  font-weight: bold;
-}
-.glossary dt::after {
-  content: ":";
-  padding-right: 0.5em;
+
+/* Properties for figures */
+
+DISABLED.cnx-figure-properties {
+  display: inline;
+  float: left; /* Overridden in the next line for print */
+  float: outside;
+  width: 170pt;
+  /* margin-outside: -170pt; */
+  padding: 0.5em;
 }
 
-em.glossterm {
-  font-weight: bold;
-  font-style: normal;
+DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
+  display: inline;
+  float: none;
+}
+
+DISABLED.introduction .cnx-figure-properties {
+  display: block;
+  float: none;
+  width: 100%;
+}
+
+DISABLED.cnx-figure-properties img {
+  width: 170pt;
 }
 
 /* Styles from docbook attribute-sets */
