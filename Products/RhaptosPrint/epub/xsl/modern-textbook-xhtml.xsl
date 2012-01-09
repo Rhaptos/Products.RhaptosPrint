@@ -797,9 +797,25 @@ Combination of formal.object and formal.object.heading -->
 -->
     </xsl:if>
 
-    <div xsl:use-attribute-sets="cnx.figure.content">
-      <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
-    </div>
+    <xsl:choose>
+      <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
+        <div xsl:use-attribute-sets="cnx.figure.content">
+          <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <table class="cnx-figure-horizontal">
+          <tr>
+            <xsl:for-each select="$c/db:informalfigure">
+              <td>
+                <xsl:apply-templates select="."/>
+              </td>
+            </xsl:for-each>
+          </tr>
+        </table>
+        <xsl:apply-templates select="$c/*[not(self::db:informalfigure or self::db:caption)]"/>
+      </xsl:otherwise>
+    </xsl:choose>
 		<xsl:if test="$renderCaption">
 			<span xsl:use-attribute-sets="figure.title.properties">
 				<xsl:apply-templates select="$c" mode="object.title.markup">
