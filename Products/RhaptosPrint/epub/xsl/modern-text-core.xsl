@@ -1094,7 +1094,7 @@ procedure before
     <fo:table-column column-width="1in"/>
     <fo:table-body start-indent="0pt">
       <fo:table-row>
-        <fo:table-cell/>
+        <fo:table-cell><fo:block/></fo:table-cell>
         <fo:table-cell>
 
           <fo:table>
@@ -1106,7 +1106,7 @@ procedure before
           </fo:table>
 
         </fo:table-cell>
-        <fo:table-cell/>
+        <fo:table-cell><fo:block/></fo:table-cell>
       </fo:table-row>
     </fo:table-body>
   </fo:table>
