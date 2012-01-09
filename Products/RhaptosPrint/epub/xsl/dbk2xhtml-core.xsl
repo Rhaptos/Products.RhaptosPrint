@@ -616,7 +616,15 @@
     <xsl:param name="scaled.contentwidth"/> 
     <xsl:param name="viewport"/> 
  
-    <xsl:choose> 
+    <xsl:choose>
+      <!-- Use @print-width by default (@contentwidth will have units at the end, and thus not be a number -->
+      <xsl:when test="@width and string(number(@width)) = 'NaN'">
+        <xsl:attribute name="style">
+          <xsl:text>width: </xsl:text>
+          <xsl:value-of select="@width"/>
+          <xsl:text>;</xsl:text>
+        </xsl:attribute>
+      </xsl:when>
       <xsl:when test="@contentwidth or @contentdepth"> 
         <!-- ignore @width/@depth, @scale, and @scalefit if specified --> 
         <xsl:if test="@contentwidth and $scaled.contentwidth != ''"> 
