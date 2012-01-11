@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="ASCII"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:svg="http://www.w3.org/2000/svg" xmlns:db="http://docbook.org/ns/docbook" xmlns:d="http://docbook.org/ns/docbook" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ext="http://cnx.org/ns/docbook+" version="1.0">
 
 <xsl:import href="debug.xsl"/>
@@ -33,9 +33,6 @@ appendix  toc,title
 book      toc,title
 </xsl:param>
 
-<!-- To get page titles to match left/right alignment, we need to add blank pages between chapters (wi they all start on the same left/right side) -->
-<xsl:param name="double.sided" select="1"/>
-
 <xsl:param name="page.margin.top">0.25in</xsl:param>
 <xsl:param name="page.margin.bottom">0.25in</xsl:param>
 <xsl:param name="page.margin.inner">1.0in</xsl:param>
@@ -55,195 +52,6 @@ procedure before
 <xsl:param name="cnx.pagewidth.pixels" select="396"/>
 <xsl:param name="cnx.columnwidth.pixels" select="210"/> <!-- 228 -->
 <xsl:param name="cnx.image.scaling" select="0.5"/>
-
-<!-- ============================================== -->
-<!-- Customize colors and formatting                -->
-<!-- ============================================== -->
-
-<xsl:param name="cnx.font.small" select="concat($body.font.master * 0.8, 'pt')"/>
-<xsl:param name="cnx.font.large" select="concat($body.font.master * 1.2, 'pt')"/>
-<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.6, 'pt')"/>
-<xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
-<xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
-<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
-<xsl:param name="cnx.color.red">#D89016</xsl:param>
-<xsl:param name="cnx.color.green">#8FB733</xsl:param>
-<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
-<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
-<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
-
-<xsl:attribute-set name="root.properties"><xsl:attribute name="class">root-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing</xsl:attribute></xsl:attribute-set>
-
-<!-- Don't indent all the time
-<xsl:attribute-set name="normal.para.spacing">
-  <xsl:attribute name="text-indent">2em</xsl:attribute>
-</xsl:attribute-set>
--->
-
-<xsl:attribute-set name="cnx.underscore"><xsl:attribute name="class">cnx-underscore</xsl:attribute></xsl:attribute-set>
-
-<!-- End-of-chapter questions and problem numbers -->
-<xsl:attribute-set name="cnx.question"><xsl:attribute name="class">cnx-question informal-object-properties</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.question.number"><xsl:attribute name="class">cnx-question-number</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.equation"><xsl:attribute name="class">cnx-equation</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.formal.title"><xsl:attribute name="class">cnx-formal-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.formal.title.text"><xsl:attribute name="class">cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.formal.title.inner"><xsl:attribute name="class">cnx-formal-title-inner</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.vertical-spacing"><xsl:attribute name="class">cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="normal.para.spacing"><xsl:attribute name="class">normal-para-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="list.block.spacing"><xsl:attribute name="class">list-block-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="list.item.spacing"><xsl:attribute name="class">list-item-spacing cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="list.block.properties"><xsl:attribute name="class">list-block-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="example.title.properties"><xsl:attribute name="class">example-title-properties cnx-formal-title-text</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="figure.title.properties"><xsl:attribute name="class">figure-title-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="section.title.level1.properties"><xsl:attribute name="class">section-title-level1-properties</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="section.title.level2.properties"><xsl:attribute name="class">section-title-level2-properties</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="section.title.number"><xsl:attribute name="class">section-title-number section-title-level1-properties</xsl:attribute></xsl:attribute-set>
-
-<!-- prefixed w/ "cnx." so we don't inherit the background color from formal.object.properties -->
-<xsl:attribute-set name="cnx.figure.properties"><xsl:attribute name="class">cnx-figure-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.figure.content"><xsl:attribute name="class">cnx-figure-content</xsl:attribute></xsl:attribute-set>
-
-<!-- "Check for Understanding" is an exercise whose problem 
-    is a list. These should be bold or larger
--->
-<xsl:attribute-set name="cnx.exercise.listitem"><xsl:attribute name="class">cnx-exercise-listitem</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="formal.object.properties"><xsl:attribute name="class">formal-object-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<!-- In Docbook tables inherit formal.object.properties
-    This causes the background (including the title) to have a background color.
-    See "Customize Table Headings" below for more customizations
- -->
-<xsl:attribute-set name="table.properties"><xsl:attribute name="class">table-properties</xsl:attribute></xsl:attribute-set>
-
-<!-- Used to get the indent working properly -->
-<xsl:attribute-set name="cnx.formal.object.inner"><xsl:attribute name="class">cnx-formal-object-inner informal-object-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="informal.object.properties"><xsl:attribute name="class">informal-object-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="xref.properties"><xsl:attribute name="class">xref-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="admonition.title.properties"><xsl:attribute name="class">admonition-title-properties cnx-underscore</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="nongraphical.admonition.properties"><xsl:attribute name="class">nongraphical-admonition-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note"><xsl:attribute name="class">cnx-note</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.concept"><xsl:attribute name="class">cnx-note-concept cnx-note</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.concept.title"><xsl:attribute name="class">cnx-note-concept-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.tip"><xsl:attribute name="class">cnx-note-tip cnx-vertical-spacing</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.tip.body"><xsl:attribute name="class">cnx-note-tip-body cnx-note cnx-underscore</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.tip.title"><xsl:attribute name="class">cnx-note-tip-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.tip.title.inline"><xsl:attribute name="class">cnx-note-tip-title-inline</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.note.feature"><xsl:attribute name="class">cnx-note-feature</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.title"><xsl:attribute name="class">cnx-note-feature-title</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.title.inline"><xsl:attribute name="class">cnx-note-feature-title-inline</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.body"><xsl:attribute name="class">cnx-note-feature-body</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.note.feature.body.inner"><xsl:attribute name="class">cnx-note-feature-body-inner</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.chapter"><xsl:attribute name="class">cnx-introduction-chapter</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.chapter.number"><xsl:attribute name="class">cnx-chapter-number</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.chapter.title"><xsl:attribute name="class">cnx-chapter-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.title"><xsl:attribute name="class">cnx-introduction-title</xsl:attribute></xsl:attribute-set>
-<xsl:attribute-set name="cnx.introduction.title.text"><xsl:attribute name="class">cnx-introduction-title-text cnx-underscore</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc"><xsl:attribute name="class">cnx-introduction-toc</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc.number"><xsl:attribute name="class">cnx-introduction-toc-number cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.introduction.toc.title"><xsl:attribute name="class">cnx-introduction-toc-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.problems.title"><xsl:attribute name="class">cnx-problems-title cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.problems.subtitle"><xsl:attribute name="class">cnx-problems-subtitle</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.header.title"><xsl:attribute name="class">cnx-header-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.header.subtitle"><xsl:attribute name="class">cnx-header-subtitle</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.header.pagenumber"><xsl:attribute name="class">cnx-header-pagenumber</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.header.separator"><xsl:attribute name="class">cnx-header-separator</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.index.title.body"><xsl:attribute name="class">cnx-index-title-body cnx-problems-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.titlepage.title"><xsl:attribute name="class">cnx-titlepage-title</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.titlepage.authors"><xsl:attribute name="class">cnx-titlepage-authors</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="cnx.titlepage.strong"><xsl:attribute name="class">cnx-titlepage-strong</xsl:attribute></xsl:attribute-set>
-
-
-<!-- Page Headers should be marked as all-uppercase.
-     Since XSLT1.0 doesn't have fn:uppercase, we'll translate()
--->
-<xsl:variable name="cnx.smallcase" select="'abcdefghijklmnopqrstuvwxyz&#xE4;&#xEB;&#xEF;&#xF6;&#xFC;&#xE1;&#xE9;&#xED;&#xF3;&#xFA;&#xE0;&#xE8;&#xEC;&#xF2;&#xF9;&#xE2;&#xEA;&#xEE;&#xF4;&#xFB;&#xE5;&#xF8;&#xE3;&#xF5;&#xE6;&#x153;&#xE7;&#x142;&#xF1;'"/>
-<xsl:variable name="cnx.uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ&#xC4;&#xCB;&#xCF;&#xD6;&#xDC;&#xC1;&#xC9;&#xCD;&#xD3;&#xDA;&#xC0;&#xC8;&#xCC;&#xD2;&#xD9;&#xC2;&#xCA;&#xCE;&#xD4;&#xDB;&#xC5;&#xD8;&#xC3;&#xD5;&#xC6;&#x152;&#xC7;&#x141;&#xD1;'"/>
-
-<!-- ============================================== -->
-<!-- Custom page layouts for modern-textbook        -->
-<!-- ============================================== -->
-
-<!-- Generate custom page layouts for:
-     - Chapter introduction
-     - 2-column end-of-chapter problems
--->
-<xsl:param name="cnx.pagemaster.body">cnx-body</xsl:param>
-<xsl:param name="cnx.pagemaster.problems">cnx-problems-2column</xsl:param>
-<xsl:template name="user.pagemasters">
-    <!-- title pages -->
-    
-    
-    <!-- setup for body pages -->
-    
-
-
-    
-
-    
-</xsl:template>
-
-<!-- Override the default body pagemaster so we use a custom body -->
-<xsl:template name="select.user.pagemaster">
-  <xsl:param name="element"/>
-  <xsl:param name="pageclass"/>
-  <xsl:param name="default-pagemaster"/>
-  <xsl:choose>
-    <xsl:when test="$default-pagemaster = 'body'">
-      <xsl:value-of select="$cnx.pagemaster.body"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="$default-pagemaster"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
 
 <!-- ============================================== -->
 <!-- New Feature: @class='problems-exercises'  -->
@@ -325,8 +133,8 @@ procedure before
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
 		<div class="cnx-eoc {$attribute}">
-		<div xsl:use-attribute-sets="cnx.formal.title">
-			<span xsl:use-attribute-sets="example.title.properties">
+		<div class="cnx-formal-title">
+			<span class="example-title-properties cnx-formal-title-text">
 				<xsl:copy-of select="$title"/>
 			</span>
 		</div>
@@ -338,7 +146,7 @@ procedure before
 			</xsl:variable>
 			<div class="cnx-eoc-section">
         <!-- Print the section title and link back to it -->
-        <div xsl:use-attribute-sets="cnx.problems.title">
+        <div class="cnx-problems-title cnx-problems-subtitle">
           <a href="#{$sectionId}">
             <xsl:apply-templates select="." mode="object.title.markup">
               <xsl:with-param name="allow-anchors" select="0"/>
@@ -361,14 +169,14 @@ procedure before
   </xsl:variable>
   <tr>
     <td>
-      <div xsl:use-attribute-sets="cnx.introduction.toc.number">
+      <div class="cnx-introduction-toc-number cnx-introduction-toc-title">
         <a href="#{$id}">
           <xsl:apply-templates mode="label.markup" select="."/>
         </a>
       </div>
     </td>
     <td>
-      <div xsl:use-attribute-sets="cnx.introduction.toc.title">
+      <div class="cnx-introduction-toc-title">
         <xsl:apply-templates select="db:sectioninfo/db:abstract">
           <xsl:with-param name="render" select="true()"/>
         </xsl:apply-templates>
@@ -405,8 +213,8 @@ procedure before
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
 		</xsl:if>
 		<xsl:if test="not($renderSolution) or ext:solution">
-			<div id="{$id}" xsl:use-attribute-sets="cnx.question">
-				<span xsl:use-attribute-sets="cnx.question.number">
+			<div id="{$id}" class="cnx-question informal-object-properties">
+				<span class="cnx-question-number">
 					<xsl:apply-templates select="." mode="number"/>
 				</span>
 				<xsl:text> </xsl:text>
@@ -464,9 +272,9 @@ procedure before
 <xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
-  <div xsl:use-attribute-sets="cnx.formal.title">
-    <span xsl:use-attribute-sets="example.title.properties">
-      <xsl:text>    Answers    </xsl:text>
+  <div class="cnx-formal-title">
+    <span class="example-title-properties cnx-formal-title-text">
+      <xsl:text>&#160; &#160; Answers &#160; &#160;</xsl:text>
     </span>
   </div>
   
@@ -476,7 +284,7 @@ procedure before
       <xsl:call-template name="object.id"/>
     </xsl:variable>
     <!-- Print the chapter number (not title) and link back to it -->
-    <div xsl:use-attribute-sets="cnx.problems.title">
+    <div class="cnx-problems-title cnx-problems-subtitle">
       <a href="#{$chapterId}">
         <xsl:apply-templates select="." mode="object.xref.markup"/>
       </a>
@@ -487,7 +295,7 @@ procedure before
         <xsl:call-template name="object.id"/>
       </xsl:variable>
       <!-- Print the section title and link back to it -->
-      <div xsl:use-attribute-sets="cnx.problems.subtitle">
+      <div class="cnx-problems-subtitle">
         <a href="#{$sectionId}">
           <xsl:apply-templates select="." mode="object.title.markup">
             <xsl:with-param name="allow-anchors" select="0"/>
@@ -516,7 +324,7 @@ procedure before
   <xsl:variable name="cnx.title">
       <xsl:choose>
         <xsl:when test="$marker.title != ''">
-          <span xsl:use-attribute-sets="section.title.number">
+          <span class="section-title-number section-title-level1-properties">
             <xsl:value-of select="substring-before($title, $marker.title)"/>
           </span>
           <xsl:copy-of select="$marker.title"/>
@@ -552,10 +360,10 @@ procedure before
 
 <xsl:template name="chapter.titlepage">
   <h1>
-    <span xsl:use-attribute-sets="cnx.introduction.chapter.number">
+    <span class="cnx-chapter-number">
       <xsl:apply-templates select="." mode="label.markup"/>
     </span>
-    <span xsl:use-attribute-sets="cnx.introduction.chapter.title">
+    <span class="cnx-chapter-title">
       <xsl:apply-templates select="." mode="title.markup"/>
     </span>
   </h1>
@@ -570,14 +378,14 @@ procedure before
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
 
-  <div class="introduction" xsl:use-attribute-sets="cnx.tilepage.graphic">
+  <div class="">
 
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
-  <div xsl:use-attribute-sets="cnx.introduction.title">
-    <span xsl:use-attribute-sets="cnx.introduction.title.text">
+  <div class="cnx-introduction-title">
+    <span class="cnx-introduction-title-text cnx-underscore">
       <xsl:choose>
         <xsl:when test="db:title">
           <xsl:apply-templates select="db:title/node()"/>
@@ -586,7 +394,7 @@ procedure before
           <xsl:text>Introduction</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:text>     </xsl:text>
+      <xsl:text>&#160; &#160; &#160;</xsl:text>
     </span>
   </div>
   <xsl:apply-templates select="node()"/>
@@ -597,7 +405,7 @@ procedure before
 
 
 <xsl:template name="chapter.titlepage.toc">
-      <table xsl:use-attribute-sets="cnx.introduction.toc">
+      <table class="cnx-introduction-toc">
           <tr>
             <td colspan="2"><xsl:text>Key Concepts</xsl:text></td>
           </tr>
@@ -614,14 +422,14 @@ procedure before
   </xsl:variable>
   <tr>
     <td>
-      <div xsl:use-attribute-sets="cnx.introduction.toc.number">
+      <div class="cnx-introduction-toc-number cnx-introduction-toc-title">
         <a href="#{$id}">
           <xsl:apply-templates mode="label.markup" select="."/>
         </a>
       </div>
     </td>
     <td>
-      <div xsl:use-attribute-sets="cnx.introduction.toc.title">
+      <div class="cnx-introduction-toc-title">
         <a href="#{$id}">
           <xsl:apply-templates mode="title.markup" select="."/>
         </a>
@@ -707,48 +515,6 @@ procedure before
   -->
 <!-- ============================================== -->
 
-<xsl:template name="pi.dbfo_keep-together">
-  <xsl:text>always</xsl:text>
-</xsl:template>
-
-<!-- The @class may have style attributes encoded in it.
-     examples include "color='#ffffcc' background-color='#808080'"
--->
-<xsl:template match="@class|processing-instruction('cnx.style')" name="cnx.style.rec">
-  <xsl:param name="value" select="concat(normalize-space(.), ' ')"/>
-  <xsl:variable name="pair" select="substring-before($value,' ')"/>
-  <xsl:variable name="tail" select="substring-after($value,' ')"/>
-  <xsl:message>LOG: INFO: Found custom cnx.style PI </xsl:message>
-  <xsl:if test="contains($pair,'=')">
-  	<xsl:variable name="quot">
-  		<xsl:choose>
-				<xsl:when test="contains($pair,'&quot;')">"</xsl:when>
-				<xsl:otherwise>'</xsl:otherwise>
-			</xsl:choose>
-  	</xsl:variable>
-    <xsl:call-template name="cnx.style.pair">
-      <xsl:with-param name="name" select="substring-before($pair,'=')"/>
-      <xsl:with-param name="value" select="substring-before(substring-after($pair,$quot), $quot)"/>
-    </xsl:call-template>
-  </xsl:if>
-  <xsl:if test="$tail != ''">
-    <xsl:call-template name="cnx.style.rec">
-      <xsl:with-param name="value" select="$tail"/>
-    </xsl:call-template>
-  </xsl:if>    
-</xsl:template>
-
-<xsl:template name="cnx.style.pair">
-  <xsl:param name="name"/>
-  <xsl:param name="value"/>
-	<!-- TODO: Customize attribute names that are different between HTML and XSL-FO -->
-  <xsl:variable name="attrName" select="$name"/>
-  <xsl:message>LOG: INFO: Setting cnx.class.style <xsl:value-of select="$attrName"/> = <xsl:value-of select="$value"/> on <xsl:value-of select="name(..)"/></xsl:message>
-  <xsl:attribute name="{$attrName}">
-    <xsl:value-of select="$value"/>
-  </xsl:attribute>
-</xsl:template>
-
 <!-- Handle figures differently.
 Combination of formal.object and formal.object.heading -->
 <xsl:template match="d:figure" name="cnx.figure">
@@ -760,24 +526,11 @@ Combination of formal.object and formal.object.heading -->
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:variable name="keep.together">
-    <xsl:call-template name="pi.dbfo_keep-together"/>
-  </xsl:variable>
-
-  <div id="{$id}" xsl:use-attribute-sets="cnx.figure.properties">
+  <div id="{$id}" class="cnx-figure-properties">
     <xsl:apply-templates select="$c/@class"/>
-    <xsl:if test="$keep.together != ''">
-      <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-      <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-      <xsl:attribute name="keep-together"><xsl:value-of
-                      select="$keep.together"/></xsl:attribute>
--->
-    </xsl:if>
-
     <xsl:choose>
       <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
-        <div xsl:use-attribute-sets="cnx.figure.content">
+        <div class="cnx-figure-content">
           <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
         </div>
       </xsl:when>
@@ -795,7 +548,7 @@ Combination of formal.object and formal.object.heading -->
       </xsl:otherwise>
     </xsl:choose>
 		<xsl:if test="$renderCaption">
-			<span xsl:use-attribute-sets="figure.title.properties">
+			<span class="figure-title-properties cnx-vertical-spacing">
 				<xsl:apply-templates select="$c" mode="object.title.markup">
 					<xsl:with-param name="allow-anchors" select="1"/>
 				</xsl:apply-templates>
@@ -829,25 +582,16 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:variable name="keep.together">
-    <xsl:call-template name="pi.dbfo_keep-together"/>
-  </xsl:variable>
-
   <xsl:choose>
     <xsl:when test="self::d:table">
-      <div id="{$id}" xsl:use-attribute-sets="table.properties">
-        <xsl:if test="$keep.together != ''">
-          <xsl:attribute name="keep-together.within-column">
-            <xsl:value-of select="$keep.together"/>
-          </xsl:attribute>
-        </xsl:if>
+      <div id="{$id}" class="table-properties">
         <xsl:if test="$placement = 'before'">
           <xsl:call-template name="formal.object.heading">
             <xsl:with-param name="placement" select="$placement"/>
           </xsl:call-template>
         </xsl:if>
 <!-- CNX Hack -->
-<div xsl:use-attribute-sets="formal.object.properties">
+<div class="formal-object-properties cnx-vertical-spacing">
         <xsl:copy-of select="$table.layout"/>
         <xsl:call-template name="table.footnote.block"/>
 </div>
@@ -859,7 +603,7 @@ Combination of formal.object and formal.object.heading -->
       </div>
     </xsl:when>
     <xsl:otherwise>
-      <div id="{$id}" xsl:use-attribute-sets="informaltable.properties">
+      <div id="{$id}" class="">
         <xsl:copy-of select="$table.layout"/>
         <xsl:call-template name="table.footnote.block"/>
       </div>
@@ -888,7 +632,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   </xsl:variable>
 
-  <div xsl:use-attribute-sets="cnx.formal.title.inner">
+  <div class="cnx-formal-title-inner">
     <xsl:copy-of select="$content"/>
   </div>
 </xsl:template>
@@ -904,15 +648,15 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
 
   <!-- CNX: added special case for examples and notes -->
-  <div xsl:use-attribute-sets="cnx.formal.title">
+  <div class="cnx-formal-title">
     <xsl:choose>
       <xsl:when test="self::db:example">
-        <span xsl:use-attribute-sets="example.title.properties">
+        <span class="example-title-properties cnx-formal-title-text">
           <xsl:copy-of select="$content"/>
         </span>
       </xsl:when>
       <xsl:otherwise>
-        <span xsl:use-attribute-sets="cnx.formal.title.text">
+        <span class="cnx-formal-title-text">
           <xsl:copy-of select="$content"/>
         </span>
       </xsl:otherwise>
@@ -927,23 +671,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <xsl:variable name="keep.together">
-    <xsl:choose>
-      <xsl:when test="self::ext:exercise">
-        <xsl:text>3</xsl:text>
-      </xsl:when>
-      <xsl:when test="self::ext:problem | self::ext:solution">
-        <xsl:text>4</xsl:text>
-      </xsl:when>
-      <xsl:when test="self::ext:*">
-        <xsl:text>2</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:text>1</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <div class="cnx-formal-object">
 
     <xsl:apply-templates mode="formal.object.heading" select=".">
@@ -951,7 +678,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   
     <xsl:variable name="content">
-      <div xsl:use-attribute-sets="cnx.formal.object.inner">
+      <div class="cnx-formal-object-inner informal-object-properties">
         <xsl:apply-templates select="*[not(self::d:caption)]"/>
         <xsl:apply-templates select="d:caption"/>
       </div>
@@ -961,88 +688,55 @@ Combination of formal.object and formal.object.heading -->
       <!-- tables have their own templates and
            are not handled by formal.object -->
       <xsl:when test="self::d:example">
-        <div id="{$id}" xsl:use-attribute-sets="example.properties">
-          <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-            <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-            <xsl:attribute name="keep-together"><xsl:value-of
-                            select="$keep.together"/></xsl:attribute>
--->
-          </xsl:if>
+        <div id="{$id}" class="">
           <xsl:copy-of select="$content"/>
         </div>
       </xsl:when>
       <xsl:when test="self::d:equation">
-        <div id="{$id}" xsl:use-attribute-sets="cnx.equation">
-          <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-            <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-            <xsl:attribute name="keep-together"><xsl:value-of
-                            select="$keep.together"/></xsl:attribute>
--->
-          </xsl:if>
+        <div id="{$id}" class="cnx-equation">
           <xsl:copy-of select="$content"/>
         </div>
       </xsl:when>
       <xsl:when test="self::d:procedure">
-        <div id="{$id}" xsl:use-attribute-sets="procedure.properties">
-          <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-            <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-            <xsl:attribute name="keep-together"><xsl:value-of
-                            select="$keep.together"/></xsl:attribute>
--->
-          </xsl:if>
+        <div id="{$id}" class="cnx-procedure">
           <xsl:copy-of select="$content"/>
         </div>
       </xsl:when>
       <xsl:otherwise>
-        <div id="{$id}" xsl:use-attribute-sets="formal.object.properties">
-          <xsl:if test="$keep.together != ''">
-            <xsl:attribute name="keep-together.within-column"><xsl:value-of select="$keep.together"/></xsl:attribute>
-            <xsl:attribute name="keep-together.within-page"><xsl:value-of select="$keep.together"/></xsl:attribute>
-<!--
-            <xsl:attribute name="keep-together"><xsl:value-of
-                            select="$keep.together"/></xsl:attribute>
--->
-          </xsl:if>
+        <div id="{$id}" class="formal-object-properties">
           <xsl:copy-of select="$content"/>
         </div>
       </xsl:otherwise>
     </xsl:choose>
   </div>
-
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">
-  <div xsl:use-attribute-sets="cnx.figure.caption">
+  <div class="">
     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:note">
-  <div xsl:use-attribute-sets="cnx.note">
+  <div class="cnx-note">
     <xsl:apply-templates select="@class"/>
     <xsl:apply-imports/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:note[@type='tip']|db:tip">
-  <div xsl:use-attribute-sets="cnx.note.tip">
+  <div class="cnx-note-tip cnx-vertical-spacing">
     <xsl:apply-templates select="@class"/>
-    <div xsl:use-attribute-sets="cnx.note.tip.title">
-      <span xsl:use-attribute-sets="cnx.note.tip.title.inline">
+    <div class="cnx-note-tip-title">
+      <span class="cnx-note-tip-title-inline">
         <!-- FOP doesn't support @padding-end for fo:inline elements -->
-        <xsl:text> </xsl:text>
+        <xsl:text>&#160;</xsl:text>
         <xsl:apply-templates select="db:title/node()|db:label/node()"/>
         <!-- FOP doesn't support @padding-end for fo:inline elements -->
-        <xsl:text> </xsl:text>
+        <xsl:text>&#160;</xsl:text>
       </span>
     </div>
-    <div xsl:use-attribute-sets="cnx.note.tip.body">
+    <div class="cnx-note-tip-body cnx-note cnx-underscore">
       <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>
     </div>
   </div>
@@ -1050,12 +744,12 @@ Combination of formal.object and formal.object.heading -->
 
 <!-- "feature" notes contain an image in the title. Handle them specially -->
 <xsl:template match="db:note[db:title/db:mediaobject]">
-  <div xsl:use-attribute-sets="cnx.note.feature">
+  <div class="cnx-note-feature">
     <xsl:apply-templates select="@class"/>
     <xsl:apply-templates select="db:title/node()|db:label/node()"/>
-    <div xsl:use-attribute-sets="cnx.note.feature.body">
+    <div class="cnx-note-feature-body">
     	<xsl:apply-templates select="processing-instruction('cnx.style')"/>
-			<div xsl:use-attribute-sets="cnx.note.feature.body.inner">
+			<div class="cnx-note-feature-body-inner">
 				<xsl:apply-templates select="node()[not(self::db:title or self::db:label or processing-instruction('cnx.style'))]"/>
 			</div>
     </div>
@@ -1068,7 +762,7 @@ Combination of formal.object and formal.object.heading -->
      see <xsl:template match="d:orderedlist/d:listitem">
  -->
 <xsl:template match="ext:exercise[not(ancestor-or-self::*[contains(@class,'problems-exercises')])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
-  <div xsl:use-attribute-sets="cnx.exercise.listitem">
+  <div class="cnx-exercise-listitem">
     <xsl:apply-imports/>
   </div>
 </xsl:template>
@@ -1078,8 +772,8 @@ Combination of formal.object and formal.object.heading -->
 <!-- ============================================== -->
 
 <xsl:template name="index.titlepage">
-  <div xsl:use-attribute-sets="cnx.formal.title">
-        <span xsl:use-attribute-sets="example.title.properties">
+  <div class="cnx-formal-title">
+        <span class="example-title-properties cnx-formal-title-text">
           <xsl:apply-templates select="." mode="title.markup"/>
         </span>
   </div>
@@ -1120,7 +814,7 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="." mode="label.markup"/>  
   </xsl:variable>
 
-  <div xsl:use-attribute-sets="toc.line.properties">  
+  <div class="toc-line-properties">  
     <span keep-with-next.within-line="always">
       
       <a href="#{$id}">  
