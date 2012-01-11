@@ -1314,9 +1314,30 @@ Combination of formal.object and formal.object.heading -->
 -->
     </xsl:if>
 
-    <fo:block xsl:use-attribute-sets="cnx.figure.content">
-      <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
-    </fo:block>
+    <xsl:choose>
+      <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
+        <fo:block xsl:use-attribute-sets="cnx.figure.content">
+          <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:table table-layout="fixed" width="100%" xsl:use-attribute-sets="cnx.figure.horizontal">
+          <xsl:for-each select="$c/db:informalfigure">
+            <fo:table-column/>
+          </xsl:for-each>
+          <fo:table-body>
+            <fo:table-row xsl:use-attribute-sets="cnx.figure.rorizontal.row">
+              <xsl:for-each select="$c/db:informalfigure">
+                <fo:table-cell xsl:use-attribute-sets="cnx.figure.rorizontal.cell">
+                  <xsl:apply-templates select="."/>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
+        <xsl:apply-templates select="$c/*[not(self::db:informalfigure or self::db:caption)]"/>
+      </xsl:otherwise>
+    </xsl:choose>
 		<xsl:if test="$renderCaption">
 			<fo:inline xsl:use-attribute-sets="figure.title.properties">
 				<xsl:apply-templates select="$c" mode="object.title.markup">
@@ -1691,7 +1712,7 @@ Combination of formal.object and formal.object.heading -->
 <xsl:template match="db:section[@class]">
   <xsl:variable name="class" select="@class"/>
   <xsl:choose>
-    <xsl:when test="not(ancestor::db:chapter[.//processing-instruction('cnx.eoc')[contains(., $class)]])">
+    <xsl:when test="not(ancestor::db:chapter[.//processing-instruction('cnx.eoc')[contains(., $class)]] or contains(@class,'problems-exercises'))">
       <xsl:message>LOG: DEBUG: Rendering a section with class=<xsl:value-of select="@class"/></xsl:message>
       <xsl:apply-imports/>
     </xsl:when>

@@ -515,11 +515,9 @@
 	<xsl:if test="@type">
 		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
 	</xsl:if>
-	<!-- Add a db:anchor in case anyone links to the subfigure -->
-	<db:anchor>
+  <db:informalfigure>
 		<xsl:apply-templates select="@*"/>
-	</db:anchor>
-	<xsl:apply-templates select="node()"/>
+    	<xsl:apply-templates select="node()"/>
         <xsl:if test="not(c:caption)">
                 <db:caption>
                         <db:emphasis role="bold">
@@ -527,6 +525,7 @@
                         </db:emphasis>
                 </db:caption>
         </xsl:if>
+  </db:informalfigure>
 </xsl:template>
 
 <xsl:template match="c:figure">
