@@ -2172,4 +2172,15 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 
+<!-- Format the glossary title like exercise/example -->
+<xsl:template name="glossary.titlepage">
+		<fo:block xsl:use-attribute-sets="cnx.formal.title">
+			<fo:inline xsl:use-attribute-sets="example.title.properties">
+				<xsl:text>&#160; &#160; </xsl:text>
+				<xsl:text>Glossary</xsl:text>
+				<xsl:text> &#160; &#160;</xsl:text>
+			</fo:inline>
+		</fo:block>
+</xsl:template>
+
 </xsl:stylesheet>
