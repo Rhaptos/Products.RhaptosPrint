@@ -238,7 +238,7 @@ procedure before
   <xsl:attribute name="keep-together.within-column">2</xsl:attribute>
   <xsl:attribute name="keep-together.within-page">2</xsl:attribute>
   <!-- <xsl:attribute name="keep-together">always</xsl:attribute> -->
-  <xsl:attribute name="font-size">8pt</xsl:attribute>
+  <xsl:attribute name="font-size"><xsl:value-of select="$cnx.font.small"/></xsl:attribute>
   <xsl:attribute name="padding-after">0.5em</xsl:attribute>
 </xsl:attribute-set>
 
