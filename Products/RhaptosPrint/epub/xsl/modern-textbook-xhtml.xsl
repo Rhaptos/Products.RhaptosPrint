@@ -306,21 +306,11 @@ procedure before
 <xsl:template name="cnx.problemspage">
   <!-- Create a 2column page for problems. Insert the section number and title before each problem set -->
   <xsl:if test="count(.//*[contains(@class,'problems-exercises')]) &gt; 0">
-    <xsl:call-template name="page.sequence">
-      <xsl:with-param name="master-reference">
-        <xsl:value-of select="$cnx.pagemaster.problems"/>
+    <xsl:call-template name="cnx.end-of-chapter-problems">
+      <xsl:with-param name="title">
+        <xsl:text>Problems</xsl:text>
       </xsl:with-param>
-      <xsl:with-param name="initial-page-number">auto</xsl:with-param>
-      <xsl:with-param name="content">
-
-				<xsl:call-template name="cnx.end-of-chapter-problems">
-					<xsl:with-param name="title">
-						<xsl:text>Problems</xsl:text>
-					</xsl:with-param>
-					<xsl:with-param name="attribute" select="'problems-exercises'"/>
-				</xsl:call-template>
-
-      </xsl:with-param>
+      <xsl:with-param name="attribute" select="'problems-exercises'"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
@@ -474,55 +464,43 @@ procedure before
 <xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
-  <xsl:call-template name="page.sequence">
-    <xsl:with-param name="master-reference">
-      <xsl:value-of select="$cnx.pagemaster.problems"/>
-    </xsl:with-param>
-    <xsl:with-param name="initial-page-number">auto</xsl:with-param>
-    <xsl:with-param name="content">
+  <div xsl:use-attribute-sets="cnx.formal.title">
+    <span xsl:use-attribute-sets="example.title.properties">
+      <xsl:text>    Answers    </xsl:text>
+    </span>
+  </div>
   
-      <a name=""/>
-    
-      <div xsl:use-attribute-sets="cnx.formal.title">
-        <span xsl:use-attribute-sets="example.title.properties">
-          <xsl:text>    Answers    </xsl:text>
-        </span>
-      </div>
-      
-      <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
-  
-        <xsl:variable name="chapterId">
-          <xsl:call-template name="object.id"/>
-        </xsl:variable>
-        <!-- Print the chapter number (not title) and link back to it -->
-        <div xsl:use-attribute-sets="cnx.problems.title">
-          <a href="#{$chapterId}">
-            <xsl:apply-templates select="." mode="object.xref.markup"/>
-          </a>
-        </div>
+  <xsl:for-each select="../*[self::db:preface | self::db:chapter | self::db:appendix][.//*[contains(@class,'problems-exercises') and .//ext:solution]]">
 
-        <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
-          <xsl:variable name="sectionId">
-            <xsl:call-template name="object.id"/>
-          </xsl:variable>
-          <!-- Print the section title and link back to it -->
-          <div xsl:use-attribute-sets="cnx.problems.subtitle">
-            <a href="#{$sectionId}">
-              <xsl:apply-templates select="." mode="object.title.markup">
-                <xsl:with-param name="allow-anchors" select="0"/>
-              </xsl:apply-templates>
-            </a>
-          </div>
-          <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
-            <xsl:with-param name="render" select="true()"/>
-            <xsl:with-param name="renderSolution" select="true()"/>
+    <xsl:variable name="chapterId">
+      <xsl:call-template name="object.id"/>
+    </xsl:variable>
+    <!-- Print the chapter number (not title) and link back to it -->
+    <div xsl:use-attribute-sets="cnx.problems.title">
+      <a href="#{$chapterId}">
+        <xsl:apply-templates select="." mode="object.xref.markup"/>
+      </a>
+    </div>
+
+    <xsl:for-each select="db:section[.//*[contains(@class,'problems-exercises')]]">
+      <xsl:variable name="sectionId">
+        <xsl:call-template name="object.id"/>
+      </xsl:variable>
+      <!-- Print the section title and link back to it -->
+      <div xsl:use-attribute-sets="cnx.problems.subtitle">
+        <a href="#{$sectionId}">
+          <xsl:apply-templates select="." mode="object.title.markup">
+            <xsl:with-param name="allow-anchors" select="0"/>
           </xsl:apply-templates>
-        </xsl:for-each>
+        </a>
+      </div>
+      <xsl:apply-templates select=".//*[contains(@class,'problems-exercises')]">
+        <xsl:with-param name="render" select="true()"/>
+        <xsl:with-param name="renderSolution" select="true()"/>
+      </xsl:apply-templates>
+    </xsl:for-each>
 
-      </xsl:for-each>
-  
-    </xsl:with-param>
-  </xsl:call-template>
+  </xsl:for-each>
 </xsl:template>
 
 <!-- ============================================== -->
@@ -1113,7 +1091,7 @@ Combination of formal.object and formal.object.heading -->
 
 <xsl:attribute-set name="toc.line.properties"><xsl:attribute name="class">toc-line-properties</xsl:attribute></xsl:attribute-set>
 
-<xsl:attribute-set name="table.of.contents.titlepage.recto.style"><xsl:attribute name="class">table-of-contents-titlepage-recto-style, cnx-underscore</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="table.of.contents.titlepage.recto.style"><xsl:attribute name="class">cnx-underscore</xsl:attribute></xsl:attribute-set>
 
 <!-- Don't include the introduction section in the TOC -->
 <xsl:template match="db:section[contains(@class,'introduction')]" mode="toc"/>
@@ -1167,119 +1145,5 @@ Combination of formal.object and formal.object.heading -->
     </span>
   </div>
 </xsl:template>
-
-<!-- ============================================== -->
-<!-- Customize page headers                         -->
-<!-- ============================================== -->
-
-<!-- Custom page header -->
-<xsl:template name="header.content">
-  <xsl:param name="pageclass" select="''"/>
-  <xsl:param name="sequence" select="''"/>
-  <xsl:param name="position" select="''"/>
-  <xsl:param name="gentext-key" select="''"/>
-
-  <xsl:variable name="context" select="ancestor-or-self::*[self::db:preface | self::db:chapter | self::db:appendix | self::ext:cnx-solutions-placeholder]"/>
-
-  <xsl:variable name="subtitle">
-    <!-- Don't render the section name.
-      <xsl:choose>
-        <xsl:when test="ancestor::d:book and ($double.sided != 0)">
-          <fo:retrieve-marker retrieve-class-name="section.head.marker"
-                              retrieve-position="first-including-carryover"
-                              retrieve-boundary="page-sequence"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="." mode="titleabbrev.markup"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    -->
-    <xsl:apply-templates select="$context" mode="title.markup"/>
-  </xsl:variable>
-  
-  <xsl:variable name="title">
-    <!-- Convert titles to uppercase -->
-    <xsl:variable name="title">
-      <xsl:apply-templates select="$context" mode="object.xref.markup"/>
-    </xsl:variable>
-    <span xsl:use-attribute-sets="cnx.header.title">
-      <xsl:value-of select="translate($title, $cnx.smallcase, $cnx.uppercase)"/>
-    </span>
-    
-    <!-- Add a separator and convert subtitle to uppercase -->
-    <xsl:if test="$subtitle != '' and $subtitle != $title">
-      <span xsl:use-attribute-sets="cnx.header.separator">
-        <xsl:text> | </xsl:text>
-      </span>
-      <span xsl:use-attribute-sets="cnx.header.subtitle">
-        <xsl:value-of select="translate($subtitle, $cnx.smallcase, $cnx.uppercase)"/>
-      </span>
-    </xsl:if>
-  </xsl:variable>
-
-  <div>
-    <!-- pageclass can be front, body, back -->
-    <!-- sequence can be odd, even, first, blank -->
-    <!-- position can be left, center, right -->
-    <xsl:choose>
-      <xsl:when test="$pageclass = 'titlepage'">
-        <!-- nop; no footer on title pages -->
-      </xsl:when>
-
-      <xsl:when test="$double.sided != 0 and $sequence = 'even'                       and $position='left'">
-        <span xsl:use-attribute-sets="cnx.header.pagenumber">
-          PGNUM
-        </span>
-        <xsl:text>     </xsl:text>
-        <xsl:copy-of select="$title"/>
-      </xsl:when>
-
-      <xsl:when test="$double.sided != 0 and ($sequence = 'odd' or $sequence = 'first')                       and $position='right'">
-        <xsl:copy-of select="$title"/>
-        <xsl:text>     </xsl:text>
-        <span xsl:use-attribute-sets="cnx.header.pagenumber">
-          PGNUM
-        </span>
-      </xsl:when>
-
-      <xsl:when test="$double.sided = 0 and $position='center'">
-        PGNUM
-      </xsl:when>
-
-      <xsl:when test="$sequence='blank'">
-        <xsl:choose>
-          <xsl:when test="$double.sided != 0 and $position = 'left'">
-            <span xsl:use-attribute-sets="cnx.header.pagenumber">
-              PGNUM
-            </span>
-          </xsl:when>
-          <xsl:when test="$double.sided = 0 and $position = 'center'">
-            <span xsl:use-attribute-sets="cnx.header.pagenumber">
-              PGNUM
-            </span>
-          </xsl:when>
-          <xsl:otherwise>
-            <!-- nop -->
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:when>
-
-      <xsl:otherwise>
-        <!-- nop -->
-      </xsl:otherwise>
-    </xsl:choose>
-  </div>
-</xsl:template>
-
-
-
-<xsl:template name="select.pagemaster">
-  <xsl:text>body</xsl:text>
-</xsl:template>
-<xsl:template name="page.sequence">
-  <xsl:param name="content"/>
-  <xsl:copy-of select="$content"/>
-</xsl:template>
-
 
 </xsl:stylesheet>
