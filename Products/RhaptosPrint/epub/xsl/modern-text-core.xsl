@@ -527,7 +527,20 @@ procedure before
 <xsl:param name="cnx.pagemaster.problems">cnx-problems-2column</xsl:param>
 <xsl:template name="user.pagemasters">
     <!-- title pages -->
-    <fo:simple-page-master master-name="{$cnx.pagemaster.problems}"
+    <!-- Problems-exercises -->
+    <!-- To get page numbers to alternate between top-left and top-right need to use a page-sequnce-master instead a simple-page-master -->
+    
+    <fo:page-sequence-master master-name="{$cnx.pagemaster.problems}">
+      <fo:repeatable-page-master-alternatives>
+        <fo:conditional-page-master-reference master-reference="{$cnx.pagemaster.problems}-page"
+                                              odd-or-even="odd"/>
+        <fo:conditional-page-master-reference master-reference="{$cnx.pagemaster.problems}-even"
+                                              odd-or-even="even"/>
+        <fo:conditional-page-master-reference master-reference="{$cnx.pagemaster.problems}-page"
+                                              odd-or-even="blank"/>
+      </fo:repeatable-page-master-alternatives>
+    </fo:page-sequence-master>
+    <fo:simple-page-master master-name="{$cnx.pagemaster.problems}-page"
                            page-width="{$page.width}"
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
@@ -543,10 +556,33 @@ procedure before
                       column-gap="{$column.gap.titlepage}"
                       column-count="2">
       </fo:region-body>
-      <fo:region-before region-name="xsl-region-before-first"
+      <fo:region-before region-name="xsl-region-before-odd"
                         extent="{$region.before.extent}"
                         display-align="before"/>
-      <fo:region-after region-name="xsl-region-after-first"
+      <fo:region-after region-name="xsl-region-after-odd"
+                       extent="{$region.after.extent}"
+                        display-align="after"/>
+    </fo:simple-page-master>
+    <fo:simple-page-master master-name="{$cnx.pagemaster.problems}-even"
+                           page-width="{$page.width}"
+                           page-height="{$page.height}"
+                           margin-top="{$page.margin.top}"
+                           margin-bottom="{$page.margin.bottom}">
+      <xsl:attribute name="margin-{$direction.align.start}">
+        <xsl:value-of select="$cnx.margin.problems"/>
+      </xsl:attribute>
+      <xsl:attribute name="margin-{$direction.align.end}">
+        <xsl:value-of select="$cnx.margin.problems"/>
+      </xsl:attribute>
+      <fo:region-body margin-bottom="{$body.margin.bottom}"
+                      margin-top="{$body.margin.top}"
+                      column-gap="{$column.gap.titlepage}"
+                      column-count="2">
+      </fo:region-body>
+      <fo:region-before region-name="xsl-region-before-even"
+                        extent="{$region.before.extent}"
+                        display-align="before"/>
+      <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                         display-align="after"/>
     </fo:simple-page-master>
