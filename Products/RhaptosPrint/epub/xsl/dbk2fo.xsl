@@ -236,6 +236,10 @@
             <xsl:call-template name="person.name.list">
                 <xsl:with-param name="person.list" select="$moduleAuthors"/>
             </xsl:call-template>
+            <!-- Module preview doesn't have authors so use a dummy -->
+            <xsl:if test="count($moduleAuthors) = 0">
+              <xsl:text>[Author Placeholder]</xsl:text>
+            </xsl:if>
         </fo:inline>
     </fo:block>
     <!-- Only for modules -->
@@ -333,7 +337,12 @@
             </xsl:choose>
             
             <!-- FIXME: Should read "August 10, 2009".  But for now, leaving as "2009/08/10" and chopping off the rest of the time/timezone stuff. -->
-            <xsl:value-of select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
+            <xsl:variable name="pubdate" select="substring-before(normalize-space(db:bookinfo/db:pubdate/text()),' ')"/>
+            <xsl:value-of select="$pubdate"/>
+            <!-- Module preview doesn't have a pubdate so don't include it -->
+            <xsl:if test="$pubdate = ''">
+              <xsl:text>[Today]</xsl:text>
+            </xsl:if>
         </fo:block>
         <xsl:if test="not(@ext:element='module')">
 	        <fo:block xsl:use-attribute-sets="cnx.titlepage.authors" id="copyright_attribution">
