@@ -743,5 +743,14 @@
     </div>
   </xsl:template>
 
+  <!-- xrefs to a subfigure just render "informalfigure" but should render as "Figure 1.12 c" -->
+  <xsl:template match="db:figure/db:informalfigure" mode="xref-to">
+    <xsl:param name="referrer"/>
+    <xsl:param name="xrefstyle"/>
+
+    <xsl:apply-templates mode="xref-to" select=".."/>
+    <xsl:number count="db:informalfigure" value="position()" format="a"/>
+  </xsl:template>
+
 </xsl:stylesheet>
 
