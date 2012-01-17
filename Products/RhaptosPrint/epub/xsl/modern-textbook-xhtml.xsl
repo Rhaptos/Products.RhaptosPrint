@@ -11,16 +11,12 @@
 <!-- Customize docbook params for this style        -->
 <!-- ============================================== -->
 
-<xsl:param name="cnx.font.catchall">sans-serif,STIXGeneral,STIXSize</xsl:param>
-
 <!-- Number the sections 1 level deep. See http://docbook.sourceforge.net/release/xsl/current/doc/html/ -->
 <xsl:param name="section.autolabel" select="1"/>
 <xsl:param name="section.autolabel.max.depth">1</xsl:param>
 
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
 <xsl:param name="toc.section.depth">1</xsl:param>
-
-<xsl:param name="body.font.family"><xsl:value-of select="$cnx.font.catchall"/></xsl:param>
 
 <xsl:param name="body.font.master">8.5</xsl:param>
 <xsl:param name="body.start.indent">0px</xsl:param>
@@ -33,12 +29,6 @@ appendix  toc,title
 book      toc,title
 </xsl:param>
 
-<xsl:param name="page.margin.top">0.25in</xsl:param>
-<xsl:param name="page.margin.bottom">0.25in</xsl:param>
-<xsl:param name="page.margin.inner">1.0in</xsl:param>
-<xsl:param name="page.margin.outer">1.0in</xsl:param>
-<xsl:param name="cnx.margin.problems">1in</xsl:param>
-
 <xsl:param name="formal.title.placement">
 figure after
 example before
@@ -46,12 +36,6 @@ equation before
 table before
 procedure before
 </xsl:param>
-
-<!--<xsl:param name="xref.with.number.and.title" select="0"/>-->
-
-<xsl:param name="cnx.pagewidth.pixels" select="396"/>
-<xsl:param name="cnx.columnwidth.pixels" select="210"/> <!-- 228 -->
-<xsl:param name="cnx.image.scaling" select="0.5"/>
 
 <!-- ============================================== -->
 <!-- New Feature: @class='problems-exercises'  -->
@@ -324,7 +308,7 @@ procedure before
   <xsl:variable name="cnx.title">
       <xsl:choose>
         <xsl:when test="$marker.title != ''">
-          <span class="section-title-number section-title-level1-properties">
+          <span class="section-title-number">
             <xsl:value-of select="substring-before($title, $marker.title)"/>
           </span>
           <xsl:copy-of select="$marker.title"/>
@@ -378,7 +362,7 @@ procedure before
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
 
-  <div class="">
+  <div class="introduction">
 
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
@@ -527,7 +511,6 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
 
   <div id="{$id}" class="cnx-figure-properties">
-    <xsl:apply-templates select="$c/@class"/>
     <xsl:choose>
       <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
         <div class="cnx-figure-content">
@@ -548,7 +531,7 @@ Combination of formal.object and formal.object.heading -->
       </xsl:otherwise>
     </xsl:choose>
 		<xsl:if test="$renderCaption">
-			<span class="figure-title-properties cnx-vertical-spacing">
+			<span class="figure-title-properties">
 				<xsl:apply-templates select="$c" mode="object.title.markup">
 					<xsl:with-param name="allow-anchors" select="1"/>
 				</xsl:apply-templates>
@@ -557,60 +540,6 @@ Combination of formal.object and formal.object.heading -->
 		</xsl:if>
   </div>
 </xsl:template>
-
-<!-- "Customize Table Headings"
-    Taken from docbook-xsl/fo/tables.xsl with modifications marked with "CNX"
- -->
-<xsl:template name="table.block">
-  <xsl:param name="table.layout" select="NOTANODE"/>
-
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-  </xsl:variable>
-
-  <xsl:variable name="param.placement" select="substring-after(normalize-space(                    $formal.title.placement), concat(local-name(.), ' '))"/>
-
-  <xsl:variable name="placement">
-    <xsl:choose>
-      <xsl:when test="contains($param.placement, ' ')">
-        <xsl:value-of select="substring-before($param.placement, ' ')"/>
-      </xsl:when>
-      <xsl:when test="$param.placement = ''">before</xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$param.placement"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:choose>
-    <xsl:when test="self::d:table">
-      <div id="{$id}" class="table-properties">
-        <xsl:if test="$placement = 'before'">
-          <xsl:call-template name="formal.object.heading">
-            <xsl:with-param name="placement" select="$placement"/>
-          </xsl:call-template>
-        </xsl:if>
-<!-- CNX Hack -->
-<div class="formal-object-properties cnx-vertical-spacing">
-        <xsl:copy-of select="$table.layout"/>
-        <xsl:call-template name="table.footnote.block"/>
-</div>
-        <xsl:if test="$placement != 'before'">
-          <xsl:call-template name="formal.object.heading">
-            <xsl:with-param name="placement" select="$placement"/>
-          </xsl:call-template>
-        </xsl:if>
-      </div>
-    </xsl:when>
-    <xsl:otherwise>
-      <div id="{$id}" class="">
-        <xsl:copy-of select="$table.layout"/>
-        <xsl:call-template name="table.footnote.block"/>
-      </div>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
 
 
 <!-- A block-level element inside another block-level element should use the inner formatting -->
@@ -688,7 +617,7 @@ Combination of formal.object and formal.object.heading -->
       <!-- tables have their own templates and
            are not handled by formal.object -->
       <xsl:when test="self::d:example">
-        <div id="{$id}" class="">
+        <div id="{$id}" class="cnx-example">
           <xsl:copy-of select="$content"/>
         </div>
       </xsl:when>
@@ -712,7 +641,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">
-  <div class="">
+  <div class="caption">
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -725,7 +654,7 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template match="db:note[@type='tip']|db:tip">
-  <div class="cnx-note-tip cnx-vertical-spacing">
+  <div class="cnx-note-tip">
     <xsl:apply-templates select="@class"/>
     <div class="cnx-note-tip-title">
       <span class="cnx-note-tip-title-inline">
