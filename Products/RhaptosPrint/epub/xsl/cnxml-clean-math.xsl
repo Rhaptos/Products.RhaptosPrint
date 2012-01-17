@@ -203,4 +203,79 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 	<mml:mi>-</mml:mi>
 </xsl:template>
 
+
+<!-- @fontstyle and @fontweight are deprecated in MathML 2 in favor of @mathvariant -->
+<xsl:template match="@fontstyle[not(../@fontweight)]|@fontweight">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Upgrading MathML1 @fontstyle or @fontweight to MathML2 @mathvariant="<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
+  <xsl:attribute name="mathvariant">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- Match when there is a @fontstyle and @fontweight -->
+<xsl:template match="@fontweight[../@fontstyle]">
+  <xsl:variable name="variant">
+    <xsl:call-template name="cnx.mathvariant">
+      <xsl:with-param name="weight" select="."/>
+      <xsl:with-param name="style" select="../@fontstyle"/>
+    </xsl:call-template>
+  </xsl:variable>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Upgrading MathML1 @fontstyle AND @fontweight to MathML2 @mathvariant="<xsl:value-of select="$variant"/>"</xsl:with-param></xsl:call-template>
+  <xsl:attribute name="mathvariant">
+    <xsl:value-of select="$variant"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="cnx.mathvariant">
+  <xsl:param name="weight"/>
+  <xsl:param name="style"/>
+  <!-- weight/style could be empty; if so make them 'normal' -->
+  <xsl:variable name="w">
+    <xsl:value-of select="$weight"/>
+    <xsl:if test="$weight = ''">
+      <xsl:text>normal</xsl:text>
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name="s">
+    <xsl:value-of select="$style"/>
+    <xsl:if test="$style = ''">
+      <xsl:text>normal</xsl:text>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="'normal' = $w and 'normal' = $s">
+      <xsl:text>normal</xsl:text>
+    </xsl:when>
+    <xsl:when test="'normal' = $w">
+      <xsl:value-of select="$s"/>
+    </xsl:when>
+    <xsl:when test="'normal' = $s">
+      <xsl:value-of select="$w"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$w"/>
+      <xsl:text>-</xsl:text>
+      <xsl:value-of select="$s"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="mml:mstyle[@fontstyle|@fontweight]//mml:mi">
+  <xsl:variable name="variant">
+    <xsl:call-template name="cnx.mathvariant">
+      <xsl:with-param name="weight" select="mml:mstyle[@fontstyle|@fontweight][1]/@fontweight"/>
+      <xsl:with-param name="style" select="mml:mstyle[@fontstyle|@fontweight][1]/@fontstyle"/>
+    </xsl:call-template>
+  </xsl:variable>
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Upgrading MathML1 @fontstyle or @fontweight on a mml:mi with mml:mstyle ancestor to MathML2 @mathvariant="<xsl:value-of select="$variant"/>"</xsl:with-param></xsl:call-template>
+
+  <xsl:copy>
+    <xsl:attribute name="mathvariant">
+      <xsl:value-of select="$variant"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
