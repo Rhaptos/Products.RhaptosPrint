@@ -28,11 +28,9 @@
 -->
 
 <!-- Since we decided to discard printing module metadata, this removes it (after we generate the book-level metadata).  -->
-<!--
 <xsl:template match="db:prefaceinfo/db:*[local-name()!='title']|db:chapterinfo/db:*[local-name()!='title']|db:sectioninfo/db:*[local-name()!='title']|db:appendixinfo/db:*[local-name()!='title']">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module metadata: <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 </xsl:template>
--->
 
 <!-- Discard the email address for epub generation -->
 <xsl:template match="db:email">
@@ -120,7 +118,7 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:text>Module: </xsl:text>
-                                    <db:link endterm="{$id}">
+                                    <db:link linkend="{$id}">
                                         <xsl:copy-of select="$originalTitle"/>
                                     </db:link>
                                 </xsl:otherwise>

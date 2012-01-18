@@ -37,8 +37,7 @@
 	</db:example>
 </xsl:template>
 
-<!-- Convert informalfigures (that aren't subfigures) into figures so they are numbered -->
-<xsl:template match="db:informalfigure[not(ancestor::db:figure)]">
+<xsl:template match="db:informalfigure">
 	<db:figure>
 		<xsl:apply-templates select="@*"/>
 		<db:title/>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <col:collection xmlns="http://cnx.rice.edu/collxml"
-                xmlns:c="http://cnx.rice.edu/cnxml"
                 xmlns:cnx="http://cnx.rice.edu/cnxml"
                 xmlns:cnxorg="http://cnx.rice.edu/system-info"
                 xmlns:md="http://cnx.rice.edu/mdml"
@@ -21,7 +20,10 @@
   <md:repository>http://localhost/from-md-repository-in-collxml</md:repository>
   <md:content-url>http://cnx.org/content/col10268/1.13</md:content-url>
   <md:content-id>col10268</md:content-id>
-  <md:title>Physics</md:title>
+  <md:title>Tests. &#50500;&#51649;&#46020; &#1046;&#1077;&#1085;&#1080;&#1090;&#1077; 
+&#202;&#234;&#191;&#241;&#250;&#252;&#2058;&#2376;&#2336;&#25874;&#1566;&#14897;&#1578;&#1585;&#1610;&#1583; &#1571;&#1606; 
+&#1578;&#1578;&#1586;&#1608;&#1580;&#1504;&#1513;&#1497;&#1501; &#1514;&#1503;&#3612;&#3641;&#3657;&#3627;&#3597;&#3636;&#3591;Ph&#7909; 
+v&#7851;n&#273;&#236;nh&#22899;&#23130;&#12375;&#12383;</md:title>
 
   <md:version>1.13</md:version>
   <md:created>2005/02/01 06:46:04.559 US/Central</md:created>
@@ -117,23 +119,11 @@
   
   <col:content>
 
-      <col:module document="m12818"><md:title>About the Contributors</md:title></col:module>
-<col:subcollection>
-	<md:title>Nature of Force</md:title>
-	 
-	<col:content>
-  	 <col:module document="physics-book"/>
-
-  </col:content>
-</col:subcollection>
-
-<col:subcollection>
-  <md:title>Work and Energy</md:title>
-  <col:content>
-      <col:module document="m19522"><md:title>Work by a Constant Force</md:title></col:module>
+      <col:module document="m12818"/>
+      <col:module document="m19522"/>
 
       <col:module document="simplemath">
-        <md:title>Work by a Variable Force</md:title>
+        <md:title>Overriding title for [simplemath]</md:title>
         <col:featured-links>
             <cnxml:link-group type="supplemental">
               <cnxml:link url="http://cnx.rice.edu/content/m12614/latest/">Programmare in Processing (italian version)</cnxml:link>
@@ -141,73 +131,39 @@
         </col:featured-links>
       </col:module>
 
-		<col:module document="m9003" cnxorg:version-at-this-collection-version="2.68">
-		  <md:title>Work and Power</md:title>
-		</col:module>
-		<col:module document="mathml2svg-test">
-		  <md:title>Potential Energy</md:title>
-		</col:module>
-</col:content>
-</col:subcollection>
+		<col:module document="m9003" cnxorg:version-at-this-collection-version="2.68"/>
+		<col:module document="mathml2svg-test"/>
 
 <col:subcollection>
-	<md:title>Momentum and Collisions</md:title>
+	<md:title>A subcollection of our test modules: [m21891-exercises], [exercise-test] (several combinations of problems and solutions. Presented after the other exercises to make sure they are numbered per module, not per chapter), [m10349] (QML with inline math equations and no solutions) and [m10622] (inline math)</md:title>
 	<col:content>
 		<col:module document="m21891-exercises">
-            <md:title>Momentum</md:title>
+            <md:title>Overriding title for [m21891-exercises]</md:title>
 		</col:module>
-		<col:module document="exercise-test">
-            <md:title>Impulse-Momentum Theorem</md:title>
-		</col:module>
-		
-		<col:module document="m10349">
-            <md:title>Momentum Conservation</md:title>
-		</col:module>
-		<col:module document="m10622">
-            <md:title>Center of Mass</md:title>
-		</col:module>
-
+		<col:module document="exercise-test"/>
+		<col:module document="m10349"/>
+		<col:module document="m10622"/>
 	</col:content>
 </col:subcollection>
 
+	<col:module document="cite-test"/>
+	<col:module document="rule-test"/>
+
+	<col:module document="m10842"/>
+	<col:module document="m11624"/>
+	<col:module document="m12827"/>
+	<col:module document="m12858"/>
+	<col:module document="m13243"/>
 <col:subcollection>
-	<md:title>Circular and Rotational Momentum</md:title>
+	<md:title>Another subcollection with only 1 module [m14134]</md:title>
 	<col:content>
 
-	<col:module document="cite-test">
-            <md:title>Rotational Momentum</md:title>
-		</col:module>
-	<col:module document="rule-test">
-            <md:title><c:emphasis effect="italics">Special Case:</c:emphasis> Rolling Motion</md:title>
-		</col:module>
-</col:content>
+	<col:module document="m14134"/>
+	</col:content>
 </col:subcollection>
 
-<col:subcollection>
-	<md:title>Rotational Dynamics</md:title>
-	<col:content>
-
-	<col:module document="m10842">
-            <md:title>Torque</md:title>
-		</col:module>
-	<col:module document="m11624">
-            <md:title>Angular Acceleration</md:title>
-		</col:module>
-
-	<col:module document="m12827">
-            <md:title>Equilibrium Condition for Rotational Dynamics</md:title>
-		</col:module>
-	<col:module document="m12858">
-            <md:title>Balance and Center of Mass</md:title>
-		</col:module>
-	<col:module document="m13243">
-            <md:title>Angular Momentum</md:title>
-		</col:module>
-
-</col:content>
-</col:subcollection>
-
-    <col:module document="m12660-media">
-		</col:module>
+	<col:module document="m17521"/>
+	<col:module document="m20119"/>
+    <col:module document="m12660-media"/>
   </col:content>
 </col:collection>

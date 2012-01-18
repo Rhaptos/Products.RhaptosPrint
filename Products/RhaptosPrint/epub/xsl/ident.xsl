@@ -8,11 +8,11 @@
 	They include this file.
  -->
 
-<xsl:output method="xml" encoding="ASCII"/>
+<xsl:output method="xml"/>
 
-<xsl:template name="ident" match="@*|node()|comment()|processing-instruction()">
+<xsl:template name="ident" match="@*|node()">
     <xsl:copy>
-        <xsl:apply-templates select="@*|node()|comment()|processing-instruction()"/>
+        <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
 </xsl:template>
 

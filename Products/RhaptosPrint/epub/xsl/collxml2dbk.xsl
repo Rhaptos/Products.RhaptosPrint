@@ -24,7 +24,6 @@
 	</xsl:variable>
 	<db:book ext:url="{col:metadata/md:content-url/text()}" ext:id="{col:metadata/md:content-id/text()}" ext:repository="{col:metadata/md:repository/text()}" ext:site-type="{$cnx.site-type}">
 		<xsl:apply-templates select="@*|node()"/>
-                <db:index/>
 	</db:book>
 </xsl:template>
 

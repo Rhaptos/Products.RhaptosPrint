@@ -45,7 +45,7 @@
 			</xsl:attribute>
 		</xsl:if>
 		<!-- If we're chunking (and converting), then set the filename attrib and chunk it! -->
-		<xsl:if test="$cnx.svg.extension!='' and $cnx.svg.chunk">
+		<xsl:if test="$cnx.svg.extension!=''">
 			<xsl:variable name="id" select="../@xml:id"/>
 			<!-- Only convert if the output file type is not SVG -->
 			<xsl:if test="$cnx.svg.extension!='svg'">

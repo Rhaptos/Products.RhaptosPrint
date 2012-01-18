@@ -157,7 +157,7 @@
 	        </xsl:when>
 	        <xsl:otherwise>
 	            <xsl:call-template name="cnx.log"><xsl:with-param name="msg">BUG: Using xslt cnx.url property (as a last resort).</xsl:with-param></xsl:call-template>
-	            <xsl:value-of select="$cnx.repository.url"/>
+	            <xsl:value-of select="$cnx.url"/>
 	        </xsl:otherwise>
 	    </xsl:choose>
     </xsl:variable>

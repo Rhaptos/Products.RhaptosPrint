@@ -20,7 +20,7 @@
 	<xsl:apply-templates select="@*"/>
 	
 	<!-- If something like a note has a label, add it. -->
-	<xsl:if test="(c:title or c:label) and not(c:title and c:label != '')">
+	<xsl:if test="(c:title or c:label) and not(c:title and c:label)">
     	<db:title>
     		<xsl:apply-templates select="c:title/@*|c:title/node()"/>
     		<xsl:apply-templates select="c:label/@*|c:label/node()"/>
@@ -53,14 +53,6 @@
 </xsl:template>
 <xsl:template match="c:note[@type='warning']">
     <db:warning><xsl:call-template name="block-id-and-children"/></db:warning>
-</xsl:template>
-<xsl:template match="c:note[@type='tip' or @type='Tip']">
-    <db:tip><xsl:call-template name="block-id-and-children"/></db:tip>
-</xsl:template>
-<xsl:template match="c:note/@*">
-    <xsl:attribute name="{local-name()}">
-        <xsl:value-of select="."/>
-    </xsl:attribute>
 </xsl:template>
 <xsl:template match="c:footnote">
     <db:footnote><xsl:apply-templates select="@*|node()"/></db:footnote>
