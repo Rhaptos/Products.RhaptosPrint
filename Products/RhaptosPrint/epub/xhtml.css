@@ -226,8 +226,24 @@ h3 {
 p {
   margin: 0.5em 0em;
 }
-      
-
+.table table {
+  background-color: #FBF2E2;
+}
+.table td {
+  padding: 0.25em;
+}
+.table th {
+  font-style: italic;
+}
+.table caption {
+  align: top;
+  text-align: left;
+}
+.table caption b {
+  background-color: #8FB733;
+  padding-left: 1em;
+  padding-right: 1em;
+}
 
 /* Properties for figures */
 
@@ -559,13 +575,15 @@ table.cnx-introduction-toc td:first-child a {
 	font-weight: bold;
 	margin-bottom: 0.75em;
   margin-left: 1em;
-  margin-right: 1em;
+  margin-right: 0.5em;
 }
 .cnx-introduction-toc td:last-child a {
 	display-align: after;
 	padding-bottom: 0.25em;
 	padding-top: 0.25em;
 	text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
 }
 .cnx-problems-title {
 	color: #0061AA;
