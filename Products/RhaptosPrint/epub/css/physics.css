@@ -1,0 +1,636 @@
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+/* Print-specific styles <style media="print"... */
+
+/* Don't print module asterix (link to attribution) */
+sup a {
+  display: none;
+}
+
+
+/* General css for print/online */
+
+@page {
+  margin: 5em;
+  font-size: xx-small;
+  font-family: sans-serif, STIXGeneral, STIXSize1;
+}
+
+@page :left {
+  @top-left-corner {
+    content: counter(page);
+    padding-right: 1em;
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+@page :right {
+  @top-right-corner {
+    content: counter(page);
+    padding-left: 1em;
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+/* Introduction banner */
+h1 {
+  background-color: #FAA61A;
+  margin-bottom: 0em;
+  padding: 0.25em 0.5em;
+  font-size: 2em; /* xx-large; */
+  font-weight: normal;
+  text-transform: uppercase;
+}
+/* Used for page headers */
+/* The 1st span contains the chapter number */
+h1 span:first-child, .cnx-chapter-number {
+  string-set: chapter-number content();
+}
+/* The 2nd span contains the chapter title */
+.cnx-chapter-title {
+  string-set: cnx-header "Chapter " string(chapter-number, first) " | " content();
+  color: white;
+}
+
+
+/********************** Generic Elements ********************/
+
+body {
+  font-size: x-small;
+  font-family: sans-serif, STIXGeneral, STIXSize1;
+}
+a {
+	color: #D89016;
+	font-weight: bold;
+	text-decoration: none;
+}
+img {
+  width: 33%;
+}
+table.cnx-figure-horizontal td img {
+  width: 50%;
+}
+img[height] {
+  width: auto;
+}
+
+.chapter {
+  page-break-before: always;
+  page-break-after: always;
+}  
+
+.equation {
+  page-break-inside: avoid;
+  text-align: center;
+}
+.equation .label {
+  float: right;
+}
+
+
+/**************************** Index **************************/
+
+/* Docbook generates 2 divs with class=index. Ignore the inner one */
+.index[title=Index] {
+  page-break-before: always;
+  page-break-after: always;
+  columns: 2;
+}
+
+.indexdiv h3 {
+  font-size: x-small;
+}
+.indexdiv dt {
+  font-size: x-small;
+  font-weight: normal;
+}
+.indexterm {
+  content: target-counter(attr(href), page);
+  color: black;
+  font-weight: bold;
+}
+
+
+/********************* Glossary Section **************/
+
+.glossary dt {
+  float: left;
+  font-weight: bold;
+}
+.glossary dt::after {
+  content: ":";
+  padding-right: 0.5em;
+}
+em.glossterm {
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+/*********************** Table of Contents ********************/
+
+.toc {
+  page-break-after: always;
+}
+
+.toc a {
+	color: blue;
+	font-weight: medium;
+  text-decoration: none;
+}
+
+/* TOC Chapter */
+.toc > dt > dl a {
+  font-size: 12pt;
+  color: #0061AA;
+}
+
+/* TOC Section */
+/* .toc > dl > dd > dl > dt */
+.toc dd dt a {
+  color: black;
+  font-weight: normal;
+}
+
+/* Chapter 3 : Type Systems ........................ 213 */
+.toc span:last-child a::after {
+  content: leader(' . ') target-counter(attr(href), page);
+}
+
+
+/**************** Fix the PDF Outline *************/
+h1 { prince-bookmark-level: 1 }
+h2 { prince-bookmark-level: 2 }
+h3, h4, h5, h6 { prince-bookmark-level: none }
+
+
+/****************** Modern-Textbook classes ****************/
+
+.introduction {
+  page-break-after: always;
+}
+
+.introduction .cnx-figure-properties img {
+  width: 100%;
+}
+
+.cnx-eoc, .cnx-eoc-section {
+  page-break-inside: avoid;
+}
+
+.problems-exercises {
+  columns: 2;
+  page-break-before: always;
+}
+
+.problems-exercises img {
+  width: 3in;
+  height: auto;
+}
+
+/* Allow sections in the 2-column problems-exercises to break */
+.problems-exercises .cnx-eoc-section {
+  page-break-inside: auto;
+}
+
+
+/***************************************************************
+ * Clean up padding and spacing
+ ***************************************************************/
+li p, dd p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+ol, ul {
+  margin-top: 0px;
+  margin-left: 20pt;
+}
+h2, h3 {
+  margin: 1em 0em 0em 0em;
+}
+h2 {
+  font-size: medium;
+}
+h3 {
+  font-size: 1.17em;
+  font-weight: normal;
+}
+p {
+  margin: 0.5em 0em;
+}
+.table table {
+  background-color: #FBF2E2;
+}
+.table td {
+  padding: 0.25em;
+}
+.table th {
+  font-style: italic;
+}
+.table caption {
+  align: top;
+  text-align: left;
+}
+.table caption b {
+  background-color: #8FB733;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/* Properties for figures */
+
+DISABLED.cnx-figure-properties {
+  display: inline;
+  float: left; /* Overridden in the next line for print */
+  float: outside;
+  width: 170pt;
+  /* margin-outside: -170pt; */
+  padding: 0.5em;
+}
+
+DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
+  display: inline;
+  float: none;
+}
+
+DISABLED.introduction .cnx-figure-properties {
+  display: block;
+  float: none;
+  width: 100%;
+}
+
+DISABLED.cnx-figure-properties img {
+  width: 170pt;
+}
+
+/* Styles from docbook attribute-sets */
+
+/* Colors and fonts:
+body.font.master=8.5
+<xsl:param name="cnx.font.small" select="concat($body.font.master * 0.8, 'pt')"/>
+<xsl:param name="cnx.font.large" select="concat($body.font.master * 1.2, 'pt')"/>
+<xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.6, 'pt')"/>
+<xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
+
+<xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
+<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.red">#D89016</xsl:param>
+<xsl:param name="cnx.color.green">#8FB733</xsl:param>
+<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
+<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+*/
+
+.root-properties {
+}
+.list-item-spacing {
+	margin-top: 0.2em;
+}
+.cnx-underscore {
+	border-bottom: 1px solid #FAA61A;
+}
+.cnx-question {
+	/* end-indent: 1em; */
+	/* keep-together.within-column: 9; */
+
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	/* start-indent: 1em; */
+}
+.cnx-question-number {
+	font-weight: bold;
+}
+.cnx-formal-title {
+	color: white;
+	font-size: 120%;
+	font-weight: bold;
+	/* keep-with-next.within-column: always; */
+	margin-top: 18;
+	padding-top: 2px;
+	margin-bottom: -2.5px; /* so the stupid bar lines up */
+	border-bottom: 1px solid #FAA61A;
+}
+.cnx-formal-title-text {
+	background-color: #8FB733;
+	padding-top: 2px;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-bottom: 1px; /* so the stupid bar lines up */
+}
+.cnx-formal-title-inner {
+	color: #0061AA;
+	font-size: 120%;
+}
+.cnx-vertical-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.normal-para-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-block-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-item-spacing {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.list-block-properties {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.example-title-properties {
+	background-color: #0061AA;
+	padding-top: 4px;
+}
+.figure-title-properties {
+	color: #D89016;
+	font-weight: bold;
+	/* hyphenate: false; */
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+table.cnx-figure-horizontal td {
+  //PHIL
+}
+.section-title-level1-properties {
+	font-size: large;
+	font-weight: bold;
+	padding-top: 6pt;
+}
+.section-title-level2-properties {
+	font-size: medium;
+	font-weight: normal;
+	padding-top: 6pt;
+}
+.section-title-number {
+	color: #0061AA;
+	font-size: large;
+	font-weight: bold;
+	padding-top: 6pt;
+}
+.cnx-figure-properties {
+	font-size: xx-small;
+	/* keep-together.within-column: 2; */
+	padding-bottom: 0.5em;
+	margin-left: auto;
+	margin-right: auto;
+}
+.cnx-figure-content {
+  text-align: center;
+}
+.cnx-figure-content div {
+  display: inline;
+  text-align: left;
+}
+.cnx-exercise-listitem {
+	font-weight: bold;
+}
+.formal-object-properties {
+	background-color: #F1F6E6;
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	margin-top: 0em;
+}
+.informal-object-properties {
+	/* keep-together.within-column: 9; */
+
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.table-properties {
+	background-color: transparent;
+	margin-top: 0em;
+}
+.cnx-formal-object {
+  margin-top: 1em;
+	page-break-inside: avoid;
+}
+.cnx-formal-object-inner {
+	/* end-indent: 1em; */
+	/* keep-together.within-column: 9; */
+  background-color: #FBF2E2;
+  padding: 0.5em;
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+	/* start-indent: 1em; */
+}
+.informal-object-properties {
+	/* end-indent: 1em; */
+	/* start-indent: 1em; */
+}
+.xref-properties {
+	color: #D89016;
+	font-weight: bold;
+}
+.admonition-title-properties {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	color: #0061AA;
+	font-size: medium;
+	font-weight: normal;
+	margin-bottom: 0.75em;
+}
+.nongraphical-admonition-properties {
+}
+.note {
+	page-break-inside: avoid;
+	background-color: #FBF2E2;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+.note h3 {
+  margin-top: 0.5em;
+}
+.note .title {
+  display: block; /* so the underline stretches */
+  color: #0061AA;
+  border-bottom: 1px solid #FAA61A;
+}
+.cnx-note-concept {
+	page-break-inside: avoid;
+	background-color: #FBF2E2;
+	border-bottom: 1px solid #0061AA;
+	border-bottom-color: #0061AA;
+	border-bottom-style: solid;
+	border-top: 1px solid #0061AA;
+	border-top-color: #0061AA;
+	border-top-style: solid;
+	border-top-width: 1px;
+	/* keep-together.within-column: 2; */
+
+	margin-bottom: 1em;
+	margin-top: 1em;
+	padding-bottom: 0.25em;
+	padding-left: 1em;
+	padding-top: 0.25em;
+	padding-top: 0.5em;
+}
+.cnx-note-concept-title {
+	color: #0061AA;
+	font-size: medium;
+}
+.cnx-note-tip {
+	margin-bottom: 0.25em;
+	margin-top: 0.25em;
+}
+.cnx-note-tip-body {
+	background-color: #EFF2F9;
+	border-top-color: #FAA61A;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #0061AA;
+	margin-bottom: 0em;
+	margin-top: 1px;
+	text-align: center;
+}
+.cnx-note-tip-title {
+	keep-with-next.within-column: always;
+	keep-with-next.within-page: always;
+	text-align: center;
+}
+.cnx-note-tip-title-inline {
+	background-color: #0061AA;
+	color: white;
+	font-size: medium;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+.cnx-note-feature {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+.cnx-note-feature-title {
+}
+.cnx-note-feature-title-inline {
+}
+.cnx-note-feature-body {
+}
+.cnx-note-feature-body-inner {
+	margin-bottom: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 1em;
+}
+.cnx-introduction-chapter {
+	background-color: #FAA61A;
+	font-size: x-large;
+	padding-bottom: 0em;
+	padding-left: 0.1em;
+	padding-top: 0.05em;
+	text-align: left;
+}
+.cnx-introduction-chapter-number {
+}
+.cnx-chapter-title {
+	color: white;
+}
+.cnx-introduction-title {
+}
+.cnx-introduction-title-text {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	font-size: large;
+	font-weight: bold;
+	margin-bottom: 0.75em;
+}
+table.cnx-introduction-toc {
+	border: 1px solid #0061AA;
+	margin: auto;
+	margin-bottom: 1em;
+	border-spacing: 0px;
+}
+table.cnx-introduction-toc tr:first-child {
+	background-color: #0061AA;
+	color: white;
+	font-size: large;
+	text-align: center;
+}
+table.cnx-introduction-toc tr:not(:first-child) {
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+table.cnx-introduction-toc td a {
+  color: black;
+  font-weight: normal;
+}
+table.cnx-introduction-toc td:first-child a {
+  color: black;
+	border-bottom: 1px solid #FAA61A;
+	font-size: small;
+	font-weight: bold;
+	margin-bottom: 0.75em;
+  margin-left: 1em;
+  margin-right: 0.5em;
+}
+.cnx-introduction-toc td:last-child a {
+	display-align: after;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+	text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
+}
+.cnx-problems-title {
+	color: #0061AA;
+	font-size: medium;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-problems-subtitle {
+	color: #0061AA;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-header-title {
+}
+.cnx-header-subtitle {
+}
+.cnx-header-pagenumber {
+	font-size: x-small;
+}
+.cnx-header-separator {
+	color: #FAA61A;
+}
+.cnx-index-title-body {
+	color: #0061AA;
+	font-size: medium;
+	font-weight: bold;
+	padding-top: 0.25em;
+}
+.cnx-titlepage-title {
+	font-size: 24pt;
+	font-weight: bold;
+	margin-top: 2in;
+	text-align: center;
+}
+.cnx-titlepage-authors {
+	font-size: 12pt;
+	margin-top: 1in;
+	text-align: center;
+}
+.cnx-titlepage-strong {
+	font-weight: bold;
+}
+.toc-line-properties {
+}
+.table-of-contents-titlepage-recto-style {
+	border-bottom: 1px solid #FAA61A;
+	border-bottom-color: #FAA61A;
+	border-bottom-style: solid;
+	margin-bottom: 0.75em;
+}
