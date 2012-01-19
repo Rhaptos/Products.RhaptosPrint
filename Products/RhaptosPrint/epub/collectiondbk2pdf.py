@@ -14,9 +14,11 @@ import module2dbk
 import collection2dbk
 import util
 
-DEBUG=False
+DEBUG= 'DEBUG' in os.environ
 
 FOP_PATH = 'fop'
+if 'FOP_PATH' in os.environ:
+  FOP_PATH = os.environ['FOP_PATH']
 BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
@@ -56,7 +58,7 @@ def __doStuff(dir, printStyle):
 
 def __doStuffModule(moduleId, dir, printStyle):
   cnxml, files = loadModule(dir)
-  _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}) # Last arg is coll params
+  _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}, svg2png=False, math2svg=True) # Last arg is coll params
   dbkStr = newFiles['index.standalone.dbk']
   dbk = etree.parse(StringIO(dbkStr))
   allFiles = {}
