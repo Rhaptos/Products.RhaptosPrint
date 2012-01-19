@@ -545,17 +545,8 @@ Combination of formal.object and formal.object.heading -->
 <!-- A block-level element inside another block-level element should use the inner formatting -->
 <xsl:template mode="formal.object.heading" match="*[         ancestor::ext:exercise or          ancestor::db:example or          ancestor::ext:rule or         ancestor::db:glosslist or         ancestor-or-self::db:list]">
   <xsl:param name="object" select="."/>
-  <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="content">
-    <xsl:choose>
-      <xsl:when test="$placement = 'before'">
-        <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:attribute name="keep-with-previous.within-column">always</xsl:attribute>
-      </xsl:otherwise>
-    </xsl:choose>
     <xsl:apply-templates select="$object" mode="object.title.markup">
       <xsl:with-param name="allow-anchors" select="1"/>
     </xsl:apply-templates>
@@ -568,7 +559,6 @@ Combination of formal.object and formal.object.heading -->
 
 <xsl:template mode="formal.object.heading" match="*" name="formal.object.heading">
   <xsl:param name="object" select="."/>
-  <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="content">
     <xsl:apply-templates select="$object" mode="object.title.markup">
@@ -594,8 +584,6 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="formal.object">
-  <xsl:variable name="placement" select="'before'"/><!--hardcoded-->
-
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -603,7 +591,6 @@ Combination of formal.object and formal.object.heading -->
   <div class="cnx-formal-object">
 
     <xsl:apply-templates mode="formal.object.heading" select=".">
-      <xsl:with-param name="placement" select="$placement"/>
     </xsl:apply-templates>
   
     <xsl:variable name="content">
