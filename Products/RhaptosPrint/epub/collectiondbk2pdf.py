@@ -16,15 +16,16 @@ import util
 
 DEBUG= 'DEBUG' in os.environ
 
-FOP_PATH = 'fop'
-if 'FOP_PATH' in os.environ:
-  FOP_PATH = os.environ['FOP_PATH']
+XHTML_PATH = 'prince'
+if 'XHTML_PATH' in os.environ:
+  XHTML_PATH = os.environ['XHTML_PATH']
 BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
 XCONF_PATH = os.path.join(BASE_PATH, 'lib', 'fop.xconf')
 
 # XSL files
+DOCBOOK2XHTML_XSL=util.makeXsl('modern-textbook-xhtml.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 ALIGN_XSL = util.makeXsl('fo-align-math.xsl')
 #MARGINALIA_XSL = util.makeXsl('fo-marginalia.xsl')
@@ -85,8 +86,7 @@ def loadModule(moduleDir):
       print >> sys.stderr, "LOG: Image not found %s %s" % (os.path.basename(moduleDir), f)
   return (cnxml, files)
 
-# Use Apache FOP to convert the XSL-FO to PDF
-def fo2pdf(fo, files, tempdir):
+def xhtml2pdf(xhtml, files, tempdir, printStyle):
   # Write all of the files into tempdir
   for fname, content in files.items():
     fpath = os.path.join(tempdir, fname)
@@ -97,27 +97,20 @@ def fo2pdf(fo, files, tempdir):
     f = open(fpath, 'w')
     f.write(content)
     f.close()
-    
-  # Run FOP to generate an abstract tree 1st
-  # strCmd = [FOP_PATH, ', '-c', XCONF_PATH, '/dev/stdin']
-  strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-at', 'application/pdf', '/dev/stdout', '/dev/stdin']
+  
+  CSS_FILE = os.path.join(BASE_PATH, '%s.css' % printStyle)
+  
+  # Run Prince (or an Opensource) to generate an abstract tree 1st
+  strCmd = [XHTML_PATH, '--style=%s' % CSS_FILE, '--output=%s' % '/dev/stdout', '/dev/stdin']
 
-  env = {'FOP_OPTS': '-Xmx14000M'}
+  env = { }
 
   # run the program with subprocess and pipe the input and output to variables
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True, env=env)
   # set STDIN and STDOUT and wait untill the program finishes
-  stdOut, stdErr = p.communicate(etree.tostring(fo))
-  abstractTree = stdOut
+  pdf, stdErr = p.communicate(etree.tostring(xhtml))
   if DEBUG:
-    open('temp-collection5.at','w').write(abstractTree)
-
-  strCmd = [FOP_PATH, '-q', '-c', XCONF_PATH, '-atin', '/dev/stdin', '/dev/stdout']
-
-  # run the program with subprocess and pipe the input and output to variables
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True, env=env)
-  # set STDIN and STDOUT and wait untill the program finishes
-  stdOut, stdErr2 = p.communicate(abstractTree)
+    open('temp-collection5.pdf','w').write(pdf)
 
   # Clean up the tempdir
   # Remove added files
@@ -128,7 +121,7 @@ def fo2pdf(fo, files, tempdir):
     if len(os.listdir(fdir)) == 0:
       os.rmdir(fdir)
 
-  return stdOut, stdErr
+  return pdf, stdErr
 
 def convert(dbk1, files, printStyle):
   tempdir = mkdtemp(suffix='-fo2pdf')
@@ -141,8 +134,6 @@ def convert(dbk1, files, printStyle):
       print >> sys.stderr, entry
     return ret
 
-  DOCBOOK2FO_XSL=util.makeXsl('%s.xsl' % printStyle)
-
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if DEBUG:
@@ -153,20 +144,15 @@ def convert(dbk1, files, printStyle):
   if DEBUG:
     open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
 
-  # Step 2 (Docbook to XSL:FO)
-  fo1 = transform(DOCBOOK2FO_XSL, dbk2)
+  # Step 2 (Docbook to XHTML)
+  xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
   if DEBUG:
-    open('temp-collection3.fo','w').write(etree.tostring(fo1,pretty_print=True))
-
-  # Step 3 (Aligning math in XSL:FO)
-  fo = transform(ALIGN_XSL, fo1)
-  if DEBUG:
-    open('temp-collection4.fo','w').write(etree.tostring(fo,pretty_print=True))
+    open('temp-collection3.xhtml','w').write(etree.tostring(xhtml,pretty_print=True))
 
   #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
   # Change to the collection dir so the relative paths to images work
-  pdf, stdErr = fo2pdf(fo, files, tempdir)
+  pdf, stdErr = xhtml2pdf(xhtml, files, tempdir, printStyle)
   #os.rmdir(tempdir)
   
   return pdf, stdErr
