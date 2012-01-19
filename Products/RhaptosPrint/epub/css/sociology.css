@@ -1,0 +1,340 @@
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+@import url('physics.css');
+
+
+.exercise, .example {
+  display: none;
+}
+
+/* Change "Key Concepts" to "Summary" */
+.cnx-introduction-toc tr:first-child td {
+  content: "Summary";
+}
+
+/* Customize EOC material */
+.cnx-eoc .cnx-formal-title {
+  border-bottom: 1px solid LimeGreen;
+  margin-bottom: 0.25em;
+}
+
+/* Hide the section headers */
+.cnx-eoc .cnx-eoc-section .cnx-problems-title {
+  display: none;
+}
+
+
+/* From xhtml.css */
+
+sup a {
+}
+@page {
+}
+@page :left {
+  @top-left-corner {
+  }
+  @top-left {
+  }
+}
+@page :right {
+  @top-right-corner {
+  }
+  @top-right {
+  }
+}
+h1 {
+  background-color: Purple;
+}
+h1 span:first-child, .cnx-chapter-number {
+  color: LimeGreen;
+  font-weight: bold;
+}
+.cnx-chapter-title {
+  text-transform: none;
+}
+body {
+}
+a {
+	color: inherit;
+	font-weight: normal;
+}
+img {
+}
+table.cnx-figure-horizontal td img {
+}
+img[height] {
+}
+.chapter {
+}  
+.equation {
+}
+.equation .label {
+}
+.index[title=Index] {
+}
+.indexdiv h3 {
+}
+.indexdiv dt {
+}
+.indexterm {
+}
+.glossary dt {
+}
+.glossary dt::after {
+}
+em.glossterm {
+}
+.toc {
+}
+.toc a {
+}
+.toc > dt > dl a {
+  color: #0061AA;
+}
+.toc dd dt a {
+}
+.toc span:last-child a::after {
+}
+h1 { prince-bookmark-level: 1 }
+h2 { prince-bookmark-level: 2 }
+h3, h4, h5, h6 { prince-bookmark-level: none }
+.introduction {
+}
+.introduction .cnx-figure-properties img {
+}
+.cnx-eoc, .cnx-eoc-section {
+}
+.problems-exercises {
+}
+.problems-exercises img {
+}
+.problems-exercises .cnx-eoc-section {
+}
+li p, dd p {
+}
+ol, ul {
+}
+h2, h3 {
+}
+h2 {
+  color: Purple;
+}
+h3 {
+  color: MediumPurple;
+}
+p {
+}
+.table table {
+  background-color: #FBF2E2;
+}
+.table td {
+}
+.table th {
+}
+.table caption {
+}
+.table caption b {
+  background-color: #8FB733;
+}
+DISABLED.cnx-figure-properties {
+}
+DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
+}
+DISABLED.introduction .cnx-figure-properties {
+}
+DISABLED.cnx-figure-properties img {
+}
+<xsl:param name="cnx.color.orange">Purple</xsl:param>
+<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.red">#D89016</xsl:param>
+<xsl:param name="cnx.color.green">#8FB733</xsl:param>
+<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
+<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+.root-properties {
+}
+.list-item-spacing {
+}
+.cnx-underscore {
+	border-bottom: 1px solid Purple;
+}
+.cnx-question {
+}
+.cnx-question-number {
+}
+.cnx-formal-title {
+  color: Purple;
+	border-bottom: 1px solid Purple;
+	padding-left: 
+}
+.cnx-formal-title-text {
+	background-color: none;
+	padding-left: inherit;
+	padding-right: inherit;
+	font-size: large;
+}
+.cnx-formal-title-inner {
+	color: #0061AA;
+}
+.cnx-vertical-spacing {
+}
+.normal-para-spacing {
+}
+.list-block-spacing {
+}
+.list-item-spacing {
+}
+.list-block-properties {
+}
+.example-title-properties {
+	background-color: inherit;
+}
+.figure-title-properties {
+	color: black;
+	font-weight: normal;
+}
+table.cnx-figure-horizontal td {
+}
+.section-title-level1-properties {
+}
+.section-title-level2-properties {
+}
+.section-title-number {
+	color: #0061AA;
+}
+.cnx-figure-properties {
+}
+.cnx-figure-content {
+}
+.cnx-figure-content div {
+}
+.cnx-exercise-listitem {
+}
+.formal-object-properties {
+	background-color: #F1F6E6;
+}
+.informal-object-properties {
+}
+.table-properties {
+}
+.cnx-formal-object {
+}
+.cnx-formal-object-inner {
+  background-color: #FBF2E2;
+}
+.informal-object-properties {
+}
+.xref-properties {
+	color: #D89016;
+}
+.admonition-title-properties {
+	border-bottom: 1px solid Purple;
+	border-bottom-color: Purple;
+	color: #0061AA;
+}
+.nongraphical-admonition-properties {
+}
+.note {
+	background-color: inherit;
+}
+.note {
+	background-color: Thistle;
+}
+.note .title {
+  font-size: xx-large;
+  border-bottom: 0px;  
+}
+.cnx-note-concept {
+	background-color: #FBF2E2;
+	border-bottom: 1px solid #0061AA;
+	border-bottom-color: #0061AA;
+	border-top: 1px solid #0061AA;
+	border-top-color: #0061AA;
+}
+.cnx-note-concept-title {
+	color: #0061AA;
+}
+.cnx-note-tip {
+}
+.cnx-note-tip-body {
+	background-color: #EFF2F9;
+	border-top-color: Purple;
+	color: #0061AA;
+}
+.cnx-note-tip-title {
+}
+.cnx-note-tip-title-inline {
+	background-color: #0061AA;
+}
+.cnx-note-feature {
+}
+.cnx-note-feature-title {
+}
+.cnx-note-feature-title-inline {
+}
+.cnx-note-feature-body {
+}
+.cnx-note-feature-body-inner {
+}
+.cnx-introduction-chapter {
+	background-color: Purple;
+}
+.cnx-introduction-chapter-number {
+}
+.cnx-chapter-title {
+}
+.cnx-introduction-title {
+	border-bottom: 1px solid LimeGreen;
+}
+.cnx-introduction-title-text {
+	color: Purple;
+}
+table.cnx-introduction-toc {
+	border: 1px solid LimeGreen;
+}
+table.cnx-introduction-toc tr:first-child {
+	background-color: LimeGreen;
+	color: black;
+}
+table.cnx-introduction-toc tr:not(:first-child) {
+}
+table.cnx-introduction-toc td a {
+}
+table.cnx-introduction-toc tr:not(:first-child) td:first-child {
+	display: none;
+}
+.cnx-introduction-toc td:last-child a {
+  font-weight: bold;
+}
+.cnx-problems-title {
+	color: #0061AA;
+}
+.cnx-problems-subtitle {
+	color: #0061AA;
+}
+.cnx-header-title {
+}
+.cnx-header-subtitle {
+}
+.cnx-header-pagenumber {
+}
+.cnx-header-separator {
+	color: Purple;
+}
+.cnx-index-title-body {
+	color: #0061AA;
+}
+.cnx-titlepage-title {
+}
+.cnx-titlepage-authors {
+}
+.cnx-titlepage-strong {
+}
+.toc-line-properties {
+}
+.table-of-contents-titlepage-recto-style {
+	border-bottom: 1px solid Purple;
+	border-bottom-color: Purple;
+}
