@@ -2,7 +2,7 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
-@import url('physics.css');
+@import url('ccap-physics.css');
 
 
 .exercise, .example {
