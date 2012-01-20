@@ -279,8 +279,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
           These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
         """
         return [ # {'title':'Default', 'id':''},
-                 {'title':'Modern Textbook', 'id':'modern-textbook'},
-                 # {'title':'Modern Textbook (2 column)', 'id':'modern-textbook-2column'},
+                 {'title':'CCAP Physics', 'id':'ccap-physics'},
+                 {'title':'CCAP Sociology', 'id':'ccap-sociology'},
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
