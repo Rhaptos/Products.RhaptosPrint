@@ -298,12 +298,8 @@ body.font.master=8.5
 	border-bottom: 1px solid #FAA61A;
 }
 .cnx-question {
-	/* end-indent: 1em; */
-	/* keep-together.within-column: 9; */
-
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
-	/* start-indent: 1em; */
 }
 .cnx-question-number {
 	font-weight: bold;
@@ -312,7 +308,6 @@ body.font.master=8.5
 	color: white;
 	font-size: 120%;
 	font-weight: bold;
-	/* keep-with-next.within-column: always; */
 	margin-top: 18;
 	padding-top: 2px;
 	margin-bottom: -2.5px; /* so the stupid bar lines up */
@@ -381,7 +376,6 @@ table.cnx-figure-horizontal td {
 }
 .cnx-figure-properties {
 	font-size: xx-small;
-	/* keep-together.within-column: 2; */
 	padding-bottom: 0.5em;
 	margin-left: auto;
 	margin-right: auto;
@@ -403,8 +397,6 @@ table.cnx-figure-horizontal td {
 	margin-top: 0em;
 }
 .informal-object-properties {
-	/* keep-together.within-column: 9; */
-
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
@@ -417,17 +409,10 @@ table.cnx-figure-horizontal td {
 	page-break-inside: avoid;
 }
 .cnx-formal-object-inner {
-	/* end-indent: 1em; */
-	/* keep-together.within-column: 9; */
   background-color: #FBF2E2;
   padding: 0.5em;
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
-	/* start-indent: 1em; */
-}
-.informal-object-properties {
-	/* end-indent: 1em; */
-	/* start-indent: 1em; */
 }
 .xref-properties {
 	color: #D89016;
@@ -470,7 +455,6 @@ table.cnx-figure-horizontal td {
 	border-top-color: #0061AA;
 	border-top-style: solid;
 	border-top-width: 1px;
-	/* keep-together.within-column: 2; */
 
 	margin-bottom: 1em;
 	margin-top: 1em;
