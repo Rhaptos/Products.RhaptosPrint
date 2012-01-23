@@ -23,7 +23,7 @@ BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
 # XSL files
-DOCBOOK2XHTML_XSL=util.makeXsl('modern-textbook-xhtml.xsl')
+DOCBOOK2XHTML_XSL=util.makeXsl('dbk2xhtml.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
