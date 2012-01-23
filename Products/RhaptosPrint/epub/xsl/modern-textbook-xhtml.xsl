@@ -197,7 +197,7 @@ procedure before
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
 		</xsl:if>
 		<xsl:if test="not($renderSolution) or ext:solution">
-			<div id="{$id}" class="cnx-question informal-object-properties">
+			<div id="{$id}" class="cnx-question">
 				<span class="cnx-question-number">
 					<xsl:apply-templates select="." mode="number"/>
 				</span>
@@ -369,7 +369,7 @@ procedure before
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
   <div class="cnx-introduction-title">
-    <span class="cnx-introduction-title-text cnx-underscore">
+    <span class="cnx-introduction-title-text">
       <xsl:choose>
         <xsl:when test="db:title">
           <xsl:apply-templates select="db:title/node()"/>
@@ -594,7 +594,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   
     <xsl:variable name="content">
-      <div class="cnx-formal-object-inner informal-object-properties">
+      <div class="cnx-formal-object-inner">
         <xsl:apply-templates select="*[not(self::d:caption)]"/>
         <xsl:apply-templates select="d:caption"/>
       </div>
@@ -699,10 +699,6 @@ Combination of formal.object and formal.object.heading -->
 <!-- Customize Table of Contents                    -->
 <!-- ============================================== -->
 
-<xsl:attribute-set name="toc.line.properties"><xsl:attribute name="class">toc-line-properties</xsl:attribute></xsl:attribute-set>
-
-<xsl:attribute-set name="table.of.contents.titlepage.recto.style"><xsl:attribute name="class">cnx-underscore</xsl:attribute></xsl:attribute-set>
-
 <!-- Don't include the introduction section in the TOC -->
 <xsl:template match="db:section[contains(@class,'introduction')]" mode="toc"/>
 
@@ -731,8 +727,6 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
 
   <div class="toc-line-properties">  
-    <span keep-with-next.within-line="always">
-      
       <a href="#{$id}">  
 
 <!-- CNX: Add the word "Chapter" or Appendix in front of the number -->
@@ -748,11 +742,6 @@ Combination of formal.object and formal.object.heading -->
         </xsl:if>
         <xsl:apply-templates select="." mode="title.markup"/>  
       </a>
-    </span>
-    <span keep-together.within-line="always"> 
-      <a href="#{$id}">
-      </a>
-    </span>
   </div>
 </xsl:template>
 
