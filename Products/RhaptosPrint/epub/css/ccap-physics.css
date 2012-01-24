@@ -15,7 +15,7 @@ sup a {
 @page {
   margin: 5em;
   font-size: xx-small;
-  font-family: sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
 
 @page :left {
@@ -65,7 +65,7 @@ h1 span:first-child, .cnx-chapter-number {
 
 body {
   font-size: 8pt;
-  font-family: Arial, sans-serif, STIXGeneral, STIXSize1;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSize1;
 }
 a {
 	color: #D89016;

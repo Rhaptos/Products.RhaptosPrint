@@ -97,7 +97,7 @@ def xhtml2pdf(xhtml, files, tempdir, printStyle):
   CSS_FILE = os.path.join(BASE_PATH, 'css/%s.css' % printStyle)
   
   # Run Prince (or an Opensource) to generate an abstract tree 1st
-  strCmd = [XHTML_PATH, '--style=%s' % CSS_FILE, '--output=%s' % '/dev/stdout', '/dev/stdin']
+  strCmd = [XHTML_PATH, '-v', '--style=%s' % CSS_FILE, '--output=%s' % '/dev/stdout', '/dev/stdin']
 
   env = { }
 
