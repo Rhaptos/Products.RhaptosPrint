@@ -16,7 +16,7 @@ import util
 
 DEBUG= 'DEBUG' in os.environ
 
-XHTML_PATH = 'prince'
+XHTML_PATH = '/usr/local/bin/prince'
 if 'XHTML_PATH' in os.environ:
   XHTML_PATH = os.environ['XHTML_PATH']
 BASE_PATH = os.getcwd()
