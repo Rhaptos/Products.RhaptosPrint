@@ -98,7 +98,7 @@
 	      </xsl:if>
 	    </xsl:attribute>
             <xsl:if test="db:name[node()] or                            db:title[node()] or                            db:caption[node()] or                            db:label[node()] or                            (not(db:label[not(node())]) and                             not(ancestor::*[1][self::db:figure or self::db:subfigure]))">
-              <caption align="bottom" class="table-text">
+              <caption>
                 <xsl:if test="db:label[node()] or                                (not(db:label[not(node())]) and                                 not(ancestor::*[1][self::db:figure or self::db:subfigure]))">
                   <b>
                     <xsl:choose>
