@@ -64,8 +64,8 @@ h1 span:first-child, .cnx-chapter-number {
 /********************** Generic Elements ********************/
 
 body {
-  font-size: x-small;
-  font-family: sans-serif, STIXGeneral, STIXSize1;
+  font-size: 8pt;
+  font-family: Arial, sans-serif, STIXGeneral, STIXSize1;
 }
 a {
 	color: #D89016;
@@ -76,7 +76,8 @@ img {
   width: 33%;
 }
 table.cnx-figure-horizontal td img {
-  width: 50%;
+  width: auto;
+  max-width: 2in;
 }
 img[height] {
   width: auto;
