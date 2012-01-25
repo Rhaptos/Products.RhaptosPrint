@@ -58,6 +58,10 @@ body {
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSize1;
 }
 
+a[href^="http://"] {
+  content: content() " (" attr(href) ") ";
+}
+
 .chapter {
   page-break-before: right;
   page-break-after: left;
