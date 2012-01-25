@@ -1,0 +1,185 @@
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+@import url('ccap-base.css');
+
+/* Print-specific styles <style media="print"... */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+/* Introduction banner */
+h1 {
+  color: LightGray;
+}
+h1 > span {
+  display: block;
+}
+/* Used for page headers */
+/* The 1st span contains the chapter number */
+h1 span:first-child {
+  content: "Chapter " content();
+  text-transform: uppercase;
+  font-size: normal;
+  font-family: serif;
+}
+/* The 2nd span contains the chapter title */
+h1 span:last-child {
+  font-size: x-large;
+}
+
+h2 {
+  border-top: 0.3em solid lightgray;
+  font-family: serif;
+  font-size: large;
+}
+
+h3 {
+  color: red;
+  font-size: large;
+  font-family: serif;
+  font-weight: normal;
+  margin-bottom: 0em;
+}
+
+.module > * {
+  margin-outside: 120px;
+}
+.module > div.titlepage {
+  margin-outside: 0px;
+}
+
+.section > .cnx-figure-properties {
+  margin-outside: -120px;
+  width: 100px;
+  float: outside;
+}
+
+.section > .cnx-figure-properties img {
+  max-width: 100px;
+}
+
+.section > .cnx-figure-properties img[height] {
+  max-width: none;
+}
+
+.section > .cnx-figure-properties .caption {
+  display: none;
+}
+
+a {
+  color: black;
+	font-weight: bold;
+	text-decoration: none;
+	border-bottom: 1px dotted LightGray;
+}
+
+/* TODO: DEL example-title-properties */
+/* TODO: REN cnx-formal-title tot title */
+/* TODO: add margin-outside to all margin-left */
+/* TODO: remove cnx-formal-title-text */
+/* .example */ .cnx-formal-title {
+  float: outside;
+  margin-outside: -120px; /* TODO: Anytime there is a negative margin, make sure there is a max-width */
+  max-width: 100px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: normal;
+}
+
+.example .cnx-formal-title {
+  color: gray;
+}
+
+/* TODO: Rename cnx-figure-properties to figure */
+.cnx-figure-properties .figure-title-properties {
+  color: gray;
+}
+
+/* TODO: ? rename cnx-example to something like "body-wrap" */
+.cnx-example > .cnx-formal-object-inner {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  padding-top: 0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.25em;
+  background-color: WhiteSmoke;
+}
+
+/* TODO: Rename .cnx-formal-title-inner to h# */
+/* TODO: DEL formal-object-properties */
+.cnx-formal-title-inner {
+  font-family: sans-serif;
+  font-size: large;
+  font-weight: bold;
+}
+
+.note {
+  border-left: 2px solid lightgray;
+  border-right: 2px solid lightgray;
+  padding-top: 0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.note h3 {
+  color: black;
+  font-family: sans-serif;
+}
+
+.table table {
+  background-color: whiteSmoke;
+}
+
+.table table td, .table table th {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+.table table th {
+  background-color: lightgray;
+}
+
+.solution {
+  display: none;
+}
+
+
+/*********************** Table of Contents ********************/
+
+.toc {
+  font-family: sans-serif;
+}
+
+.toc a {
+  color: gray;
+  text-decoration: none;
+  font-weight: normal;
+  border-bottom: none;
+}
+
+/* TOC Chapter */
+.toc dt div {
+  font-size: large;
+  padding: 0.5em;
+  border-bottom: 1px solid lightgray;
+}
+.toc dl dl {
+  display: none;
+}
+
+
+/* Chapter 3 : Type Systems ........................ 213 */
+.toc a::after {
+  content: leader(' ') target-counter(attr(href), page);
+}
+

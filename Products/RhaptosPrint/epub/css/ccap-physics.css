@@ -2,43 +2,10 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
+/* Import general page headers/footers, bookmark calculation, etc */
+@import url('ccap-base.css');
+
 /* Print-specific styles <style media="print"... */
-
-/* Don't print module asterix (link to attribution) */
-sup a {
-  display: none;
-}
-
-
-/* General css for print/online */
-
-@page {
-  margin: 5em;
-  font-size: xx-small;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-}
-
-@page :left {
-  @top-left-corner {
-    content: counter(page);
-    padding-right: 1em;
-  }
-  @top-left {
-    content: string(cnx-header);
-    text-transform: uppercase;
-  }
-}
-
-@page :right {
-  @top-right-corner {
-    content: counter(page);
-    padding-left: 1em;
-  }
-  @top-right {
-    content: string(cnx-header);
-    text-transform: uppercase;
-  }
-}
 
 /* Introduction banner */
 h1 {
@@ -49,14 +16,13 @@ h1 {
   font-weight: normal;
   text-transform: uppercase;
 }
+
 /* Used for page headers */
 /* The 1st span contains the chapter number */
 h1 span:first-child, .cnx-chapter-number {
-  string-set: chapter-number content();
 }
 /* The 2nd span contains the chapter title */
-.cnx-chapter-title {
-  string-set: cnx-header "Chapter " string(chapter-number, first) " | " content();
+h1 span:last-child, .cnx-chapter-title {
   color: white;
 }
 
@@ -64,8 +30,6 @@ h1 span:first-child, .cnx-chapter-number {
 /********************** Generic Elements ********************/
 
 body {
-  font-size: 8pt;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSize1;
 }
 a {
 	color: #D89016;
@@ -83,27 +47,11 @@ img[height] {
   width: auto;
 }
 
-.chapter {
-  page-break-before: always;
-  page-break-after: always;
-}  
-
-.equation {
-  page-break-inside: avoid;
-  text-align: center;
-}
-.equation .label {
-  float: right;
-}
-
 
 /**************************** Index **************************/
 
 /* Docbook generates 2 divs with class=index. Ignore the inner one */
 .index[title=Index] {
-  page-break-before: always;
-  page-break-after: always;
-  columns: 2;
 }
 
 .indexdiv h3 {
@@ -114,7 +62,6 @@ img[height] {
   font-weight: normal;
 }
 .indexterm {
-  content: target-counter(attr(href), page);
   color: black;
   font-weight: bold;
 }
@@ -139,7 +86,6 @@ em.glossterm {
 /*********************** Table of Contents ********************/
 
 .toc {
-  page-break-after: always;
 }
 
 .toc a {
@@ -167,29 +113,10 @@ em.glossterm {
 }
 
 
-/**************** Fix the PDF Outline *************/
-h1 { prince-bookmark-level: 1 }
-h2 { prince-bookmark-level: 2 }
-h3, h4, h5, h6 { prince-bookmark-level: none }
-
-
 /****************** Modern-Textbook classes ****************/
-
-.introduction {
-  page-break-after: always;
-}
 
 .introduction .cnx-figure-properties img {
   width: 100%;
-}
-
-.cnx-eoc, .cnx-eoc-section {
-  page-break-inside: avoid;
-}
-
-.problems-exercises {
-  columns: 2;
-  page-break-before: always;
 }
 
 .problems-exercises img {
@@ -197,21 +124,11 @@ h3, h4, h5, h6 { prince-bookmark-level: none }
   height: auto;
 }
 
-/* Allow sections in the 2-column problems-exercises to break */
-.problems-exercises .cnx-eoc-section {
-  page-break-inside: auto;
-}
-
 
 /***************************************************************
  * Clean up padding and spacing
  ***************************************************************/
-li p, dd p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
 ol, ul {
-  margin-top: 0px;
   margin-left: 20pt;
 }
 h2, h3 {
@@ -224,21 +141,11 @@ h3 {
   font-size: 1.17em;
   font-weight: normal;
 }
-p {
-  margin: 0.5em 0em;
-}
 .table table {
   background-color: #FBF2E2;
 }
-.table td {
-  padding: 0.25em;
-}
 .table th {
   font-style: italic;
-}
-.table caption {
-  align: top;
-  text-align: left;
 }
 .table caption b {
   color: white;
@@ -246,32 +153,6 @@ p {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 4px;
-}
-
-/* Properties for figures */
-
-DISABLED.cnx-figure-properties {
-  display: inline;
-  float: left; /* Overridden in the next line for print */
-  float: outside;
-  width: 170pt;
-  /* margin-outside: -170pt; */
-  padding: 0.5em;
-}
-
-DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
-  display: inline;
-  float: none;
-}
-
-DISABLED.introduction .cnx-figure-properties {
-  display: block;
-  float: none;
-  width: 100%;
-}
-
-DISABLED.cnx-figure-properties img {
-  width: 170pt;
 }
 
 /* Styles from docbook attribute-sets */

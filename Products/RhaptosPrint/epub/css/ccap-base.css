@@ -1,0 +1,159 @@
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+
+/* Print-specific styles <style media="print"... */
+
+/* Don't print module asterix (link to attribution) */
+sup a {
+  display: none;
+}
+
+
+/* General css for print/online */
+
+@page {
+  margin: 5em;
+  font-size: xx-small;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
+
+@page :left {
+  @top-left-corner {
+    content: counter(page);
+    padding-right: 1em;
+  }
+  @top-left {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+@page :right {
+  @top-right-corner {
+    content: counter(page);
+    padding-left: 1em;
+  }
+  @top-right {
+    content: string(cnx-header);
+    text-transform: uppercase;
+  }
+}
+
+/* Used for page headers */
+/* The 1st span contains the chapter number */
+h1 span:first-child {
+  string-set: chapter-number content();
+}
+/* The 2nd span contains the chapter title */
+h1 span:last-child {
+  string-set: cnx-header "Chapter " string(chapter-number, first) " | " content();
+}
+
+
+/********************** Generic Elements ********************/
+
+body {
+  font-size: 8pt;
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSize1;
+}
+
+.chapter {
+  page-break-before: left;
+  page-break-after: always;
+}  
+
+.equation {
+  page-break-inside: avoid;
+  text-align: center;
+}
+.equation .label {
+  float: right;
+}
+
+
+/**************************** Index **************************/
+
+/* Docbook generates 2 divs with class=index. Ignore the inner one */
+.index[title=Index] {
+  page-break-before: always;
+  page-break-after: always;
+  columns: 2;
+}
+
+.indexterm {
+  content: target-counter(attr(href), page);
+}
+
+
+/********************* Glossary Section **************/
+
+.glossary dt {
+}
+em.glossterm {
+}
+
+
+/*********************** Table of Contents ********************/
+
+.toc {
+  page-break-before: right;
+  page-break-after: always;
+}
+
+/**************** Fix the PDF Outline *************/
+h1 { bookmark-level: 1 }
+h2 { bookmark-level: 2 }
+h3, h4, h5, h6 { bookmark-level: none }
+
+
+/****************** Modern-Textbook classes ****************/
+
+.introduction {
+  page-break-after: always;
+}
+
+.cnx-eoc, .cnx-eoc-section {
+  page-break-inside: avoid;
+}
+
+.problems-exercises {
+  columns: 2;
+  page-break-before: always;
+}
+
+/* Allow sections in the 2-column problems-exercises to break */
+.problems-exercises .cnx-eoc-section {
+  page-break-inside: auto;
+}
+
+
+/***************************************************************
+ * Clean up padding and spacing
+ ***************************************************************/
+li p, dd p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+ol, ul {
+  margin-top: 0px;
+}
+p {
+  margin: 0.5em 0em;
+}
+table {
+  page-break-inside: avoid;
+}
+.table td {
+  padding: 0.25em;
+}
+.table caption {
+  align: top;
+  text-align: left;
+}
+
+.itemizedlist .cnx-formal-title {
+  margin: 0px;
+  float: none;
+  max-width: inherit;
+}
