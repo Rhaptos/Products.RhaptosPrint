@@ -13,7 +13,7 @@
 
 <xsl:param name="cnx.log.onlyaggregate">yes</xsl:param>
 
-<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+<xsl:output indent="no" method="xml" omit-xml-declaration="yes"/>
 
 <xsl:template match="mml:math">
 	<!-- Check if we can simplify it (convert the math to cnxml) -->

@@ -19,7 +19,6 @@ SIMPLIFY_MATHML_XSL = util.makeXsl('cnxml-clean-math-simplify.xsl')
 ANNOTATE_IMAGES_XSL = util.makeXsl('annotate-images.xsl')
 CNXML_TO_DOCBOOK_XSL = util.makeXsl('cnxml2dbk.xsl')
 DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean.xsl')
-DOCBOOK_VALIDATION_XSL = util.makeXsl('dbk-clean-for-validation.xsl')
 SVG2PNG_FILES_XSL = util.makeXsl('dbk-svg2png.xsl')
 DOCBOOK_BOOK_XSL = util.makeXsl('moduledbk2book.xsl')
 

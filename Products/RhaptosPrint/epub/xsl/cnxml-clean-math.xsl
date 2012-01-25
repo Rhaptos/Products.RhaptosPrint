@@ -13,7 +13,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <!-- Remove empty mml:mo -->
 <xsl:template match="mml:mo[normalize-space(text())='']">

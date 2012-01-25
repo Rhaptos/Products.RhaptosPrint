@@ -17,7 +17,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>

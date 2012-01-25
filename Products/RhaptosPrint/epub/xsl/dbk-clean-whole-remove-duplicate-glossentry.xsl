@@ -19,7 +19,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template match="db:glossentry[normalize-space(db:glossterm/text())!='' and db:glossterm/text()=preceding-sibling::db:glossentry/db:glossterm/text()]">

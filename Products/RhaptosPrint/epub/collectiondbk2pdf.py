@@ -145,7 +145,7 @@ def convert(dbk1, files, printStyle):
   # Step 2 (Docbook to XHTML)
   xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
   if DEBUG:
-    open('temp-collection3.xhtml','w').write(etree.tostring(xhtml,pretty_print=True))
+    open('temp-collection3.xhtml','w').write(etree.tostring(xhtml))
 
   #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)

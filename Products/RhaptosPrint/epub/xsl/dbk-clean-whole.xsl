@@ -23,7 +23,7 @@
 <xsl:import href="param.xsl"/>
 <xsl:import href="dbk-link-externalizer.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <!-- Because FOP is picky with directories inject the absolute dir to images:
      * If the current dir is the tempdir then the fop.xconf file needs absolute paths to fonts

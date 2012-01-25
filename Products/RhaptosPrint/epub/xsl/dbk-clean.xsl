@@ -13,7 +13,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>

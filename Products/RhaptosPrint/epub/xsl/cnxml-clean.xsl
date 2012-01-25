@@ -20,7 +20,7 @@ xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
 <!-- Convert all QML to cnxml -->
 <xsl:import href="qml2cnxml.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <!-- Convert Content MathML to Presentation MathML -->
 <xsl:include href="c2p.xsl"/>
