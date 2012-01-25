@@ -12,7 +12,7 @@ h1 {
   background-color: #FAA61A;
   margin-bottom: 0em;
   padding: 0.25em 0.5em;
-  font-size: 2em; /* xx-large; */
+  font-size: 2.5em; /* xx-large; */
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -20,6 +20,7 @@ h1 {
 /* Used for page headers */
 /* The 1st span contains the chapter number */
 h1 span:first-child, .cnx-chapter-number {
+  padding-right: 1em;
 }
 /* The 2nd span contains the chapter title */
 h1 span:last-child, .cnx-chapter-title {
@@ -69,6 +70,25 @@ img[height] {
 
 /********************* Glossary Section **************/
 
+/* Style the title like Exercise/Example */
+.glossary .titlepage div div {
+	margin-top: 18;
+	padding-top: 2px;
+	padding-bottom: 3px;
+	margin-bottom: -2.5px; /* so the stupid bar lines up */
+	border-bottom: 1px solid #FAA61A;
+}
+.glossary .titlepage h2 {
+  display: inline;
+  font-size: 10pt;
+  padding-left: 1em;
+  padding-right: 1em;
+	padding-top: 4px;
+	padding-bottom: 4px;
+  background-color: #0061AA;
+	color: white;
+}
+
 .glossary dt {
   float: left;
   font-weight: bold;
@@ -85,11 +105,12 @@ em.glossterm {
 
 /*********************** Table of Contents ********************/
 
-.toc {
+.toc > p {
+  border-bottom: 1px solid #FAA61A;
 }
 
 .toc a {
-	color: blue;
+	color: #0061AA;
 	font-weight: medium;
   text-decoration: none;
 }
@@ -119,6 +140,50 @@ em.glossterm {
   width: 100%;
 }
 
+
+/* "Key Concepts" Introduction table */
+table.cnx-introduction-toc {
+	border: 1px solid #0061AA;
+	margin: auto;
+	margin-bottom: 1em;
+	border-spacing: 0px;
+}
+table.cnx-introduction-toc tr:first-child {
+	background-color: #0061AA;
+	color: white;
+	font-size: large;
+	text-align: center;
+}
+table.cnx-introduction-toc tr:not(:first-child) {
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+table.cnx-introduction-toc td a {
+  color: black;
+  font-weight: normal;
+}
+table.cnx-introduction-toc td {
+  padding: 0.25em;
+}
+table.cnx-introduction-toc td:first-child a {
+  color: black;
+	border-bottom: 1px solid #FAA61A;
+	font-size: small;
+	font-weight: bold;
+	margin-bottom: 0.75em;
+  margin-left: 1em;
+  margin-right: 0.5em;
+}
+.cnx-introduction-toc td:last-child a {
+	display-align: after;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+	text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
+}
+
+
 .problems-exercises img {
   width: 3in;
   height: auto;
@@ -142,6 +207,8 @@ h3 {
   font-weight: normal;
 }
 .table table {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   background-color: #FBF2E2;
 }
 .table th {
@@ -154,6 +221,61 @@ h3 {
   padding-right: 1em;
   padding-top: 4px;
 }
+
+/************************************************
+ * CNXML blockish elements
+ ************************************************/
+.note {
+	page-break-inside: avoid;
+	background-color: #FBF2E2;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+.note h3 {
+  margin-top: 0.5em;
+}
+.note .title {
+  display: block; /* so the underline stretches */
+  color: #0061AA;
+  border-bottom: 1px solid #FAA61A;
+}
+.exercise {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+.example {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+
+
+/******************************************************
+ * End of chapter customizations
+ ******************************************************/
+/* TODO: rename cnx-problems-title to cnx-eoc-title */
+/* TODO: remove cnx-problems-subtitle */
+.cnx-problems-title {
+	padding-top: 1em;
+}
+.cnx-problems-title a {
+	color: #0061AA;
+	font-size: small;
+	font-weight: bold;
+}
+
+
+/*****************************************************
+ * Appendix customizations
+ *****************************************************/
+
+
+
+
 
 /* Styles from docbook attribute-sets */
 
@@ -315,22 +437,6 @@ table.cnx-figure-horizontal td {
 }
 .nongraphical-admonition-properties {
 }
-.note {
-	page-break-inside: avoid;
-	background-color: #FBF2E2;
-	padding-left: 1em;
-	padding-right: 1em;
-	padding-top: 0.1em;
-	padding-bottom: 0.1em;
-}
-.note h3 {
-  margin-top: 0.5em;
-}
-.note .title {
-  display: block; /* so the underline stretches */
-  color: #0061AA;
-  border-bottom: 1px solid #FAA61A;
-}
 .cnx-note-concept {
 	page-break-inside: avoid;
 	background-color: #FBF2E2;
@@ -417,54 +523,6 @@ table.cnx-figure-horizontal td {
 	font-size: large;
 	font-weight: bold;
 	margin-bottom: 0.75em;
-}
-table.cnx-introduction-toc {
-	border: 1px solid #0061AA;
-	margin: auto;
-	margin-bottom: 1em;
-	border-spacing: 0px;
-}
-table.cnx-introduction-toc tr:first-child {
-	background-color: #0061AA;
-	color: white;
-	font-size: large;
-	text-align: center;
-}
-table.cnx-introduction-toc tr:not(:first-child) {
-	padding-bottom: 0.25em;
-	padding-top: 0.25em;
-}
-table.cnx-introduction-toc td a {
-  color: black;
-  font-weight: normal;
-}
-table.cnx-introduction-toc td:first-child a {
-  color: black;
-	border-bottom: 1px solid #FAA61A;
-	font-size: small;
-	font-weight: bold;
-	margin-bottom: 0.75em;
-  margin-left: 1em;
-  margin-right: 0.5em;
-}
-.cnx-introduction-toc td:last-child a {
-	display-align: after;
-	padding-bottom: 0.25em;
-	padding-top: 0.25em;
-	text-align: start;
-  margin-left: 0.5em;
-  margin-right: 1em;
-}
-.cnx-problems-title {
-	color: #0061AA;
-	font-size: medium;
-	font-weight: bold;
-	padding-top: 0.25em;
-}
-.cnx-problems-subtitle {
-	color: #0061AA;
-	font-weight: bold;
-	padding-top: 0.25em;
 }
 .cnx-header-title {
 }

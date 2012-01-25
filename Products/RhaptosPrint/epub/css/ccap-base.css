@@ -59,8 +59,8 @@ body {
 }
 
 .chapter {
-  page-break-before: left;
-  page-break-after: always;
+  page-break-before: right;
+  page-break-after: left;
 }  
 
 .equation {
@@ -101,6 +101,11 @@ em.glossterm {
   page-break-after: always;
 }
 
+.toc > p {
+  font-size: x-large;
+  text-align: center;
+}
+
 /**************** Fix the PDF Outline *************/
 h1 { bookmark-level: 1 }
 h2 { bookmark-level: 2 }
@@ -114,7 +119,6 @@ h3, h4, h5, h6 { bookmark-level: none }
 }
 
 .cnx-eoc, .cnx-eoc-section {
-  page-break-inside: avoid;
 }
 
 .problems-exercises {
