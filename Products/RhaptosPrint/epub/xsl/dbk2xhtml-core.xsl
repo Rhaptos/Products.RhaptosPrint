@@ -749,7 +749,7 @@
     <xsl:param name="xrefstyle"/>
 
     <xsl:apply-templates mode="xref-to" select=".."/>
-    <xsl:number count="db:informalfigure" value="position()" format="a"/>
+    <xsl:number from="db:figure" count="db:informalfigure" format="a"/>
   </xsl:template>
 
 <!-- Don't include glossaries in the TOC -->

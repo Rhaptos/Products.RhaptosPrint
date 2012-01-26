@@ -511,20 +511,18 @@
 
 <!-- Partially supported -->
 <xsl:template match="c:subfigure">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure element and just including all of its children</xsl:with-param></xsl:call-template>
 	<xsl:if test="@type">
 		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
 	</xsl:if>
   <db:informalfigure>
-		<xsl:apply-templates select="@*"/>
-    	<xsl:apply-templates select="node()"/>
-        <xsl:if test="not(c:caption)">
-                <db:caption>
-                        <db:emphasis role="bold">
-                                <xsl:number count="c:subfigure" format="(a)"/>
-                        </db:emphasis>
-                </db:caption>
-        </xsl:if>
+		<xsl:apply-templates select="@*|node()"/>
+      <xsl:if test="not(c:caption)">
+        <db:caption>
+          <db:emphasis role="bold">
+            <xsl:number count="c:subfigure" format="(a)"/>
+          </db:emphasis>
+        </db:caption>
+      </xsl:if>
   </db:informalfigure>
 </xsl:template>
 
