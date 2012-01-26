@@ -48,7 +48,8 @@
 <xsl:template match="db:book[not(@ext:element='module')]">
     <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
-        <db:appendix>
+        <db:index/>
+        <db:colophon>
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="$attribution.section.id"/>
             </xsl:attribute>
@@ -179,8 +180,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                         <db:member>
-                            <xsl:text>URL: </xsl:text>
-                            <db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
+                            <db:ulink url="{$url}"><xsl:value-of select="$url"/>URL</db:ulink>
                         </db:member>
                         <xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor' and *[name()!='db:contrib']]">
                             <!-- Max: The *[name()!='db:contrib'] is to make sure that the db:othercredit is actually populated with a user.  
@@ -244,7 +244,7 @@
                     </db:simplelist>
                 </db:para>
             </xsl:for-each>
-        </db:appendix>
+        </db:colophon>
         <xsl:if test="$cnx.site-type = 'Connexions'">
             <db:colophon>
                 <db:title>About Connexions</db:title>

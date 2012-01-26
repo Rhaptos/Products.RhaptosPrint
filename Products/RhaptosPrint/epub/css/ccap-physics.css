@@ -40,6 +40,9 @@ a {
 	font-weight: bold;
 	text-decoration: none;
 }
+table.cnx-figure-horizontal {
+	margin: auto; /* center the table */
+}
 /* Images (unless they're horizontal subfigures) should be scaled to 1/3 */
 *:not(.cnx-figure-horizontal tr td) img {
   width: 33%;
@@ -49,8 +52,11 @@ table.cnx-figure-horizontal td img {
 }
 img[height] {
   width: auto;
+  height: auto;
 }
-
+img {
+  max-width: 7in;
+}
 
 /**************************** Index **************************/
 

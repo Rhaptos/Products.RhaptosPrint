@@ -71,7 +71,7 @@ a[href^="http://"] {
   content: content() " (" attr(href) ") ";
 }
 
-.chapter {
+.chapter, .appendix {
   page-break-before: right;
   page-break-after: left;
 }  
@@ -141,6 +141,11 @@ h3, h4, h5, h6 { bookmark-level: none }
 
 .introduction {
   /* page-break-after: always; */
+}
+
+/* Hide the manual key-concepts table */
+.introduction table.simplelist {
+  display: none;
 }
 
 .cnx-eoc, .cnx-eoc-section {
