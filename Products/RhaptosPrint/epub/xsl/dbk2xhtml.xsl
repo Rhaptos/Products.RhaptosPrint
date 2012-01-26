@@ -4,6 +4,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="../docbook-xsl/xhtml-1_1/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
+<xsl:import href="dbk2xhtml-overrides.xsl"/>
 
 <xsl:output indent="no" method="xml"/>
 
@@ -51,6 +52,7 @@ procedure before
 
 	<div id="{$id}" class="chapter">
 		<xsl:call-template name="chapter.titlepage"/>
+    <xsl:apply-templates mode="cnx.intro" select="d:section"/>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 		<xsl:call-template name="cnx.summarypage"/>
   	<xsl:call-template name="cnx.problemspage"/>
@@ -339,19 +341,6 @@ procedure before
     </xsl:if>
     <xsl:copy-of select="$cnx.title"/>
   </xsl:element>
-</xsl:template>
-
-
-<xsl:template name="chapter.titlepage">
-  <h1>
-    <span class="cnx-chapter-number">
-      <xsl:apply-templates select="." mode="label.markup"/>
-    </span>
-    <span class="cnx-chapter-title">
-      <xsl:apply-templates select="." mode="title.markup"/>
-    </span>
-  </h1>
-  <xsl:apply-templates mode="cnx.intro" select="d:section"/>
 </xsl:template>
 
 <xsl:template mode="cnx.intro" match="node()"/>

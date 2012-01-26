@@ -946,5 +946,68 @@
 </xsl:template>
 
 
+
+
+
+<!-- Chapters titles should be H1, not H2. This is from docbook-xsl/xhtml-1_1/component.xsl -->
+<xsl:template name="component.title">
+  <xsl:param name="node" select="."/>
+
+  <xsl:variable name="level">
+    <xsl:choose>
+      <xsl:when test="ancestor::d:section">
+        <xsl:value-of select="count(ancestor::d:section)+1"/>
+      </xsl:when>
+      <xsl:when test="ancestor::d:sect5">6</xsl:when>
+      <xsl:when test="ancestor::d:sect4">5</xsl:when>
+      <xsl:when test="ancestor::d:sect3">4</xsl:when>
+      <xsl:when test="ancestor::d:sect2">3</xsl:when>
+      <xsl:when test="ancestor::d:sect1">2</xsl:when>
+<!-- CNX: START Customization -->
+      <xsl:otherwise>
+        <!-- for-each is just to change the context for ancestor:: to not be the d:title element -->
+        <xsl:for-each select="$node">
+          <xsl:value-of select="count(ancestor::*[self::d:chapter or self::d:appendix])"/>
+        </xsl:for-each>
+      </xsl:otherwise>
+<!--      <xsl:otherwise>1</xsl:otherwise> -->
+<!-- CNX: END Customization -->
+    </xsl:choose>
+  </xsl:variable>
+
+  <!-- Let's handle the case where a component (bibliography, for example)
+       occurs inside a section; will we need parameters for this? -->
+
+  <xsl:element name="h{$level+1}" namespace="http://www.w3.org/1999/xhtml">
+    <xsl:attribute name="class">title</xsl:attribute>
+    <xsl:if test="$generate.id.attributes = 0">
+      <xsl:call-template name="anchor">
+	<xsl:with-param name="node" select="$node"/>
+	<xsl:with-param name="conditional" select="0"/>
+      </xsl:call-template>
+    </xsl:if>
+      <xsl:apply-templates select="$node" mode="object.title.markup">
+      <xsl:with-param name="allow-anchors" select="1"/>
+    </xsl:apply-templates>
+  </xsl:element>
+</xsl:template>
+
+
+
+<!-- Due to limitations of CSS3 page hints (page-break-inside:avoid)
+     this code was copy-pasted from docbook-xsl/xhtml-1_1/autoidx.xsl and the div wrapper was removed.
+This is because the following generated HTML results in the Index title appearing on one page with the rest of the index appearing on the next page.
+Example:
+<div style="page-break-inside: avoid;">
+  <div>Index</div>
+  <div>A aardvark . . . Z zebra</div>
+</div>
+-->
+
+<!--
+<xsl:template name="generate-basic-index">
+</xsl:template>
+-->
+
 </xsl:stylesheet>
 
