@@ -167,6 +167,9 @@ li p, dd p {
 ol, ul {
   margin-top: 0px;
 }
+dl {
+  margin: 0.5em;
+}
 p {
   margin: 0.5em 0em;
 }
