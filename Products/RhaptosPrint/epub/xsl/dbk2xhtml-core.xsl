@@ -272,10 +272,10 @@
     </xsl:variable>
     <xsl:variable name="showCollectionAuthors" select="$authorsMismatch != ''"/>
     <xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Displaying separate collections authors on title page? <xsl:value-of select="$showCollectionAuthors"/></xsl:with-param></xsl:call-template>
-
-    <h2>
+  <div class="cnx-title">
+    <h1>
         <xsl:value-of select="db:bookinfo/db:title/text()"/>
-    </h2>
+    </h1>
 
     <xsl:if test="$showCollectionAuthors">
         <xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Authors mismatch because of <xsl:value-of select="$authorsMismatch"/></xsl:with-param></xsl:call-template>
@@ -415,6 +415,7 @@
 	        </div>
 	    </xsl:if>
     </div>
+  </div>
 </xsl:template>
 
 <xsl:template name="cnx.cuteurl">

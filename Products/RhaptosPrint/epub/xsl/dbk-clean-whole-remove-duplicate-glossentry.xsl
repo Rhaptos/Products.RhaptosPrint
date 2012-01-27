@@ -90,7 +90,7 @@
                     <xsl:text>/</xsl:text>
                 </xsl:variable>
                 <xsl:variable name="attributionId">
-                    <xsl:text>book.attribution.</xsl:text>
+                    <xsl:text>book-attribution-</xsl:text>
                     <xsl:value-of select="$id"/>
                 </xsl:variable>
                 <db:para>
@@ -121,9 +121,11 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:text>Module: </xsl:text>
-                                    <db:link endterm="{$id}">
+                                    <db:emphasis role="bold">
+                                      <db:link endterm="{$id}">
                                         <xsl:copy-of select="$originalTitle"/>
-                                    </db:link>
+                                      </db:link>
+                                    </db:emphasis>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </db:member>
@@ -180,7 +182,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                         <db:member>
-                            <db:ulink url="{$url}"><xsl:value-of select="$url"/>URL</db:ulink>
+                            <db:ulink url="{$url}">URL</db:ulink>
                         </db:member>
                         <xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor' and *[name()!='db:contrib']]">
                             <!-- Max: The *[name()!='db:contrib'] is to make sure that the db:othercredit is actually populated with a user.  

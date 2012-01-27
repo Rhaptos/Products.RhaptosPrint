@@ -71,7 +71,7 @@ a[href^="http://"] {
   content: content() " (" attr(href) ") ";
 }
 
-.chapter, .appendix {
+.chapter, .appendix, .colophon {
   page-break-before: right;
   page-break-after: left;
 }  
@@ -95,10 +95,10 @@ a[href^="http://"] {
   string-set: cnx-header "Index";
 }
 
-.index .cnx-formal-title {
-  display: none;
+.index .cnx-formal-title * {
+  display: inline;
 }
-.index .cnx-formal-title span {
+.index .cnx-formal-title * {
   string-set: cnx-header content();
 }
 
@@ -118,6 +118,9 @@ a[href^="http://"] {
 em.glossterm {
 }
 
+#book.attribution, .colophon {
+  font-size: x-small;
+}
 
 /*********************** Table of Contents ********************/
 

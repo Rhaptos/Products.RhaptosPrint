@@ -37,7 +37,7 @@
 
 <!-- When generating id's we need to prefix them with a module id. 
 	This is the text between the module, and the module-specific id. -->
-<xsl:param name="cnx.module.separator">.</xsl:param>
+<xsl:param name="cnx.module.separator">-</xsl:param>
 <!-- HACK: FOP generation requires that db:imagedata be missing but epub/html needs it -->
 <xsl:param name="cnx.output.fop" select="0"/>
 
@@ -111,7 +111,7 @@
 <xsl:param name="cnx.lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
 
 <!-- Putting this here since it's used in more than one file. -->
-<xsl:param name="attribution.section.id" select="'book.attribution'"/>
+<xsl:param name="attribution.section.id" select="'book-attribution'"/>
 
 <!-- FOP stuff -->
 <!-- When numbering exercises, only use the last number.

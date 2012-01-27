@@ -676,11 +676,12 @@ Combination of formal.object and formal.object.heading -->
 <!-- Customize index page for modern-textbook       -->
 <!-- ============================================== -->
 
+<!-- If it's rendered in multiple columns the indexdiv gets a "h3" tag and, if the title div doesn't have one the title will show up alone in 1 column with the indexdivs in another -->
 <xsl:template name="index.titlepage">
   <div class="cnx-formal-title">
-        <span class="example-title-properties cnx-formal-title-text">
-          <xsl:apply-templates select="." mode="title.markup"/>
-        </span>
+    <h2 class="example-title-properties cnx-formal-title-text">
+      <xsl:apply-templates select="." mode="title.markup"/>
+    </h2>
   </div>
 </xsl:template>
 
