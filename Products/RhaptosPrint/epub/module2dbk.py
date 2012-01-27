@@ -62,7 +62,7 @@ def convert(moduleId, cnxml, filesDict, collParams, svg2png=True, math2svg=True)
     ret = xslDoc(xmlDoc, **params)
     for entry in xslDoc.error_log:
       # TODO: Log the errors (and convert JSON to python) instead of just printing
-      #print entry
+      print >> sys.stderr, entry.message
       pass
     return ret
 
