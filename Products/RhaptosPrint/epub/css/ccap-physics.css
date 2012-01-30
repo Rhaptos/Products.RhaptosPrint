@@ -252,15 +252,11 @@ h3 {
   font-style: italic;
 }
 .table caption {
-  margin-bottom: 4px;
+  caption-side: bottom;
 }
-.table caption b {
-  color: white;
-  background-color: #8FB733;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 4px;
-  padding-bottom: 4px;
+.table caption span.cnx-gentext-t, .table caption span.cnx-gentext-n {
+  color: #D89016;
+  font-weight: bold;
 }
 
 /************************************************
