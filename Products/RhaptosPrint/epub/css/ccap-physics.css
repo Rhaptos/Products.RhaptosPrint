@@ -7,6 +7,30 @@
 
 /* Print-specific styles <style media="print"... */
 
+
+/***************** Title page *****************/
+.book > .cnx-title {
+}
+
+.book > .cnx-title h1 {
+  text-align: center;
+  font-size: xx-large;
+  margin-top: 10em;
+}
+
+#title_page_collection_editors, #title_page_module_authors, #title_page_url {
+  text-align: center;
+  font-size: large;
+}
+
+#title_page_url {
+  margin-bottom: 10em;
+}
+.cnx-title a {
+  content: content();
+}
+
+
 /* Introduction banner */
 h1.title {
   background-color: #FAA61A;
@@ -82,6 +106,7 @@ img {
 	padding-bottom: 3px;
 	margin-bottom: -2.5px; /* so the stupid bar lines up */
 	border-bottom: 1px solid #FAA61A;
+	page-break-after: avoid;
 }
 .glossary .titlepage h2 {
   display: inline;
@@ -112,6 +137,7 @@ em.glossterm {
 
 .toc > p {
   border-bottom: 1px solid #FAA61A;
+  page-break-after: avoid;
 }
 
 .toc a {
@@ -178,6 +204,7 @@ table.cnx-introduction-toc td {
 table.cnx-introduction-toc td:first-child a {
   color: black;
 	border-bottom: 1px solid #FAA61A;
+  page-break-after: avoid;
 	font-size: small;
 	font-weight: bold;
 	margin-bottom: 0.75em;
@@ -230,6 +257,7 @@ h3 {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 4px;
+  line-height: 1.7em; /* For wrapping titles */
 }
 
 /************************************************
@@ -251,6 +279,7 @@ h3 {
 .note .title {
   display: block; /* so the underline stretches */
   color: #0061AA;
+  page-break-after: avoid;
   border-bottom: 1px solid #FAA61A;
 }
 .exercise {
@@ -311,6 +340,7 @@ body.font.master=8.5
 	margin-top: 0.2em;
 }
 .cnx-underscore {
+  page-break-after: avoid;
 	border-bottom: 1px solid #FAA61A;
 }
 .cnx-question {
@@ -328,6 +358,7 @@ body.font.master=8.5
 	padding-top: 2px;
 	padding-bottom: 3px;
 	margin-bottom: -2.5px; /* so the stupid bar lines up */
+  page-break-after: avoid;
 	border-bottom: 1px solid #FAA61A;
 	page-break-after: avoid;
 }
