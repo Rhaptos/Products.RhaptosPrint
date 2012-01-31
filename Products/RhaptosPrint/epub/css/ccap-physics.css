@@ -349,7 +349,7 @@ body.font.master=8.5
 .cnx-question-number {
 	font-weight: bold;
 }
-.cnx-formal-title {
+.title {
 	color: white;
 	font-size: 120%;
 	font-weight: bold;
@@ -361,14 +361,18 @@ body.font.master=8.5
 	border-bottom: 1px solid #FAA61A;
 	page-break-after: avoid;
 }
-.cnx-formal-title-text {
-	background-color: #8FB733;
-	padding-top: 4px;
+.example .title > span, .exercise .title > span, .cnx-eoc .title > span {
+	background-color: #0061AA;
 	padding-left: 1em;
 	padding-right: 1em;
+	padding-top: 4px;
 	padding-bottom: 4px; /* so the stupid bar lines up */
 }
-.cnx-formal-title-inner {
+.exercise .title > span {
+	background-color: #8FB733;
+}
+
+.titlepage h3 {
 	color: #0061AA;
 	font-size: 120%;
 }
@@ -391,11 +395,6 @@ body.font.master=8.5
 .list-block-properties {
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
-}
-.example-title-properties {
-	background-color: #0061AA;
-	padding-top: 4px;
-	padding-bottom: 4px;
 }
 .figure-title-properties {
 	color: #D89016;

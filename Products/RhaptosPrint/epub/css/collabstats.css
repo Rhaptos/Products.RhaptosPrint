@@ -77,11 +77,8 @@ a {
 	border-bottom: 1px dotted LightGray;
 }
 
-/* TODO: DEL example-title-properties */
-/* TODO: REN cnx-formal-title tot title */
 /* TODO: add margin-outside to all margin-left */
-/* TODO: remove cnx-formal-title-text */
-/* .example */ .cnx-formal-title {
+/* .example */ .title {
   float: outside;
   margin-outside: -120px; /* TODO: Anytime there is a negative margin, make sure there is a max-width */
   max-width: 100px;
@@ -90,7 +87,7 @@ a {
   font-size: normal;
 }
 
-.example .cnx-formal-title {
+.example .title {
   color: gray;
 }
 
@@ -111,9 +108,9 @@ a {
   background-color: WhiteSmoke;
 }
 
-/* TODO: Rename .cnx-formal-title-inner to h# */
+/* TODO: Rename .title-inner to h# */
 /* TODO: DEL formal-object-properties */
-.cnx-formal-title-inner {
+.title > span {
   font-family: sans-serif;
   font-size: large;
   font-weight: bold;

@@ -119,8 +119,8 @@ procedure before
 		<xsl:comment>CNX: Start Area: "<xsl:value-of select="$title"/>"</xsl:comment>
 		
 		<div class="cnx-eoc {$attribute}">
-		<div class="cnx-formal-title">
-			<span class="example-title-properties cnx-formal-title-text">
+		<div class="title">
+			<span>
 				<xsl:copy-of select="$title"/>
 			</span>
 		</div>
@@ -258,9 +258,9 @@ procedure before
 <xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
-  <div class="cnx-formal-title">
-    <span class="example-title-properties cnx-formal-title-text">
-      <xsl:text>&#160; &#160; Answers &#160; &#160;</xsl:text>
+  <div class="title">
+    <span>
+      <xsl:text>Answers</xsl:text>
     </span>
   </div>
   
@@ -541,7 +541,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   </xsl:variable>
 
-  <div class="cnx-formal-title-inner">
+  <div>
     <xsl:copy-of select="$content"/>
   </div>
 </xsl:template>
@@ -556,19 +556,10 @@ Combination of formal.object and formal.object.heading -->
   </xsl:variable>
 
   <!-- CNX: added special case for examples and notes -->
-  <div class="cnx-formal-title">
-    <xsl:choose>
-      <xsl:when test="self::db:example">
-        <span class="example-title-properties cnx-formal-title-text">
-          <xsl:copy-of select="$content"/>
-        </span>
-      </xsl:when>
-      <xsl:otherwise>
-        <span class="cnx-formal-title-text">
-          <xsl:copy-of select="$content"/>
-        </span>
-      </xsl:otherwise>
-    </xsl:choose>
+  <div class="title">
+    <span>
+      <xsl:copy-of select="$content"/>
+    </span>
   </div>
 </xsl:template>
 
@@ -678,8 +669,8 @@ Combination of formal.object and formal.object.heading -->
 
 <!-- If it's rendered in multiple columns the indexdiv gets a "h3" tag and, if the title div doesn't have one the title will show up alone in 1 column with the indexdivs in another -->
 <xsl:template name="index.titlepage">
-  <div class="cnx-formal-title">
-    <h2 class="example-title-properties cnx-formal-title-text">
+  <div class="title">
+    <h2>
       <xsl:apply-templates select="." mode="title.markup"/>
     </h2>
   </div>

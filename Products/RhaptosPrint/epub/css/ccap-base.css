@@ -83,6 +83,13 @@ a[href^="http://"] {
 .equation .label {
   float: right;
 }
+.cnx-figure-properties {
+	font-size: xx-small;
+	padding-bottom: 0.5em;
+	margin-left: auto;
+	margin-right: auto;
+	page-break-inside: avoid;
+}
 
 
 /**************************** Index **************************/
@@ -95,10 +102,10 @@ a[href^="http://"] {
   string-set: cnx-header "Index";
 }
 
-.index .cnx-formal-title * {
+.index .title * {
   display: inline;
 }
-.index .cnx-formal-title * {
+.index .title * {
   string-set: cnx-header content();
 }
 
@@ -192,7 +199,7 @@ table {
   text-align: left;
 }
 
-.itemizedlist .cnx-formal-title {
+.itemizedlist .title {
   margin: 0px;
   float: none;
   max-width: inherit;

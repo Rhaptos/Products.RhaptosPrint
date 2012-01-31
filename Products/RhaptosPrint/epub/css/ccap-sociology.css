@@ -14,8 +14,17 @@
   content: "Summary";
 }
 
+/* subsequent paragraphs are indented */
+p:nth-of-type(1) {
+  text-indent: 0em;
+}
+p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-indent: 2em;
+}
+
 /* Customize EOC material */
-.cnx-eoc .cnx-formal-title {
+.cnx-eoc .title {
   border-bottom: 1px solid LimeGreen;
   margin-bottom: 0.25em;
 }
@@ -44,14 +53,15 @@ sup a {
   @top-right {
   }
 }
-h1 {
+h1.title {
   background-color: Purple;
+  font-size: 3.5em; /* xx-large; */
 }
-h1 span:first-child, .cnx-chapter-number {
+h1.title .cnx-gentext-n {
   color: LimeGreen;
   font-weight: bold;
 }
-.cnx-chapter-title {
+h1.title .cnx-gentext-t {
   text-transform: none;
 }
 body {
@@ -164,18 +174,18 @@ DISABLED.cnx-figure-properties img {
 }
 .cnx-question-number {
 }
-.cnx-formal-title {
+.title {
   color: Purple;
 	border-bottom: 1px solid Purple;
 	padding-left: 
 }
-.cnx-formal-title-text {
+.title > span {
 	background-color: none;
 	padding-left: inherit;
 	padding-right: inherit;
 	font-size: large;
 }
-.cnx-formal-title-inner {
+.titlepage h3 {
 	color: #0061AA;
 }
 .cnx-vertical-spacing {
@@ -187,9 +197,6 @@ DISABLED.cnx-figure-properties img {
 .list-item-spacing {
 }
 .list-block-properties {
-}
-.example-title-properties {
-	background-color: inherit;
 }
 .figure-title-properties {
 	color: black;
