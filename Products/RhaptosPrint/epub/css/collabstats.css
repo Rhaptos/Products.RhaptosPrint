@@ -52,21 +52,21 @@ h3 {
   margin-outside: 0px;
 }
 
-.section > .cnx-figure-properties {
+.section > .figure {
   margin-outside: -120px;
   width: 100px;
   float: outside;
 }
 
-.section > .cnx-figure-properties img {
+.section > .figure img {
   max-width: 100px;
 }
 
-.section > .cnx-figure-properties img[height] {
+.section > .figure img[height] {
   max-width: none;
 }
 
-.section > .cnx-figure-properties .caption {
+.section > .figure .caption {
   display: none;
 }
 
@@ -91,8 +91,8 @@ a {
   color: gray;
 }
 
-/* TODO: Rename cnx-figure-properties to figure */
-.cnx-figure-properties .figure-title-properties {
+/* TODO: Rename figure to figure */
+.figure .title {
   color: gray;
 }
 

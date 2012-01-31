@@ -57,7 +57,6 @@ Classes defined in Docbook+ to XHTML:
  444 cnx-svg (Unused in CSS)
  409 cnx-question-number
  409 cnx-question
- 217 figure-title-properties
  217 cnx-figure-properties
  212 cnx-figure-content
  169 equation

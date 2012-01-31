@@ -83,7 +83,7 @@ a[href^="http://"] {
 .equation .label {
   float: right;
 }
-.cnx-figure-properties {
+.figure {
 	font-size: xx-small;
 	padding-bottom: 0.5em;
 	margin-left: auto;

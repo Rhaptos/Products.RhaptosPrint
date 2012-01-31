@@ -172,7 +172,7 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
   color: #0061AA;
 }
 
-.introduction .cnx-figure-properties img {
+.introduction .figure img {
   width: 100%;
 }
 
@@ -396,7 +396,7 @@ body.font.master=8.5
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
-.figure-title-properties {
+.figure .title {
 	color: #D89016;
 	font-weight: bold;
 	/* hyphenate: false; */
@@ -422,7 +422,7 @@ table.cnx-figure-horizontal td {
 	font-weight: bold;
 	padding-top: 6pt;
 }
-.cnx-figure-properties {
+.figure {
 	font-size: xx-small;
 	padding-bottom: 0.5em;
 	margin-left: auto;

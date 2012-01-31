@@ -499,7 +499,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:call-template>
   </xsl:variable>
 
-  <div id="{$id}" class="cnx-figure-properties">
+  <div id="{$id}" class="figure">
     <xsl:choose>
       <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
         <div class="cnx-figure-content">

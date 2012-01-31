@@ -112,7 +112,7 @@ h2 { prince-bookmark-level: 2 }
 h3, h4, h5, h6 { prince-bookmark-level: none }
 .introduction {
 }
-.introduction .cnx-figure-properties img {
+.introduction .figure img {
 }
 .cnx-eoc, .cnx-eoc-section {
 }
@@ -148,14 +148,6 @@ p {
 .table caption b {
   background-color: #8FB733;
 }
-DISABLED.cnx-figure-properties {
-}
-DISABLED.exercise .cnx-figure-properties, DISABLED.example .cnx-figure-properties {
-}
-DISABLED.introduction .cnx-figure-properties {
-}
-DISABLED.cnx-figure-properties img {
-}
 <xsl:param name="cnx.color.orange">Purple</xsl:param>
 <xsl:param name="cnx.color.blue">#0061AA</xsl:param>
 <xsl:param name="cnx.color.red">#D89016</xsl:param>
@@ -173,11 +165,6 @@ DISABLED.cnx-figure-properties img {
 .cnx-question {
 }
 .cnx-question-number {
-}
-.title {
-  color: Purple;
-	border-bottom: 1px solid Purple;
-	padding-left: 
 }
 .title > span {
 	background-color: none;
@@ -198,7 +185,7 @@ DISABLED.cnx-figure-properties img {
 }
 .list-block-properties {
 }
-.figure-title-properties {
+.figure .title {
 	color: black;
 	font-weight: normal;
 }
@@ -211,7 +198,7 @@ table.cnx-figure-horizontal td {
 .section-title-number {
 	color: #0061AA;
 }
-.cnx-figure-properties {
+.figure {
 }
 .cnx-figure-content {
 }
