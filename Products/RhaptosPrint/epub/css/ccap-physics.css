@@ -249,7 +249,15 @@ h3 {
   background-color: #FBF2E2;
 }
 .table th {
-  font-style: italic;
+  background-color: #8FB733;
+  color: white;
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  padding-right: 1em;
+  /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
+  border: 1px solid black !important;
 }
 .table caption {
   caption-side: bottom;
