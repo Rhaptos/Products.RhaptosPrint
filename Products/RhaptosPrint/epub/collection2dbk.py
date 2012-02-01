@@ -33,7 +33,7 @@ def transform(xslDoc, xmlDoc):
   ret = xslDoc(xmlDoc)
   for entry in xslDoc.error_log:
     # TODO: Log the errors (and convert JSON to python) instead of just printing
-    print >> sys.stderr, entry.message
+    print >> sys.stderr, entry.message.encode('utf-8')
   return ret
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation

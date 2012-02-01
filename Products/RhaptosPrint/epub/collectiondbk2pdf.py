@@ -129,7 +129,7 @@ def convert(dbk1, files, printStyle):
     ret = xslDoc(xmlDoc, **({'cnx.output.fop': '1', 'cnx.tempdir.path':"'%s'" % tempdir}))
     for entry in xslDoc.error_log:
       # TODO: Log the errors (and convert JSON to python) instead of just printing
-      print >> sys.stderr, entry
+      print >> sys.stderr, entry.message.encode('utf-8')
     return ret
 
   # Step 0 (Sprinkle in some index hints whenever terms are used)
