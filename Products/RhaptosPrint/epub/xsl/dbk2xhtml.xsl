@@ -55,7 +55,6 @@ procedure before
     <xsl:apply-templates mode="cnx.intro" select="d:section"/>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 		<xsl:call-template name="cnx.summarypage"/>
-  	<xsl:call-template name="cnx.problemspage"/>
   </div>
 </xsl:template>
 
@@ -76,7 +75,7 @@ procedure before
 
  	<!-- <?cnx.eoc class=review title=Review Notes?> -->
  	<xsl:variable name="context" select="."/>
-	<xsl:for-each select=".//processing-instruction('cnx.eoc')[not(contains(.,'problems-exercises'))]">
+	<xsl:for-each select=".//processing-instruction('cnx.eoc')">
 		<xsl:variable name="val" select="concat(' ', .)"/>
 		<xsl:variable name="class" select="substring-before(substring-after($val,' class=&quot;'), '&quot;')"/>
 		<xsl:variable name="title" select="substring-before(substring-after(.,' title=&quot;'),'&quot;')"/>
@@ -95,18 +94,6 @@ procedure before
 		</xsl:if>
 	</xsl:for-each>
 
-</xsl:template>
-
-<xsl:template name="cnx.problemspage">
-  <!-- Create a 2column page for problems. Insert the section number and title before each problem set -->
-  <xsl:if test="count(.//*[contains(@class,'problems-exercises')]) &gt; 0">
-    <xsl:call-template name="cnx.end-of-chapter-problems">
-      <xsl:with-param name="title">
-        <xsl:text>Problems</xsl:text>
-      </xsl:with-param>
-      <xsl:with-param name="attribute" select="'problems-exercises'"/>
-    </xsl:call-template>
-  </xsl:if>
 </xsl:template>
 
 <xsl:template name="cnx.end-of-chapter-problems">
@@ -654,7 +641,7 @@ Combination of formal.object and formal.object.heading -->
      have a larger number. overriding docbook-xsl/fo/lists.xsl
      see <xsl:template match="d:orderedlist/d:listitem">
  -->
-<xsl:template match="ext:exercise[not(ancestor-or-self::*[contains(@class,'problems-exercises')])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
+<xsl:template match="ext:exercise/ext:problem/d:orderedlist/d:listitem" mode="item-number">
   <div class="cnx-gentext-listitem cnx-gentext-n">
     <xsl:apply-imports/>
   </div>
