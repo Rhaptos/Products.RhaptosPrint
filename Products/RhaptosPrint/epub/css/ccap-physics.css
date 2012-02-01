@@ -283,7 +283,7 @@ h3 {
 .note h3 {
   margin-top: 0.5em;
 }
-.note .title {
+.note > .title {
   display: block; /* so the underline stretches */
   color: #0061AA;
   page-break-after: avoid;
@@ -371,7 +371,7 @@ body.font.master=8.5
 	border-bottom: 1px solid #FAA61A;
 	page-break-after: avoid;
 }
-.example .title > span, .exercise .title > span, .cnx-eoc .title > span, .index > .title > h2 {
+.example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2 {
 	background-color: #0061AA;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -406,12 +406,14 @@ body.font.master=8.5
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
-.figure .title {
+.figure > .title {
 	color: #D89016;
 	font-weight: bold;
 	/* hyphenate: false; */
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
+}
+.figure > .caption {
 }
 table.cnx-figure-horizontal td {
   //PHIL
