@@ -406,6 +406,12 @@ body.font.master=8.5
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
+.figure {
+	font-size: xx-small;
+	padding-bottom: 0.5em;
+	margin-left: auto;
+	margin-right: auto;
+}
 .figure > .title {
 	color: #D89016;
 	font-weight: bold;
@@ -413,7 +419,8 @@ body.font.master=8.5
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
-.figure > .caption {
+.figure > .body {
+  text-align: center;
 }
 table.cnx-figure-horizontal td {
   //PHIL
@@ -433,12 +440,6 @@ table.cnx-figure-horizontal td {
 	font-size: large;
 	font-weight: bold;
 	padding-top: 6pt;
-}
-.figure {
-	font-size: xx-small;
-	padding-bottom: 0.5em;
-	margin-left: auto;
-	margin-right: auto;
 }
 .cnx-figure-content {
   text-align: center;

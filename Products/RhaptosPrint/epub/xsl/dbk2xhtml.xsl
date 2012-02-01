@@ -61,7 +61,7 @@ procedure before
 <xsl:template name="cnx.summarypage">
 	<!-- TODO: Create a 1-column Chapter Summary -->
 	<xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
-		<div class="cnx-summarypage">
+		<div class="cnx-summary">
 			<table>
 			    <tr>
 						<th>
@@ -144,14 +144,14 @@ procedure before
   </xsl:variable>
   <tr>
     <td>
-      <div class="cnx-introduction-toc-number cnx-introduction-toc-title">
+      <div class="cnx-summary-number">
         <a href="#{$id}">
           <xsl:apply-templates mode="label.markup" select="."/>
         </a>
       </div>
     </td>
     <td>
-      <div class="cnx-introduction-toc-title">
+      <div class="cnx-summary-title">
         <xsl:apply-templates select="db:sectioninfo/db:abstract">
           <xsl:with-param name="render" select="true()"/>
         </xsl:apply-templates>
@@ -395,7 +395,7 @@ procedure before
   </xsl:variable>
   <tr>
     <td>
-      <div class="cnx-introduction-toc-number cnx-introduction-toc-title">
+      <div class="cnx-introduction-toc-number">
         <a href="#{$id}">
           <xsl:apply-templates mode="label.markup" select="."/>
         </a>
@@ -610,27 +610,16 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
-<xsl:template match="db:note">
-  <div class="cnx-note">
-    <xsl:apply-templates select="@class"/>
-    <xsl:apply-imports/>
-  </div>
-</xsl:template>
-
 <!-- TODO: Possible bitrotted template -->
 <xsl:template match="db:note[@type='tip']|db:tip">
   <div class="cnx-note-tip">
     <xsl:apply-templates select="@class"/>
-    <div class="cnx-note-tip-title">
-      <span class="cnx-note-tip-title-inline">
-        <!-- FOP doesn't support @padding-end for fo:inline elements -->
-        <xsl:text>&#160;</xsl:text>
+    <div class="title">
+      <span class="cnx-gentext-tip-t">
         <xsl:apply-templates select="db:title/node()|db:label/node()"/>
-        <!-- FOP doesn't support @padding-end for fo:inline elements -->
-        <xsl:text>&#160;</xsl:text>
       </span>
     </div>
-    <div class="cnx-note-tip-body cnx-note cnx-underscore">
+    <div class="body">
       <xsl:apply-templates select="*[not(self::db:title or self::db:label)]"/>
     </div>
   </div>
