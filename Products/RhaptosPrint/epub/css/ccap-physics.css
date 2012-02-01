@@ -303,12 +303,14 @@ h3 {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-/* TODO: rename cnx-problems-title to cnx-eoc-title */
-/* TODO: remove cnx-problems-subtitle */
-.cnx-problems-title {
+.cnx-eoc > .title {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.cnx-eoc .section .title {
 	padding-top: 1em;
 }
-.cnx-problems-title a {
+.cnx-eoc .section .title a {
 	color: #0061AA;
 	font-size: small;
 	font-weight: bold;
@@ -350,14 +352,14 @@ body.font.master=8.5
   page-break-after: avoid;
 	border-bottom: 1px solid #FAA61A;
 }
-.cnx-question {
+.cnx-eoc .exercise {
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
 }
-.cnx-question-number {
+.cnx-gentext-exercise.cnx-gentext-n {
 	font-weight: bold;
 }
-.title {
+.example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title {
 	color: white;
 	font-size: 120%;
 	font-weight: bold;
@@ -369,7 +371,7 @@ body.font.master=8.5
 	border-bottom: 1px solid #FAA61A;
 	page-break-after: avoid;
 }
-.example .title > span, .exercise .title > span, .cnx-eoc .title > span {
+.example .title > span, .exercise .title > span, .cnx-eoc .title > span, .index > .title > h2 {
 	background-color: #0061AA;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -443,9 +445,14 @@ table.cnx-figure-horizontal td {
   display: inline;
   text-align: left;
 }
-.cnx-exercise-listitem {
+/* Lists inside an exercise/example should be bold */
+.cnx-gentext-listitem.cnx-gentext-n {
 	font-weight: bold;
 }
+.problems-exercises .cnx-gentext-listitem.cnx-gentext-n {
+  font-weight: normal;
+}
+
 .formal-object-properties {
 	background-color: #F1F6E6;
 	margin-bottom: 0.25em;

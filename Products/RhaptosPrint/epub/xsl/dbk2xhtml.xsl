@@ -130,9 +130,9 @@ procedure before
 			<xsl:variable name="sectionId">
 				<xsl:call-template name="object.id"/>
 			</xsl:variable>
-			<div class="cnx-eoc-section">
+			<div class="section">
         <!-- Print the section title and link back to it -->
-        <div class="cnx-problems-title cnx-problems-subtitle">
+        <div class="title">
           <a href="#{$sectionId}">
             <xsl:apply-templates select="." mode="object.title.markup">
               <xsl:with-param name="allow-anchors" select="0"/>
@@ -140,9 +140,11 @@ procedure before
           </a>
         </div>
         <!-- This for-each renders all the sections and exercises and numbers them -->
-        <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
-          <xsl:with-param name="render" select="true()"/>
-        </xsl:apply-templates>
+        <div class="body">
+          <xsl:apply-templates select="descendant::*[contains(@class,$attribute)]/node()[not(self::db:title)]">
+            <xsl:with-param name="render" select="true()"/>
+          </xsl:apply-templates>
+        </div>
       </div>
 		</xsl:for-each>
     </div>
@@ -199,29 +201,38 @@ procedure before
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">Found a c:problem without a solution. skipping...</xsl:with-param></xsl:call-template>
 		</xsl:if>
 		<xsl:if test="not($renderSolution) or ext:solution">
-			<div id="{$id}" class="cnx-question">
-				<span class="cnx-question-number">
+			<div id="{$id}" class="exercise">
+				<span class="cnx-gentext-exercise cnx-gentext-n">
 					<xsl:apply-templates select="." mode="number"/>
 				</span>
-				<xsl:text> </xsl:text>
+				<span class="cnx-gentext-exercise cnx-gentext-autogen">
+  				<xsl:text> </xsl:text>
+  		  </span>
 				<xsl:choose>
 					<xsl:when test="$renderSolution">
-						<xsl:variable name="first">
-							<xsl:apply-templates select="ext:solution/*[position() = 1]/node()"/>
-						</xsl:variable>
-						<xsl:copy-of select="$first"/>
-						<xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
+            <span class="solution">
+						  <xsl:apply-templates select="ext:solution/*[position() = 1]/node()"/>
+						</span>
+						<div class="solution">
+  						<xsl:apply-templates select="ext:solution/*[position() &gt; 1]"/>
+  				  </div>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="ext:problem/*[position() = 1][self::db:para]">
-								<xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+							  <span class="problem">
+  								<xsl:apply-templates select="ext:problem/*[position() = 1]/node()"/>
+  						  </span>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:apply-templates select="ext:problem/*[position() = 1]"/>
+							  <div class="problem">
+  								<xsl:apply-templates select="ext:problem/*[position() = 1]"/>
+  						  </div>
 							</xsl:otherwise>
 						</xsl:choose>
-						<xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
+						<div class="problem">
+  						<xsl:apply-templates select="ext:problem/*[position() &gt; 1]"/>
+  				  </div>
 					</xsl:otherwise>
 				</xsl:choose>
 			</div>
@@ -568,8 +579,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <div class="cnx-formal-object">
-
     <xsl:apply-templates mode="formal.object.heading" select=".">
     </xsl:apply-templates>
   
@@ -604,7 +613,6 @@ Combination of formal.object and formal.object.heading -->
         </div>
       </xsl:otherwise>
     </xsl:choose>
-  </div>
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">
@@ -620,6 +628,7 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
+<!-- TODO: Possible bitrotted template -->
 <xsl:template match="db:note[@type='tip']|db:tip">
   <div class="cnx-note-tip">
     <xsl:apply-templates select="@class"/>
@@ -638,27 +647,13 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
-<!-- "feature" notes contain an image in the title. Handle them specially -->
-<xsl:template match="db:note[db:title/db:mediaobject]">
-  <div class="cnx-note-feature">
-    <xsl:apply-templates select="@class"/>
-    <xsl:apply-templates select="db:title/node()|db:label/node()"/>
-    <div class="cnx-note-feature-body">
-    	<xsl:apply-templates select="processing-instruction('cnx.style')"/>
-			<div class="cnx-note-feature-body-inner">
-				<xsl:apply-templates select="node()[not(self::db:title or self::db:label or processing-instruction('cnx.style'))]"/>
-			</div>
-    </div>
-  </div>
-</xsl:template>
-
 <!-- Lists inside an exercise (that isn't at the bottom of the chapter)
      (ie "Check for Understanding")
      have a larger number. overriding docbook-xsl/fo/lists.xsl
      see <xsl:template match="d:orderedlist/d:listitem">
  -->
 <xsl:template match="ext:exercise[not(ancestor-or-self::*[contains(@class,'problems-exercises')])]/ext:problem/d:orderedlist/d:listitem" mode="item-number">
-  <div class="cnx-exercise-listitem">
+  <div class="cnx-gentext-listitem cnx-gentext-n">
     <xsl:apply-imports/>
   </div>
 </xsl:template>

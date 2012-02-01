@@ -169,7 +169,7 @@ h3, h4, h5, h6 { bookmark-level: none }
 }
 
 /* Allow sections in the 2-column problems-exercises to break */
-.problems-exercises .cnx-eoc-section {
+.problems-exercises .section {
   page-break-inside: auto;
 }
 
