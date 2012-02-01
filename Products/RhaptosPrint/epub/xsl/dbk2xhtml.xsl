@@ -502,7 +502,7 @@ Combination of formal.object and formal.object.heading -->
   <div id="{$id}" class="figure">
     <xsl:choose>
       <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
-        <div class="cnx-figure-content">
+        <div class="body">
           <xsl:apply-templates select="$c/*[not(self::d:caption)]"/>
         </div>
       </xsl:when>
@@ -520,11 +520,11 @@ Combination of formal.object and formal.object.heading -->
       </xsl:otherwise>
     </xsl:choose>
 		<xsl:if test="$renderCaption">
-			<span class="figure-title-properties">
+			<div class="title">
 				<xsl:apply-templates select="$c" mode="object.title.markup">
 					<xsl:with-param name="allow-anchors" select="1"/>
 				</xsl:apply-templates>
-			</span>
+			</div>
 			<xsl:apply-templates select="$c/d:caption"/>
 		</xsl:if>
   </div>

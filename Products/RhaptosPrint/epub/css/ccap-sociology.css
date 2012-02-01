@@ -79,7 +79,7 @@ h3 {
 <xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
 <xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
 */
-.title > span {
+.section > .title > span {
 	background-color: none;
 	padding-left: inherit;
 	padding-right: inherit;
@@ -89,8 +89,12 @@ h3 {
 	color: #0061AA;
 }
 .figure .title {
+  display: inline;
 	color: black;
 	font-weight: normal;
+}
+.figure .caption {
+  display: inline;
 }
 .section-title-number {
 	color: #0061AA;
@@ -104,7 +108,7 @@ h3 {
 .note {
 	background-color: Thistle;
 }
-.note .title {
+.note > .title {
   font-size: xx-large;
   border-bottom: 0px;  
 }
