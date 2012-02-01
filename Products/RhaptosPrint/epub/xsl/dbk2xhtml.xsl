@@ -260,7 +260,7 @@ procedure before
 <!-- ============================================== -->
 <!-- New Feature: Solutions at end of book          -->
 <!-- ============================================== -->
-
+<!-- TODO: end-of-book solutions code is bitrotting -->
 <!-- when the placeholder element is encountered (since I didn't want to
       rewrite the match="d:book" template) run a nested for-loop on all
       chapters (and then sections) that contain a solution to be printed ( *[contains(@class,'problems-exercises') and .//ext:solution] ).
@@ -269,6 +269,7 @@ procedure before
 <xsl:template match="ext:cnx-solutions-placeholder[..//*[contains(@class,'problems-exercises') and .//ext:solution]]">
   <xsl:call-template name="cnx.log"><xsl:with-param name="msg">Injecting custom solution appendix</xsl:with-param></xsl:call-template>
 
+  <div class="cnx-answers">
   <div class="title">
     <span>
       <xsl:text>Answers</xsl:text>
@@ -281,7 +282,7 @@ procedure before
       <xsl:call-template name="object.id"/>
     </xsl:variable>
     <!-- Print the chapter number (not title) and link back to it -->
-    <div class="cnx-problems-title cnx-problems-subtitle">
+    <div class="problem">
       <a href="#{$chapterId}">
         <xsl:apply-templates select="." mode="object.xref.markup"/>
       </a>
@@ -306,6 +307,7 @@ procedure before
     </xsl:for-each>
 
   </xsl:for-each>
+  </div>
 </xsl:template>
 
 <!-- ============================================== -->
