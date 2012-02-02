@@ -113,10 +113,9 @@
 
 <!-- Put the equation number on the RHS -->
 <xsl:template match="db:equation">
-  <div class="equation">
-    <xsl:attribute name="id">
-      <xsl:call-template name="object.id"/>
-    </xsl:attribute>
+  <div>
+    <xsl:call-template name="common.html.attributes"/>
+
     <!-- Put the label before the equation so it can float: right; -->
     <span class="label">
       <xsl:text>(</xsl:text>
@@ -129,7 +128,7 @@
 
 <!-- Output equation titles instead of squishing them, as done in docbook (xsl/html/formal.xsl) -->
 <xsl:template match="db:equation/db:title[normalize-space(text()) != '']">
-    <div class="equation-title">
+    <div><xsl:call-template name="common.html.attributes"/>
         <b>
             <xsl:apply-templates/>
         </b>
@@ -139,7 +138,7 @@
 
 <!-- Output para titles as blocks instead of inline, as done in docbook -->
 <xsl:template match="db:formalpara/db:title[normalize-space(text()) != '']">
-    <div class="para-title">
+    <div><xsl:call-template name="common.html.attributes"/>
         <b>
             <xsl:apply-templates/>
         </b>
@@ -739,7 +738,7 @@
   </xsl:template> 
 
   <xsl:template match="db:example">
-    <div class="{local-name()}">
+    <div><xsl:call-template name="common.html.attributes"/>
       <xsl:apply-imports/>
     </div>
   </xsl:template>
@@ -1009,6 +1008,23 @@ Example:
 <xsl:template name="generate-basic-index">
 </xsl:template>
 -->
+
+
+<!-- If the dbk element contains a custom @class, append it -->
+<!-- From docbook-xsl/xhtml/html.xsl -->
+<xsl:template match="*" mode="class.value">
+  <xsl:param name="class" select="local-name(.)"/>
+  <!-- permit customization of class value only -->
+  <!-- Use element name by default -->
+  <xsl:value-of select="$class"/>
+<!-- CNX: Start -->
+  <xsl:if test="@class">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="@class"/>
+  </xsl:if>
+<!-- CNX: end -->
+</xsl:template>
+
 
 </xsl:stylesheet>
 

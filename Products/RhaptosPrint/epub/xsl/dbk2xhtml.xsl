@@ -45,12 +45,7 @@ procedure before
 <!-- Render problem sections at the bottom of a chapter -->
 <xsl:template match="db:chapter">
 
-	<!-- Taken from docbook-xsl/fo/component.xsl : match="d:chapter" -->
-	<xsl:variable name="id">
-		<xsl:call-template name="object.id"/>
-	</xsl:variable>
-
-	<div id="{$id}" class="chapter">
+	<div><xsl:call-template name="common.html.attributes"/>
 		<xsl:call-template name="chapter.titlepage"/>
     <xsl:apply-templates mode="cnx.intro" select="d:section"/>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
@@ -499,7 +494,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:call-template>
   </xsl:variable>
 
-  <div id="{$id}" class="figure">
+  <div id="{$id}"><xsl:call-template name="common.html.attributes"/>
     <xsl:choose>
       <xsl:when test="$c/@orient = 'vertical' or not($c/db:informalfigure)">
         <div class="body">

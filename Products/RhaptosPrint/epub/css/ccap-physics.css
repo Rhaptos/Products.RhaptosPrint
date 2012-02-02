@@ -99,26 +99,6 @@ img {
 
 /********************* Glossary Section **************/
 
-/* Style the title like Exercise/Example */
-.glossary .titlepage div div {
-	margin-top: 18;
-	padding-top: 2px;
-	padding-bottom: 3px;
-	margin-bottom: -2.5px; /* so the stupid bar lines up */
-	border-bottom: 1px solid #FAA61A;
-	page-break-after: avoid;
-}
-.glossary .titlepage h2 {
-  display: inline;
-  font-size: 10pt;
-  padding-left: 1em;
-  padding-right: 1em;
-	padding-top: 4px;
-	padding-bottom: 4px;
-  background-color: #0061AA;
-	color: white;
-}
-
 .glossary dt {
   float: left;
   font-weight: bold;
@@ -275,8 +255,8 @@ h3 {
 	background-color: #FBF2E2;
 	padding-left: 1em;
 	padding-right: 1em;
-	padding-top: 0.1em;
-	padding-bottom: 0.1em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 	margin-top: 1.5em;
 	margin-bottom: 1.5em;
 }
@@ -359,19 +339,19 @@ body.font.master=8.5
 .cnx-gentext-exercise.cnx-gentext-n {
 	font-weight: bold;
 }
-.example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title {
+.example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title, .glossary > .titlepage > div > div {
 	color: white;
 	font-size: 120%;
 	font-weight: bold;
 	margin-top: 1em;
 	padding-top: 2px;
 	padding-bottom: 3px;
-	margin-bottom: -2.5px; /* so the stupid bar lines up */
+	margin-bottom: -3px; /* so the stupid bar lines up */
   page-break-after: avoid;
 	border-bottom: 1px solid #FAA61A;
 	page-break-after: avoid;
 }
-.example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2 {
+.example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2, .glossary > .titlepage > div > div > h2 {
 	background-color: #0061AA;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -532,8 +512,6 @@ table.cnx-figure-horizontal td {
 	text-align: center;
 }
 .cnx-note-tip-title {
-	keep-with-next.within-column: always;
-	keep-with-next.within-page: always;
 	text-align: center;
 }
 .cnx-note-tip-title-inline {

@@ -5,6 +5,32 @@
 @import url('ccap-physics.css');
 
 
+/****** Features ******/
+.sociological-research {
+  background-color: #ffccff;
+}
+.sociological-research .title {
+  color: #330033;
+}
+.sociology-real-world {
+  background-color: #ccffff;
+}
+.sociology-real-world .title {
+  color: #006666;
+}
+.sociology-big-picture {
+}
+.sociology-careers {
+}
+.sociology-policy-debate {
+  background-color: #ffcccc;
+}
+.sociology-policy-debate .title {
+  color: #cc3333;
+}
+
+
+
 .exercise, .example {
   display: none;
 }
@@ -24,10 +50,19 @@ p {
 }
 
 /* Customize EOC material */
-.cnx-eoc .title {
+.example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title, .glossary > .titlepage > div > div {
   border-bottom: 1px solid LimeGreen;
   margin-bottom: 0.25em;
+  font-weight: normal;
+  color: Purple;
 }
+.example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2, .glossary > .titlepage > div > div > h2 {
+  padding-left: 0em;
+  padding-right: 0em;
+  font-size: 20pt;
+  background-color: inherit;
+}
+
 
 /* Hide the section headers */
 .cnx-eoc .cnx-eoc-section .cnx-problems-title {
@@ -60,9 +95,11 @@ h2 { prince-bookmark-level: 2 }
 h3, h4, h5, h6 { prince-bookmark-level: none }
 h2 {
   color: Purple;
+  font-size: x-large;
 }
 h3 {
-  color: MediumPurple;
+  color: Cyan;
+  font-size: large;
 }
 .table table {
   background-color: #FBF2E2;
@@ -106,10 +143,9 @@ h3 {
   background-color: #FBF2E2;
 }
 .note {
-	background-color: Thistle;
 }
 .note > .title {
-  font-size: xx-large;
+  font-size: large;
   border-bottom: 0px;  
 }
 .cnx-note-tip-body {
