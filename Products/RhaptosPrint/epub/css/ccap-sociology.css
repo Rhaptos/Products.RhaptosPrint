@@ -19,8 +19,16 @@
   color: #006666;
 }
 .sociology-big-picture {
+  background-color: #ccff99;
+}
+.sociology-big-picture .title {
+  color: #99cc33;
 }
 .sociology-careers {
+  background-color: #ffcccc;
+}
+.sociology-careers .title {
+  color: #cc3333;
 }
 .sociology-policy-debate {
   background-color: #ffcccc;
