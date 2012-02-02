@@ -79,6 +79,11 @@ def loadModule(moduleDir):
       #print >> sys.stderr, "LOG: Image ADDED! %s %s" % (module, f)
     except IOError:
       print >> sys.stderr, "LOG: Image not found %s %s" % (os.path.basename(moduleDir), f)
+  # If the dbk file has already been generated, include it
+  dbkPath = os.path.join(moduleDir, 'index.included.dbk')
+  if os.path.exists(dbkPath):
+    dbkStr = open(dbkPath).read()
+    files['index.included.dbk'] = dbkStr
   return (cnxml, files)
 
 def xhtml2pdf(xhtml, files, tempdir, printStyle):
@@ -126,7 +131,7 @@ def convert(dbk1, files, printStyle):
 
   def transform(xslDoc, xmlDoc):
     """ Performs an XSLT transform and parses the <xsl:message /> text """
-    ret = xslDoc(xmlDoc, **({'cnx.output.fop': '1', 'cnx.tempdir.path':"'%s'" % tempdir}))
+    ret = xslDoc(xmlDoc, **({'cnx.tempdir.path':"'%s'" % tempdir}))
     for entry in xslDoc.error_log:
       # TODO: Log the errors (and convert JSON to python) instead of just printing
       print >> sys.stderr, entry.message.encode('utf-8')

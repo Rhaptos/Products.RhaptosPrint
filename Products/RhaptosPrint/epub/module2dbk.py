@@ -52,6 +52,9 @@ def mathml2svg(xml):
 def convert(moduleId, cnxml, filesDict, collParams, svg2png=True, math2svg=True):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
+  if 'index.included.dbk' in filesDict:
+    print >> sys.stderr, "LOG: Using already converted dbk file!"
+    return (filesDict['index.included.dbk'], {})
   #print >> sys.stderr, "LOG: Working on Module %s" % moduleId
   # params are XPaths so strings need to be quoted
   params = {'cnx.module.id': "'%s'" % moduleId, 'cnx.svg.chunk': 'false'}
