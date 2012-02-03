@@ -26,7 +26,7 @@
 
 <xsl:param name="generate.toc">
 appendix  toc,title
-<!--chapter   toc,title-->
+chapter   toc,title
 book      toc,title
 </xsl:param>
 
@@ -43,31 +43,29 @@ procedure before
 <!-- ============================================== -->
 
 <!-- Render problem sections at the bottom of a chapter -->
+
 <xsl:template match="db:chapter">
 
 	<div><xsl:call-template name="common.html.attributes"/>
 		<xsl:call-template name="chapter.titlepage"/>
     <xsl:apply-templates mode="cnx.intro" select="d:section"/>
+    <xsl:variable name="toc.params">
+      <xsl:call-template name="find.path.params">
+        <xsl:with-param name="table" select="normalize-space($generate.toc)"/>
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:if test="contains($toc.params, 'toc')">
+      <xsl:call-template name="component.toc">
+        <xsl:with-param name="toc.title.p" select="contains($toc.params, 'title')"/>
+      </xsl:call-template>
+      <xsl:call-template name="component.toc.separator"/>
+    </xsl:if>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
-		<xsl:call-template name="cnx.summarypage"/>
+		<xsl:call-template name="cnx.eoc"/>
   </div>
 </xsl:template>
 
-<xsl:template name="cnx.summarypage">
-	<!-- TODO: Create a 1-column Chapter Summary -->
-	<xsl:if test="count(db:section/db:sectioninfo/db:abstract) &gt; 0">
-		<div class="cnx-summary">
-			<table>
-			    <tr>
-						<th>
-							<div><xsl:text>Chapter Summary</xsl:text></div>
-						</th>
-					</tr>
-					<xsl:apply-templates mode="cnx.chapter.summary" select="db:section"/>
-			</table>
-		</div>
-	</xsl:if>
-
+<xsl:template name="cnx.eoc">
  	<!-- <?cnx.eoc class=review title=Review Notes?> -->
  	<xsl:variable name="context" select="."/>
 	<xsl:for-each select=".//processing-instruction('cnx.eoc')">
@@ -352,19 +350,21 @@ procedure before
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
   <xsl:call-template name="chapter.titlepage.toc"/>
-  <div class="cnx-introduction-title">
-    <span class="cnx-introduction-title-text">
+  <h3 class="title">
+    <span>
       <xsl:choose>
         <xsl:when test="db:title">
           <xsl:apply-templates select="db:title/node()"/>
+        </xsl:when>
+        <xsl:when test="db:sectioninfo/db:title">
+          <xsl:apply-templates select="db:sectioninfo/db:title/node()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:text>Introduction</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:text>&#160; &#160; &#160;</xsl:text>
     </span>
-  </div>
+  </h3>
   <xsl:apply-templates select="node()"/>
   </div>
 
@@ -373,14 +373,13 @@ procedure before
 
 
 <xsl:template name="chapter.titlepage.toc">
-      <table class="cnx-introduction-toc">
-          <tr>
-            <td colspan="2"><xsl:text>Key Concepts</xsl:text></td>
-          </tr>
-          <xsl:apply-templates mode="introduction.toc" select="../db:section[not(contains(@class,'introduction'))]"/>
-        
-      </table>
-      <xsl:call-template name="component.toc.separator"/>
+  <table class="cnx-introduction-toc">
+    <tr>
+      <td colspan="2"><xsl:text>Summary</xsl:text></td>
+    </tr>
+    <xsl:apply-templates mode="introduction.toc" select="../db:section[not(contains(@class,'introduction'))]"/>
+  </table>
+  <xsl:call-template name="component.toc.separator"/>
 </xsl:template>
 
 
@@ -692,7 +691,9 @@ Combination of formal.object and formal.object.heading -->
           <xsl:copy-of select="$label"/>
           <xsl:value-of select="$autotoc.label.separator"/>
         </xsl:if>
-        <xsl:apply-templates select="." mode="title.markup"/>  
+        <span class="cnx-gentext-{local-name()} cnx-gentext-t">
+          <xsl:apply-templates select="." mode="title.markup"/>  
+        </span>
       </a>
   </div>
 </xsl:template>

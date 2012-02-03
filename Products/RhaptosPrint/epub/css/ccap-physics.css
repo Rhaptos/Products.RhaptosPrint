@@ -158,6 +158,39 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
 
 
 /* "Key Concepts" Introduction table */
+.chapter .toc {
+  display: table;
+	border: 1px solid #0061AA;
+	margin: auto;
+	margin-bottom: 1em;
+	border-spacing: 0px;
+}
+.chapter .toc > p {
+  content: "Learning Objectives";
+	background-color: #0061AA;
+	color: white;
+	font-size: large;
+	text-align: center;
+  padding: 0.25em;
+  margin: 0em;
+}
+.chapter .toc dl * {
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+}
+.chapter .toc a {
+  color: black;
+  font-weight: normal;
+
+	display-align: after;
+	padding-bottom: 0.25em;
+	padding-top: 0.25em;
+	text-align: start;
+  margin-left: 0.5em;
+  margin-right: 1em;
+}
+
+/* OLD way of generating "Key Concepts"
 table.cnx-introduction-toc {
 	border: 1px solid #0061AA;
 	margin: auto;
@@ -199,7 +232,7 @@ table.cnx-introduction-toc td:first-child a {
   margin-left: 0.5em;
   margin-right: 1em;
 }
-
+*/
 
 .problems-exercises img {
   width: 3in;

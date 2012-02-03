@@ -9,6 +9,14 @@ Gentext will generate text like "Figure 1.3: Octopus" from a language-based temp
 
 
 
+(less)css file hierarchy:
+- ccap-sociology.less : sets style variables/classes used below and selectors for coloring features
+- ccap-base.less : 
+- docbook-and-online.less: given the classes defined above, generate rules for online and docbook
+- base-css3.css : CSS3 that lesscss would choke on
+
+
+
 The 1st column has how many times the class occured in a 4-chapter sample of a Physics textbook.
 
 ----------------------

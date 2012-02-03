@@ -1026,5 +1026,18 @@ Example:
 </xsl:template>
 
 
+<!-- To get module abstracts (Mearning Objectives) in the chapter TOC, add abstracts to the subtoc -->
+<xsl:template match="d:section" mode="toc">
+  <xsl:param name="toc-context" select="."/>
+
+  <xsl:apply-imports/>
+  <xsl:if test="$toc-context[self::d:chapter] and d:sectioninfo/d:abstract">
+    <dd class="abstract">
+      <xsl:apply-templates select="d:sectioninfo/d:abstract/node()"/>
+    </dd>
+  </xsl:if>
+</xsl:template>
+
+
 </xsl:stylesheet>
 
