@@ -74,10 +74,6 @@
 	</xsl:copy>
 </xsl:template>
 
-<xsl:template match="db:sectioninfo/node()[not(self::db:title)]">
-  <xsl:message>DEBUG: Discarding Sectioninfo</xsl:message>
-</xsl:template>
-
 <!-- Save the original title for attribution later. -->
 <xsl:template match="db:*[(local-name()='preface' or local-name()='chapter' or local-name()='appendix' or local-name()='section') and db:title and count(db:section)=1]/db:section/db:sectioninfo/db:title">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding original title</xsl:with-param></xsl:call-template>
