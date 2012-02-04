@@ -174,13 +174,9 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
   padding: 0.25em;
   margin: 0em;
 }
-.chapter .toc dl * {
-	padding-bottom: 0.25em;
-	padding-top: 0.25em;
-}
 .chapter .toc a {
-  color: black;
-  font-weight: normal;
+  color: inherit;
+  font-weight: bold;
 
 	display-align: after;
 	padding-bottom: 0.25em;
@@ -188,6 +184,9 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
 	text-align: start;
   margin-left: 0.5em;
   margin-right: 1em;
+}
+.chapter .toc a .cnx-gentext-n {
+  border-bottom: 1px solid #FAA61A;
 }
 
 /* OLD way of generating "Key Concepts"
@@ -374,7 +373,7 @@ body.font.master=8.5
 }
 .example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title, .glossary > .titlepage > div > div {
 	color: white;
-	font-size: 120%;
+	font-size: small;
 	font-weight: bold;
 	margin-top: 1em;
 	padding-top: 2px;
@@ -385,6 +384,7 @@ body.font.master=8.5
 	page-break-after: avoid;
 }
 .example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2, .glossary > .titlepage > div > div > h2 {
+  display: inline; /* glossaries use a heading which is block by default */
 	background-color: #0061AA;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -397,7 +397,7 @@ body.font.master=8.5
 
 .titlepage h3 {
 	color: #0061AA;
-	font-size: 120%;
+	font-size: small;
 }
 .cnx-vertical-spacing {
 	margin-bottom: 0.25em;

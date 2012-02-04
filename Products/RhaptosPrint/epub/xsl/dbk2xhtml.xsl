@@ -688,7 +688,9 @@ Combination of formal.object and formal.object.heading -->
         </xsl:if>
 
         <xsl:if test="$label != ''">
+<span class="cnx-gentext-{local-name()} cnx-gentext-n">
           <xsl:copy-of select="$label"/>
+</span>
           <xsl:value-of select="$autotoc.label.separator"/>
         </xsl:if>
         <span class="cnx-gentext-{local-name()} cnx-gentext-t">
