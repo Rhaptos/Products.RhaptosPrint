@@ -100,6 +100,9 @@ h1.title .cnx-gentext-n {
 h1.title .cnx-gentext-t {
   text-transform: none;
 }
+h2 span.cnx-gentext-section.cnx-gentext-n {
+  color: inherit;
+}
 a {
 	color: inherit;
 	font-weight: normal;
@@ -115,7 +118,7 @@ h2 {
   font-size: x-large;
 }
 h3 {
-  color: Cyan;
+  color: #006666;
   font-size: large;
 }
 .table table {
