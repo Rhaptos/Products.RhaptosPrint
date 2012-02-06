@@ -252,8 +252,9 @@ em.glossterm {
 h2 span.cnx-gentext-section.cnx-gentext-n {
   color: #0061AA;
 }
-.introduction .figure img {
-  width: 100%;
+.introduction .splash img {
+  width: 100% !important;
+  max-width: none !important;
 }
 /* "Key Concepts" Introduction table */
 .chapter .toc {
@@ -287,7 +288,7 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
   border-bottom: 1px solid #FAA61A;
 }
 .problems-exercises img {
-  width: 3in;
+  max-width: 3in;
   height: auto;
 }
 /***************************************************************
@@ -327,7 +328,7 @@ h3 {
   caption-side: bottom;
 }
 .table caption span.cnx-gentext-t, .table caption span.cnx-gentext-n {
-  color: #D89016;
+  color: #a06a19;
   font-weight: bold;
 }
 /************************************************
