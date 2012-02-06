@@ -82,7 +82,7 @@ p {
 
 
 /* Hide the section headers */
-.cnx-eoc .cnx-eoc-section .cnx-problems-title {
+.cnx-eoc > .section > .title {
   display: none;
 }
 
