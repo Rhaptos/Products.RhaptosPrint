@@ -47,6 +47,9 @@ procedure before
 <xsl:template match="db:chapter">
 
 	<div><xsl:call-template name="common.html.attributes"/>
+    <xsl:attribute name="xml:id">
+		  <xsl:call-template name="object.id"/>
+    </xsl:attribute>
 		<xsl:call-template name="chapter.titlepage"/>
     <xsl:apply-templates mode="cnx.intro" select="d:section"/>
     <xsl:variable name="toc.params">
