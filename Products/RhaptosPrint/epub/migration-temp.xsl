@@ -28,8 +28,10 @@
  and substring(normalize-space(.),1,1) != '-'
 ]">
   <!-- <xsl:message>text before: "<xsl:value-of select="normalize-space(.)"/>"</xsl:message> -->
-  <xsl:text> </xsl:text>
-  <xsl:copy/>
+  <xsl:variable name="fix">
+    <xsl:text> </xsl:text>
+    <xsl:copy/>
+  </xsl:variable>
 </xsl:template>
 
 <xsl:template match="text()[following-sibling::node()[self::mml:math or self::db:token] and string-length(normalize-space(.)) > 0
@@ -37,15 +39,15 @@
  and substring(normalize-space(.),string-length(normalize-space(.)),1) != '('
 ]">
     <!-- <xsl:message>text after: "<xsl:value-of select="substring(normalize-space(.),string-length(normalize-space(.)),1)"/>" "<xsl:value-of select="normalize-space(.)"/>"</xsl:message> -->
-  <xsl:copy/>
-  <xsl:text> </xsl:text>
+  <xsl:variable name="fix">
+    <xsl:copy/>
+    <xsl:text> </xsl:text>
+  </xsl:variable>
 </xsl:template>
 
 <!-- Convert overbars so they are stretchy (90) -->
 <xsl:template match="mml:mo[@stretchy='false' and text() = '&#713;']">
-<!--
-  <xsl:message>Found an overbar. Should convert to stretchy=true and just a "-"</xsl:message>
--->
+  <!-- <xsl:message>Found an overbar. Should convert to stretchy=true and just a "-"</xsl:message> -->
   <xsl:variable name="fix">
     <xsl:copy>
       <xsl:apply-templates select="@*[not(local-name() = 'stretchy')]"/>
@@ -60,7 +62,7 @@
 
 <!-- For tables without a header, use the 1st row as a header (13) -->
 <xsl:template match="db:table/db:tgroup[not(db:thead)]/db:tbody">
-  <xsl:message>Found a table with no header. Using the 1st row as header</xsl:message>
+  <!-- <xsl:message>Found a table with no header. Using the 1st row as header</xsl:message> -->
   <xsl:variable name="fix">
     <db:thead>
       <xsl:apply-templates select="db:trow[1]"/>
@@ -71,4 +73,10 @@
   </xsl:variable>
 </xsl:template>
 
+
+<!-- There are links (and textual references, but I can't find those) that are mislabeled (should be xrefs) -->
+
+<xsl:template match="db:link[@document]">
+  <xsl:message>Found a link to <xsl:value-of select="@document"/> with text: "<xsl:value-of select="text()"/>"</xsl:message>
+</xsl:template>
 </xsl:stylesheet>
