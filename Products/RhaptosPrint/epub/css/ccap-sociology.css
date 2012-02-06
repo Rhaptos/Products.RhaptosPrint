@@ -58,17 +58,26 @@ p {
 }
 
 /* Customize EOC material */
-.example > .title, .exercise > .title, .cnx-eoc > .title, .index > .title, .glossary > .titlepage > div > div {
+.example > .title,
+.exercise > .title,
+.cnx-eoc > .title,
+.index > .title,
+.glossary > .titlepage {
   border-bottom: 1px solid LimeGreen;
   margin-bottom: 0.25em;
   font-weight: normal;
   color: Purple;
 }
-.example > .title > span, .exercise > .title > span, .cnx-eoc > .title > span, .index > .title > h2, .glossary > .titlepage > div > div > h2 {
+.example > .title > span,
+.exercise > .title > span,
+.cnx-eoc > .title > span,
+.index > .title > h2,
+.glossary > .titlepage > div > div > h2 {
   padding-left: 0em;
   padding-right: 0em;
   font-size: 20pt;
   background-color: inherit;
+  color: inherit;
 }
 
 
