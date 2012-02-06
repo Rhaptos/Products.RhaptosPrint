@@ -349,7 +349,6 @@ procedure before
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
-  <xsl:call-template name="chapter.titlepage.toc"/>
   <h3 class="title">
     <span>
       <xsl:choose>
@@ -370,17 +369,6 @@ procedure before
 
 </xsl:template>
 
-
-
-<xsl:template name="chapter.titlepage.toc">
-  <table class="cnx-introduction-toc">
-    <tr>
-      <td colspan="2"><xsl:text>Summary</xsl:text></td>
-    </tr>
-    <xsl:apply-templates mode="introduction.toc" select="../db:section[not(contains(@class,'introduction'))]"/>
-  </table>
-  <xsl:call-template name="component.toc.separator"/>
-</xsl:template>
 
 
 <xsl:template mode="introduction.toc" match="db:chapter/db:section[not(contains(@class,'introduction'))]">
