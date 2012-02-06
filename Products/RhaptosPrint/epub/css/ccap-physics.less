@@ -1,6 +1,6 @@
 @blue: #0061AA;
 @orange: #FAA61A;
-@dark-orange: #A06A19; /* #D89016; */
+@dark-orange: #A06A19; // backup color: #D89016;
 @cream: #FBF2E2;
 @green: #8FB733;
 @light-green: #F1F6E6;
@@ -52,7 +52,7 @@
 /********* HTML Element styles *********/
 
 .ccap-a {
-  color: #d89016;
+  color: #d89016; // Web color
   color: @dark-orange;
 	font-weight: bold;
 }
@@ -74,7 +74,7 @@
 	margin-top: 1.5em;
 	margin-bottom: 1.5em;
 /*
-  background-color: #fbf2e2;
+  background-color: @cream;
   margin: 2em 0;
 */
 }
@@ -245,12 +245,12 @@ em.glossterm {
 /*********************** Table of Contents ********************/
 
 .book > .toc > p {
-  border-bottom: 1px solid #FAA61A;
+  border-bottom: 1px solid @orange;
   page-break-after: avoid;
 }
 
 .book > .toc a {
-	color: #0061AA;
+	color: @blue;
 	font-weight: medium;
   text-decoration: none;
 }
@@ -258,7 +258,7 @@ em.glossterm {
 /* TOC Chapter */
 .book > .toc > dt > dl a {
   font-size: 12pt;
-  color: #0061AA;
+  color: @blue;
 }
 
 /* TOC Section */
@@ -278,7 +278,7 @@ em.glossterm {
 
 /* Numbered sections should have the number in blue */
 h2 span.cnx-gentext-section.cnx-gentext-n {
-  color: #0061AA;
+  color: @blue;
 }
 
 .introduction .splash img {
@@ -290,7 +290,7 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
 /* "Key Concepts" Introduction table */
 .chapter .toc {
   display: table;
-	border: 1px solid #0061AA;
+	border: 1px solid @blue;
 	margin: auto;
 	margin-bottom: 1em;
 	border-spacing: 0px;
@@ -298,7 +298,7 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
 }
 .chapter .toc > p {
   content: "Learning Objectives";
-	background-color: #0061AA;
+	background-color: @blue;
 	color: white;
 	font-size: large;
 	text-align: center;
@@ -317,7 +317,7 @@ h2 span.cnx-gentext-section.cnx-gentext-n {
   margin-right: 1em;
 }
 .chapter .toc a .cnx-gentext-n {
-  border-bottom: 1px solid #FAA61A;
+  border-bottom: 1px solid @orange;
 }
 
 .problems-exercises img {
@@ -345,10 +345,10 @@ h3 {
 .table table {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  background-color: #FBF2E2;
+  background-color: @cream;
 }
 .table th {
-  background-color: #8FB733;
+  background-color: @green;
   color: white;
   font-weight: bold;
   padding-top: 4px;
@@ -401,7 +401,7 @@ h3 {
 	padding-top: 1em;
 }
 .cnx-eoc .section .title a {
-	color: #0061AA;
+	color: @blue;
 	font-size: small;
 	font-weight: bold;
 }
@@ -424,13 +424,13 @@ body.font.master=8.5
 <xsl:param name="cnx.font.larger" select="concat($body.font.master * 1.6, 'pt')"/>
 <xsl:param name="cnx.font.huge" select="concat($body.font.master * 4.0, 'pt')"/>
 
-<xsl:param name="cnx.color.orange">#FAA61A</xsl:param>
-<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.orange">@orange</xsl:param>
+<xsl:param name="cnx.color.blue">@blue</xsl:param>
 <xsl:param name="cnx.color.red">#D89016</xsl:param>
-<xsl:param name="cnx.color.green">#8FB733</xsl:param>
-<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.green">@green</xsl:param>
+<xsl:param name="cnx.color.silver">@cream</xsl:param>
 <xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
-<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+<xsl:param name="cnx.color.light-green">@light-green</xsl:param>
 */
 
 .root-properties {
@@ -440,7 +440,7 @@ body.font.master=8.5
 }
 .cnx-underscore {
   page-break-after: avoid;
-	border-bottom: 1px solid #FAA61A;
+	border-bottom: 1px solid @orange;
 }
 .cnx-eoc .exercise {
 	margin-bottom: 0.25em;
@@ -545,7 +545,7 @@ table.cnx-figure-horizontal td {
 	padding-top: 6pt;
 }
 .section-title-number {
-	color: #0061AA;
+	color: @blue;
 	font-size: large;
 	font-weight: bold;
 	padding-top: 6pt;
@@ -588,10 +588,10 @@ table.cnx-figure-horizontal td {
 	font-weight: bold;
 }
 .admonition-title-properties {
-	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
+	border-bottom: 1px solid @orange;
+	border-bottom-color: @orange;
 	border-bottom-style: solid;
-	color: #0061AA;
+	color: @blue;
 	font-size: medium;
 	font-weight: normal;
 	margin-bottom: 0.75em;
@@ -600,12 +600,12 @@ table.cnx-figure-horizontal td {
 }
 .cnx-note-concept {
 	page-break-inside: avoid;
-	background-color: #FBF2E2;
-	border-bottom: 1px solid #0061AA;
-	border-bottom-color: #0061AA;
+	background-color: @cream;
+	border-bottom: 1px solid @blue;
+	border-bottom-color: @blue;
 	border-bottom-style: solid;
-	border-top: 1px solid #0061AA;
-	border-top-color: #0061AA;
+	border-top: 1px solid @blue;
+	border-top-color: @blue;
 	border-top-style: solid;
 	border-top-width: 1px;
 
@@ -617,7 +617,7 @@ table.cnx-figure-horizontal td {
 	padding-top: 0.5em;
 }
 .cnx-note-concept-title {
-	color: #0061AA;
+	color: @blue;
 	font-size: medium;
 }
 .cnx-note-tip {
@@ -626,10 +626,10 @@ table.cnx-figure-horizontal td {
 }
 .cnx-note-tip-body {
 	background-color: #EFF2F9;
-	border-top-color: #FAA61A;
+	border-top-color: @orange;
 	border-top-style: solid;
 	border-top-width: 1px;
-	color: #0061AA;
+	color: @blue;
 	margin-bottom: 0em;
 	margin-top: 1px;
 	text-align: center;
@@ -638,7 +638,7 @@ table.cnx-figure-horizontal td {
 	text-align: center;
 }
 .cnx-note-tip-title-inline {
-	background-color: #0061AA;
+	background-color: @blue;
 	color: white;
 	font-size: medium;
 	padding-bottom: 0.25em;
@@ -661,7 +661,7 @@ table.cnx-figure-horizontal td {
 	margin-top: 1em;
 }
 .cnx-introduction-chapter {
-	background-color: #FAA61A;
+	background-color: @orange;
 	font-size: x-large;
 	padding-bottom: 0em;
 	padding-left: 0.1em;
@@ -676,8 +676,8 @@ table.cnx-figure-horizontal td {
 .cnx-introduction-title {
 }
 .cnx-introduction-title-text {
-	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
+	border-bottom: 1px solid @orange;
+	border-bottom-color: @orange;
 	border-bottom-style: solid;
 	font-size: large;
 	font-weight: bold;
@@ -691,10 +691,10 @@ table.cnx-figure-horizontal td {
 	font-size: x-small;
 }
 .cnx-header-separator {
-	color: #FAA61A;
+	color: @orange;
 }
 .cnx-index-title-body {
-	color: #0061AA;
+	color: @blue;
 	font-size: medium;
 	font-weight: bold;
 	padding-top: 0.25em;
@@ -716,8 +716,8 @@ table.cnx-figure-horizontal td {
 .toc-line-properties {
 }
 .table-of-contents-titlepage-recto-style {
-	border-bottom: 1px solid #FAA61A;
-	border-bottom-color: #FAA61A;
+	border-bottom: 1px solid @orange;
+	border-bottom-color: @orange;
 	border-bottom-style: solid;
 	margin-bottom: 0.75em;
 }
