@@ -61,6 +61,7 @@
 
 
 <!-- For tables without a header, use the 1st row as a header (13) -->
+<!-- TODO: rewrite using cnxml instead of dbk -->
 <xsl:template match="db:table/db:tgroup[not(db:thead)]/db:tbody">
   <!-- <xsl:message>Found a table with no header. Using the 1st row as header</xsl:message> -->
   <xsl:variable name="fix">
@@ -75,8 +76,25 @@
 
 
 <!-- There are links (and textual references, but I can't find those) that are mislabeled (should be xrefs) -->
-
+<!-- TODO: rewrite using cnxml instead of dbk -->
+<!-- TODO: add an XML document-id-mapping lookup to rewrite the @document value -->
 <xsl:template match="db:link[@document]">
-  <xsl:message>Found a link to <xsl:value-of select="@document"/> with text: "<xsl:value-of select="text()"/>"</xsl:message>
+  <!-- <xsl:message>Found a link to <xsl:value-of select="@document"/> with text: "<xsl:value-of select="text()"/>"</xsl:message> -->
 </xsl:template>
+
+<!-- Find things like "Exercise 1.3" in regular body text -->
+<!--
+<xsl:template match="text()[contains(.,'Example ') and string(number(substring(substring-after(.,'Example '),1,1))) != 'NaN']">
+  <xsl:message><xsl:value-of select="ancestor::db:section[@document]/@document"/>: Found a reference to 'Example #' in regular text; this should be a c:link. Text: "Example <xsl:value-of select="substring(substring-after(.,'Example '),1,10)"/>"</xsl:message>
+</xsl:template>
+
+<xsl:template match="text()[contains(.,'Table ') and string(number(substring(substring-after(.,'Table '),1,1))) != 'NaN']">
+  <xsl:message><xsl:value-of select="ancestor::db:section[@document]/@document"/>: Found a reference to 'Table #' in regular text; this should be a c:link. Text: "Table <xsl:value-of select="substring(substring-after(.,'Table '),1,10)"/>"...</xsl:message>
+</xsl:template>
+
+<xsl:template match="text()[contains(.,'Figure ') and string(number(substring(substring-after(.,'Figure '),1,1))) != 'NaN']">
+  <xsl:message><xsl:value-of select="ancestor::db:section[@document]/@document"/>: Found a reference to 'Figure #' in regular text; this should be a c:link. Text: "Figure <xsl:value-of select="substring(substring-after(.,'Figure '),1,10)"/>"...</xsl:message>
+</xsl:template>
+-->
+
 </xsl:stylesheet>
