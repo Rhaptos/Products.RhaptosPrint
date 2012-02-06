@@ -22,6 +22,8 @@ DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean.xsl')
 SVG2PNG_FILES_XSL = util.makeXsl('dbk-svg2png.xsl')
 DOCBOOK_BOOK_XSL = util.makeXsl('moduledbk2book.xsl')
 
+MIGRATION_XSL = util.makeXsl('migration-temp.xsl')
+
 
 MATH_XPATH = etree.XPath('//mml:math', namespaces=util.NAMESPACES)
 DOCBOOK_SVG_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=util.NAMESPACES)
@@ -71,6 +73,9 @@ def convert(moduleId, cnxml, filesDict, collParams, svg2png=True, math2svg=True)
 
   newFiles = {}
   
+  cnxml = transform(MIGRATION_XSL, cnxml)
+  cnxml = transform(MIGRATION_XSL, cnxml) # MahtML checks for text before and after
+
   cnxml2 = transform(CLEANUP_XSL, cnxml)
   cnxml3 = transform(CLEANUP2_XSL, cnxml2)
   # Have to run the cleanup twice because we remove empty mml:mo,
