@@ -74,10 +74,10 @@
   <!-- <xsl:message>Found a table with no header. Using the 1st row as header</xsl:message> -->
   <xsl:variable name="fix">
     <c:thead>
-      <xsl:apply-templates select="c:trow[1]"/>
+      <xsl:apply-templates select="c:row[1]"/>
     </c:thead>
     <xsl:copy>
-      <xsl:apply-templates select="c:trow[position() != 1]"/>
+      <xsl:apply-templates select="c:row[position() != 1]"/>
     </xsl:copy>
   </xsl:variable>
 <xsl:copy-of select="$fix"/></xsl:template>
