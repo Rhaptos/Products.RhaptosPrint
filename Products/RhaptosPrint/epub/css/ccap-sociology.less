@@ -11,53 +11,79 @@
 
 /****** Features ******/
 .x-feature () {
-  padding-top: 5em;
-  background-size: auto 5em; // 100% 6em; so it stretches across the top
+  padding-top: 43px; //from the SV files
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  background-color: white;
+  content: "";
+  display: block;
+  page-break-inside: avoid;
+/*
+  margin-left: -1.5em;
+  margin-right: -1.5em;
+  margin-top: -0.5em;
+*/
+  margin-left: -1.1em;
+  margin-right: -1.1em;
+  margin-top: -0.5em;
 }
 .sociological-research {
   .title {
     color: #330033;
   }
-  .x-feature;
   background-color: #ffccff;
-  background-image: url(ccap-sociology/research.svg);
+  page-break-inside: avoid;
+  &:before {
+    .x-feature;
+    background-image: url(ccap-sociology/research.svg);
+  }
 }
 .sociology-real-world {
   .title {
     color: #006666;
   }
-  .x-feature;
   background-color: #ccffff;
-  background-image: url(ccap-sociology/real-world.svg);
+  page-break-inside: avoid;
+  &:before {
+    .x-feature;
+    background-image: url(ccap-sociology/real-world.svg);
+  }
 }
 
 .sociology-big-picture {
   .title {
     color: #99cc33;
   }
-  .x-feature;
   background-color: #ccff99;
-  background-image: url(ccap-sociology/big-picture.svg);
+  page-break-inside: avoid;
+  &:before {
+    .x-feature;
+    background-image: url(ccap-sociology/big-picture.svg);
+  }
 }
 .sociology-careers {
   .title {
     color: #cc3333;
   }
-  .x-feature;
   background-color: #ffcccc;
-  background-image: url(ccap-sociology/careers.svg);
+  page-break-inside: avoid;
+  &:before {
+    .x-feature;
+    background-image: url(ccap-sociology/careers.svg);
+  }
 }
 .sociology-policy-debate {
   .title {
     color: #cc3333;
   }
-  .x-feature;
   background-color: #ffcccc;
-  background-image: url(ccap-sociology/policy-debate.svg);
+  page-break-inside: avoid;
+  &:before {
+    .x-feature;
+    background-image: url(ccap-sociology/policy-debate.svg);
+  }
 }
 
 
@@ -79,11 +105,6 @@
   display: none;
 }
 
-
-/* Change "Key Concepts" to "Summary" */
-.cnx-introduction-toc tr:first-child td {
-  content: "Summary";
-}
 
 /* subsequent paragraphs are indented */
 p:nth-of-type(1) {
@@ -112,11 +133,16 @@ p {
 .glossary > .titlepage > div > div > h2 {
   padding-left: 0em;
   padding-right: 0em;
-  font-size: 20pt;
+  font-size: large;
   background-color: inherit;
   color: inherit;
+  font-weight: normal;
 }
 
+/* Change "Glossary" to "Key Terms" */
+.glossary .title {
+  content: "Key Terms";
+}
 
 /* Hide the section headers */
 .cnx-eoc > .section > .title {
