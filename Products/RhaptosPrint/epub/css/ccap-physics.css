@@ -5,8 +5,6 @@
   margin-bottom: 0em;
   padding: 0.25em 0.5em;
   font-size: 2.5em;
-  /* xx-large; */
-
   font-weight: normal;
   text-transform: uppercase;
   /*
@@ -79,16 +77,6 @@
 .ccap-section-title {
   color: #0061aa;
 }
-.x-block-title {
-  color: white;
-  padding: .1em 1em;
-  margin-top: 1em;
-  display: inline;
-}
-.x-block-body {
-  background-color: #f1f6e6;
-  padding: .5em 1em;
-}
 .ccap-exercise-title {
   color: white;
   padding: .1em 1em;
@@ -123,8 +111,6 @@ h1.title {
   margin-bottom: 0em;
   padding: 0.25em 0.5em;
   font-size: 2.5em;
-  /* xx-large; */
-
   font-weight: normal;
   text-transform: uppercase;
   /*

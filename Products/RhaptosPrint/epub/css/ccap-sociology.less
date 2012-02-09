@@ -4,15 +4,19 @@
 
 @import url('ccap-physics.css');
 
+@page {
+  margin: 1.5in;
+}
+
 
 /****** Features ******/
-.x-feature {
+.x-feature () {
   padding-top: 5em;
   background-size: auto 5em; // 100% 6em; so it stretches across the top
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  background-image: url(banner.png);
+  page-break-inside: avoid;
 }
 .sociological-research {
   .title {
@@ -20,6 +24,7 @@
   }
   .x-feature;
   background-color: #ffccff;
+  background-image: url(ccap-sociology/research.svg);
 }
 .sociology-real-world {
   .title {
@@ -27,6 +32,7 @@
   }
   .x-feature;
   background-color: #ccffff;
+  background-image: url(ccap-sociology/real-world.svg);
 }
 
 .sociology-big-picture {
@@ -35,6 +41,7 @@
   }
   .x-feature;
   background-color: #ccff99;
+  background-image: url(ccap-sociology/big-picture.svg);
 }
 .sociology-careers {
   .title {
@@ -42,6 +49,7 @@
   }
   .x-feature;
   background-color: #ffcccc;
+  background-image: url(ccap-sociology/careers.svg);
 }
 .sociology-policy-debate {
   .title {
@@ -49,13 +57,10 @@
   }
   .x-feature;
   background-color: #ffcccc;
+  background-image: url(ccap-sociology/policy-debate.svg);
 }
 
 
-
-.exercise, .example {
-  display: none;
-}
 
 /* Change "Key Concepts" to "Summary" */
 .cnx-introduction-toc tr:first-child td {
