@@ -1,0 +1,236 @@
+@import url('ccap-physics.css');
+/***************************************************
+ * Styles used when generating a PDF from xhtml+css
+ ***************************************************/
+@page  {
+  margin: 1.5in;
+}
+/****** Features ******/
+.sociological-research {
+  padding-top: 5em;
+  background-size: auto 5em;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  background-color: #ffccff;
+  background-image: url(ccap-sociology/research.svg);
+}
+.sociological-research .title {
+  color: #330033;
+}
+.sociology-real-world {
+  padding-top: 5em;
+  background-size: auto 5em;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  background-color: #ccffff;
+  background-image: url(ccap-sociology/real-world.svg);
+}
+.sociology-real-world .title {
+  color: #006666;
+}
+.sociology-big-picture {
+  padding-top: 5em;
+  background-size: auto 5em;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  background-color: #ccff99;
+  background-image: url(ccap-sociology/big-picture.svg);
+}
+.sociology-big-picture .title {
+  color: #99cc33;
+}
+.sociology-careers {
+  padding-top: 5em;
+  background-size: auto 5em;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  background-color: #ffcccc;
+  background-image: url(ccap-sociology/careers.svg);
+}
+.sociology-careers .title {
+  color: #cc3333;
+}
+.sociology-policy-debate {
+  padding-top: 5em;
+  background-size: auto 5em;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-position: top outside;
+  page-break-inside: avoid;
+  background-color: #ffcccc;
+  background-image: url(ccap-sociology/policy-debate.svg);
+}
+.sociology-policy-debate .title {
+  color: #cc3333;
+}
+/* Change "Key Concepts" to "Summary" */
+.cnx-introduction-toc tr:first-child td {
+  content: "Summary";
+}
+/* subsequent paragraphs are indented */
+p:nth-of-type(1) {
+  text-indent: 0em;
+}
+p {
+  font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  text-indent: 2em;
+}
+/* Customize EOC material */
+.example > .title,
+.exercise > .title,
+.cnx-eoc > .title,
+.index > .title,
+.glossary > .titlepage {
+  border-bottom: 1px solid LimeGreen;
+  margin-bottom: 0.25em;
+  font-weight: normal;
+  color: Purple;
+}
+.example > .title > span,
+.exercise > .title > span,
+.cnx-eoc > .title > span,
+.index > .title > h2,
+.glossary > .titlepage > div > div > h2 {
+  padding-left: 0em;
+  padding-right: 0em;
+  font-size: 20pt;
+  background-color: inherit;
+  color: inherit;
+}
+/* Hide the section headers */
+.cnx-eoc > .section > .title {
+  display: none;
+}
+/* From ccap-physics.css */
+h1.title {
+  background-color: Purple;
+  font-size: 3.5em;
+  /* xx-large; */
+
+}
+h1.title .cnx-gentext-n {
+  color: LimeGreen;
+  font-weight: bold;
+}
+h1.title .cnx-gentext-t {
+  text-transform: none;
+}
+h2 span.cnx-gentext-section.cnx-gentext-n {
+  color: inherit;
+}
+a {
+  color: inherit;
+  font-weight: normal;
+}
+.toc > dt > dl a {
+  color: #0061AA;
+}
+h1 {
+  prince-bookmark-level: 1;
+}
+h2 {
+  prince-bookmark-level: 2;
+}
+h3,
+h4,
+h5,
+h6 {
+  prince-bookmark-level: none;
+}
+h2 {
+  color: Purple;
+  font-size: x-large;
+}
+h3 {
+  color: #006666;
+  font-size: large;
+}
+.table table {
+  background-color: #FBF2E2;
+}
+.table caption b {
+  background-color: #8FB733;
+}
+/*
+<xsl:param name="cnx.color.orange">Purple</xsl:param>
+<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
+<xsl:param name="cnx.color.red">#D89016</xsl:param>
+<xsl:param name="cnx.color.green">#8FB733</xsl:param>
+<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
+<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
+<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
+*/
+.section > .title > span {
+  background-color: none;
+  padding-left: inherit;
+  padding-right: inherit;
+  font-size: large;
+}
+.titlepage h3 {
+  color: #0061AA;
+}
+.figure .title {
+  display: inline;
+  color: black;
+  font-weight: normal;
+}
+.figure .caption {
+  display: inline;
+}
+.section-title-number {
+  color: #0061AA;
+}
+.formal-object-properties {
+  background-color: #F1F6E6;
+}
+.cnx-formal-object-inner {
+  background-color: #FBF2E2;
+}
+.note > .title {
+  font-size: large;
+  border-bottom: 0px;
+}
+.cnx-note-tip-body {
+  background-color: #EFF2F9;
+  border-top-color: Purple;
+  color: #0061AA;
+}
+.cnx-note-tip-title-inline {
+  background-color: #0061AA;
+}
+.cnx-introduction-chapter {
+  background-color: Purple;
+}
+.cnx-introduction-title {
+  border-bottom: 1px solid LimeGreen;
+}
+.cnx-introduction-title-text {
+  color: Purple;
+}
+table.cnx-introduction-toc {
+  border: 1px solid LimeGreen;
+}
+table.cnx-introduction-toc tr:first-child {
+  background-color: LimeGreen;
+  color: black;
+}
+table.cnx-introduction-toc tr:not(:first-child) td:first-child {
+  display: none;
+}
+.cnx-introduction-toc td:last-child a {
+  font-weight: bold;
+}
+.cnx-problems-title {
+  color: #0061AA;
+}
+.cnx-problems-subtitle {
+  color: #0061AA;
+}
