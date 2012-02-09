@@ -11,7 +11,7 @@
 
 /****** Features ******/
 .x-feature () {
-  padding-top: 43px; //from the SV files
+  padding-top: 0.74in; //0.75 + margin-top. 0.75in is from the SVG files
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -20,14 +20,10 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-/*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  // the following are tweaked so the overlays really do over lay
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
 }
 .sociological-research {
   .title {

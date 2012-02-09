@@ -14,7 +14,7 @@
   color: #330033;
 }
 .sociological-research:before {
-  padding-top: 43px;
+  padding-top: 0.74in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -23,15 +23,9 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-  /*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
   background-image: url(ccap-sociology/research.svg);
 }
 .sociology-real-world {
@@ -42,7 +36,7 @@
   color: #006666;
 }
 .sociology-real-world:before {
-  padding-top: 43px;
+  padding-top: 0.74in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -51,15 +45,9 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-  /*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
   background-image: url(ccap-sociology/real-world.svg);
 }
 .sociology-big-picture {
@@ -70,7 +58,7 @@
   color: #99cc33;
 }
 .sociology-big-picture:before {
-  padding-top: 43px;
+  padding-top: 0.74in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -79,15 +67,9 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-  /*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
   background-image: url(ccap-sociology/big-picture.svg);
 }
 .sociology-careers {
@@ -98,7 +80,7 @@
   color: #cc3333;
 }
 .sociology-careers:before {
-  padding-top: 43px;
+  padding-top: 0.74in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -107,15 +89,9 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-  /*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
   background-image: url(ccap-sociology/careers.svg);
 }
 .sociology-policy-debate {
@@ -126,7 +102,7 @@
   color: #cc3333;
 }
 .sociology-policy-debate:before {
-  padding-top: 43px;
+  padding-top: 0.74in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -135,15 +111,9 @@
   content: "";
   display: block;
   page-break-inside: avoid;
-  /*
-  margin-left: -1.5em;
-  margin-right: -1.5em;
-  margin-top: -0.5em;
-*/
-
-  margin-left: -1.1em;
-  margin-right: -1.1em;
-  margin-top: -0.5em;
+  margin-left: -1.05em;
+  margin-right: -1.05em;
+  margin-top: -0.03in;
   background-image: url(ccap-sociology/policy-debate.svg);
 }
 /* "Key Concepts" Introduction table */
