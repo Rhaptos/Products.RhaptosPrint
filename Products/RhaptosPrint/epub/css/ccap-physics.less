@@ -374,7 +374,8 @@ h3 {
   padding-left: 1em;
   padding-right: 1em;
   /* To fully support row/col spans in CALS tables borders are calculated for each cell and inherit the color of the text in the cell */
-  border: 1px solid black !important;
+  /* By default the color in the PDF is the same color as the text so set it to black. */
+  border-color: black !important;
 }
 .table caption {
   caption-side: bottom;

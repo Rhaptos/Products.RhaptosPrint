@@ -116,6 +116,13 @@
   margin-top: -0.03in;
   background-image: url(ccap-sociology/policy-debate.svg);
 }
+/*********************** Table of Contents ********************/
+.book > .toc > p {
+  border-bottom: 1px solid LimeGreen;
+}
+.book > .toc a {
+  color: Purple;
+}
 /* "Key Concepts" Introduction table */
 .chapter .toc {
   border: 1px solid LimeGreen;
