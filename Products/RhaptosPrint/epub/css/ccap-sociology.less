@@ -158,6 +158,17 @@ p {
   content: "Key Terms";
 }
 
+/* Add a title saying "Chapter Review" */
+.glossary:before {
+  content: "Chapter Review";
+  display: block;
+  color: Purple;
+  font-size: x-large;
+  font-weight: bold;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
 /* Hide the section headers */
 .cnx-eoc > .section > .title {
   display: none;
@@ -198,9 +209,6 @@ a {
 .toc > dt > dl a {
   color: #0061AA;
 }
-h1 { prince-bookmark-level: 1 }
-h2 { prince-bookmark-level: 2 }
-h3, h4, h5, h6 { prince-bookmark-level: none }
 h2 {
   color: Purple;
   font-size: x-large;
@@ -216,22 +224,10 @@ h2 {
 .table caption b {
   background-color: #8FB733;
 }
-/*
-<xsl:param name="cnx.color.orange">Purple</xsl:param>
-<xsl:param name="cnx.color.blue">#0061AA</xsl:param>
-<xsl:param name="cnx.color.red">#D89016</xsl:param>
-<xsl:param name="cnx.color.green">#8FB733</xsl:param>
-<xsl:param name="cnx.color.silver">#FBF2E2</xsl:param>
-<xsl:param name="cnx.color.aqua">#EFF2F9</xsl:param>
-<xsl:param name="cnx.color.light-green">#F1F6E6</xsl:param>
-*/
-.section > .title > span {
-	background-color: none;
-	padding-left: inherit;
-	padding-right: inherit;
-	font-size: large;
-}
-.titlepage h3 {
+
+
+
+.chapter h3 {
 	color: @teal;
 	font-size: large;
 }
@@ -243,54 +239,6 @@ h2 {
 .figure .caption {
   display: inline;
 }
-.section-title-number {
-	color: #0061AA;
-}
-.formal-object-properties {
-	background-color: #F1F6E6;
-}
-.cnx-formal-object-inner {
-  background-color: #FBF2E2;
-}
-.note {
-}
 .note > .title {
-  font-size: large;
   border-bottom: 0px;  
-}
-.cnx-note-tip-body {
-	background-color: #EFF2F9;
-	border-top-color: Purple;
-	color: #0061AA;
-}
-.cnx-note-tip-title-inline {
-	background-color: #0061AA;
-}
-.cnx-introduction-chapter {
-	background-color: Purple;
-}
-.cnx-introduction-title {
-	border-bottom: 1px solid LimeGreen;
-}
-.cnx-introduction-title-text {
-	color: Purple;
-}
-table.cnx-introduction-toc {
-	border: 1px solid LimeGreen;
-}
-table.cnx-introduction-toc tr:first-child {
-	background-color: LimeGreen;
-	color: black;
-}
-table.cnx-introduction-toc tr:not(:first-child) td:first-child {
-	display: none;
-}
-.cnx-introduction-toc td:last-child a {
-  font-weight: bold;
-}
-.cnx-problems-title {
-	color: #0061AA;
-}
-.cnx-problems-subtitle {
-	color: #0061AA;
 }
