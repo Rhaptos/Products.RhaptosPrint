@@ -120,6 +120,11 @@
 .chapter .toc {
   border: 1px solid LimeGreen;
 }
+.chapter .toc > dl:before {
+  content: "In this chapter, students will learn:";
+  font-weight: bold;
+  border-bottom: 1px solid LimeGreen;
+}
 .chapter .toc > p {
   content: "Summary";
   background-color: LimeGreen;
