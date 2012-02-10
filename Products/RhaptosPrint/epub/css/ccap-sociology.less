@@ -2,6 +2,8 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
+@teal: #006666;
+
 @import url('ccap-physics.css');
 
 @page {
@@ -11,7 +13,7 @@
 
 /****** Features ******/
 .x-feature () {
-  padding-top: 0.74in; //0.75 + margin-top. 0.75in is from the SVG files
+  padding-top: 0.75in; //0.75 + margin-top. 0.75in is from the SVG files
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -27,7 +29,7 @@
 }
 .sociological-research {
   .title {
-    color: #330033;
+    color: #660066;
   }
   background-color: #ffccff;
   page-break-inside: avoid;
@@ -97,6 +99,7 @@
 .chapter .toc > p {
   content: "Summary";
   background-color: LimeGreen;
+  font-weight: bold;
   color: black;
   padding: 0em;
 }
@@ -127,7 +130,7 @@ p {
   border-bottom: 1px solid LimeGreen;
   margin-bottom: 0.25em;
   font-weight: normal;
-  color: Purple;
+  color: @teal;
 }
 .example > .title > span,
 .exercise > .title > span,
@@ -152,6 +155,14 @@ p {
   display: none;
 }
 
+/* Indent margins on lists */
+.cnx-eoc .problem .orderedlist {
+  margin-left: 8em;
+}
+
+img {
+  max-width: 5in;
+}
 
 /* From ccap-physics.css */
 
@@ -186,8 +197,9 @@ h2 {
   color: Purple;
   font-size: x-large;
 }
-h3 {
-  color: #006666;
+.chapter .introduction > .title {
+  span { border-bottom: 1px solid LimeGreen; }
+  color: Purple;
   font-size: large;
 }
 .table table {
@@ -212,7 +224,7 @@ h3 {
 	font-size: large;
 }
 .titlepage h3 {
-	color: #0061AA;
+	color: @teal;
 	font-size: large;
 }
 .figure .title {

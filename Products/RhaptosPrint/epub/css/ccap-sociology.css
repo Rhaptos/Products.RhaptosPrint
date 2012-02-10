@@ -11,10 +11,10 @@
   page-break-inside: avoid;
 }
 .sociological-research .title {
-  color: #330033;
+  color: #660066;
 }
 .sociological-research:before {
-  padding-top: 0.74in;
+  padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -36,7 +36,7 @@
   color: #006666;
 }
 .sociology-real-world:before {
-  padding-top: 0.74in;
+  padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -58,7 +58,7 @@
   color: #99cc33;
 }
 .sociology-big-picture:before {
-  padding-top: 0.74in;
+  padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -80,7 +80,7 @@
   color: #cc3333;
 }
 .sociology-careers:before {
-  padding-top: 0.74in;
+  padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -102,7 +102,7 @@
   color: #cc3333;
 }
 .sociology-policy-debate:before {
-  padding-top: 0.74in;
+  padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
@@ -128,6 +128,7 @@
 .chapter .toc > p {
   content: "Summary";
   background-color: LimeGreen;
+  font-weight: bold;
   color: black;
   padding: 0em;
 }
@@ -154,7 +155,7 @@ p {
   border-bottom: 1px solid LimeGreen;
   margin-bottom: 0.25em;
   font-weight: normal;
-  color: Purple;
+  color: #006666;
 }
 .example > .title > span,
 .exercise > .title > span,
@@ -175,6 +176,13 @@ p {
 /* Hide the section headers */
 .cnx-eoc > .section > .title {
   display: none;
+}
+/* Indent margins on lists */
+.cnx-eoc .problem .orderedlist {
+  margin-left: 8em;
+}
+img {
+  max-width: 5in;
 }
 /* From ccap-physics.css */
 h1.title {
@@ -219,9 +227,12 @@ h2 {
   color: Purple;
   font-size: x-large;
 }
-h3 {
-  color: #006666;
+.chapter .introduction > .title {
+  color: Purple;
   font-size: large;
+}
+.chapter .introduction > .title span {
+  border-bottom: 1px solid LimeGreen;
 }
 .table table {
   background-color: #FBF2E2;
@@ -245,7 +256,7 @@ h3 {
   font-size: large;
 }
 .titlepage h3 {
-  color: #0061AA;
+  color: #006666;
   font-size: large;
 }
 .figure .title {
