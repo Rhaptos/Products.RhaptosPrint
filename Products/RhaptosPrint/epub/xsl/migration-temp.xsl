@@ -152,7 +152,7 @@ and needs to turn into:
 
 -->
 <xsl:template match="mml:mmultiscripts">
-  <xsl:message>--MANUAL: mmultiscripts found near "<xsl:value-of select="ancestor-or-self::*[@id][1]/@id"/>"</xsl:message>
+  <xsl:message>ERROR: mmultiscripts found near "<xsl:value-of select="ancestor-or-self::*[@id][1]/@id"/>"</xsl:message>
 </xsl:template>
 
 

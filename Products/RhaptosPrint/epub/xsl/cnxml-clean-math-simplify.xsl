@@ -85,6 +85,9 @@
 <xsl:template mode="cnx.simplify" match="mml:math">
 	<c:span class="simplemath">
 		<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+		<xsl:copy>
+		  <xsl:apply-templates select="@*|node()"/>
+		</xsl:copy>
 	</c:span>
 </xsl:template>
 

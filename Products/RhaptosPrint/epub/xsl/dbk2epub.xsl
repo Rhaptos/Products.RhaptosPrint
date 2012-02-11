@@ -272,5 +272,14 @@
     </xsl:element> 
   </xsl:template> 
 
+
+<!-- simplified math generates a c:span[@class="simplemath"] or db:token[@class="simplemath"] with a mml:math in it. for epubs, discard the mml:math -->
+<xsl:template match="db:token[@class='simplemath']/db:inlinemediaobject">
+  <xsl:message>INFO: Discarding MathML in favor of simplemath</xsl:message>
+</xsl:template>
+<xsl:template match="db:token[@class='simplemath']/db:inlinemediaobject">
+  <xsl:message>INFO: Discarding MathML SVG in favor of simplemath</xsl:message>
+</xsl:template>
+
 </xsl:stylesheet>
 

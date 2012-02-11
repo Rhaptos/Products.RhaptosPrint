@@ -644,4 +644,10 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
+<!-- simplified math generates a c:span[@class="simplemath"] or db:token[@class="simplemath"] with a mml:math in it. for epubs, discard the simplemath -->
+<xsl:template match="db:token[@class='simplemath' and db:inlinemediaobject]">
+  <xsl:message>INFO: Discarding simplemath in favor of MathML/SVG</xsl:message>
+  <xsl:apply-templates select="db:inlinemediaobject"/>
+</xsl:template>
+
 </xsl:stylesheet>
