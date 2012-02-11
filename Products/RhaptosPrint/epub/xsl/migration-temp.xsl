@@ -123,20 +123,37 @@
 
 
 <!-- mmultiscripts -->
-<xsl:template match="mml:mi[following-sibling::*[self::mml:mmultiscripts and *[1][self::mml:mtext][text()=''] and *[2][self::mml:mprescripts] and *[4][self::mml:none]]]">
-  <xsl:message>Found a mmultiscripts thing to rewrite</xsl:message>
-  <xsl:variable name="fix">
-    <mml:msub>
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-      <xsl:copy-of select="following-sibling::*[self::mml:mmultiscripts]/*[3]"/>
-    </mml:msub>
-  </xsl:variable>
+<!-- The format looks something like:
+    ...
+    <m:mi>x</m:mi>
+  </m:mrow>
+</m:mrow>
+<m:mrow>
+  <m:mrow>
+    <m:mmultiscripts>
+      <m:mtext></m:mtext>
+      <m:mprescripts/>
+      [1 child]
+      <m:none/>
+    </m:mmultiscripts>
+    ...
+
+and needs to turn into:
+    ...
+    <m:msub>
+      <m:mi>x</m:mi>
+      [1 child]
+    </m:msub>
+  </m:mrow>
+</m:mrow>
+<m:mrow>
+  <m:mrow>
+    ...
+
+-->
+<xsl:template match="mml:mmultiscripts">
+  <xsl:message>--MANUAL: mmultiscripts found near "<xsl:value-of select="ancestor-or-self::*[@id][1]/@id"/>"</xsl:message>
 </xsl:template>
 
-<xsl:template match="mml:mmultiscripts[preceding-sibling::*[1][self::mml:mi] and *[1][self::mml:mtext][text()=''] and *[2][self::mml:mprescripts] and *[4][self::mml:none]]">
-  <xsl:message>Removing rewritten mmultiscripts</xsl:message>
-</xsl:template>
 
 </xsl:stylesheet>
