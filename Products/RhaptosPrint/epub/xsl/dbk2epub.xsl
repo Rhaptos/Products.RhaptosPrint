@@ -14,7 +14,7 @@
  -->
 
 <xsl:import href="debug.xsl"/>
-<xsl:import href="../docbook-xsl/xhtml/docbook.xsl"/>
+<xsl:import href="../docbook-xsl/epub/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
 
 <xsl:param name="epub.oebps.dir" select="'content/'"/>
