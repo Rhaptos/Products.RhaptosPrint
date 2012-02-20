@@ -32,7 +32,7 @@
 	<!-- OLD TABLES -->
 	<xsl:when test="db:categories">
           <xsl:apply-templates select="db:name"/>
-	  <table class="old-table" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid !important; border-collapse: collapse;">
+	  <table class="old-table" cellspacing="0" cellpadding="0" style="border: 1px solid !important; border-collapse: collapse;">
 	    <!--Outputs CATEGORY as headers.-->
 	    <tr>
 	      <xsl:for-each select="//db:category">
@@ -55,7 +55,7 @@
 	</xsl:when>
 	<!-- NEW TABLE -->
 	<xsl:otherwise>
-	  <table cellspacing="0" cellpadding="0" align="center">
+	  <table cellspacing="0" cellpadding="0">
             <xsl:if test="@summary!='' or processing-instruction('table-summary')">
               <xsl:attribute name="summary">
                 <xsl:choose>

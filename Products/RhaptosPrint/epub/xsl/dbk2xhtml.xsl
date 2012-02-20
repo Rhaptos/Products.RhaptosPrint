@@ -5,7 +5,7 @@
 <xsl:import href="../docbook-xsl/xhtml-1_1/docbook.xsl"/>
 <xsl:import href="dbk2xhtml-core.xsl"/>
 
-<xsl:output indent="no" method="xml"/>
+<xsl:output indent="no" method="xml" />
 
 <!-- ============================================== -->
 <!-- Customize docbook params for this style        -->

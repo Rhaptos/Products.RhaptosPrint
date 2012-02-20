@@ -62,7 +62,7 @@
 <xsl:template match="db:chapter">
 
 	<div><xsl:call-template name="common.html.attributes"/>
-    <xsl:attribute name="xml:id">
+    <xsl:attribute name="id">
 		  <xsl:call-template name="object.id"/>
     </xsl:attribute>
 		<xsl:call-template name="chapter.titlepage"/>
@@ -631,7 +631,6 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="." mode="label.markup"/>  
   </xsl:variable>
 
-  <div class="toc-line-properties">  
       <a href="#{$id}">  
 
 <!-- CNX: Add the word "Chapter" or Appendix in front of the number -->
@@ -656,7 +655,6 @@ Combination of formal.object and formal.object.heading -->
           <xsl:apply-templates select="." mode="title.markup"/>  
         </span>
       </a>
-  </div>
 </xsl:template>
 
 <!-- Output the PNG with the baseline info -->
@@ -709,14 +707,7 @@ Combination of formal.object and formal.object.heading -->
     </xsl:choose>
 </xsl:template>
 
-<xsl:template match="svg:metadata"/>
-
-<!-- Docbook "supprts" svg by copying SVG elements but not the attributes ; ) -->
-<xsl:template match="svg:*|svg:*/@*|svg:*/node()">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
+<xsl:template match="pmml2svg:baseline-shift"/>
 
 
 <!-- Put the equation number on the RHS -->
@@ -1138,11 +1129,15 @@ Combination of formal.object and formal.object.heading -->
               <xsl:value-of select="$start"/>
             </xsl:attribute>
           </xsl:if>
+<!--
           <xsl:if test="$numeration != ''">
             <xsl:attribute name="type">
               <xsl:value-of select="$type"/>
             </xsl:attribute>
           </xsl:if>
+-->
+<xsl:message>LOG: INFO: Discarding list numeration @type because it's not valid xhtml</xsl:message>
+
           <xsl:if test="@spacing='compact'">
             <xsl:attribute name="compact">
               <xsl:value-of select="@spacing"/>
