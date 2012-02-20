@@ -7,11 +7,8 @@
 }
 /****** Features ******/
 .sociological-research {
-  background-color: #ffccff;
   page-break-inside: avoid;
-}
-.sociological-research .title {
-  color: #660066;
+  background-color: #ffccff;
 }
 .sociological-research:before {
   padding-top: 0.75in;
@@ -26,14 +23,16 @@
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
+}
+.sociological-research .title {
+  color: #660066;
+}
+.sociological-research:before {
   background-image: url(ccap-sociology/research.svg);
 }
 .sociology-real-world {
-  background-color: #ccffff;
   page-break-inside: avoid;
-}
-.sociology-real-world .title {
-  color: #006666;
+  background-color: #ccffff;
 }
 .sociology-real-world:before {
   padding-top: 0.75in;
@@ -48,14 +47,16 @@
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
+}
+.sociology-real-world .title {
+  color: #006666;
+}
+.sociology-real-world:before {
   background-image: url(ccap-sociology/real-world.svg);
 }
 .sociology-big-picture {
-  background-color: #ccff99;
   page-break-inside: avoid;
-}
-.sociology-big-picture .title {
-  color: #99cc33;
+  background-color: #ccff99;
 }
 .sociology-big-picture:before {
   padding-top: 0.75in;
@@ -70,14 +71,16 @@
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
+}
+.sociology-big-picture .title {
+  color: #99cc33;
+}
+.sociology-big-picture:before {
   background-image: url(ccap-sociology/big-picture.svg);
 }
 .sociology-careers {
-  background-color: #ffcccc;
   page-break-inside: avoid;
-}
-.sociology-careers .title {
-  color: #cc3333;
+  background-color: #ffcccc;
 }
 .sociology-careers:before {
   padding-top: 0.75in;
@@ -92,14 +95,16 @@
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
+}
+.sociology-careers .title {
+  color: #cc3333;
+}
+.sociology-careers:before {
   background-image: url(ccap-sociology/careers.svg);
 }
 .sociology-policy-debate {
-  background-color: #ffcccc;
   page-break-inside: avoid;
-}
-.sociology-policy-debate .title {
-  color: #cc3333;
+  background-color: #ffcccc;
 }
 .sociology-policy-debate:before {
   padding-top: 0.75in;
@@ -114,6 +119,11 @@
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
+}
+.sociology-policy-debate .title {
+  color: #cc3333;
+}
+.sociology-policy-debate:before {
   background-image: url(ccap-sociology/policy-debate.svg);
 }
 /*********************** Table of Contents ********************/
@@ -236,6 +246,9 @@ h2 {
 .chapter .introduction > .title span {
   border-bottom: 1px solid LimeGreen;
 }
+.section > .table {
+  float: bottom;
+}
 .table table {
   background-color: #FBF2E2;
 }
@@ -245,6 +258,10 @@ h2 {
 .chapter h3 {
   color: #006666;
   font-size: large;
+}
+.section > .figure {
+  float: top;
+  float: snap;
 }
 .figure .title {
   display: inline;

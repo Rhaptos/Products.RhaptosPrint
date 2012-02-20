@@ -13,73 +13,71 @@
 
 /****** Features ******/
 .x-feature () {
-  padding-top: 0.75in; //0.75 + margin-top. 0.75in is from the SVG files
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-position: top outside;
   page-break-inside: avoid;
-  background-color: white;
-  content: "";
-  display: block;
-  page-break-inside: avoid;
-  // the following are tweaked so the overlays really do over lay
-  margin-left: -1.05em;
-  margin-right: -1.05em;
-  margin-top: -0.03in;
+  &:before {
+    padding-top: 0.75in; //0.75 + margin-top. 0.75in is from the SVG files
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-position: top outside;
+    page-break-inside: avoid;
+    background-color: white;
+    content: "";
+    display: block;
+    page-break-inside: avoid;
+    // the following are tweaked so the overlays really do over lay
+    margin-left: -1.05em;
+    margin-right: -1.05em;
+    margin-top: -0.03in;
+  }
 }
 .sociological-research {
+  .x-feature;
   .title {
     color: #660066;
   }
   background-color: #ffccff;
-  page-break-inside: avoid;
   &:before {
-    .x-feature;
     background-image: url(ccap-sociology/research.svg);
   }
 }
 .sociology-real-world {
+  .x-feature;
   .title {
     color: #006666;
   }
   background-color: #ccffff;
-  page-break-inside: avoid;
   &:before {
-    .x-feature;
     background-image: url(ccap-sociology/real-world.svg);
   }
 }
 
 .sociology-big-picture {
+  .x-feature;
   .title {
     color: #99cc33;
   }
   background-color: #ccff99;
-  page-break-inside: avoid;
   &:before {
-    .x-feature;
     background-image: url(ccap-sociology/big-picture.svg);
   }
 }
 .sociology-careers {
+  .x-feature;
   .title {
     color: #cc3333;
   }
   background-color: #ffcccc;
-  page-break-inside: avoid;
   &:before {
-    .x-feature;
     background-image: url(ccap-sociology/careers.svg);
   }
 }
 .sociology-policy-debate {
+  .x-feature;
   .title {
     color: #cc3333;
   }
   background-color: #ffcccc;
-  page-break-inside: avoid;
   &:before {
-    .x-feature;
     background-image: url(ccap-sociology/policy-debate.svg);
   }
 }
@@ -215,6 +213,9 @@ h2 {
   color: Purple;
   font-size: large;
 }
+.section > .table {
+  float: bottom;
+}
 .table table {
   background-color: #FBF2E2;
 }
@@ -227,6 +228,10 @@ h2 {
 .chapter h3 {
 	color: @teal;
 	font-size: large;
+}
+.section > .figure {
+  float: top;
+  float: snap;
 }
 .figure .title {
   display: inline;

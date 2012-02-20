@@ -7,7 +7,7 @@
 
 /********* Chapter Introduction styles *********/
 
-.ccap-chapter {
+.ccap-chapter () {
   background-color: @orange;
   margin-bottom: 0em;
   padding: 0.25em 0.5em;
@@ -24,18 +24,18 @@
 */
 }
 
-.ccap-chapter-number {
+.ccap-chapter-number () {
 /*
   color: black;
 */
 }
 
-.ccap-chapter-title {
+.ccap-chapter-title () {
   color: white;
   padding-left: 1em;
 }
 
-.ccap-intro-title {
+.ccap-intro-title () {
   border-bottom: 1px solid @orange;
   padding-right: 3em;
   font-weight: bold;
@@ -51,7 +51,7 @@
 
 /********* HTML Element styles *********/
 
-.ccap-a {
+.ccap-a () {
   color: #d89016; // Web color
   color: @dark-orange;
 	font-weight: bold;
@@ -60,11 +60,11 @@
 
 /********* CNXML ELements *********/
 
-.ccap-figure-title {
+.ccap-figure-title () {
   .ccap-a;
 }
 
-.ccap-note {
+.ccap-note () {
 	/* page-break-inside: avoid; Per David's request, less whitespace is better. */
 	background-color: @cream;
 	padding-left: 1em;
@@ -79,13 +79,13 @@
 */
 }
 
-.ccap-note-title {
+.ccap-note-title () {
   color: @blue;
   border-bottom: 1px solid @orange;
   /* text-transform: uppercase; */
 }
 
-.ccap-section-title {
+.ccap-section-title () {
   color: @blue;
 }
 
@@ -101,12 +101,12 @@
   padding: .5em 1em;
 }
 
-.ccap-exercise-title {
+.ccap-exercise-title () {
   .x-block-title;
   background-color: @green;
 }
 
-.ccap-example-title {
+.ccap-example-title () {
   .x-block-title;
   background-color: @blue;
 }
@@ -158,7 +158,7 @@
  ***************************************************/
 
 /* Import general page headers/footers, bookmark calculation, etc */
-@import url('ccap-base.css');
+@import url('ccap-base.less');
 
 /* Print-specific styles <style media="print"... */
 
@@ -731,8 +731,6 @@ table.cnx-figure-horizontal td {
 }
 .cnx-titlepage-strong {
 	font-weight: bold;
-}
-.toc-line-properties {
 }
 .table-of-contents-titlepage-recto-style {
 	border-bottom: 1px solid @orange;
