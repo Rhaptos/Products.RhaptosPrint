@@ -21,7 +21,7 @@
 
 <xsl:import href="param.xsl"/>
 <xsl:import href="dbk2xhtml-overrides.xsl"/>
-<xsl:include href="dbkplus.xsl"/>
+<xsl:import href="dbkplus.xsl"/>
 <xsl:include href="table2epub.xsl"/>
 <xsl:include href="bibtex2epub.xsl"/>
 
