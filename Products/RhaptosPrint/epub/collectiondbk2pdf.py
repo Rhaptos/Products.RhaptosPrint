@@ -1,4 +1,4 @@
-# python -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('./tests', 'modern-textbook');" > result.pdf
+# time python2.4 -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('path/to/col10522', 'ccap-physics');" > result.pdf
 
 import sys
 import os
@@ -14,7 +14,7 @@ import module2dbk
 import collection2dbk
 import util
 
-DEBUG= 'DEBUG' in os.environ
+DEBUG = 'DEBUG' in os.environ
 
 XHTML_PATH = '/usr/local/bin/prince'
 if 'XHTML_PATH' in os.environ:
