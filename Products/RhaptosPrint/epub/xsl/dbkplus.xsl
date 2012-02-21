@@ -394,11 +394,6 @@
   </xsl:choose>
 </xsl:template>
 
-<!-- Don't label figures inside an exercise -->
-<xsl:template match="ext:exercise//db:figure" mode="object.title.markup">
-  <xsl:comment>CNX: Discarding title because this in an exercise</xsl:comment>
-</xsl:template>
-
 <!-- XREF templates -->
 
 <xsl:template match="ext:*" mode="xref-to">

@@ -523,36 +523,13 @@ Combination of formal.object and formal.object.heading -->
     </xsl:apply-templates>
   
     <xsl:variable name="content">
-      <div class="cnx-formal-object-inner">
-        <xsl:apply-templates select="*[not(self::d:caption)]"/>
-        <xsl:apply-templates select="d:caption"/>
-      </div>
+      <xsl:apply-templates select="*[not(self::d:caption)]"/>
+      <xsl:apply-templates select="d:caption"/>
     </xsl:variable>
   
-    <xsl:choose>
-      <!-- tables have their own templates and
-           are not handled by formal.object -->
-      <xsl:when test="self::d:example">
-        <div id="{$id}" class="cnx-example">
-          <xsl:copy-of select="$content"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="self::d:equation">
-        <div id="{$id}" class="cnx-equation">
-          <xsl:copy-of select="$content"/>
-        </div>
-      </xsl:when>
-      <xsl:when test="self::d:procedure">
-        <div id="{$id}" class="cnx-procedure">
-          <xsl:copy-of select="$content"/>
-        </div>
-      </xsl:when>
-      <xsl:otherwise>
-        <div id="{$id}" class="formal-object-properties">
-          <xsl:copy-of select="$content"/>
-        </div>
-      </xsl:otherwise>
-    </xsl:choose>
+    <div id="{$id}" class="body">
+      <xsl:copy-of select="$content"/>
+    </div>
 </xsl:template>
 
 <xsl:template match="d:figure/d:caption">

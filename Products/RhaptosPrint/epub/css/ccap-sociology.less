@@ -174,6 +174,10 @@ p {
   margin-left: 8em;
 }
 
+.cnx-eoc.references p {
+  text-indent: 0em;
+}
+
 img {
   max-width: 5in;
 }
@@ -204,12 +208,16 @@ a {
 .toc > dt > dl a {
   color: #0061AA;
 }
+h2, h3 {
+  margin: 1em 0em;
+}
 h2 {
   color: Purple;
   font-size: x-large;
 }
 .chapter .introduction > .title {
-  span { border-bottom: 1px solid LimeGreen; }
+  span { border-bottom: 0; }
+  border-bottom: 1px solid LimeGreen;
   color: Purple;
   font-size: large;
 }
@@ -238,7 +246,7 @@ h2 {
 	color: black;
 	font-weight: normal;
 }
-.figure .caption {
+.figure > .caption {
   display: inline;
 }
 .note > .title {

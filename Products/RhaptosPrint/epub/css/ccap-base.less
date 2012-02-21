@@ -134,11 +134,10 @@ h3, h4, h5, h6 { bookmark-level: none; page-break-after: avoid; }
   display: none;
 }
 
-.cnx-eoc {
-}
-
 .problems-exercises {
-  columns-count: 2;
+  -webkit-column-count: 2; // Supported by webkit
+  column-count: 2;         // Not supported (but should be)
+  columns: 2;              // Supported by PrinceXML
   page-break-before: always;
 }
 
@@ -166,6 +165,7 @@ p {
 }
 table {
   page-break-inside: avoid;
+  margin: auto;
 }
 .table td {
   padding: 0.25em;
