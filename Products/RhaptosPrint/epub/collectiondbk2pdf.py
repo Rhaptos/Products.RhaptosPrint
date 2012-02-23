@@ -16,9 +16,20 @@ import util
 
 DEBUG = 'DEBUG' in os.environ
 
-XHTML_PATH = '/usr/local/bin/prince'
+
+XHTML_PATH = None
+XHTML_PATHS = ['/usr/bin/prince','/usr/local/bin/prince']
+for path in XHTML_PATHS:
+    if os.path.exists(path):
+        XHTML_PATH = path
+        break
+
 if 'XHTML_PATH' in os.environ:
-  XHTML_PATH = os.environ['XHTML_PATH']
+    XHTML_PATH = os.environ['XHTML_PATH']
+
+if not XHTML_PATH:
+    raise IOError('no xhtml binary found')
+
 BASE_PATH = os.getcwd()
 #PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
