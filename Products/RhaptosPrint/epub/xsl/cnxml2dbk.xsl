@@ -17,12 +17,16 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="cnxml2dbk-simple.xsl"/>
 <xsl:import href="mdml2dbk.xsl"/>
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
         <xsl:apply-templates mode="copy" select="@*|node()"/>
     </xsl:copy>
+</xsl:template>
+
+<xsl:template match="processing-instruction()|comment()">
+	<xsl:copy/>
 </xsl:template>
 
 <!-- Boilerplate -->
@@ -43,31 +47,54 @@
 	<xsl:attribute name="{local-name(.)}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@type|@src|@format|@alt"/>
+<xsl:template match="@src|@format|@alt"/>
+<!-- Pass @type through so exercises, examples, etc are re-numberred based on type -->
+<xsl:template match="*/@type">
+  <xsl:copy>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="c:note/@*">
+    <xsl:attribute name="{local-name()}">
+        <xsl:value-of select="."/>
+    </xsl:attribute>
+</xsl:template>
 
 <!-- Match the roots and add boilerplate -->
 <xsl:template match="c:document">
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
     <xsl:variable name="moving.solutions" select=".//c:solution[not(ancestor::c:example)][not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end']|
                                                   .//c:solution[ancestor::c:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
+-->
     <xsl:variable name="lang" select="c:metadata/md:language/text()"/>
     <db:section ext:element="module" lang="{$lang}"
             ext:url="{c:metadata/md:content-url/text()}/"
             ext:version="{c:metadata/md:version/text()}">
     	<xsl:attribute name="xml:id"><xsl:value-of select="$cnx.module.id"/></xsl:attribute>
         <xsl:attribute name="xml:lang"><xsl:value-of select="$lang"/></xsl:attribute>
+        <xsl:apply-templates select="@class"/>
         <db:sectioninfo ext:repository="{c:metadata/md:repository/text()}">
         	<xsl:apply-templates select="c:title"/>
         	<xsl:apply-templates select="c:metadata"/>
         </db:sectioninfo>
         
-        <xsl:apply-templates select="c:content/*"/>
+        <!-- Make sure any keywords (that aren't terms in the content) get
+         			index entries pointing to this module -->
+<!--
+        <xsl:apply-templates select="c:metadata/md:keyword-list/md:keyword"/>
+-->
+
+        <xsl:apply-templates select="c:content/node()"/>
         <!-- Move some exercise solutions to the end of a module -->
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
         <xsl:if test="$moving.solutions">
         	<db:section ext:element="solutions">
         		<db:title>Solutions to Exercises</db:title>
                         <xsl:apply-templates select="$moving.solutions" />
         	</db:section>
         </xsl:if>
+-->
         <xsl:apply-templates select="c:glossary"/>
         <xsl:for-each select="bib:file">
             <db:section>
@@ -278,11 +305,11 @@
         </db:textobject>
 	<xsl:apply-templates select="c:image[contains(@src, '.eps')]"/>
 	<xsl:choose>
-	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']">
-	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps')) and @for = 'pdf']"/>
+	 	<xsl:when test="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps')) and @for = 'pdf']">
+	 		<xsl:apply-templates select="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps')) and @for = 'pdf']"/>
 	 	</xsl:when>
-	 	<xsl:when test="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]">
-	 		<xsl:apply-templates select="c:image[@mime-type != 'application/postscript' and not(contains(@src, '.eps'))]"/>
+	 	<xsl:when test="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps'))]">
+	 		<xsl:apply-templates select="c:image[(not(@mime-type) or @mime-type != 'application/postscript') and not(contains(@src, '.eps'))]"/>
 	 	</xsl:when>
 		<xsl:when test="c:image[contains(@src, '.eps')]">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: No suitable image found. Hoping that a SVG file with the same name as the EPS file exists</xsl:with-param></xsl:call-template>
@@ -319,7 +346,9 @@
 	<db:link xlink:href="{$url}">
 		<xsl:text>(This media type is not supported in this reader. Click to open media in browser.)</xsl:text>
 	    <xsl:comment>Adding the original media tag for use by the offline HTML generation XSLT</xsl:comment>
-	    <xsl:copy-of select="."/>
+	    <c:media>
+		    <xsl:apply-templates select="@*|node()"/>
+		  </c:media>
 	</db:link>
 </xsl:template>
 <xsl:template match="c:media[not(ancestor::c:para)]" priority="0">
@@ -350,15 +379,17 @@
 		    <xsl:call-template name="cnx.id"/>
 		</xsl:attribute>
 		<db:imagedata fileref="{@src}">
+      <xsl:copy-of select="@_actual-width"/>
+      <xsl:copy-of select="@_actual-height"/>
 			<xsl:choose>
-				<xsl:when test="@print-width">
+				<xsl:when test="@print-width and @print-width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
 				</xsl:when>
-				<xsl:when test="@width">
+				<xsl:when test="@width and @width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
 				</xsl:when>
 			</xsl:choose>
-			<xsl:if test="@height">
+			<xsl:if test="@height and @height != ''">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
 		</db:imagedata>
@@ -378,11 +409,11 @@
 				<xsl:when test="@print-width">
 					<xsl:attribute name="width"><xsl:value-of select="@print-width"/></xsl:attribute>
 				</xsl:when>
-				<xsl:when test="@width">
+				<xsl:when test="@width and @width != ''">
 					<xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
 				</xsl:when>
 			</xsl:choose>
-			<xsl:if test="@height">
+			<xsl:if test="@height and @height != ''">
 				<xsl:attribute name="depth"><xsl:value-of select="@height"/></xsl:attribute>
 			</xsl:if>
 			
@@ -396,18 +427,25 @@
 </xsl:template>
 
 <!-- Create a custom ext:exercise element that will be converted and labeled later on -->
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
 <xsl:template match="c:exercise">
 	<ext:exercise>
 		<xsl:apply-templates select="@*|node()[not(self::c:solution[not(@print-placement='here')][not(../@print-placement='here') or @print-placement='end'])]"/>
 	</ext:exercise>
 </xsl:template>
 
-<!-- Create a custom ext:exercise element that will be converted and labeled later on -->
 <xsl:template match="c:exercise[ancestor::c:example]">
 	<ext:exercise>
 		<xsl:apply-templates select="@*|node()[not(self::c:solution[@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))])]"/>
 	</ext:exercise>
 </xsl:template>
+-->
+<xsl:template match="c:exercise">
+	<ext:exercise>
+		<xsl:apply-templates select="@*|node()"/>
+	</ext:exercise>
+</xsl:template>
+
 
 <!-- Create a custom ext:problem element that will be converted and labeled later on -->
 <xsl:template match="c:problem">
@@ -443,7 +481,7 @@
 
 <xsl:template match="c:foreign">
         <db:foreignphrase>
-        	<xsl:apply-templates/>
+        	<xsl:apply-templates select="node()"/>
         </db:foreignphrase>
 </xsl:template>
 
@@ -473,22 +511,19 @@
 
 <!-- Partially supported -->
 <xsl:template match="c:subfigure">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure element and just including all of its children</xsl:with-param></xsl:call-template>
 	<xsl:if test="@type">
 		<xsl:call-template name="cnx.log"><xsl:with-param name="msg">WARNING: Ignoring c:subfigure/@type (for numbering)</xsl:with-param></xsl:call-template>
 	</xsl:if>
-	<!-- Add a db:anchor in case anyone links to the subfigure -->
-	<db:anchor>
-		<xsl:apply-templates select="@*"/>
-	</db:anchor>
-	<xsl:apply-templates select="node()"/>
-        <xsl:if test="not(c:caption)">
-                <db:caption>
-                        <db:emphasis role="bold">
-                                <xsl:number count="c:subfigure" format="(a)"/>
-                        </db:emphasis>
-                </db:caption>
-        </xsl:if>
+  <db:informalfigure>
+		<xsl:apply-templates select="@*|node()"/>
+      <xsl:if test="not(c:caption)">
+        <db:caption>
+          <db:emphasis role="bold">
+            <xsl:number count="c:subfigure" format="(a)"/>
+          </db:emphasis>
+        </db:caption>
+      </xsl:if>
+  </db:informalfigure>
 </xsl:template>
 
 <xsl:template match="c:figure">
@@ -537,22 +572,22 @@
 <xsl:template name="definition">
 	<db:glossentry>
 		<xsl:apply-templates select="@*|c:term"/>
-                <xsl:for-each select="c:meaning">
-                        <!-- Put each c:meaning in a db:glossdef, along with any of its associated c:examples -->
-			<db:glossdef>
-        			<xsl:apply-templates select=".|following-sibling::c:example[generate-id(preceding-sibling::c:meaning[1]) = generate-id(current())]"/>
-	        	</db:glossdef>
-                </xsl:for-each>
-                <xsl:apply-templates select="c:seealso"/>
+      <xsl:for-each select="c:meaning">
+        <!-- Put each c:meaning in a db:glossdef, along with any of its associated c:examples -->
+        <db:glossdef>
+          <xsl:apply-templates select=".|following-sibling::c:example[generate-id(preceding-sibling::c:meaning[1]) = generate-id(current())]"/>
+        </db:glossdef>
+      </xsl:for-each>
+      <xsl:apply-templates select="c:seealso"/>
 	</db:glossentry>
 </xsl:template>
 
 <xsl:template match="c:seealso">
-        <db:glossdef>
-                <db:glossseealso>
-                        <xsl:apply-templates/>
-                </db:glossseealso>
-        </db:glossdef>
+  <db:glossdef>
+    <db:glossseealso>
+      <xsl:apply-templates select="node()"/>
+    </db:glossseealso>
+  </db:glossdef>
 </xsl:template>
 
 <xsl:template match="c:meaning">
@@ -572,19 +607,20 @@
 
 <xsl:template match="c:term[not(@url)]">
 	<db:glossterm>
-                <xsl:apply-templates select="@*"/>
-                <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
-                        <xsl:choose>
-                                <xsl:when test="c:label">
-                                        <xsl:apply-templates select="c:label" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                        <xsl:text>Definition: </xsl:text>
-                                </xsl:otherwise>
-                        </xsl:choose>
-                </xsl:if>
-                <xsl:apply-templates select="node()"/>
-        </db:glossterm>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
+      <xsl:choose>
+        <xsl:when test="c:label">
+          <xsl:apply-templates select="c:label" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>Definition: </xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </db:glossterm>
+  <xsl:call-template name="cnx.indexterm"/>
 </xsl:template>
 
 <xsl:template match="c:term[@document|@target-id]">
@@ -594,9 +630,17 @@
 		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-    <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
+  <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
+  <xsl:call-template name="cnx.indexterm"/>
 </xsl:template>
 
+<xsl:template name="cnx.indexterm">
+  <db:indexterm>
+    <db:primary>
+      <xsl:apply-templates select="node()"/>
+    </db:primary>
+  </db:indexterm>
+</xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
@@ -647,7 +691,21 @@
 
 <!-- Add metadata like authors, an abstract, etc -->
 <xsl:template match="c:metadata">
-	<xsl:apply-templates/>
+  <xsl:apply-templates select="md:abstract"/>
+	<!-- <xsl:apply-templates select="node()"/> -->
 </xsl:template>
+
+<!-- Make sure module keywords (that don't exist elsewhere in the module)
+		are added to the index -->
+<!--
+<xsl:template match="md:keyword">
+	<xsl:variable name="term" select="text()"/>
+	<xsl:if test="not(//c:term[text()=$term])">
+		<db:indexterm>
+			<db:primary><xsl:value-of select="$term"/></db:primary>
+		</db:indexterm>
+	</xsl:if>
+</xsl:template>
+-->
 
 </xsl:stylesheet>

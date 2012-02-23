@@ -13,7 +13,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <xsl:template mode="copy" match="@*|node()">
     <xsl:copy>
@@ -37,7 +37,8 @@
 	</db:example>
 </xsl:template>
 
-<xsl:template match="db:informalfigure">
+<!-- Convert informalfigures (that aren't subfigures) into figures so they are numbered -->
+<xsl:template match="db:informalfigure[not(ancestor::db:figure)]">
 	<db:figure>
 		<xsl:apply-templates select="@*"/>
 		<db:title/>

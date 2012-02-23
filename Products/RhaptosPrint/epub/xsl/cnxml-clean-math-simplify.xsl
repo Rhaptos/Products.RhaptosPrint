@@ -13,7 +13,7 @@
 
 <xsl:param name="cnx.log.onlyaggregate">yes</xsl:param>
 
-<xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+<xsl:output indent="no" method="xml" omit-xml-declaration="yes"/>
 
 <xsl:template match="mml:math">
 	<!-- Check if we can simplify it (convert the math to cnxml) -->
@@ -52,7 +52,8 @@
 <xsl:template mode="cnx.iscomplex" match="mml:mrow|mml:semantics
                                   |mml:msub|mml:msup|mml:msubsup[*[position()>1 and contains('mi mo mn', local-name())]]
                                   |mml:math|mml:mfenced
-                                  |mml:mstyle[@fontsize and count(@*)=1]"> 
+                                  |mml:mstyle[@fontsize and count(@*)=1]
+                                  |mml:mstyle[@fontstyle='italic' and count(@*)=1]"> 
 	<xsl:apply-templates mode="cnx.iscomplex"/>
 </xsl:template>
 
@@ -84,6 +85,9 @@
 <xsl:template mode="cnx.simplify" match="mml:math">
 	<c:span class="simplemath">
 		<xsl:apply-templates mode="cnx.simplify" select="node()"/>
+		<xsl:copy>
+		  <xsl:apply-templates select="@*|node()"/>
+		</xsl:copy>
 	</c:span>
 </xsl:template>
 
@@ -150,6 +154,11 @@
 <!-- Just discard the little space -->
 <xsl:template mode="cnx.simplify" match="mml:mspace[@width='.3em' and count(@*)=1]"/>
 
+<xsl:template mode="cnx.simplify" match="mml:mstyle[@fontstyle='italic' and count(@*)=1]">
+  <c:emphasis effect="italics">
+    <xsl:apply-templates mode="cnx.simplify" select="node()"/>
+  </c:emphasis>
+</xsl:template>
 
 <xsl:template mode="cnx.simplify" match="mml:mo">
 	<xsl:variable name="operator" select="normalize-space(text())"/>

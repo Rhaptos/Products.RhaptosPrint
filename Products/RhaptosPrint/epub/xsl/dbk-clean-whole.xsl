@@ -14,7 +14,7 @@
 	It:
 	* unwraps a module (whose root is db:section) and puts it in a db:preface, db:chapter, db:section
 	* puts in empty db:title elements for informal equations (TODO: Not sure why, maybe for labeling and linking)
-	//* generates a book-wide glossary instead of a module-wide one (and marks each glossary section with a letter)
+	* generates a per-chapter glossary instead of a module-wide one
 	* Converts links to content not included in the book to external links
  -->
 
@@ -23,18 +23,54 @@
 <xsl:import href="param.xsl"/>
 <xsl:import href="dbk-link-externalizer.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
+
+<!-- Because FOP is picky with directories inject the absolute dir to images:
+     * If the current dir is the tempdir then the fop.xconf file needs absolute paths to fonts
+     * If the current dir is FOP then the images (this XML) needs absolute paths.
+-->
+<xsl:param name="cnx.tempdir.path"/>
+
+
+<!-- PHIL: This is a hack to see what elem algebra would look like -->
+<xsl:template match="db:section[count(ext:exercise|db:title)=count(*)]">
+  <xsl:copy>
+    <xsl:attribute name="class">problems-exercises</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<xsl:template match="db:section[db:sectioninfo/db:title/text() = 'Objectives']">
+<xsl:copy>
+    <xsl:attribute name="class">introduction</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<!-- TODO: No longer discards solutions from the docbook. Fix epub generation
+<xsl:template match="ext:solution[not(@print-placement='here')]">
+</xsl:template>
+-->
+
+<xsl:template match="@class">
+  <xsl:attribute name="class">
+    <xsl:choose>
+      <xsl:when test=". = 'homework'">problems-exercises</xsl:when>
+      <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:template>
+
 
 <!-- Collapse XIncluded modules -->
-<xsl:template match="db:chapter[count(db:section)=1]|db:preface[count(db:section)=1]|db:appendix[count(db:section)=1]|db:section[@document and count(db:section)=1]">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Converting module to <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
+<xsl:template match="db:section[@document][db:section and count(*[not(self::db:title)])=1]">
+	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing wrapper element around Xincluded module inside a <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:copy>
 		<xsl:apply-templates select="@*|db:section/@*"/>
 		<xsl:element name="db:{local-name()}info">
 			<xsl:apply-templates select="db:title"/>
 			<xsl:apply-templates select="db:section/db:sectioninfo/node()"/>
 		</xsl:element>
-		<xsl:apply-templates select="db:section/node()[local-name()!='sectioninfo']"/>
+		<xsl:apply-templates select="node()[not(self::db:section or self::db:title)]"/>
+		<xsl:apply-templates select="db:section/node()[not(self::db:sectioninfo)]"/>
 	</xsl:copy>
 </xsl:template>
 
@@ -69,7 +105,8 @@
 	</db:example>
 </xsl:template>
 
-<xsl:template match="db:informalfigure">
+<!-- Convert informalfigures (that aren't subfigures) into figures so they are numbered -->
+<xsl:template match="db:informalfigure[not(ancestor::db:figure)]">
 	<db:figure>
 		<xsl:apply-templates select="@*"/>
 		<db:title/>
@@ -79,18 +116,21 @@
 
 
 
-<!-- Combine all module glossaries into a single book glossary -->
-<xsl:template match="db:book">
+<!-- Combine all module glossaries into an end-of-chapter glossary -->
+<!-- We can't just apply-templates on glossary entries because there are duplicates -->
+<xsl:template match="db:chapter">
 	<xsl:copy>
 		<xsl:apply-templates select="@*|node()"/>
-<!-- DEAD: Removed in favor of module-level glossaries
-		<xsl:if test="//db:glossentry">
+		<xsl:if test=".//db:glossentry">
 			<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: creating</xsl:with-param></xsl:call-template>
 			<db:glossary>
 				<xsl:variable name="letters">
-					<xsl:apply-templates mode="glossaryletters" select="//db:glossentry/@ext:first-letter">
-						<xsl:sort select="."/>
-					</xsl:apply-templates>
+					<xsl:for-each select=".//db:glossentry/db:glossterm">
+						<xsl:sort select="translate(substring(normalize-space(text()), 1, 1), $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:variable name="char" select="substring(normalize-space(text()), 1, 1)"/>
+						<xsl:variable name="letter" select="translate($char, $cnx.smallcase, $cnx.uppercase)"/>
+						<xsl:value-of select="$letter"/>
+					</xsl:for-each>
 				</xsl:variable>
 				<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: letters="<xsl:value-of select="$letters"/>"</xsl:with-param></xsl:call-template>
 				<xsl:call-template name="cnx.glossary">
@@ -98,10 +138,8 @@
 				</xsl:call-template>
 			</db:glossary>
 		</xsl:if>
--->
 	</xsl:copy>
 </xsl:template>
-<!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template mode="glossaryletters" match="@*">
 	<xsl:value-of select="."/>
 </xsl:template>
@@ -110,14 +148,11 @@
 	<xsl:param name="letters"/>
 	<xsl:variable name="letter" select="substring($letters, 1, 1)"/>
 	
-	<!- - Skip all duplicates of letters until the last one, which we process - ->
+	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
-		<db:glossdiv>
-			<db:title><xsl:value-of select="$letter"/></db:title>
-			<xsl:apply-templates select="//db:glossentry[@ext:first-letter=$letter]">
-				<xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
-			</xsl:apply-templates>
-		</db:glossdiv>
+    <xsl:apply-templates select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
+      <xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
+    </xsl:apply-templates>
 	</xsl:if>
 
 	<xsl:if test="string-length($letters) > 1">
@@ -126,16 +161,11 @@
 		</xsl:call-template>
 	</xsl:if>
 </xsl:template>
-<!- - Discard the @ext:first-letter attribute since it's no longer needed - ->
-<xsl:template match="@ext:first-letter">
-	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">DEBUG: Glossary: Writing out an entry whose first letter is "<xsl:value-of select="."/>"</xsl:with-param></xsl:call-template>
-</xsl:template>
 
-<!- - Discard the module-level glossary - ->
+<!-- Discard the module-level glossary -->
 <xsl:template match="db:glossary">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module-level glossary and combining into book-level glossary</xsl:with-param></xsl:call-template>
 </xsl:template>
--->
 
 <!-- Creating an authors list for collections (STEP 2). Remove duplicates -->
 <xsl:template match="db:authorgroup/db:*">
@@ -177,18 +207,24 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing db:anchor and relinking db:anchor (probably created by converting c:subfigure)</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-<!-- HACK: FOP generation requires that db:imagedata be missing -->
-<xsl:template match="db:imagedata[svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
-    <xsl:choose>
-        <xsl:when test="$cnx.output.fop != 0">
-            <xsl:apply-templates select="svg:svg"/>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:copy>
-                <xsl:apply-templates select="@*|node()"/>
-            </xsl:copy>
-        </xsl:otherwise>
-    </xsl:choose>
+
+<!-- Because FOP is picky with directories inject the absolute dir to images:
+     * If the current dir is the tempdir then the fop.xconf file needs absolute paths to fonts
+     * If the current dir is FOP then the images (this XML) needs absolute paths.
+-->
+<xsl:template match="@fileref">
+  <xsl:attribute name="fileref">
+    <xsl:value-of select="$cnx.tempdir.path"/>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="db:figure[not(ancestor::db:example)]|db:table">
+  <xsl:copy>
+    <xsl:attribute name="class">span-all</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>

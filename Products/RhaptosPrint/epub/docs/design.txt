@@ -1,6 +1,6 @@
 
 Here are the stages of conversion:
-(Mostly done by xsltproc, math2svg using Saxon, and XSL-FO to PDF using Apache FOP)
+(Mostly done by xsltproc, math2svg using Saxon, and XHTML+CSS3 to PDF using Prince)
 
 For each module, the following are done:
  * Cleanup the cnxml
@@ -8,15 +8,11 @@ For each module, the following are done:
  * Convert cnxml to Docbook
  * Convert P-MathML to SVG (using Saxon and XSLT2)
  * Cleanup the Docbook file (add error text for unconverted MathML, move all exercises to end of module)
- * Create a separate Docbook file for validation.
-   Reorder Docbook elements for RelaxNG validation.
-   In RNG, a para can occur before a section but not after
- * Validate the Docbook file
 
 Temporary files are created and deleted (if everything passes).
 
 Individual PDFs can be made for each module to make sure there are no other errors.
-  (see the module2pdf.sh script for how to do that)
+  (see the collectiondbk2pdf.py script for how to do that)
 
 
 At this point the entire collection PDF is created:
@@ -25,6 +21,6 @@ At this point the entire collection PDF is created:
    * module titles with the chapter prefix are removed
    * exercises are moved
    * glossary definitions are moved
- * Convert the Docbook file to XSL-FO (using xsl/dbk2fo.xsl and docbook-xsl/fo)
- * Align the Math SVG properly (using xsl/fo-align-math.xsl)
- * Convert the XSL-FO file to PDF (using FOP)
+ * Convert the Docbook file to XHTML (using xsl/dbk2xhtml.xsl and docbook-xsl/xhtml)
+ * Align the Math SVG properly (using xsl/align-math.xsl)
+ * Fork a subprocess and convert the XHTML file to PDF (using Prince or some commandline tool)

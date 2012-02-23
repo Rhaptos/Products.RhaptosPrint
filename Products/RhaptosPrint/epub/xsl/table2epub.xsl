@@ -32,7 +32,7 @@
 	<!-- OLD TABLES -->
 	<xsl:when test="db:categories">
           <xsl:apply-templates select="db:name"/>
-	  <table class="old-table" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid !important; border-collapse: collapse;">
+	  <table class="old-table" cellspacing="0" cellpadding="0" style="border: 1px solid !important; border-collapse: collapse;">
 	    <!--Outputs CATEGORY as headers.-->
 	    <tr>
 	      <xsl:for-each select="//db:category">
@@ -55,7 +55,7 @@
 	</xsl:when>
 	<!-- NEW TABLE -->
 	<xsl:otherwise>
-	  <table cellspacing="0" cellpadding="0" align="center">
+	  <table cellspacing="0" cellpadding="0">
             <xsl:if test="@summary!='' or processing-instruction('table-summary')">
               <xsl:attribute name="summary">
                 <xsl:choose>
@@ -98,9 +98,9 @@
 	      </xsl:if>
 	    </xsl:attribute>
             <xsl:if test="db:name[node()] or                            db:title[node()] or                            db:caption[node()] or                            db:label[node()] or                            (not(db:label[not(node())]) and                             not(ancestor::*[1][self::db:figure or self::db:subfigure]))">
-              <caption align="bottom" class="table-text">
+              <caption>
                 <xsl:if test="db:label[node()] or                                (not(db:label[not(node())]) and                                 not(ancestor::*[1][self::db:figure or self::db:subfigure]))">
-                  <b>
+                  <span class="cnx-gentext-caption cnx-gentext-t">
                     <xsl:choose>
                       <xsl:when test="db:label">
                         <xsl:apply-templates select="db:label"/>
@@ -109,8 +109,10 @@
                         <xsl:text>Table</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:text> </xsl:text>
+                  </span>
+                  <span class="cnx-gentext-caption cnx-gentext-n">
                     <xsl:if test="not(ancestor::*[1][self::db:figure or self::db:subfigure])">
-                      <xsl:text> </xsl:text>
                       <xsl:for-each select="ancestor::db:chapter">   
                         <xsl:apply-templates select="." mode="label.markup"/>
                         <xsl:apply-templates select="." mode="intralabel.punctuation"/>
@@ -125,8 +127,8 @@
                         </xsl:otherwise>
                       </xsl:choose>
                     </xsl:if>
-                    <xsl:apply-templates select="db:title/node()" />
-                  </b>
+                  </span>
+                  <xsl:apply-templates select="db:title/node()" />
                 </xsl:if>
                 <xsl:if test="db:caption[node()]">
                   <xsl:variable name="caption-element">

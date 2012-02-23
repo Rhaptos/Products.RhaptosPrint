@@ -101,18 +101,4 @@
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Removing db:anchor and relinking db:anchor (probably created by converting c:subfigure)</xsl:with-param></xsl:call-template>
 </xsl:template>
 
-<!-- HACK: FOP generation requires that db:imagedata be missing -->
-<xsl:template match="db:imagedata[svg:svg]" xmlns:svg="http://www.w3.org/2000/svg">
-    <xsl:choose>
-        <xsl:when test="$cnx.output.fop != 0">
-            <xsl:apply-templates select="svg:svg"/>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:copy>
-                <xsl:apply-templates select="@*|node()"/>
-            </xsl:copy>
-        </xsl:otherwise>
-    </xsl:choose>
-</xsl:template>
-
 </xsl:stylesheet>

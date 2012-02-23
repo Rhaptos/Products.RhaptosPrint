@@ -49,12 +49,10 @@
 
 <!-- Modules after the last subcollection are appendices -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(following-sibling::col:subcollection)]" priority="100">
-<!-- <db:appendix> -->
-	<db:chapter>
+  <db:appendix>
 		<xsl:apply-templates select="@*|node()"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
-	</db:chapter>
-<!-- </db:appendix> -->
+  </db:appendix>
 </xsl:template>
 
 

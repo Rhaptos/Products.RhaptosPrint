@@ -19,7 +19,7 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
-<xsl:output indent="yes" method="xml"/>
+<xsl:output indent="no" method="xml"/>
 
 <!-- DEAD: Removed in favor of module-level glossaries
 <xsl:template match="db:glossentry[normalize-space(db:glossterm/text())!='' and db:glossterm/text()=preceding-sibling::db:glossentry/db:glossterm/text()]">
@@ -28,9 +28,11 @@
 -->
 
 <!-- Since we decided to discard printing module metadata, this removes it (after we generate the book-level metadata).  -->
+<!--
 <xsl:template match="db:prefaceinfo/db:*[local-name()!='title']|db:chapterinfo/db:*[local-name()!='title']|db:sectioninfo/db:*[local-name()!='title']|db:appendixinfo/db:*[local-name()!='title']">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">INFO: Discarding module metadata: <xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 </xsl:template>
+-->
 
 <!-- Discard the email address for epub generation -->
 <xsl:template match="db:email">
@@ -46,7 +48,8 @@
 <xsl:template match="db:book[not(@ext:element='module')]">
     <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
-        <db:appendix>
+        <db:index/>
+        <db:colophon>
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="$attribution.section.id"/>
             </xsl:attribute>
@@ -87,7 +90,7 @@
                     <xsl:text>/</xsl:text>
                 </xsl:variable>
                 <xsl:variable name="attributionId">
-                    <xsl:text>book.attribution.</xsl:text>
+                    <xsl:text>book-attribution-</xsl:text>
                     <xsl:value-of select="$id"/>
                 </xsl:variable>
                 <db:para>
@@ -118,9 +121,11 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:text>Module: </xsl:text>
-                                    <db:link linkend="{$id}">
+                                    <db:emphasis role="bold">
+                                      <db:link endterm="{$id}">
                                         <xsl:copy-of select="$originalTitle"/>
-                                    </db:link>
+                                      </db:link>
+                                    </db:emphasis>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </db:member>
@@ -177,8 +182,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                         <db:member>
-                            <xsl:text>URL: </xsl:text>
-                            <db:ulink url="{$url}"><xsl:value-of select="$url"/></db:ulink>
+                            <db:ulink url="{$url}">URL</db:ulink>
                         </db:member>
                         <xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor' and *[name()!='db:contrib']]">
                             <!-- Max: The *[name()!='db:contrib'] is to make sure that the db:othercredit is actually populated with a user.  
@@ -201,8 +205,9 @@
                         </xsl:if>
                         <xsl:if test="db:legalnotice">
                             <db:member>
-                                <xsl:text>License: </xsl:text>
-                                <xsl:apply-templates select="db:legalnotice/db:ulink"/>
+                                <db:ulink href="{db:legalnotice/db:ulink/@url}">
+                                  <xsl:text>License</xsl:text>
+                                </db:ulink>
                             </db:member>
                         </xsl:if>
                         <xsl:if test="not(db:legalnotice)">
@@ -242,7 +247,7 @@
                     </db:simplelist>
                 </db:para>
             </xsl:for-each>
-        </db:appendix>
+        </db:colophon>
         <xsl:if test="$cnx.site-type = 'Connexions'">
             <db:colophon>
                 <db:title>About Connexions</db:title>
