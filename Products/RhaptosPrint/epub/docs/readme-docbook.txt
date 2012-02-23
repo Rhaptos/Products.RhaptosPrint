@@ -24,9 +24,6 @@ In Linux:
 $ mkdir ~/.fonts
 $ cp fonts/stix/*.ttf ~/.fonts
 
-
-Note: PrinceXML needs to know about the STIX fonts, so lib/fop.xconf is customized
-
 We're ready to do some converting!
 
 See the 1st line of collectiondbk2pdf.py for what to run
