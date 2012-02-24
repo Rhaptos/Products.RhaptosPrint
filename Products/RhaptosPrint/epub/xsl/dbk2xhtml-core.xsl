@@ -93,7 +93,7 @@
 
 			<xsl:message>LOG: INFO: Looking for some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>] inside a [<xsl:value-of select="name()"/>]</xsl:message>
 		
-		<xsl:if test="$context//*[contains(@class,$class)]">
+		<xsl:if test="string-length($class) &gt; 0 and $context//*[contains(@class,$class)]">
 			<xsl:message>LOG: INFO: Found some end-of-chapter matter: class=[<xsl:value-of select="$class"/>] title=[<xsl:value-of select="$title"/>]</xsl:message>
 			<xsl:call-template name="cnx.end-of-chapter-problems">
 				<xsl:with-param name="context" select="$context"/>

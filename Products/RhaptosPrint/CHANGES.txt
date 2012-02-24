@@ -1,3 +1,6 @@
+RhaptosPrint-0.9
+ - modern-textbook release (xhtml+css, ccap word importer)
+
 RhaptosPrint-0.8
   - merge collabstats updates
 
