@@ -80,6 +80,7 @@
     </xsl:if>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 		<xsl:call-template name="cnx.eoc"/>
+    <xsl:call-template name="cnx.solutions"/>
   </div>
 </xsl:template>
 
@@ -169,6 +170,37 @@
       </div>
     </td>
   </tr>
+</xsl:template>
+
+
+<!-- Render the solutions to evercises at the end of the chapter -->
+<xsl:template name="cnx.solutions">
+  <xsl:variable name="solutions" select=".//ext:solution
+      [not(ancestor::db:example)]
+      [not(@print-placement='here')]
+      [not(../@print-placement='here') or @print-placement='end']
+    |
+      .//ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
+  <xsl:if test="count($solutions) != 0">
+    <div class="solutions">
+      <div class="title">Solutions</div>
+      <xsl:apply-templates select="$solutions">
+        <xsl:with-param name="render" select="true()"/>
+      </xsl:apply-templates>
+    </div>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="ext:solution
+      [not(ancestor::db:example)]
+      [not(@print-placement='here')]
+      [not(../@print-placement='here') or @print-placement='end']
+    |
+      ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]">
+  <xsl:param name="render" select="false()"/>
+  <xsl:if test="$render">
+    <xsl:apply-imports/>
+  </xsl:if>
 </xsl:template>
 
 <!-- Renders an abstract onnly when "render" is set to true().
