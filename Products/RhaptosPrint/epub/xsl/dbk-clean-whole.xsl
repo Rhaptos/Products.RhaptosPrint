@@ -214,8 +214,10 @@
 -->
 <xsl:template match="@fileref">
   <xsl:attribute name="fileref">
-    <xsl:value-of select="$cnx.tempdir.path"/>
-    <xsl:text>/</xsl:text>
+    <xsl:if test="string-length($cnx.tempdir.path) != 0">
+      <xsl:value-of select="$cnx.tempdir.path"/>
+      <xsl:text>/</xsl:text>
+    </xsl:if>
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
