@@ -281,5 +281,23 @@
   <xsl:message>INFO: Discarding MathML SVG in favor of simplemath</xsl:message>
 </xsl:template>
 
+
+
+  <!-- OVERRIDES xhtml-1_1/chunk-code.xsl   -->
+  <!-- Add chunking for bibliography as root element -->
+  <!-- AN OVERRIDE --> 
+  <xsl:template match="d:chapter|
+                       d:appendix"
+                priority="1">       
+  <!-- END OF OVERRIDE --> 
+    <xsl:choose>
+      <xsl:when test="$onechunk != 0 and parent::*">
+        <xsl:apply-imports/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="process-chunk-element"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>
 
