@@ -231,28 +231,10 @@
     </xsl:when>
     <xsl:otherwise>
       <!-- TODO: gentext for "Solution" -->
-      <xsl:text>Solution</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
   <xsl:if test="count(key('solution', $exerciseId)) > 1">
     <xsl:number count="ext:solution[parent::ext:exercise/@xml:id=$exerciseId]" level="any" format=" A"/>
-  </xsl:if>
-  <xsl:if test="parent::db:section[@ext:element='solutions']">
-    <xsl:text> </xsl:text>
-    <!-- TODO: gentext for "to" -->
-    <xsl:text>to</xsl:text>
-    <xsl:text> </xsl:text>
-    <xsl:choose>
-      <xsl:when test="key('exercise', $exerciseId)[1]/ext:label">
-        <xsl:apply-templates select="key('exercise', $exerciseId)[1]/ext:label" mode="cnx.label" />
-      </xsl:when>
-      <xsl:otherwise>
-        <!-- TODO: gentext for "Exercise" -->
-        <xsl:text>Exercise</xsl:text>
-      </xsl:otherwise>
-    </xsl:choose>
-    <xsl:text> </xsl:text>
-    <xsl:apply-templates select="." mode="number"/>
   </xsl:if>
 </xsl:template>
 
