@@ -39,7 +39,6 @@
   color: #808080;
   float: bottom;
   transform: rotate(180deg);
-  text-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }
 .solutions > div.title {
@@ -427,8 +426,6 @@ h3 {
 }
 .table caption {
   caption-side: bottom;
-}
-.table caption span.cnx-gentext-t, .table caption span.cnx-gentext-n {
   color: #a06a19;
   font-weight: bold;
 }
@@ -761,7 +758,7 @@ h3 {
 /****** Features ******/
 .sociological-research {
   page-break-inside: avoid;
-  background-color: #ffccff;
+  background-color: #ccccff;
 }
 .sociological-research:before {
   padding-top: 0.75in;
@@ -778,7 +775,7 @@ h3 {
   margin-top: -0.03in;
 }
 .sociological-research .title {
-  color: #660066;
+  color: #330033;
 }
 .sociological-research:before {
   background-image: url(ccap-sociology/research.svg);
@@ -826,14 +823,14 @@ h3 {
   margin-top: -0.03in;
 }
 .sociology-big-picture .title {
-  color: #99cc33;
+  color: #336600;
 }
 .sociology-big-picture:before {
   background-image: url(ccap-sociology/big-picture.svg);
 }
 .sociology-careers {
   page-break-inside: avoid;
-  background-color: #ffcccc;
+  background-color: #ccffcc;
 }
 .sociology-careers:before {
   padding-top: 0.75in;
@@ -850,7 +847,7 @@ h3 {
   margin-top: -0.03in;
 }
 .sociology-careers .title {
-  color: #cc3333;
+  color: #336633;
 }
 .sociology-careers:before {
   background-image: url(ccap-sociology/careers.svg);
@@ -874,7 +871,7 @@ h3 {
   margin-top: -0.03in;
 }
 .sociology-policy-debate .title {
-  color: #cc3333;
+  color: #993333;
 }
 .sociology-policy-debate:before {
   background-image: url(ccap-sociology/policy-debate.svg);
@@ -1010,10 +1007,11 @@ h2 {
   float: bottom;
 }
 .table table {
-  background-color: #FBF2E2;
+  /* background-color: LimeGreen; */
+
 }
-.table caption b {
-  background-color: #8FB733;
+.table caption {
+  color: Purple;
 }
 .chapter h3 {
   color: #006666;
