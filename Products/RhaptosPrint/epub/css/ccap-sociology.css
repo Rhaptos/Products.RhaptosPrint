@@ -194,7 +194,7 @@ dl {
 p {
   margin: 0.5em 0em;
 }
-table {
+.table {
   page-break-inside: avoid;
   margin: auto;
 }
