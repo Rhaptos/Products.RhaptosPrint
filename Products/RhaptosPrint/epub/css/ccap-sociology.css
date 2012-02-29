@@ -36,12 +36,11 @@
   display: none;
 }
 .solutions {
-  color: #cccccc;
+  color: #808080;
   float: bottom;
   transform: rotate(180deg);
   text-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
 }
 .solutions > div.title {
   margin: 0em;
