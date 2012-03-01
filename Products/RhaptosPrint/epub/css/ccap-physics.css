@@ -518,6 +518,9 @@ h3 {
   font-weight: bold;
   page-break-after: avoid;
 }
+.exercise > .title a {
+  color: white;
+}
 /* Add the orange bar */
 .example > .title,
 .exercise > .title,

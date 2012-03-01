@@ -90,11 +90,15 @@
 }
 
 .x-block-title () {
-  color: white;
+  .ccap-block-title-link;
   padding: .1em 1em;
-	margin-top: 1em;
-	display: inline;
+  margin-top: 1em;
+  display: inline;
 }
+.ccap-block-title-link () {
+  color: white;
+}
+
 
 .x-block-body () {
   background-color: @light-green;
@@ -477,6 +481,9 @@ h3 {
 	font-size: small;
 	font-weight: bold;
 	page-break-after: avoid;
+}
+.exercise > .title a {
+  .ccap-block-title-link;
 }
 
 /* Add the orange bar */
