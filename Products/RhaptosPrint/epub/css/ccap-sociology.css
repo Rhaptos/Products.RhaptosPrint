@@ -35,8 +35,11 @@
 .cnx-eoc .exercise .solution {
   display: none;
 }
-.solutions {
-  display: none;
+.exercise .solution::before {
+  content: "Solution";
+  color: #0061aa;
+  font-weight: bold;
+  display: block;
 }
 /***************************************************
  * Styles used when generating a PDF from xhtml+css

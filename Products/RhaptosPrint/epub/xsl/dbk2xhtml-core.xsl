@@ -84,6 +84,9 @@
   </div>
 </xsl:template>
 
+<!-- Used for deciding which solutions should be moved to the back of the book -->
+<xsl:key name="cnx.eoc-key" match="processing-instruction('cnx.eoc')" use="substring-before(substring-after(concat(' ', .),' class=&quot;'), '&quot;')"/>
+
 <xsl:template name="cnx.eoc">
  	<!-- <?cnx.eoc class=review title=Review Notes?> -->
  	<xsl:variable name="context" select="."/>
@@ -176,9 +179,7 @@
 <!-- Render the solutions to evercises at the end of the chapter -->
 <xsl:template name="cnx.solutions">
   <xsl:variable name="solutions" select=".//ext:solution
-      [not(ancestor::db:example)]
-      [not(@print-placement='here')]
-      [not(../@print-placement='here') or @print-placement='end']
+      [key('cnx.eoc-key', ancestor::*[@class]/@class)]
     |
       .//ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
   <xsl:if test="count($solutions) != 0">
@@ -192,9 +193,7 @@
 </xsl:template>
 
 <xsl:template match="ext:solution
-      [not(ancestor::db:example)]
-      [not(@print-placement='here')]
-      [not(../@print-placement='here') or @print-placement='end']
+      [key('cnx.eoc-key', ancestor::*[@class]/@class)]
     |
       ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]">
   <xsl:param name="render" select="false()"/>
