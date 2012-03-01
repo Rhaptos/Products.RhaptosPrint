@@ -523,8 +523,7 @@ h3 {
   border-bottom: 1px solid #faa61a;
   page-break-after: avoid;
 }
-/* Don't style sub-blocks (like a "problem" in an "exercise") */
-.exercise > .body {
+.example > .body, .exercise > .body {
   background-color: #f1f6e6;
   padding: .5em 1em;
 }
