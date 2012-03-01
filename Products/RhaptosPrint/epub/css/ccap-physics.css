@@ -33,17 +33,7 @@
   display: none;
 }
 .solutions {
-  color: #808080;
-  float: bottom;
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-}
-.solutions > div.title {
-  margin: 0em;
-}
-.solutions > div {
-  display: inline;
-  margin: 0em 0.5em;
+  display: none;
 }
 /***************************************************
  * Styles used when generating a PDF from xhtml+css

@@ -36,17 +36,7 @@
   display: none;
 }
 .solutions {
-  color: #808080;
-  float: bottom;
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-}
-.solutions > div.title {
-  margin: 0em;
-}
-.solutions > div {
-  display: inline;
-  margin: 0em 0.5em;
+  display: none;
 }
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
@@ -927,6 +917,9 @@ p {
   color: inherit;
   font-weight: normal;
 }
+.exercise > .title a {
+  color: inherit;
+}
 /* Change "Glossary" to "Key Terms" */
 .glossary .title {
   content: "Key Terms";
@@ -1028,4 +1021,23 @@ h2 {
 }
 .note > .title {
   border-bottom: 0px;
+}
+/* These are end-of-chapter collected solutions */
+.solutions {
+  display: block;
+  color: #808080;
+  float: bottom;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.solutions a {
+  color: #808080;
+  font-weight: bold;
+}
+.solutions > div.title {
+  margin: 0em;
+}
+.solutions > div {
+  display: inline;
+  margin: 0em 0.5em;
 }
