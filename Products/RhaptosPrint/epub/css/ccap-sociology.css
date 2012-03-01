@@ -637,15 +637,6 @@ h3 {
   color: #D89016;
   font-weight: bold;
 }
-.admonition-title-properties {
-  border-bottom: 1px solid #faa61a;
-  border-bottom-color: #faa61a;
-  border-bottom-style: solid;
-  color: #0061aa;
-  font-size: medium;
-  font-weight: normal;
-  margin-bottom: 0.75em;
-}
 .cnx-note-concept {
   page-break-inside: avoid;
   background-color: #fbf2e2;
@@ -1012,6 +1003,9 @@ h2 {
 }
 .table caption {
   color: Purple;
+}
+.table th {
+  background-color: Purple;
 }
 .chapter h3 {
   color: #006666;
