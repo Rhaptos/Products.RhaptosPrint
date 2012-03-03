@@ -7,6 +7,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/"
   xmlns:ext="http://cnx.org/ns/docbook+"
+  xmlns:exsl="http://exslt.org/common"
   version="1.0">
 
 <!-- This file: Converts a module's cnxml (and mdml) into Docbook elements
@@ -635,11 +636,21 @@
 </xsl:template>
 
 <xsl:template name="cnx.indexterm">
-  <db:indexterm>
-    <db:primary>
-      <xsl:apply-templates select="node()"/>
-    </db:primary>
-  </db:indexterm>
+  <xsl:variable name="node">
+    <xsl:apply-templates mode="cnx.strip-id" select="."/>
+  </xsl:variable>
+    <db:indexterm>
+      <db:primary>
+        <xsl:apply-templates mode="cnx.strip-id" select="exsl:node-set($node)"/>
+      </db:primary>
+    </db:indexterm>
+</xsl:template>
+<!-- We need to strip out id's since the elements occur in 2 places in the document now -->
+<xsl:template mode="cnx.strip-id" match="@xml:id"/>
+<xsl:template mode="cnx.strip-id" match="@*|node()">
+  <xsl:copy>
+    <xsl:apply-templates mode="cnx.strip-id" select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
