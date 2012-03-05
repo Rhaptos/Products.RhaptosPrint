@@ -52,6 +52,20 @@
 <!-- Discard any c:media tags that haven't been converted into docbook images or links to the content -->
 <xsl:template match="c:media"/>
 
+<!-- Give links a class based on the target-id element (so CSS3 knows how to create a label for them) -->
+<xsl:key name="id" match="*[@xml:id]" use="@xml:id"/>
+<xsl:template match="db:xref[@linkend]" mode="class.value">
+  <xsl:param name="class" select="local-name()"/>
+
+  <xsl:variable name="target" select="key('id', @linkend)"/>
+  <xsl:value-of select="$class"/>
+  <xsl:if test="$target">
+    <xsl:message>LOG: INFO: Adding target class to link "<xsl:value-of select="local-name($target)"/>"</xsl:message>
+    <xsl:text> target-</xsl:text>
+    <xsl:value-of select="local-name($target)"/>
+  </xsl:if>
+</xsl:template>
+
 
 <!-- ============================================== -->
 <!-- New Feature: @class='problems-exercises'  -->
@@ -128,11 +142,17 @@
 		</div>
 
 		<!-- This for-each is the main section (1.4 Newton) to print section title -->
-		<xsl:for-each select="$context/db:section[descendant::*[contains(@class,$attribute)]]">
+		<xsl:for-each select="$context/db:section[not(contains(@class, 'introduction'))]">
 			<xsl:variable name="sectionId">
 				<xsl:call-template name="object.id"/>
 			</xsl:variable>
 			<div class="section">
+			  <xsl:attribute name="class">
+			    <xsl:text>section</xsl:text>
+          <xsl:if test="not(descendant::*[contains(@class,$attribute)])">
+            <xsl:text> empty</xsl:text>
+          </xsl:if>
+        </xsl:attribute>
         <!-- Print the section title and link back to it -->
         <div class="title">
           <a href="#{$sectionId}">
@@ -178,29 +198,49 @@
 
 <!-- Render the solutions to evercises at the end of the chapter -->
 <xsl:template name="cnx.solutions">
-  <xsl:variable name="solutions" select=".//ext:solution
-      [key('cnx.eoc-key', ancestor::*[@class]/@class)]
-    |
-      .//ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]"/>
+  <xsl:variable name="solutions">
+    <xsl:apply-templates select=".//ext:solution" mode="cnx.eoc.solutions"/>
+  </xsl:variable>
   <xsl:if test="count($solutions) != 0">
-    <div class="solutions">
+    <div class="cnx-eoc solutions">
       <div class="title">Solutions</div>
-      <xsl:apply-templates select="$solutions">
-        <xsl:with-param name="render" select="true()"/>
-      </xsl:apply-templates>
+      <xsl:copy-of select="$solutions" />
     </div>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="ext:solution
+<!-- By default, solutions are rendered in-place. -->
+<xsl:template mode="cnx.eoc.solutions" match="ext:solution" />
+<!-- If it's a solution that goes at the end of a chapter then give it a number -->
+<xsl:template mode="cnx.eoc.solutions" match="ext:solution
       [key('cnx.eoc-key', ancestor::*[@class]/@class)]
     |
       ext:solution[ancestor::db:example][@print-placement='end' or (../@print-placement='end' and not(@print-placement='here'))]">
-  <xsl:param name="render" select="false()"/>
-  <xsl:if test="$render">
-    <xsl:apply-imports/>
-  </xsl:if>
+  <xsl:variable name="exerciseId" select="parent::ext:exercise/@xml:id"/>
+  <div class="solution" id="{@xml:id}">
+    <a class="number" href="#{$exerciseId}">
+      <xsl:choose>
+        <xsl:when test="ext:label">
+          <xsl:apply-templates select="ext:label" mode="cnx.label"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="parent::ext:exercise" mode="number"/>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="count(key('solution', $exerciseId)) > 1">
+        <xsl:number count="ext:solution[parent::ext:exercise/@xml:id=$exerciseId]" level="any" format=" A"/>
+      </xsl:if>
+    </a>
+    <xsl:text> </xsl:text>
+    <xsl:apply-templates select="node()"/>
+  </div>
 </xsl:template>
+
+<!-- If it's a solution that goes at the end of a chapter, AND it's just a para, unwrap the para -->
+<xsl:template match="ext:solution[count(*)=1 and count(db:para)=1]/db:para">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 
 <!-- Renders an abstract onnly when "render" is set to true().
 -->
@@ -546,10 +586,6 @@ Combination of formal.object and formal.object.heading -->
 </xsl:template>
 
 <xsl:template name="formal.object">
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-  </xsl:variable>
-
     <xsl:apply-templates mode="formal.object.heading" select=".">
     </xsl:apply-templates>
   
@@ -558,7 +594,7 @@ Combination of formal.object and formal.object.heading -->
       <xsl:apply-templates select="d:caption"/>
     </xsl:variable>
   
-    <div id="{$id}" class="body">
+    <div class="body">
       <xsl:copy-of select="$content"/>
     </div>
 </xsl:template>
@@ -639,9 +675,9 @@ Combination of formal.object and formal.object.heading -->
     <xsl:apply-templates select="." mode="label.markup"/>  
   </xsl:variable>
 
-      <a href="#{$id}">  
+      <a href="#{$id}" class="target-{local-name()}">
 
-<!-- CNX: Add the word "Chapter" or Appendix in front of the number -->
+<!-- CNX: Add the word "Chapter" or Appendix in front of the number. TODO: Dump this junk -->
         <xsl:if test="self::db:appendix or self::db:chapter">
 <span class="cnx-gentext-{local-name()} cnx-gentext-autogenerated">
           <xsl:call-template name="gentext">
@@ -1349,7 +1385,7 @@ Combination of formal.object and formal.object.heading -->
   </xsl:template> 
 
   <xsl:template match="db:example">
-    <div><xsl:call-template name="common.html.attributes"/>
+    <div id="{@xml:id}"><xsl:call-template name="common.html.attributes"/>
       <xsl:apply-imports/>
     </div>
   </xsl:template>
@@ -1648,7 +1684,6 @@ Example:
     </dd>
   </xsl:if>
 </xsl:template>
-
 
 </xsl:stylesheet>
 

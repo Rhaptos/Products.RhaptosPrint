@@ -32,19 +32,6 @@
 <xsl:param name="cnx.tempdir.path"/>
 
 
-<!-- PHIL: This is a hack to see what elem algebra would look like -->
-<xsl:template match="db:section[count(ext:exercise|db:title)=count(*)]">
-  <xsl:copy>
-    <xsl:attribute name="class">problems-exercises</xsl:attribute>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
-<xsl:template match="db:section[db:sectioninfo/db:title/text() = 'Objectives']">
-<xsl:copy>
-    <xsl:attribute name="class">introduction</xsl:attribute>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
 <!-- TODO: No longer discards solutions from the docbook. Fix epub generation
 <xsl:template match="ext:solution[not(@print-placement='here')]">
 </xsl:template>

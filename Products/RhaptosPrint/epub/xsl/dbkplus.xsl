@@ -27,6 +27,10 @@
  -->
 <xsl:template match="ext:*">
 
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
   <xsl:variable name="param.placement" select="substring-after(normalize-space($formal.title.placement), concat(local-name(.), ' '))"/>
 
   <xsl:variable name="placement">
@@ -40,7 +44,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <div class="{local-name()}">
+  <div id="{$id}" class="{local-name()}">
 <xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
@@ -63,12 +67,9 @@
   <xsl:variable name="solutions" select="key('solution', @xml:id)"/>
   <xsl:choose>
     <xsl:when test="$solutions">
-      <xsl:call-template name="simple.xlink">
-        <xsl:with-param name="linkend" select="$solutions[1]/@xml:id"/>
-        <xsl:with-param name="content">
-          <xsl:apply-templates select="." mode="cnx.template"/>
-        </xsl:with-param>
-      </xsl:call-template>
+      <a class="solution-number" href="{$solutions[1]/@xml:id}">
+        <xsl:apply-templates select="." mode="cnx.template"/>
+      </a>
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="." mode="cnx.template"/>
@@ -236,27 +237,6 @@
   <xsl:if test="count(key('solution', $exerciseId)) > 1">
     <xsl:number count="ext:solution[parent::ext:exercise/@xml:id=$exerciseId]" level="any" format=" A"/>
   </xsl:if>
-</xsl:template>
-
-<xsl:template match="ext:solution[count(*)=1 and count(db:para)=1]">
-  <xsl:variable name="exerciseId" select="parent::ext:exercise/@xml:id"/>
-  <div class="solution" id="{@xml:id}">
-    <a href="#{$exerciseId}">
-      <xsl:choose>
-        <xsl:when test="ext:label">
-          <xsl:apply-templates select="ext:label" mode="cnx.label"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="parent::ext:exercise" mode="number"/>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:if test="count(key('solution', $exerciseId)) > 1">
-        <xsl:number count="ext:solution[parent::ext:exercise/@xml:id=$exerciseId]" level="any" format=" A"/>
-      </xsl:if>
-    </a>
-    <xsl:text> </xsl:text>
-    <xsl:apply-templates select="db:para/node()"/>
-  </div>
 </xsl:template>
 
 <xsl:template match="ext:label" mode="cnx.label">
