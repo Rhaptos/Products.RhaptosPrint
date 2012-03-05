@@ -67,7 +67,7 @@
   <xsl:variable name="solutions" select="key('solution', @xml:id)"/>
   <xsl:choose>
     <xsl:when test="$solutions">
-      <a class="solution-number" href="{$solutions[1]/@xml:id}">
+      <a class="solution-number" href="#{$solutions[1]/@xml:id}">
         <xsl:apply-templates select="." mode="cnx.template"/>
       </a>
     </xsl:when>

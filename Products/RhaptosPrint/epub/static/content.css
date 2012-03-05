@@ -208,6 +208,25 @@ text-align: left;
   letter-spacing: 0;
 }
 
+/* End-of-chapter section lists should be bold and big (and they're links) */
+.cnx-eoc > .title {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.cnx-eoc > .section > .title {
+  font-size: 1em;
+  font-weight: bold;
+}
+.cnx-eoc > .solution a,
+.cnx-eoc > .section > .title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cnx-eoc .exercise .solution {
+  display: none;
+}
+
 /* ========== list & item ========== */
 
 div.itemizedlist, div.orderedlist{
@@ -320,6 +339,15 @@ blockquote{
 .example-break{
   display: none;
 }
+
+.example > .title, .exercise > .title {
+  font-weight: bold;
+}
+.exercise > .title a {
+  color: inherit;
+  text-decoration: none;
+}
+
 
 .example p{
   margin: .5em 0;
