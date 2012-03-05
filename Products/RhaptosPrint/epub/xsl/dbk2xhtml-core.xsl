@@ -47,6 +47,10 @@
   </xsl:choose>
 </xsl:param>
 
+<xsl:param name="toc.list.type">ul</xsl:param>
+<xsl:param name="toc.dd.type">li</xsl:param>
+<xsl:param name="toc.listitem.type">li</xsl:param>
+
 <xsl:output indent="no" method="xml" omit-xml-declaration="yes" encoding="ASCII"/>
 
 <!-- Discard any c:media tags that haven't been converted into docbook images or links to the content -->
@@ -1673,15 +1677,93 @@ Example:
 </xsl:template>
 
 
+
+<!-- Generate a custom TOC (both for the book and chapters) -->
+<!-- From docbook-xsl/xhtml/autotoc.xsl -->
+<xsl:template name="make.toc">
+  <xsl:param name="toc-context" select="."/>
+  <xsl:param name="toc.title.p" select="true()"/>
+  <xsl:param name="nodes" select="/NOT-AN-ELEMENT"/>
+
+  <xsl:variable name="nodes.plus" select="$nodes | d:qandaset"/>
+
+  <xsl:variable name="toc.title">
+    <xsl:if test="$toc.title.p">
+      <xsl:choose>
+        <xsl:when test="$make.clean.html != 0">
+          <div class="toc-title">
+            <xsl:call-template name="gentext">
+              <xsl:with-param name="key">TableofContents</xsl:with-param>
+            </xsl:call-template>
+          </div>
+        </xsl:when>
+        <xsl:otherwise>
+          <p>
+            <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
+              <xsl:call-template name="gentext">
+                <xsl:with-param name="key">TableofContents</xsl:with-param>
+              </xsl:call-template>
+            </strong>
+          </p>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:if test="$nodes">
+    <div class="toc">
+      <xsl:copy-of select="$toc.title"/>
+      <ul>
+        <xsl:apply-templates select="$nodes" mode="toc">
+          <xsl:with-param name="toc-context" select="$toc-context"/>
+        </xsl:apply-templates>
+      </ul>
+    </div>
+  </xsl:if>
+
+</xsl:template>
+
+<xsl:template match="db:preface | db:chapter | db:appendix | db:section | db:index" mode="toc">
+  <xsl:param name="toc-context" select="."/>
+  <xsl:variable name="nodes" select="db:section"/>
+  <li>
+    <xsl:attribute name="class">
+      <xsl:text>toc-</xsl:text>
+      <xsl:value-of select="local-name()"/>
+      <xsl:if test="@class">
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="@class"/>
+      </xsl:if>
+    </xsl:attribute>
+    <xsl:apply-templates select="." mode="toc.line">
+      <xsl:with-param name="toc-context" select="$toc-context"/>
+    </xsl:apply-templates>
+    <xsl:if test="$nodes">
+      <ul>
+        <xsl:apply-templates select="$nodes" mode="toc">
+          <xsl:with-param name="toc-context" select="$toc-context"/>
+        </xsl:apply-templates>
+      </ul>
+    </xsl:if>
+  </li>
+</xsl:template>
+
+<xsl:template match="db:section[key('cnx.eoc-key', @class)]" mode="toc" />
+
+<xsl:template match="*" mode="toc.line">
+  <xsl:call-template name="toc.line"/>
+</xsl:template>
+
 <!-- To get module abstracts (Mearning Objectives) in the chapter TOC, add abstracts to the subtoc -->
-<xsl:template match="d:section" mode="toc">
+<xsl:template match="d:section" mode="toc.line">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:apply-imports/>
+  <xsl:call-template name="toc.line"/>
+  
   <xsl:if test="$toc-context[self::d:chapter] and d:sectioninfo/d:abstract">
-    <dd class="abstract">
+    <li class="abstract">
       <xsl:apply-templates select="d:sectioninfo/d:abstract/node()"/>
-    </dd>
+    </li>
   </xsl:if>
 </xsl:template>
 

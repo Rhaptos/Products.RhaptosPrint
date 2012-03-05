@@ -13,6 +13,14 @@ sup a {
 
 /* General css for print/online */
 
+.toc {
+  ul, li { list-style-type: none; padding-left: 0em; margin-left: 1em; }
+}
+.toc > ul, .toc > ul > li { margin-left: 0em; }
+
+
+/* Hide sub-sections from the book TOC */
+/*.book */ .toc .toc-section .toc-section { display: none; }
 
 /* Hide the TOC for the Appendix */
 .appendix .toc {
