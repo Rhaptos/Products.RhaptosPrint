@@ -68,6 +68,10 @@
     <xsl:text> target-</xsl:text>
     <xsl:value-of select="local-name($target)"/>
   </xsl:if>
+  <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
+  <xsl:if test="text()">
+    <xsl:text> labeled</xsl:text>
+  </xsl:if>
 </xsl:template>
 
 

@@ -290,11 +290,12 @@ body {
 .chapter .cnx-eoc .exercise > .title {
   display: none;
 }
-.chapter .equation > .label:before {
+.chapter .equation > *:last-child::after {
   content: "" "(" counter(chapter, decimal) "." counter(equation) ")" " ";
+  float: right;
 }
 .chapter .equation > .label {
-  content: "";
+  display: none;
 }
 .chapter  > .toc > ul > li > a:before {
   content: "" "" counter(chapter, decimal) "." counter(toc-section) "" " ";
@@ -319,6 +320,9 @@ body {
 }
 .chapter .target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), chapter, decimal) "." target-counter(attr(href), exercise) " ";
+}
+.chapter .target-section:not(.labeled) {
+  content: "" "Chapter" target-counter(attr(href), chapter, decimal) "." target-counter(attr(href), section) " ";
 }
 .appendix {
   counter-increment: appendix;
@@ -445,11 +449,12 @@ body {
 .appendix .cnx-eoc .exercise > .title {
   display: none;
 }
-.appendix .equation > .label:before {
+.appendix .equation > *:last-child::after {
   content: "" "(" counter(appendix, upper-latin) "." counter(equation) ")" " ";
+  float: right;
 }
 .appendix .equation > .label {
-  content: "";
+  display: none;
 }
 .appendix  > .toc > ul > li > a:before {
   content: "" "" counter(appendix, upper-latin) "." counter(toc-section) "" " ";
@@ -474,6 +479,9 @@ body {
 }
 .appendix .target-exercise:not(.labeled) {
   content: "" "Exercise " target-counter(attr(href), appendix, upper-latin) "." target-counter(attr(href), exercise) " ";
+}
+.appendix .target-section:not(.labeled) {
+  content: "" "Chapter" target-counter(attr(href), appendix, upper-latin) "." target-counter(attr(href), section) " ";
 }
 /* Still count the element but don't show it */
 .empty {
