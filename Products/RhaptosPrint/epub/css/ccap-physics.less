@@ -285,9 +285,11 @@ em.glossterm {
 
 /*********************** Table of Contents ********************/
 
-.book > .toc > p {
+.book > .toc > .title {
   border-bottom: 1px solid @orange;
   page-break-after: avoid;
+  text-align: center;
+  font-size: large;
 }
 
 .book > .toc a {
@@ -337,7 +339,7 @@ h2:before {
 	border-spacing: 0px;
   page-break-inside: avoid;
 }
-.chapter .toc > p {
+.chapter .toc > .title {
   content: "Learning Objectives";
 	background-color: @blue;
 	color: white;

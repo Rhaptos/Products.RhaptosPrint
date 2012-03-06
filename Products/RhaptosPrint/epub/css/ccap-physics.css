@@ -812,9 +812,11 @@ em.glossterm {
   font-style: normal;
 }
 /*********************** Table of Contents ********************/
-.book > .toc > p {
+.book > .toc > .title {
   border-bottom: 1px solid #faa61a;
   page-break-after: avoid;
+  text-align: center;
+  font-size: large;
 }
 .book > .toc a {
   color: #0061aa;
@@ -854,7 +856,7 @@ h2:before {
   border-spacing: 0px;
   page-break-inside: avoid;
 }
-.chapter .toc > p {
+.chapter .toc > .title {
   content: "Learning Objectives";
   background-color: #0061aa;
   color: white;
