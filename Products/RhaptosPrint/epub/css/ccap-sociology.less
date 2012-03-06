@@ -12,7 +12,14 @@
 
 
 /****** Features ******/
-.x-feature () {
+// The args are title color, background color, and path to SVG
+.sociological-research   { .x-feature(#330033, #ccccff, research); }
+.sociology-real-world    { .x-feature(#006666, #ccffff, real-world); }
+.sociology-big-picture   { .x-feature(#336600, #ccff99, big-picture); }
+.sociology-careers       { .x-feature(#336633, #ccffcc, careers); }
+.sociology-policy-debate { .x-feature(#993333, #ffcccc, policy-debate); }
+
+.x-feature (@color, @bg-color, @svg) {
   page-break-inside: avoid;
   &:before {
     padding-top: 0.75in; //0.75 + margin-top. 0.75in is from the SVG files
@@ -29,56 +36,12 @@
     margin-right: -1.05em;
     margin-top: -0.03in;
   }
-}
-.sociological-research {
-  .x-feature;
   .title {
-    color: #330033;
+    color: @color;
   }
-  background-color: #ccccff;
+  background-color: @bg-color;
   &:before {
-    background-image: url(ccap-sociology/research.svg);
-  }
-}
-.sociology-real-world {
-  .x-feature;
-  .title {
-    color: #006666;
-  }
-  background-color: #ccffff;
-  &:before {
-    background-image: url(ccap-sociology/real-world.svg);
-  }
-}
-
-.sociology-big-picture {
-  .x-feature;
-  .title {
-    color: #336600;
-  }
-  background-color: #ccff99;
-  &:before {
-    background-image: url(ccap-sociology/big-picture.svg);
-  }
-}
-.sociology-careers {
-  .x-feature;
-  .title {
-    color: #336633;
-  }
-  background-color: #ccffcc;
-  &:before {
-    background-image: url(ccap-sociology/careers.svg);
-  }
-}
-.sociology-policy-debate {
-  .x-feature;
-  .title {
-    color: #993333;
-  }
-  background-color: #ffcccc;
-  &:before {
-    background-image: url(ccap-sociology/policy-debate.svg);
+    background-image: url("ccap-sociology/@{svg}.svg");
   }
 }
 
@@ -203,7 +166,7 @@ h1.title .cnx-gentext-n {
   padding-left: 0.25em;
   padding-right: 0em;
 }
-h1.title .cnx-gentext-t {
+h1.title {
   text-transform: none;
 }
 h2:before {

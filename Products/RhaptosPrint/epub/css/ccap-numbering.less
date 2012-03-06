@@ -5,6 +5,7 @@
 @E: " "; //"] ";
 
 // Strings that are used (note some have spaces at the end)
+@preface: "Preface";
 @chapter: "Chapter";
 @appendix: "Appendix";
 @section: "Chapter";
@@ -13,14 +14,29 @@
 @example: "Example ";
 @exercise: "Exercise ";
 
-
 /* --------------------------------------
  *  Define how counters are incremented
  * --------------------------------------
  */
 body { counter-reset: chapter appendix; }
-.chapter  { counter-increment: chapter;  .x-prefixed (@chapter, chapter); } //Also, generate all the rules at this point
-.appendix { counter-increment: appendix; .x-prefixed (@appendix, appendix, upper-latin); }
+.chapter  { counter-increment: chapter; }
+.appendix { counter-increment: appendix; }
+
+
+/* -------------------------------------
+ *  All the rules for elements need to be prefixed
+ *  according to slightly different rules
+ *  - Preface isn't numbered
+ *  - Chapters are numbered
+ *  - Appendixes are lettered
+ *
+ * ie: "Figure 4.3" in chapters but "Figure A3" in an appendix
+ * -------------------------------------
+ */ 
+.preface  { .x-prefixed (@preface, "", ""); }
+.chapter  { .x-prefixed (@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
+.appendix { .x-prefixed (@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
+
 
 /* Still count the element but don't show it */
 .empty {
@@ -28,23 +44,28 @@ body { counter-reset: chapter appendix; }
   max-height: 0em;
 }
 
-.x-debug () {
-  color: red; background-color: white;
-  font-weight: bold;
-}
+/* -------------------------------------
+ *  The bulk of numbering!
+ *
+ * 
+ *  To handle slight variations in prefixing:
+ *  @part-label is used in page headers ie "Chapter 3"
+ *  @part-counter is the prefix to things like "Table A4"
+ *  @part-target is CSS3 for making links to elements
+ *  @part-separator is the little dot in "Table 4.3"
+ * -------------------------------------
+ */ 
+.x-prefixed (@part-label, @part-counter, @part-target, @part-separator: "") {
 
-
-.x-prefixed (@part-label, @part, @style: decimal) {
-
-  //This convoluted path is used to suck up (via the "content()") the title of the chapter into the header
+  //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   .titlepage h1.title .cnx-gentext-t {
-    string-set: cnx-header @S @part-label " " counter(@part, @style) " | " content() @E;
+    string-set: cnx-header @S @part-label " " @part-counter " | " content() @E;
   }
   
   counter-reset: section figure table equation example exercise toc-section;
   
   .cnx-eoc { counter-reset: exercise eoc-section; }
-  /* .cnx-eoc + .cnx-eoc { counter-reset: none; } */ /* Don't reset for each eoc section */
+  // .cnx-eoc + .cnx-eoc { counter-reset: none; } */ /* Don't reset for each eoc section */
   
   & > .section  { counter-increment: section; }   // Only increment top-level sections
   .figure       { counter-increment: figure; }
@@ -56,7 +77,10 @@ body { counter-reset: chapter appendix; }
   & > .toc li   { counter-increment: toc-section; } // TODO: toc-section could just be looked up via CSS3 taarget-counter (but then epub would break)
   & > .cnx-eoc > .section  { counter-increment: eoc-section; }
   
-  /* When in some elements don't increment (or display) */
+  /* --------------------------------------
+   *  Exceptions for incrementing/displaying
+   * --------------------------------------
+   */
   .glossary *,
   .example .exercise *,
   .cnx-eoc .solution .figure,
@@ -66,7 +90,7 @@ body { counter-reset: chapter appendix; }
   .cnx-eoc .solution .equation {
     counter-increment: none !important;
     /* Don't display the labels in glossaries, solutions, etc */
-    &:before { color: #cccccc !important; /* should be display:none */ }
+    &:before { display:none; }
   }
   
   
@@ -76,23 +100,13 @@ body { counter-reset: chapter appendix; }
    */
   .x-test-text (@label, @counter-name, @suffix: "") {
     &:before {
-      content: @S @label counter(@part, @style) "." counter(@counter-name) @suffix @E;
+      content: @S @label @part-counter @part-separator counter(@counter-name) @suffix @E;
     }
   }
 
-/* Ah, to be so clean .... 
-  & > .section > .titlepage h2 { .x-test-text ("", section); }
-  .figure > .title             { .x-test-text (@figure, figure); }
-  .table > table > caption     { .x-test-text (@table, table); }
-  .example > .title > span     { .x-test-text (@example, example); }
-  .exercise > .title > span:first-child    { .x-test-text ("", exercise); content: @S @exercise counter(exercise) @E; }
-  .equation > .label           { .x-test-text ("(", equation, ")"); }
-  & > .toc > ul > li > a       { .x-test-text ("", toc-section); }
-  .cnx-eoc > .section > .title { .x-test-text ("", eoc-section); }
-*/
 
   /** Each thing appears 3 times because 1 implements the new numbering and the next 2 lines hide the docbook-generated text **/
-  & > .titlepage .cnx-gentext-t { &:before { content: @S counter(@part, @style) @E;} }
+  & > .titlepage .cnx-gentext-t { &:before { content: @S @part-counter @E;} }
   & > .titlepage .cnx-gentext-autogenerated,
   & > .titlepage .cnx-gentext-n  { display: none; }
 
@@ -119,7 +133,7 @@ body { counter-reset: chapter appendix; }
   .cnx-eoc .exercise .problem:before { content: @S counter(exercise) "." @E; font-weight: bold; }
   .cnx-eoc .exercise > .title { display: none; }
   
-  .equation > *:last-child::after { content: @S "(" counter(@part, @style) "." counter(equation) ")" @E; float: right; }
+  .equation > *:last-child::after { content: @S "(" @part-counter @part-separator counter(equation) ")" @E; float: right; }
   .equation > .label           { display: none; }
   
   & > .toc > ul > li > a       { .x-test-text ("", toc-section); }
@@ -134,7 +148,7 @@ body { counter-reset: chapter appendix; }
 
   /* Number links to different elements */
   .x-link (@label, @counter-name) {
-    &:not(.labeled) { content: @S @label target-counter(attr(href), @part, @style) "." target-counter(attr(href), @counter-name) @E; }
+    &:not(.labeled) { content: @S @label @part-target @part-separator target-counter(attr(href), @counter-name) @E; }
   }
   .target-figure   { .x-link(@figure, figure); }
   .target-table    { .x-link(@table, table); }
