@@ -1693,24 +1693,11 @@ Example:
 
   <xsl:variable name="toc.title">
     <xsl:if test="$toc.title.p">
-      <xsl:choose>
-        <xsl:when test="$make.clean.html != 0">
-          <div class="toc-title">
-            <xsl:call-template name="gentext">
-              <xsl:with-param name="key">TableofContents</xsl:with-param>
-            </xsl:call-template>
-          </div>
-        </xsl:when>
-        <xsl:otherwise>
-          <p>
-            <strong xmlns:xslo="http://www.w3.org/1999/XSL/Transform">
-              <xsl:call-template name="gentext">
-                <xsl:with-param name="key">TableofContents</xsl:with-param>
-              </xsl:call-template>
-            </strong>
-          </p>
-        </xsl:otherwise>
-      </xsl:choose>
+      <div class="toc-title">
+        <xsl:call-template name="gentext">
+          <xsl:with-param name="key">TableofContents</xsl:with-param>
+        </xsl:call-template>
+      </div>
     </xsl:if>
   </xsl:variable>
 
