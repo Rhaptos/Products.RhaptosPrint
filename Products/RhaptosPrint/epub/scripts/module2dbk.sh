@@ -20,7 +20,7 @@ SCHEMA=$ROOT/docbook-rng/docbook.rng
 SAXON="java -jar $ROOT/lib/saxon9he.jar"
 JING="java -jar $ROOT/lib/jing-20081028.jar"
 # we use --xinclude because the XSLT attempts to load inline svg files
-XSLTPROC="xsltproc --xinclude --stringparam cnx.site-type $CNX_OR_RHAPTOS --stringparam cnx.module.id $ID $XSLTPROC_ARGS"
+XSLTPROC="xsltproc --nonet --nodtdattr --novalid --xinclude --stringparam cnx.site-type $CNX_OR_RHAPTOS --stringparam cnx.module.id $ID $XSLTPROC_ARGS"
 CONVERT="convert "
 
 #Temporary files
