@@ -440,22 +440,6 @@
     <xsl:if test="(normalize-space($recto.content) != '') or ($recto.elements.count &gt; 0)">
       <div><xsl:copy-of select="$recto.content"/></div>
     </xsl:if>
-    <xsl:variable name="verso.content">
-      <xsl:call-template name="section.titlepage.before.verso"/>
-      <xsl:call-template name="section.titlepage.verso"/>
-    </xsl:variable>
-    <xsl:variable name="verso.elements.count">
-      <xsl:choose>
-        <xsl:when test="function-available('exsl:node-set')"><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
-        <xsl:when test="contains(system-property('xsl:vendor'), 'Apache Software Foundation')">
-          <!--Xalan quirk--><xsl:value-of select="count(exsl:node-set($verso.content)/*)"/></xsl:when>
-        <xsl:otherwise>1</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:if test="(normalize-space($verso.content) != '') or ($verso.elements.count &gt; 0)">
-      <div><xsl:copy-of select="$verso.content"/></div>
-    </xsl:if>
-    <xsl:call-template name="section.titlepage.separator"/>
   </div>
 </xsl:if>
 </xsl:template>
