@@ -562,20 +562,6 @@ Combination of formal.object and formal.object.heading -->
 
 
 <!-- A block-level element inside another block-level element should use the inner formatting -->
-<xsl:template mode="formal.object.heading" match="*[         ancestor::ext:exercise or          ancestor::db:example or          ancestor::ext:rule or         ancestor::db:glosslist or         ancestor-or-self::db:list]">
-  <xsl:param name="object" select="."/>
-
-  <xsl:variable name="content">
-    <xsl:apply-templates select="$object" mode="object.title.markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
-    </xsl:apply-templates>
-  </xsl:variable>
-
-  <div>
-    <xsl:copy-of select="$content"/>
-  </div>
-</xsl:template>
-
 <xsl:template mode="formal.object.heading" match="*" name="formal.object.heading">
   <xsl:param name="object" select="."/>
 
@@ -734,11 +720,9 @@ Combination of formal.object and formal.object.heading -->
         </xsl:when>
         <xsl:when test="@fileref and $cnx.svg.compat = 'object'">
           <object type="image/png" width="{@width}" height="{@height}">
-            <xsl:if test="@fileref">
-              <xsl:attribute name="data">
-                <xsl:value-of select="@fileref"/>
-              </xsl:attribute>
-            </xsl:if>
+            <xsl:attribute name="data">
+              <xsl:value-of select="@fileref"/>
+            </xsl:attribute>
             <xsl:call-template name="cnx.baseline-shift"/>
             <!-- Insert the SVG inline -->
             <xsl:apply-templates select="node()"/>
@@ -1693,7 +1677,7 @@ Example:
 
   <xsl:variable name="toc.title">
     <xsl:if test="$toc.title.p">
-      <div class="toc-title">
+      <div class="title">
         <xsl:call-template name="gentext">
           <xsl:with-param name="key">TableofContents</xsl:with-param>
         </xsl:call-template>
