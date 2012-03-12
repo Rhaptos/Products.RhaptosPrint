@@ -182,7 +182,10 @@
                             </xsl:otherwise>
                         </xsl:choose>
                         <db:member>
-                            <db:ulink url="{$url}">URL</db:ulink>
+                            <db:member>
+                                <xsl:text>URL: </xsl:text>
+                                <db:ulink url="{$url}"/>
+                            </db:member>
                         </db:member>
                         <xsl:if test="db:authorgroup/db:othercredit[@class='other' and db:contrib/text()='licensor' and *[name()!='db:contrib']]">
                             <!-- Max: The *[name()!='db:contrib'] is to make sure that the db:othercredit is actually populated with a user.  
@@ -205,9 +208,8 @@
                         </xsl:if>
                         <xsl:if test="db:legalnotice">
                             <db:member>
-                                <db:ulink href="{db:legalnotice/db:ulink/@url}">
-                                  <xsl:text>License</xsl:text>
-                                </db:ulink>
+                                <xsl:text>License: </xsl:text>
+                                <db:ulink url="{db:legalnotice/db:ulink/@url}"/>
                             </db:member>
                         </xsl:if>
                         <xsl:if test="not(db:legalnotice)">

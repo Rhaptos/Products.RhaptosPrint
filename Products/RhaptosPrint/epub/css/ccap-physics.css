@@ -747,7 +747,7 @@ html > body > div.book  > div.toc > ul > li.toc-appendix > ul {
   font-size: xx-large;
   margin-top: 10em;
 }
-.cnx-title a {
+.cnx-title a, #book-attribution a {
   content: content();
 }
 /* Introduction banner */
