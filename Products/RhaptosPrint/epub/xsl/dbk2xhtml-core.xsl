@@ -391,8 +391,11 @@
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
 
-  <div class="introduction">
+  <div class="introduction" id="{$id}">
 
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
@@ -1062,6 +1065,20 @@ Combination of formal.object and formal.object.heading -->
         <xsl:copy-of select="$text"/>
     </a>
     <xsl:text>&gt;</xsl:text>
+</xsl:template>
+
+<xsl:template name="section.titlepage.recto">
+  <xsl:choose>
+    <xsl:when test="d:sectioninfo/d:title">
+      <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:sectioninfo/d:title"/>
+    </xsl:when>
+    <xsl:when test="d:info/d:title">
+      <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:info/d:title"/>
+    </xsl:when>
+    <xsl:when test="d:title">
+      <xsl:apply-templates mode="section.titlepage.recto.auto.mode" select="d:title"/>
+    </xsl:when>
+  </xsl:choose>
 </xsl:template>
 
 <!-- Docbook generates "???" when it cannot generate text for a db:xref. Instead, we print the name of the closest enclosing element. -->

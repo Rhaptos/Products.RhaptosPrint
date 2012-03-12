@@ -702,8 +702,7 @@
 
 <!-- Add metadata like authors, an abstract, etc -->
 <xsl:template match="c:metadata">
-  <xsl:apply-templates select="md:abstract"/>
-	<!-- <xsl:apply-templates select="node()"/> -->
+	<xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <!-- Make sure module keywords (that don't exist elsewhere in the module)
