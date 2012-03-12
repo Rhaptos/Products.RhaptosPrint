@@ -138,7 +138,7 @@ def xhtml2pdf(xhtml, files, tempdir, printStyle):
 
 def convert(dbk1, files, printStyle):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
-  tempdir = mkdtemp(suffix='-fo2pdf')
+  tempdir = mkdtemp(suffix='-xhtml2pdf')
 
   def transform(xslDoc, xmlDoc):
     """ Performs an XSLT transform and parses the <xsl:message /> text """
