@@ -42,7 +42,7 @@ xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/"
 <!-- pmml2svg Does not support certain nodes yet. Display an error and use the non-embellished child.
 	See: m21852
  -->
-<xsl:template match="mml:mmultiscripts|mml:mlabeledtr|mml:mpadded|mml:mglyph">
+<xsl:template match="mml:mmultiscripts|mml:mlabeledtr|mml:mpadded|mml:mglyph|mml:mprescripts|mml:none">
 	<xsl:call-template name="cnx.log"><xsl:with-param name="msg">ERROR: Cannot convert this MathML node to SVG (for image generation). Please try to use something else. Name=<xsl:value-of select="local-name()"/></xsl:with-param></xsl:call-template>
 	<xsl:apply-templates select="mml:*[1]"/>
 </xsl:template>
