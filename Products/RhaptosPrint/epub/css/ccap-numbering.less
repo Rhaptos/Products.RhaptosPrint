@@ -68,13 +68,19 @@ html > body > div.book {
   & > div.cnx-eoc { counter-reset: exercise eoc-section; }
   // .cnx-eoc + .cnx-eoc { counter-reset: none; } */ /* Don't reset for each eoc section */
   
-  & > div.section  { counter-increment: section; }   // Only increment top-level sections
-  & > div.section div.figure       { counter-increment: figure; }
-  & > div.section table        { counter-increment: table; }
-  & > div.section div.example      { counter-increment: example; }
+  .x-increment (@counter-name) {
+    // Only increment if we're going to use the number (ie it's noot labeled)
+    // &:not(.labeled) { counter-increment: @counter-name; }
+    counter-increment: @counter-name;
+    &.labeled { counter-increment: none; }
+  }
+  & > div.section  { .x-increment(section); }   // Only increment top-level sections
+  & > div.section div.figure       { .x-increment(figure); }
+  & > div.section table            { .x-increment(table); }
+  & > div.section div.example      { .x-increment(example); }
   & > div.cnx-eoc div.exercise,
-  & > div.section div.exercise     { counter-increment: exercise; }
-  & > div.section div.equation     { counter-increment: equation; }
+  & > div.section div.exercise     { .x-increment(exercise); }
+  & > div.section div.equation     { .x-increment(equation); }
   /* Cases where sections are referenced */
   & > div.toc li.toc-section   { counter-increment: toc-section; } // TODO: toc-section could just be looked up via CSS3 taarget-counter (but then epub would break)
   & > div.cnx-eoc > div.section  { counter-increment: eoc-section; }
@@ -102,7 +108,7 @@ html > body > div.book {
    * --------------------------------------
    */
   .x-test-text (@label, @counter-name, @suffix: "") {
-    &:before {
+    &:not(.labeled):before {
       content: @S @label @part-counter @part-separator counter(@counter-name) @suffix @E;
     }
   }

@@ -44,7 +44,12 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <div id="{$id}" class="{local-name()}">
+  <xsl:variable name="labeled">
+    <xsl:if test="ext:label">
+      <xsl:text> labeled</xsl:text>
+    </xsl:if>
+  </xsl:variable>
+  <div id="{$id}" class="{local-name()}{$labeled}">
 <xsl:comment>calling formal.object</xsl:comment>
   <xsl:call-template name="formal.object">
     <xsl:with-param name="placement" select="$placement"/>
