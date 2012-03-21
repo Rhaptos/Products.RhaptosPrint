@@ -16,6 +16,7 @@ import util
 #    import simplejson as json
 
 DEBUG = 'DEBUG' in os.environ
+IMAGE_MAX_WIDTH = int(os.environ.get('IMAGE_MAX_WIDTH', 400))
 
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
 MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
@@ -104,22 +105,35 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
 
   newFiles = {}
   
-  def imageAnnotate(xml, **params):
+  def imageAnnotate(xml, files, **params):
     # TODO: parse the XML and xpath/annotate it as we go.
+    newFiles = {}
     for image in DOCBOOK_IMAGE_XPATH(xml):
       filename = image.get('fileref')
+      mimeType = image.getparent().get('format', 'image/jpeg')
       # Exception thrown if image doesn't exist
       try:
-        bytes = filesDict[filename]
-        im = Image.open(StringIO(bytes))
-        image.set('_actual-width', str(im.size[0]))
-        image.set('_actual-height', str(im.size[1]))
+        bytes = files[filename]
+        img = Image.open(StringIO(bytes))
+        
+        width = img.size[0]
+        height = img.size[1]
+        if width > IMAGE_MAX_WIDTH:
+          print >> sys.stderr, 'LOG: INFO: Resizing %s' % filename
+          newHeight = height * IMAGE_MAX_WIDTH / width
+          img = img.resize((IMAGE_MAX_WIDTH, newHeight), Image.ANTIALIAS)
+          bytesFile = StringIO()
+          img.save(bytesFile, mimeType)
+          newFiles[filename] = bytesFile.getvalue()
+        
+        #image.set('_actual-width', str(img.size[0]))
+        #image.set('_actual-height', str(img.size[1]))
       except IOError:
-        pass
+        print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
       except KeyError:
-        #print >> sys.stderr, 'LOG: Image missing %s' % filename
+        print >> sys.stderr, 'LOG: WARNING: Image missing %s' % filename
         pass
-    return xml, {}, [] # xml, newFiles, log messages
+    return xml, newFiles, [] # xml, newFiles, log messages
 
   # Convert SVG elements to PNG files
   # (this mutates the document)
@@ -147,7 +161,7 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
     makeTransform('cnxml-clean-math-simplify.xsl'),   # Convert "simple" MathML to cnxml
     makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
     mathml2svg,
-    # imageAnnotate, # This is no longer used
+    imageAnnotate, # This is no longer used
     makeTransform('dbk-clean.xsl'),
     svg2pngTransform,
     makeTransform('dbk-svg2png.xsl'), # Clean up the image attributes
