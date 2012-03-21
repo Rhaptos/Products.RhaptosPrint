@@ -31,12 +31,27 @@ sup a {
   display: none;
 }
 
+/* Footnotes. remove margins */
+.footnote {
+  //font-size: 83%;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  * {
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+  }
+}
 
 /********************** Generic Elements ********************/
 
 body {
   font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  prince-jpeg-quality: 20%;
 }
 
 a[href^="http"] {

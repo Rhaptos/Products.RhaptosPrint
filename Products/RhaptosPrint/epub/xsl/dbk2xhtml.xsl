@@ -43,4 +43,21 @@ procedure before
   <xsl:apply-templates select="db:inlinemediaobject"/>
 </xsl:template>
 
+
+<!-- The PDF has a nice way of handling footnotes so override Docbook's method -->
+<xsl:template match="db:footnote">
+  <div class="footnote" id="{@xml:id}">
+    <xsl:apply-templates select="node()"/>
+  </div>
+</xsl:template>
+
+<!-- from docbook-xsl/xhtml/footnote.xsl. Docbook adds a "[#]" in front of the para -->
+<xsl:template match="d:footnote/d:para[1]|d:footnote/d:simpara[1]" priority="2">
+  <p><xsl:call-template name="common.html.attributes"/>
+    <xsl:attribute name="id">
+		  <xsl:call-template name="object.id"/>
+    </xsl:attribute>
+    <xsl:apply-templates/>
+  </p>
+</xsl:template>
 </xsl:stylesheet>

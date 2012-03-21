@@ -8,6 +8,11 @@
   margin: 5em;
   font-size: xx-small;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+
+  @footnotes {
+    border-top: solid black thin;
+    padding-top: 1em;
+  }
 }
 
 @page :left {
