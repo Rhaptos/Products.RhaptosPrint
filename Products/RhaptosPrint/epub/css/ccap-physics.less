@@ -274,11 +274,14 @@ img {
 .glossary dt {
   float: left;
   font-weight: bold;
+
+  &::after {
+    content: ":";
+    padding-right: 0.5em;
+    display: inline !important; //Important because the pseudo's are hidden by default in a glossary
+  }
 }
-.glossary dt::after {
-  content: ":";
-  padding-right: 0.5em;
-}
+
 em.glossterm {
   font-weight: bold;
   font-style: normal;

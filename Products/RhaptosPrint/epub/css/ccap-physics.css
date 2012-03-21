@@ -929,6 +929,7 @@ img {
 .glossary dt::after {
   content: ":";
   padding-right: 0.5em;
+  display: inline !important;
 }
 em.glossterm {
   font-weight: bold;
