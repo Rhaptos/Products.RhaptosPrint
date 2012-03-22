@@ -1050,7 +1050,7 @@ h4, h5, h6 {
   border-color: black !important;
 }
 .table caption {
-  caption-side: bottom;
+  caption-side: top;
   color: #a06a19;
   font-weight: bold;
 }
@@ -1635,6 +1635,7 @@ h2 {
 
 }
 .table caption {
+  caption-side: bottom;
   color: Purple;
 }
 .table th {
