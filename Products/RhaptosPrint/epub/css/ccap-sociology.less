@@ -66,7 +66,6 @@
   border-bottom: 1px solid LimeGreen;
 }
 .chapter .toc > .title {
-  content: "Summary";
   background-color: LimeGreen;
   font-weight: bold;
   color: black;
@@ -82,6 +81,7 @@
 
 
 /* subsequent paragraphs are indented */
+.cnx-eoc p,
 p:nth-of-type(1) {
   text-indent: 0em;
 }
@@ -134,11 +134,6 @@ p {
   padding-bottom: 1em;
 }
 
-/* Hide the section headers */
-.cnx-eoc > .section > .title {
-  display: none;
-}
-
 /* Indent margins on lists */
 .cnx-eoc .problem .orderedlist {
   margin-left: 4em;
@@ -146,6 +141,11 @@ p {
 
 .cnx-eoc.references p {
   text-indent: 0em;
+}
+
+
+body {
+  font-size: 9.5pt;
 }
 
 img {
@@ -180,7 +180,7 @@ a {
   color: #0061AA;
 }
 h2, h3 {
-  margin: 1em 0em;
+  margin: 0.5em 0em;
 }
 h2 {
   color: Purple;
@@ -193,7 +193,7 @@ h2 {
   font-size: large;
 }
 .section > .table {
-  float: bottom;
+  //float: bottom;
 }
 .table table {
   /* background-color: LimeGreen; */
@@ -212,13 +212,13 @@ h2 {
 	font-size: large;
 }
 .section > .figure {
-  float: top;
-  float: snap;
+  //float: top;
+  //float: snap;
 }
 .figure .title {
   display: inline;
 	color: black;
-	font-weight: normal;
+	font-weight: bold;
 }
 .figure > .caption {
   display: inline;
