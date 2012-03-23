@@ -2,7 +2,7 @@
 
 // For debugging, mark start and end brackets
 @S: ""; //" ["; // "S"tart and "E"nd marking text for debugging
-@E: " "; //"] ";
+@E: ""; //"] ";
 
 // Strings that are used (note some have spaces at the end)
 @preface: "Preface";
@@ -107,7 +107,7 @@ div.book {
    *  Define where counters are displayed
    * --------------------------------------
    */
-  .x-test-text (@label, @counter-name, @suffix: "") {
+  .x-test-text (@label, @counter-name, @suffix: " ") {
     &:not(.labeled):before {
       content: @S @label @part-counter @part-separator counter(@counter-name) @suffix @E;
     }
