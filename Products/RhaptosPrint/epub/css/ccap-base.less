@@ -187,6 +187,13 @@ p {
   align: top;
   text-align: left;
 }
+//Reset the table caption because I was dumb and didn't wrap the Table title in a span
+.table-caption {
+  font-weight: normal;
+  color: black;
+  display: inline;
+  margin-left: 0.5em;
+}
 
 .itemizedlist .title {
   margin: 0px;
@@ -538,6 +545,10 @@ em.glossterm {
 .cnx-eoc .exercise {
   margin-top: 0.5em;
   margin-bottom: 0.0em;
+}
+.cnx-eoc .problem > .title {
+  font-weight: bold;
+  margin-right: 0.5em;
 }
 
 .exercise .solution::before {

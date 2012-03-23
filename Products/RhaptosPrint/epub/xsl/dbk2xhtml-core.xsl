@@ -66,7 +66,14 @@
   <xsl:if test="$target">
     <xsl:message>LOG: INFO: Adding target class to link "<xsl:value-of select="local-name($target)"/>"</xsl:message>
     <xsl:text> target-</xsl:text>
-    <xsl:value-of select="local-name($target)"/>
+    <xsl:choose>
+      <xsl:when test="$target[parent::db:figure]">
+        <xsl:text>subfigure</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="local-name($target)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:if>
   <!-- if a link contains text let CSS know to use the label instead of attempting to autogenerate it -->
   <xsl:if test="text()">

@@ -57,7 +57,7 @@ procedure before
     <xsl:attribute name="id">
 		  <xsl:call-template name="object.id"/>
     </xsl:attribute>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </p>
 </xsl:template>
 </xsl:stylesheet>
