@@ -3,8 +3,12 @@
  ***************************************************/
 
 @teal: #006666;
+@cream: #FBF2E2; // For table backgrounds (from Physics)
+@green: #8FB733; // For table backgrounds (from Physics)
+@blue: #0061AA;  // For End-of-Chapter titles (from Physics)
 
-@import url('ccap-physics.less');
+@import url('ccap-base.less');
+@import url('ccap-numbering.less');
 
 @page {
   margin: 0.5in 1.5in;
@@ -114,6 +118,10 @@ p {
   font-weight: normal;
 }
 
+.cnx-eoc .section .title a {
+	color: @blue;
+}
+
 .exercise > .title a {
   color: inherit;
 } 
@@ -196,7 +204,10 @@ h2 {
   //float: bottom;
 }
 .table table {
-  /* background-color: LimeGreen; */
+  background-color: @cream;
+}
+.table th {
+  background-color: @green;
 }
 .table caption {
   caption-side: bottom;
