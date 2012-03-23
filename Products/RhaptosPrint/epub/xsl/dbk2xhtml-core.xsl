@@ -1182,13 +1182,11 @@ Combination of formal.object and formal.object.heading -->
               <xsl:value-of select="$start"/>
             </xsl:attribute>
           </xsl:if>
-<!--
           <xsl:if test="$numeration != ''">
             <xsl:attribute name="type">
               <xsl:value-of select="$type"/>
             </xsl:attribute>
           </xsl:if>
--->
 <xsl:message>LOG: INFO: Discarding list numeration @type because it's not valid xhtml</xsl:message>
 
           <xsl:if test="@spacing='compact'">
