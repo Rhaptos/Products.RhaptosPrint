@@ -118,16 +118,16 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
         
         width = img.size[0]
         height = img.size[1]
-        if width > IMAGE_MAX_WIDTH:
-          print >> sys.stderr, 'LOG: INFO: Resizing %s' % filename
-          newHeight = height * IMAGE_MAX_WIDTH / width
-          img = img.resize((IMAGE_MAX_WIDTH, newHeight), Image.ANTIALIAS)
-          bytesFile = StringIO()
-          img.save(bytesFile, mimeType)
-          newFiles[filename] = bytesFile.getvalue()
+        #if DEBUG: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
+        #  if width > IMAGE_MAX_WIDTH:
+        #    print >> sys.stderr, 'LOG: INFO: Resizing %s' % filename
+        #    newHeight = height * IMAGE_MAX_WIDTH / width
+        #    img = img.resize((IMAGE_MAX_WIDTH, newHeight), Image.ANTIALIAS)
+        #  # Always resave
+        #  bytesFile = StringIO()
+        #  img.save(bytesFile, mimeType, optimize=True, quality=20)
+        #  newFiles[filename] = bytesFile.getvalue()
         
-        #image.set('_actual-width', str(img.size[0]))
-        #image.set('_actual-height', str(img.size[1]))
       except IOError:
         print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
       except KeyError:
