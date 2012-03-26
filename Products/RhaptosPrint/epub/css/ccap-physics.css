@@ -1108,6 +1108,8 @@ div.book div.solution > a.number {
 div.book .footnote {
   counter-increment: footnote;
   float: footnote;
+}
+div.book .footnote::footnote-marker, div.book .footnote  > * {
   color: black;
   font-weight: normal;
 }

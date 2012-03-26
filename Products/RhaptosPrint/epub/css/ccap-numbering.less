@@ -189,8 +189,13 @@ div.solution > a.number {
 .footnote {
   counter-increment: footnote;
   float: footnote;
-  color: black;
-  font-weight: normal;
+  
+  // Footnotes in table headings (which may have white text) need to reset their colors.
+  &::footnote-marker,
+  & > * {
+    color: black;
+    font-weight: normal;
+  }
   
   &::footnote-call {
     content: "[" counter(footnote) "]";
