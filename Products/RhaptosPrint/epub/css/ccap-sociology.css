@@ -722,6 +722,9 @@ div.book  > div.preface a.target-example:not(.labeled) {
 div.book  > div.preface a.target-exercise:not(.labeled) {
   content: "" "Exercise " "" "" target-counter(attr(href), exercise) "" "";
 }
+div.book  > div.preface  > div.section > div.titlepage h2:before {
+  display: none !important;
+}
 div.book  > div.chapter {
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   /* Cases where sections are referenced */
