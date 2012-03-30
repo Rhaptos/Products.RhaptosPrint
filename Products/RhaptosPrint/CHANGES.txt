@@ -1,3 +1,6 @@
+RhaptosPrint-0.10
+ - modern-textbook related bugfixes
+
 RhaptosPrint-0.9
  - modern-textbook release (xhtml+css, ccap word importer)
 
