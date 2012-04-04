@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:m="http://www.w3.org/1998/Math/MathML" id="imported-from-openoffice" module-id="imported-from-openoffice" cnxml-version="0.7">
+  <title>Module (Section) Title</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+    <md:repository>http://bread.cnx.rice.edu:9680/content</md:repository>
+    <md:content-url>http://bread.cnx.rice.edu:9680/content/m10022/latest</md:content-url>
+    <md:content-id>m10022</md:content-id>
+    <md:title>Module (Section) Title</md:title>
+    <md:version>1.5</md:version>
+    <md:created>2011/11/22 17:25:23 US/Central</md:created>
+    <md:revised>2011/12/19 15:59:36 US/Central</md:revised>
+    <md:actors>
+      <md:person userid="words">
+        <md:firstname>Words</md:firstname>
+        <md:surname>Numbers</md:surname>
+        <md:fullname>Words Numbers</md:fullname>
+        <md:email>rhall@wordsandnumbers.com</md:email>
+      </md:person>
+    </md:actors>
+    <md:roles>
+      <md:role type="author">words</md:role>
+      <md:role type="maintainer">words</md:role>
+      <md:role type="licensor">words</md:role>
+    </md:roles>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/"/>
+    <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+    <md:keywordlist>
+      <md:keyword>joule</md:keyword>
+      <md:keyword>work</md:keyword>
+    </md:keywordlist>
+    <md:subjectlist>
+      <md:subject>Mathematics and Statistics</md:subject>
+      <md:subject>Science and Technology</md:subject>
+    </md:subjectlist>
+    <md:abstract>
+      <list>
+        <item>Explain how the object must be displaced for the force on it to do work.</item>
+        <item>Explain how relative directions of force and displacement determine whether the work done is positive, negative, or zero.</item>
+        <item>Calculate the work done by a force on an object given the force and displacement.</item>
+      </list>
+    </md:abstract>
+    <md:language>en</md:language>
+    <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+  </metadata>
+  <content>
+
+    <section><title>Simple blockish styles</title>
+      <note><title>Note</title>
+        <para>With some text</para>
+      </note>
+      <example>
+        <title>Simple Example</title>
+        <para>With some text</para>
+      </example>
+      <exercise><label/>
+        <title>Check Your Understanding</title>
+        <problem>
+          <para>With some text</para>
+        </problem>
+        <solution><para>And a solution</para></solution>
+        <solution><para>And another solution</para></solution>
+      </exercise>
+      
+    </section>
+
+    <section class="problems-exercises">
+      <exercise type="problems-exercises">
+        <title>Exercise That Should collect at the end of a chapter</title>
+        <problem>
+          <title>Problem title</title>
+          <para>Problem that should show up at the end of a chapter</para>
+        </problem>
+        <solution>
+          <para>Invisible solution</para>
+        </solution>
+      </exercise>
+      <exercise type="problems-exercises">
+        <title>Exercise That Should collect at the end of a chapter</title>
+        <problem>
+          <title>Problem title</title>
+          <para>Another EOC Problem *this time with a figure (with both a width and a print-width)</para>
+          <figure id="test1">
+            <media id="test2" alt=".">
+              <image mime-type="image/jpg" src="Figure_08_01_02.jpg"/>
+            </media>
+            <caption>Wide image and should be [Figure 1.4] and has Caption with math <m:math>
+                <m:mfrac>
+                  <m:mi>x</m:mi>
+                  <m:mn>2</m:mn>
+                </m:mfrac>
+              </m:math>
+                            
+          text-at-the-end</caption>
+          </figure>
+        </problem>
+      </exercise>
+    </section>
+    <section id="section1">
+      <title>Simple Section</title>
+      <para id="import-auto-id1233935">Here's a multiline para with a <term>joule</term>
+                . The scientific definition of work differs in some ways from its everyday meaning. Certain things we think of as hard work, such as writing an exam or carrying a heavy load on level ground, are not work as defined by a scientist. The scientific definition of work reveals its relationship to energy—whenever work is done, energy is transferred.</para>
+      <para id="import-auto-id2626449">And a second para. For work, in the scientific sense, to be done, a force must be exerted and there must be motion or displacement in the direction of the force. </para>
+      <equation id="equation1">
+        <m:math>
+          <m:mfrac>
+            <m:mi>x</m:mi>
+            <m:mn>2</m:mn>
+          </m:mfrac>
+        </m:math>
+      </equation>
+      <note id="fs-id1289765">
+        <label/>
+        <title>Here's a note! with an equation</title>
+        <para id="import-auto-id1332825">The <term id="import-auto-id2496745">work</term>
+                    
+                     done on a system by a constant force is <emphasis effect="italics">the product of the component of the force in the direction of motion times the distance</emphasis>
+                    
+                    . In equation form, </para>
+        <equation id="equation2">
+          <m:math>
+            <m:mfrac>
+              <m:mi>x</m:mi>
+              <m:mn>2</m:mn>
+            </m:mfrac>
+          </m:math>
+        </equation>
+      </note>
+
+        <para id="para-with-equation">
+          Text before equation
+          <equation id="equation3">
+            <m:math>
+              <m:mfrac>
+                <m:mi>x</m:mi>
+                <m:mn>2</m:mn>
+              </m:mfrac>
+            </m:math>
+          </equation>
+          Text after equation
+        </para>
+
+      <figure id="figure1">
+        <media id="import-auto-id1913019-1" alt=".">
+          <image mime-type="image/jpg" src="Figure_08_01_04.jpg" width="50"/>
+        </media>
+        <caption>Should say [Figure 1.1]</caption>
+      </figure>
+
+      <figure id="figure2" orient="horizontal">
+        <figure id="subfigure1">
+          <media id="import-auto-id1913019" alt=".">
+            <image mime-type="image/jpg" src="woot.jar" />
+            <image for="pdf" mime-type="image/jpg" src="Figure_08_01_04.jpg" width="100"/>
+          </media>
+          <caption>width=100 and uses for="pdf" with a jar file for online (so it's a link)</caption>
+        </figure>
+        <figure id="subfigure2">
+          <media id="import-auto-id1913019-2" alt=".">
+            <image mime-type="image/jpg" src="Figure_08_01_04.jpg" print-width="2in"/>
+          </media>
+          <caption>Subfigure with a caption (print-width=2in)</caption>
+        </figure>
+        <caption>Should say [Figure 1.3] with Subfigures labeles (a) and (b).</caption>
+      </figure>
+      <para>And a links to them:</para>
+      <list>
+        <item>
+          <link target-id="figure1"/> : Should say [Figure 1.2]
+        </item>
+        <item>
+          <link target-id="figure2"/> : Should say [Figure 1.3]
+        </item>
+        <item>
+          <link target-id="figure2">Figure with overriding label</link>
+        </item>
+        <item>
+          <link target-id="subfigure2"/> : Link sould say [Figure 1.3b]
+        </item>
+      </list>
+    </section>
+    <section id="section2">
+      <title>Another Section for giggles (with a table)</title>
+      <list>
+        <item>
+          <link target-id="section1"/>
+        </item>
+        <item>
+          <link target-id="section2"/>
+        </item>
+        <item>
+          <link target-id="table1"/>
+        </item>
+      </list>
+      <table xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" id="table1" summary=".">
+        <title>Table Title</title>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Head1</entry>
+              <entry>Head2<footnote id="footnote"><para>
+    Alan Davidson, Oxford Companion to Food,
+    s.v. cheesecake: "Cheesecake, not a
+    cake in the ordinary sense, is really a
+    kind of tart."
+</para>  </footnote>
+              </entry>
+            </row>
+            <row>
+              <entry>Head3</entry>
+              <entry>Head4</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>(1,1)</entry>
+              <entry>(1,2)</entry>
+            </row>
+            <row>
+              <entry>(2,1)</entry>
+              <entry>(2,2)</entry>
+            </row>
+          </tbody>
+        </tgroup>
+        <caption>Table Caption</caption>
+      </table>
+
+      <section><title>Sub-Section (links to Intro, Appendix Stuff)</title>
+      
+      <list>
+        <item>
+          <link document="m-introduction"/>
+        </item>
+        <item>
+          <link document="m-appendix" />
+        </item>
+        <item>
+          <link document="m-appendix" target-id="table1" />
+        </item>
+      </list>
+      </section>
+    </section>
+
+  <section><title>Just a bunch of Exercises</title>
+    <exercise>
+      <label/>
+      <title>Check Your Understanding</title>
+      <problem>
+        <para>Example check-your-understanding</para>
+      </problem>
+      <solution>
+        <para>With a solution</para>
+      </solution>
+      <solution>
+        <para>And Another solution</para>
+      </solution>
+    </exercise>
+    <exercise>
+      <title>Exercise with 2 solutions</title>
+      <problem>
+        <para>Exercise with 2 solutions</para>
+      </problem>
+      <solution>
+        <para>s1</para>
+      </solution>
+      <solution>
+        <para>s2</para>
+      </solution>
+    </exercise>
+    <exercise>
+      <title>Exercise with mixed solutions</title>
+      <problem>
+        <para>Exercise with mixed solutions</para>
+      </problem>
+      <solution>
+        <para>s1</para>
+      </solution>
+      <solution>
+        <para>s2</para>
+        <para>s3</para>
+      </solution>
+    </exercise>
+    <exercise print-placement="end">
+      <title>Exercise with print-placement=end</title>
+      <problem>
+        <para>Exercise with print-placement=end</para>
+      </problem>
+      <solution>
+        <para>s4</para>
+      </solution>
+      <solution>
+        <para>s5</para>
+        <para>s6</para>
+      </solution>
+    </exercise>
+    <exercise>
+      <label>Exercise with label</label>
+      <problem>
+        <para>Exercise with label</para>
+      </problem>
+      <solution>
+        <para>s7</para>
+      </solution>
+    </exercise>
+    <example>
+      <title>Example with an exercise</title>
+      <exercise>
+        <title>Exercise in an example</title>
+        <problem>
+          <para>Problem text</para>
+        </problem>
+        <solution>
+          <para>s8</para>
+        </solution>
+        <solution>
+          <para>s9</para>
+        </solution>
+      </exercise>
+    </example>
+
+</section>
+
+  </content>
+  <glossary>
+    <definition id="fs-id1534511">
+      <term id="import-auto-id1547724">work</term>
+      <meaning id="fs-id2821869">the transfer of energy by a force acting on an object as it is displaced</meaning>
+    </definition>
+    <definition id="fs-id1701444">
+      <term id="import-auto-id1858872">joule</term>
+      <meaning id="fs-id1774061">the newton-meter, the SI unit of work</meaning>
+    </definition>
+  </glossary>
+</document>
