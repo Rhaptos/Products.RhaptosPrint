@@ -68,7 +68,7 @@ div.book {
   
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
   
-  & > div.cnx-eoc { counter-reset: exercise eoc-section; }
+  & > div.cnx-eoc { counter-reset: exercise eoc-section -1; } // eoc-section starts at -1 so we can include introduction content
   // .cnx-eoc + .cnx-eoc { counter-reset: none; } */ /* Don't reset for each eoc section */
   
   .x-increment (@counter-name) {

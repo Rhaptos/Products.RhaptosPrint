@@ -58,6 +58,7 @@ a[href^="http"] {
 .equation {
   page-break-inside: avoid;
   text-align: center;
+  display: block;
 }
 .equation .label {
   float: right;
@@ -560,7 +561,7 @@ div.book  > div.preface  > div.titlepage > div > div h1.title span.cnx-gentext-t
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
 }
 div.book  > div.preface  > div.cnx-eoc {
-  counter-reset: exercise eoc-section;
+  counter-reset: exercise eoc-section -1;
 }
 div.book  > div.preface  > div.section {
   counter-increment: section;
@@ -748,7 +749,7 @@ div.book  > div.chapter  > div.titlepage > div > div h1.title span.cnx-gentext-t
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
 }
 div.book  > div.chapter  > div.cnx-eoc {
-  counter-reset: exercise eoc-section;
+  counter-reset: exercise eoc-section -1;
 }
 div.book  > div.chapter  > div.section {
   counter-increment: section;
@@ -933,7 +934,7 @@ div.book  > div.appendix  > div.titlepage > div > div h1.title span.cnx-gentext-
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
 }
 div.book  > div.appendix  > div.cnx-eoc {
-  counter-reset: exercise eoc-section;
+  counter-reset: exercise eoc-section -1;
 }
 div.book  > div.appendix  > div.section {
   counter-increment: section;
@@ -1153,7 +1154,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
 }
 /****** Features ******/
 .sociological-research {
-  page-break-inside: avoid;
   background-color: #ccccff;
 }
 .sociological-research:before {
@@ -1177,7 +1177,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-image: url("ccap-sociology/research.svg");
 }
 .sociology-real-world {
-  page-break-inside: avoid;
   background-color: #ccffff;
 }
 .sociology-real-world:before {
@@ -1201,7 +1200,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-image: url("ccap-sociology/real-world.svg");
 }
 .sociology-big-picture {
-  page-break-inside: avoid;
   background-color: #ccff99;
 }
 .sociology-big-picture:before {
@@ -1225,7 +1223,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-image: url("ccap-sociology/big-picture.svg");
 }
 .sociology-careers {
-  page-break-inside: avoid;
   background-color: #ccffcc;
 }
 .sociology-careers:before {
@@ -1249,7 +1246,6 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-image: url("ccap-sociology/careers.svg");
 }
 .sociology-policy-debate {
-  page-break-inside: avoid;
   background-color: #ffcccc;
 }
 .sociology-policy-debate:before {

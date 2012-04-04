@@ -157,7 +157,7 @@
 		</div>
 
 		<!-- This for-each is the main section (1.4 Newton) to print section title -->
-		<xsl:for-each select="$context/db:section[not(contains(@class, 'introduction'))]">
+		<xsl:for-each select="$context/db:section">
 			<xsl:variable name="sectionId">
 				<xsl:call-template name="object.id"/>
 			</xsl:variable>
@@ -757,7 +757,7 @@ Combination of formal.object and formal.object.heading -->
 
 
 <!-- Put the equation number on the RHS -->
-<xsl:template match="db:equation">
+<xsl:template match="db:equation|db:inlineequation">
   <div>
     <xsl:call-template name="common.html.attributes"/>
 
@@ -769,6 +769,10 @@ Combination of formal.object and formal.object.heading -->
     </span>
     <xsl:apply-templates/>
   </div>
+</xsl:template>
+
+<xsl:template match="db:inlineequation" mode="class.value">
+  <xsl:text>equation</xsl:text>
 </xsl:template>
 
 <!-- Output equation titles instead of squishing them, as done in docbook (xsl/html/formal.xsl) -->
