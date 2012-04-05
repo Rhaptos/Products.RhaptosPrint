@@ -738,13 +738,13 @@ Combination of formal.object and formal.object.heading -->
             <xsl:apply-templates select="node()"/>
           </object>
         </xsl:when>
-        <xsl:when test="mml:math">
-          <xsl:apply-templates select="mml:math"/>
-        </xsl:when>
         <xsl:when test="@fileref">
           <img src="{@fileref}">
             <xsl:call-template name="cnx.baseline-shift"/>
           </img>
+        </xsl:when>
+        <xsl:when test="mml:math">
+          <xsl:apply-templates select="mml:math"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:message>ERROR: Image does not contain SVG, MathML, or a path to the JPEG/PNG.</xsl:message>

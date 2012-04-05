@@ -17,6 +17,7 @@
 <xsl:include href="ident.xsl"/>
 
 <!-- Change the @format to match the destination image file -->
+<!-- This is no longer needed (and causes problems
 <xsl:template match="db:imagedata[svg:svg]/@format">
 	<xsl:attribute name="format">
 		<xsl:choose>
@@ -35,6 +36,7 @@
 		</xsl:choose>
 	</xsl:attribute>
 </xsl:template>
+-->
 
 <xsl:template match="db:imagedata[svg:svg]">
 	<db:imagedata width="{svg:svg/@width}" depth="{svg:svg/@height}">

@@ -16,7 +16,6 @@ import util
 #    import simplejson as json
 
 DEBUG = 'DEBUG' in os.environ
-IMAGE_MAX_WIDTH = int(os.environ.get('IMAGE_MAX_WIDTH', 400))
 
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
 MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
@@ -24,7 +23,8 @@ MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
 DOCBOOK_BOOK_XSL = util.makeXsl('moduledbk2book.xsl')
 
 MATH_XPATH = etree.XPath('//mml:math', namespaces=util.NAMESPACES)
-DOCBOOK_SVG_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=util.NAMESPACES)
+DOCBOOK_SVG_IMAGE_XPATH = etree.XPath('//db:imagedata[svg:svg]', namespaces=util.NAMESPACES)
+DOCBOOK_SVG_XPATH = etree.XPath('svg:svg', namespaces=util.NAMESPACES)
 DOCBOOK_IMAGE_XPATH = etree.XPath('//db:imagedata[@fileref]', namespaces=util.NAMESPACES)
 
 # -----------------------------
@@ -103,34 +103,38 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
           print >> sys.stderr, strErr.encode('utf-8')
     return xml, {}, [] # xml, newFiles, log messages
 
-  newFiles = {}
-  
-  def imageAnnotate(xml, files, **params):
+  def imageResize(xml, files, **params):
     # TODO: parse the XML and xpath/annotate it as we go.
     newFiles = {}
-    for image in DOCBOOK_IMAGE_XPATH(xml):
+    for position, image in enumerate(DOCBOOK_IMAGE_XPATH(xml)):
       filename = image.get('fileref')
-      mimeType = image.getparent().get('format', 'image/jpeg')
+      mimeType = image.getparent().get('format', 'JPEG')
       # Exception thrown if image doesn't exist
-      try:
-        bytes = files[filename]
-        img = Image.open(StringIO(bytes))
-        
-        width = img.size[0]
-        height = img.size[1]
-        #if DEBUG: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
-        #  if width > IMAGE_MAX_WIDTH:
-        #    print >> sys.stderr, 'LOG: INFO: Resizing %s' % filename
-        #    newHeight = height * IMAGE_MAX_WIDTH / width
-        #    img = img.resize((IMAGE_MAX_WIDTH, newHeight), Image.ANTIALIAS)
-        #  # Always resave
-        #  bytesFile = StringIO()
-        #  img.save(bytesFile, mimeType, optimize=True, quality=20)
-        #  newFiles[filename] = bytesFile.getvalue()
-        
-      except IOError:
-        print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
-      except KeyError:
+      if filename in files:
+        try:
+          bytes = files[filename]
+          img = Image.open(StringIO(bytes))
+          
+          width = img.size[0]
+          height = img.size[1]
+          if DEBUG: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
+            print >> sys.stderr, 'LOG: DEBUG: Reducing quality of %s (%s)' % (filename, mimeType)
+            # Always resave
+            fname = "_autogen-png2jpeg-%04d.jpg" % (position + 1)
+
+            bytesFile = StringIO()
+            img.save(bytesFile, 'jpeg', optimize=True, quality=30)
+            # Since we probably changed the type of file to JPEG change the format in the image tag
+            # The image type is used in the epub manifest to map images to their mime-type
+            image.set('fileref', fname)
+            image.set('format', 'JPEG')
+            image.getparent().set('format', 'JPEG')
+
+            newFiles[fname] = bytesFile.getvalue()
+          
+        except IOError:
+          print >> sys.stderr, 'LOG: WARNING: Malformed image %s' % filename
+      else:
         print >> sys.stderr, 'LOG: WARNING: Image missing %s' % filename
         pass
     return xml, newFiles, [] # xml, newFiles, log messages
@@ -140,12 +144,13 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
   def svg2pngTransform(xml, files, **params):
     newFiles2 = {}
     if svg2png:
-      for position, image in enumerate(DOCBOOK_SVG_XPATH(xml)):
+      for position, image in enumerate(DOCBOOK_SVG_IMAGE_XPATH(xml)):
         print >> sys.stderr, 'LOG: Converting SVG to PNG'
         # TODO add the generated file to the edited files dictionary
-        strImageName = "gd-%04d.png" % (position + 1)
-        svg = etree.SubElement(image, "svg")
+        strImageName = "_autogen-svg2png-%04d.png" % (position + 1)
+        svg = DOCBOOK_SVG_XPATH(image)[0]
         svgStr = etree.tostring(svg)
+
         pngStr = util.svg2png(svgStr)
         newFiles2[strImageName] = pngStr
         image.set('fileref', strImageName)
@@ -161,12 +166,16 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
     makeTransform('cnxml-clean-math-simplify.xsl'),   # Convert "simple" MathML to cnxml
     makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
     mathml2svg,
-    imageAnnotate, # This is no longer used
     makeTransform('dbk-clean.xsl'),
     svg2pngTransform,
+    imageResize, # This is no longer used
     makeTransform('dbk-svg2png.xsl'), # Clean up the image attributes
 #    dbk2xhtml,
   ]
+
+  newFiles = {}
+  origAndNewFiles = {}
+  origAndNewFiles.update(filesDict)
 
   passNum = 1
   for transform in PIPELINE:
@@ -174,8 +183,9 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
       print >> sys.stderr, "LOG: Starting pass %d" % passNum
       # open('temp-%s-%d.xml' % (moduleId, passNum),'w').write(etree.tostring(xml))
       passNum += 1
-    xml, newFiles2, errors = transform(xml, filesDict, **params)
+    xml, newFiles2, errors = transform(xml, origAndNewFiles, **params)
     newFiles.update(newFiles2)
+    origAndNewFiles.update(newFiles2)
 
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
