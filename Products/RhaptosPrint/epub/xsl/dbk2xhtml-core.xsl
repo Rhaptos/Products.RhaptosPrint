@@ -95,18 +95,21 @@
 		  <xsl:call-template name="object.id"/>
     </xsl:attribute>
 		<xsl:call-template name="chapter.titlepage"/>
-    <xsl:apply-templates mode="cnx.intro" select="d:section"/>
-    <xsl:variable name="toc.params">
-      <xsl:call-template name="find.path.params">
-        <xsl:with-param name="table" select="normalize-space($generate.toc)"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:if test="contains($toc.params, 'toc')">
-      <xsl:call-template name="component.toc">
-        <xsl:with-param name="toc.title.p" select="contains($toc.params, 'title')"/>
-      </xsl:call-template>
-      <xsl:call-template name="component.toc.separator"/>
-    </xsl:if>
+    <xsl:apply-templates mode="cnx.intro" select="d:section">
+      <xsl:with-param name="toc">
+        <xsl:variable name="toc.params">
+          <xsl:call-template name="find.path.params">
+            <xsl:with-param name="table" select="normalize-space($generate.toc)"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:if test="contains($toc.params, 'toc')">
+          <xsl:call-template name="component.toc">
+            <xsl:with-param name="toc.title.p" select="contains($toc.params, 'title')"/>
+          </xsl:call-template>
+          <xsl:call-template name="component.toc.separator"/>
+        </xsl:if>
+      </xsl:with-param>
+    </xsl:apply-templates>
     <xsl:apply-templates select="node()[not(contains(@class,'introduction'))]"/>
 		<xsl:call-template name="cnx.eoc"/>
     <xsl:call-template name="cnx.solutions"/>
@@ -395,6 +398,8 @@
 
 <!-- Since intro sections are rendered specifically only in the title page, ignore them for normal rendering -->
 <xsl:template mode="cnx.intro" match="d:section[contains(@class,'introduction')]">
+  <xsl:param name="toc"/>
+
   <xsl:variable name="title">
     <xsl:apply-templates select=".." mode="title.markup"/>
   </xsl:variable>
@@ -407,6 +412,9 @@
   <xsl:if test=".//db:figure[contains(@class,'splash')]">
     <xsl:apply-templates mode="cnx.splash" select=".//db:figure[contains(@class,'splash')]"/>
   </xsl:if>
+  
+  <xsl:copy-of select="$toc"/>
+  
   <h3 class="title">
     <span>
       <xsl:choose>
