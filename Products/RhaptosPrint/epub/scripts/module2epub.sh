@@ -20,6 +20,8 @@ SKIP_DBK_GENERATION=$7
 ROOT=$(dirname "$0")
 ROOT=$(cd "$ROOT/.."; pwd) # .. since we live in scripts/
 
+CWD=$(pwd)
+
 RUBY=$(which ruby)
 
 EXIT_STATUS=0
@@ -41,10 +43,10 @@ if [ -s $WORKING_DIR/index.cnxml ]; then
 elif [ -s $WORKING_DIR/collection.xml ]; then
   DBK_FILE=$WORKING_DIR/collection.dbk
   
-  if [ ".$SKIP_DBK_GENERATION" == "." ]; then
-    bash $ROOT/scripts/collection2dbk.sh $CNX_OR_RHAPTOS $WORKING_DIR
-    EXIT_STATUS=$EXIT_STATUS || $?
-  fi
+  cd ${ROOT}
+  python collection2epub.py ${WORKING_DIR} -o ${DBK_FILE}
+  cd ${CWD}
+  EXIT_STATUS=$EXIT_STATUS || $?
   
 else
   echo "ERROR: The first argument does not point to a directory containing a 'index.cnxml' or 'collection.xml' file" 1>&2
