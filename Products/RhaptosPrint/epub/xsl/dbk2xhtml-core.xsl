@@ -617,10 +617,18 @@ Combination of formal.object and formal.object.heading -->
   </div>
 </xsl:template>
 
-<!-- TODO: Possible bitrotted template -->
-<xsl:template match="db:note[@type='tip']|db:tip">
-  <div class="cnx-note-tip">
-    <xsl:apply-templates select="@class"/>
+<xsl:template match="db:note">
+  <xsl:variable name="classes">
+    <xsl:if test="@type">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@type"/>
+    </xsl:if>
+    <xsl:if test="@class">
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@class"/>
+    </xsl:if>
+  </xsl:variable>
+  <div id="{@xml:id}" class="note{$classes}">
     <div class="title">
       <span class="cnx-gentext-tip-t">
         <xsl:apply-templates select="db:title/node()|db:label/node()"/>

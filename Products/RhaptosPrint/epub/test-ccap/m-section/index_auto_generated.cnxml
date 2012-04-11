@@ -1215,6 +1215,15 @@ size 12{0 "." 1`"W/m" rSup { size 8{2} } } {}
    </m:math>
 ) and the implications that would have if the laser beam entered your eye. Note how your answer depends on the time duration of the exposure.</para></problem></exercise>
     </section>
+
+  <note id="note1">
+    <title>Note title</title>
+    <para>Note para</para>
+  </note>
+  
+  <list>
+    <item><link target-id="note1"/></item>
+  </list>
   
 </content>
   <glossary>

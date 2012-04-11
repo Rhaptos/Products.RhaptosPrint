@@ -36,7 +36,7 @@
 </xsl:template>
 
 <!-- Prefix all id's with the module id (for inclusion in collection) -->
-<xsl:template match="@id">
+<xsl:template match="@id|c:note/@id">
 	<xsl:attribute name="xml:id">
 		<xsl:value-of select="$cnx.module.id"/>
 		<xsl:value-of select="$cnx.module.separator"/>
