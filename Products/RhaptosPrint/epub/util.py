@@ -5,9 +5,10 @@ from lxml import etree
 from tempfile import mkstemp
 import subprocess
 
-INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
-if not os.path.isfile(INKSCAPE_BIN):
-  INKSCAPE_BIN = 'inkscape'
+#INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+#if not os.path.isfile(INKSCAPE_BIN):
+#  INKSCAPE_BIN = 'inkscape'
+CONVERT_BIN = 'convert'
 
 try:
   import pkg_resources
@@ -60,16 +61,18 @@ IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces
 
 # From http://stackoverflow.com/questions/2932408/
 def svg2png(svgStr):
-  fd, pngPath = mkstemp(suffix='.png')
+  # fd, pngPath = mkstemp(suffix='.png')
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
-  strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
+  #strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
+  strCmd = '-resize 150% -strip +set date:create +set date:modify -define png:color-type=3 -depth 8 +dither -colors 256 -type Palette -quality 100 svg: png:-'.split()
+  strCmd.insert(0, CONVERT_BIN)
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-  strOut, strError = p.communicate(svgStr)
-  pngFile = open(pngPath)
-  pngData = pngFile.read()
-  pngFile.close()
-  os.close(fd)
-  os.remove(pngPath)
+  pngData, strError = p.communicate(svgStr)
+  # pngFile = open(pngPath)
+  # pngData = pngFile.read()
+  # pngFile.close()
+  # os.close(fd)
+  # os.remove(pngPath)
   return pngData
 
 def dbk2cover(dbk, filesDict):

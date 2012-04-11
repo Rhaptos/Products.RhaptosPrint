@@ -154,6 +154,9 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
         pngStr = util.svg2png(svgStr)
         newFiles2[strImageName] = pngStr
         image.set('fileref', strImageName)
+        image.set('format', 'PNG')
+        image.getparent().set('format', 'PNG')
+
     return xml, newFiles2, [] # xml, newFiles, log messages
 
   PIPELINE = [
@@ -167,8 +170,8 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
     makeTransform('cnxml2dbk.xsl'),   # Convert to docbook
     mathml2svg,
     makeTransform('dbk-clean.xsl'),
+    imageResize, # Resizing is done before svg2png because svg2png uses a reduced color depth
     svg2pngTransform,
-    imageResize, # This is no longer used
     makeTransform('dbk-svg2png.xsl'), # Clean up the image attributes
 #    dbk2xhtml,
   ]
