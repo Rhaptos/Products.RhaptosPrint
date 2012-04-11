@@ -24,9 +24,13 @@ sup a {
   padding-left: 0em;
   margin-left: 1em;
 }
+.introduction > .toc .abstract {
+  margin-left: 2.5em;
+  padding-left: 0em;
+}
 .introduction > .toc .abstract ul {
-  margin-left: 1em;
-  padding-left: 2em;
+  margin-left: 0em;
+  padding-left: 1.5em;
 }
 .introduction > .toc .abstract ul  > li {
   list-style-type: disc;
