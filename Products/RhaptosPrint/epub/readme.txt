@@ -16,3 +16,21 @@ The following files may be useful:
  * design.txt  : Notes on the entire PDF generation process
  * notes.txt   : My personal scratchpad
 
+
+To install and get it running:
+
+$ sudo apt-get install python-virtualenv        # for the following commands
+$ sudo apt-get install libxslt1-dev libxml2-dev # For lxml to compile
+$ sudo apt-get install imagemagick otf-stix     # To convert SVG and math to PNG
+
+$ virtualenv .
+$ source bin/activate
+$ easy_install lxml argparse pil
+
+# To generate an EPUB:
+$ ./scripts/module2epub.sh "Connexions" test-ccap test-ccap.epub col12345 xsl/dbk2epub.xsl static/content.css
+
+# To generate a PDF:
+- Install PrinceXML or wkhtmltopdf
+$ decalre -x XHTML_PATH=${path-to-wkhtml2pdf-or-princexml}
+$ python2.4 -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('test-ccap', 'ccap-physics');" > result.pdf
