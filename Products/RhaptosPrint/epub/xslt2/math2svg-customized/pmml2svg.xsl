@@ -162,7 +162,7 @@ REMARKS:
   <xsl:param name="minSize" select="8"/>
 
   <!-- Principal font name -->
-  <xsl:param name="fontName" select="'STIXGeneral,STIXSizeOneSym,STIXIntegralsD,STIXIntegralsSm,STIXIntegralsUp,STIXIntegralsUpD,STIXIntegralsUpSm,STIXNonUnicode,STIXSizeFiveSym,STIXSizeFourSym,STIXSizeThreeSym,STIXSizeTwoSym,STIXVariants'"/>
+  <xsl:param name="fontName" select="'STIXGeneral,STIXSizeOneSym'"/>
   <!-- END OF PARAMETERS CONFIGURATION -->
 
   <!-- Output method -->

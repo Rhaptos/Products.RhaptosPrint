@@ -13,39 +13,10 @@ sup a {
 
 /* General css for print/online */
 
-.book > .toc {
+.toc {
   ul, li { list-style-type: none; padding-left: 0em; margin-left: 1em; }
 }
 .toc > ul, .toc > ul > li { margin-left: 0em; }
-
-.introduction > .toc > ul {
-  padding-left: 0em;
-  margin-left: 1em;
-}
-
-
-.introduction > .toc .abstract {
-  margin-left: 2.5em;
-  padding-left: 0em;
-}
-
-.introduction > .toc .abstract ul {
-  margin-left: 0em;
-  padding-left: 1.5em;
-  & > li {
-    list-style-type: disc;
-  }
-}
-
-.introduction > .toc {
-  & > * {
-    padding-left: 0em;
-    margin-left: 1em;
-    & > li {
-      list-style-type: none;
-    }
-  }
-}
 
 .toc-section .toc-section {
   display: none;
@@ -63,7 +34,6 @@ sup a {
 /* Footnotes. remove margins */
 .footnote {
   //font-size: 83%;
-  text-align: left;
   margin-top: 0em;
   margin-bottom: 0em;
   padding-top: 0em;

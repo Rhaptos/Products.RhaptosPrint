@@ -5,6 +5,10 @@ from lxml import etree
 from tempfile import mkstemp
 import subprocess
 
+INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+if not os.path.isfile(INKSCAPE_BIN):
+  INKSCAPE_BIN = 'inkscape'
+
 try:
   import pkg_resources
   resource_filename = pkg_resources.resource_filename
@@ -12,14 +16,10 @@ except ImportError:
   def resource_filename(dir, file):
     return os.path.join(os.getcwd(), dir, file)
 
-### We use BOTH inkscape AND imagemagick (convert) because:
-# Only inkscape can load the STIX fonts from the OS (imagemagick's SVG libs don't)
-# Only imagemagick allows changing the color depth of an image (math/SVG use 8 bits)
-#
 INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
 if not os.path.isfile(INKSCAPE_BIN):
   INKSCAPE_BIN = 'inkscape'
-CONVERT_BIN = 'convert'
+
 
 
 # http://lxml.de/xpathxslt.html
@@ -61,23 +61,16 @@ IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces
 # From http://stackoverflow.com/questions/2932408/
 def svg2png(svgStr):
   fd, pngPath = mkstemp(suffix='.png')
-  
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
   strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-  _, strError = p.communicate(svgStr)
-
+  strOut, strError = p.communicate(svgStr)
   pngFile = open(pngPath)
   pngData = pngFile.read()
   pngFile.close()
   os.close(fd)
   os.remove(pngPath)
-  
-  strCmd = '-compose Copy_Opacity -depth 8 +dither -quality 100 png:/dev/stdin png:-'.split()
-  strCmd.insert(0, CONVERT_BIN)
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-  pngReduced, strError = p.communicate(pngData)
-  return pngReduced
+  return pngData
 
 def dbk2cover(dbk, filesDict):
   newFiles = {}

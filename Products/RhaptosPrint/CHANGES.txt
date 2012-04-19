@@ -1,6 +1,3 @@
-RhaptosPrint-0.11
- - modern-textbook related bugfixes
-
 RhaptosPrint-0.10
  - modern-textbook related bugfixes
 

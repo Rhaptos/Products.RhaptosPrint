@@ -167,8 +167,6 @@ def convert(dbk1, files, printStyle):
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
   # Change to the collection dir so the relative paths to images work
   pdf, stdErr = xhtml2pdf(xhtml, files, tempdir, printStyle)
-  
-  if not DEBUG:
-    shutil.rmtree(tempdir)
+  #os.rmdir(tempdir)
   
   return pdf, stdErr

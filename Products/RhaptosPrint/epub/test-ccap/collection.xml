@@ -68,8 +68,6 @@
         </col:module>
         <col:module document="m-sociology" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.7">
         </col:module>
-        <col:module document="m-mathchars" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.7">
-        </col:module>
       </col:content>
     </col:subcollection>
 

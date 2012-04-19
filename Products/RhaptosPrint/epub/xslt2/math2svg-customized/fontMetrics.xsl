@@ -732,7 +732,6 @@ The best file format is CID that give more information about metrics
 				    number($fontMetricsDoc/font-metrics/multibyte-extras/cid-widths/wx[$gi + 1 + $codePoint - $us ]/@yMax div 1000))"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-<xsl:message>LOG: WARNING: MathML2SVG: Font issue. Couldn't find bounding box for <xsl:value-of select="$normalizeFontName"/> codePoint="<xsl:value-of select="$codePoint"/>"</xsl:message>
 	      <xsl:value-of select="-1"/>
 	    </xsl:otherwise>
 	  </xsl:choose>

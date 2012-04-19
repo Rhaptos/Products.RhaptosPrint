@@ -70,7 +70,7 @@
             </row>
             <row>
               <entry>Head3</entry>
-              <entry align="center">Head4<footnote id="footnote2">This footnote should not be centered</footnote></entry>
+              <entry>Head4</entry>
             </row>
           </thead>
           <tbody>
