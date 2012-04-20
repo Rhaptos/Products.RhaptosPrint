@@ -6,6 +6,7 @@ import Image
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
+import shutil
 
 from lxml import etree
 import urllib2
