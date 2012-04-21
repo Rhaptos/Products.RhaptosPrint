@@ -90,7 +90,7 @@ h1.title { //ccap-chapter
   background-color: @orange;
 }
 
-.book > * > .titlepage .cnx-gentext-t:before,
+.book > * > .titlepage .cnx-gentext-t::before,
 h1.title .cnx-gentext-n { //.ccap-chapter-number
   color: black;
   padding-right: 1em;
@@ -140,7 +140,7 @@ a {
 /****************** Modern-Textbook classes ****************/
 
 /* Numbered sections should have the number in blue */
-h2:before {
+h2::before {
   color: @blue;
 }
 
@@ -176,7 +176,7 @@ h2:before {
 .note > .title {
   .ccap-note-title;
 }
-.figure > .caption:before,
+.figure > .caption::before,
 .figure > .title {
   .ccap-figure-title;
 }
