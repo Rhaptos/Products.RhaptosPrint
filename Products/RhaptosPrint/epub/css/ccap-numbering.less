@@ -37,6 +37,11 @@ div.book {
   & > div.preface  { .x-prefixed (@preface, "", "");
     //Also, disable numbering on Preface sections
     & > div.section > div.titlepage h2::before { display: none !important; }
+
+    //This convoluted replaces the default page header "Chapter 3 | Kinetics" with just "Preface"
+    & > div.titlepage > div > div h1.title span.cnx-gentext-t {
+      string-set: cnx-header @S content() @E;
+    }
   }
   & > div.chapter  { .x-prefixed (@chapter,  counter(chapter, decimal), target-counter(attr(href), chapter), "." ); }
   & > div.appendix { .x-prefixed (@appendix, counter(appendix, upper-latin), target-counter(attr(href), appendix, upper-latin) ); }
