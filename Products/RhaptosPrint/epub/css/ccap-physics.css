@@ -720,6 +720,9 @@ div.book  > div.preface  > div.section div.equation > *:last-child::after {
 div.book  > div.preface  > div.section div.equation > .label {
   display: none;
 }
+div.book  > div.preface  > div.cnx-eoc div.equation > .label {
+  display: none;
+}
 div.book  > div.preface  > div.toc > ul > li > a:not(.labeled)::before {
   content: "" "" "" "" counter(toc-section) " " "";
 }
@@ -908,6 +911,9 @@ div.book  > div.chapter  > div.section div.equation > *:last-child::after {
 div.book  > div.chapter  > div.section div.equation > .label {
   display: none;
 }
+div.book  > div.chapter  > div.cnx-eoc div.equation > .label {
+  display: none;
+}
 div.book  > div.chapter  > div.toc > ul > li > a:not(.labeled)::before {
   content: "" "" counter(chapter, decimal) "." counter(toc-section) " " "";
 }
@@ -1091,6 +1097,9 @@ div.book  > div.appendix  > div.section div.equation > *:last-child::after {
   float: right;
 }
 div.book  > div.appendix  > div.section div.equation > .label {
+  display: none;
+}
+div.book  > div.appendix  > div.cnx-eoc div.equation > .label {
   display: none;
 }
 div.book  > div.appendix  > div.toc > ul > li > a:not(.labeled)::before {
