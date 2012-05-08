@@ -3,6 +3,7 @@
 import sys
 import os
 import Image
+import shutil
 from StringIO import StringIO
 from tempfile import mkdtemp
 import subprocess
@@ -152,12 +153,12 @@ def convert(dbk1, files, printStyle):
   # Step 0 (Sprinkle in some index hints whenever terms are used)
   # termsprinkler.py $DOCBOOK > $DOCBOOK2
   if DEBUG:
-    open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=True))
+    open('temp-collection1.dbk','w').write(etree.tostring(dbk1,pretty_print=False))
 
   # Step 1 (Cleaning up Docbook)
   dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if DEBUG:
-    open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=True))
+    open('temp-collection2.dbk','w').write(etree.tostring(dbk2,pretty_print=False))
 
   # Step 2 (Docbook to XHTML)
   xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
@@ -169,7 +170,7 @@ def convert(dbk1, files, printStyle):
   # Change to the collection dir so the relative paths to images work
   pdf, stdErr = xhtml2pdf(xhtml, files, tempdir, printStyle)
   
-  if not DEBUG:
+  if not DEBUG and os.path.exists(tempdir):
     shutil.rmtree(tempdir)
   
   return pdf, stdErr
