@@ -80,7 +80,7 @@ def svg2png(svgStr):
   pngReduced, strError = p.communicate(pngData)
   return pngReduced
 
-def dbk2cover(dbk, filesDict, svg2png=True):
+def dbk2cover(dbk, filesDict, svg2pngFlag=True):
   newFiles = {}
   if ('%s.png' % COLLECTION_COVER_PREFIX) in filesDict:
     return filesDict['%s.png' % COLLECTION_COVER_PREFIX], newFiles
@@ -93,7 +93,7 @@ def dbk2cover(dbk, filesDict, svg2png=True):
   
   newFiles['cover.svg'] = svgStr
   
-  if svg2png:
+  if svg2pngFlag:
     png = svg2png(svgStr)
     return png, newFiles
   else:
