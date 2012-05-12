@@ -1471,8 +1471,10 @@ h2 {
 .solutions a {
   color: gray;
 }
-.solutions  > div {
+.solutions * {
   display: inline;
+}
+.solutions  > div {
   margin: 0em 0.5em;
 }
 .solutions  > div.title {
