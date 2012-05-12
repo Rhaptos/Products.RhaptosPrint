@@ -408,9 +408,6 @@ table.cnx-figure-horizontal {
 
 }
 /* Images (unless they're horizontal subfigures) should be scaled to 1/3 */
-*:not(.cnx-figure-horizontal) img {
-  width: 33%;
-}
 table.cnx-figure-horizontal td img {
   max-width: 2in;
 }
