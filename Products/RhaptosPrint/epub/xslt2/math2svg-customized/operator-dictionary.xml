@@ -21,10 +21,6 @@ along with pMML2SVG; see the file COPYING.  If not, write to the Free
 Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 
-<!-- Using mathML doctype to define special character -->
-<!--DOCTYPE math PUBLIC "-//W3C//DTD MathML 2.0//EN" "http://www.w3.org/TR/2001/REC-MathML2-20010221/dtd/mathml2.dtd">
--->
-
 <!--
 We've added some informations in this dictionary that are specific to this renderer :
 - stretchHorizontal : if true, this argument means that the operator can stretch horizontaly.
@@ -35,422 +31,422 @@ We have only added some operator :
 - Times
 -->
 
-<operators xmlns="http://www.w3.org/1998/Math/MathML">
-  <mo ent="prime" op="&#x2032;"                            form="infix"   lspace="0em" rspace="0em"/>
+<operators xmlns="http://localhost/operator-dictionary">
+  <mo op="&#x2032;"   form="infix"   lspace="0em" rspace="0em"/>
   
-  <mo op="("                                  form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo op=")"                                  form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo op="["                                  form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo op="]"                                  form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo op="{"                                  form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo op="}"                                  form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="("           form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op=")"           form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="["           form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="]"           form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="{"           form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="}"           form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
   
-  <mo ent="CloseCurlyDoubleQuote" op="&#x201d;"            form="postfix" fence="true"  lspace="0em" rspace="0em"/>
-  <mo ent="CloseCurlyQuote" op="&#x2019;"                  form="postfix" fence="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftAngleBracket" op="&#x2329;"                 form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftCeiling" op="&#x2308;"                      form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftDoubleBracket" op="&#x301a;"                form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftFloor" op="&#x230a;"                        form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OpenCurlyDoubleQuote" op="&#x201c;"             form="prefix"  fence="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OpenCurlyQuote" op="&#x2018;"                   form="prefix"  fence="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightAngleBracket" op="&#x232a;"                form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightCeiling" op="&#x2309;"                     form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightDoubleBracket" op="&#x301b;"               form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightFloor" op="&#x230b;"                       form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x201D;"   form="postfix" fence="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2019;"   form="postfix" fence="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x27E8;"    form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2308;"    form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x27E6;"    form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x230A;"    form="prefix"  fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x201C;"   form="prefix"  fence="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2018;"   form="prefix"  fence="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x27E9;"    form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2309;"    form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x27EB;"    form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x230B;"    form="postfix" fence="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
   
-  <mo ent="InvisibleComma" op="&#x2063;"                   form="infix"   separator="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2063;"    form="infix"   separator="true"  lspace="0em" rspace="0em"/>
   
-  <mo op=","                                  form="infix"   separator="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op=","           form="infix"   separator="true"  lspace="0em" rspace="verythickmathspace"/>
   
-  <mo ent="HorizontalLine" op="&#x2500;"                   form="infix"   stretchy="true" stretchHorizontal="true" minsize="0"  lspace="0em" rspace="0em"/>
-  <mo ent="VerticalLine" op="&#x7c;"                     form="infix"   stretchy="true" stretchVertical="true" minsize="0"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2500;"   form="infix"   stretchy="true" stretchHorizontal="true" minsize="0"  lspace="0em" rspace="0em"/>
+  <mo op="&#x7C;"     form="infix"   stretchy="true" stretchVertical="true" minsize="0"  lspace="0em" rspace="0em"/>
   
-  <mo op=";"                                  form="infix"   separator="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo op=";"                                  form="postfix" separator="true"  lspace="0em" rspace="0em"/>
+  <mo op=";"           form="infix"   separator="true"  lspace="0em" rspace="thickmathspace"/>
+  <mo op=";"           form="postfix" separator="true"  lspace="0em" rspace="0em"/>
   
-  <mo op=":="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Assign" op="&#x2254;"                           form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op=":="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2254;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="Because" op="&#x2235;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Therefore" op="&#x2234;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2235;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2234;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="VerticalSeparator" op="&#x2758;"                form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2758;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op="//"                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="//"          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="Colon" op="&#x2237;"                            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x3A;"     form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="amp" op="&#x26;"                              form="prefix"   lspace="0em" rspace="thinmathspace"/>
-  <mo ent="amp" op="&#x26;"                              form="postfix"  lspace="thinmathspace" rspace="0em"/>
+  <mo op="&amp;"       form="prefix"   lspace="0em" rspace="thickmathspace"/>
+  <mo op="&amp;"       form="postfix"  lspace="thickmathspace" rspace="0em"/>
   
-  <mo op="*="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="-="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="+="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="/="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="*="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="-="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="+="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="/="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op="->"                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="->"          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op=":"                                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op=":"           form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
     
-  <mo op=".."                                 form="postfix"  lspace="mediummathspace" rspace="0em"/>
-  <mo op="..."                                form="postfix"  lspace="mediummathspace" rspace="0em"/>
+  <mo op=".."          form="postfix"  lspace="mediummathspace" rspace="0em"/>
+  <mo op="..."         form="postfix"  lspace="mediummathspace" rspace="0em"/>
   
-  <mo ent="SuchThat" op="&#x220b;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x220B;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
 	
-  <mo ent="DoubleLeftTee" op="&#x2ae4;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DoubleRightTee" op="&#x22a8;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownTee" op="&#x22a4;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTee" op="&#x22a3;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTee" op="&#x22a2;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2AE4;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22A8;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22A4;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22A3;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22A2;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="Implies" op="&#x21d2;"                          form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RoundImplies" op="&#x2970;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x21D2;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2970;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op="|"                                  form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="||"                                 form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="Or" op="&#x2a54;"                               form="infix"   stretchy="true" stretchVertical="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="|"           form="infix"   stretchy="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="||"          form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x2A54;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="mediummathspace" rspace="mediummathspace"/>
   
-  <mo op="&amp;&amp;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="And" op="&#x2a53;"                              form="infix"   stretchy="true" stretchVertical="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&amp;&amp;"  form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A53;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="mediummathspace" rspace="mediummathspace"/>
   
-  <mo ent="amp" op="&#x26;"                              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&amp;"       form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op="!"                                  form="prefix"   lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Not" op="&#x2aec;"                              form="prefix"   lspace="0em" rspace="thinmathspace"/>
+  <mo op="!"           form="prefix"   lspace="0em" rspace="thickmathspace"/>
+  <mo op="&#x2AEC;"    form="prefix"   lspace="0em" rspace="thickmathspace"/>
   
-  <mo ent="Exists" op="&#x2203;"                           form="prefix"   lspace="0em" rspace="thinmathspace"/>
-  <mo ent="ForAll" op="&#x2200;"                           form="prefix"   lspace="0em" rspace="thinmathspace"/>
-  <mo ent="NotExists" op="&#x2204;"                        form="prefix"   lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2203;"    form="prefix"   lspace="0em" rspace="thickmathspace"/>
+  <mo op="&#x2200;"    form="prefix"   lspace="0em" rspace="thickmathspace"/>
+  <mo op="&#x2204;"    form="prefix"   lspace="0em" rspace="thickmathspace"/>
   
-  <mo ent="Element" op="&#x2208;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotElement" op="&#x2209;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotReverseElement" op="&#x220c;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSquareSubset" op="&#x228f;&#x338;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSquareSubsetEqual" op="&#x22e2;"             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSquareSuperset" op="&#x2290;&#x338;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSquareSupersetEqual" op="&#x22e3;"           form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSubset" op="&#x2282;&#x20d2;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSubsetEqual" op="&#x2288;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSuperset" op="&#x2283;&#x20d2;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSupersetEqual" op="&#x2289;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="ReverseElement" op="&#x220b;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SquareSubset" op="&#x228f;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SquareSubsetEqual" op="&#x2291;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SquareSuperset" op="&#x2290;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SquareSupersetEqual" op="&#x2292;"              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Subset" op="&#x22d0;"                           form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SubsetEqual" op="&#x2286;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Superset" op="&#x2283;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SupersetEqual" op="&#x2287;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2208;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2209;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x220C;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x228F;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22E2;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2290;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22E3;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2282;&#x20D2;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2288;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2283;&#x20D2;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2289;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x220B;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x228F;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2291;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2290;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2292;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22D0;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2286;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2283;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2287;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="DoubleLeftArrow" op="&#x21d0;"                  form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DoubleLeftRightArrow" op="&#x21d4;"             form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DoubleRightArrow" op="&#x21d2;"                 form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownLeftRightVector" op="&#x2950;"              form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownLeftTeeVector" op="&#x295e;"                form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownLeftVector" op="&#x21bd;"                   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownLeftVectorBar" op="&#x2956;"                form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownRightTeeVector" op="&#x295f;"               form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownRightVector" op="&#x21c1;"                  form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DownRightVectorBar" op="&#x2957;"               form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftArrow" op="&#x2190;"                        form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftArrowBar" op="&#x21e4;"                     form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftArrowRightArrow" op="&#x21c6;"              form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftRightArrow" op="&#x2194;"                   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftRightVector" op="&#x294e;"                  form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTeeArrow" op="&#x21a4;"                     form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTeeVector" op="&#x295a;"                    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftVector" op="&#x21bc;"                       form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftVectorBar" op="&#x2952;"                    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LowerLeftArrow" op="&#x2199;"                   form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LowerRightArrow" op="&#x2198;"                  form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightArrow" op="&#x2192;"                       form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightArrowBar" op="&#x21e5;"                    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightArrowLeftArrow" op="&#x21c4;"              form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTeeArrow" op="&#x21a6;"                    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTeeVector" op="&#x295b;"                   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightVector" op="&#x21c0;"                      form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightVectorBar" op="&#x2953;"                   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="ShortLeftArrow" op="&#x2190;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="ShortRightArrow" op="&#x2192;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="UpperLeftArrow" op="&#x2196;"                   form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="UpperRightArrow" op="&#x2197;"                  form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x21D0;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21D4;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21D2;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2950;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x295E;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21BD;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2956;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x295F;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21C1;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2957;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2190;"   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21E4;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21C6;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2194;"   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x294E;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21A4;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x295A;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21BC;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2952;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2199;"    form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2198;"    form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2192;"   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21E5;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21C4;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21A6;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x295B;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21C0;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2953;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2190;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2192;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2196;"    form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2197;"    form="infix"   stretchy="true" stretchHorizontal="true" stretchVertical="true"  lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo op="="                                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="&lt;"                               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op=">"                                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="!="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="=="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op="&lt;="                              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo op=">="                                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Congruent" op="&#x2261;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="CupCap" op="&#x224d;"                           form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DotEqual" op="&#x2250;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="DoubleVerticalBar" op="&#x2225;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Equal" op="&#x2a75;"                            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="EqualTilde" op="&#x2242;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Equilibrium" op="&#x21cc;"                      form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterEqual" op="&#x2265;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterEqualLess" op="&#x22db;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterFullEqual" op="&#x2267;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterGreater" op="&#x2aa2;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterLess" op="&#x2277;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterSlantEqual" op="&#x2a7e;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="GreaterTilde" op="&#x2273;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="HumpDownHump" op="&#x224e;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="HumpEqual" op="&#x224f;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTriangle" op="&#x22b2;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTriangleBar" op="&#x29cf;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LeftTriangleEqual" op="&#x22b4;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="le" op="&#x2264;"                               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessEqualGreater" op="&#x22da;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessFullEqual" op="&#x2266;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessGreater" op="&#x2276;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessLess" op="&#x2aa1;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessSlantEqual" op="&#x2a7d;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="LessTilde" op="&#x2272;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NestedGreaterGreater" op="&#x226b;"             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NestedLessLess" op="&#x226a;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotCongruent" op="&#x2262;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotCupCap" op="&#x226d;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotDoubleVerticalBar" op="&#x2226;"             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotEqual" op="&#x2260;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotEqualTilde" op="&#x2242;&#x338;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreater" op="&#x226f;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterEqual" op="&#x2271;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterFullEqual" op="&#x2266;&#x338;"              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterGreater" op="&#x226b;&#x338;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterLess" op="&#x2279;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterSlantEqual" op="&#x2a7e;&#x338;"             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotGreaterTilde" op="&#x2275;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotHumpDownHump" op="&#x224e;&#x338;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotHumpEqual" op="&#x224f;&#x338;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLeftTriangle" op="&#x22ea;"                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLeftTriangleBar" op="&#x29cf;&#x338;"               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLeftTriangleEqual" op="&#x22ec;"             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLess" op="&#x226e;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLessEqual" op="&#x2270;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLessGreater" op="&#x2278;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLessLess" op="&#x226a;&#x338;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLessSlantEqual" op="&#x2a7d;&#x338;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotLessTilde" op="&#x2274;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotNestedGreaterGreater" op="&#x2aa2;&#x338;"          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotNestedLessLess" op="&#x2aa1;&#x338;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotPrecedes" op="&#x2280;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotPrecedesEqual" op="&#x2aaf;&#x338;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotPrecedesSlantEqual" op="&#x22e0;"            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotRightTriangle" op="&#x22eb;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotRightTriangleBar" op="&#x29d0;&#x338;"              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotRightTriangleEqual" op="&#x22ed;"            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSucceeds" op="&#x2281;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSucceedsEqual" op="&#x2ab0;&#x338;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSucceedsSlantEqual" op="&#x22e1;"            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotSucceedsTilde" op="&#x227f;&#x338;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotTilde" op="&#x2241;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotTildeEqual" op="&#x2244;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotTildeFullEqual" op="&#x2247;"                form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotTildeTilde" op="&#x2249;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="NotVerticalBar" op="&#x2224;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Precedes" op="&#x227a;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="PrecedesEqual" op="&#x2aaf;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="PrecedesSlantEqual" op="&#x227c;"               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="PrecedesTilde" op="&#x227e;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Proportion" op="&#x2237;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Proportional" op="&#x221d;"                     form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="ReverseEquilibrium" op="&#x21cb;"               form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTriangle" op="&#x22b3;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTriangleBar" op="&#x29d0;"                 form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="RightTriangleEqual" op="&#x22b5;"               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Succeeds" op="&#x227b;"                         form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SucceedsEqual" op="&#x2ab0;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SucceedsSlantEqual" op="&#x227d;"               form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="SucceedsTilde" op="&#x227f;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="Tilde" op="&#x223c;"                            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="TildeEqual" op="&#x2243;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="TildeFullEqual" op="&#x2245;"                   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="TildeTilde" op="&#x2248;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="UpTee" op="&#x22a5;"                            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="VerticalBar" op="&#x2223;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="="           form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&lt;"        form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op=">"           form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="!="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="=="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&lt;="       form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op=">="          form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2261;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x224D;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2250;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2225;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A75;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2242;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21CC;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2265;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22DB;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2267;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AA2;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2277;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A7E;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2273;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x224E;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x224F;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22B2;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x29CF;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22B4;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2264;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22DA;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2266;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2276;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AA1;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A7D;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2272;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226B;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226A;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2262;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226D;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2226;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2260;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2242;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226F;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2271;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2267;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226B;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2279;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A7E;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2275;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x224E;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x224F;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22EA;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x29CF;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22EC;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226E;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2270;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2278;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x226A;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2A7D;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2274;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AA2;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AA1;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2280;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AAF;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22E0;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22EB;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x29D0;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22ED;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2281;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AB0;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22E1;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227F;&#x0338;" form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2241;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2244;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2247;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2249;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2224;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227A;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AAF;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227C;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227E;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2237;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x221D;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x21CB;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22B3;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x29D0;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22B5;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227B;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2AB0;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227D;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x227F;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x223C;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2243;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2245;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2248;"   form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x22A5;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
+  <mo op="&#x2223;"    form="infix"    lspace="thickmathspace" rspace="thickmathspace"/>
   
-  <mo ent="SquareUnion" op="&#x2294;"                      form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="Union" op="&#x22c3;"                            form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="UnionPlus" op="&#x228e;"                        form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x2294;"    form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x22C3;"    form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x228E;"    form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
   
-  <mo op="-"                                  form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="minus" op="&#x2212;"                            form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo op="+"                                  form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="times" op="&#xd7;"                            fomr="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="Intersection" op="&#x22c2;"                     form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="MinusPlus" op="&#x2213;"                        form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="PlusMinus" op="&#xb1;"                        form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
-  <mo ent="SquareIntersection" op="&#x2293;"               form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="-"           form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x2212;"   form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="+"           form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#xD7;"     fomr="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x22C2;"    form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x2213;"    form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x00B1;"   form="infix"    lspace="mediummathspace" rspace="mediummathspace"/>
+  <mo op="&#x2293;"    form="infix"   stretchy="true"  lspace="mediummathspace" rspace="mediummathspace"/>
   
-  <mo ent="Vee" op="&#x22c1;"                              form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="CircleMinus" op="&#x2296;"                      form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="CirclePlus" op="&#x2295;"                       form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Sum" op="&#x2211;"                              form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Union" op="&#x22c3;"                            form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="UnionPlus" op="&#x228e;"                        form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo op="lim"                                form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo op="max"                                form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo op="min"                                form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x22C1;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2296;"    form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2295;"    form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2211;"   form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x22C3;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x228E;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="lim"         form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="max"         form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="min"         form="prefix"  movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
   
-  <mo ent="CircleMinus" op="&#x2296;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="CirclePlus" op="&#x2295;"                       form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2296;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2295;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="ClockwiseContourIntegral" op="&#x2232;"         form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="ContourIntegral" op="&#x222e;"                  form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="CounterClockwiseContourIntegral" op="&#x2233;"  form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DoubleContourIntegral" op="&#x222f;"            form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
-  <mo ent="Integral" op="&#x222b;"                         form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2232;"    form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x222E;"    form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2233;"    form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x222F;"    form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x222B;"   form="prefix"  largeop="true" stretchy="true" stretchVertical="true"  lspace="0em" rspace="0em"/>
   
-  <mo ent="Cup" op="&#x22d3;"                              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22D3;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Cap" op="&#x22d2;"                              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22D2;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="VerticalTilde" op="&#x2240;"                    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2240;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Wedge" op="&#x22c0;"                            form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="CircleTimes" op="&#x2297;"                      form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Coproduct" op="&#x2210;"                        form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Product" op="&#x220f;"                          form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
-  <mo ent="Intersection" op="&#x22c2;"                     form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x22C0;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2297;"    form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2210;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x220F;"   form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x22C2;"    form="prefix"  largeop="true" movablelimits="true" stretchy="true"  lspace="0em" rspace="thinmathspace"/>
   
-  <mo ent="Coproduct" op="&#x2210;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2210;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Star" op="&#x22c6;"                             form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22C6;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="CircleDot" op="&#x2299;"                        form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
+  <mo op="&#x2299;"    form="prefix"  largeop="true" movablelimits="true"  lspace="0em" rspace="thinmathspace"/>
   
   <mo op="*"                                  form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
-  <mo ent="InvisibleTimes" op="&#x2062;"                   form="infix"    lspace="0em" rspace="0em"/>
+  <mo op="&#x2062;"    form="infix"    lspace="0em" rspace="0em"/>
   
-  <mo ent="CenterDot" op="&#xb7;"                        form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x00B7;"   form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="CircleTimes" op="&#x2297;"                      form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2297;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Vee" op="&#x22c1;"                              form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22C1;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Wedge" op="&#x22c0;"                            form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22C0;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Diamond" op="&#x22c4;"                          form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x22C4;"    form="infix"    lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo ent="Backslash" op="&#x2216;"                        form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="&#x2216;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo op="/"                                  form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
+  <mo op="/"           form="infix"   stretchy="true" stretchVertical="true"  lspace="thinmathspace" rspace="thinmathspace"/>
   
-  <mo op="-"                                  form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
-  <mo ent="minus" op="&#x2212;"                            form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
-  <mo op="+"                                  form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
-  <mo ent="times" op="&#xd7;"                            form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
-  <mo ent="MinusPlus" op="&#x2213;"                        form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
-  <mo ent="PlusMinus" op="&#xb1;"                        form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="-"           form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="&#x2212;"   form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="+"           form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="&#xD7;"     form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="&#x2213;"    form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
+  <mo op="&#x00B1;"   form="prefix"   lspace="0em" rspace="veryverythinmathspace"/>
   
-  <mo op="."                                  form="infix"    lspace="0em" rspace="0em"/>
+  <mo op="."           form="infix"    lspace="0em" rspace="0em"/>
   
-  <mo ent="Cross" op="&#x2a2f;"                            form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2A2F;"    form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="**"                                 form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="**"          form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo ent="CircleDot" op="&#x2299;"                        form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2299;"    form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo ent="SmallCircle" op="&#x2218;"                      form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2218;"    form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo ent="Square" op="&#x25a1;"                           form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x25A1;"   form="prefix"   lspace="0em" rspace="verythinmathspace"/>
   
-  <mo ent="Del" op="&#x2207;"                              form="prefix"   lspace="0em" rspace="verythinmathspace"/>
-  <mo ent="PartialD" op="&#x2202;"                         form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x2207;"    form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x2202;"   form="prefix"   lspace="0em" rspace="verythinmathspace"/>
   
-  <mo ent="CapitalDifferentialD" op="&#x2145;"             form="prefix"   lspace="0em" rspace="verythinmathspace"/>
-  <mo ent="DifferentialD" op="&#x2146;"                    form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x2145;"    form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x2146;"    form="prefix"   lspace="0em" rspace="verythinmathspace"/>
   
-  <mo ent="Sqrt" op="&#x221a;"                             form="prefix"  stretchy="true" stretchVertical="true"  lspace="0em" rspace="verythinmathspace"/>
+  <mo op="&#x221A;"   form="prefix"  stretchy="true" stretchVertical="true"  lspace="0em" rspace="verythinmathspace"/>
   
-  <mo ent="DoubleDownArrow" op="&#x21d3;"                  form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DoubleLongLeftArrow" op="&#x27f8;"              form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DoubleLongLeftRightArrow" op="&#x27fa;"         form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DoubleLongRightArrow" op="&#x27f9;"             form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DoubleUpArrow" op="&#x21d1;"                    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DoubleUpDownArrow" op="&#x21d5;"                form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DownArrow" op="&#x2193;"                        form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DownArrowBar" op="&#x2913;"                     form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DownArrowUpArrow" op="&#x21f5;"                 form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="DownTeeArrow" op="&#x21a7;"                     form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftDownTeeVector" op="&#x2961;"                form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftDownVector" op="&#x21c3;"                   form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftDownVectorBar" op="&#x2959;"                form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftUpDownVector" op="&#x2951;"                 form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftUpTeeVector" op="&#x2960;"                  form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftUpVector" op="&#x21bf;"                     form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LeftUpVectorBar" op="&#x2958;"                  form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LongLeftArrow" op="&#x27f5;"                    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LongLeftRightArrow" op="&#x27f7;"               form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="LongRightArrow" op="&#x27f6;"                   form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="ReverseUpEquilibrium" op="&#x296f;"             form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightDownTeeVector" op="&#x295d;"               form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightDownVector" op="&#x21c2;"                  form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightDownVectorBar" op="&#x2955;"               form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightUpDownVector" op="&#x294f;"                form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightUpTeeVector" op="&#x295c;"                 form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightUpVector" op="&#x21be;"                    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="RightUpVectorBar" op="&#x2954;"                 form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="ShortDownArrow" op="&#x2193;"                   form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="ShortUpArrow" op="&#x2191;"                     form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpArrow" op="&#x2191;"                          form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpArrowBar" op="&#x2912;"                       form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpArrowDownArrow" op="&#x21c5;"                 form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpDownArrow" op="&#x2195;"                      form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpEquilibrium" op="&#x296e;"                    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
-  <mo ent="UpTeeArrow" op="&#x21a5;"                       form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21D3;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27F8;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27FA;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27F9;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21D1;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21D5;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2193;"   form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2913;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21F5;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21A7;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2961;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21C3;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2959;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2951;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2960;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21BF;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2958;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27F5;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27F7;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x27F6;"    form="infix"   stretchy="true" stretchHorizontal="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x296F;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x295D;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21C2;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2955;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x294F;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x295C;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21BE;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2954;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2193;"   form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2191;"   form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2191;"   form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2912;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21C5;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x2195;"   form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x296E;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&#x21A5;"    form="infix"   stretchy="true" stretchVertical="true"  lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="^"                                  form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="^"           form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="&lt;>"                              form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="&lt;>"       form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="'"                                  form="postfix"  lspace="verythinmathspace" rspace="0em"/>
+  <mo op="'"           form="postfix"  lspace="verythinmathspace" rspace="0em"/>
   
-  <mo op="!"                                  form="postfix"  lspace="verythinmathspace" rspace="0em"/>
-  <mo op="!!"                                 form="postfix"  lspace="verythinmathspace" rspace="0em"/>
+  <mo op="!"           form="postfix"  lspace="verythinmathspace" rspace="0em"/>
+  <mo op="!!"          form="postfix"  lspace="verythinmathspace" rspace="0em"/>
   
-  <mo op="~"                                  form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="~"           form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="@"                                  form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="@"           form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="--"                                 form="postfix"  lspace="verythinmathspace" rspace="0em"/>
-  <mo op="--"                                 form="prefix"   lspace="0em" rspace="verythinmathspace"/>
-  <mo op="++"                                 form="postfix"  lspace="verythinmathspace" rspace="0em"/>
-  <mo op="++"                                 form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="--"          form="postfix"  lspace="verythinmathspace" rspace="0em"/>
+  <mo op="--"          form="prefix"   lspace="0em" rspace="verythinmathspace"/>
+  <mo op="++"          form="postfix"  lspace="verythinmathspace" rspace="0em"/>
+  <mo op="++"          form="prefix"   lspace="0em" rspace="verythinmathspace"/>
   
-  <mo ent="ApplyFunction" op="&#x2061;"                    form="infix"    lspace="0em" rspace="0em"/>
+  <mo op="&#x2061;"    form="infix"    lspace="0em" rspace="0em"/>
   
-  <mo op="?"                                  form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="?"           form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo op="_"                                  form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
+  <mo op="_"           form="infix"    lspace="verythinmathspace" rspace="verythinmathspace"/>
   
-  <mo ent="Breve" op="&#x2d8;"                            form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="Cedilla" op="&#xb8;"                          form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DiacriticalGrave" op="&#x60;"                 form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DiacriticalDot" op="&#x2d9;"                   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DiacriticalDoubleAcute" op="&#x2dd;"           form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftArrow" op="&#x2190;"                        form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftRightArrow" op="&#x2194;"                   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftRightVector" op="&#x294e;"                  form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="LeftVector" op="&#x21bc;"                       form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DiacriticalAcute" op="&#xb4;"                 form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightArrow" op="&#x2192;"                       form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="RightVector" op="&#x21c0;"                      form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DiacriticalTilde" op="&#x2dc;"                 form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DoubleDot" op="&#xa8;"                        form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="DownBreve" op="&#x311;"                        form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="Hacek" op="&#x2c7;"                            form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="Hat" op="&#x5e;"                              form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OverBar" op="&#xaf;"                          form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OverBrace" op="&#xfe37;"                        form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OverBracket" op="&#x23b4;"                      form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="OverParenthesis" op="&#xfe35;"                  form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="TripleDot" op="&#x20db;"                        form="postfix" accent="true"  lspace="0em" rspace="0em"/>
-  <mo ent="UnderBar" op="&#x332;"                         form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="UnderBrace" op="&#xfe38;"                       form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="UnderBracket" op="&#x23b5;"                     form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
-  <mo ent="UnderParenthesis" op="&#xfe36;"                 form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x02D8;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x00B8;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x0060;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x02D9;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x02DD;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2190;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2194;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x294E;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x21BC;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x00B4;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x2192;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x21C0;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x02DC;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x00A8;"   form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x0311;"    form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x02C7;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x005E;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x203E;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23DE;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23B4;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23DC;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x20DB;"    form="postfix" accent="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x005F;"   form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23DF;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23B5;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+  <mo op="&#x23DD;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
 </operators>

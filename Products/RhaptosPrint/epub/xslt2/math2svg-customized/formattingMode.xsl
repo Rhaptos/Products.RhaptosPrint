@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- Using to include MathML inside documentation -->
 <!-- 
 ###############################################################################
 $Id: formattingMode.xsl 154 2009-05-12 14:59:29Z jjoslet $
@@ -46,6 +45,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		xmlns="http://www.w3.org/2000/svg"
 		xmlns:t="http://localhost/tmp"
 		xmlns:func="http://localhost/functions"
+		xmlns:dict="http://localhost/operator-dictionary"
 		exclude-result-prefixes="math t xs func doc">
 
   <doc:reference>
@@ -216,15 +216,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:with-param name="variant" select="$fontNameVariant"/>
       </xsl:call-template>
     </xsl:variable>
-    
-    <!-- Assume it's 1 character -->
-    <xsl:variable name="bestFontName">
-      <xsl:call-template name="findFontName">
-	<xsl:with-param name="name" select="substring($str, $strLen, 1)"/>
-	<xsl:with-param name="fonts" select="$fontName"/>
-	<xsl:with-param name="variant" select="$fontNameVariant"/>
-      </xsl:call-template>
-    </xsl:variable>
 
     <!-- Left correction for the position of the string -->
     <xsl:variable name="firstCharBBox" select="func:findBbox(substring($str, 1, 1), $fontName, $fontNameVariant)"/>
@@ -257,8 +248,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:attribute name="t:STYLE" select="func:setStyle(
 					       $bestMathVariant, 
 					       func:chooseAttribute(@mathcolor, $mathcolor, 'black'),
-					       func:chooseAttribute(@mathbackground, $mathbackground, 'transparent'),
-					       $bestFontName)"/>
+					       func:chooseAttribute(@mathbackground, $mathbackground, 'transparent'))"/>
       <xsl:attribute name="t:VARIANT" select="$fontNameVariant"/>
 
       <xsl:value-of select="$str"/>
@@ -694,16 +684,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:variable name="operator">
       <xsl:value-of select="normalize-space(text())"/>
     </xsl:variable>
+    
     <!-- Retrieve all operator entries from operator dictionary -->
-    <xsl:variable name="opEntries" select="document('operator-dictionary.xml')/math:operators/math:mo[@op = $operator]"/>
-
-    <!-- Assume it's 1 character -->
-    <xsl:variable name="bestFontName">
-      <xsl:call-template name="findFontName">
-	<xsl:with-param name="name" select="$operator"/>
-	<xsl:with-param name="fonts" select="$fontName"/>
-      </xsl:call-template>
-    </xsl:variable>
+    <xsl:variable name="opEntries" select="document('operator-dictionary.xml')/dict:operators/dict:mo[@op = $operator]"/>
     
     <xsl:variable name="defaultAttributes">
       <xsl:choose>
@@ -761,8 +744,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:when test="@fence">
 	<xsl:value-of select="@fence"/>
 	</xsl:when>
-	<xsl:when test="$defaultAttributes/math:mo/@fence">
-	<xsl:value-of select="$defaultAttributes/math:mo/@fence"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@fence">
+	<xsl:value-of select="$defaultAttributes/dict:mo/@fence"/>
 	</xsl:when>
 	<xsl:otherwise>
 	<xsl:value-of select="false()"/>
@@ -776,8 +759,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:when test="@separator">
 	<xsl:value-of select="@separator"/>
 	</xsl:when>
-	<xsl:when test="$defaultAttributes/math:mo/@separator">
-	<xsl:value-of select="$defaultAttributes/math:mo/@separator"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@separator">
+	<xsl:value-of select="$defaultAttributes/dict:mo/@separator"/>
 	</xsl:when>
 	<xsl:otherwise>
 	<xsl:value-of select="false()"/>
@@ -793,8 +776,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@lspace"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@lspace">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@lspace"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@lspace">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@lspace"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -811,8 +794,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@rspace"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@rspace">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@rspace"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@rspace">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@rspace"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -829,8 +812,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@stretchy"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@stretchy">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@stretchy"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@stretchy">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@stretchy"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -841,12 +824,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     
     <!-- Retrieve stretch horizontal attribute (Specific to this renderer) -->
     <xsl:variable name="stretchHorizontal">
-      <!-- Don't horizontally stretch when the op is in a math:mrow -->
-      <xsl:variable name="inmrow" select="index-of($rowElement, local-name(parent::*)) &gt;= 0"/>
       <xsl:choose>
 	<!-- Added to dictionary -->
-	<xsl:when test="$stretchy = true() and $defaultAttributes/math:mo/@stretchHorizontal and not($inmrow)">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@stretchHorizontal"/>
+	<xsl:when test="$stretchy = true() and $defaultAttributes/dict:mo/@stretchHorizontal">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@stretchHorizontal"/>
 	</xsl:when>
 	<!-- Default value -->
 	<xsl:otherwise>
@@ -859,8 +840,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:variable name="stretchVertical">
       <xsl:choose>
 	<!-- Added to dictionary -->
-	<xsl:when test="$stretchy = true() and $defaultAttributes/math:mo/@stretchVertical">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@stretchVertical"/>
+	<xsl:when test="$stretchy = true() and $defaultAttributes/dict:mo/@stretchVertical">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@stretchVertical"/>
 	</xsl:when>
 	<!-- Default value -->
 	<xsl:otherwise>
@@ -877,8 +858,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@symmetric"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@symmetric">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@symmetric"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@symmetric">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@symmetric"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -895,8 +876,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@maxsize"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@maxsize">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@maxsize"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@maxsize">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@maxsize"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -913,8 +894,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@minsize"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@minsize">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@minsize"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@minsize">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@minsize"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -932,8 +913,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@largeop"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@largeop">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@largeop"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@largeop">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@largeop"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -950,8 +931,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@movablelimits"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@movablelimits">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@movablelimits"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@movablelimits">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@movablelimits"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -968,8 +949,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:value-of select="@accent"/>
 	</xsl:when>
 	<!-- Dictionary -->
-	<xsl:when test="$defaultAttributes/math:mo/@accent">
-	  <xsl:value-of select="$defaultAttributes/math:mo/@accent"/>
+	<xsl:when test="$defaultAttributes/dict:mo/@accent">
+	  <xsl:value-of select="$defaultAttributes/dict:mo/@accent"/>
 	</xsl:when>
 	<!-- Default value from specification -->
 	<xsl:otherwise>
@@ -1109,9 +1090,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Compute space before and after operator in pixel -->
     <xsl:variable name="defaultLSpace">
       <xsl:choose>
-	<xsl:when test="$defaultAttributes/math:mo/@lspace">
+	<xsl:when test="$defaultAttributes/dict:mo/@lspace">
 	  <xsl:call-template name="unitInPx">
-	    <xsl:with-param name="valueUnit" select="$defaultAttributes/math:mo/@lspace"/>
+	    <xsl:with-param name="valueUnit" select="$defaultAttributes/dict:mo/@lspace"/>
 	    <xsl:with-param name="fontSize" select="$size"/>
 	  </xsl:call-template>
 	</xsl:when>
@@ -1126,9 +1107,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <xsl:variable name="defaultRSpace">
       <xsl:choose>
-	<xsl:when test="$defaultAttributes/math:mo/@rspace">
+	<xsl:when test="$defaultAttributes/dict:mo/@rspace">
 	  <xsl:call-template name="unitInPx">
-	    <xsl:with-param name="valueUnit" select="$defaultAttributes/math:mo/@rspace"/>
+	    <xsl:with-param name="valueUnit" select="$defaultAttributes/dict:mo/@rspace"/>
 	    <xsl:with-param name="fontSize" select="$size"/>
 	  </xsl:call-template>
 	</xsl:when>
@@ -1165,9 +1146,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:otherwise>
 	  <xsl:variable name="defaultMaxSize">
 	    <xsl:choose>
-	      <xsl:when test="$defaultAttributes/math:mo/@maxsize and $defaultAttributes/math:mo/@maxsize != 'infinity'">
+	      <xsl:when test="$defaultAttributes/dict:mo/@maxsize and $defaultAttributes/dict:mo/@maxsize != 'infinity'">
 		<xsl:call-template name="unitInPx">
-		  <xsl:with-param name="valueUnit" select="$defaultAttributes/math:mo/@maxsize"/>
+		  <xsl:with-param name="valueUnit" select="$defaultAttributes/dict:mo/@maxsize"/>
 		  <xsl:with-param name="fontSize" select="$size"/>
 		  <xsl:with-param name="default" select="$height"/>
 		</xsl:call-template>
@@ -1189,9 +1170,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     
     <xsl:variable name="defaultMinSize">
       <xsl:choose>
-	<xsl:when test="$defaultAttributes/math:mo/@minsize">
+	<xsl:when test="$defaultAttributes/dict:mo/@minsize">
 	  <xsl:call-template name="unitInPx">
-	    <xsl:with-param name="valueUnit" select="$defaultAttributes/math:mo/@minsize"/>
+	    <xsl:with-param name="valueUnit" select="$defaultAttributes/dict:mo/@minsize"/>
 	    <xsl:with-param name="fontSize" select="$size"/>
 	    <xsl:with-param name="default" select="$height"/>
 	  </xsl:call-template>
@@ -1236,8 +1217,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:attribute name="t:STYLE" select="func:setStyle(
 					    $bestMathVariant, 
 					    func:chooseAttribute(@mathcolor, $mathcolor, 'black'),
-					    func:chooseAttribute(@mathbackground, $mathbackground, 'transparent'),
-					    $bestFontName)"/>
+					    func:chooseAttribute(@mathbackground, $mathbackground, 'transparent'))"/>
       <xsl:attribute name="t:VARIANT" select="$fontNameVariant"/>
 
       <xsl:value-of select="$newOperator"/>
@@ -1531,7 +1511,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </para>
     </refdescription>
   </doc:template>
-  <xsl:template match="math:math|math:mrow|math:merror|math:mphantom|math:menclose|math:mstyle"
+  <xsl:template match="math:math|math:mrow|math:merror|math:mphantom|math:menclose|math:mstyle|math:semantics|math:PHIL"
 		mode="formatting">
     <xsl:param name="x"/>
     <xsl:param name="y"/>
@@ -1819,7 +1799,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <xsl:attribute name="t:stretchVertical" select="if ($embellish = true())
 							  then $children/*[local-name() = 'mo' and @t:EMBELLISH = true()]/@t:stretchVertical
 							  else false()"/>
-	  <xsl:attribute name="t:STYLE" select="func:setStyle($newMathvariant, $newMathcolor, $newMathbackground, '')"/>
+	  <xsl:attribute name="t:STYLE" select="func:setStyle($newMathvariant, $newMathcolor, $newMathbackground)"/>
 	  <xsl:if test="local-name(.) = 'menclose'">
 	    <xsl:attribute name="t:NOTATION" select="$notation"/>
 	  </xsl:if>
@@ -2611,7 +2591,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:choose>
       <!-- Basic token -->
       <xsl:when test="$node[(local-name() = 'mo' or local-name() = 'mi') 
-		      and index-of(('&#42;', '&#176;', '&#8242;', '&#8243;', '&#8245;', '&#8246;'), text()) &gt;= 0]">
+		      and index-of(('&#42;', '&#176;', '&#8242;', '&#8243;', '&#8245;', '&#8246;'), .) &gt;= 0]">
 	<xsl:value-of select="true()"/>
       </xsl:when>
       <!-- mrow special case -->
@@ -4566,11 +4546,23 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:call-template name="computeSize"/>
     </xsl:variable>
 
+    <!-- Compute the number of mtd of the row that contains the most -->
+    <xsl:variable name="numberOfMtd">
+      <xsl:for-each select="math:mtr">
+	<xsl:sort select="count(math:mtd)"
+		  data-type="number" order="descending"/>
+	<xsl:if test="position() = 1">
+	  <xsl:value-of select="count(math:mtd)"/>
+	</xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+
     <xsl:variable name="initialRows">
       <xsl:apply-templates select="math:*" mode="formatting">
 	<xsl:with-param name="x" select="$x"/>
 	<xsl:with-param name="y" select="$y"/>
 	<xsl:with-param name="baseline" select="$baseline"/>
+	<xsl:with-param name="numberOfMtd" select="$numberOfMtd"/>
       </xsl:apply-templates>
     </xsl:variable>
 
@@ -5074,6 +5066,12 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<filename>mtr</filename> element is computed like a basic <filename>mrow</filename> element. It is composed by one or more 
 	<filename>mtd</filename> children.
       </para>
+
+      <para>
+	Some row can have less <filename>mtd</filename> element that other rows of the table, therefore empty <filename>mtd</filename> element
+	have to be added. The <filename>numberOfMtd</filename> parameter gives the number of <filename>mtd</filename> child elements that the
+	row musts have.
+      </para>
       
       <para>
 	After computing the current font size, the cells that compose the row are computed by using the <filename>alignRow</filename> template in
@@ -5097,6 +5095,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="x"/>
     <xsl:param name="y"/>
     <xsl:param name="baseline" select="0"/>
+    <xsl:param name="numberOfMtd"/>
     <!-- Parameters receive by tunnel -->
     <xsl:param name="tableSpace" tunnel="yes"/>
 
@@ -5110,10 +5109,13 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:with-param name="x" select="$x"/>
 	<xsl:with-param name="y" select="$y"/>
 	<xsl:with-param name="baseline" select="$baseline"/>
-	<xsl:with-param name="nodes" select="*"/>
+	<xsl:with-param name="nodes" select="if (count(*) != $numberOfMtd)
+					     then insert-before(*, 0, func:getEmptyMtd($numberOfMtd - count(*)))
+					     else *"/>
 	<xsl:with-param name="firstNode" select="1"/>
       </xsl:call-template>
     </xsl:variable>
+
 
     <!-- y-coordinate of the bottom of the box -->
     <xsl:variable name="bottomY">
@@ -5197,10 +5199,57 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:attribute name="t:SHIFT" select="if ($baseline = 0)
 					    then $y - $smallestY
 					    else 0"/>
-     
       <xsl:copy-of select="$cols"/>
     </xsl:copy>
   </xsl:template>
+
+  <!-- ####################################################################
+       Get empty mtd
+       #################################################################### -->
+  <doc:function name="getEmptyMtd">
+    <refpurpose>Returns a number of empty mtd element.</refpurpose>
+
+    <refdescription>
+      <para>
+	This function creates a certain number of empty <filename>mtd</filename> element.
+      </para>
+    </refdescription>
+
+    <refparameter>
+      <variablelist>
+	<varlistentry>
+	  <term>number</term>
+	  <listitem>
+	    <para>
+	      The number of empty <filename>mtd</filename> elements to create. This number has to be greater or equal to one.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </refparameter>
+    
+    <refreturn>
+      <para>Returns a sequence of empty mtd elements.</para>
+    </refreturn>
+  </doc:function>
+  <xsl:function name="func:getEmptyMtd">               
+    <xsl:param name="number"/>
+
+    <!-- Create an empty mtd element -->
+    <xsl:variable name="mtd">
+      <math:mtd/>
+    </xsl:variable>
+
+    <xsl:choose>
+      <!-- No more forms, return empty node -->
+      <xsl:when test="$number = 1">
+	<xsl:copy-of select="$mtd"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:copy-of select="insert-before(func:getEmptyMtd($number - 1), 0, $mtd)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
 
   <!-- ####################################################################
        alignRow
@@ -5417,11 +5466,15 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:copy>
 	  <xsl:copy-of select="@*"/>
 	  <xsl:attribute name="t:X" select="$x"/>
-	  <xsl:attribute name="t:Y" select="$y"/>
+	  <xsl:attribute name="t:Y" select="if ($baseline = 0)
+					    then $y
+					    else $baseline"/>
 	  <xsl:attribute name="t:FONTSIZE" select="$size"/>
 	  <xsl:attribute name="t:WIDTH" select="0"/>
 	  <xsl:attribute name="t:HEIGHT" select="0"/>
-	  <xsl:attribute name="t:BASELINE" select="$baseline"/>
+	  <xsl:attribute name="t:BASELINE" select="if ($baseline = 0)
+						   then $y
+						   else $baseline"/>
 	</xsl:copy>
       </xsl:otherwise>
     </xsl:choose>
@@ -5630,4 +5683,16 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:copy-of select="child::*"/>
     </xsl:copy>
   </xsl:template>  
+
+
+  <!-- In case of unsupported element, terminate with a meaningful message: -->
+  <xsl:template match="math:*" mode="formatting">
+    <xsl:message terminate="yes">
+      <xsl:text>ERROR: Unsupported element </xsl:text>
+      <xsl:element name="{local-name()}" namespace="{namespace-uri()}"/>
+      <xsl:text> encountered.&#x0A;</xsl:text>
+      <xsl:text>NOTE: pMML2SVG handles Presentation MathML only.</xsl:text>
+    </xsl:message>
+  </xsl:template>
+
 </xsl:stylesheet>
