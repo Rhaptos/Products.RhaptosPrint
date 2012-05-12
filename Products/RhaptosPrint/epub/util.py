@@ -40,6 +40,7 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL = makeXsl('dbk-clean-whole-remove-duplicate-gloss
 
 
 NAMESPACES = {
+  'xhtml':'http://www.w3.org/1999/xhtml',
   'c'  :'http://cnx.rice.edu/cnxml',
   'svg':'http://www.w3.org/2000/svg',
   'mml':'http://www.w3.org/1998/Math/MathML',
@@ -79,7 +80,7 @@ def svg2png(svgStr):
   pngReduced, strError = p.communicate(pngData)
   return pngReduced
 
-def dbk2cover(dbk, filesDict):
+def dbk2cover(dbk, filesDict, svg2png=True):
   newFiles = {}
   if ('%s.png' % COLLECTION_COVER_PREFIX) in filesDict:
     return filesDict['%s.png' % COLLECTION_COVER_PREFIX], newFiles
@@ -92,8 +93,11 @@ def dbk2cover(dbk, filesDict):
   
   newFiles['cover.svg'] = svgStr
   
-  png = svg2png(svgStr)
-  return png, newFiles
+  if svg2png:
+    png = svg2png(svgStr)
+    return png, newFiles
+  else:
+    return svg, newFiles
 
 def transform(xslDoc, xmlDoc):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
