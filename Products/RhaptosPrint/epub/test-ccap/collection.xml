@@ -58,9 +58,6 @@
     <col:param name="print-paragraph-spacing" value="compact"/>
   </col:parameters>
   <col:content>
-    <col:module document="m-preface" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.4">
-      <md:title>Preface Module</md:title>
-    </col:module>
     <col:subcollection>
       <md:title>First Chapter</md:title>
       <col:content>

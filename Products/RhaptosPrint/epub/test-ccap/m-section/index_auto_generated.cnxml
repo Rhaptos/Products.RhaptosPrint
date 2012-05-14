@@ -50,31 +50,6 @@
 
 <content>
   
-  <para>This math causes Math2SVG to die:</para>
-<equation xmlns:q="http://cnx.rice.edu/qml/1.0" id="eip-251"><m:math>
-        <m:semantics>
-                <m:mtable>
-                  <m:mtr>
-                    <m:mrow>
-                      <m:mi>W</m:mi>
-                        <m:mrow>
-                          <m:msubsup>
-                            <m:mrow>                          
-                               <m:mtext>Eff</m:mtext>
-                            </m:mrow>
-                              <m:mrow>
-                                <m:mtext>C</m:mtext>
-                              </m:mrow>
-                              <m:mi>S</m:mi>
-                          </m:msubsup>
-                        </m:mrow>
-                      
-                    </m:mrow>
-                  </m:mtr>
-                </m:mtable>
-        </m:semantics>
-      </m:math> 
-    </equation>
   
           <figure xmlns:q="http://cnx.rice.edu/qml/1.0" id="import-auto-id1471656"><media id="import-auto-id3184787" alt="The destruction caused by an earthquake in Port-au-Prince, Haiti. Some buildings are shown on two sides of a street. Two buildings are completely destroyed. Rescue people are seen around.">
           <image mime-type="image/png" src="Figure_17_11_01a.jpg" width="375"/>
@@ -1249,16 +1224,6 @@ size 12{0 "." 1`"W/m" rSup { size 8{2} } } {}
   <list>
     <item><link target-id="note1"/></item>
   </list>
-  
-  
-  <section class="section-summary">
-    <exercise>
-      <problem>
-        <para>This problem has an equation that shouldn't be numbered.</para>
-        <equation>1 + 1 = 2</equation>
-      </problem>
-    </exercise>
-  </section>
   
 </content>
   <glossary>

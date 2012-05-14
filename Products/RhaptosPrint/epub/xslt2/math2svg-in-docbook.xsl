@@ -14,7 +14,7 @@
   <xsl:import href="math2svg-customized/pmml2svg.xsl"/>
 
   <!-- Output for svg -->
-  <xsl:output method="xml" indent="no" version="1.0"
+  <xsl:output method="xml" indent="yes" version="1.0"
 	      omit-xml-declaration="no"
 	      cdata-section-elements="style"/>
 
@@ -22,8 +22,7 @@
        ROOT ELEMENT
        #################################################################### -->
   <xsl:template match="math:math">
-    <xsl:variable name="idNode" select="ancestor::*[@xml:id or @id][1]"/>
-    <xsl:message>LOG: INFO: MathML2SVG id="<xsl:value-of select="concat($idNode/@xml:id, $idNode/@id)"/>"</xsl:message>
+    <xsl:message>LOG: INFO: MathML2SVG id="<xsl:value-of select="ancestor::*[@xml:id][1]/@xml:id"/>"</xsl:message>
     <xsl:variable name="size" select="ancestor::*[@font-size][1]/@font-size"/>
     <!-- FOP can have @font-size="small" for example -->
     <xsl:variable name="sizeNumber">
@@ -52,6 +51,4 @@
     <xsl:copy-of select="."/><!-- Keep the original MathML -->
   </xsl:template>
 
-<!-- ignore annotation elements -->
-<xsl:template match="math:annotation|math:annotation-xml" mode="formatting"/>
 </xsl:stylesheet>

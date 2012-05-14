@@ -2,11 +2,6 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 
-/* Hide MathML elements */
-@namespace mml "http://www.w3.org/1998/Math/MathML";
-mml|math { display: none; }
-
-
 /* General css3 for print/online (lesscss does not parse these) */
 
 @page {
