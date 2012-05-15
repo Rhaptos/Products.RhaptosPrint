@@ -21,7 +21,8 @@ To install and get it running:
 
 $ sudo apt-get install python-virtualenv        # for the following commands
 $ sudo apt-get install libxslt1-dev libxml2-dev # For lxml to compile
-$ sudo apt-get install imagemagick otf-stix     # To convert SVG and math to PNG
+$ sudo apt-get install librsvg2-bin             # To convert SVG and math to PNG
+$ sudo apt-get install otf-stix
 
 $ virtualenv .
 $ source bin/activate

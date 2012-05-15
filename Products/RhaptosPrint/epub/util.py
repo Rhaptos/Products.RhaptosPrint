@@ -16,9 +16,12 @@ except ImportError:
 # Only inkscape can load the STIX fonts from the OS (imagemagick's SVG libs don't)
 # Only imagemagick allows changing the color depth of an image (math/SVG use 8 bits)
 #
-INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
-if not os.path.isfile(INKSCAPE_BIN):
-  INKSCAPE_BIN = 'inkscape'
+
+# Instead of inkscape, use rsvg
+#INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+#if not os.path.isfile(INKSCAPE_BIN):
+#  INKSCAPE_BIN = 'inkscape'
+
 CONVERT_BIN = 'convert'
 
 
@@ -61,19 +64,24 @@ IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces
 
 # From http://stackoverflow.com/questions/2932408/
 def svg2png(svgStr):
-  fd, pngPath = mkstemp(suffix='.png')
-  
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
-  strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
+  strCmd = ['rsvg-convert', '-d', '96', '-p', '96' ]
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-  _, strError = p.communicate(svgStr)
+  pngData, strError = p.communicate(svgStr)
 
-  pngFile = open(pngPath)
-  pngData = pngFile.read()
-  pngFile.close()
-  os.close(fd)
-  os.remove(pngPath)
-  
+  # Old inkscape code (only used for EPUBs)
+  # fd, pngPath = mkstemp(suffix='.png')
+  # # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
+  # strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
+  # p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+  # _, strError = p.communicate(svgStr)
+  # pngFile = open(pngPath)
+  # pngData = pngFile.read()
+  # pngFile.close()
+  # os.close(fd)
+  # os.remove(pngPath)
+
+
   strCmd = '-compose Copy_Opacity -depth 8 +dither -quality 100 png:/dev/stdin png:-'.split()
   strCmd.insert(0, CONVERT_BIN)
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
