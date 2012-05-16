@@ -75,8 +75,9 @@ def convert(collxml, modulesDict, svg2png=True, math2svg=True):
   dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
 
   # Create cover SVG and convert it to an image
-  png, newFiles2 = util.dbk2cover(dbk4, filesDict)
+  cover, newFiles2 = util.dbk2cover(dbk4, filesDict, svg2png)
 
-  newFiles['cover.png'] = png
+  if svg2png:
+    newFiles['cover.png'] = cover
 
   return dbk4, newFiles

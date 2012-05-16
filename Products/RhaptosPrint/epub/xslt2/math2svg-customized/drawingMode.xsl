@@ -73,20 +73,16 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Parameters receive by tunnel -->
     <xsl:param name="fontName" tunnel="yes"/>
 
-    <xsl:variable name="newX" select="$xShift + @t:X + @t:SHIFTX"/>
-    <xsl:variable name="newY" select="$yShift + @t:Y + @t:HEIGHTOVERBASELINE"/>
+    <xsl:variable name="newX" select="$xShift + number(@t:X) + number(@t:SHIFTX)"/>
+    <xsl:variable name="newY" select="$yShift + number(@t:Y) + number(@t:HEIGHTOVERBASELINE)"/>
     <xsl:variable name="fontSize" select="@t:FONTSIZE"/>
 
     <text>
-      <xsl:attribute name="style" select="@t:STYLE"/>
+      <xsl:attribute name="style" select="concat('font-family: ', string-join($fontName, ', '), '; ', @t:STYLE)"/>
 
       <xsl:attribute name="x" select="$newX"/>
       <xsl:attribute name="y" select="$newY"/>
       <xsl:attribute name="font-size" select="@t:FONTSIZE"/>
-
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="substring(@t:TEXT,1,1)"/>
-        </xsl:call-template>
 
       <xsl:choose>
 	<xsl:when test="@t:TEXT = '&#8519;'">e</xsl:when>
@@ -142,21 +138,21 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- Parameters receive by tunnel -->
     <xsl:param name="fontName" tunnel="yes"/>
 
-    <xsl:variable name="newX" select="$xShift + @t:X + @t:SHIFTX + @t:LSPACE"/>
-    <xsl:variable name="newY" select="$yShift + @t:Y + @t:ACCENTSHIFT"/>
+    <xsl:variable name="newX" select="$xShift + number(@t:X) + number(@t:SHIFTX) + number(@t:LSPACE)"/>
+    <xsl:variable name="newY" select="$yShift + number(@t:Y) + number(@t:ACCENTSHIFT)"/>
 
     <xsl:choose>
       <!-- Stretch vertical operator -->
       <xsl:when test="@t:STRETCHY = true() and @t:stretchVertical = true()">
 	<g>
-	  <xsl:attribute name="style" select="@t:STYLE"/>
+	  <xsl:attribute name="style" select="concat('font-family: ', string-join($fontName, ', '), '; ', @t:STYLE)"/>
 	  <xsl:call-template name="drawVerticalDelimiter">
 	    <xsl:with-param name="delimiter" select="@t:TEXT"/>
 	    <xsl:with-param name="height" select="if (local-name(parent::*) = 'mtd')
 						  then parent::*/@t:HEIGHT
 						  else @t:HEIGHT"/>
 	    <xsl:with-param name="x" select="$newX"/>
-	    <xsl:with-param name="y" select="$newY + @t:HEIGHT"/>
+	    <xsl:with-param name="y" select="$newY + number(@t:HEIGHT)"/>
 	    <xsl:with-param name="fontSize" select="@t:FONTSIZE"/>
 	    <xsl:with-param name="variant" select="@t:VARIANT"/>
 	  </xsl:call-template>
@@ -165,14 +161,14 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <!-- Stretch horizontal operator -->
       <xsl:when test="@t:STRETCHY = true() and @t:stretchHorizontal = true()">
 	<g>
-	  <xsl:attribute name="style" select="@t:STYLE"/>
+	  <xsl:attribute name="style" select="concat('font-family: ', string-join($fontName, ', '), '; ', @t:STYLE)"/>
 	  <xsl:call-template name="drawHorizontalDelimiter">
 	    <xsl:with-param name="delimiter" select="@t:TEXT"/>
 	    <xsl:with-param name="width" select="if (parent::*/@t:EMBELLISH = true())
 						 then parent::*/@t:WIDTH - parent::*/@t:LSPACE - parent::*/@t:RSPACE
 						 else parent::*/@t:WIDTH - @t:RSPACE - @t:LSPACE"/>
 	    <xsl:with-param name="x" select="$newX"/>
-	    <xsl:with-param name="y" select="$newY + @t:HEIGHT"/>
+	    <xsl:with-param name="y" select="$newY + number(@t:HEIGHT)"/>
 	    <xsl:with-param name="fontSize" select="@t:FONTSIZE"/>
 	    <xsl:with-param name="variant" select="@t:VARIANT"/>
 	  </xsl:call-template>
@@ -182,9 +178,9 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:otherwise>
 	<text>
 	  <xsl:attribute name="x" select="$newX"/>
-	  <xsl:attribute name="y" select="$newY + @t:HEIGHTOVERBASELINE"/>
+	  <xsl:attribute name="y" select="$newY + number(@t:HEIGHTOVERBASELINE)"/>
 	  <xsl:attribute name="font-size" select="@t:FONTSIZE"/>
-	  <xsl:attribute name="style" select="@t:STYLE"/>
+	  <xsl:attribute name="style" select="concat('font-family: ', string-join($fontName, ', '), '; ', @t:STYLE)"/>
 	  
 	  <xsl:value-of select="@t:TEXT"/>
 	</text>
@@ -231,7 +227,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="yShift"/>
 
     <g>
-      <xsl:attribute name="style" select="@t:STYLE"/>
+      <xsl:attribute name="style" select="concat('font-family: ', string-join($fontName, ', '), '; ', @t:STYLE)"/>
 
     <xsl:choose>
       <!-- Do not display phantom -->
@@ -240,7 +236,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:otherwise>
 	<xsl:apply-templates select="child::*" mode="draw">
 	  <xsl:with-param name="xShift" select="$xShift"/>
-	  <xsl:with-param name="yShift" select="$yShift + @t:SHIFT"/>
+	  <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFT)"/>
 	</xsl:apply-templates>
       </xsl:otherwise>
     </xsl:choose>
@@ -456,11 +452,11 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_SUPERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_SUPERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_SUPERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_SUPERSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -484,8 +480,8 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:with-param name="yShift" select="$yShift"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_SUBSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_SUBSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_SUBSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_SUBSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -507,15 +503,15 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_SUBSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_SUBSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_SUBSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_SUBSCRIPT)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[3]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_SUPERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_SUPERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_SUPERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_SUPERSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -536,12 +532,12 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="xShift"/>
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_BASE"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_BASE)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_OVERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_OVERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_OVERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_OVERSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -562,12 +558,12 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="xShift"/>
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_BASE"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_BASE)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_UNDERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_UNDERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_UNDERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_UNDERSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -587,16 +583,16 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="xShift"/>
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_BASE"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_BASE)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_UNDERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_UNDERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_UNDERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_UNDERSCRIPT)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[3]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTX_OVERSCRIPT"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_OVERSCRIPT"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTX_OVERSCRIPT)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_OVERSCRIPT)"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -618,15 +614,15 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <xsl:param name="xShift"/>
     <xsl:param name="yShift"/>
     <xsl:apply-templates select="child::*[1]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTXNUM"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTYNUM"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTXNUM)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTYNUM)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
-      <xsl:with-param name="xShift" select="$xShift + @t:SHIFTXDEN"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTYDEN"/>
+      <xsl:with-param name="xShift" select="$xShift + number(@t:SHIFTXDEN)"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTYDEN)"/>
     </xsl:apply-templates>
     <line x1="{@t:X + $xShift}"            y1="{@t:FRAC_BAR_Y + $yShift}"
-	  x2="{@t:X + $xShift + @t:WIDTH}" y2="{@t:FRAC_BAR_Y + $yShift}"
+	  x2="{@t:X + $xShift + number(@t:WIDTH)}" y2="{@t:FRAC_BAR_Y + $yShift}"
 	  fill="none" stroke="black" stroke-width="{@t:FRAC_BAR_HEIGHT}"/>
   </xsl:template>
 
@@ -651,7 +647,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <xsl:apply-templates select="child::*" mode="draw">
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFT"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFT)"/>
     </xsl:apply-templates>
 
     <xsl:variable name="lineWeight" select="@t:FONTSIZE div 50"/>
@@ -667,16 +663,16 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <line x1="{$newX + (0.2 * $frontSpace)}"
 	  y1="{$newY + (0.3 * @t:HEIGHT)}"
 	  x2="{$newX + (0.5 * $frontSpace)}"
-	  y2="{$newY + @t:HEIGHT}"
+	  y2="{$newY + number(@t:HEIGHT)}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight * 2}"/>
     <line x1="{$newX + (0.5 * $frontSpace)}"
-	  y1="{$newY + @t:HEIGHT}"
+	  y1="{$newY + number(@t:HEIGHT)}"
 	  x2="{$newX + $frontSpace}"
 	  y2="{$newY}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight}"/>
     <line x1="{$newX + $frontSpace}"
 	  y1="{$newY}"
-	  x2="{$newX + @t:WIDTH}"
+	  x2="{$newX + number(@t:WIDTH)}"
 	  y2="{$newY}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight}"/>
   </xsl:template>
@@ -702,11 +698,11 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <xsl:apply-templates select="child::*[1]" mode="draw">
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_BASE"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_BASE)"/>
     </xsl:apply-templates>
     <xsl:apply-templates select="child::*[2]" mode="draw">
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFTY_INDEX"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFTY_INDEX)"/>
     </xsl:apply-templates>
 
     <xsl:variable name="lineWeight" select="@t:FONTSIZE div 50"/>
@@ -721,16 +717,16 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <line x1="{$newX + (0.2 * $frontSpace)}"
 	  y1="{$newY + (0.3 * @t:RADICAL_HEIGHT)}"
 	  x2="{$newX + (0.5 * $frontSpace)}"
-	  y2="{$newY + @t:RADICAL_HEIGHT}"
+	  y2="{$newY + number(@t:RADICAL_HEIGHT)}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight * 2}"/>
     <line x1="{$newX + (0.5 * $frontSpace)}"
-	  y1="{$newY + @t:RADICAL_HEIGHT}"
+	  y1="{$newY + number(@t:RADICAL_HEIGHT)}"
 	  x2="{$newX + $frontSpace}"
 	  y2="{$newY}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight}"/>
     <line x1="{$newX + $frontSpace}"
 	  y1="{$newY}"
-	  x2="{$newX + @t:WIDTH}"
+	  x2="{$newX + number(@t:WIDTH)}"
 	  y2="{$newY}"
 	  fill="none" stroke="black" stroke-width="{$lineWeight}"/>
   </xsl:template>
@@ -866,7 +862,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <xsl:with-param name="rows" select="child::*"/>
       <xsl:with-param name="shiftX" select="tokenize($shiftX, ' ')"/>
       <xsl:with-param name="xShift" select="$xShift"/>
-      <xsl:with-param name="yShift" select="$yShift + @t:SHIFT"/>
+      <xsl:with-param name="yShift" select="$yShift + number(@t:SHIFT)"/>
     </xsl:call-template>
   </xsl:template>
 
@@ -961,23 +957,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </xsl:apply-templates>  
   </xsl:template>
 
-
-  <!-- Determines the base font to use -->
-  <xsl:template name="setBestFont">
-    <xsl:param name="char" />
-    <xsl:param name="fontName" tunnel="yes" />
-    
-    <xsl:variable name="bestFontName">
-      <xsl:call-template name="findFontName">
-    	<xsl:with-param name="name" select="$char"/>
-    	<xsl:with-param name="fonts" select="$fontName"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:if test="normalize-space($bestFontName) != ''">
-      <xsl:attribute name="font-family" select="$bestFontName"/>
-    </xsl:if>
-  </xsl:template>
-  
   <!-- ####################################################################
        Draw vertical delimiter and stretch or compose symbol if necessary
        #################################################################### -->
@@ -1156,10 +1135,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 					    + $extenserSize * $bestSize[1]) * $bestSize[2]"/>
 	    <xsl:attribute name="font-size" select="$bestSize[2]"/>
 
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimPart/*[@vname=$delimiter]/*[$topIndex]"/>
-        </xsl:call-template>
-
 	    <xsl:value-of select="$delimPart/*[@vname=$delimiter]/*[$topIndex]"/>
 	  </text>
 	</xsl:if>
@@ -1170,10 +1145,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	    <xsl:attribute name="x" select="$x"/>
 	    <xsl:attribute name="y" select="$y + $bottomSize[2] * $bestSize[2]"/>
 	    <xsl:attribute name="font-size" select="$bestSize[2]"/>
-
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimPart/*[@vname=$delimiter]/*[$bottomIndex]"/>
-        </xsl:call-template>
 
 	    <xsl:value-of select="$delimPart/*[@vname=$delimiter]/*[$bottomIndex]"/>
 	  </text>
@@ -1188,10 +1159,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	      <xsl:attribute name="y" select="$y - (- $middleSize[2] + $bottomSize[1] - $bottomSize[2] + 
 					      $extenserSize * $bestSize[1] * 0.5) * $bestSize[2]"/>
 	      <xsl:attribute name="font-size" select="$bestSize[2]"/>
-	      
-	      <xsl:call-template name="setBestFont">
-	        <xsl:with-param name="char" select="$delimPart/*[@vname=$delimiter]/*[$middleIndex]"/>
-	      </xsl:call-template>
 	      
 	      <xsl:value-of select="$delimPart/*[@vname=$delimiter]/*[$middleIndex]"/>
 	    </text>
@@ -1258,10 +1225,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <!-- Scale delimiter -->
 	  <xsl:attribute name="transform" select="concat('scale(1, ', $scale, ')')"/>
 	  
-	  <xsl:call-template name="setBestFont">
-	    <xsl:with-param name="char" select="$delimiter"/>
-	  </xsl:call-template>
-	  
 	  <xsl:value-of select="$delimiter"/>
 	</text>
       </xsl:when>
@@ -1284,10 +1247,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	    </xsl:choose>
 	  </xsl:attribute>
 	  <xsl:attribute name="font-size" select="$fontSize"/>
-
-	  <xsl:call-template name="setBestFont">
-	    <xsl:with-param name="char" select="$delimiter"/>
-	  </xsl:call-template>
 
 	  <xsl:value-of select="$delimiter"/>
 	</text>
@@ -1368,10 +1327,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:attribute name="transform" select="concat('rotate(90, ', $x, ', ', $y, ')')"/>
       </xsl:if>
       
-	  <xsl:call-template name="setBestFont">
-	    <xsl:with-param name="char" select="$extenser"/>
-	  </xsl:call-template>
-
       <xsl:value-of select="$extenser"/>
     </text>
 
@@ -1559,10 +1514,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	      <xsl:attribute name="transform" select="concat('rotate(90, ', $rightX, ', ', $yCorrected, ')')"/>
 	    </xsl:if>
 
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimPart/*[@hname=$delimiter]/*[$rightIndex]"/>
-        </xsl:call-template>
-
 	    <xsl:value-of select="$delimPart/*[@hname=$delimiter]/*[$rightIndex]"/>
 	  </text>
 	</xsl:if>
@@ -1577,10 +1528,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	    <xsl:if test="$rotate">
 	      <xsl:attribute name="transform" select="concat('rotate(90, ', $leftX, ', ', $yCorrected, ')')"/>
 	    </xsl:if>
-
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimPart/*[@hname=$delimiter]/*[$leftIndex]"/>
-        </xsl:call-template>
 
 	    <xsl:value-of select="$delimPart/*[@hname=$delimiter]/*[$leftIndex]"/>
 	  </text>
@@ -1600,10 +1547,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<xsl:attribute name="transform" select="concat('rotate(90, ', $middleX, ', ', $yCorrected, ')')"/>
 	      </xsl:if>
 	      
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimPart/*[@hname=$delimiter]/*[$middleIndex]"/>
-        </xsl:call-template>
-
 	      <xsl:value-of select="$delimPart/*[@hname=$delimiter]/*[$middleIndex]"/>
 	    </text>
 	    
@@ -1675,10 +1618,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  <!-- Scale delimiter -->
 	  <xsl:attribute name="transform" select="concat('scale(', $scale, ', 1)')"/>
 	  
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimiter"/>
-        </xsl:call-template>
-
 	  <xsl:value-of select="$delimiter"/>
 	</text>
       </xsl:when>
@@ -1699,10 +1638,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	    </xsl:choose>
 	  </xsl:attribute>
 	  <xsl:attribute name="font-size" select="$fontSize"/>
-
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$delimiter"/>
-        </xsl:call-template>
 
 	  <xsl:value-of select="$delimiter"/>
 	</text>
@@ -1787,10 +1722,6 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<xsl:attribute name="transform" select="concat('rotate(90, ', $x, ', ', $y, ')')"/>
       </xsl:if>
       
-        <xsl:call-template name="setBestFont">
-          <xsl:with-param name="char" select="$extenser"/>
-        </xsl:call-template>
-
       <xsl:value-of select="$extenser"/>
     </text>
 

@@ -43,8 +43,8 @@ The best file format is CID that give more information about metrics
       <title>Introduction</title>
       
       <para>
-	This stylesheet offers functions to interact with an <acronym>XML</acronym> <acronym>FOP</acronym> file metrics. Currently, three types
-	of <acronym>FOP</acronym> metrics are supported: WinAnsiEncoding, Type1 font and <acronym>TTF</acronym> font. The last one is prefered
+	This stylesheet offers functions to interact with an <acronym>XML</acronym> <acronym>FOP</acronym> metrics file. Currently, three types
+	of <acronym>FOP</acronym> metrics are supported: WinAnsiEncoding, Type1 font and <acronym>TTF</acronym> font. The latter is preferred
 	because the metrics contain more symbol metrics and more precise metrics. WinAnsiEncoding and Type1 files only contain a maximum of 255 metrics.
       </para>
     </partintro>
@@ -103,48 +103,64 @@ The best file format is CID that give more information about metrics
     <xsl:param name="font"/>
     <xsl:param name="variant"/>
 
+    <xsl:variable name="demandedFont" select="concat($font, $variant)"/>
+
+    <xsl:variable name="chosenFont">
+      <xsl:choose>
+	<!-- Font exists, return this font -->
+	<xsl:when test="doc-available(concat($demandedFont, '.xml'))">
+	  <xsl:value-of select="$demandedFont"/>
+	</xsl:when>
+	<!-- Otherwise, no font metrics found -->
+	<xsl:otherwise>
+	  <xsl:variable name="varLenght" select="string-length($variant)"/>
+	  <xsl:choose>
+	    <!-- Variant = -Bold-Italic -->
+	    <xsl:when test="$varLenght = 12">
+	      <!-- Test bold -->
+	      <xsl:choose>
+		<!-- Bold exist so return bold -->
+		<xsl:when test="doc-available(concat($font, '-Bold.xml'))">
+		  <xsl:value-of select="concat($font, '-Bold')"/>
+		</xsl:when>
+		<!-- Italic exist so return bold -->
+		<xsl:when test="doc-available(concat($font, '-Italic.xml'))">
+		  <xsl:value-of select="concat($font, '-Italic')"/>
+		</xsl:when>
+		<!-- Otherwise, check no variant -->
+		<xsl:otherwise>
+		  <xsl:value-of
+		      select="if (doc-available(concat($font, '.xml')))
+			      then $font else ''"/>
+		</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:when>
+	    <!-- No variant, return empty string -->
+	    <xsl:when test="$varLenght = 0"/>
+	    <!-- Bold or Italic variant -->
+	    <xsl:otherwise>
+	      <!-- Test with no variant -->
+	      <xsl:value-of select="if (doc-available(concat($font, '.xml')))
+				    then $font else ''"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
     <xsl:choose>
-      <!-- Font exists, return this font -->
-      <xsl:when test="doc-available(concat($font, $variant, '.xml'))">
-	<xsl:value-of select="concat($font, $variant)"/>
+      <xsl:when test="string-length($chosenFont) = 0">
+	<xsl:message terminate="yes">
+	  <xsl:text>ERROR: font </xsl:text>
+	  <xsl:value-of select="$demandedFont"/>
+	  <xsl:text> not found</xsl:text>
+	</xsl:message>
       </xsl:when>
-      <!-- Otherwise, no font metrics found -->
-      <xsl:otherwise>
-	<xsl:variable name="varLenght" select="string-length($variant)"/>
-	<xsl:choose>
-	  <!-- Variant = -Bold-Italic -->
-	  <xsl:when test="$varLenght = 12">
-	    <!-- Test bold -->
-	    <xsl:choose>
-	      <!-- Bold exist so return bold -->
-	      <xsl:when test="doc-available(concat($font, '-Bold.xml'))">
-		<xsl:value-of select="concat($font, '-Bold')"/>
-	      </xsl:when>
-	       <!-- Italic exist so return bold -->
-	      <xsl:when test="doc-available(concat($font, '-Italic.xml'))">
-		<xsl:value-of select="concat($font, '-Italic')"/>
-	      </xsl:when>
-	      <!-- Otherwise, check no variant -->
-	      <xsl:otherwise>
-		<xsl:value-of select="if (doc-available(concat($font, '.xml')))
-				      then $font
-				      else ''"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:when>
-	  <!-- No variant, return empty string -->
-	  <xsl:when test="$varLenght = 0"/>
-	  <!-- Bold or Italic variant -->
-	  <xsl:otherwise>
-	    <!-- Test with no variant -->
-	    <xsl:value-of select="if (doc-available(concat($font, '.xml')))
-				  then $font
-				  else ''"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:otherwise>
     </xsl:choose>
+
+    <xsl:value-of select="$chosenFont"/>
   </xsl:function>
+
 
   <doc:template name="findWidth">
     <refpurpose>Find the width of a character from a list of fonts. The first font of the list that contains the character will be used.</refpurpose>
@@ -271,77 +287,21 @@ The best file format is CID that give more information about metrics
 	  </xsl:when>
 	  <!-- Default value is 0.8 -->
 	  <xsl:otherwise>
-	    <xsl:value-of select="0.8"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template name="findFontName">
-    <xsl:param name="name"/>
-    <xsl:param name="fonts"/>
-    <xsl:param name="variant"/>
-    <xsl:param name="fontInit" select="$fonts"/>
-
-    <xsl:choose>
-      <!-- Invisible operators
-	   &InvisibleTimes;  	&it;
-	   &ApplyFunction; 	&af;
-	   &InvisibleComma; 	&ic;
-	   &ZeroWidthSpace;
-      -->
-      <xsl:when test="$name='&#8290;' or $name='&#8289;' or $name='&#8291;' or $name='&#8203;'">
-	<xsl:value-of select="'PHIL-TODO-FIXME'"/>
-      </xsl:when>
-      <!-- All other characters -->
-      <xsl:otherwise>
-	<xsl:choose>
-	  <!-- There is font to test -->
-	  <xsl:when test="$fonts[1]">
-	    <xsl:variable name="currentFont" select="func:findFont($fonts[1], $variant)"/>
-
-	    <!-- Compute width -->
-	    <xsl:variable name="width">
+	    <xsl:message>
+	      <xsl:text>WARNING: no glyph found for </xsl:text>
+	      <xsl:value-of select="$name"/>
 	      <xsl:choose>
-		<xsl:when test="$currentFont">
-		  <xsl:call-template name="findWidthFile">
-		    <xsl:with-param name="name" select="$name"/>
-		    <xsl:with-param name="fontName" select="$currentFont"/>
-		  </xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:value-of select="$fonts[1]"/>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:variable>
-
-	    <xsl:choose>
-	      <xsl:when test="$width &lt; 0">
-		<xsl:call-template name="findFontName">
-		  <xsl:with-param name="name" select="$name"/>
-		  <xsl:with-param name="fonts" select="$fonts[position() &gt; 1]"/>
-		  <xsl:with-param name="variant" select="$variant"/>
-		  <xsl:with-param name="fontInit" select="$fontInit"/>
-		</xsl:call-template>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:value-of select="$fonts[1]"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:when>
-	  <!-- No metrics found with variant, remove it -->
-	  <xsl:when test="not($fonts[1]) and $variant != ''">
-	    <xsl:call-template name="findFontName">
-	      <xsl:with-param name="name" select="$name"/>
-	      <xsl:with-param name="fonts" select="$fontInit"/>
-	      <xsl:with-param name="variant" select="''"/>
-	      <xsl:with-param name="fontInit" select="$fontInit"/>
-	    </xsl:call-template>
-	  </xsl:when>
-	  <!-- Default value not found -->
-	  <xsl:otherwise>
-	    <xsl:value-of select="''"/>
+	        <xsl:when test="string-to-codepoints($name)">
+            <xsl:text> (U+</xsl:text>
+            <xsl:value-of select="func:int2hex(string-to-codepoints($name))"/>
+            <xsl:text>)</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text> (No codepoint)</xsl:text><!-- PHIL -->
+          </xsl:otherwise>
+        </xsl:choose>
+	    </xsl:message>
+	    <xsl:value-of select="0.8"/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:otherwise>
@@ -360,8 +320,8 @@ The best file format is CID that give more information about metrics
       </para>
 
       <para>
-	After that, the width attribute is retreived from the metrics document with respect to the font metrics encoding. If the encoding is 
-	<filename>CID</filename> encoding, a glyph start index (<filename>gs</filename>) and unicode start value (<filename>us</filename>) are 
+	After that, the width attribute is retrieved from the metrics document with respect to the font metrics encoding. If the encoding is 
+	<filename>CID</filename>, a glyph start index (<filename>gs</filename>) and unicode start value (<filename>us</filename>) are 
 	computed to retrieve the attribute <filename>w</filename> (which contains the width of the character) from the 
 	<computeroutput>(gi + 1 + codePoint - us)</computeroutput>th <filename>wx</filename> element of the metrics file. In all other cases (WinAnsiEncoding), the
 	<filename>wdt</filename> attribute (which contains the width of the character) from the <filename>char</filename> element whose its
@@ -404,7 +364,7 @@ The best file format is CID that give more information about metrics
 
     <xsl:variable name="normalizeFontName" select="concat($fontName, '.xml')"/>
     
-    <!-- Decimal character code -->
+    <!-- Character code as xs:integer -->
     <xsl:variable name="codePoint" select="string-to-codepoints($name)"/>
 
     <!-- Font Metrics document -->
@@ -424,7 +384,7 @@ The best file format is CID that give more information about metrics
 	  <!-- Unicode Start -->
 	  <xsl:variable name="us" 
 			select="$fontMetricsDoc/font-metrics/multibyte-extras/bfranges/
-				bf[@gi = $gi]/@us"/>
+				bf[@us &lt;= $codePoint and $codePoint &lt;= @ue]/@us"/>
 
 	  <xsl:value-of select="$fontMetricsDoc/font-metrics/multibyte-extras/cid-widths/wx[$gi + 1 + $codePoint - $us ]/@w"/>
 	</xsl:when>
@@ -452,6 +412,26 @@ The best file format is CID that give more information about metrics
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+
+  <xsl:function name="func:int2hex" as="xs:string">
+    <xsl:param name="int" as="xs:integer"/>
+    <xsl:variable name="base" as="xs:integer" select="16"/>
+    <xsl:variable name="chr" as="xs:string" select="'0123456789abcdef'"/>
+    <xsl:if test="(1 gt $base) or (string-length($chr) lt $base)">
+      <xsl:message terminate="yes">
+	<xsl:text>Internal error: invalid base </xsl:text>
+	<xsl:value-of select="$base"/>
+      </xsl:message>
+    </xsl:if>
+    <xsl:variable name="car" as="xs:integer" select="$int mod $base"/>
+    <xsl:variable name="cdr" as="xs:integer"
+		  select="($int div $base) cast as xs:integer"/>
+    <xsl:value-of select="concat(if ($base lt $int)
+			  then func:int2hex($cdr) else '',
+			  substring($chr, 1+$car, 1))"/>
+  </xsl:function>
+
 
   <doc:function name="findBbox">
     <refpurpose>Find the bounding box of a character from a list of fonts. The first font of the list containing the character will be used.</refpurpose>
@@ -640,6 +620,13 @@ The best file format is CID that give more information about metrics
 	  </xsl:when>
 	  <!-- Default value is 0 0 0 0 -->
 	  <xsl:otherwise>
+	    <xsl:message>
+	      <xsl:text>WARNING: Cannot determine bounding box for glyph </xsl:text>
+	      <xsl:value-of select="$name"/>
+	      <xsl:text> in </xsl:text>
+	      <xsl:value-of select="$fontInit"/>
+	      <xsl:value-of select="$variant"/>
+	    </xsl:message>
 	    <xsl:sequence  select="(0, 0, 0, 0)"/>
 	  </xsl:otherwise>
 	</xsl:choose>
@@ -702,7 +689,7 @@ The best file format is CID that give more information about metrics
 
     <xsl:variable name="normalizeFontName" select="concat($fontName, '.xml')"/>
     
-    <!-- Decimal character code -->
+    <!-- Character code as xs:integer -->
     <xsl:variable name="codePoint" select="string-to-codepoints($name)"/>
 
     <!-- Font Metrics document -->
@@ -722,7 +709,7 @@ The best file format is CID that give more information about metrics
 	  <!-- Unicode Start -->
 	  <xsl:variable name="us" 
 			select="$fontMetricsDoc/font-metrics/multibyte-extras/bfranges/
-				bf[@gi = $gi]/@us"/>
+				bf[@us &lt;= $codePoint and $codePoint &lt;= @ue]/@us"/>
 
 	  <xsl:choose>
 	    <xsl:when test="$fontMetricsDoc/font-metrics/multibyte-extras/cid-widths/wx[$gi + 1 + $codePoint - $us ]/@xMin != ''">
@@ -732,7 +719,6 @@ The best file format is CID that give more information about metrics
 				    number($fontMetricsDoc/font-metrics/multibyte-extras/cid-widths/wx[$gi + 1 + $codePoint - $us ]/@yMax div 1000))"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-<xsl:message>LOG: WARNING: MathML2SVG: Font issue. Couldn't find bounding box for <xsl:value-of select="$normalizeFontName"/> codePoint="<xsl:value-of select="$codePoint"/>"</xsl:message>
 	      <xsl:value-of select="-1"/>
 	    </xsl:otherwise>
 	  </xsl:choose>

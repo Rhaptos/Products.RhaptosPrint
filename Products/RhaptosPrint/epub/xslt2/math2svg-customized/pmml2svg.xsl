@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
 ###############################################################################
-$Id: pmml2svg.xsl 226 2009-06-20 08:09:10Z piater $
+$Id: pmml2svg.xsl 256 2012-02-04 20:57:33Z piater $
 
 CREATED: JUNE 2005
 
@@ -166,6 +166,10 @@ REMARKS:
   <!-- END OF PARAMETERS CONFIGURATION -->
 
   <!-- Output method -->
+  <xsl:output method="xml" indent="no" version="1.0"
+	      omit-xml-declaration="no"
+	      media-type="image/svg+xml"
+	      cdata-section-elements="style"/>
 
   <!-- Includes other stylesheet -->
   <xsl:include href="fontMetrics.xsl"/>
@@ -953,7 +957,6 @@ REMARKS:
     <xsl:param name="mathvariant"/>
     <xsl:param name="mathcolor"/>
     <xsl:param name="mathbackground"/>
-    <xsl:param name="font"/>
     
     <xsl:variable name="bold" select="if (matches($mathvariant, 'bold'))
 				      then 'font-weight: bold; '
@@ -963,13 +966,8 @@ REMARKS:
 					else ''"/>
     <xsl:variable name="color" select="concat('fill: ', $mathcolor, '; ')"/>
     <xsl:variable name="background" select="concat('background-color: ', $mathbackground, '; ')"/>
-    <xsl:variable name="bestFontName">
-    	<xsl:if test="normalize-space($font) != ''">
-    		<xsl:value-of select="concat('font-family: ', $font, '; ')"/>
-    	</xsl:if>
-    </xsl:variable>
 
-    <xsl:value-of select="concat($bold, $italic, $color, $background, $bestFontName)"/>
+    <xsl:value-of select="concat($bold, $italic, $color, $background)"/>
   </xsl:function>
 
   <doc:function name="stringWidth">
@@ -1444,7 +1442,7 @@ REMARKS:
 	    <listitem>
 	      <para>
 		Determines the fonts that will be used to render elements. This parameter is a list of fonts separated by a comma. By default, the font list 
-		is <filename>STIXGeneral,STIXSize1</filename>. The way you can change this parameter is explained in the user guide.
+		is <filename>STIXGeneral,STIXSizeOneSym</filename>. The way you can change this parameter is explained in the user guide.
 	      </para>
 	    </listitem>
 	  </varlistentry>
@@ -1624,7 +1622,7 @@ REMARKS:
 	</pmml2svg:baseline-shift>
       </metadata>
 
-      <g stroke="none" fill="#000000" text-rendering="optimizeLegibility">
+      <g stroke="none" fill="#000000" text-rendering="optimizeLegibility" font-family="{string-join($fontName, ', ')}">
       	<xsl:apply-templates select="$formattedTree/*" mode="draw">
       	  <xsl:with-param name="xShift" select="0"/>
       	  <xsl:with-param name="yShift" select="0"/>

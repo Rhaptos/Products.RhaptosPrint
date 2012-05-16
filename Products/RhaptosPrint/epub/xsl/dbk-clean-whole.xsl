@@ -209,11 +209,4 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="db:figure[not(ancestor::db:example)]|db:table">
-  <xsl:copy>
-    <xsl:attribute name="class">span-all</xsl:attribute>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
-
 </xsl:stylesheet>
