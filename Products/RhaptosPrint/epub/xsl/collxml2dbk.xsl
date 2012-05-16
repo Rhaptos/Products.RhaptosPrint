@@ -9,7 +9,7 @@
   >
 <xsl:include href="cnxml2dbk.xsl"/>
 
-<xsl:output indent="yes"/>
+<xsl:output indent="no"/>
 
 <xsl:template match="col:*/@*">
 	<xsl:copy/>

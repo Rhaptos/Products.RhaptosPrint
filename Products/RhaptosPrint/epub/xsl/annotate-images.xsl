@@ -11,11 +11,11 @@
 <xsl:import href="debug.xsl"/>
 <xsl:import href="ident.xsl"/>
 
+<xsl:output indent="no" method="xml"/>
+
 <xsl:param name="image-sizes-xml-path"/>
 
 <xsl:variable name="images" select="document($image-sizes-xml-path)"/>
-
-<xsl:output indent="yes" method="xml"/>
 
 <xsl:template match="db:imagedata[@fileref]">
   <xsl:variable name="name" select="@fileref"/>
