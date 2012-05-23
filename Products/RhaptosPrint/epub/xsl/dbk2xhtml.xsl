@@ -60,4 +60,14 @@ procedure before
     <xsl:apply-templates select="@*|node()"/>
   </p>
 </xsl:template>
+
+
+<!-- Wrapp glossterms with a span tag so we retain the @id (so the index can link to it) -->
+<xsl:template match="d:glossentry/d:glossterm">
+  <span class="glossterm" id="{@xml:id}">
+    <xsl:apply-templates select="node()"/>
+  </span>
+  <xsl:if test="following-sibling::d:glossterm">, </xsl:if>
+</xsl:template>
+
 </xsl:stylesheet>
