@@ -652,6 +652,10 @@
     <xsl:apply-templates mode="cnx.strip-id" select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
+<!-- To combine terms in the index that have different capitalizations, convert them to lowercase -->
+<xsl:template mode="cnx.strip-id" match="c:*/text()">
+  <xsl:value-of select="translate(., $cnx.uppercase, $cnx.smallcase)"/>
+</xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->
 <xsl:template match="c:newline">
