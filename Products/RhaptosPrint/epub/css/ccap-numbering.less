@@ -69,6 +69,7 @@ div.book {
   //This convoluted path is used to suck up (via the "content()") the title of the chapter into the page header
   & > div.titlepage > div > div h1.title span.cnx-gentext-t {
     string-set: cnx-header @S @part-label " " @part-counter " | " content() @E;
+    padding-left: .25em;
   }
   
   counter-reset: section figure subfigure table equation example exercise footnote toc-section;
