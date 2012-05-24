@@ -1,3 +1,6 @@
+RhaptosPrint-0.12
+ - modern-textbook epub math font fixes
+
 RhaptosPrint-0.11
  - modern-textbook related bugfixes
 
