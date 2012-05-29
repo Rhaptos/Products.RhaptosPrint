@@ -68,6 +68,12 @@ def main():
   dbk, files = convert(dbk, allFiles)
 
   args.output.write(etree.tostring(dbk))
+  
+  # Write out all the added files
+  for name in newFiles:
+    f = open(os.path.join(args.directory, name), 'w')
+    f.write(newFiles[name])
+    f.close()
 
 if __name__ == '__main__':
     sys.exit(main())
