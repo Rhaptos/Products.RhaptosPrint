@@ -33,5 +33,4 @@ $ ./scripts/module2epub.sh "Connexions" test-ccap test-ccap.epub col12345 xsl/db
 
 # To generate a PDF:
 - Install PrinceXML or wkhtmltopdf
-$ decalre -x XHTML_PATH=${path-to-wkhtml2pdf-or-princexml}
-$ python2.4 -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('test-ccap', 'ccap-physics');" > result.pdf
+$ python collectiondbk2pdf.py -p ${path-to-wkhtml2pdf-or-princexml} -d test-ccap -s ccap-physics result.pdf
