@@ -1676,10 +1676,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<!-- y-coordinate of the bottom of the box -->
 	<xsl:variable name="bottomY">
 	  <xsl:for-each select="$children/*">
-	    <xsl:sort select="@t:Y + @t:HEIGHT"
+	    <xsl:sort select="number(@t:Y) + number(@t:HEIGHT)"
 		      data-type="number" order="descending"/>
 	    <xsl:if test="position() = 1">
-	      <xsl:value-of select="@t:Y + @t:HEIGHT"/>
+	      <xsl:value-of select="number(@t:Y) + number(@t:HEIGHT)"/>
 	    </xsl:if>
 	  </xsl:for-each>
 	</xsl:variable>
@@ -4083,7 +4083,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </xsl:apply-templates>
     </xsl:variable>
 
-    <xsl:variable name="denWidth" as="xs:double" select="$den/*/@t:WIDTH"/>
+    <xsl:variable name="denWidth" as="xs:double" select="number($den/*/@t:WIDTH)"/>
     <xsl:variable name="denHeight" select="$den/*/@t:HEIGHT"/>
     <xsl:variable name="denY" select="$den/*/@t:Y"/>
 

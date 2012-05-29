@@ -607,7 +607,21 @@
 </xsl:template>
 
 <xsl:template match="c:term[not(@url)]">
+  <xsl:variable name="id">
+    <xsl:value-of select="$cnx.module.id"/>
+    <xsl:value-of select="$cnx.module.separator"/>
+    <xsl:choose>
+      <xsl:when test="@id">
+        <xsl:value-of select="@id"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>autoid-cnx2dbk-</xsl:text>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 	<db:glossterm>
+    <xsl:attribute name="xml:id"><xsl:value-of select="$id"/></xsl:attribute>
     <xsl:apply-templates select="@*"/>
     <xsl:if test="parent::c:definition[not(parent::c:glossary)]">
       <xsl:choose>
@@ -621,7 +635,9 @@
     </xsl:if>
     <xsl:apply-templates select="node()"/>
   </db:glossterm>
-  <xsl:call-template name="cnx.indexterm"/>
+  <xsl:call-template name="cnx.indexterm">
+    <xsl:with-param name="id" select="$id"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="c:term[@document|@target-id]">
@@ -631,15 +647,34 @@
 		<xsl:if test="@target-id"><xsl:value-of select="$cnx.module.separator"/></xsl:if>
 		<xsl:value-of select="@target-id"/>
 	</xsl:variable>
-  <db:glossterm linkend="{$linkend}"><xsl:apply-templates select="@*|node()"/></db:glossterm>
-  <xsl:call-template name="cnx.indexterm"/>
+  <xsl:variable name="id">
+    <xsl:value-of select="$cnx.module.id"/>
+    <xsl:value-of select="$cnx.module.separator"/>
+    <xsl:choose>
+      <xsl:when test="@id">
+        <xsl:value-of select="@id"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>autoid-cnx2dbk-</xsl:text>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <db:glossterm linkend="{$linkend}">
+    <xsl:attribute name="xml:id"><xsl:value-of select="$id"/></xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </db:glossterm>
+  <xsl:call-template name="cnx.indexterm">
+    <xsl:with-param name="id" select="$id"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template name="cnx.indexterm">
+  <xsl:param name="id"/>
   <xsl:variable name="node">
     <xsl:apply-templates mode="cnx.strip-id" select="."/>
   </xsl:variable>
-    <db:indexterm>
+    <db:indexterm zone="{$id}">
       <db:primary>
         <xsl:apply-templates mode="cnx.strip-id" select="exsl:node-set($node)"/>
       </db:primary>
@@ -651,6 +686,10 @@
   <xsl:copy>
     <xsl:apply-templates mode="cnx.strip-id" select="@*|node()"/>
   </xsl:copy>
+</xsl:template>
+<!-- To combine terms in the index that have different capitalizations, convert them to lowercase -->
+<xsl:template mode="cnx.strip-id" match="c:*/text()">
+  <xsl:value-of select="translate(., $cnx.uppercase, $cnx.smallcase)"/>
 </xsl:template>
 
 <!-- Add a processing instruction that will be matched in the custom docbook2fo.xsl -->

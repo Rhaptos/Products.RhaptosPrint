@@ -68,7 +68,7 @@ def makeTransform(file):
   return t    
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
+def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
   #if 'index.included.dbk' in filesDict:
@@ -193,5 +193,13 @@ def convert(moduleId, xml, filesDict, collParams, svg2png=True, math2svg=True):
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
+  
+  # Write out all files to the temp dir so they don't stay in memory
+  for (key, value) in origAndNewFiles.items():
+    print >> sys.stderr, "Writing out " + os.path.join(temp_dir, key)
+    f = open(os.path.join(temp_dir, key), 'w')
+    f.write(value)
+    f.close()
+  newFiles = {}
   
   return etree.tostring(xml), newFiles

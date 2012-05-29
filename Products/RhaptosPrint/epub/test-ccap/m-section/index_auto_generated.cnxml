@@ -1260,8 +1260,13 @@ size 12{0 "." 1`"W/m" rSup { size 8{2} } } {}
     </exercise>
   </section>
   
+  <para>Here are 2 terms with different capitalizations to make sure they combine in the index and show up lower case <term>Thing One</term> and <term>thing one</term>.</para>
 </content>
   <glossary>
-    <definition id="import-auto-id1864544"><term>intensity</term> <meaning id="fs-id2962596">power per unit area</meaning></definition>
+    <definition id="import-auto-id1864544"><term>intensity</term> <meaning id="fs-id2962596">power per unit area.
+
+With an (unnumbered) equation.
+<equation>1+1=2</equation>
+</meaning></definition>
   </glossary>
   </document>

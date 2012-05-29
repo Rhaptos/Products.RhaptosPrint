@@ -21,7 +21,8 @@ To install and get it running:
 
 $ sudo apt-get install python-virtualenv        # for the following commands
 $ sudo apt-get install libxslt1-dev libxml2-dev # For lxml to compile
-$ sudo apt-get install imagemagick otf-stix     # To convert SVG and math to PNG
+$ sudo apt-get install librsvg2-bin             # To convert SVG and math to PNG
+$ sudo apt-get install otf-stix
 
 $ virtualenv .
 $ source bin/activate
@@ -32,5 +33,4 @@ $ ./scripts/module2epub.sh "Connexions" test-ccap test-ccap.epub col12345 xsl/db
 
 # To generate a PDF:
 - Install PrinceXML or wkhtmltopdf
-$ decalre -x XHTML_PATH=${path-to-wkhtml2pdf-or-princexml}
-$ python2.4 -c "import collectiondbk2pdf; print collectiondbk2pdf.__doStuff('test-ccap', 'ccap-physics');" > result.pdf
+$ python collectiondbk2pdf.py -p ${path-to-wkhtml2pdf-or-princexml} -d test-ccap -s ccap-physics result.pdf

@@ -274,9 +274,6 @@ a {
   margin-left: 0.5em;
   margin-right: 1em;
 }
-.chapter .toc a:before, .chapter .toc a .cnx-gentext-n {
-  margin-right: 0.25em;
-}
 .problems-exercises img {
   max-width: 3in;
   height: auto;
@@ -579,6 +576,7 @@ div.book  > div.preface {
 }
 div.book  > div.preface  > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Preface" " " "" " | " content() "";
+  padding-left: .25em;
 }
 div.book  > div.preface  > div.cnx-eoc {
   counter-reset: exercise eoc-section -1;
@@ -713,10 +711,7 @@ div.book  > div.preface  > div.section div.equation > *:last-child::after {
   content: "" "(" "" "" counter(equation) ")" "";
   float: right;
 }
-div.book  > div.preface  > div.section div.equation > .label {
-  display: none;
-}
-div.book  > div.preface  > div.cnx-eoc div.equation > .label {
+div.book  > div.preface div.equation > .label {
   display: none;
 }
 div.book  > div.preface  > div.toc > ul > li > a:not(.labeled)::before {
@@ -773,6 +768,7 @@ div.book  > div.chapter {
 }
 div.book  > div.chapter  > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Chapter" " " counter(chapter, decimal) " | " content() "";
+  padding-left: .25em;
 }
 div.book  > div.chapter  > div.cnx-eoc {
   counter-reset: exercise eoc-section -1;
@@ -907,10 +903,7 @@ div.book  > div.chapter  > div.section div.equation > *:last-child::after {
   content: "" "(" counter(chapter, decimal) "." counter(equation) ")" "";
   float: right;
 }
-div.book  > div.chapter  > div.section div.equation > .label {
-  display: none;
-}
-div.book  > div.chapter  > div.cnx-eoc div.equation > .label {
+div.book  > div.chapter div.equation > .label {
   display: none;
 }
 div.book  > div.chapter  > div.toc > ul > li > a:not(.labeled)::before {
@@ -961,6 +954,7 @@ div.book  > div.appendix {
 }
 div.book  > div.appendix  > div.titlepage > div > div h1.title span.cnx-gentext-t {
   string-set: cnx-header "" "Appendix" " " counter(appendix, upper-latin) " | " content() "";
+  padding-left: .25em;
 }
 div.book  > div.appendix  > div.cnx-eoc {
   counter-reset: exercise eoc-section -1;
@@ -1095,10 +1089,7 @@ div.book  > div.appendix  > div.section div.equation > *:last-child::after {
   content: "" "(" counter(appendix, upper-latin) "" counter(equation) ")" "";
   float: right;
 }
-div.book  > div.appendix  > div.section div.equation > .label {
-  display: none;
-}
-div.book  > div.appendix  > div.cnx-eoc div.equation > .label {
+div.book  > div.appendix div.equation > .label {
   display: none;
 }
 div.book  > div.appendix  > div.toc > ul > li > a:not(.labeled)::before {
@@ -1194,16 +1185,18 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  page-break-after: avoid;
   background-color: white;
   content: "";
   display: block;
-  page-break-inside: avoid;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
 .sociological-research .title {
   color: #330033;
+  font-size: x-large;
+  margin: .25em 0;
 }
 .sociological-research:before {
   background-image: url("ccap-sociology/research.svg");
@@ -1217,16 +1210,18 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  page-break-after: avoid;
   background-color: white;
   content: "";
   display: block;
-  page-break-inside: avoid;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
 .sociology-real-world .title {
   color: #006666;
+  font-size: x-large;
+  margin: .25em 0;
 }
 .sociology-real-world:before {
   background-image: url("ccap-sociology/real-world.svg");
@@ -1240,16 +1235,18 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  page-break-after: avoid;
   background-color: white;
   content: "";
   display: block;
-  page-break-inside: avoid;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
 .sociology-big-picture .title {
   color: #336600;
+  font-size: x-large;
+  margin: .25em 0;
 }
 .sociology-big-picture:before {
   background-image: url("ccap-sociology/big-picture.svg");
@@ -1263,16 +1260,18 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  page-break-after: avoid;
   background-color: white;
   content: "";
   display: block;
-  page-break-inside: avoid;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
 .sociology-careers .title {
   color: #336633;
+  font-size: x-large;
+  margin: .25em 0;
 }
 .sociology-careers:before {
   background-image: url("ccap-sociology/careers.svg");
@@ -1286,16 +1285,18 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   background-position: top left;
   background-position: top outside;
   page-break-inside: avoid;
+  page-break-after: avoid;
   background-color: white;
   content: "";
   display: block;
-  page-break-inside: avoid;
   margin-left: -1.05em;
   margin-right: -1.05em;
   margin-top: -0.03in;
 }
 .sociology-policy-debate .title {
   color: #993333;
+  font-size: x-large;
+  margin: .25em 0;
 }
 .sociology-policy-debate:before {
   background-image: url("ccap-sociology/policy-debate.svg");
@@ -1311,18 +1312,14 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
 .chapter .toc {
   border: 1px solid LimeGreen;
 }
-.chapter .toc > ul:before {
-  content: "In this chapter, students will learn:";
-  font-weight: bold;
-  border-bottom: 1px solid LimeGreen;
-}
 .chapter .toc > .title {
   background-color: LimeGreen;
   font-weight: bold;
   color: black;
+  margin-bottom: .25em;
 }
 .chapter .toc a .cnx-gentext-n, .chapter .toc a .cnx-gentext-autogenerated {
-  display: none;
+  color: black;
 }
 .chapter .toc a:before {
   display: none;
@@ -1453,6 +1450,7 @@ h2 {
   display: inline;
   color: black;
   font-weight: bold;
+  font-size: small;
 }
 .figure > .caption {
   display: inline;

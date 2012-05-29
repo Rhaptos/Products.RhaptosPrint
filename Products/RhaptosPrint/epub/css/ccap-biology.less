@@ -1,7 +1,6 @@
 /***************************************************
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
-
 @teal: #006666;
 @cream: #FBF2E2; // For table backgrounds (from Physics)
 @green: #8FB733; // For table backgrounds (from Physics)
@@ -17,11 +16,11 @@
 
 /****** Features ******/
 // The args are title color, background color, and path to SVG
-.sociological-research   { .x-feature(#330033, #ccccff, research); }
-.sociology-real-world    { .x-feature(#006666, #ccffff, real-world); }
-.sociology-big-picture   { .x-feature(#336600, #ccff99, big-picture); }
-.sociology-careers       { .x-feature(#336633, #ccffcc, careers); }
-.sociology-policy-debate { .x-feature(#993333, #ffcccc, policy-debate); }
+.biology-scientific-method   { .x-feature(#330033, #ccccff, scientific-method); }
+.biology-evolution   { .x-feature(#006666, #ccffff, real-world); }
+.biology-everyday { .x-feature(#336600, #ccff99, everyday); }
+.biology-careers       { .x-feature(#336633, #ccffcc, careers); }
+.biology-interactive-links { .x-feature(#993333, #ffcccc, interactive-links); }
 
 .x-feature (@color, @bg-color, @svg) {
   &:before {
@@ -30,26 +29,29 @@
     background-position: top left;
     background-position: top outside;
     page-break-inside: avoid;
-	 page-break-after: avoid;	
-	 background-color: white;
+    background-color: white;
     content: "";
     display: block;
-   // the following are tweaked so the overlays really do over lay
+    page-break-inside: avoid;
+    // the following are tweaked so the overlays really do over lay
     margin-left: -1.05em;
     margin-right: -1.05em;
     margin-top: -0.03in;
   }
+
+/***** .x-feature-single-col{;}*****\
+
   .title {
-	 color: @color;
+    color: @color;
     font-size: x-large;
   	 margin: .25em 0;
-	   
+    
   }
    
-  background-color: @bg-color;
-  &:before {
-    background-image: url("ccap-sociology/@{svg}.svg");
-  }
+ /***  background-color: @bg-color;
+  &:before {background-image: url("ccap-biology/@{svg}.svg");} 
+   awaiting feature art  
+  ***/
 }
 
 /*********************** Table of Contents ********************/
@@ -150,9 +152,17 @@ p {
   text-indent: 0em;
 }
 
+/***
+.content
+{
+ -webkit-column-count: 2;
+ -moz-column-count: 2;
+ column-count: 2;
+ } ***/
 
 body {
-  font-size: 9.5pt;
+	  font-size: 9.5pt;
+
 }
 
 img {
