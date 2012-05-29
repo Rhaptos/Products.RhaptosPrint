@@ -106,10 +106,10 @@ def loadModule(moduleDir):
     files['index.included.dbk'] = dbkStr
   return (cnxml, files)
 
-def xhtml2pdf(xhtml_file, files, temp_dir, printStyle, pdfgen, output_pdf, verbose=False):
+def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose=False):
   """ Convert XHTML and assorted files to PDF using a XHTML+CSS to PDF script """
 
-  CSS_FILE = os.path.join(BASE_PATH, 'css/%s.css' % printStyle)
+  CSS_FILE = os.path.join(BASE_PATH, 'css/%s.css' % print_style)
   
   # Run Prince (or an Opensource) to generate an abstract tree 1st
   strCmd = [pdfgen, '-v', '--style=%s' % CSS_FILE, '--output=%s' % output_pdf, xhtml_file]
@@ -125,7 +125,7 @@ def xhtml2pdf(xhtml_file, files, temp_dir, printStyle, pdfgen, output_pdf, verbo
 
   return stdErr
 
-def convert(dbk1, files, printStyle, temp_dir, output_pdf, pdfgen, verbose=False):
+def convert(dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
   
   def transform(xslDoc, xmlDoc):
@@ -154,7 +154,7 @@ def convert(dbk1, files, printStyle, temp_dir, output_pdf, pdfgen, verbose=False
   #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
   # Change to the collection dir so the relative paths to images work
-  stdErr = xhtml2pdf(xhtml_file, files, temp_dir, printStyle, pdfgen, output_pdf, verbose)
+  stdErr = xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose)
   
   return stdErr
 
