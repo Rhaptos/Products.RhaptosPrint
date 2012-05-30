@@ -1380,9 +1380,9 @@ p {
   padding-top: 1em;
   padding-bottom: 1em;
 }
-/* Indent margins on lists */
-.cnx-eoc .problem .orderedlist {
-  margin-left: 4em;
+/* Indent margins on list items */
+.cnx-eoc .problem .orderedlist li {
+  margin-left: 2em;
 }
 .cnx-eoc.references p {
   text-indent: 0em;
@@ -1397,8 +1397,6 @@ img {
 h1.title {
   background-color: Purple;
   font-size: 5em;
-  /* xx-large; */
-
   padding: 0em;
 }
 .book > * > .titlepage .cnx-gentext-t:before, h1.title .cnx-gentext-n {
