@@ -211,6 +211,15 @@
         <xsl:otherwise>5in</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="course-footer">
+      <xsl:text>\small\textsl{</xsl:text>
+      <xsl:value-of select="/course/name"/>
+      <xsl:text>} by </xsl:text>
+      <xsl:value-of select="/course/author[1]"/>
+      <xsl:text> is available for free at &lt;</xsl:text>
+      <xsl:value-of select="/course/@uri"/>
+      <xsl:text>&gt;</xsl:text>
+    </xsl:variable>
     <xsl:choose>
       <xsl:when test="$printfont = 'times'">
         \usepackage{mathptmx}
@@ -406,6 +415,8 @@
     % Break long chapter titles in running heads
     \makeatletter
       \def\@evenhead{\thepage\hfil\parbox{<xsl:value-of select="$header-width"/>}{\raggedleft\slshape\leftmark}}%
+      \def\@oddfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{<xsl:value-of select="$course-footer"/>}\hfil}%
+      \def\@evenfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{<xsl:value-of select="$course-footer"/>}\hfil}%
     \makeatother
 
     % ------------------------------------------
