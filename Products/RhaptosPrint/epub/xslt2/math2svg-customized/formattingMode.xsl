@@ -1665,10 +1665,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<!-- x-coordinate of the right side of the box -->
 	<xsl:variable name="rightX">
 	  <xsl:for-each select="$children/*">
-	    <xsl:sort select="@t:X + @t:WIDTH"
+	    <xsl:sort select="number(@t:X) + number(@t:WIDTH)"
 		      data-type="number" order="descending"/>
 	    <xsl:if test="position() = 1">
-	      <xsl:value-of select="@t:X + @t:WIDTH"/>
+	      <xsl:value-of select="number(@t:X) + number(@t:WIDTH)"/>
 	    </xsl:if>
 	  </xsl:for-each>
 	</xsl:variable>
@@ -1927,10 +1927,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	     <!-- y-coordinate of the bottom of the box -->
 	     <xsl:variable name="newLowerY">
 	       <xsl:for-each select="$rowElements/*">
-		 <xsl:sort select="@t:Y + @t:HEIGHT"
+		 <xsl:sort select="number(@t:Y) + number(@t:HEIGHT)"
 			   data-type="number" order="descending"/>
 		 <xsl:if test="position() = 1">
-		   <xsl:value-of select="@t:Y + @t:HEIGHT"/>
+		   <xsl:value-of select="number(@t:Y) + number(@t:HEIGHT)"/>
 		 </xsl:if>
 	       </xsl:for-each>
 	     </xsl:variable>
@@ -4276,10 +4276,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- x-coordinate of the right side of the box -->
     <xsl:variable name="rightX">
       <xsl:for-each select="$children/*">
-	<xsl:sort select="@t:X + @t:WIDTH"
+	<xsl:sort select="number(@t:X) + number(@t:WIDTH)"
 		  data-type="number" order="descending"/>
 	<xsl:if test="position() = 1">
-	  <xsl:value-of select="@t:X + @t:WIDTH"/>
+	  <xsl:value-of select="number(@t:X) + number(@t:WIDTH)"/>
 	</xsl:if>
       </xsl:for-each>
     </xsl:variable>
@@ -4287,10 +4287,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- y-coordinate of the bottom of the box -->
     <xsl:variable name="bottomY">
       <xsl:for-each select="$children/*">
-	<xsl:sort select="@t:Y + @t:HEIGHT"
+	<xsl:sort select="number(@t:Y) + number(@t:HEIGHT)"
 		  data-type="number" order="descending"/>
 	<xsl:if test="position() = 1">
-	  <xsl:value-of select="@t:Y + @t:HEIGHT"/>
+	  <xsl:value-of select="number(@t:Y) + number(@t:HEIGHT)"/>
 	</xsl:if>
       </xsl:for-each>
     </xsl:variable>
@@ -5120,10 +5120,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <!-- y-coordinate of the bottom of the box -->
     <xsl:variable name="bottomY">
       <xsl:for-each select="$cols/*">
-	<xsl:sort select="@t:Y + @t:HEIGHT"
+	<xsl:sort select="number(@t:Y) + number(@t:HEIGHT)"
 		  data-type="number" order="descending"/>
 	<xsl:if test="position() = 1">
-	  <xsl:value-of select="@t:Y + @t:HEIGHT"/>
+	  <xsl:value-of select="number(@t:Y) + number(@t:HEIGHT)"/>
 	</xsl:if>
       </xsl:for-each>
     </xsl:variable>
@@ -5371,10 +5371,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<!-- x-coordinate of the right side of the box -->
 	<xsl:variable name="rightX">
 	  <xsl:for-each select="$children/*">
-	    <xsl:sort select="@t:X + @t:WIDTH"
+	    <xsl:sort select="number(@t:X) + number(@t:WIDTH)"
 		      data-type="number" order="descending"/>
 	    <xsl:if test="position() = 1">
-	      <xsl:value-of select="@t:X + @t:WIDTH"/>
+	      <xsl:value-of select="number(@t:X) + number(@t:WIDTH)"/>
 	    </xsl:if>
 	  </xsl:for-each>
 	</xsl:variable>
@@ -5382,10 +5382,10 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<!-- y-coordinate of the bottom of the box -->
 	<xsl:variable name="bottomY">
 	  <xsl:for-each select="$children/*">
-	    <xsl:sort select="@t:Y + @t:HEIGHT"
+	    <xsl:sort select="number(@t:Y) + number(@t:HEIGHT)"
 		      data-type="number" order="descending"/>
 	    <xsl:if test="position() = 1">
-	      <xsl:value-of select="@t:Y + @t:HEIGHT"/>
+	      <xsl:value-of select="number(@t:Y) + number(@t:HEIGHT)"/>
 	    </xsl:if>
 	  </xsl:for-each>
 	</xsl:variable>
