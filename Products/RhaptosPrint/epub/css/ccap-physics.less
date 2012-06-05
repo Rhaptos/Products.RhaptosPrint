@@ -190,6 +190,16 @@ h2::before {
 	color: @blue;
 }
 
+.problems-exercises {
+  .x-column-count(2);
+  page-break-before: always;
+}
+
+/* Allow sections in the 2-column problems-exercises to break */
+.problems-exercises .section {
+  page-break-inside: auto;
+}
+
 
 /*****************************************************
  * Appendix customizations
