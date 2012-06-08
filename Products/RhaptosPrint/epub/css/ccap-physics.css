@@ -212,7 +212,11 @@ a {
   text-decoration: none;
 }
 /*********************** Table of Contents ********************/
-.book > .toc > .title {
+.book > .toc {
+  /* TOC Chapter */
+
+}
+.book > .toc  > .title {
   page-break-after: avoid;
   text-align: center;
   font-size: large;
@@ -220,12 +224,19 @@ a {
 .book > .toc a {
   font-weight: medium;
   text-decoration: none;
+  /* Chapter 3 : Type Systems ........................ 213 */
+
 }
-/* TOC Chapter */
-.book > .toc > li > ul a {
+.book > .toc a::after {
+  content: leader(' . ') target-counter(attr(href), page);
+}
+.book > .toc  > li > ul a {
   font-size: 12pt;
 }
-.book > .toc > li.toc-appendix ul {
+.book > .toc  > li.toc-preface ul {
+  display: none;
+}
+.book > .toc  > li.toc-appendix ul {
   display: none;
 }
 /* TOC Section */
@@ -233,10 +244,6 @@ a {
 .toc li li a {
   color: black;
   font-weight: normal;
-}
-/* Chapter 3 : Type Systems ........................ 213 */
-.book > .toc a::after {
-  content: leader(' . ') target-counter(attr(href), page);
 }
 .introduction .splash img {
   width: 100% !important;

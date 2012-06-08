@@ -258,34 +258,38 @@ a {
 
 /*********************** Table of Contents ********************/
 
-.book > .toc > .title {
-  page-break-after: avoid;
-  text-align: center;
-  font-size: large;
-}
+.book > .toc {
+  & > .title {
+    page-break-after: avoid;
+    text-align: center;
+    font-size: large;
+  }
+  
+  a {
+    font-weight: medium;
+    text-decoration: none;
+    
+    /* Chapter 3 : Type Systems ........................ 213 */
+    &::after {
+      content: leader(' . ') target-counter(attr(href), page);
+    }
+  }
+  
+  /* TOC Chapter */
+  & > li > ul a {
+    font-size: 12pt;
+  }
+  
+  & > li.toc-preface ul { display: none; }
+  & > li.toc-appendix ul { display: none; }
 
-.book > .toc a {
-	font-weight: medium;
-  text-decoration: none;
 }
-
-/* TOC Chapter */
-.book > .toc > li > ul a {
-  font-size: 12pt;
-}
-
-.book > .toc > li.toc-appendix ul { display: none; }
 
 /* TOC Section */
 /* .toc > ul > li > ul > li */
 .toc li li a {
   color: black;
   font-weight: normal;
-}
-
-/* Chapter 3 : Type Systems ........................ 213 */
-.book > .toc a::after {
-  content: leader(' . ') target-counter(attr(href), page);
 }
 
 .introduction .splash img {
