@@ -183,6 +183,9 @@
   </xsl:template>
 
   <xsl:template name="collection-preamble">
+    <xsl:param name="papersize"/>
+    <xsl:param name="header-width"/>
+    <xsl:param name="course-footer"/>
     \newenvironment{toc}%
     {\begin{description}\setlength{\topsep}{0cm}\setlength{\itemsep}{0cm}%%
     \setlength{\parskip}{0cm}\setlength{\parsep}{0cm}%%
@@ -200,26 +203,29 @@
     \setlength{\marginparsep}{0pt}
     \setlength{\marginparwidth}{0pt}
     %\setlength{\}{0pt}
+    %-- Redefine chapter command to enable attribution footer
+    \makeatletter
+    \def\ps@chapterheadings{%
+          \let\@oddhead\@empty
+          \def\@oddfoot{\hfil
+          \begin{minipage}{<xsl:value-of select="$header-width"/>}
+          <xsl:value-of select="$course-footer"/>\par\begin{center}{\thepage}\end{center}
+          \end{minipage}
+          \hfil}%
+          \def\@evenfoot{\normalfont\hfil\thepage\hfil}}
+    \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                        \thispagestyle{chapterheadings}%
+                        \global\@topnum\z@
+                        \@afterindentfalse
+                        \secdef\@chapter\@schapter}
+    \makeatother
   </xsl:template>
 
   <xsl:template name="preamble">
     <xsl:param name="printfont"/>
     <xsl:param name="papersize"/>
-    <xsl:variable name="header-width">
-      <xsl:choose>
-        <xsl:when test="$papersize = '6x9'">3in</xsl:when>
-        <xsl:otherwise>5in</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="course-footer">
-      <xsl:text>\small\textsl{</xsl:text>
-      <xsl:value-of select="/course/name"/>
-      <xsl:text>} by </xsl:text>
-      <xsl:value-of select="/course/author[1]"/>
-      <xsl:text> is available for free at &lt;</xsl:text>
-      <xsl:value-of select="/course/@uri"/>
-      <xsl:text>&gt;</xsl:text>
-    </xsl:variable>
+    <xsl:param name="header-width"/>
+    <xsl:param name="course-footer"/>
     <xsl:choose>
       <xsl:when test="$printfont = 'times'">
         \usepackage{mathptmx}
