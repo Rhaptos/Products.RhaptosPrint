@@ -29,6 +29,7 @@ We've added some informations in this dictionary that are specific to this rende
 We have only added some operator :
 - Prime
 - Times
+- PHIL: Added a common overbar &#xAF;
 -->
 
 <operators xmlns="http://localhost/operator-dictionary">
@@ -449,4 +450,8 @@ We have only added some operator :
   <mo op="&#x23DF;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
   <mo op="&#x23B5;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
   <mo op="&#x23DD;"    form="postfix" accent="true" stretchy="true" stretchHorizontal="true"  lspace="0em" rspace="0em"/>
+
+  <!-- PHIL: Added a common overbar character -->
+  <mo op="&#xAF;"     form="infix" stretchy="true" stretchHorizontal="true"/>
+
 </operators>

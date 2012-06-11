@@ -67,6 +67,8 @@
         <col:module document="m-introduction" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.4">
           <md:title>Overriding Title for Introduction</md:title>
         </col:module>
+        <col:module document="m-biology" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.7">
+        </col:module>
         <col:module document="m-section" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.7">
         </col:module>
         <col:module document="m-sociology" version="latest" repository="http://bread.cnx.rice.edu:9680/content" cnxorg:version-at-this-collection-version="1.7">

@@ -43,8 +43,7 @@
 	 color: @color;
     font-size: x-large;
   	 margin: .25em 0;
-	   
-  }
+	     }
    
   background-color: @bg-color;
   &:before {
@@ -87,10 +86,10 @@
 .cnx-eoc p,
 p:nth-of-type(1) {
   text-indent: 0em;
-}
+ }
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
-  text-indent: 2em;
+ text-indent: 2em;
 }
 
 /* Customize EOC material */
@@ -119,12 +118,15 @@ p {
 
 .cnx-eoc .section .title a {
 	color: @blue;
-}
+	}
 
 .exercise > .title a {
   color: inherit;
+
 } 
 
+
+	
 /* Change "Glossary" to "Key Terms" */
 .glossary .title {
   content: "Key Terms";
@@ -141,10 +143,12 @@ p {
   padding-bottom: 1em;
 }
 
-/* Indent margins on lists */
-.cnx-eoc .problem .orderedlist {
-  margin-left: 4em;
+	
+/* Indent margins on list items */
+.cnx-eoc .problem .orderedlist li{
+	margin-left: 2em;
 }
+		
 
 .cnx-eoc.references p {
   text-indent: 0em;
@@ -163,7 +167,7 @@ img {
 
 h1.title {
   background-color: Purple;
-  font-size: 5em; /* xx-large; */
+  font-size: 5em; 
   padding: 0em;
 }
 .book > * > .titlepage .cnx-gentext-t:before,
@@ -261,4 +265,5 @@ h2 {
       border: 0em; // remove the underscore
     }
   }
+}
 }

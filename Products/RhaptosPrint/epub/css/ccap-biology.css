@@ -1177,212 +1177,290 @@ div.book  > div.preface .toc, div.book  > div.appendix .toc {
 div.book  > div.toc > ul > li.toc-appendix > ul {
   display: none;
 }
-@page  {
-  margin: 0.5in 1.5in;
-}
 /****** Features ******/
-.sociological-research {
-  background-color: #ccccff;
+.evolution {
+  padding: 0em;
+  /* When a feature is set to span both columns, make sure internally it has 2 columns */
+
+  /* Inject a banner SVG on top of the feature */
+
+  /* Move the title so it shows up in the colored box */
+
 }
-.sociological-research:before {
+.evolution.span-all {
+  float: bottom;
+}
+.evolution.span-all .body {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.evolution:before {
   padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
+  page-break-after: avoid;
+  column-break-after: avoid;
   margin-right: -1.05em;
   margin-top: -0.03in;
+  background-image: url("ccap-sociology/research.svg");
 }
-.sociological-research .title {
+.evolution .title {
+  string-set: cnx-feature-title content();
+  display: none;
+}
+.evolution .body {
+  background-color: #ccccff;
+  /* Inject the feature subtitle (note title) into the body so it shares the same background color */
+}
+.evolution .body::before {
+  content: string(cnx-feature-title);
   color: #330033;
   font-size: x-large;
   margin: .25em 0;
 }
-.sociological-research:before {
-  background-image: url("ccap-sociology/research.svg");
+.scientific-method {
+  padding: 0em;
+  /* When a feature is set to span both columns, make sure internally it has 2 columns */
+
+  /* Inject a banner SVG on top of the feature */
+
+  /* Move the title so it shows up in the colored box */
+
 }
-.sociology-real-world {
-  background-color: #ccffff;
+.scientific-method.span-all {
+  float: bottom;
 }
-.sociology-real-world:before {
+.scientific-method.span-all .body {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.scientific-method:before {
   padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
+  page-break-after: avoid;
+  column-break-after: avoid;
   margin-right: -1.05em;
   margin-top: -0.03in;
+  background-image: url("ccap-sociology/real-world.svg");
 }
-.sociology-real-world .title {
+.scientific-method .title {
+  string-set: cnx-feature-title content();
+  display: none;
+}
+.scientific-method .body {
+  background-color: #ccffff;
+  /* Inject the feature subtitle (note title) into the body so it shares the same background color */
+}
+.scientific-method .body::before {
+  content: string(cnx-feature-title);
   color: #006666;
   font-size: x-large;
   margin: .25em 0;
 }
-.sociology-real-world:before {
-  background-image: url("ccap-sociology/real-world.svg");
+.everyday {
+  padding: 0em;
+  /* When a feature is set to span both columns, make sure internally it has 2 columns */
+
+  /* Inject a banner SVG on top of the feature */
+
+  /* Move the title so it shows up in the colored box */
+
 }
-.sociology-big-picture {
-  background-color: #ccff99;
+.everyday.span-all {
+  float: bottom;
 }
-.sociology-big-picture:before {
+.everyday.span-all .body {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.everyday:before {
   padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
+  page-break-after: avoid;
+  column-break-after: avoid;
   margin-right: -1.05em;
   margin-top: -0.03in;
+  background-image: url("ccap-sociology/big-picture.svg");
 }
-.sociology-big-picture .title {
+.everyday .title {
+  string-set: cnx-feature-title content();
+  display: none;
+}
+.everyday .body {
+  background-color: #ccff99;
+  /* Inject the feature subtitle (note title) into the body so it shares the same background color */
+}
+.everyday .body::before {
+  content: string(cnx-feature-title);
   color: #336600;
   font-size: x-large;
   margin: .25em 0;
 }
-.sociology-big-picture:before {
-  background-image: url("ccap-sociology/big-picture.svg");
+.careers {
+  padding: 0em;
+  /* When a feature is set to span both columns, make sure internally it has 2 columns */
+
+  /* Inject a banner SVG on top of the feature */
+
+  /* Move the title so it shows up in the colored box */
+
 }
-.sociology-careers {
-  background-color: #ccffcc;
+.careers.span-all {
+  float: bottom;
 }
-.sociology-careers:before {
+.careers.span-all .body {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.careers:before {
   padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
+  page-break-after: avoid;
+  column-break-after: avoid;
   margin-right: -1.05em;
   margin-top: -0.03in;
+  background-image: url("ccap-sociology/careers.svg");
 }
-.sociology-careers .title {
+.careers .title {
+  string-set: cnx-feature-title content();
+  display: none;
+}
+.careers .body {
+  background-color: #ccffcc;
+  /* Inject the feature subtitle (note title) into the body so it shares the same background color */
+}
+.careers .body::before {
+  content: string(cnx-feature-title);
   color: #336633;
   font-size: x-large;
   margin: .25em 0;
 }
-.sociology-careers:before {
-  background-image: url("ccap-sociology/careers.svg");
+.interactive-links {
+  padding: 0em;
+  /* When a feature is set to span both columns, make sure internally it has 2 columns */
+
+  /* Inject a banner SVG on top of the feature */
+
+  /* Move the title so it shows up in the colored box */
+
 }
-.sociology-policy-debate {
-  background-color: #ffcccc;
+.interactive-links.span-all {
+  float: bottom;
 }
-.sociology-policy-debate:before {
+.interactive-links.span-all .body {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.interactive-links:before {
   padding-top: 0.75in;
   background-repeat: no-repeat;
   background-position: top left;
   background-position: top outside;
-  page-break-inside: avoid;
-  page-break-after: avoid;
-  background-color: white;
   content: "";
   display: block;
-  margin-left: -1.05em;
+  page-break-after: avoid;
+  column-break-after: avoid;
   margin-right: -1.05em;
   margin-top: -0.03in;
+  background-image: url("ccap-sociology/policy-debate.svg");
 }
-.sociology-policy-debate .title {
+.interactive-links .title {
+  string-set: cnx-feature-title content();
+  display: none;
+}
+.interactive-links .body {
+  background-color: #ffcccc;
+  /* Inject the feature subtitle (note title) into the body so it shares the same background color */
+}
+.interactive-links .body::before {
+  content: string(cnx-feature-title);
   color: #993333;
   font-size: x-large;
   margin: .25em 0;
 }
-.sociology-policy-debate:before {
-  background-image: url("ccap-sociology/policy-debate.svg");
-}
 /*********************** Table of Contents ********************/
-.book > .toc > .title {
-  border-bottom: 1px solid LimeGreen;
-}
-.book > .toc a {
-  color: Purple;
-}
 /* "Key Concepts" Introduction table */
 .chapter .toc {
-  border: 1px solid LimeGreen;
+  float: right;
+  float: outside;
 }
-.chapter .toc > .title {
-  background-color: LimeGreen;
+.chapter .toc  > .title {
+  content: "Key Concepts";
+  color: LimeGreen;
   font-weight: bold;
-  color: black;
-  margin-bottom: .25em;
+  text-align: left;
 }
 .chapter .toc a .cnx-gentext-n, .chapter .toc a .cnx-gentext-autogenerated {
-  color: black;
+  color: LimeGreen;
 }
 .chapter .toc a:before {
   display: none;
 }
-/* subsequent paragraphs are indented */
+/* Don't indent the 1st paragraph of a feature, note, section, whatever */
 .cnx-eoc p, p:nth-of-type(1) {
   text-indent: 0em;
 }
 p {
   font-family: Liberation Serif, serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  /* subsequent paragraphs are indented */
+
   text-indent: 2em;
 }
-/* Customize EOC material */
-.example > .title,
-.exercise > .title,
-.cnx-eoc > .title,
-.index > .title,
-.glossary > .titlepage {
-  border-bottom: 1px solid LimeGreen;
-  margin-bottom: 0.25em;
-  font-weight: normal;
-  color: #006666;
+.glossary {
+  page-break-before: always;
 }
-.example > .title > span,
-.exercise > .title > span,
-.cnx-eoc > .title > span,
-.index > .title > h2,
-.glossary > .titlepage > div > div > h2 {
-  padding-left: 0em;
-  padding-right: 0em;
-  font-size: large;
-  background-color: inherit;
-  color: inherit;
-  font-weight: normal;
-}
-.cnx-eoc .section .title a {
-  color: #0061aa;
-}
-.exercise > .title a {
-  color: inherit;
-}
-/* Change "Glossary" to "Key Terms" */
 .glossary .title {
+  /* Change "Glossary" to "Key Terms" */
+
   content: "Key Terms";
+  color: #0000ff;
+  border-bottom: 1px solid Green;
+  font-size: x-large !important;
+  padding: 0em !important;
+  display: block !important;
 }
-/* Add a title saying "Chapter Review" */
-.glossary:before {
-  content: "Chapter Review";
-  display: block;
-  color: Purple;
-  font-size: x-large;
-  font-weight: bold;
-  padding-top: 1em;
-  padding-bottom: 1em;
+.glossary dt::after {
+  content: " " !important;
 }
-/* Indent margins on list items */
-.cnx-eoc .problem .orderedlist li {
-  margin-left: 2em;
+div.cnx-eoc  > .title {
+  display: none;
+}
+div.cnx-eoc  > div.section > div.title {
+  color: Green;
+  border-bottom: 1px solid Green;
+}
+div.cnx-eoc  > div.section > div.title a {
+  font-size: x-large !important;
+}
+div.cnx-eoc  > div.section > div.title .cnx-gentext-t:not(.labeled) {
+  content: "| " content();
+}
+div.cnx-eoc  > div.section > div.title .cnx-gentext-t:not(.labeled)::before {
+  color: black;
+}
+/* Indent margins on lists */
+.cnx-eoc .problem .orderedlist {
+  margin-left: 4em;
 }
 .cnx-eoc.references p {
   text-indent: 0em;
@@ -1390,26 +1468,31 @@ p {
 body {
   font-size: 9.5pt;
 }
+.span-all img {
+  max-width: 5in;
+}
 img {
   max-width: 5in;
 }
-/* From ccap-physics.css */
-h1.title {
-  background-color: Purple;
+.chapter h1.title {
   font-size: 5em;
+  /* xx-large; */
+
+  font-weight: bold;
   padding: 0em;
+  text-transform: none;
 }
-.book > * > .titlepage .cnx-gentext-t:before, h1.title .cnx-gentext-n {
-  color: LimeGreen;
+.chapter h1.title .cnx-gentext-n {
   font-weight: bold;
   padding-left: 0.25em;
   padding-right: 0em;
 }
-h1.title {
-  text-transform: none;
+.chapter h1.title .cnx-gentext-t {
+  color: #006666;
 }
-h2:before {
-  color: inherit;
+.chapter h1.title .cnx-gentext-t::before {
+  content: "| ";
+  color: LimeGreen;
 }
 a {
   color: inherit;
@@ -1422,22 +1505,61 @@ h2, h3 {
   margin: 0.5em 0em;
 }
 h2 {
-  color: Purple;
+  color: Green;
   font-size: x-large;
 }
-.chapter .introduction > .title {
-  border-bottom: 1px solid LimeGreen;
-  color: Purple;
+h2 .cnx-gentext-t::before {
+  content: "| ";
+}
+h2::before {
+  color: black;
+}
+h3 {
+  color: #ffcc00;
   font-size: large;
 }
-.chapter .introduction > .title span {
-  border-bottom: 0;
+h4 {
+  color: Green;
+}
+blockquote {
+  color: #cccccc;
+  font-size: 150%;
+}
+blockquote::before, blockquote::after {
+  font-weight: bold;
+  color: black;
+}
+blockquote::before {
+  content: "\201C" /* open-quote */;
+}
+blockquote::after {
+  content: "\201D" /* close-quote; */;
+}
+.chapter {
+  -webkit-column-count: 2;
+  column-count: 2;
+  columns: 2;
+}
+.chapter  > .titlepage, .chapter  > .introduction {
+  float: top;
+}
+.chapter .introduction {
+  page-break-after: always;
+  /** For some reason the design template doesn't have a intro title **/
+
+}
+.chapter .introduction  > .title {
+  display: none;
+}
+.table {
+  /* Tables that span both columns float to the bottom of a page */
+
+}
+.table.span-all {
+  float: bottom;
 }
 .table table {
   background-color: #fbf2e2;
-}
-.table th {
-  background-color: #8fb733;
 }
 .table caption {
   color: Purple;
@@ -1445,18 +1567,22 @@ h2 {
 .table th {
   background-color: Purple;
 }
-.chapter h3 {
-  color: #006666;
-  font-size: large;
+.figure {
+  /* Figures that span both columns float to the top of a page */
+
 }
-.figure .title {
+.figure.span-all {
+  float: top;
+}
+.figure  > .title {
   display: inline;
-  color: black;
+  color: #ffcc00;
   font-weight: bold;
   font-size: small;
 }
-.figure > .caption {
+.figure  > .caption {
   display: inline;
+  font-weight: bold;
 }
 .note > .title {
   border-bottom: 0px;

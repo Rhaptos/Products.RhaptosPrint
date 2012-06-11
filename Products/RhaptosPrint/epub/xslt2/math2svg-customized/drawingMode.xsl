@@ -1213,7 +1213,7 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:when>
-	
+	      
       <!-- Delimiter can only be stretched -->
       <xsl:when test="(index-of($delimScale, $delimiter) &gt;= 0) and $stretchDelim">
 	<!-- Draw scaled delimiter -->
@@ -1603,6 +1603,23 @@ Software Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</xsl:choose>
       </xsl:when>
 	
+      <!-- PHIL: Manually draw certain delimiters with lines -->
+      <!-- Overbar '&#175;' aka '&#xAF;' -->
+      <xsl:when test="($delimiter = '&#xAF;') and $stretchDelim">
+
+        <xsl:variable name="thickness">
+          <xsl:call-template name="unitInPx">
+            <xsl:with-param name="valueUnit" select="$thin"/>
+            <xsl:with-param name="fontSize" select="$fontSize"/>
+          </xsl:call-template>
+        </xsl:variable>
+      
+        <line x1="{@t:X}"            y1="{@t:Y}"
+              x2="{@t:X + $width}"   y2="{@t:Y}"
+              fill="none" stroke="black" stroke-width="{$thickness}"/>
+        
+      </xsl:when>
+
       <!-- Delimiter can only be stretched -->
       <xsl:when test="(index-of($delimScale, $delimiter) &gt;= 0) and $stretchDelim">
 	<xsl:variable name="bbox" select="func:findBbox($delimiter, $fontName, $variant)"/>
