@@ -1,5 +1,3 @@
-# from lxml import etree; import module2dbk; print module2dbk.xsl_transform(etree.parse('tests/simplemath/index.cnxml'), [])
-
 import sys
 import os
 import Image
@@ -9,13 +7,6 @@ import subprocess
 from lxml import etree
 import urllib2
 import util
-
-#try:
-#    import json
-#except ImportError:
-#    import simplejson as json
-
-DEBUG = 'DEBUG' in os.environ
 
 SAXON_PATH = util.resource_filename('lib', 'saxon9he.jar')
 MATH2SVG_PATH = util.resource_filename('xslt2', 'math2svg-in-docbook.xsl')
@@ -48,7 +39,7 @@ def extractLog(entries):
     # Entries are of the form:
     # {'level':'ERROR','id':'id1234','msg':'Descriptive message'}
     text = entry.message
-    if DEBUG and text:
+    if text:
       print >> sys.stderr, text.encode('utf-8')
     #try:
     #    dict = json.loads(text)
@@ -68,7 +59,7 @@ def makeTransform(file):
   return t    
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True):
+def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a cnxml file (and dictionary of filename:bytes) to a Docbook file and dict of filename:bytes) """
 
   #if 'index.included.dbk' in filesDict:
@@ -99,7 +90,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
         parser = etree.XMLParser(recover=True)
         xml = etree.parse(StringIO(stdOut), parser)
   
-        if DEBUG and strErr:
+        if strErr:
           print >> sys.stderr, strErr.encode('utf-8')
     return xml, {}, [] # xml, newFiles, log messages
 
@@ -117,7 +108,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
           
           width = img.size[0]
           height = img.size[1]
-          if DEBUG: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
+          if reduce_quality: # Only resize when in DEBUG mode (so content entry sees the High Resolution PDFs)
             print >> sys.stderr, 'LOG: DEBUG: Reducing quality of %s (%s)' % (filename, mimeType)
             # Always resave
             fname = "_autogen-png2jpeg-%04d.jpg" % (position + 1)
@@ -180,12 +171,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   origAndNewFiles = {}
   origAndNewFiles.update(filesDict)
 
-  passNum = 1
   for transform in PIPELINE:
-    if DEBUG:
-      print >> sys.stderr, "LOG: Starting pass %d" % passNum
-      # open('temp-%s-%d.xml' % (moduleId, passNum),'w').write(etree.tostring(xml))
-      passNum += 1
     xml, newFiles2, errors = transform(xml, origAndNewFiles, **params)
     newFiles.update(newFiles2)
     origAndNewFiles.update(newFiles2)
@@ -193,6 +179,7 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
+  origAndNewFiles.update(newFiles)
   
   # Write out all files to the temp dir so they don't stay in memory
   for (key, value) in origAndNewFiles.items():

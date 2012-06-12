@@ -157,7 +157,6 @@ def loadCollection(dir):
   modules = {} # {'m1000': (etree.Element, {'file.jpg':'23947239874'})}
   allFiles = {}
   for moduleId in moduleIds:
-    print >> sys.stderr, "LOG: Starting on %s" % (moduleId)
     moduleDir = os.path.join(dir, moduleId)
     if os.path.isdir(moduleDir):
       cnxml, files = loadModule(moduleDir)
@@ -167,3 +166,42 @@ def loadCollection(dir):
       modules[moduleId] = (cnxml, files)
 
   return collxml, modules, allFiles
+
+class Progress(object):
+  def __init__(self):
+    self.stack = []
+    pass
+  
+  def start(self, ticks, msg):
+    self.stack.append({ 'done': 0, 'total': ticks + 1, 'msg': msg })
+    self._log()
+  
+  def tick(self, msg):
+    self.stack[-1]['done'] += 1
+    self.stack[-1]['msg'] = msg
+    if self.stack[-1]['done'] > self.stack[-1]['total']:
+      import pdb; pdb.set_trace()
+    self._log()
+    
+  def finish(self):
+    self.stack[-1]['done'] = self.stack[-1]['total']
+    self.stack[-1]['msg'] = 'Done'
+    self._log()
+    if self.stack[-1]['done'] != self.stack[-1]['total']:
+      import pdb; pdb.set_trace()
+    self.stack = self.stack[:-1]
+  
+  def _log(self):
+    # Build up the percentage
+    percent = 0.0
+    weight = 1.0
+    msg = []
+    for p in self.stack:
+      percent += weight * p['done'] / p['total']
+      weight = weight * 1.0 / p['total']
+      msg.append(p['msg'])
+    
+    # Discard the top-most message since it will never change
+    if len(msg) > 1:
+      msg = msg[1:]
+    print >> sys.stderr, "STATUS: %d%% %s" % (percent * 100, ': '.join(msg))

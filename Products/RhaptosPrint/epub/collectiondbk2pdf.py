@@ -19,7 +19,6 @@ import util
 DEFAULT_PDFGEN_PATHS = ['/usr/bin/prince','/usr/local/bin/prince']
 
 BASE_PATH = os.getcwd()
-#PRINT_STYLE='modern-textbook' # 'modern-textbook-2column'
 
 # XSL files
 DOCBOOK2XHTML_XSL=util.makeXsl('dbk2xhtml.xsl')
@@ -29,6 +28,9 @@ MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
 def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False):
+
+  p = util.Progress()
+
   collxml = etree.parse(os.path.join(collection_dir, 'collection.xml'))
   
   moduleIds = MODULES_XPATH(collxml)
@@ -36,7 +38,6 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
   modules = {} # {'m1000': (etree.Element, {'file.jpg':'23947239874'})}
   allFiles = {}
   for moduleId in moduleIds:
-    print >> sys.stderr, "LOG: Starting on %s" % (moduleId)
     moduleDir = os.path.join(collection_dir, moduleId)
     if os.path.isdir(moduleDir):
       cnxml, files = loadModule(moduleDir)
@@ -45,9 +46,14 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
 
       modules[moduleId] = (cnxml, files)
 
-  dbk, newFiles = collection2dbk.convert(collxml, modules, temp_dir, svg2png=False, math2svg=True)
+  p.start(1, 'Converting collection to Docbook')
+  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=False, math2svg=True)
   allFiles.update(newFiles)
-  stdErr = convert(dbk, allFiles, print_style, temp_dir, output_pdf, pdfgen, verbose)
+  
+  p.tick('Converting Docbook to PDF')
+  stdErr = convert(p, dbk, allFiles, print_style, temp_dir, output_pdf, pdfgen, verbose)
+  
+  p.finish()
   return stdErr
 
 def __doStuff(collection_dir, print_style):
@@ -74,12 +80,14 @@ def __doStuffModule(moduleId, module_dir, printStyle):
   temp_dir = mkdtemp(suffix='-module-xhtml2pdf')
   cnxml, files = loadModule(module_dir)
   _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}, temp_dir, svg2png=False, math2svg=True) # Last arg is coll params
-  dbkStr = open(os.path.join(temp_dir, 'index.standalone.dbk'))
-  dbk = etree.parse(StringIO(dbkStr))
+  dbkFile = open(os.path.join(temp_dir, 'index.standalone.dbk'))
+  dbk = etree.parse(dbkFile)
   allFiles = {}
   allFiles.update(files)
   allFiles.update(newFiles)
-  stdErr = convert(dbk, allFiles, printStyle, temp_dir, '/dev/stdout', pdfgen)
+  
+  p = util.Progress()
+  stdErr = convert(p, dbk, allFiles, printStyle, temp_dir, '/dev/stdout', pdfgen)
   return stdErr
 
 def loadModule(moduleDir):
@@ -125,7 +133,7 @@ def xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verb
 
   return stdErr
 
-def convert(dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=False):
+def convert(p, dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=False):
   """ Converts a Docbook Element and a dictionary of files into a PDF. """
   
   def transform(xslDoc, xmlDoc):
@@ -141,21 +149,25 @@ def convert(dbk1, files, print_style, temp_dir, output_pdf, pdfgen, verbose=Fals
   if verbose:
     open(os.path.join(temp_dir, 'temp-collection1.dbk'),'w').write(etree.tostring(dbk1,pretty_print=False))
 
+  p.start(2, 'Cleaning up Docbook')
   # Step 1 (Cleaning up Docbook)
   dbk2 = transform(DOCBOOK_CLEANUP_XSL, dbk1)
   if verbose:
     open(os.path.join(temp_dir, 'temp-collection2.dbk'),'w').write(etree.tostring(dbk2,pretty_print=False))
 
+  p.tick('Converting Docbook to HTML')
   # Step 2 (Docbook to XHTML)
   xhtml_file = os.path.join(temp_dir, 'collection.xhtml')
   xhtml = transform(DOCBOOK2XHTML_XSL, dbk2)
   open(xhtml_file,'w').write(etree.tostring(xhtml))
 
+  p.tick('Converting HTML to PDF')
   #import pdb; pdb.set_trace()
   # Step 4 Converting XSL:FO to PDF (using Apache FOP)
   # Change to the collection dir so the relative paths to images work
   stdErr = xhtml2pdf(xhtml_file, files, temp_dir, print_style, pdfgen, output_pdf, verbose)
   
+  p.finish()
   return stdErr
 
 def _find_pdfgen(pdfgen_file=None):
