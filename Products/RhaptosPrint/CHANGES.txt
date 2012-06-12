@@ -1,3 +1,6 @@
+RhaptosPrint-0.13
+ - modern-textbook (ccap) style fixes
+
 RhaptosPrint-0.12
  - modern-textbook epub math font fixes
 
