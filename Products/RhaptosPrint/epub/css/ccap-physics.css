@@ -106,13 +106,14 @@ a[href^="http"] {
   -webkit-column-count: 3;
   column-count: 3;
   columns: 3;
-}
-.index .title {
-  float: top;
+  column-fill: auto;
 }
 .index .title * {
   display: inline;
   string-set: cnx-header content();
+}
+.index .letter {
+  font-weight: bold;
 }
 .indexdiv, .indexdiv dl {
   page-break-inside: auto;
@@ -436,7 +437,7 @@ em.glossterm {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc > .title {
+.cnx-eoc  > .title {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -446,6 +447,9 @@ em.glossterm {
 .cnx-eoc .section .title a {
   font-size: small;
   font-weight: bold;
+}
+.cnx-eoc .section .problem {
+  page-break-inside: avoid;
 }
 .example > .title > *,
 .cnx-eoc > .title > *,
@@ -1280,6 +1284,7 @@ h2::before {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
   page-break-before: always;
 }
 /* Allow sections in the 2-column problems-exercises to break */

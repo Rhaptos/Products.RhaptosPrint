@@ -14,6 +14,7 @@
   -webkit-column-count: @num; // Supported by webkit
   column-count: @num;         // Not supported (but should be)
   columns: @num;              // Supported by PrinceXML
+  column-fill: auto;          // Fill up the left column 1st, don't balance
 }
 
 /* Don't print module asterix (link to attribution) */
@@ -133,13 +134,13 @@ a[href^="http"] {
   .x-column-count(3);
 }
 
-.index .title {
-  .x-page-float(top);
-}
-
 .index .title * {
   display: inline;
   string-set: cnx-header content();
+}
+
+.index .letter {
+  font-weight: bold;
 }
 
 .indexdiv, .indexdiv dl {
@@ -511,17 +512,26 @@ em.glossterm {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc > .title {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-.cnx-eoc .section .title {
-	padding-top: 1em;
-}
-.cnx-eoc .section .title a {
-	//color: @blue;
-	font-size: small;
-	font-weight: bold;
+.cnx-eoc {
+  & > .title {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .section {
+    .title {
+      padding-top: 1em;
+  
+      a {
+        //color: @blue;
+        font-size: small;
+        font-weight: bold;
+      }
+    }
+    
+    .problem {
+      page-break-inside: avoid;
+    }
+  }
 }
 
 .example > .title > *,
