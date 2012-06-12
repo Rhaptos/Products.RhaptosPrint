@@ -105,13 +105,14 @@ a[href^="http"] {
   -webkit-column-count: 3;
   column-count: 3;
   columns: 3;
-}
-.index .title {
-  float: top;
+  column-fill: auto;
 }
 .index .title * {
   display: inline;
   string-set: cnx-header content();
+}
+.index .letter {
+  font-weight: bold;
 }
 .indexdiv, .indexdiv dl {
   page-break-inside: auto;
@@ -1194,6 +1195,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .evolution:before {
   padding-top: 0.75in;
@@ -1238,6 +1240,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .scientific-method:before {
   padding-top: 0.75in;
@@ -1282,6 +1285,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .everyday:before {
   padding-top: 0.75in;
@@ -1326,6 +1330,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .careers:before {
   padding-top: 0.75in;
@@ -1370,6 +1375,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .interactive-links:before {
   padding-top: 0.75in;
@@ -1539,6 +1545,7 @@ blockquote::after {
   -webkit-column-count: 2;
   column-count: 2;
   columns: 2;
+  column-fill: auto;
 }
 .chapter  > .titlepage, .chapter  > .introduction {
   float: top;

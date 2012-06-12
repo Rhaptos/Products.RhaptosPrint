@@ -14,6 +14,7 @@
   -webkit-column-count: @num; // Supported by webkit
   column-count: @num;         // Not supported (but should be)
   columns: @num;              // Supported by PrinceXML
+  column-fill: auto;          // Fill up the left column 1st, don't balance
 }
 
 /* Don't print module asterix (link to attribution) */
@@ -133,13 +134,13 @@ a[href^="http"] {
   .x-column-count(3);
 }
 
-.index .title {
-  .x-page-float(top);
-}
-
 .index .title * {
   display: inline;
   string-set: cnx-header content();
+}
+
+.index .letter {
+  font-weight: bold;
 }
 
 .indexdiv, .indexdiv dl {

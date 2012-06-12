@@ -105,13 +105,14 @@ a[href^="http"] {
   -webkit-column-count: 3;
   column-count: 3;
   columns: 3;
-}
-.index .title {
-  float: top;
+  column-fill: auto;
 }
 .index .title * {
   display: inline;
   string-set: cnx-header content();
+}
+.index .letter {
+  font-weight: bold;
 }
 .indexdiv, .indexdiv dl {
   page-break-inside: auto;
