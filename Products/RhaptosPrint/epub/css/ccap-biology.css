@@ -71,6 +71,10 @@ body {
   font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
+/* This NEEDS to be on its own line (can't do "body, th * { ...") */
+th * {
+  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+}
 a[href^="http"] {
   content: content() " (" attr(href) ") ";
 }

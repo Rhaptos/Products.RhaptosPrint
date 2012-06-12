@@ -90,11 +90,21 @@ sup a {
 
 /********************** Generic Elements ********************/
 
+@stix-fonts: STIXGeneral, STIXSizeOneSym, STIXSize1;
+@font-family: Liberation Sans, sans-serif, @stix-fonts;
+
 body {
   font-size: 8.2pt;
-  font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
+  font-family: @font-family;
   //prince-jpeg-quality: 20%;
 }
+
+// BUGFIX: In princexml SVG in a table heading doesn't use the fonts set in the SVG
+/* This NEEDS to be on its own line (can't do "body, th * { ...") */
+th * {
+  font-family: @font-family;
+}
+
 
 a[href^="http"] {
   content: content() " (" attr(href) ") ";
