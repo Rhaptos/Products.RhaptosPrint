@@ -238,10 +238,10 @@ a {
 .book > .toc  > li > ul a {
   font-size: 12pt;
 }
-.book > .toc  > li.toc-preface ul {
+.book > .toc  > ul > li.toc-preface ul {
   display: none;
 }
-.book > .toc  > li.toc-appendix ul {
+.book > .toc  > ul > li.toc-appendix ul {
   display: none;
 }
 /* TOC Section */

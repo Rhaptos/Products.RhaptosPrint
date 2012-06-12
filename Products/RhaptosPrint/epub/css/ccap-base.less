@@ -291,8 +291,9 @@ a {
     font-size: 12pt;
   }
   
-  & > li.toc-preface ul { display: none; }
-  & > li.toc-appendix ul { display: none; }
+  // Don't make TOC entries for sections in a  Preface or Appendix
+  & > ul > li.toc-preface ul { display: none; }
+  & > ul > li.toc-appendix ul { display: none; }
 
 }
 
