@@ -68,7 +68,10 @@ sup a {
   padding-bottom: 0em;
 }
 /********************** Generic Elements ********************/
-body {
+body,
+td,
+th,
+th > * {
   font-size: 8.2pt;
   font-family: Liberation Sans, sans-serif, STIXGeneral, STIXSizeOneSym, STIXSize1;
 }
