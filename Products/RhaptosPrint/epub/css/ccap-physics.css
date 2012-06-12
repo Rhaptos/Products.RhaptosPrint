@@ -437,7 +437,7 @@ em.glossterm {
 /******************************************************
  * End of chapter customizations
  ******************************************************/
-.cnx-eoc > .title {
+.cnx-eoc  > .title {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
@@ -447,6 +447,9 @@ em.glossterm {
 .cnx-eoc .section .title a {
   font-size: small;
   font-weight: bold;
+}
+.cnx-eoc .section .problem {
+  page-break-inside: avoid;
 }
 .example > .title > *,
 .cnx-eoc > .title > *,
