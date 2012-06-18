@@ -35,7 +35,7 @@ def transform(xslDoc, xmlDoc):
   return ret
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
+def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a collxml file (and dictionary of module info) to a Docbook file and dict of filename:bytes) """
 
   newFiles = {}
@@ -57,7 +57,7 @@ def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
     module_temp_dir = os.path.join(temp_dir, module)
     if not os.path.exists(module_temp_dir):
       os.makedirs(module_temp_dir)
-    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg)
+    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
     # Add newFiles with the module prefix
     for f, data in newFilesMod.items():

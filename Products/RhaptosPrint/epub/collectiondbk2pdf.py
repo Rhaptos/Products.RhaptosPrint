@@ -27,7 +27,7 @@ DOCBOOK_CLEANUP_XSL = util.makeXsl('dbk-clean-whole.xsl')
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=util.NAMESPACES)
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=util.NAMESPACES)
 
-def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False):
+def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, verbose=False,reduce_quality=False):
 
   p = util.Progress()
 
@@ -47,7 +47,7 @@ def collection2pdf(collection_dir, print_style, output_pdf, pdfgen, temp_dir, ve
       modules[moduleId] = (cnxml, files)
 
   p.start(1, 'Converting collection to Docbook')
-  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=False, math2svg=True)
+  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=False, math2svg=True, reduce_quality=reduce_quality)
   allFiles.update(newFiles)
   
   p.tick('Converting Docbook to PDF')
@@ -79,7 +79,7 @@ def __doStuffModule(moduleId, module_dir, printStyle):
 
   temp_dir = mkdtemp(suffix='-module-xhtml2pdf')
   cnxml, files = loadModule(module_dir)
-  _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}, temp_dir, svg2png=False, math2svg=True) # Last arg is coll params
+  _, newFiles = module2dbk.convert(moduleId, cnxml, files, {}, temp_dir, svg2png=False, math2svg=True, reduce_quality=False) # Last arg is coll params
   dbkFile = open(os.path.join(temp_dir, 'index.standalone.dbk'))
   dbk = etree.parse(dbkFile)
   allFiles = {}
@@ -194,6 +194,7 @@ def main():
     parser.add_argument('-s', dest='print_style', help='Print style to use (name of CSS file in css dir)', required=True)
     parser.add_argument('-p', dest='pdfgen', help='Path to a PDF generation script', nargs='?', type=argparse.FileType('r'))
     parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
+    parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
     parser.add_argument('output_pdf', help='Path to write the PDF file', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
     args = parser.parse_args()
 
@@ -225,7 +226,7 @@ def main():
     else:
       output_pdf = os.path.abspath(args.output_pdf.name)
 
-    stdErr = collection2pdf(args.collection_dir, args.print_style, output_pdf, pdfgen, temp_dir, args.verbose)
+    stdErr = collection2pdf(args.collection_dir, args.print_style, output_pdf, pdfgen, temp_dir, args.verbose, args.reduce_quality)
 
     if delete_temp_dir:
       shutil.rmtree(temp_dir)

@@ -55,14 +55,17 @@ def main():
 
   parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
   parser.add_argument('directory')
+  parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
   # parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
   parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
   args = parser.parse_args()
   
   temp_dir = args.directory
 
+  p = util.Progress()
+
   collxml, modules, allFiles = util.loadCollection(args.directory)
-  dbk, newFiles = collection2dbk.convert(collxml, modules, temp_dir, svg2png=True, math2svg=True)
+  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
   allFiles.update(newFiles)
 
   dbk, files = convert(dbk, allFiles)
