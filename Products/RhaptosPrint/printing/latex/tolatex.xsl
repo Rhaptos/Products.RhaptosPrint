@@ -158,11 +158,14 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="course-footer">
-      <xsl:text>\small\textsl{</xsl:text>
+      <xsl:text>\footnotesize\textsl{</xsl:text>
       <xsl:value-of select="/course/name"/>
       <xsl:text>} by </xsl:text>
       <xsl:value-of select="/course/author[1]"/>
-      <xsl:text> is available for free at &lt;</xsl:text>
+      <xsl:if test="count(/course/author) &gt; 1">
+        <xsl:text> et al.\</xsl:text>
+      </xsl:if>
+      <xsl:text> is available for free on Connexions at &lt;</xsl:text>
       <xsl:value-of select="/course/@uri"/>
       <xsl:text>&gt;</xsl:text>
     </xsl:variable>
