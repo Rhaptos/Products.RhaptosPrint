@@ -44,7 +44,7 @@ elif [ -s $WORKING_DIR/collection.xml ]; then
   DBK_FILE=$WORKING_DIR/collection.dbk
   
   cd ${ROOT}
-  python collection2epub.py ${WORKING_DIR} -o ${DBK_FILE}
+  python collection2epub.py -r ${WORKING_DIR} -o ${DBK_FILE}
   cd ${CWD}
   EXIT_STATUS=$EXIT_STATUS || $?
   
