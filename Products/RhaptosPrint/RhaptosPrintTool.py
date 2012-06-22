@@ -126,6 +126,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             try:
                 # access the object to see if it really exists
                 size = printFile.size()
+            except TypeError:
+                # it's not a method, probably an int, just use it
+                size = printFile.size
             except POSKeyError:
                 # not really there there, so nuke it
                 size = 0
@@ -155,7 +158,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         return True or False depending on if the file has been cached by PrintTool.
         """
         objFile = self.getFile(objectId, version, type)
-        if objFile is not None and objFile.size() > 0:
+        if objFile is not None:
             return True
         else:
             return False
@@ -165,7 +168,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         return the modifcation date for the cached file.
         """
         objFile = self.getFile(objectId, version, type)
-        if objFile is not None and objFile.size() > 0:
+        if objFile is not None:
             return objFile.ModificationDate()
         else:
             return ''
