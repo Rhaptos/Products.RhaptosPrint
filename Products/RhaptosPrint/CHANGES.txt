@@ -1,3 +1,6 @@
+RhaptosPrint-0.14
+ - not all file objects have a size method, for some it's an int
+
 RhaptosPrint-0.13
  - modern-textbook (ccap) style fixes
 
