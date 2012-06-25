@@ -9,7 +9,7 @@
 #
 PYTHON = /usr/bin/python2.4
 PRINT_DIR = /opt/printing
-HOST = http://localhost:8080
+HOST = localhost:8080
 PROJECT_NAME = The Enterprise Rhaptos Project
 PROJECT_SHORT_NAME = Rhaptos
 
