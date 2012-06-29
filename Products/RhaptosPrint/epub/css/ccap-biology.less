@@ -75,11 +75,12 @@
 /* "Key Concepts" Introduction table */
 
 .chapter .toc {
-
+	
   float: right;
-  margin-left: 1em; 
+  margin-left: 2.5em;  // added to make ch intro appear 2 col. value was 1 em;
   border: thick solid @green;
   background-color: @cream;
+  padding-bottom: 10em; //only added to force intro page to appear 2 col remove line
   
   & > .title {
   	 margin-bottom: .5em;
@@ -102,7 +103,8 @@ a{
 
 & > ul li {
  	padding: .5em;
- 	}
+ 	
+ 	  	}
  
  /*removes summary from key concepts # 16 code */
 & > ul ul{display:none !important; }
@@ -191,6 +193,7 @@ body {
 }
 
 .span-all img {
+
   max-width: 5in;
 }
 
@@ -198,9 +201,7 @@ img {
   max-width: 5in;
 }
 
-.chapter h1{
-	.x-column-count(2);
-	}
+
 
 .chapter h1.title {
   
@@ -283,20 +284,38 @@ blockquote {
   &::after { content: "\201D" /* close-quote; */; }
 }
 
-.chapter {
-  .x-column-count(2);
-  
 
-  & > .introduction {
-  	  .x-page-float(top);
+
+.chapter {
+ .x-column-count(2);
+   
+   & > .titlepage .title {
+   	string-set: cnx-chapter-title content();
+   	
+   	display:none;
+ 	}   
   
-  	}
-     
+  	& > .introduction {
+  	  	 .x-page-float(top);
+  		
+  		 
+  	 
+	   & > div[class*="splash"]{
+	   			
+			&::before{
+			 	content: string(cnx-chapter-title);						   
+				}		   	
+	   
+	   	}
+  		
+   }  
+}
+   
     /** For some reason the design template doesn't have a intro title **/
     .introduction > .title { content: "Introduction"; }
-  
- 
-}
+   
+
+
 
 
 .table {
