@@ -93,20 +93,28 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             data - the print file to store
         """
         #Grab the file to update, else create a new one.
-        printFile = self.getFile(objectId, version, type)
-        if not printFile:
-            container = self._getContainer()
+        container = self._getContainer()
+        if hasattr(container, '_write_file'): # It's some flavor of localFS 
+            # Hey, we're a localFS folder, do it directly
             fileName = self._createFileName(objectId, version, type)
-            printFile = utils._createObjectByType(self.objectType, container, id=fileName )
-        try:
-            printFile.update_data(data)
-            printFile.setModificationDate()
-        except AttributeError, e:
+            container._write_file(data, container._getpath(fileName))
+
+        else: # Do the plone/object dance
+
+            printFile = self.getFile(objectId, version, type)
+            if not printFile:
+                container = self._getContainer()
+                fileName = self._createFileName(objectId, version, type)
+                printFile = utils._createObjectByType(self.objectType, container, id=fileName )
             try:
-                # with AT types we look for the primary field
-                printFile.getPrimaryField().getMutator(printFile)(data)
-            except AttributeError:
-                raise AttributeError("Error creating %s: Primary field method for this type (%s) not known" % (self.objectType, self.containerType))
+                printFile.update_data(data)
+                printFile.setModificationDate()
+            except AttributeError, e:
+                try:
+                    # with AT types we look for the primary field
+                    printFile.getPrimaryField().getMutator(printFile)(data)
+                except AttributeError:
+                    raise AttributeError("Error creating %s: Primary field method for this type (%s) not known" % (self.objectType, self.containerType))
 
     def getFile(self, objectId, version, type): 
         """
