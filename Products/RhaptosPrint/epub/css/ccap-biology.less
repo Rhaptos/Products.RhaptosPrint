@@ -17,11 +17,11 @@
 
 /****** Features ******/
 // The args are title color, background color, and path to SVG
-.evolution          { .x-feature(white, @green, research); }
-.scientific-method  { .x-feature(white, @tuscany, real-world); }
-.everyday           { .x-feature(white, @brown, big-picture); }
-.careers            { .x-feature(white, @blue, careers); }
-.interactive-links  { .x-feature(white, #ffcccc, policy-debate); }
+.evolution          { .x-feature(black, @cream, CNX_BioNonMaj_Evolution); }
+.scientific-method  { .x-feature(black, @cream, CNX_BioNonMaj_Scienctific); }
+.everyday           { .x-feature(black, @cream, CNX_BioNonMaj_Everyday); }
+.careers            { .x-feature(black, @cream, CNX_BioNonMaj_Career); }
+.interactive-links  { .x-feature(black, @cream, CNX_BioNonMaj_Link); }
 
 .x-feature (@color, @bg-color, @svg) {
 
@@ -30,14 +30,18 @@
   /* When a feature is set to span both columns, make sure internally it has 2 columns */
   &.span-all {
     .x-page-float(bottom);
-    .body { .x-column-count(2);
-      
+    
+    .body { 
+    .x-column-count(2);
+	  column-fill: balance !important;   /*force balancing for feature body columns*/   
      }
+    
+          
   }
   
   /* Inject a banner SVG on top of the feature */
   &:before {
-    padding-top: 0.75in; //0.75 + margin-top. 0.75in is from the SVG files
+    padding-top: .65in; //0.75 + margin-top. 0.75in is from the SVG files
     background-repeat: no-repeat;
     background-position: top left;
     background-position: top outside;
@@ -55,18 +59,22 @@
   .title {
     string-set: cnx-feature-title content();
     display: none;
+   
   }
-  
+    
   .body {
     background-color: @bg-color;
-
+	 
     /* Inject the feature subtitle (note title) into the body so it shares the same background color */    
     &::before {
+    	display: block; /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
       content: string(cnx-feature-title);
       color: @color;
       font-size: x-large;
-      margin: .25em 0;
+      margin-left: .25em;
+      font-weight:bold; 
     }
+    
   }
 }
 
@@ -323,11 +331,13 @@ blockquote {
   
   &.span-all {
     .x-page-float(bottom);
-  }
+    
+    }
   
   table {
     background-color: @light-green;      
-    border-bottom: thick solid @green !important;
+    border-bottom: thick solid @green;
+    
   }
 
   caption {
