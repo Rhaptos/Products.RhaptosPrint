@@ -176,10 +176,14 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         return the modifcation date for the cached file.
         """
         objFile = self.getFile(objectId, version, type)
+        mod_date = ''
         if objFile is not None:
-            return objFile.ModificationDate()
-        else:
-            return ''
+            try:
+                mod_date = objFile.aq_explicit.ModificationDate()
+            except AttributionError:
+                mod_date = objFile.bobobase_modification_time()
+
+        return mod_date
 
     def setStatus(self, objectId, version, type, status): 
         """
