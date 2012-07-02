@@ -180,8 +180,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         if objFile is not None:
             try:
                 mod_date = objFile.aq_explicit.ModificationDate()
-            except AttributionError:
-                mod_date = objFile.bobobase_modification_time()
+            except AttributeError:
+                mod_date = str(objFile.bobobase_modification_time())
 
         return mod_date
 
