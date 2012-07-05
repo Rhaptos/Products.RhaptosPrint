@@ -6,6 +6,10 @@
  * Styles used when generating a PDF from xhtml+css
  ***************************************************/
 /* Print-specific styles <style media="print"... */
+/* Squirrel away the collection URL so it shows up as the footer on every page */
+#title_page_url a[href] {
+  string-set: cnx-collection-url attr(href);
+}
 /* Don't print module asterix (link to attribution) */
 sup a {
   display: none;
@@ -1203,6 +1207,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  /*force balancing for feature body columns*/
 }
 .evolution:before {
   padding-top: 0.75in;
@@ -1226,6 +1231,8 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   /* Inject the feature subtitle (note title) into the body so it shares the same background color */
 }
 .evolution .body::before {
+  /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
+
   content: string(cnx-feature-title);
   color: #330033;
   font-size: x-large;
@@ -1248,6 +1255,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  /*force balancing for feature body columns*/
 }
 .scientific-method:before {
   padding-top: 0.75in;
@@ -1271,6 +1279,8 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   /* Inject the feature subtitle (note title) into the body so it shares the same background color */
 }
 .scientific-method .body::before {
+  /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
+
   content: string(cnx-feature-title);
   color: #006666;
   font-size: x-large;
@@ -1293,6 +1303,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  /*force balancing for feature body columns*/
 }
 .everyday:before {
   padding-top: 0.75in;
@@ -1316,6 +1327,8 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   /* Inject the feature subtitle (note title) into the body so it shares the same background color */
 }
 .everyday .body::before {
+  /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
+
   content: string(cnx-feature-title);
   color: #336600;
   font-size: x-large;
@@ -1338,6 +1351,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  /*force balancing for feature body columns*/
 }
 .careers:before {
   padding-top: 0.75in;
@@ -1361,6 +1375,8 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   /* Inject the feature subtitle (note title) into the body so it shares the same background color */
 }
 .careers .body::before {
+  /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
+
   content: string(cnx-feature-title);
   color: #336633;
   font-size: x-large;
@@ -1383,6 +1399,7 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   column-count: 2;
   columns: 2;
   column-fill: auto;
+  /*force balancing for feature body columns*/
 }
 .interactive-links:before {
   padding-top: 0.75in;
@@ -1406,6 +1423,8 @@ div.book  > div.toc > ul > li.toc-appendix > ul {
   /* Inject the feature subtitle (note title) into the body so it shares the same background color */
 }
 .interactive-links .body::before {
+  /*set element as block to correct margin on multiline titles; otherwise only 1st line will have margin */
+
   content: string(cnx-feature-title);
   color: #993333;
   font-size: x-large;
