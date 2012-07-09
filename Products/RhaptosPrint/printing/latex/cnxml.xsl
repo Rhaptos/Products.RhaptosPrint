@@ -209,7 +209,8 @@
           \let\@oddhead\@empty
           \def\@oddfoot{\hfil
           \begin{minipage}{<xsl:value-of select="$header-width"/>}
-          <xsl:value-of select="$course-footer"/>\par\begin{center}{\thepage}\end{center}
+          \begin{center}<xsl:value-of select="$course-footer"/>\end{center}\par
+          \begin{center}{\thepage}\end{center}
           \end{minipage}
           \hfil}%
           \def\@evenfoot{\normalfont\hfil\thepage\hfil}}
@@ -421,8 +422,8 @@
     % Break long chapter titles in running heads
     \makeatletter
       \def\@evenhead{\thepage\hfil\parbox{<xsl:value-of select="$header-width"/>}{\raggedleft\slshape\leftmark}}%
-      \def\@oddfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{<xsl:value-of select="$course-footer"/>}\hfil}%
-      \def\@evenfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{<xsl:value-of select="$course-footer"/>}\hfil}%
+      \def\@oddfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{\begin{center}<xsl:value-of select="$course-footer"/>\end{center}}\hfil}%
+      \def\@evenfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{\begin{center}<xsl:value-of select="$course-footer"/>\end{center}}\hfil}%
     \makeatother
 
     % ------------------------------------------
