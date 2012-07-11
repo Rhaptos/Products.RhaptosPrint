@@ -160,7 +160,7 @@ h6 {
 }
 /****************** Modern-Textbook classes ****************/
 .introduction {
-  page-break-after: always;
+/*  page-break-after: always; */
 }
 /* Hide the manual key-concepts table */
 .introduction table.simplelist {
