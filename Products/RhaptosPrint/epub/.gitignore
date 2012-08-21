@@ -1,2 +1,6 @@
+result.pdf
+css/ccap-numbering.css
+css/ccap-base.css
 .*
+*~
 *.pyc
