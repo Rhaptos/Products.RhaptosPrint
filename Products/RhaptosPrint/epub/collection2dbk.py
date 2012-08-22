@@ -1,5 +1,3 @@
-# python -c "from lxml import etree; import collection2dbk; print collection2dbk.convert(etree.parse('tests/collection.xml'), {'simplemath':(etree.parse('tests/simplemath/index.cnxml'), {}) })"
-
 import sys
 import os
 import Image
@@ -37,10 +35,12 @@ def transform(xslDoc, xmlDoc):
   return ret
 
 # Main method. Doing all steps for the Google Docs to CNXML transformation
-def convert(collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
+def convert(p, collxml, modulesDict, temp_dir, svg2png=True, math2svg=True, reduce_quality=False):
   """ Convert a collxml file (and dictionary of module info) to a Docbook file and dict of filename:bytes) """
 
   newFiles = {}
+
+  p.start(len(modulesDict), 'collxml to dbk')
 
   paramsStr = PARAMS_XPATH(COLLXML_PARAMS(collxml))[0]
   collParamsUnicode = eval(paramsStr) #json.loads(paramsStr)
@@ -52,10 +52,12 @@ def convert(collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
   modDbkDict = {}
   # Each module can be converted in parallel
   for module, (cnxml, filesDict) in modulesDict.items():
+
+    p.tick('Converting ' + module)
     module_temp_dir = os.path.join(temp_dir, module)
     if not os.path.exists(module_temp_dir):
       os.makedirs(module_temp_dir)
-    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg)
+    modDbk, newFilesMod = module2dbk.convert(module, cnxml, filesDict, collParams, module_temp_dir, svg2png, math2svg, reduce_quality)
     modDbkDict[module] = etree.parse(StringIO(modDbk)).getroot()
     # Add newFiles with the module prefix
     for f, data in newFilesMod.items():
@@ -70,7 +72,7 @@ def convert(collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
       module.getparent().replace(module, modDbkDict[id])
     else:
       print >> sys.stderr, "ERROR: Didn't find module source!!!!"
-        
+  
   # Clean up image paths
   dbk2 = transform(DOCBOOK_NORMALIZE_PATHS_XSL, dbk1)
   
@@ -78,9 +80,9 @@ def convert(collxml, modulesDict, temp_dir, svg2png=True, math2svg=True):
   dbk4 = transform(DOCBOOK_NORMALIZE_GLOSSARY_XSL, dbk3)
 
   # Create cover SVG and convert it to an image
-  cover, newFiles2 = util.dbk2cover(dbk4, filesDict, svg2png)
+  png, newFiles2 = util.dbk2cover(dbk4, filesDict)
 
-  if svg2png:
-    newFiles['cover.png'] = cover
+  newFiles['cover.png'] = png
 
+  p.finish()
   return dbk4, newFiles

@@ -49,31 +49,37 @@ def convert(dbk1, files):
 def main():
   try:
     import argparse
-  except ImportError:
-    print "argparse is needed for commandline"
-    return 1
+    parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
+    parser.add_argument('directory')
+    parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+    args = parser.parse_args()
 
   parser = argparse.ArgumentParser(description='Converts a a collection directory to an xhtml file and additional images')
   parser.add_argument('directory')
+  parser.add_argument('-r', dest='reduce_quality', help='Reduce image quality', action='store_true')
   # parser.add_argument('-t', dest='temp_dir', help='Path to store temporary files to (default is a temp dir that will be removed)', nargs='?')
   parser.add_argument('-o', dest='output', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
   args = parser.parse_args()
   
   temp_dir = args.directory
 
+  p = util.Progress()
+
   collxml, modules, allFiles = util.loadCollection(args.directory)
-  dbk, newFiles = collection2dbk.convert(collxml, modules, temp_dir, svg2png=True, math2svg=True)
+  dbk, newFiles = collection2dbk.convert(p, collxml, modules, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
   allFiles.update(newFiles)
 
-  dbk, files = convert(dbk, allFiles)
+    args.output.write(etree.tostring(dbk))
 
-  args.output.write(etree.tostring(dbk))
-  
-  # Write out all the added files
-  for name in newFiles:
-    f = open(os.path.join(args.directory, name), 'w')
-    f.write(newFiles[name])
-    f.close()
+    # Write all of the newly-added files into args.directory too
+    for fname in files:
+      f = open(os.path.join(args.directory, fname), 'w')
+      f.write(files[fname])
+      f.close()
+    
+  except ImportError:
+    print "argparse is needed for commandline"
+    return 1
 
 if __name__ == '__main__':
     sys.exit(main())
