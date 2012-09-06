@@ -33,7 +33,7 @@ if [ -s $WORKING_DIR/index.cnxml ]; then
 
 
   cd ${ROOT}
-  python content2epub.py -t "module" -i ${MODULE} -c ${CSS_FILE} -e ${DBK_TO_HTML_XSL} -o ${EPUB_FILE} ${WORKING_DIR}
+  python2.4 content2epub.py -t "module" -i ${MODULE} -c ${CSS_FILE} -e ${DBK_TO_HTML_XSL} -o ${EPUB_FILE} ${WORKING_DIR}
   EXIT_STATUS=$EXIT_STATUS || $?
   cd ${CWD}
 
@@ -41,7 +41,7 @@ elif [ -s $WORKING_DIR/collection.xml ]; then
   DBK_FILE=$WORKING_DIR/collection.dbk
   
   cd ${ROOT}
-  python content2epub.py -t "collection" -c ${CSS_FILE} -e ${DBK_TO_HTML_XSL} -o ${EPUB_FILE} ${WORKING_DIR}
+  python2.4 content2epub.py -t "collection" -c ${CSS_FILE} -e ${DBK_TO_HTML_XSL} -o ${EPUB_FILE} ${WORKING_DIR}
   EXIT_STATUS=$EXIT_STATUS || $?
   cd ${CWD}
 

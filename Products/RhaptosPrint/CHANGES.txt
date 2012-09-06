@@ -1,3 +1,6 @@
+RhaptosPrint-0.15.1
+  - epub math font fix
+
 RhaptosPrint-0.15
   - branding footnote, and fix page break
 
