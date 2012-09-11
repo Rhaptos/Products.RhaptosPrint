@@ -108,7 +108,7 @@ def main():
     dbk, newFiles = module2dbk.convert(args.module_id, cnxml, allFiles, {}, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
     dbk = newFiles['index.standalone.dbk']
     allFiles.update(newFiles)
-    cover, newFiles = util.dbk2cover(etree.parse(StringIO(dbk)), allFiles, svg2pngFlag=True)
+    cover, newFiles = util.dbk2cover(etree.parse(StringIO(dbk)), allFiles)
     newFiles['cover.png'] = cover
     
 
