@@ -348,6 +348,11 @@ blockquote{
   text-decoration: none;
 }
 
+.solution {
+  border: 1px dashed #999;
+  background-color: #eee;
+}
+
 
 .example p{
   margin: .5em 0;

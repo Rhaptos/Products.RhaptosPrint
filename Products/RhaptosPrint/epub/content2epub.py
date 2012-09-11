@@ -106,7 +106,11 @@ def main():
   if args.content_type == 'module':
     cnxml, allFiles = util.loadModule(args.directory)
     dbk, newFiles = module2dbk.convert(args.module_id, cnxml, allFiles, {}, temp_dir, svg2png=True, math2svg=True, reduce_quality=args.reduce_quality)
+    dbk = newFiles['index.standalone.dbk']
     allFiles.update(newFiles)
+    cover, newFiles = util.dbk2cover(etree.parse(StringIO(dbk)), allFiles, svg2pngFlag=True)
+    newFiles['cover.png'] = cover
+    
 
   elif args.content_type == 'collection':
     p = util.Progress()

@@ -176,9 +176,10 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
     newFiles.update(newFiles2)
     origAndNewFiles.update(newFiles2)
 
+  origAndNewFiles.update(newFiles)
+  
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)
-  origAndNewFiles.update(newFiles)
-  
+
   return etree.tostring(xml), newFiles
