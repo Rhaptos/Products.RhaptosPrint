@@ -178,6 +178,14 @@ def convert(moduleId, xml, filesDict, collParams, temp_dir, svg2png=True, math2s
 
   origAndNewFiles.update(newFiles)
   
+  # Write out all files to the temp dir so they don't stay in memory
+  for (key, value) in origAndNewFiles.items():
+    print >> sys.stderr, "Writing out " + os.path.join(temp_dir, key)
+    f = open(os.path.join(temp_dir, key), 'w')
+    f.write(value)
+    f.close()
+  newFiles = {}
+  
   # Create a standalone db:book file for the module
   dbkStandalone = DOCBOOK_BOOK_XSL(xml)
   newFiles['index.standalone.dbk'] = etree.tostring(dbkStandalone)

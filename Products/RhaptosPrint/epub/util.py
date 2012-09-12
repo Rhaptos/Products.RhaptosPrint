@@ -16,9 +16,12 @@ except ImportError:
 # Only inkscape can load the STIX fonts from the OS (imagemagick's SVG libs don't)
 # Only imagemagick allows changing the color depth of an image (math/SVG use 8 bits)
 #
+
+# Instead of inkscape, use rsvg
 INKSCAPE_BIN = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
 if not os.path.isfile(INKSCAPE_BIN):
   INKSCAPE_BIN = 'inkscape'
+
 CONVERT_BIN = 'convert'
 
 
@@ -40,6 +43,7 @@ DOCBOOK_NORMALIZE_GLOSSARY_XSL = makeXsl('dbk-clean-whole-remove-duplicate-gloss
 
 
 NAMESPACES = {
+  'xhtml':'http://www.w3.org/1999/xhtml',
   'c'  :'http://cnx.rice.edu/cnxml',
   'svg':'http://www.w3.org/2000/svg',
   'mml':'http://www.w3.org/1998/Math/MathML',
@@ -57,29 +61,40 @@ COLLECTION_COVER_PREFIX='_collection_cover'
 MODULES_XPATH = etree.XPath('//col:module/@document', namespaces=NAMESPACES)
 IMAGES_XPATH = etree.XPath('//c:*/@src[not(starts-with(.,"http:"))]', namespaces=NAMESPACES)
 
+def _reduce_png(pngData):
+  strCmd = '-compose Copy_Opacity -depth 8 +dither -quality 100 png:/dev/stdin png:-'.split()
+  strCmd.insert(0, CONVERT_BIN)
+  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+  pngReduced, strError = p.communicate(pngData)
+  return pngReduced, strError
+
+def svg2png(svgStr):
+  # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
+  strCmd = ['rsvg-convert', '-d', '96', '-p', '96' ]
+  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+  pngData, strError = p.communicate(svgStr)
+
+  pngReduced, strError = _reduce_png(pngData)
+  return pngReduced
 
 # From http://stackoverflow.com/questions/2932408/
-def svg2png(svgStr):
+def svg2png_inkscape(svgStr):
+  # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
   fd, pngPath = mkstemp(suffix='.png')
-  
   # Can't just use stdout because Inkscape outputs text to stdout _and_ stderr
   strCmd = [INKSCAPE_BIN, '--without-gui', '-f', '/dev/stdin', '--export-png=%s' % pngPath]
   p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
   _, strError = p.communicate(svgStr)
-
   pngFile = open(pngPath)
   pngData = pngFile.read()
   pngFile.close()
   os.close(fd)
   os.remove(pngPath)
-  
-  strCmd = '-compose Copy_Opacity -depth 8 +dither -quality 100 png:/dev/stdin png:-'.split()
-  strCmd.insert(0, CONVERT_BIN)
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-  pngReduced, strError = p.communicate(pngData)
+
+  pngReduced, strError = _reduce_png(pngData)
   return pngReduced
 
-def dbk2cover(dbk, filesDict):
+def dbk2cover(dbk, filesDict, svg2pngFlag=True):
   newFiles = {}
   if ('%s.png' % COLLECTION_COVER_PREFIX) in filesDict:
     return filesDict['%s.png' % COLLECTION_COVER_PREFIX], newFiles
@@ -92,8 +107,11 @@ def dbk2cover(dbk, filesDict):
   
   newFiles['cover.svg'] = svgStr
   
-  png = svg2png(svgStr)
-  return png, newFiles
+  if svg2pngFlag:
+    png = svg2png_inkscape(svgStr)
+    return png, newFiles
+  else:
+    return svg, newFiles
 
 def transform(xslDoc, xmlDoc):
   """ Performs an XSLT transform and parses the <xsl:message /> text """
