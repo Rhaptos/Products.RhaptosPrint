@@ -1,5 +1,7 @@
-RhaptosPrint-0.15.1
+RhaptosPrint-0.16
   - epub math font fix
+  - move to rsvg-convert for svg2png
+  - reduce depth and quality of pngs for size
 
 RhaptosPrint-0.15
   - branding footnote, and fix page break
