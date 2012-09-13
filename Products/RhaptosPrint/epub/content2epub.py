@@ -33,6 +33,8 @@ EMBED_FONTS = [
 def convert(dbk1, temp_dir, cssFile, epubFile):
   """ Converts a Docbook Element into EPUB HTML. """
 
+  temp_dir = os.path.abspath(temp_dir)
+
   # Hackish flatten function for command line arguments
   def flatten(l):
     out = []
@@ -58,7 +60,7 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   # $RUBY $ROOT/docbook-xsl/epub/bin/dbtoepub --stylesheet $DBK_TO_HTML_XSL -c $CSS_FILE $EMBEDDED_FONTS_ARGS -o $EPUB_FILE -d $DBK_FILE
 
   RUBY_BIN = 'ruby'
-  DBK_TO_EPUB_BIN = './docbook-xsl/epub/bin/dbtoepub'
+  DBK_TO_EPUB_BIN = os.path.abspath('./docbook-xsl/epub/bin/dbtoepub')
   DBK_FILE_NAME = 'collection.dbk'
   DBK_TO_HTML_XSL_PATH = os.path.join(orig_dir, 'xsl/dbk2epub.xsl')
   
@@ -70,12 +72,12 @@ def convert(dbk1, temp_dir, cssFile, epubFile):
   f.write(etree.tostring(dbk1))
   f.close()
 
-  strCmd = ['--stylesheet', DBK_TO_HTML_XSL_PATH, '-c', cssFile, EMBED_FONT_ARGS, '-o', epubFile, '-d', DBK_FILE]
+  strCmd = ['--stylesheet', DBK_TO_HTML_XSL_PATH, '-c', os.path.abspath(cssFile), EMBED_FONT_ARGS, '-o', os.path.abspath(epubFile), '-d', DBK_FILE]
   strCmd = flatten(strCmd)
   strCmd.insert(0, DBK_TO_EPUB_BIN)
   strCmd.insert(0, RUBY_BIN)
   
-  p = subprocess.Popen(strCmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
+  p = subprocess.Popen(strCmd, cwd=temp_dir, stdin=subprocess.PIPE, stdout=subprocess.PIPE, close_fds=True)
   (stdOut, stdErr) = p.communicate()
 
 
@@ -127,9 +129,8 @@ def main():
     f.write(newFiles[name])
     f.close()
 
-  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
-
   # Now, run the epub script
+  nothing = convert(etree.parse(StringIO(dbk)), temp_dir, args.css_file, args.output)
 
 if __name__ == '__main__':
     sys.exit(main())
