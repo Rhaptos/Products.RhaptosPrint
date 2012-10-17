@@ -150,6 +150,18 @@
         <xsl:otherwise>Authors</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="papersize" select="/course/parameters/parameter[@name='papersize']/@value"/>
+    <xsl:variable name="header-width">
+      <xsl:choose>
+        <xsl:when test="$papersize = '6x9'">3in</xsl:when>
+        <xsl:otherwise>5in</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="course-footer">
+      <xsl:text>\footnotesize Available for free at Connexions &lt;</xsl:text>
+      <xsl:value-of select="/course/@uri"/>
+      <xsl:text>&gt;</xsl:text>
+    </xsl:variable>
     <xsl:text>\documentclass[</xsl:text>
     <xsl:value-of select="$fontsize"/>
     <xsl:text>]{</xsl:text>
@@ -157,13 +169,18 @@
     <xsl:text>}
     </xsl:text>
     <xsl:if test="/course">
-      <xsl:call-template name="collection-preamble"/><!-- in cnxml.xsl -->
+      <xsl:call-template name="collection-preamble"><!-- in cnxml.xsl -->
+        <xsl:with-param name="papersize" select="$papersize"/>
+        <xsl:with-param name="header-width" select="$header-width"/>
+        <xsl:with-param name="course-footer" select="$course-footer"/>
+      </xsl:call-template>
     </xsl:if>
     <xsl:call-template name="preamble"><!-- in cnxml.xsl -->
       <xsl:with-param name="printfont" 
            select="/course/parameters/parameter[@name='printfont']/@value"/>
-      <xsl:with-param name="papersize" 
-           select="/course/parameters/parameter[@name='papersize']/@value"/>
+      <xsl:with-param name="papersize" select="$papersize"/>
+      <xsl:with-param name="header-width" select="$header-width"/>
+      <xsl:with-param name="course-footer" select="$course-footer"/>
     </xsl:call-template>
     <xsl:if test="/module">
       <xsl:call-template name="module-preamble"/><!-- in cnxml.xsl -->
