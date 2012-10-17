@@ -1,3 +1,6 @@
+RhaptosPrint-0.17
+  - new attribution footer
+
 RhaptosPrint-0.16
   - epub math font fix
   - move to rsvg-convert for svg2png
