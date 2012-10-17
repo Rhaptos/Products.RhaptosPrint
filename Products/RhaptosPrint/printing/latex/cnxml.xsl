@@ -183,6 +183,9 @@
   </xsl:template>
 
   <xsl:template name="collection-preamble">
+    <xsl:param name="papersize"/>
+    <xsl:param name="header-width"/>
+    <xsl:param name="course-footer"/>
     \newenvironment{toc}%
     {\begin{description}\setlength{\topsep}{0cm}\setlength{\itemsep}{0cm}%%
     \setlength{\parskip}{0cm}\setlength{\parsep}{0cm}%%
@@ -200,17 +203,30 @@
     \setlength{\marginparsep}{0pt}
     \setlength{\marginparwidth}{0pt}
     %\setlength{\}{0pt}
+    %-- Redefine chapter command to enable attribution footer
+    \makeatletter
+    \def\ps@chapterheadings{%
+          \let\@oddhead\@empty
+          \def\@oddfoot{\hfil
+          \begin{minipage}{<xsl:value-of select="$header-width"/>}
+          \begin{center}<xsl:value-of select="$course-footer"/>\end{center}\par
+          \begin{center}{\thepage}\end{center}
+          \end{minipage}
+          \hfil}%
+          \def\@evenfoot{\normalfont\hfil\thepage\hfil}}
+    \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                        \thispagestyle{chapterheadings}%
+                        \global\@topnum\z@
+                        \@afterindentfalse
+                        \secdef\@chapter\@schapter}
+    \makeatother
   </xsl:template>
 
   <xsl:template name="preamble">
     <xsl:param name="printfont"/>
     <xsl:param name="papersize"/>
-    <xsl:variable name="header-width">
-      <xsl:choose>
-        <xsl:when test="$papersize = '6x9'">3in</xsl:when>
-        <xsl:otherwise>5in</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+    <xsl:param name="header-width"/>
+    <xsl:param name="course-footer"/>
     <xsl:choose>
       <xsl:when test="$printfont = 'times'">
         \usepackage{mathptmx}
@@ -406,6 +422,8 @@
     % Break long chapter titles in running heads
     \makeatletter
       \def\@evenhead{\thepage\hfil\parbox{<xsl:value-of select="$header-width"/>}{\raggedleft\slshape\leftmark}}%
+      \def\@oddfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{\begin{center}<xsl:value-of select="$course-footer"/>\end{center}}\hfil}%
+      \def\@evenfoot{\hfil\parbox{<xsl:value-of select="$header-width"/>}{\begin{center}<xsl:value-of select="$course-footer"/>\end{center}}\hfil}%
     \makeatother
 
     % ------------------------------------------
