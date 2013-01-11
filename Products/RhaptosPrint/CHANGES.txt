@@ -1,3 +1,6 @@
+RhaptosPrint-0.17.1
+  - start.html fix
+
 RhaptosPrint-0.17
   - new attribution footer
 
