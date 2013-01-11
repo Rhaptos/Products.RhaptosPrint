@@ -5,6 +5,9 @@ module DocBook
   DEBUG=true
 
   class Epub
+    # When zipping, also include HTML files in the root dir - Phil
+    HACK_INCLUDE_HTML_FILES = "start.html"
+
     CHECKER = "epubcheck"
     STYLESHEET = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', "docbook.xsl"))
     CALLOUT_PATH = File.join('images', 'callouts')
@@ -105,7 +108,7 @@ module DocBook
       callouts = copy_callouts()
       # zip -X -r ../book.epub mimetype META-INF OEBPS
       # Double-quote stylesheet & file to help Windows cmd.exe
-      zip_cmd = "cd \"#{@output_dir}\" &&  #{ZIPPER} #{quiet} -X -r  \"#{File.expand_path(output_file)}\" \"#{mimetype_filename}\" \"#{meta}\" \"#{oebps}\" *html"
+      zip_cmd = %Q(cd "#{@output_dir}" &&  #{ZIPPER} #{quiet} -X -r  "#{File.expand_path(output_file)}" "#{mimetype_filename}" "#{meta}" "#{oebps}" "#{HACK_INCLUDE_HTML_FILES}")
       puts zip_cmd if $DEBUG
       success = system(zip_cmd)
       raise "Could not bundle into .epub file to #{output_file}" unless success

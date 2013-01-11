@@ -54,11 +54,7 @@
     
         <!-- Both of these file names need to not have the base.dir prepended to them -->
         <xsl:variable name="moduleFilename">
-             <xsl:call-template name="make-relative-filename">
-                 <xsl:with-param name="base.name">
-                     <xsl:apply-templates select=".//db:preface" mode="recursive-chunk-filename"/>
-                 </xsl:with-param>
-             </xsl:call-template>
+             <xsl:apply-templates select=".//db:preface" mode="recursive-chunk-filename"/>
         </xsl:variable>
         <xsl:variable name="justTitleFilename">
             <xsl:value-of select="$root.filename"/>
