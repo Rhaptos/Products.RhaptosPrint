@@ -137,7 +137,7 @@
 	
 	<!-- Skip all duplicates of letters until the last one, which we process -->
 	<xsl:if test="string-length($letters) = 1 or $letter != substring($letters,2,1)">
-    <xsl:apply-templates select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
+    <xsl:apply-templates mode="glossary" select=".//db:glossentry[$letter=translate(substring(db:glossterm/text(), 1, 1), $cnx.smallcase, $cnx.uppercase)]">
       <xsl:sort select="concat(db:glossterm/text(), db:glossterm//text())"/>
     </xsl:apply-templates>
 	</xsl:if>
@@ -147,6 +147,14 @@
 			<xsl:with-param name="letters" select="substring($letters, 2)"/>
 		</xsl:call-template>
 	</xsl:if>
+</xsl:template>
+
+<!-- Remove ids on elements in the glossary because they already occur inside the content -->
+<xsl:template mode="glossary" match="@xml:id"/>
+<xsl:template mode="glossary" match="*">
+  <xsl:copy>
+    <xsl:apply-templates mode="glossary" select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 <!-- Discard the module-level glossary -->
