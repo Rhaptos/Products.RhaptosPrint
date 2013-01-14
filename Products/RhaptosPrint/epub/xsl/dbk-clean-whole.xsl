@@ -149,7 +149,17 @@
 	</xsl:if>
 </xsl:template>
 
-<!-- Remove ids on elements in the glossary because they already occur inside the content -->
+<!-- Remove ids on elements in the glossary because they already occur inside the content.
+     Using mode="glossary" to distinguish the definition (db:glossentry) in the content from the
+     db:glossentry being added to the glossary.
+     
+     A problem with just removing the id occurs when the definition occurs in the cnx:glossary
+     (instead of cnx:content) and someone links to it from content. That link is now broken.
+     
+     Also, this template just copies the children of glossentry without allowing other templates
+     to match.
+     This shouldn't be a problem because none of the other templates in this file should apply.
+-->
 <xsl:template mode="glossary" match="@xml:id"/>
 <xsl:template mode="glossary" match="*">
   <xsl:copy>
