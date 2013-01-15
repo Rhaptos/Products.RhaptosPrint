@@ -1,3 +1,6 @@
+RhaptosPrint-0.17.3
+  - hold back Biology style options
+
 RhaptosPrint-0.17.2
   - dup definition/glossary id fix
 
