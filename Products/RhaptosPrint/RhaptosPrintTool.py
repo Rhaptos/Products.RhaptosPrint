@@ -296,8 +296,6 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         return [ # {'title':'Default', 'id':''},
                  {'title':'CCAP Physics', 'id':'ccap-physics'},
                  {'title':'CCAP Sociology', 'id':'ccap-sociology'},
-                 {'title':'CCAP Biology', 'id':'ccap-biology'},
-                 {'title':'CCAP Biology Non-Majors', 'id':'ccap-biology-non-majors'},
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
