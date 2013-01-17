@@ -1,0 +1,3 @@
+[submodule "Products/RhaptosPrint/epub"]
+	path = Products/RhaptosPrint/epub
+	url = git@github.com:Connexions/oer.exports.git
