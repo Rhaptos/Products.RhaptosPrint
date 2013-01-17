@@ -1,3 +1,6 @@
+RhaptosPrint-0.18
+  - Biology lands
+
 RhaptosPrint-0.17.3
   - hold back Biology style options
 
