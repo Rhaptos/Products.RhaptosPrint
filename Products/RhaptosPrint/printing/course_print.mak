@@ -18,11 +18,11 @@ PROJECT_SHORT_NAME = Rhaptos
 .SECONDARY:
 
 clear: clean
-	rm *.rdf
-	rm -r *.imgs
+	-rm *.rdf
+	-rm -r *.imgs
 
 clean:
-	rm *.aux *.bbl *.bib *.blg *.log *.mth *.pdf *.sym *.tex *.tex1 *.tex2 *.tex3 *.tmp1 *.tmp2 *.tmp3 *.tmp4 *.zip
+	-rm *.aux *.bbl *.bib *.blg *.log *.mth *.pdf *.sym *.tex *.tex1 *.tex2 *.tex3 *.tmp1 *.tmp2 *.tmp3 *.tmp4 *.zip
 
 %.pdf: %.tex %.bib
 	-pdflatex --interaction batchmode -shell-escape $<
