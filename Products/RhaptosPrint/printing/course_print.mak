@@ -1,9 +1,9 @@
 #
 # Makefile to control collection PDF generation.
-# 
+#
 # Author: Brent Hendricks and Chuck Bearden
 # (C) 2005-2009 Rice University
-# 
+#
 # This software is subject to the provisions of the GNU Lesser General
 # Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 #
@@ -15,7 +15,7 @@ PROJECT_NAME = The Enterprise Rhaptos Project
 PROJECT_SHORT_NAME = Rhaptos
 
 
-.SECONDARY: 
+.SECONDARY:
 
 clear: clean
 	rm *.rdf
@@ -40,7 +40,7 @@ clean:
 	zip $@ $^ $*.imgs/* build-pdf.sh
 
 %.tex: %.tex3
-	$(PYTHON) $(PRINT_DIR)/subfigurefix.py -d $*.imgs -p $(PRINT_DIR) $< > $@; 
+	$(PYTHON) $(PRINT_DIR)/subfigurefix.py -d $*.imgs -p $(PRINT_DIR) $< > $@;
 
 %.tex3: %.tex2
 	if test -f $*.width; then \
@@ -53,30 +53,30 @@ clean:
 	$(PYTHON) $(PRINT_DIR)/replace.py $(PRINT_DIR)/latex/unicodechanges < $< > $@
 
 %.tex1: %.mth
-	xsltproc -o $@ --stringparam debug-mode '0' --stringparam 'CNX_DISPLAY_HOSTNAME' $(HOST)  --stringparam PROJECT_NAME '$(PROJECT_NAME)' --stringparam PROJECT_SHORT_NAME '$(PROJECT_SHORT_NAME)' $(PRINT_DIR)/latex/tolatex.xsl $< 
+	xsltproc -o $@ --stringparam debug-mode '0' --stringparam 'CNX_DISPLAY_HOSTNAME' $(HOST)  --stringparam PROJECT_NAME '$(PROJECT_NAME)' --stringparam PROJECT_SHORT_NAME '$(PROJECT_SHORT_NAME)' $(PRINT_DIR)/latex/tolatex.xsl $<
 
 %.mth: %.sym
-	xsltproc -o $@ $(PRINT_DIR)/latex/mathml.xsl $< 
+	xsltproc -o $@ $(PRINT_DIR)/latex/mathml.xsl $<
 
 %.sym: %.tmp4
 	$(PYTHON) $(PRINT_DIR)/replace.py $(PRINT_DIR)/latex/latexspecialchars < $< > $@
 
 %.tmp4: %.tmp3
-	xsltproc -o $@ $(PRINT_DIR)/common/numbering.xsl $< 
+	xsltproc -o $@ $(PRINT_DIR)/common/numbering.xsl $<
 
 %.tmp3: %.tmp2
 	xsltproc -o $@ $(PRINT_DIR)/common/solutions.xsl $<
 
 %.tmp2: %.tmp1
-	xsltproc -o $@ $(PRINT_DIR)/common/getreferenced.xsl $< 
+	xsltproc -o $@ $(PRINT_DIR)/common/getreferenced.xsl $<
 
 %.bib: %.tmp1
 	touch $@
-	xsltproc -o $@ $(PRINT_DIR)/latex/bibtexml2bibtex.xsl $< 
+	xsltproc -o $@ $(PRINT_DIR)/latex/bibtexml2bibtex.xsl $<
 	cp $@ index.bib
 
 %.tmp1: %.rdf
-	xsltproc --nodtdattr -o $@ $(PRINT_DIR)/common/assemble.xsl $< 
+	xsltproc --nodtdattr -o $@ $(PRINT_DIR)/common/assemble.xsl $<
 
 %.rdf:
 	wget -O $@ $(HOST)/content/$*/$(COLLECTION_VERSION)?format=rdf
