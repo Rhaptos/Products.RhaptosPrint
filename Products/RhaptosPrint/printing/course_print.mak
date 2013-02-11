@@ -28,7 +28,7 @@ clean:
 	-pdflatex --interaction batchmode -shell-escape $<
 	-bibtex $*
 	-pdflatex --interaction batchmode -shell-escape $<
-	pdflatex --interaction batchmode -shell-escape $<
+	-pdflatex --interaction batchmode -shell-escape $<
 
 %.zip: %.tex %.bib
 	echo "#!/bin/sh" > build-pdf.sh
