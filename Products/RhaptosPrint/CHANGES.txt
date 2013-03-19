@@ -1,3 +1,6 @@
+RhaptosPrint-0.20
+  - Biology numbering fix
+
 RhaptosPrint-0.19
   - More Biology
 
