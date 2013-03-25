@@ -1,3 +1,6 @@
+RhaptosPrint-0.21
+  - more bio fixes: index and glossary
+
 RhaptosPrint-0.20
   - Biology numbering fix
 
