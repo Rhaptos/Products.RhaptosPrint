@@ -39,6 +39,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
     manage_options = (({'label':'Overview', 'action':'manage_overview'},
                        {'label':'Configure Print Styles', 'action':'manage_print_style_configure'},
+                       {'label':'Configure Build Mappings', 'action':'manage_build_mappings_configure'},
                        {'label':'Configure Storage', 'action':'manage_configure'},
                        {'label':'Configure Print Params', 'action':'manage_params'}
                       )+ SimpleItem.manage_options
@@ -52,6 +53,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
     security.declareProtected(ManagePermission, 'manage_print_style_configure')
     manage_print_style_configure = PageTemplateFile('zpt/manage_print_style_configure.zpt', globals())
+    security.declareProtected(ManagePermission, 'manage_build_mappings_configure')
+    manage_build_mappings_configure = PageTemplateFile('zpt/manage_build_mappings_configure.zpt', globals())
 
     security.declareProtected(ManagePermission, 'manage_configure')
     manage_configure = PageTemplateFile('zpt/manage_print.zpt', globals())
@@ -87,6 +90,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         if self.storagePath is None:
             self.storagePath = storagePath
         self._print_styles = []
+        self._build_mappings = []
 
     def setFile(self, objectId, version, type, data):
         """
@@ -289,6 +293,18 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         if REQUEST is not None:
             REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_print_style_configure')
 
+    security.declareProtected(ManagePermission, 'manage_setBuildMappings')
+    def manage_setBuildMappings(self, mappings, REQUEST=None):
+        """Print build mappings setting's form handler."""
+        mappings = simplejson.loads(mappings)
+        print_styles = [x['id'] for x in self._print_styles]
+        # Simple data validation
+        for print_style, build_suite in mappings:
+            assert print_style in print_styles, "Invalid print-style: '%s'" % print_style
+        self._build_mappings = mappings
+        if REQUEST is not None:
+            REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_build_mappings_configure')
+
     security.declareProtected(ManagePermission, 'getMakefile')
     def getMakefile(self, default=1):
         """Return makefile path; meant only for manager consumption.
@@ -312,16 +328,20 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
         The json parameter to this function can be use to return the data as json.
         """
-        # [ # {'title':'Default', 'id':''},
-        #   {'title':'CCAP Physics', 'id':'ccap-physics'},
-        #   {'title':'CCAP Sociology', 'id':'ccap-sociology'},
-        #   {'title':'CCAP Biology', 'id':'ccap-biology'},
-        #   {'title':'CCAP Anatomy', 'id':'ccap-anatomy'},
-        # ]
+        result = self._print_styles
         if json:
-            result = simplejson.dumps(self._print_styles)
-        else:
-            result = self._print_styles
+            result = simplejson.dumps(result)
+        return result
+
+    security.declarePublic(ManagePermission, 'getBuildMappings')
+    def getBuildMappings(self, json=False):
+        """Returns a list of print build mappings. If the mapping doesn't exist
+        you should fall back to latex as the default.
+        The json parameter to this function can be use to return the data as json.
+        """
+        result = self._build_mappings
+        if json:
+            result = simplejson.dumps(result)
         return result
 
     security.declareProtected(ManagePermission, 'getPortalPath')
