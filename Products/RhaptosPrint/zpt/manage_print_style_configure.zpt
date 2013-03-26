@@ -1,0 +1,49 @@
+<html tal:omit-tag="">
+  <span tal:replace="structure here/manage_page_header">Header</span>
+  <span tal:define="manage_tabs_message options/manage_tabs_message | nothing"
+    tal:replace="structure here/manage_tabs">Tabs</span>
+
+  <h3>Print Style Mappings</h3>
+
+  <p>
+    Configuration of print stylings. The following data is stored and
+    input as a JavaScript array of object's containing a title and id
+    value. For example:
+    <pre>
+      [{"id": "ccap-physics", "title": "CCAP Physics"},
+       {"id": "ccap-sociology", "title": "CCAP Sociology"},
+       {"id":"ccap-biology", "title":"CCAP Biology"},
+       {"id":"ccap-anatomy", "title":"CCAP Anatomy"}
+      ]
+    </pre>
+  </p>
+
+  <form action="manage_setPrintStyling" method="post">
+  <table cellspacing="0" cellpadding="2" border="0">
+    <tr>
+      <td align="left" valign="top">
+      <div class="form-label">
+      Stylings
+      </div>
+      </td>
+      <td align="left" valign="top">
+      <textarea name="print_styles" rows="8" cols="80"
+                tal:content="python:context.getAlternateStyles(json=True)">
+      </textarea>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top">
+      </td>
+      <td align="left" valign="top">
+      <div class="form-element">
+      <input class="form-element" type="submit" name="submit"
+      value=" Save " />
+      </div>
+      </td>
+    </tr>
+  </table>
+  </form>
+
+  <span tal:replace="structure here/manage_page_footer">Footer</span>
+</html>
