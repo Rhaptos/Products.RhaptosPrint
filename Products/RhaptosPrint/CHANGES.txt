@@ -1,3 +1,6 @@
+RhaptosPrint-0.22
+  - more bio fixes: glossary again
+
 RhaptosPrint-0.21
   - more bio fixes: index and glossary
 
