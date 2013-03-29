@@ -216,6 +216,14 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         Returns:
             the current status (success or failed or locked) or None
         """
+        status = self.print_file_status.get(self._createFileName(objectId, version, type), None)
+        if status in ('failed', 'locked',):
+            return status
+        elif self.doesFileExist(objectId, version, type):
+            return 'success'
+        else:
+            return status
+
         return self.print_file_status.get(self._createFileName(objectId, version, type), None)
 
     def manage_print(self, storagePath, namePattern, objectType, containerType, REQUEST=None):
