@@ -20,6 +20,7 @@ PROJECT_SHORT_NAME = Rhaptos
 clear: clean
 	rm *.rdf
 	rm -r *.imgs
+	rm *.mxt
 
 clean:
 	rm *.aux *.bbl *.bib *.blg *.log *.mth *.pdf *.sym *.tex *.tex1 *.tex2 *.tex3 *.tmp1 *.tmp2 *.tmp3 *.tmp4
@@ -28,7 +29,7 @@ clean:
 	-pdflatex --interaction batchmode -shell-escape $<
 	-bibtex $*
 	-pdflatex --interaction batchmode -shell-escape $<
-	pdflatex --interaction batchmode -shell-escape $<
+	-pdflatex --interaction batchmode -shell-escape $<
 
 %.tex: %.tex3
 	$(PYTHON) $(PRINT_DIR)/subfigurefix.py -d $*.imgs -p $(PRINT_DIR) $< > $@; 
