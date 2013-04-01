@@ -9,9 +9,11 @@
 #
 PYTHON = /usr/bin/python2.4
 PRINT_DIR = /opt/printing
-HOST = localhost:8080
+HOST = http://localhost:8080
+VERSION = latest
 PROJECT_NAME = The Enterprise Rhaptos Project
 PROJECT_SHORT_NAME = Rhaptos
+
 
 .SECONDARY: 
 
@@ -68,4 +70,4 @@ clean:
 	xsltproc -o $@ $(PRINT_DIR)/common/indent_ident.xsl $<
 
 %.mxt:
-	wget -O $@ $(HOST)/content/$*/latest/module_export_template
+	wget -O $@ $(HOST)/content/$*/$(VERSION)/module_export_template
