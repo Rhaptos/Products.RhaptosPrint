@@ -10,9 +10,14 @@
 PYTHON = /usr/bin/python2.4
 PRINT_DIR = /opt/printing
 HOST = http://localhost:8080
-COLLECTION_VERSION = latest
+VERSION = latest
 PROJECT_NAME = The Enterprise Rhaptos Project
 PROJECT_SHORT_NAME = Rhaptos
+# BBB VERSION is used to provide a standard interface for both
+#     collections and modules.
+ifdef COLLECTION_VERSION
+VERSION = $(COLLECTION_VERSION)
+endif
 
 
 .SECONDARY:
@@ -79,4 +84,4 @@ clean:
 	xsltproc --nodtdattr -o $@ $(PRINT_DIR)/common/assemble.xsl $<
 
 %.rdf:
-	wget -O $@ $(HOST)/content/$*/$(COLLECTION_VERSION)?format=rdf
+	wget -O $@ $(HOST)/content/$*/$(VERSION)?format=rdf
