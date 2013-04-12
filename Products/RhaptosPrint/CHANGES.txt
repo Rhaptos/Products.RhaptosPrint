@@ -1,3 +1,18 @@
+RhaptosPrint-0.23
+  - more bio fixes
+
+RhaptosPrint-0.22
+  - more bio fixes: glossary again
+
+RhaptosPrint-0.21
+  - more bio fixes: index and glossary
+
+RhaptosPrint-0.20
+  - Biology numbering fix
+
+RhaptosPrint-0.19
+  - More Biology
+
 RhaptosPrint-0.18
   - Biology lands
 
