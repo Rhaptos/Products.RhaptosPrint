@@ -58,9 +58,10 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     DEFAULT_NAME_PATTERN = "%s-%s.%s" 
     DEFAULT_OBJECT_TYPE = "File"
     DEFAULT_CONTAINER = "Large Plone Folder"
-    DEFAULT_STORAGE_PATH = "/plone/pdfs"
+    DEFAULT_STORAGE_PATHS = ["/plone/pdfs"]
+    DEFAULT_STORAGE_PATH = DEFAULT_STORAGE_PATHS[0]
 
-    def __init__(self, storagePath=None, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
+    def __init__(self, storagePaths=None, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
        """
        Parameters:
            storagePath - the location where files are stored
@@ -68,7 +69,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
            objType - the  portal_type name of the type of object to store file data
            containerType - the  portal_type name of the container to store file data objects
        """
-       self.storagePath = storagePath
+       self.storagePaths = storagePaths
+       self.storagePath = storagePaths and len(storagePaths) and storagePaths[0] or ''
        self.namePattern = namePattern
        self.objectType = objType
        self.containerType = containerType
@@ -78,11 +80,12 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         SimpleItem.manage_afterAdd(self, item, container)
         portal_url = getToolByName(container, 'portal_url')
         storagePath = portal_url.getPortalPath() + '/pdfs'
-        self.DEFAULT_STORAGE_PATH = storagePath
+        self.DEFAULT_STORAGE_PATHS = [storagePath]
+        self.DEFAULT_STORAGE_PATH = self.DEFAULT_STORAGE_PATHS[0]
         if self.storagePath is None:
             self.storagePath = storagePath
     
-    def setFile(self, objectId, version, type, data): 
+    def setFile(self, objectId, version, type, data, container=None): 
         """
         method from rhaptos_print interface.
         Adds file to container
@@ -93,7 +96,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             data - the print file to store
         """
         #Grab the file to update, else create a new one.
-        container = self._getContainer()
+        if container is None:
+            container = self._getContainer()
         if hasattr(container, '_write_file'): # It's some flavor of localFS 
             # Hey, we're a localFS folder, do it directly
             fileName = self._createFileName(objectId, version, type)
@@ -103,7 +107,6 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
             printFile = self.getFile(objectId, version, type)
             if not printFile:
-                container = self._getContainer()
                 fileName = self._createFileName(objectId, version, type)
                 printFile = utils._createObjectByType(self.objectType, container, id=fileName )
             try:
@@ -126,27 +129,30 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         Returns:
             If file is cached, the pdf or zip is returned, otherwise None is returned.
         """
-        container = self._getContainer()
+        printFile = None
         fileName = self._createFileName(objectId, version, type)
-        printFile = getattr(container, fileName, None)
+        for container in self._getContainers():
+            printFile = getattr(container, fileName, None)
 
-        if printFile is not None:
-            try:
-                # access the object to see if it really exists
-                size = printFile.size()
-            except TypeError:
-                # it's not a method, probably an int, just use it
-                size = printFile.size
-            except POSKeyError:
-                # not really there there, so nuke it
-                size = 0
-                printFile = None
-                log('removing unaccessible file from the Print Tool data store, for file (%s,%s,%s)' % (objectId,version,type))
-                self.destroyFile(objectId, version, type)
+            if printFile is not None:
+                try:
+                    # access the object to see if it really exists
+                    size = printFile.size()
+                except TypeError:
+                    # it's not a method, probably an int, just use it
+                    size = printFile.size
+                except POSKeyError:
+                    # not really there there, so nuke it
+                    size = 0
+                    printFile = None
+                    log('removing unaccessible file from the Print Tool data store, for file (%s,%s,%s)' % (objectId,version,type))
+                    self.destroyFile(objectId, version, type, container=container)
+            if printFile:
+                break
 
         return printFile
 
-    def destroyFile(self, objectId, version, filetype):
+    def destroyFile(self, objectId, version, filetype, container=None):
         """
         Completely remove stored data
         Parameters:
@@ -154,7 +160,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             version - the module or collection version
             filetype - file type: pdf or zip
         """
-        container = self._getContainer()
+        if container is None:
+            container = self._getContainer()
         fileName = self._createFileName(objectId, version, filetype)
         if getattr(container, fileName, None):
             container.manage_delObjects([fileName])
@@ -208,7 +215,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         return self.print_file_status.get(self._createFileName(objectId, version, type), None)
 
-    def manage_print(self, storagePath, namePattern, objectType, containerType, REQUEST=None):
+    def manage_print(self, storagePaths, namePattern, objectType, containerType, REQUEST=None):
         """
         Post creation configuration.  See manage_print.zpt
         If parameter has a value, use it.  Otherwise set values to defaults
@@ -219,22 +226,24 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
            containerType - the  portal_type name of the container to store file data objects
            REQUEST - the HTTP request object
         """
-        if storagePath != '' and storagePath != None:
-            self.storagePath = storagePath
+        if storagePaths != '' and storagePaths != None:
+            self.storagePaths = storagePaths.split()
+            self.storagePath = self.storagePaths[0]
         else:
-            self.storagePath=DEFAULT_STORAGE_PATH
+            self.storagePaths=self.DEFAULT_STORAGE_PATHS
+            self.storagePath=self.DEFAULT_STORAGE_PATH
         if namePattern != '' and namePattern != None:
             self.namePattern = namePattern
         else:
-            self.namePattern=DEFAULT_NAME_PATTERN
+            self.namePattern=self.DEFAULT_NAME_PATTERN
         if objectType != '' and objectType != None:
             self.objectType = objectType
         else:
-            self.objType=DEFAULT_OBJECT_TYPE
+            self.objType=self.DEFAULT_OBJECT_TYPE
         if containerType != '' and containerType != None:
             self.containerType = containerType
         else:
-            self.containerType=DEFAULT_CONTAINER
+            self.containerType=self.DEFAULT_CONTAINER
         if REQUEST:
             return self.manage_configure(manage_tabs_message="RhaptosPrint updated")
 
@@ -248,17 +257,22 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         return self.namePattern % (objectId, version, type)
 
-    def _getContainer(self):
+    def _getContainers(self):
         """
         gets container based on storage path
         """
-        container = None
-        try:
-            container = self.restrictedTraverse(self.storagePath)
-        except AttributeError:
-            container = self.restrictedTraverse('/'.join(self.storagePath.split('/')[:-1]))
-            container = utils._createObjectByType(self.containerType, container, id=self.storagePath.split('/')[-1] )
-        return container
+        containers = []
+        for storagePath in self.storagePaths:
+            try:
+                containers.append(self.restrictedTraverse(storagePath))
+            except AttributeError:
+                container = self.restrictedTraverse('/'.join(self.storagePath.split('/')[:-1]))
+                container = utils._createObjectByType(self.containerType, container, id=self.storagePath.split('/')[-1] )
+                containers.append(container)
+        return containers
+
+    def _getContainer(self):
+        return self._getContainers()[0]
 
     ## Print config methods, formerly of RhaptosCollection.AsyncPrint ##
 
