@@ -1,3 +1,6 @@
+RhaptosPrint-0.24
+  - anatomy and physiology lands
+
 RhaptosPrint-0.23
   - more bio fixes
 
