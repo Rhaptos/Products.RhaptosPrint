@@ -1,3 +1,21 @@
+RhaptosPrint-0.26
+  - Biology fixes
+
+RhaptosPrint-0.25
+  - A&P bug fixes
+
+RhaptosPrint-0.24
+  - anatomy and physiology lands
+
+RhaptosPrint-0.23
+  - more bio fixes
+
+RhaptosPrint-0.22
+  - more bio fixes: glossary again
+
+RhaptosPrint-0.21
+  - more bio fixes: index and glossary
+
 RhaptosPrint-0.20
   - Biology numbering fix
 

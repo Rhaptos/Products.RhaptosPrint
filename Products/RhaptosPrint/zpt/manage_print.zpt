@@ -21,8 +21,8 @@
       </div>
       </td>
       <td align="left" valign="top">
-      <input type="text" name="storagePath" size="40" />
-	  (Leave path blank for default (/plone/pdfs))
+      <textarea name="storagePaths" rows=3 cols="40"></textarea>
+	  (One path per line. Leave path blank for default (/plone/pdfs))
       </td>
     </tr>
     <tr>
