@@ -20,8 +20,11 @@
             extension-element-prefixes="exsl str"
 >
   
+  <xsl:variable name="lower-letters" select="'abcdefghijklmnopqrstuvwxyzäëïöüáéíóúàèìòùâêîôûåøãõæœçłñ'"/>
+  <xsl:variable name="upper-letters" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÅØÃÕÆŒÇŁÑ'"/>
+
   <!--A key that matches the type attribute of rule-->
-  <xsl:key name="rule" match="cnxml:rule" use="translate(@type, $upper-letters, $lower-letters)"/>
+  <xsl:key name="rule" match="cnxml:rule" use="translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÅØÃÕÆŒÇŁÑ', 'abcdefghijklmnopqrstuvwxyzäëïöüáéíóúàèìòùâêîôûåøãõæœçłñ')"/>
 
   <!-- output xml file's unicode characters are not encoded as '&#0032' but
   rather in binary.  that way #'s can be escaped as \# in the next step without
@@ -33,8 +36,6 @@
       <xsl:when test="/module">module</xsl:when>
     </xsl:choose>
   </xsl:variable>
-  <xsl:variable name="lower-letters" select="'abcdefghijklmnopqrstuvwxyzäëïöüáéíóúàèìòùâêîôûåøãõæœçłñ'"/>
-  <xsl:variable name="upper-letters" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÅØÃÕÆŒÇŁÑ'"/>
 
   <!--Identity Transformation -->
   <xsl:template match="@*|node()">
