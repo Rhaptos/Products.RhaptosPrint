@@ -7,7 +7,7 @@ Author: Ed Woodward
 This software is subject to the provisions of the GNU Lesser General
 Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 """
-
+import simplejson
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
@@ -38,6 +38,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     security = AccessControl.ClassSecurityInfo()
 
     manage_options = (({'label':'Overview', 'action':'manage_overview'},
+                       {'label':'Configure Print Styles', 'action':'manage_print_style_configure'},
+                       {'label':'Configure Build Mappings', 'action':'manage_build_mappings_configure'},
                        {'label':'Configure Storage', 'action':'manage_configure'},
                        {'label':'Configure Print Params', 'action':'manage_params'}
                       )+ SimpleItem.manage_options
@@ -49,13 +51,19 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     security.declareProtected(ManagePermission, 'manage_overview')
     manage_overview = PageTemplateFile('zpt/explainRhaptosPrint.zpt', globals())
 
+    security.declareProtected(ManagePermission, 'manage_print_style_configure')
+    manage_print_style_configure = PageTemplateFile('zpt/manage_print_style_configure.zpt', globals())
+    security.declareProtected(ManagePermission, 'manage_build_mappings_configure')
+    manage_build_mappings_configure = PageTemplateFile('zpt/manage_build_mappings_configure.zpt', globals())
+
     security.declareProtected(ManagePermission, 'manage_configure')
     manage_configure = PageTemplateFile('zpt/manage_print.zpt', globals())
+
 
     security.declareProtected(ManagePermission, 'manage_params')
     manage_params = PageTemplateFile('zpt/manage_params.zpt', globals())
 
-    DEFAULT_NAME_PATTERN = "%s-%s.%s" 
+    DEFAULT_NAME_PATTERN = "%s-%s.%s"
     DEFAULT_OBJECT_TYPE = "File"
     DEFAULT_CONTAINER = "Large Plone Folder"
     DEFAULT_STORAGE_PATHS = ["/plone/pdfs"]
@@ -84,7 +92,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         self.DEFAULT_STORAGE_PATH = self.DEFAULT_STORAGE_PATHS[0]
         if self.storagePath is None:
             self.storagePath = storagePath
-    
+        self._print_styles = []
+        self._build_mappings = []
+
     def setFile(self, objectId, version, type, data, container=None): 
         """
         method from rhaptos_print interface.
@@ -119,7 +129,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                 except AttributeError:
                     raise AttributeError("Error creating %s: Primary field method for this type (%s) not known" % (self.objectType, self.containerType))
 
-    def getFile(self, objectId, version, type): 
+    def getFile(self, objectId, version, type):
         """
         method from rhaptos_print interface
         Parameters:
@@ -192,7 +202,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
         return mod_date
 
-    def setStatus(self, objectId, version, type, status): 
+    def setStatus(self, objectId, version, type, status):
         """
         method from rhaptos_print interface.  Updates status for given file type
         Parameters:
@@ -203,7 +213,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         self.print_file_status[self._createFileName(objectId, version, type)] = status
 
-    def getStatus(self, objectId, version, type): 
+    def getStatus(self, objectId, version, type):
         """
         method from rhaptos_print interface. Returns status of last file object generation for given collection/Module
         Parameters:
@@ -213,6 +223,14 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         Returns:
             the current status (success or failed or locked) or None
         """
+        status = self.print_file_status.get(self._createFileName(objectId, version, type), None)
+        if status in ('failed', 'locked',):
+            return status
+        elif self.doesFileExist(objectId, version, type):
+            return 'success'
+        else:
+            return status
+
         return self.print_file_status.get(self._createFileName(objectId, version, type), None)
 
     def manage_print(self, storagePaths, namePattern, objectType, containerType, REQUEST=None):
@@ -285,6 +303,30 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         if REQUEST is not None:
             REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_params')
 
+    security.declareProtected(ManagePermission, 'manage_setPrintStyling')
+    def manage_setPrintStyling(self, print_styles, REQUEST=None):
+        """Print styling setting's form handler."""
+        styles = simplejson.loads(print_styles)
+        # Simple data validation
+        for style in styles:
+            assert 'id' in style, style
+            assert 'title' in style, style
+        self._print_styles = styles
+        if REQUEST is not None:
+            REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_print_style_configure')
+
+    security.declareProtected(ManagePermission, 'manage_setBuildMappings')
+    def manage_setBuildMappings(self, mappings, REQUEST=None):
+        """Print build mappings setting's form handler."""
+        mappings = simplejson.loads(mappings)
+        print_styles = [x['id'] for x in self._print_styles]
+        # Simple data validation
+        for print_style, build_suite in mappings:
+            assert print_style in print_styles, "Invalid print-style: '%s'" % print_style
+        self._build_mappings = mappings
+        if REQUEST is not None:
+            REQUEST.RESPONSE.redirect(self.absolute_url()+'/manage_build_mappings_configure')
+
     security.declareProtected(ManagePermission, 'getMakefile')
     def getMakefile(self, default=1):
         """Return makefile path; meant only for manager consumption.
@@ -303,16 +345,26 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         return "%s/epub" % package_home(GLOBALS)
 
     security.declarePublic(ManagePermission, 'getAlternateStyles')
-    def getAlternateStyles(self):
+    def getAlternateStyles(self, json=False):
         """Returns a list of different print styles. The default is the LaTex format.
-          These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
+        Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
+        The json parameter to this function can be use to return the data as json.
         """
-        return [ # {'title':'Default', 'id':''},
-                 {'title':'CCAP Physics', 'id':'ccap-physics'},
-                 {'title':'CCAP Sociology', 'id':'ccap-sociology'},
-                 {'title':'CCAP Biology', 'id':'ccap-biology'},
-                 {'title':'CCAP Anatomy', 'id':'ccap-anatomy'},
-               ]
+        result = self._print_styles
+        if json:
+            result = simplejson.dumps(result)
+        return result
+
+    security.declarePublic(ManagePermission, 'getBuildMappings')
+    def getBuildMappings(self, json=False):
+        """Returns a list of print build mappings. If the mapping doesn't exist
+        you should fall back to latex as the default.
+        The json parameter to this function can be use to return the data as json.
+        """
+        result = self._build_mappings
+        if json:
+            result = simplejson.dumps(result)
+        return result
 
     security.declareProtected(ManagePermission, 'getPortalPath')
     def getPortalPath(self, default=1):
@@ -334,7 +386,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         host = getattr(self, "_host", None)
         if default and not host:
-            # XXX : verify this. This is incorrect anyway. 
+            # XXX : verify this. This is incorrect anyway.
             # Throwing errors with default values
             #port = self.absolute_url().split('/')[2].split(':')[1]
             #return "localhost:%s" % port
