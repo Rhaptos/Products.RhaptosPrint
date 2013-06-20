@@ -1,3 +1,6 @@
+RhaptosPrint-0.27
+  - A&P fixes
+
 RhaptosPrint-0.26
   - Biology fixes
 
