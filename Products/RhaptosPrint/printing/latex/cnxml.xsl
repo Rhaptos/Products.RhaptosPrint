@@ -2594,7 +2594,7 @@ attribute with its own number attribute.-->
                 <xsl:value-of select="@number"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:number level="single" count="cnxml:subfigure[translate(@type, $upper-letters, $lower-letters)=$type]" format="a" />
+                <xsl:number level="single" count="cnx:subfigure[translate(@type, $upper-letters, $lower-letters)=$type]" format="a" />
               </xsl:otherwise>
             </xsl:choose>
 	    <xsl:text>) </xsl:text>
