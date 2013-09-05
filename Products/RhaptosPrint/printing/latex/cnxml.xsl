@@ -168,7 +168,7 @@
     </xsl:if>
     <xsl:text>}
     </xsl:text>
-    <xsl:text>\date{\small This work is produced by </xsl:text><xsl:value-of select="$PROJECT_NAME"/><xsl:text> and licensed under the \break Creative Commons Attribution License \footnote{</xsl:text>
+    <xsl:text>\date{\small This work is produced by </xsl:text><xsl:value-of select="$PROJECT_NAME"/><xsl:text> and licensed under the \break </xsl:text><xsl:value-of select='concat(/module/cnx:document/module-export/license/@name," ",/module/cnx:document/module-export/license/@version)' /><xsl:text>\footnote{</xsl:text>
     <xsl:value-of select='/module/cnx:document/module-export/license/@href' />
     <xsl:text>}}
     </xsl:text>
