@@ -520,11 +520,10 @@
         <xsl:text>, </xsl:text>
       </xsl:if>
     </xsl:for-each>
-    <xsl:text>. It is licensed under the Creative Commons Attribution </xsl:text>
-    <xsl:value-of select="$cc-license-version"/> 
-    <xsl:text> license (</xsl:text>
-    <xsl:value-of select="course/license/@uri" />
-    <xsl:text>). \\
+    <xsl:text>. It is licensed under the </xsl:text>
+    <xsl:value-of select="concat(course/license/@name,' ',course/license/@version)"/> 
+    <xsl:value-of select="concat(' (',course/license/@uri,'). ')" />
+    <xsl:text>\\
     </xsl:text>
     <xsl:if test="string-length($year-revised)">
       <xsl:text>Collection structure revised: </xsl:text>
