@@ -84,6 +84,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         self.DEFAULT_STORAGE_PATH = self.DEFAULT_STORAGE_PATHS[0]
         if self.storagePath is None:
             self.storagePath = storagePath
+        if self.storagePaths is None:
+            self.storagePaths = [self.storagePath]
     
     def setFile(self, objectId, version, type, data, container=None): 
         """
