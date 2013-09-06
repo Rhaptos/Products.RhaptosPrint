@@ -53,7 +53,7 @@
   
   <!-- Copy license -->
   <xsl:template match="cc:license">
-    <license uri="{@rdf:resource}"/>
+    <license uri="{@rdf:resource}" version="{@version}" name="{@name}" code="{@code}"/>
   </xsl:template>
 
   <!-- Copy creation and revision date for collection structure. -->
