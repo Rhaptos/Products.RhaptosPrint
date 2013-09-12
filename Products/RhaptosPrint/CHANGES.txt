@@ -1,3 +1,6 @@
+RhaptosPrint-0.30
+  - collabstats rollout
+
 RhaptosPrint-0.29
   - added support for content specific licenses
   - statistics
