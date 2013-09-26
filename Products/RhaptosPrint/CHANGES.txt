@@ -1,3 +1,13 @@
+RhaptosPrint-0.32
+  - collabstats fixes
+  - psychology dropdown
+
+RhaptosPrint-0.31
+  - collabstats fixes
+
+RhaptosPrint-0.30
+  - collabstats rollout
+
 RhaptosPrint-0.29
   - added support for content specific licenses
   - statistics
