@@ -1,3 +1,6 @@
+RhaptosPrint-0.33
+  - collabstats fixes
+ 
 RhaptosPrint-0.32
   - collabstats fixes
   - psychology dropdown
