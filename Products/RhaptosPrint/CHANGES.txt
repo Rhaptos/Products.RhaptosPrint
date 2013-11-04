@@ -1,3 +1,6 @@
+RhaptosPrint-0.36
+  - indentation fixes
+
 RhaptosPrint-0.35
   - more collabstats fixes
 
