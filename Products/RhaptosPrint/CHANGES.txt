@@ -1,3 +1,6 @@
+RhaptosPrint-0.38
+  - econ work
+
 RhaptosPrint-0.37
   - page break fixes
 
