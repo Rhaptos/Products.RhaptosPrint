@@ -317,7 +317,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Statistics', 'id':'ccap-statistics'},
                  {'title':'CCAP Precalculus', 'id':'ccap-precalculus'},
                  {'title':'CCAP Psychology', 'id':'ccap-psychology'},
-                 {'title':'CCAP Economics', 'id':'ccap-economics'}
+                 {'title':'CCAP Economics', 'id':'ccap-economics'},
+                 {'title':'CCAP History', 'id':'ccap-history'}
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
