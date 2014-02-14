@@ -1,3 +1,7 @@
+RhaptosPrint-0.41
+  - history rollout
+  - less/css refactor (starts)
+
 RhaptosPrint-0.40
   - econ, precalc, and soc bug fixes.
 
