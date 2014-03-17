@@ -1,3 +1,6 @@
+RhaptosPrint-0.44
+  - econ fixes III
+
 RhaptosPrint-0.43
   - econ fixes
 
