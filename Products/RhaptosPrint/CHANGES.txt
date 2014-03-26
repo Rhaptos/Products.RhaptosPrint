@@ -1,3 +1,6 @@
+RhaptosPrint-0.46
+  - physics fixes - excess margins
+
 RhaptosPrint-0.45
   - physics fixes
 
