@@ -1,3 +1,6 @@
+RhaptosPrint-0.46.1
+  - Rename Connexions to OSCNX
+
 RhaptosPrint-0.46
   - physics fixes - excess margins
 
