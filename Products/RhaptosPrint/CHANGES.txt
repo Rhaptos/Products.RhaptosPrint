@@ -1,3 +1,6 @@
+RhaptosPrint-0.47
+  - OSC tempplate various fixes
+
 RhaptosPrint-0.46.1
   - Rename Connexions to OSCNX
 
