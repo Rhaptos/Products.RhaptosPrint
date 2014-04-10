@@ -1,3 +1,6 @@
+RhaptosPrint-0.48
+  - fixes for alignment, spacing and header colors
+
 RhaptosPrint-0.47
   - OSC tempplate various fixes
 
