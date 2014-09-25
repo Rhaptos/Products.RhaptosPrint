@@ -1,3 +1,6 @@
+RhaptosPrint-0.50
+  - chemistry and precalc bug fixes
+
 RhaptosPrint-0.49
   - physics footnote fix
 
