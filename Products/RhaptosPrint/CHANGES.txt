@@ -1,3 +1,6 @@
+RhaptosPrint-0.51
+  - precalc changes, formatting changes, bug fixes, etc.
+
 RhaptosPrint-0.50
   - chemistry and precalc bug fixes
 
