@@ -1,3 +1,6 @@
+RhaptosPrint-0.52
+  - precalc RC, various bug fixes
+
 RhaptosPrint-0.51
   - precalc changes, formatting changes, bug fixes, etc.
 
