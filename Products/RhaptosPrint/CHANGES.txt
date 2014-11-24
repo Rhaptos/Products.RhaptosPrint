@@ -1,3 +1,6 @@
+RhaptosPrint-0.54
+  - psychology release candidate, bug fixes
+
 RhaptosPrint-0.53
   - psychology:release.candidate, chemistry:beta6, history:beta5, bug fixes, code review fixes
 
