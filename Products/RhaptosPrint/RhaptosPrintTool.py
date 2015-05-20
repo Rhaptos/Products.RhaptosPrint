@@ -350,10 +350,10 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             # Throwing errors with default values
             #port = self.absolute_url().split('/')[2].split(':')[1]
             #return "localhost:%s" % port
-            host = self.absolute_url().split('/')[2]
+            host = self.portal_url.getPortalObject().absolute_url()
         # PDF Generation needs the portal root, not just host to get the
         # Collection RDF
-        return self.portal_url.getPortalObject().absolute_url()
+        return host
 
 
 InitializeClass(RhaptosPrintTool)
