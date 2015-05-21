@@ -1,3 +1,6 @@
+RhaptosPrint-0.61
+  - various fixes
+
 RhaptosPrint-0.60
   - Numbering changes, hide teacher ed., numerous fixes
 
