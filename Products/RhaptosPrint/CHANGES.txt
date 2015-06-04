@@ -1,3 +1,6 @@
+RhaptosPrint-0.62
+  - Fixes #1129
+
 RhaptosPrint-0.61
   - various fixes
 
