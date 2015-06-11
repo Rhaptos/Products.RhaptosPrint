@@ -1,3 +1,6 @@
+RhaptosPrint-0.63
+  - folio updates, some fixes
+
 RhaptosPrint-0.62
   - Fixes #1129
 
