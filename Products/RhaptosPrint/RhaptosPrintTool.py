@@ -55,7 +55,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     security.declareProtected(ManagePermission, 'manage_params')
     manage_params = PageTemplateFile('zpt/manage_params.zpt', globals())
 
-    DEFAULT_NAME_PATTERN = "%s-%s.%s" 
+    DEFAULT_NAME_PATTERN = "%s-%s.%s"
     DEFAULT_OBJECT_TYPE = "File"
     DEFAULT_CONTAINER = "Large Plone Folder"
     DEFAULT_STORAGE_PATHS = ["/plone/pdfs"]
@@ -86,8 +86,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             self.storagePath = storagePath
         if self.storagePaths is None:
             self.storagePaths = [self.storagePath]
-    
-    def setFile(self, objectId, version, type, data, container=None): 
+
+    def setFile(self, objectId, version, type, data, container=None):
         """
         method from rhaptos_print interface.
         Adds file to container
@@ -100,7 +100,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         #Grab the file to update, else create a new one.
         if container is None:
             container = self._getContainer()
-        if hasattr(container, '_write_file'): # It's some flavor of localFS 
+        if hasattr(container, '_write_file'): # It's some flavor of localFS
             # Hey, we're a localFS folder, do it directly
             fileName = self._createFileName(objectId, version, type)
             container._write_file(data, container._getpath(fileName))
@@ -121,7 +121,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                 except AttributeError:
                     raise AttributeError("Error creating %s: Primary field method for this type (%s) not known" % (self.objectType, self.containerType))
 
-    def getFile(self, objectId, version, type): 
+    def getFile(self, objectId, version, type):
         """
         method from rhaptos_print interface
         Parameters:
@@ -194,7 +194,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
         return mod_date
 
-    def setStatus(self, objectId, version, type, status): 
+    def setStatus(self, objectId, version, type, status):
         """
         method from rhaptos_print interface.  Updates status for given file type
         Parameters:
@@ -205,7 +205,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         self.print_file_status[self._createFileName(objectId, version, type)] = status
 
-    def getStatus(self, objectId, version, type): 
+    def getStatus(self, objectId, version, type):
         """
         method from rhaptos_print interface. Returns status of last file object generation for given collection/Module
         Parameters:
@@ -323,7 +323,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Calculus', 'id':'ccap-calculus'},
                  {'title':'CCAP Basic Mathematics', 'id':'ccap-basic-math'},
                  {'title':'CCAP AP Physics', 'id':'ccap-ap-physics'},
-                 {'title':'CCAP University Physics', 'id':'ccap-university-physics'}
+                 {'title':'CCAP University Physics', 'id':'ccap-university-physics'},
+                 {'title':'CCAP Microbiology', 'id':'ccap-microbiology'}
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
@@ -346,7 +347,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """
         host = getattr(self, "_host", None)
         if default and not host:
-            # XXX : verify this. This is incorrect anyway. 
+            # XXX : verify this. This is incorrect anyway.
             # Throwing errors with default values
             #port = self.absolute_url().split('/')[2].split(':')[1]
             #return "localhost:%s" % port
