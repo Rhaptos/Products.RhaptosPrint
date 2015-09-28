@@ -324,7 +324,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Basic Mathematics', 'id':'ccap-basic-math'},
                  {'title':'CCAP AP Physics', 'id':'ccap-ap-physics'},
                  {'title':'CCAP University Physics', 'id':'ccap-university-physics'},
-                 {'title':'CCAP Microbiology', 'id':'ccap-microbiology'}
+                 {'title':'CCAP Microbiology', 'id':'ccap-microbiology'},
+                 {'title':'CCAP American Government', 'id':'ccap-american-government'}
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
