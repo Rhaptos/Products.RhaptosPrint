@@ -1,3 +1,6 @@
+RhaptosPrint-0.67
+  - styles, padding, references
+
 RhaptosPrint-0.66
   - add microbiology, various fixes, layout changes
 
