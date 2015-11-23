@@ -1,3 +1,6 @@
+RhaptosPrint-0.70
+  - tag v0.23.1 - issues 1331 and 1362
+
 RhaptosPrint-0.69
   - kungfu.koala 0.23.0, astronomy, spacing (ironically), fixes
 
