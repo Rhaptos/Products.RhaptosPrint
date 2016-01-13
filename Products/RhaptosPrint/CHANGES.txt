@@ -1,3 +1,6 @@
+RhaptosPrint-0.72
+  - handle saxon blocking error
+
 RhaptosPrint-0.71
   - lib/SaxonTransformWrapper.class
 
