@@ -1,3 +1,6 @@
+RhaptosPrint-0.74
+  - maniacal.mongoose - tag v0.25.0 - astronomy css, misc fixes, margins in humanities
+
 RhaptosPrint-0.73
   - liberal.llama - tag 0.24.0 - saxon, png, svg, css, misc fixes
 
