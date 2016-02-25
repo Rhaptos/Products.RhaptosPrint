@@ -1,3 +1,6 @@
+RhaptosPrint-0.75
+  - tag v0.25.1 - mathml-svg  deduper
+
 RhaptosPrint-0.74
   - maniacal.mongoose - tag v0.25.0 - astronomy css, misc fixes, margins in humanities
 
