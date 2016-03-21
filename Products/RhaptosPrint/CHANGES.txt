@@ -1,3 +1,6 @@
+RhaptosPrint-0.77
+  - naughty newt - tag v0.26.0 - CONTRIBUTING.md, svg, logo, physics solution titles, etc.
+
 RhaptosPrint-0.76
   - maniacal.mongoose 3 (tag v0.25.2) spacing, version string, groundrules, more
  
