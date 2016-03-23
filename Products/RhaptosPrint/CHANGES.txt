@@ -1,3 +1,6 @@
+RhaptosPrint-0.78
+  - Naughty.newt.1 - tag v0.26.1 - PR #1669
+
 RhaptosPrint-0.77
   - naughty newt - tag v0.26.0 - CONTRIBUTING.md, svg, logo, physics solution titles, etc.
 
