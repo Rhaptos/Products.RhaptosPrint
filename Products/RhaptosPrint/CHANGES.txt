@@ -1,3 +1,6 @@
+RhaptosPrint-0.80
+  - Petty.penguin 0.28.0 - pull request #1737, University Physics updates, preface headers, #1741, #1740, #1674, #1610
+
 RhaptosPrint-0.79
   - Opulent.Octopus 0.27.0
 
