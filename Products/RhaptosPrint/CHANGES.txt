@@ -1,3 +1,6 @@
+RhaptosPrint-0.81
+  - Queasy.quokka 0.29.0, Developmental math
+
 RhaptosPrint-0.80
   - Petty.penguin 0.28.0 - pull request #1737, University Physics updates, preface headers, #1741, #1740, #1674, #1610
 
