@@ -1,3 +1,6 @@
+RhaptosPrint-0.82
+  - Ratchet.Raccoon 0.30.0 - various fixes, Developmental Math padding
+
 RhaptosPrint-0.81
   - Queasy.quokka 0.29.0, Developmental math
 
