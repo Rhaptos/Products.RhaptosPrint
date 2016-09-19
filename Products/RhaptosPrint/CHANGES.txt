@@ -1,3 +1,6 @@
+RhaptosPrint-0.87
+  - voluptuous.vole v0.35.0
+
 RhaptosPrint-0.86
   - Ultraconservative.Unicorn 0.34.0
 
