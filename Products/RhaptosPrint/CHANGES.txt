@@ -1,3 +1,6 @@
+RhaptosPrint-0.88
+  - winsome.walrus v0.36.1
+
 RhaptosPrint-0.87
   - voluptuous.vole v0.35.0
 
