@@ -1,3 +1,6 @@
+RhaptosPrint-0.90
+  - yodeling.yak v0.38.0
+
 RhaptosPrint-0.89
   - xenophobic.xenon v0.37.0
 
