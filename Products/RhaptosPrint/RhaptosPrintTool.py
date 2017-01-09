@@ -329,7 +329,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP American Government', 'id':'ccap-american-government'},
                  {'title':'CCAP Astronomy', 'id':'ccap-astronomy'},
                  {'title':'CCAP Astronomy Print', 'id':'ccap-astronomy-print'},
-                 {'title':'CCAP High School Physics', 'id':'ccap-hs-physics'}
+                 {'title':'CCAP High School Physics', 'id':'ccap-hs-physics'},
+                 {'title':'CCAP AP Biology', 'id':'ccap-ap-biology'}
+
 
                ]
 
