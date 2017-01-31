@@ -1,3 +1,6 @@
+RhaptosPrint-0.93
+  - anxious.alicorn v0.40.0
+
 RhaptosPrint-0.92
   - zealous.zebu v0.39.1
 
