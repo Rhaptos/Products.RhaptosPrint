@@ -1,3 +1,6 @@
+RhaptosPrint-0.96
+  - remove modules used only for testing
+
 RhaptosPrint-0.95
   - add missing comma
 
