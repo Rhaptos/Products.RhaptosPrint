@@ -34,7 +34,7 @@ setup(name='Products.RhaptosPrint',
           'wand',
           'python-memcached',
           'jinja2==2.6',
-          'demjson==1.6'
+          'demjson==1.6',
           'setuptools',
       ],
       tests_require = [
