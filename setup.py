@@ -27,12 +27,6 @@ setup(name='Products.RhaptosPrint',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'lxml',
-          'argparse',
-          'pillow',
-          'python-memcached',
-          'jinja2==2.6',
-          'demjson==1.6',
           'setuptools',
       ],
       tests_require = [
