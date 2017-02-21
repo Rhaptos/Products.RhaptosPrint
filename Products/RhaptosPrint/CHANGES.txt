@@ -1,3 +1,6 @@
+RhaptosPrint-0.97
+  - bookish.bigfoot v0.41.0
+
 RhaptosPrint-0.96
   - remove modules used only for testing
 
