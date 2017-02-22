@@ -57,8 +57,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
 
     DEFAULT_NAME_PATTERN = "%s-%s.%s"
     DEFAULT_OBJECT_TYPE = "File"
-    DEFAULT_CONTAINER = "Large Plone Folder"
-    DEFAULT_STORAGE_PATHS = ["/plone/pdfs"]
+    DEFAULT_CONTAINER = "LocalFS"
+    DEFAULT_STORAGE_PATHS = ["/plone/pdfs:/var/www/files"]
     DEFAULT_STORAGE_PATH = DEFAULT_STORAGE_PATHS[0]
 
     def __init__(self, storagePaths=None, namePattern=DEFAULT_NAME_PATTERN, objType=DEFAULT_OBJECT_TYPE, containerType=DEFAULT_CONTAINER):
@@ -268,8 +268,16 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             try:
                 containers.append(self.restrictedTraverse(storagePath))
             except AttributeError:
-                container = self.restrictedTraverse('/'.join(self.storagePath.split('/')[:-1]))
-                container = utils._createObjectByType(self.containerType, container, id=self.storagePath.split('/')[-1] )
+                parent = self.restrictedTraverse('/'.join(storagePath.split('/')[:-1]))
+                try:
+                    container = utils._createObjectByType(self.containerType, parent, id=storagePath.split('/')[-1] )
+                except ValueError:
+                    if self.containerType == 'LocalFS':
+                        ob_path, fs_path = storagePath.split(':')
+                        parent = self.restrictedTraverse('/'.join(ob_path.split('/')[:-1]))
+                        id = ob_path.split('/')[-1]
+                        parent.manage_addProduct['LocalFS'].manage_addLocalFS(id, 'PDF Filesystem Storage', fs_path)
+                        container = self.restrictedTraverse(ob_path)
                 containers.append(container)
         return containers
 
