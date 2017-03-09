@@ -310,7 +310,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
           These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
         """
         return [ # {'title':'Default', 'id':''},
-                 {'title':'CCAP Physics', 'id':'ccap-physics'},
+                 {'title':'CCAP College Physics', 'id':'ccap-physics'},
                  {'title':'CCAP Sociology', 'id':'ccap-sociology'},
                  {'title':'CCAP Biology', 'id':'ccap-biology'},
                  {'title':'CCAP Anatomy', 'id':'ccap-anatomy'},
