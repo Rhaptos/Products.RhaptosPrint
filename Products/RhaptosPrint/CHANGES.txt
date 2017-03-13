@@ -1,3 +1,6 @@
+RhaptosPrint-0.98
+  - captivating.cootie v0.42.0
+
 RhaptosPrint-0.97
   - bookish.bigfoot v0.41.0
 
