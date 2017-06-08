@@ -1,3 +1,6 @@
+RhaptosPrint-0.100
+  - enchanting.ewok v0.44.0
+
 RhaptosPrint-0.99
   - demanding.dragon v0.43.0
 
