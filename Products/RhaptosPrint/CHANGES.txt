@@ -1,3 +1,6 @@
+RhaptosPrint-0.102
+  - Avoid writing same filenames in different directories
+
 RhaptosPrint-0.101
   - flimsy.fairy v0.45.0
 
