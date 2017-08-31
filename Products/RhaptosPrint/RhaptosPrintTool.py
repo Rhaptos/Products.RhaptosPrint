@@ -98,11 +98,11 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             data - the print file to store
         """
         #Grab the file to update, else create a new one.
+        fileName = self._createFileName(objectId, version, type)
         if container is None:
-            container = self._getContainer()
+            container = self._getContainer(fileName)
         if hasattr(container, '_write_file'): # It's some flavor of localFS
             # Hey, we're a localFS folder, do it directly
-            fileName = self._createFileName(objectId, version, type)
             container._write_file(data, container._getpath(fileName))
 
         else: # Do the plone/object dance
@@ -162,9 +162,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
             version - the module or collection version
             filetype - file type: pdf or zip
         """
-        if container is None:
-            container = self._getContainer()
         fileName = self._createFileName(objectId, version, filetype)
+        if container is None:
+            container = self._getContainer(fileName)
         if getattr(container, fileName, None):
             container.manage_delObjects([fileName])
         if self.print_file_status.has_key(fileName):
@@ -273,8 +273,17 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                 containers.append(container)
         return containers
 
-    def _getContainer(self):
-        return self._getContainers()[0]
+    def _getContainer(self, filename=None):
+        """
+        Look in all containers for filename if filename is not None.  Return
+        the container that contains that file or return the first container.
+        """
+        containers = self._getContainers()
+        if filename:
+            for container in containers:
+                if hasattr(container, filename):
+                    return container
+        return containers[0]
 
     ## Print config methods, formerly of RhaptosCollection.AsyncPrint ##
 
