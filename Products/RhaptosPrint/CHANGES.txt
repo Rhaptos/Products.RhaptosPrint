@@ -1,3 +1,6 @@
+RhaptosPrint-0.104
+  - gilded.gremlin 0.46.0
+
 RhaptosPrint-0.103
   - flimsy.fairy v0.45.1
 
