@@ -339,7 +339,9 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Astronomy', 'id':'ccap-astronomy'},
                  {'title':'CCAP Astronomy Print', 'id':'ccap-astronomy-print'},
                  {'title':'CCAP High School Physics', 'id':'ccap-hs-physics'},
-                 {'title':'CCAP AP Biology', 'id':'ccap-ap-biology'}
+                 {'title':'CCAP AP Biology', 'id':'ccap-ap-biology'},
+                 {'title':'CCAP Accounting', 'id':'ccap-accounting'},
+                 {'title':'CCAP Entrepreneurship', 'id':'ccap-entrepreneurship'}
                ]
 
     security.declareProtected(ManagePermission, 'getPortalPath')
