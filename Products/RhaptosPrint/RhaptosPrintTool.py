@@ -318,7 +318,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
         """Returns a list of different print styles. The default is the LaTex format.
           These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
         """
-        return [ # {'title':'Default', 'id':''},
+        moduledb_tool = getToolByName(self, 'portal_moduledb')
+        styles = [ # {'title':'Default', 'id':''},
                  {'title':'CCAP College Physics', 'id':'ccap-physics'},
                  {'title':'CCAP Sociology', 'id':'ccap-sociology'},
                  {'title':'CCAP Biology', 'id':'ccap-biology'},
@@ -339,8 +340,18 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Astronomy', 'id':'ccap-astronomy'},
                  {'title':'CCAP Astronomy Print', 'id':'ccap-astronomy-print'},
                  {'title':'CCAP High School Physics', 'id':'ccap-hs-physics'},
-                 {'title':'CCAP AP Biology', 'id':'ccap-ap-biology'}
+                 {'title':'CCAP AP Biology', 'id':'ccap-ap-biology'},
+                 {'title':'CCAP Accounting', 'id':'ccap-accounting'},
+                 {'title':'CCAP Entrepreneurship', 'id':'ccap-entrepreneurship'},
+                 {'title':'CCAP Business Ethics', 'id':'ccap-business-ethics'},
+                 {'title':'CCAP SRM Business', 'id':'ccap-srm-business'}  
                ]
+        # Now fetch baking styles from the db, vi RhaptosModuleStorage
+        extra_styles = moduledb_tool.sqlGetPrintStyles()
+        if extra_styles:
+            import simplejson as json
+            styles.extend([json.loads(s[0]) for s in extra_styles])
+        return styles
 
     security.declareProtected(ManagePermission, 'getPortalPath')
     def getPortalPath(self, default=1):
