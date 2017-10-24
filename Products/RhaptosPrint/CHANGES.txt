@@ -1,3 +1,8 @@
+RhaptosPrint-0.105
+  - Fetch additional print-styles from database (#39)
+  - add business-ethics and srm-business
+  - add accounting and entrepreneurship to pulldown
+
 RhaptosPrint-0.104
   - gilded.gremlin 0.46.0
 
