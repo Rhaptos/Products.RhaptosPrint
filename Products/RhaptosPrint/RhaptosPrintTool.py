@@ -8,6 +8,9 @@ This software is subject to the provisions of the GNU Lesser General
 Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
 """
 
+import os
+import simplejson as json
+
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
@@ -23,8 +26,18 @@ from interfaces import rhaptos_print
 from ZODB.POSException import POSKeyError
 
 import zLOG
+
+
 def log(msg, severity=zLOG.INFO):
     zLOG.LOG("RhaptosPrintTool: ", severity, msg)
+
+
+def _style_by_id(style_id, styles):
+    """Returns style from list with given id"""
+    for s in styles:
+        if s['id'] == style_id:
+            return s
+
 
 class RhaptosPrintTool(UniqueObject, SimpleItem):
     """
@@ -316,7 +329,7 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
     security.declarePublic(ManagePermission, 'getAlternateStyles')
     def getAlternateStyles(self):
         """Returns a list of different print styles. The default is the LaTex format.
-          These are, for now, hardcoded. Also, the id corresponds to a .xsl file in the getEpubDir()/xsl
+          These are, for now, hardcoded. Also, the id corresponds to a .css file in the getEpubDir()/css
         """
         moduledb_tool = getToolByName(self, 'portal_moduledb')
         styles = [ # {'title':'Default', 'id':''},
@@ -346,11 +359,32 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Business Ethics', 'id':'ccap-business-ethics'},
                  {'title':'CCAP SRM Business', 'id':'ccap-srm-business'}  
                ]
+
+        # Get list of css files available for Docbook/PrinceXML pipeline
+        all_css =[css[:-4] for css in
+                  os.listdir(self.getEpubDir()+'/css')
+                  if css.endswith('.css')]
+
+        # Remove any from the manual style list that do not have css behind it
+        for style_id in list([s['id'] for s in styles]):
+            if style_id not in all_css:
+                styles.remove(_style_by_id(style_id, styles))
+
         # Now fetch baking styles from the db, vi RhaptosModuleStorage
-        extra_styles = moduledb_tool.sqlGetPrintStyles()
-        if extra_styles:
-            import simplejson as json
-            styles.extend([json.loads(s[0]) for s in extra_styles])
+        recipes = [json.loads(s[0]) for s in moduledb_tool.sqlGetPrintStyles()]
+
+        # Only keep recipes that have an associated css
+        for recipe_id in list([r['id'] for r in recipes]):
+            if recipe_id not in all_css:
+                recipes.remove(_style_by_id(recipe_id, recipes))
+
+        # Delete from manual list, if w/ recipe also exists
+        recipe_ids = [r['id'] for r in recipes]
+        for style_id in list([s['id'] for s in styles]):
+            if style_id in recipe_ids:
+                styles.remove(_style_by_id(style_id, styles))
+
+        styles.extend(recipes)
         return styles
 
     security.declareProtected(ManagePermission, 'getPortalPath')
