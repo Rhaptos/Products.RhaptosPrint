@@ -1,3 +1,8 @@
+RhaptosPrint-0.106
+  - on some hosts, need the --no-hsts for wget, to avoid redirect to https and
+    failure to build PDF
+  - Only add recipe-styles that have an associated CSS style.
+
 RhaptosPrint-0.105
   - Fetch additional print-styles from database (#39)
   - add business-ethics and srm-business
