@@ -84,4 +84,4 @@ clean:
 	xsltproc --nodtdattr -o $@ $(PRINT_DIR)/common/assemble.xsl $<
 
 %.rdf:
-	wget -O $@ $(HOST)/content/$*/$(VERSION)?format=rdf
+	wget --no-hsts -O $@ $(HOST)/content/$*/$(VERSION)?format=rdf
