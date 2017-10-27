@@ -71,4 +71,4 @@ clean:
 	xsltproc -o $@ $(PRINT_DIR)/common/indent_ident.xsl $<
 
 %.mxt:
-	wget -O $@ $(HOST)/content/$*/$(VERSION)/module_export_template
+	wget --no-hsts -O $@ $(HOST)/content/$*/$(VERSION)/module_export_template
