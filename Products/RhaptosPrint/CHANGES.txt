@@ -1,3 +1,6 @@
+RhaptosPrint-0.107
+  - gilded.gremlin 0.46.0
+
 RhaptosPrint-0.106
   - on some hosts, need the --no-hsts for wget, to avoid redirect to https and
     failure to build PDF
