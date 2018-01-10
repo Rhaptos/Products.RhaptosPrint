@@ -357,7 +357,8 @@ class RhaptosPrintTool(UniqueObject, SimpleItem):
                  {'title':'CCAP Accounting', 'id':'ccap-accounting'},
                  {'title':'CCAP Entrepreneurship', 'id':'ccap-entrepreneurship'},
                  {'title':'CCAP Business Ethics', 'id':'ccap-business-ethics'},
-                 {'title':'CCAP SRM Business', 'id':'ccap-srm-business'}  
+                 {'title':'CCAP Introduction to Business', 'id':'ccap-intro-business'},
+                 {'title':'CCAP Principles of Management', 'id':'ccap-principles-management'}
                ]
 
         # Get list of css files available for Docbook/PrinceXML pipeline
