@@ -1,3 +1,8 @@
+RhaptosPrint-0.108
+  - oer.exports 0.47.0 business books initial templates + Katalyst pipeline
+    translation support
+  - remove srm-business entry and replace w/ intro-busines & principles-management templates
+
 RhaptosPrint-0.107
   - gilded.gremlin 0.46.0
 
