@@ -1,4 +1,7 @@
-RhaptosPrint-0.109
+RhaptosPrint-0.111
+  - committing the intro.to.business books 0.49.0
+
+RhaptosPrint-0.110
   - hefty.heffalump junior 0.48.1
 
 RhaptosPrint-0.109
