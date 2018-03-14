@@ -1,3 +1,6 @@
+RhaptosPrint-0.114
+  - biology2e-redesign 0.51.0
+ 
 RhaptosPrint-0.113
   - committing 0.50.1
   - illustrius.imp.junior
