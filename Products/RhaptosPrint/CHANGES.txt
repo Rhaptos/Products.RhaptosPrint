@@ -1,3 +1,6 @@
+RhaptosPrint-0.115
+  - Bio2 redesign.junior 0.51.1
+
 RhaptosPrint-0.114
   - biology2e-redesign 0.51.0
  
