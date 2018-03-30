@@ -1,3 +1,6 @@
+RhaptosPrint-0.117
+  - mathML fix & diff-books 0.51.2
+
 RhaptosPrint-0.116
   - mathML fix & diff-books 0.51.2
 
