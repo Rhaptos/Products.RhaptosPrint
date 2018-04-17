@@ -1,3 +1,6 @@
+RhaptosPrint-0.120
+  - committing tags/v0.52.2
+
 RhaptosPrint-0.119
   - committing tags/v0.52.1
 
