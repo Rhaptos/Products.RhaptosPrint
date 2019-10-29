@@ -1,3 +1,6 @@
+RhaptosPrint-0.147
+  - traitorous.treacletart v0.79.0
+
 RhaptosPrint-0.146
   - narcotized.nazook  v0.77.0
 
