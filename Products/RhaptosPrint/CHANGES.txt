@@ -1,3 +1,6 @@
+RhaptosPrint-0.150
+  - vicious.viennoiserie v0.80.0
+
 RhaptosPrint-0.149
   - traitorous.treacletart.junior  v0.79.1
 
