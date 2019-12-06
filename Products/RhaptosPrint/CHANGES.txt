@@ -1,3 +1,6 @@
+RhaptosPrint-0.151
+  - wild.wifecake v0.81.0
+
 RhaptosPrint-0.150
   - vicious.viennoiserie v0.80.0
 
