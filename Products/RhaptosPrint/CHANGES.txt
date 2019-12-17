@@ -1,3 +1,6 @@
+RhaptosPrint-0.152
+  - aspiring.adele v0.82.0
+
 RhaptosPrint-0.151
   - wild.wifecake v0.81.0
 
