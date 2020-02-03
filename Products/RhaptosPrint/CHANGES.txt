@@ -1,3 +1,6 @@
+RhaptosPrint-0.154
+  - critical.cher v0.84.0 (#4027)
+
 RhaptosPrint-0.153
   - busy.bjork v0.83.0
 
