@@ -1,3 +1,6 @@
+RhaptosPrint-0.157
+  - earnest.einstein.junior v0.85.2
+
 RhaptosPrint-0.156
   - earnest.einstein v0.85.0
 
