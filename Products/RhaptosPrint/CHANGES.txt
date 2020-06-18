@@ -1,3 +1,6 @@
+RhaptosPrint-0.158
+  - morbid.mozart v0.86.0
+
 RhaptosPrint-0.157
   - earnest.einstein.junior v0.85.2
 
