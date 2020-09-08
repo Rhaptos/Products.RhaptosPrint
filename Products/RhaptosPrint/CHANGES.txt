@@ -1,3 +1,6 @@
+RhaptosPrint-0.177
+  - quotable.questlove v0.88.0
+
 RhaptosPrint-0.176
   - quotable.questlove v0.88.0
 
