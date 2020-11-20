@@ -1,3 +1,6 @@
+RhaptosPrint-0.180
+  - wild.woz v0.89.0
+
 RhaptosPrint-0.179
   - quotable.questlove v0.88.0
 
