@@ -1,3 +1,6 @@
+RhaptosPrint-0.183
+  - wild.woz v0.89.0
+
 RhaptosPrint-0.182
   - wild.woz v0.89.0
 
